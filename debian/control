@@ -1,0 +1,20 @@
+Source: ease-framework
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Uploaders: Vitex <vitex@hippy.cz>
+Priority: optional
+Homepage: http://vitexsoftware.cz/ease.php
+
+Package: ease-framework
+Depends: ${misc:Depends},libjs-jquery (>= 1.4), libjs-jquery-ui, php-mail, php-mail-mime, libjs-twitter-bootstrap
+Architecture: all
+Suggests: libjs-jquery-ui-docs, libjs-jquery-ui-theme-base, libjs-jquery-ui-theme-black-tie, libjs-jquery-ui-theme-blitzer, libjs-jquery-ui-theme-cupertino, libjs-jquery-ui-theme-dark-hive, libjs-jquery-ui-theme-dot-luv, libjs-jquery-ui-theme-eggplant, libjs-jquery-ui-theme-excite-bike, libjs-jquery-ui-theme-flick, libjs-jquery-ui-theme-hot-sneaks, libjs-jquery-ui-theme-humanity, libjs-jquery-ui-theme-le-frog, libjs-jquery-ui-theme-mint-choc, libjs-jquery-ui-theme-overcast, libjs-jquery-ui-theme-pepper-grinder, libjs-jquery-ui-theme-redmond, libjs-jquery-ui-theme-smoothness, libjs-jquery-ui-theme-south-street, libjs-jquery-ui-theme-start, libjs-jquery-ui-theme-sunny, libjs-jquery-ui-theme-swanky-purse, libjs-jquery-ui-theme-trontastic, libjs-jquery-ui-theme-ui-darkness, libjs-jquery-ui-theme-ui-lightness, libjs-jquery-ui-theme-vader
+Section: web
+Priority: optional
+Description: Další PHP framework
+ Ease Framework je aktívně vyvíjen od roku 2008. Podporuje HTML5 a jQueryUIa PHPUnit testy. Snaží se o přehledně psaný kod s PEAR upravou.
+ Čeština byla zvolena jako výchozí jazyk pro dokumentaci PHPDoc a apiGen.Jazykově závislé řetězce mají gettext překlad do Anglického jazyka.
+
+
+

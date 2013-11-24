@@ -1,0 +1,7 @@
+ease-framework (171-5) UNRELEASED; urgency=low
+
+  * Update to Twitter Bootstrap 3.0.0
+  * Code Camelization
+  * Add NAV tag
+
+ -- Vítězslav Vitex Dvořák <vitex@hippy.cz>  Sat, 07 Sep 2013 02:13:47 +0200
