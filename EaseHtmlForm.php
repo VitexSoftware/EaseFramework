@@ -115,24 +115,24 @@ class EaseHtmlInputSearchTag extends EaseHtmlInputTag
     /**
      * Zobrazí tag pro vyhledávací box
      * 
-     * @param string $Name       jméno
-     * @param string $Value      předvolená hodnota
-     * @param array  $Properties dodatečné vlastnosti tagu
+     * @param string $name       jméno
+     * @param string $value      předvolená hodnota
+     * @param array  $properties dodatečné vlastnosti tagu
      */
-    function __construct($Name, $Value = null, $Properties = null)
+    function __construct($name, $value = null, $properties = null)
     {
-        $Properties['type'] = 'search';
-        if ($Value) {
-            $Properties['value'] = $Value;
+        $properties['type'] = 'search';
+        if ($value) {
+            $properties['value'] = $value;
         }
-        if ($Name) {
-            $Properties['name'] = $Name;
+        if ($name) {
+            $properties['name'] = $name;
         }
-        if (!isset($Properties['id'])) {
-            $this->setTagID($Name . EaseBrick::randomString());
+        if (!isset($properties['id'])) {
+            $this->setTagID($name . EaseBrick::randomString());
         }
-        $this->setTagProperties($Properties);
-        parent::__construct($Name, $Value);
+        $this->setTagProperties($properties);
+        parent::__construct($name, $value);
     }
 
     /**
