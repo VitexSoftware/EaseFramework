@@ -117,9 +117,9 @@ class EaseTWBWebPage extends EaseWebPage
         $htmlFargment = '';
 
         $allMessages = array();
-        foreach ($this->EaseShared->StatusMessages as $Quee => $messages) {
+        foreach ($this->EaseShared->StatusMessages as $quee => $messages) {
             foreach ($messages as $MesgID => $message) {
-                $allMessages[$MesgID][$Quee] = $message;
+                $allMessages[$MesgID][$quee] = $message;
             }
         }
         ksort($allMessages);
@@ -163,15 +163,15 @@ class EaseTWBLinkButton extends EaseHtmlATag
      * 
      * @param string $href       cíl odkazu 
      * @param mixed  $contents   obsah tlačítka
-     * @param string $Type       primary|info|success|warning|danger|inverse|link 
+     * @param string $type       primary|info|success|warning|danger|inverse|link 
      * @param array  $Properties dodatečné vlastnosti
      */
-    function __construct($href, $contents = null, $Type = null, $Properties = null)
+    function __construct($href, $contents = null, $type = null, $Properties = null)
     {
-        if (is_null($Type)) {
+        if (is_null($type)) {
             $Properties['class'] = 'btn btn-default';
         } else {
-            $Properties['class'] = 'btn btn-' . $Type;
+            $Properties['class'] = 'btn btn-' . $type;
         }
         parent::__construct($href, $contents, $Properties);
         EaseTWBPart::twBootstrapize();
@@ -189,47 +189,24 @@ class EaseTWSubmitButton extends EaseHtmlButtonTag
      * Odesílací tlačítko formuláře Twitter Bootstrapu
      * 
      * @param string $Value vracená hodnota
-     * @param string $Type primary|info|success|warning|danger|inverse|link 
+     * @param string $type primary|info|success|warning|danger|inverse|link 
      */
-    function __construct($Value = null, $Type = null, $Properties = null)
+    function __construct($Value = null, $type = null, $properties = null)
     {
-        if (is_null($Type)) {
-            $Properties['class'] = 'btn';
+        if (is_null($type)) {
+            $properties['class'] = 'btn';
         } else {
-            $Properties['class'] = 'btn btn-' . $Type;
+            $properties['class'] = 'btn btn-' . $type;
         }
-        parent::__construct($Value, $Properties);
+        parent::__construct($Value, $properties);
         EaseTWBPart::twBootstrapize();
     }
 
 }
 
-/**
- * 
- */
-class EaseTWBIcon extends EaseHtmlPairTag
-{
-
-    /**
-     * Ikona 
-     * 
-     * @param string $Icon
-     * @param boolean $white
-     */
-    public function __construct($Icon, $white = false)
-    {
-        EaseTWBPart::twBootstrapize();
-        if ($white) {
-            parent::__construct('i', array('class' => 'icon-' . $Icon . ' icon-white'));
-        } else {
-            parent::__construct('i', array('class' => 'icon-' . $Icon));
-        }
-    }
-
-}
 
 /**
- * 
+ *  NavBar
  */
 class EaseTWBNavbar extends EaseHtmlDivTag
 {

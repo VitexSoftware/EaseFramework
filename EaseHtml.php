@@ -23,7 +23,7 @@ class EaseHtmlTag extends EasePage
      * Jméno tagu - je použit i jako jméno objektu
      * @var string
      */
-    public $TagName = null;
+    public $tagName = null;
 
     /**
      * Typ tagu - např A či STRONG
@@ -95,8 +95,8 @@ class EaseHtmlTag extends EasePage
         if ($objectName) {
             return parent::setObjectName($objectName);
         }
-        if ($this->TagName) {
-            return parent::setObjectName(get_class($this) . '@' . $this->TagName);
+        if ($this->tagName) {
+            return parent::setObjectName(get_class($this) . '@' . $this->tagName);
         } else {
             if ($this->TagType) {
                 return parent::setObjectName(get_class($this) . '@' . $this->TagType);
@@ -113,7 +113,7 @@ class EaseHtmlTag extends EasePage
      */
     function setTagName($TagName)
     {
-        $this->TagName = $TagName;
+        $this->tagName = $TagName;
         if ($this->SetName) {
             $this->TagProperties['name'] = $TagName;
         }
@@ -134,7 +134,7 @@ class EaseHtmlTag extends EasePage
                 return NULL;
             }
         } else {
-            return $this->TagName;
+            return $this->tagName;
         }
     }
 

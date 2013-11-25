@@ -28,19 +28,19 @@ class EaseHtmlInputTag extends EaseHtmlTag
     /**
      * Obecný input TAG
      * 
-     * @param string $Name       jméno tagu
-     * @param string $Value      vracená hodnota
-     * @param array  $Properties vlastnosti tagu
+     * @param string $name       jméno tagu
+     * @param string $value      vracená hodnota
+     * @param array  $properties vlastnosti tagu
      */
-    function __construct($Name, $Value = null, $Properties = null)
+    function __construct($name, $value = null, $properties = null)
     {
         parent::__construct('input');
-        $this->setTagName($Name);
-        if (isset($Properties)) {
-            $this->setTagProperties($Properties);
+        $this->setTagName($name);
+        if (isset($properties)) {
+            $this->setTagProperties($properties);
         }
-        if (!is_null($Value)) {
-            $this->setValue($Value);
+        if (!is_null($value)) {
+            $this->setValue($value);
         }
     }
 
