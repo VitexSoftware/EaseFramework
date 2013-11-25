@@ -8,9 +8,7 @@ BUILD_DIR:=build
 
 override_dh_auto_build:
 	mkdir -p $(BUILD_DIR)
-	
-	cp -rv ~/Projects/VitexSoftware/Ease/*.php  $(BUILD_DIR)
-
+	cp *.php  $(BUILD_DIR)
 	dh_auto_build
 
 override_dh_auto_clean:
