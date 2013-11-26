@@ -899,7 +899,9 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
     function & addItemSmart($pageItem,$pageItemName = null)
     {
         if (is_array($pageItem)) {
-            $this->addItems($pageItem);
+            foreach ($pageItem as $item){
+                $this->addItemSmart($item);
+            }
             $itemAdded = & $this->LastItem;
         } else {
             if( isset($pageItem->TagType) && ($pageItem->TagType == 'li') ){

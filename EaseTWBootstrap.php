@@ -323,10 +323,12 @@ class EaseTWBNavbar extends EaseHtmlDivTag
     /**
      * Vloží rozbalovací menu
      * 
-     * @param string $label
-     * @param array $items 
+     * @param string $label popisek menu
+     * @param array  $items položky menu
+     * @param string $pull  směr zarovnání
+     * @return \EaseHtmlULTag
      */
-    function & addDropDownMenu($label, $items)
+    function & addDropDownMenu($label, $items , $pull = 'left')
     {
         EaseTWBPart::twBootstrapize();
         EaseShared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();', null, true);
@@ -338,7 +340,11 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         foreach ($items as $target => $label) {
             $dropDownMenu->addItemSmart(new EaseHtmlATag($target, $label));
         }
-        $this->nav->addItem($dropDown);
+        if ($pull == 'left') {
+            $this->nav->addItemSmart($dropDown);
+        } else {
+            $this->navRight->addItemSmart($dropDown);
+        }
         return $dropDown;
     }
 
