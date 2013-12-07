@@ -85,7 +85,7 @@ class EaseTWBWebPage extends EaseWebPage
             $userObject = EaseShared::user();
         }
         parent::__construct($pageTitle, $userObject);
-        $this->includeCss($this->mainStyle,true);
+        $this->includeCss($this->mainStyle, true);
         $this->Head->addItem(
                 '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );
@@ -204,7 +204,6 @@ class EaseTWSubmitButton extends EaseHtmlButtonTag
 
 }
 
-
 /**
  *  NavBar
  */
@@ -309,12 +308,16 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         if (isset($pageItem->TagProperties['href'])) {
             $href = basename($pageItem->TagProperties['href']);
             if (strstr($href, '?')) {
-                list($targetPage, $Params) = explode('?', $href);
+                list($targetPage, $params) = explode('?', $href);
             } else {
                 $targetPage = $href;
             }
             if ($targetPage == basename(EasePage::phpSelf())) {
-                $this->nav->lastItem()->setTagProperties(array('class' => 'active'));
+                if ($pull == 'left') {
+                    $this->nav->lastItem()->setTagProperties(array('class' => 'active'));
+                } else {
+                    $this->navRight->lastItem()->setTagProperties(array('class' => 'active'));
+                }
             }
         }
         return $menuItem;
@@ -323,12 +326,12 @@ class EaseTWBNavbar extends EaseHtmlDivTag
     /**
      * Vloží rozbalovací menu
      * 
-     * @param string $label popisek menu
-     * @param array  $items položky menu
-     * @param string $pull  směr zarovnání
+     * @param string        $label popisek menu
+     * @param array|string  $items položky menu
+     * @param string        $pull  směr zarovnání
      * @return \EaseHtmlULTag
      */
-    function & addDropDownMenu($label, $items , $pull = 'left')
+    function & addDropDownMenu($label, $items, $pull = 'left')
     {
         EaseTWBPart::twBootstrapize();
         EaseShared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();', null, true);
@@ -337,8 +340,12 @@ class EaseTWBNavbar extends EaseHtmlDivTag
                 new EaseHtmlATag('#' . $label . '', $label . '<b class="caret"></b>', array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'))
         );
         $dropDownMenu = $dropDown->addItem(new EaseHtmlUlTag(null, array('class' => 'dropdown-menu')));
-        foreach ($items as $target => $label) {
-            $dropDownMenu->addItemSmart(new EaseHtmlATag($target, $label));
+        if (is_array($items)) {
+            foreach ($items as $target => $label) {
+                $dropDownMenu->addItemSmart(new EaseHtmlATag($target, $label));
+            }
+        } else {
+            $dropDownMenu->addItem($items);
         }
         if ($pull == 'left') {
             $this->nav->addItemSmart($dropDown);
