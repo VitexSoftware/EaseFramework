@@ -2,20 +2,20 @@
 
 /**
  * Modul průvodce pro framework
- * 
+ *
  * PHP Version 5
- * 
+ *
  * @category   WebUi
  * @package    EaseFrameWork
  * @subpackage EaseHtml
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright  2009-2012 Vitex@hippy.cz (G) 
+ * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
 require_once 'EaseTWBootstrap.php';
 
 /**
  * Průvodce
- * 
+ *
  * @category WebUi
  * @package  EaseFrameWork
  * @author   Vitex <vitex@hippy.cz>
@@ -25,59 +25,59 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Pole kroků průvodce
-     * @var array 
+     * @var array
      */
     public $steps = array();
 
     /**
      * Aktuálního krok
-     * @var type 
+     * @var type
      */
     public $currentStepName = null;
 
     /**
      * ID aktuálního kroku
-     * @var type 
+     * @var type
      */
     public $currentStepID = null;
 
     /**
      *
-     * @var type 
+     * @var type
      */
     public $stepRequested = null;
 
     /**
      * Počítadlo kroků
-     * @var type 
+     * @var type
      */
     public $stepCount = 0;
 
     /**
      * Značka pro předchozí
-     * @var string 
+     * @var string
      */
-    static public $prevSign = '❰❮❬';
+    public static $prevSign = '❰❮❬';
 
     /**
      * Značka pro následující
-     * @var string 
+     * @var string
      */
-    static public $nextSign = '❭❯❱';
+    public static $nextSign = '❭❯❱';
 
     /**
      *
-     * @var type 
+     * @var type
      */
-    static public $StepListDivider = ' <span class="divider">➠</span> ';
+    public static $StepListDivider = ' <span class="divider">➠</span> ';
 
     /**
      * Objekt pro zobrazení sekvence stránek ve "wizard" stylu
-     * 
+     *
      * @param array $Steps       pole kroků: array(1=>'Název',2=>'Pozice',3=>'Ikona')
      * @param int   $CurrentStep aktuální přednastavený krok
      */
-    function __construct($Steps = null, $CurrentStep = null)
+    public function __construct($Steps = null, $CurrentStep = null)
     {
         parent::__construct();
         if (!is_null($Steps)) {
@@ -92,24 +92,26 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Nastaví aktuální krok
-     * 
+     *
      * @param int $stepID ID aktuálního kroku
-     * 
+     *
      * @return null
      */
-    function setCurrentByID($stepID)
+    public function setCurrentByID($stepID)
     {
         if (isset($this->steps[$stepID])) {
             $this->currentStepID = $stepID;
             $this->currentStepName = $this->steps[$stepID];
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Redirect na dalsi krok
-     * 
+     *
      * @return null
      */
     public function jumpToNextStep()
@@ -128,12 +130,12 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Tlačítko s linkem na další krok
-     * 
+     *
      * @param string $Caption volitelný popisek
-     * 
-     * @return EaseJQueryLinkButton 
+     *
+     * @return EaseJQueryLinkButton
      */
-    function buttonToNextStep($Caption = null)
+    public function buttonToNextStep($Caption = null)
     {
 
         if (is_null($Caption)) {
@@ -149,17 +151,18 @@ class EasePageWizard extends EaseContainer
                 }
             }
         }
+
         return new EaseTWBLinkButton('?' . implode('&', $Params), $Caption);
     }
 
     /**
      * Nastaví požadovaný krok
-     * 
+     *
      * @param int $stepID ID kroku
-     * 
-     * @return int 
+     *
+     * @return int
      */
-    function setRequestedStep($stepID = null)
+    public function setRequestedStep($stepID = null)
     {
         if (!$stepID) {
             $stepID = $this->EaseShared->webPage()->getRequestValue('StepRequested');
@@ -167,6 +170,7 @@ class EasePageWizard extends EaseContainer
         if (array_key_exists($stepID, $this->steps)) {
             $this->currentStepID = $stepID;
             $this->currentStepName = $this->steps[$stepID];
+
             return $stepID;
         } else {
             return null;
@@ -175,26 +179,27 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Přidá krok wizarda
-     * 
+     *
      * @param string $Step název kroku
-     * 
+     *
      * @return boolean success
      */
-    function addStep($Step)
+    public function addStep($Step)
     {
         $this->stepCount++;
         $this->steps[$this->stepCount] = $Step;
+
         return true;
     }
 
     /**
      * Vloží více kroků
-     * 
+     *
      * @param array $Steps pole kroků: array(1=>'Název',2=>'Pozice',3=>'Ikona')
-     * 
+     *
      * @return int počet vložených kroků
      */
-    function addSteps($Steps)
+    public function addSteps($Steps)
     {
         $success = 0;
         foreach ($Steps as $Step) {
@@ -202,24 +207,25 @@ class EasePageWizard extends EaseContainer
                 $success++;
             }
         }
+
         return $success;
     }
 
     /**
      * vykreslí odkazy na další kroky
-     * 
+     *
      * @return null
      */
-    function addNavigation()
+    public function addNavigation()
     {
         $this->addItem($this->getNavigation());
     }
 
     /**
      * Vrací div s navigací
-     * @return EaseHtmlDivTag 
+     * @return EaseHtmlDivTag
      */
-    function getNavigation()
+    public function getNavigation()
     {
         $navigation = new EaseHtmlULTag();
         $PrevStep = $this->GetPrevStepID();
@@ -230,15 +236,16 @@ class EasePageWizard extends EaseContainer
         if ($NextStep) {
             $navigation->addItem(new EaseHtmlATag('?StepRequested=' . $NextStep . '&' . $this->EaseShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
         }
+
         return new EaseHtmlDivTag(null, $navigation, array('class' => 'pagination'));
     }
 
     /**
-     * Vrací seznam kroků s odkazy 
-     * 
+     * Vrací seznam kroků s odkazy
+     *
      * @return EaseHtmlDivTag
      */
-    function getStepList()
+    public function getStepList()
     {
         $stepList = new EaseHtmlUlTag(null, array('class' => 'breadcrumb'));
         $StepsDone = 0;
@@ -254,24 +261,25 @@ class EasePageWizard extends EaseContainer
                 $stepList->addItem(self::$StepListDivider);
             }
         }
+
         return $stepList;
     }
 
     /**
-     * Vloží do sebe seznam kroků s odkazy 
-     * 
+     * Vloží do sebe seznam kroků s odkazy
+     *
      */
-    function addStepList()
+    public function addStepList()
     {
         $this->addItem($this->getStepList());
     }
 
     /**
      * Nastaví požadovaný krok podle názvu
-     * 
+     *
      * @param string $Step název kroku
-     * 
-     * @return int 
+     *
+     * @return int
      */
     public function setCurrentStepByName($Step)
     {
@@ -280,14 +288,15 @@ class EasePageWizard extends EaseContainer
             $this->currentStepID = $StepsReversed[$Step];
             $this->currentStepName = $Step;
         }
+
         return $this->currentStepID;
     }
 
     /**
      * Nastaví aktuální krok podle ID
-     * 
+     *
      * @param int $stepID ID kroku
-     * 
+     *
      * @return int právě nastavený krok
      */
     public function setCurrentStepByID($stepID)
@@ -296,15 +305,16 @@ class EasePageWizard extends EaseContainer
             $this->currentStepID = $stepID;
             $this->currentStepName = $this->steps[$stepID];
         }
+
         return $this->currentStepID;
     }
 
     /**
      * Vrací název kroku
-     * 
+     *
      * @var int $StepID ID kroku
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getStepName($StepID = NULL)
     {
@@ -317,8 +327,8 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Vrací ID aktuálního kroku
-     * 
-     * @return int 
+     *
+     * @return int
      */
     public function getStepID()
     {
@@ -327,8 +337,8 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Vrací první krok
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getFirstStep()
     {
@@ -337,8 +347,8 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Vrací následující ID kroku
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function getNextStepID()
     {
@@ -352,7 +362,7 @@ class EasePageWizard extends EaseContainer
     /**
      * Posune průvodce o jeden krok dále
      */
-    function forward()
+    public function forward()
     {
         $this->setCurrentStepByID($this->getNextStepID());
     }
@@ -360,15 +370,15 @@ class EasePageWizard extends EaseContainer
     /**
      * Posune průvodce o jeden krok zpět
      */
-    function backward()
+    public function backward()
     {
         $this->setCurrentStepByID($this->getPrevStepID());
     }
 
     /**
      * Vrací předcházející ID kroku
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function getPrevStepID()
     {
@@ -381,8 +391,8 @@ class EasePageWizard extends EaseContainer
 
     /**
      * Vrací poslední krok
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getLastStep()
     {
@@ -390,5 +400,3 @@ class EasePageWizard extends EaseContainer
     }
 
 }
-
-?>

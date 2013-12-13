@@ -2,10 +2,10 @@
 
 /**
  * Třídy pro odesílání Mailu ✉
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 require_once 'EasePage.php';
 
@@ -14,7 +14,7 @@ require_once 'Mail/mime.php';
 
 /**
  * Sestaví a odešle mail
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseMail extends EasePage
@@ -78,12 +78,12 @@ class EaseMail extends EasePage
 
     /**
      * Ease Mail - sestaví a odešle
-     * 
+     *
      * @param string $EmailAddress  adresa
      * @param string $EmailSubject  předmět
-     * @param mixed  $EmailContents tělo - libovolný mix textu a EaseObjektů 
+     * @param mixed  $EmailContents tělo - libovolný mix textu a EaseObjektů
      */
-    function __construct($EmailAddress, $EmailSubject, $EmailContents = null)
+    public function __construct($EmailAddress, $EmailSubject, $EmailContents = null)
     {
         $this->setMailHeaders(
                 array(
@@ -110,12 +110,12 @@ class EaseMail extends EasePage
 
     /**
      * Vrací obsah poštovní hlavičky
-     * 
+     *
      * @param string $headername název hlavičky
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function getMailHeader($headername)
+    public function getMailHeader($headername)
     {
         if (isset($this->MailHeaders[$headername])) {
             return $this->MailHeaders[$headername];
@@ -124,12 +124,12 @@ class EaseMail extends EasePage
 
     /**
      * Nastaví hlavičky mailu
-     * 
+     *
      * @param mixed $MailHeaders asociativní pole hlaviček
-     * 
+     *
      * @return boolean true pokud byly hlavičky nastaveny
      */
-    function setMailHeaders(array $MailHeaders)
+    public function setMailHeaders(array $MailHeaders)
     {
         if (is_array($this->MailHeaders)) {
             $this->MailHeaders = array_merge($this->MailHeaders, $MailHeaders);
@@ -149,15 +149,16 @@ class EaseMail extends EasePage
             }
         }
         $this->Finalized = false;
+
         return true;
     }
 
     /**
      * Přidá položku do těla mailu
-     * 
+     *
      * @param mixed $Item EaseObjekt nebo cokoliv s metodou draw();
-     * 
-     * @return mixed ukazatel na vložený obsah 
+     *
+     * @return mixed ukazatel na vložený obsah
      */
     function &addItem($Item,$PageItemName = null)
     {
@@ -174,24 +175,25 @@ class EaseMail extends EasePage
             $this->TextBody .= $Item;
             $this->Mimer->setTXTBody($this->TextBody);
         }
+
         return $MailBody;
     }
 
     /**
      * Připojí k mailu přílohu ze souboru
-     * 
+     *
      * @param string $Filename cesta/název souboru k přiložení
      * @param string $MimeType MIME typ přílohy
      */
-    function addFile($Filename, $MimeType = 'text/plain')
+    public function addFile($Filename, $MimeType = 'text/plain')
     {
         $this->Mimer->addAttachment($Filename, $MimeType);
     }
 
     /**
-     * Sestavení těla mailu 
+     * Sestavení těla mailu
      */
-    function finalize()
+    public function finalize()
     {
         if (method_exists($this->HtmlDocument, 'GetRendered')) {
             $this->HtmlBodyRendered = $this->HtmlDocument->getRendered();
@@ -211,18 +213,18 @@ class EaseMail extends EasePage
 
     /**
      * Mail vložený do stránky se nevykresluje
-     * 
-     * @return null 
+     *
+     * @return null
      */
-    function draw()
+    public function draw()
     {
         return null;
     }
 
     /**
-     * Odešle mail 
+     * Odešle mail
      */
-    function send()
+    public function send()
     {
         if (!$this->Finalized) {
             $this->finalize();
@@ -237,14 +239,12 @@ class EaseMail extends EasePage
 
     /**
      * Nastaví návěští uživatelské notifikace
-     * 
+     *
      * @param bool $Notify požadovaný stav notifikace
      */
-    function setUserNotification($Notify)
+    public function setUserNotification($Notify)
     {
         $this->Notify = (bool) $Notify;
     }
 
 }
-
-?>

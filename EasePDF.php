@@ -2,7 +2,7 @@
 
 /**
  * TCPDF compatibility layer
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
@@ -12,7 +12,7 @@ require_once 'EasePage.php';
 
 /**
  * Umožnuje generovat PDF dokumenty z EaseFrameWorku
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EasePDF extends TCPDF
@@ -32,7 +32,7 @@ class EasePDF extends TCPDF
 
     /**
      * Pole předávaných vlastností
-     * @var array 
+     * @var array
      */
     public $RaiseItems = array('SetUpUser' => 'User', 'WebPage');
 
@@ -49,10 +49,10 @@ class EasePDF extends TCPDF
 
     /**
      * PDF objekt
-     * 
+     *
      * @param string $Format formát pdf strany
      */
-    function __construct($Format = PDF_PAGE_FORMAT)
+    public function __construct($Format = PDF_PAGE_FORMAT)
     {
         $this->OPage = new EasePage();
         $this->PageParts = & $this->OPage->PageParts;
@@ -60,7 +60,7 @@ class EasePDF extends TCPDF
         $this->setup();
     }
 
-    function setup()
+    public function setup()
     {
         $this->SetCreator(PDF_CREATOR);
         $this->SetAuthor('Nicola Asuni');
@@ -69,13 +69,13 @@ class EasePDF extends TCPDF
         $this->SetKeywords('TCPDF, PDF, example, test, guide');
     }
 
-    function setFont($family, $style = '', $size = 0, $fontfile = '')
+    public function setFont($family, $style = '', $size = 0, $fontfile = '')
     {
         $family = str_ireplace('arial', 'dejavusans', $family);
         parent::SetFont($family, $style, $size, $fontfile);
     }
 
-    function error($Message, $Data = null)
+    public function error($Message, $Data = null)
     {
         $this->OPage->error($Message, $Data);
         parent::Error($Message);
@@ -84,15 +84,16 @@ class EasePDF extends TCPDF
     function &addItem($Item)
     {
         $AddedItem = $this->OPage->addItem($Item);
+
         return $AddedItem;
     }
 
-    function draw()
+    public function draw()
     {
         $this->Output($PDFFile);
     }
 
-    function finalize()
+    public function finalize()
     {
         if ($this->Finalized) {
             return null;
@@ -100,19 +101,21 @@ class EasePDF extends TCPDF
         $this->AddPage();
         $this->writeHTML($this->OPage->getRendered());
         $this->Finalized = true;
+
         return true;
     }
 
-    function sendToBrowser($OutFile = null)
+    public function sendToBrowser($OutFile = null)
     {
         if (!$OutFile) {
             $OutFile = $this->OutFile;
         }
         $this->finalize();
+
         return $this->Output(basename($OutFile), 'I');
     }
 
-    function writeToFile($OutFile)
+    public function writeToFile($OutFile)
     {
         if (!$OutFile) {
             $OutFile = $this->OutFile;
@@ -127,5 +130,3 @@ class EasePDF extends TCPDF
     }
 
 }
-
-?>

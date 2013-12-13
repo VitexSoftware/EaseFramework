@@ -1,18 +1,18 @@
 <?php
 
 /**
- * Podpora MSSQL databáze 
- * 
+ * Podpora MSSQL databáze
+ *
  * @category  Sql
  * @package   EaseFrameWork
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2011 Vitex@hippy.cz (G) 
+ * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
 require_once 'EaseSQL.php';
 
 /**
  * Basic Database Layer
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseDbMSSQL extends EaseSql
@@ -29,7 +29,7 @@ class EaseDbMSSQL extends EaseSql
 
     /**
      * Hack pro svéhlavé FreeTDS na windows co ignoruje konfiguraci
-     * @var boolean 
+     * @var boolean
      */
     public $WinToUtfRecode = false;
 
@@ -75,11 +75,11 @@ class EaseDbMSSQL extends EaseSql
 
     /**
      * Database layer
-     * 
-     * @param type $Mode 
+     *
+     * @param type $Mode
      */
 
-    function __construct($Mode = 'online')
+    public function __construct($Mode = 'online')
     {
         if (defined('FREETDS_RECODE')) {
             $this->WinToUtfRecode = constant('FREETDS_RECODE');
@@ -102,12 +102,12 @@ class EaseDbMSSQL extends EaseSql
     }
 
     /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako 
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho 
+     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
+     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
      * instance (ta prvni).
      *
      * @param string $Mode online|offline - zinicializuje bez připojení k MSSQL
-     * 
+     *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      */
     public static function singleton($Mode = 'online')
@@ -116,15 +116,16 @@ class EaseDbMSSQL extends EaseSql
             $ClassName = __CLASS__;
             self::$_instance = new $ClassName($Mode);
         }
+
         return self::$_instance;
     }
 
     /**
      * Připojí se k MSSQL
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
-    function connect()
+    public function connect()
     {
         if (is_null($this->SQLLink)) {
             if (++$this->instanceCounter > 1) {
@@ -136,6 +137,7 @@ class EaseDbMSSQL extends EaseSql
             $this->Status = 'error';
             $this->LastMessage = 'MSSQL is not compiled in';
             $this->makeReport();
+
             return null;
         }
         $this->SQLLink = mssql_connect($this->Server, $this->Username, $this->Password);
@@ -144,21 +146,23 @@ class EaseDbMSSQL extends EaseSql
             mssql_min_error_severity(2);
             $this->selectDB($this->Database);
             parent::connect();
+
             return $this->Status;
         } else {
             $this->LastMessage = mssql_get_last_message();
             $this->addStatusMessage('connect: ' . $this->LastMessage, 'warning');
+
             return false;
         }
     }
 
     /**
      * Přepene databázi
-     *  
-     * @param type $DBName
+     *
+     * @param  type    $DBName
      * @return boolean
      */
-    function selectDB($DBName = null)
+    public function selectDB($DBName = null)
     {
         if (is_null($DBName)) {
             $DBName = $this->Database;
@@ -169,16 +173,18 @@ class EaseDbMSSQL extends EaseSql
             } else {
                 $this->LastMessage = mssql_get_last_message();
                 $this->addStatusMessage($this->LastMessage, 'warning');
+
                 return false;
             }
         }
+
         return null;
     }
 
     /**
-     * Vyplní pole informací o připojení 
+     * Vyplní pole informací o připojení
      */
-    function makeReport()
+    public function makeReport()
     {
         parent::makeReport();
         $this->Report['mode'] = $this->Mode;
@@ -186,13 +192,13 @@ class EaseDbMSSQL extends EaseSql
 
     /**
      * Vykona MSSQL prikaz
-     * 
+     *
      * @param string  $QueryRaw     sql příkaz
      * @param boolean $IgnoreErrors ignorovat chyby ?
-     * 
+     *
      * @return SqlHandle
      */
-    function exeQuery($QueryRaw, $IgnoreErrors = false)
+    public function exeQuery($QueryRaw, $IgnoreErrors = false)
     {
 
         if (!$this->Connected) {
@@ -217,7 +223,6 @@ class EaseDbMSSQL extends EaseSql
 
         $this->LastQuery = $QueryRaw;
 
-
         if ($this->Mode == 'online') {
             //ob_start();
             $this->Result = mssql_query($QueryRaw, $this->SQLLink);
@@ -238,7 +243,6 @@ class EaseDbMSSQL extends EaseSql
                 }
                 $this->logError();
                 $this->error('ExeQuery: #' . $this->ErrorNumber . ': ' . $this->ErrorText . "\n" . $QueryRaw);
-
 
                 //ob_end_clean();
                 return false;
@@ -275,6 +279,7 @@ class EaseDbMSSQL extends EaseSql
                 $this->addToLog('Offline Query:' . $this->Utf8($this->LastQuery), 'warning');
             }
         }
+
         return $this->Result;
     }
 
@@ -283,10 +288,10 @@ class EaseDbMSSQL extends EaseSql
      *
      * @param string          $QueryRaw         SQL příkaz
      * @param string||boolean $KeyColumnToIndex sloupeček pro indexaci
-     * 
+     *
      * @return array
      */
-    function queryToArray($QueryRaw, $KeyColumnToIndex = false)
+    public function queryToArray($QueryRaw, $KeyColumnToIndex = false)
     {
         $this->ResultArray = null;
         $this->Result = $this->exeQuery($QueryRaw);
@@ -312,6 +317,7 @@ class EaseDbMSSQL extends EaseSql
             if ($this->WinToUtfRecode) {
                 $this->ResultArray = $this->recursiveIconv('windows-1250', 'utf-8', $this->ResultArray);
             }
+
             return $this->ResultArray;
         } else {
             return null;
@@ -320,28 +326,29 @@ class EaseDbMSSQL extends EaseSql
 
     /**
      * Vrací počet položek v tabulce
-     * 
+     *
      * @param string $TableName
-     * 
+     *
      * @return int unsigned
      */
-    function getTableNumRows($TableName = null)
+    public function getTableNumRows($TableName = null)
     {
         if (!$TableName) {
             $TableName = $this->TableName;
         }
         $TableRowsCount = @$this->queryToArray('SELECT count(*) AS NumRows FROM [' . $this->easeAddSlashes($TableName) . ']');
+
         return $TableRowsCount[0]['NumRows'];
     }
 
     /**
      * Vrátí strukturu SQL tabulky
      *
-     * @param string $TableName jméno tabulky 
-     * 
+     * @param string $TableName jméno tabulky
+     *
      * @return array
      */
-    function describe($TableName = null)
+    public function describe($TableName = null)
     {
         if (!parent::describe($TableName)) {
             return null;
@@ -368,18 +375,19 @@ class EaseDbMSSQL extends EaseSql
                 $TableStructure[$col['COLUMN_NAME']]['type'] = $col['DATA_TYPE'];
             }
         }
+
         return $TableStructure;
     }
 
     /**
      * Prepare columns to query fragment
-     * 
+     *
      * @param array   $Data            asociativní pole
      * @param boolean $PermitKeyColumn nepřeskočit klíčový sloupeček ?
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function prepCols($Data, $PermitKeyColumn = false)
+    public function prepCols($Data, $PermitKeyColumn = false)
     {
         $Values = '';
         $Columns = '';
@@ -422,22 +430,24 @@ class EaseDbMSSQL extends EaseSql
         }
         $Columns = substr($Columns, 0, -1);
         $Values = substr($Values, 0, -1);
+
         return array($Columns, $Values);
     }
 
     /**
-     * Give Update query fragment 
-     * 
+     * Give Update query fragment
+     *
      * @param array  $Data         asociativní pole dat
      * @param array  $CheckColumns kontrolovat délky řetězců na překročení místa
      * @param string $TableName    jméno tabulky
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function prepUpdate($Data, $CheckColumns = false, $TableName = null)
     {
         if (!count($Data)) {
             $this->error('Missing data for PrepUpdate');
+
             return null;
         }
         if (!$TableName) {
@@ -480,18 +490,19 @@ class EaseDbMSSQL extends EaseSql
             }
             $updates.=" [$Column] = $Value,";
         }
+
         return substr($updates, 0, -1);
     }
 
     /**
      * Vrací framgment SQL dotazu pro SELECT
-     * 
+     *
      * @param array $Data pole ze kterého se vytvoří fragment SQL dotazu
      *                    array('date'=>'','name'=>'','id AS recordID'=>10)
-     * 
+     *
      * @return string vzorový vstup vrátí: "`date`,`name`,`id` AS recordID"
      */
-    function prepSelect($Data)
+    public function prepSelect($Data)
     {
         if (!is_array($Data)) {
             return $Data;
@@ -530,17 +541,18 @@ class EaseDbMSSQL extends EaseSql
 
             $Updates.=" [$Column] $operator $Value AND";
         }
+
         return substr($Updates, 0, -3);
     }
 
     /**
      * Table presence test
-     * 
+     *
      * @param string $TableName
-     * 
+     *
      * @return boolen
      */
-    function tableExist($TableName = null)
+    public function tableExist($TableName = null)
     {
         if (!parent::TableExist($TableName))
             return null;
@@ -553,13 +565,13 @@ class EaseDbMSSQL extends EaseSql
 
     /**
      * Vytvoří tabulku podle struktůry
-     * 
+     *
      * @param array  $TableStructure struktura tabulky
      * @param string $TableName      jméno tabulky
-     * 
+     *
      * @return boolean Success
      */
-    function createTable(&$TableStructure = null, $TableName = null)
+    public function createTable(&$TableStructure = null, $TableName = null)
     {
 
         /*
@@ -580,25 +592,26 @@ class EaseDbMSSQL extends EaseSql
 
     /**
      * Odstraní z SQL dotazu "nebezpecne" znaky
-     * 
+     *
      * @param string $QueryRaw SQL Query
-     * 
+     *
      * @return string SQL Query
      */
-    function sanitizeQuery($QueryRaw)
+    public function sanitizeQuery($QueryRaw)
     {
         $SanitizedQuery = str_replace(array("\'", '\"'), array("''", '""'), parent::SanitizeQuery($QueryRaw));
+
         return $SanitizedQuery;
     }
 
     /**
      * Vrací seznam tabulek v aktuálné použité databázi
-     * 
+     *
      * @param boolean $Sort vysledek ještě setřídit
-     * 
+     *
      * @return array
      */
-    function listTables($Sort = false)
+    public function listTables($Sort = false)
     {
         $TablesList = array();
         $TablesQuery = $this->queryToArray("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type FROM INFORMATION_SCHEMA.TABLES");
@@ -609,17 +622,19 @@ class EaseDbMSSQL extends EaseSql
             if ($Sort) {
                 asort($TablesList, SORT_LOCALE_STRING);
             }
+
             return $TablesList;
         }
+
         return null;
     }
 
     /**
      * Close SQL connecton
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
-    function close()
+    public function close()
     {
         if ($this->SQLLink) {
             return mssql_close($this->SQLLink);
@@ -631,17 +646,17 @@ class EaseDbMSSQL extends EaseSql
 }
 
 /**
- * Testuje dostupnost MSSQL serveru  
- * 
+ * Testuje dostupnost MSSQL serveru
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseMSDbPinger extends EaseDbMSSQL
 {
 
     /**
-     * Teste provedeme již při připojení 
+     * Teste provedeme již při připojení
      */
-    function connect()
+    public function connect()
     {
         if (!$this->ping()) {
             $this->writeLockFile();
@@ -652,18 +667,19 @@ class EaseMSDbPinger extends EaseDbMSSQL
 
     /**
      * Vytvoří zamykací soubor
-     * 
+     *
      * @param string $LockFile použij jiný název zamykacího souboru
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
-    function writeLockFile($LockFile = null)
+    public function writeLockFile($LockFile = null)
     {
         if (!$LockFile) {
             $LockFile = $this->Lockfile;
         }
         if (file_exists($LockFile)) {
             $this->addToLog('WriteLockFile: Allready exists');
+
             return;
         }
         $LockFileHandle = fopen($LockFile, 'w+');
@@ -671,45 +687,50 @@ class EaseMSDbPinger extends EaseDbMSSQL
             $this->addToLog('WriteLockFile: LockFile written');
             fclose($LockFileHandle);
             $this->Mode = 'offline';
+
             return true;
         } else {
             $this->error('WriteLockFile: Lockfile ' . realpath($this->Lockfile) . ' could not be written', $this->TestDirectory(dirname($this->Lockfile)));
+
             return false;
         }
     }
 
     /**
      * Odstraní zamykací soubor
-     * 
+     *
      * @param string $LockFile cesta k zamykacímu souboru
      */
-    function dropLockFile($LockFile = null)
+    public function dropLockFile($LockFile = null)
     {
         if (!$LockFile) {
             $LockFile = $this->Lockfile;
         }
         if (!file_exists($LockFile)) {
             $this->addToLog('MSSQL Lockfile ' . $LockFile . ' doesn\'t exist', 'warning');
+
             return true;
         }
 
         unlink($LockFile);
         if (file_exists($LockFile)) {
             $this->error('DropLockFile: Lockfile ' . realpath($this->Lockfile) . ' alive', $this->TestDirectory(dirname($this->Lockfile)));
+
             return false;
         }
         $this->addToLog('DropLockFile: ' . realpath($this->Lockfile), 'succes');
+
         return true;
     }
 
     /**
      * Pokusí se po připojení socketem k SQLserveru
-     * 
+     *
      * @param boolean $Succes vynucení výsledku
-     * 
-     * @return boolan 
+     *
+     * @return boolan
      */
-    function ping($Succes = null)
+    public function ping($Succes = null)
     {
         $Socket = @fsockopen($this->Server, 1433, $errno, $LastAction);
         if (!$Socket) {
@@ -717,9 +738,8 @@ class EaseMSDbPinger extends EaseDbMSSQL
         } else {
             fclose($Socket);
         }
+
         return parent::Ping(true);
     }
 
 }
-
-?>

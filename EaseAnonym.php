@@ -2,18 +2,18 @@
 
 /**
  * Objekty uživatelů
- * 
+ *
  * PHP Version 5
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2011 Vitex@hippy.cz (G) 
+ * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
 require_once 'EaseBase.php';
 
 /**
  * Objekt Anonymního uživatele
- * 
+ *
  * @package EaseFrameWork
  * @author  Vitex <vitex@hippy.cz>
  */
@@ -53,24 +53,24 @@ class EaseAnonym extends EaseBrick
 
     /**
      *
-     * @var type 
+     * @var type
      */
     public $CustomerAddress = null;
 
     /**
      * Indikátor přihlášení
-     * @var boolean 
+     * @var boolean
      */
     public $Logged = false;
 
     /**
      * Nastavení jména objektu uživatele
-     * 
+     *
      * @param string $ObjectName vynucené jméno objektu
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function setObjectName($ObjectName = null)
+    public function setObjectName($ObjectName = null)
     {
         if (!$ObjectName && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
@@ -78,6 +78,7 @@ class EaseAnonym extends EaseBrick
             } else {
                 $Identity = $_SERVER['REMOTE_ADDR'];
             }
+
             return parent::setObjectName(get_class($this) . '@' . $Identity);
         } else {
             return parent::setObjectName($ObjectName);
@@ -86,10 +87,10 @@ class EaseAnonym extends EaseBrick
 
     /**
      * Anonym má level
-     * 
+     *
      * @return int
      */
-    function getUserLevel()
+    public function getUserLevel()
     {
         return -1;
     }
@@ -97,7 +98,7 @@ class EaseAnonym extends EaseBrick
     /**
      * Anonym nema ID
      */
-    function getUserID()
+    public function getUserID()
     {
         return null;
     }
@@ -105,105 +106,104 @@ class EaseAnonym extends EaseBrick
     /**
      * Anonym nema IDS
      */
-    function getUserIDS()
+    public function getUserIDS()
     {
         return null;
     }
 
     /**
      * Anonym nemá login
-     * 
+     *
      * @return null
      */
-    function getUserLogin()
+    public function getUserLogin()
     {
         return null;
     }
 
     /**
      * Anonym nemůže být přihlášený
-     * 
+     *
      * @return bool FALSE
      */
-    function isLogged()
+    public function isLogged()
     {
         return $this->Logged;
     }
 
     /**
      * Anonym nemá nastavení
-     * 
+     *
      * @param string $SettingName jméno klíče nastavení
-     * 
+     *
      * @return null
      */
-    function getSettingValue($SettingName = null)
+    public function getSettingValue($SettingName = null)
     {
         return null;
     }
 
     /**
      * Anonym nemá mail
-     * 
+     *
      * @return null
      */
-    function getUserEmail()
+    public function getUserEmail()
     {
         return null;
     }
 
     /**
      * Vrací cenu pro anonymního uživatele
-     * 
+     *
      * @param float $ProductPriceAnon anonymní cena
      * @param int   $ProductsID       ID produktu v shopu
      * @param int   $ProductsPohodaID ID produktu v PohodaSQL
-     * 
+     *
      * @todo Přesunout do EaseCustomer
-     * 
-     * @return float 
+     *
+     * @return float
      */
-    function getUserPrice($ProductPriceAnon, $ProductsID, $ProductsPohodaID)
+    public function getUserPrice($ProductPriceAnon, $ProductsID, $ProductsPohodaID)
     {
         return $ProductPriceAnon;
     }
 
     /**
      * Maketa oprávnění
-     * 
+     *
      * @param string $PermKeyword klíčové slovo oprávnění
-     * 
-     * @return null 
+     *
+     * @return null
      */
-    function getPermission($PermKeyword = null)
+    public function getPermission($PermKeyword = null)
     {
         return null;
     }
 
     /**
      * Pouze maketa
-     * 
+     *
      * @return bool
      */
-    function logout()
+    public function logout()
     {
         $this->UserID = null;
+
         return true;
     }
 
     /**
      * Otestuje kvalitu hesla
-     * 
+     *
      * @param string $Password heslo k otestování
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      * @todo Dořešit Cracklib ...
      */
-    function passwordCrackCheck($Password)
+    public function passwordCrackCheck($Password)
     {
         return EaseCustomer::PasswordCrackCheck($Password);
     }
 
 }
-
-?>

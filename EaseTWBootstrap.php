@@ -3,7 +3,7 @@
 /**
  * Pro pohodlnou práci s twitter bootstrap
  * běžně používané prvky UI
- * 
+ *
  * @package    EaseFrameWork
  * @subpackage EaseHtml
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
@@ -16,7 +16,7 @@ require_once 'EaseHtmlForm.php';
 
 /**
  * jQuery UI common class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseTWBPart extends EaseJQueryPart
@@ -25,7 +25,7 @@ class EaseTWBPart extends EaseJQueryPart
     /**
      * Vložení náležitostí pro twitter bootstrap
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         self::twBootstrapize();
@@ -33,9 +33,9 @@ class EaseTWBPart extends EaseJQueryPart
 
     /**
      * Opatří objekt vším potřebným pro funkci bootstrapu
-     * 
+     *
      */
-    static function twBootstrapize()
+    public static function twBootstrapize()
     {
         parent::jQueryze();
         $webPage = EaseShared::webPage();
@@ -43,18 +43,18 @@ class EaseTWBPart extends EaseJQueryPart
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }
-        //TODO: ONCE: $webPage->Head->addItem('<meta name="viewport" 
+        //TODO: ONCE: $webPage->Head->addItem('<meta name="viewport"
         // content="width=device-width, initial-scale=1.0">');
         return true;
     }
 
     /**
      * Vrací ikonu
-     * 
+     *
      * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
      * @param string $code Kód ikony z přehledu
      */
-    static function GlyphIcon($code)
+    public static function GlyphIcon($code)
     {
         return '<span class="glyphicon glyphicon-' . $code . '"></span>';
     }
@@ -69,17 +69,17 @@ class EaseTWBWebPage extends EaseWebPage
 
     /**
      * CSSKo bootstrapu
-     * @var string url 
+     * @var string url
      */
     public $mainStyle = 'twitter-bootstrap/css/bootstrap.css';
 
     /**
      * Stránka s podporou pro twitter bootstrap
-     * 
+     *
      * @param type $pageTitle
      * @param type $userObject
      */
-    function __construct($pageTitle = null, &$userObject = null)
+    public function __construct($pageTitle = null, &$userObject = null)
     {
         if (is_null($userObject)) {
             $userObject = EaseShared::user();
@@ -99,17 +99,17 @@ class EaseTWBWebPage extends EaseWebPage
 
     /**
      * Vrací zprávy uživatele
-     * 
+     *
      * @param string $what info|warning|error|success
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function getStatusMessagesAsHtml($what = null)
+    public function getStatusMessagesAsHtml($what = null)
     {
         /**
-         * Session Singleton Problem hack 
+         * Session Singleton Problem hack
          */
-        //$this->EaseShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));        
+        //$this->EaseShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
         if (!count($this->EaseShared->StatusMessages)) {
             return '';
@@ -143,14 +143,15 @@ class EaseTWBWebPage extends EaseWebPage
                 $htmlFargment .= '<div class="alert">' . $message . '</div>' . "\n";
             }
         }
+
         return $htmlFargment;
     }
 
 }
 
 /**
- * Odkazové tlačítko twbootstrabu 
- * 
+ * Odkazové tlačítko twbootstrabu
+ *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2012 Vitex@vitexsoftware.cz (G)
  * @link       http://twitter.github.com/bootstrap/base-css.html#buttons Buttons
@@ -160,13 +161,13 @@ class EaseTWBLinkButton extends EaseHtmlATag
 
     /**
      * Odkazové tlačítko twbootstrabu
-     * 
-     * @param string $href       cíl odkazu 
+     *
+     * @param string $href       cíl odkazu
      * @param mixed  $contents   obsah tlačítka
-     * @param string $type       primary|info|success|warning|danger|inverse|link 
+     * @param string $type       primary|info|success|warning|danger|inverse|link
      * @param array  $Properties dodatečné vlastnosti
      */
-    function __construct($href, $contents = null, $type = null, $Properties = null)
+    public function __construct($href, $contents = null, $type = null, $Properties = null)
     {
         if (is_null($type)) {
             $Properties['class'] = 'btn btn-default';
@@ -180,18 +181,18 @@ class EaseTWBLinkButton extends EaseHtmlATag
 }
 
 /**
- * 
+ *
  */
 class EaseTWSubmitButton extends EaseHtmlButtonTag
 {
 
     /**
      * Odesílací tlačítko formuláře Twitter Bootstrapu
-     * 
+     *
      * @param string $Value vracená hodnota
-     * @param string $type primary|info|success|warning|danger|inverse|link 
+     * @param string $type  primary|info|success|warning|danger|inverse|link
      */
-    function __construct($Value = null, $type = null, $properties = null)
+    public function __construct($Value = null, $type = null, $properties = null)
     {
         if (is_null($type)) {
             $properties['class'] = 'btn';
@@ -212,30 +213,30 @@ class EaseTWBNavbar extends EaseHtmlDivTag
 
     /**
      * Vnitřek menu
-     * @var EaseHtmlDivTag 
+     * @var EaseHtmlDivTag
      */
     public $menuInnerContent = null;
 
     /**
      * Položky menu
-     * @var EaseHtmlUlTag 
+     * @var EaseHtmlUlTag
      */
     private $nav;
 
     /**
      * Položky menu přidávané vpravo
-     * @var EaseHtmlUlTag 
+     * @var EaseHtmlUlTag
      */
     private $navRight;
 
     /**
      * Menu aplikace
-     * 
-     * @param string           $name
-     * @param string           $brand
-     * @param array            $properties
+     *
+     * @param string $name
+     * @param string $brand
+     * @param array  $properties
      */
-    function __construct($name = null, $brand = null, $properties = null)
+    public function __construct($name = null, $brand = null, $properties = null)
     {
         if (is_null($properties)) {
             $properties = array('class' => 'navbar navbar-default');
@@ -261,7 +262,7 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         EaseTWBPart::twBootstrapize();
     }
 
-    static function NavBarHeader($handle, $brand)
+    public static function NavBarHeader($handle, $brand)
     {
         $navstyle = '.navbar-' . $handle . '-collapse';
         $nbhc['button'] = new EaseHtmlButtonTag(array(
@@ -274,16 +275,17 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         if ($brand) {
             $nbhc['brand'] = new EaseHtmlATag('./', $brand, array('class' => 'navbar-brand'));
         }
+
         return new EaseHtmlDivTag(null, $nbhc, array('class' => 'navbar-header'));
     }
 
     /**
      * Přidá položku do navigační lišty
-     * 
-     * @param mixed $Item vkládaná položka
+     *
+     * @param mixed  $Item         vkládaná položka
      * @param string $PageItemName Pod tímto jménem je objekt vkládán do stromu
-     * 
-     * @return EasePage poiner to object well included 
+     *
+     * @return EasePage poiner to object well included
      */
     function & addItem($Item, $PageItemName = null)
     {
@@ -292,11 +294,11 @@ class EaseTWBNavbar extends EaseHtmlDivTag
 
     /**
      * Přidá položku menu
-     * 
-     * @param EaseHtmlATag  $pageItem Položka menu
-     * @param string        $pull     'right' strká položku v menu do prava
-     * 
-     * @return EaseWebPage 
+     *
+     * @param EaseHtmlATag $pageItem Položka menu
+     * @param string       $pull     'right' strká položku v menu do prava
+     *
+     * @return EaseWebPage
      */
     function &addMenuItem($pageItem, $pull = 'left')
     {
@@ -320,15 +322,16 @@ class EaseTWBNavbar extends EaseHtmlDivTag
                 }
             }
         }
+
         return $menuItem;
     }
 
     /**
      * Vloží rozbalovací menu
-     * 
-     * @param string        $label popisek menu
-     * @param array|string  $items položky menu
-     * @param string        $pull  směr zarovnání
+     *
+     * @param  string         $label popisek menu
+     * @param  array|string   $items položky menu
+     * @param  string         $pull  směr zarovnání
      * @return \EaseHtmlULTag
      */
     function & addDropDownMenu($label, $items, $pull = 'left')
@@ -352,6 +355,7 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         } else {
             $this->navRight->addItemSmart($dropDown);
         }
+
         return $dropDown;
     }
 
@@ -368,11 +372,11 @@ class EaseTWBForm extends EaseHtmlForm
     }
 
     /**
-     * 
+     *
      * @param type $input
-     * @param type $caption 
+     * @param type $caption
      */
-    function addInput($input, $caption = null)
+    public function addInput($input, $caption = null)
     {
         $input->setTagId($this->getTagName());
         $controlGroup = $this->addItem(new EaseHtmlDivTag(null, null, array('class' => 'control-group')));
@@ -383,8 +387,8 @@ class EaseTWBForm extends EaseHtmlForm
 }
 
 /**
- * Položka TWBootstrp formuláře 
- * 
+ * Položka TWBootstrp formuláře
+ *
  * @param string      $label       popisek pole formuláře
  * @param EaseHtmlTag $content     widget formuláře
  * @param string      $placeholder předvysvětlující text
@@ -393,7 +397,7 @@ class EaseTWBForm extends EaseHtmlForm
 class EaseTWBFormGroup extends EaseHtmlDivTag
 {
 
-    function __construct($label = null, $content = null, $placeholder = null, $helptext = null)
+    public function __construct($label = null, $content = null, $placeholder = null, $helptext = null)
     {
         $formKey = self::lettersOnly($label);
 
@@ -423,7 +427,7 @@ class EaseTWBStatusMessages extends EaseHtmlDivTag
     /**
      * Blok stavových zpráv
      */
-    function __construct()
+    public function __construct()
     {
         $properties['class'] = 'well';
         $properties['id'] = 'StatusMessages';
@@ -431,13 +435,13 @@ class EaseTWBStatusMessages extends EaseHtmlDivTag
         $properties['style'] = 'padding-top: 40px; padding-bottom: 0px;';
         parent::__construct(null, null, $properties);
         EaseJQueryPart::jQueryze();
-        $this->addJavaScript('$("#StatusMessages").click(function() { $("#StatusMessages").fadeTo("slow",0.25).slideUp("slow"); });', 3, true);
+        $this->addJavaScript('$("#StatusMessages").click(function () { $("#StatusMessages").fadeTo("slow",0.25).slideUp("slow"); });', 3, true);
     }
 
     /**
-     * Vypíše stavové zprávy 
+     * Vypíše stavové zprávy
      */
-    function draw()
+    public function draw()
     {
         $StatusMessages = trim($this->WebPage->getStatusMessagesAsHtml());
         if ($StatusMessages) {
@@ -452,7 +456,7 @@ class EaseTWBStatusMessages extends EaseHtmlDivTag
 
 /**
  * Create TWBootstrap tabs
- * 
+ *
  * @see http://getbootstrap.com/2.3.2/components.html#navs
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
@@ -463,24 +467,24 @@ class EaseTWBTabs extends EaseContainer
 
     /**
      * Array of tab names=>contents
-     * @var array 
+     * @var array
      */
     public $tabs = array();
 
     /**
      * Jméno aktivního tabu
-     * @var string 
+     * @var string
      */
     private $activeTab = null;
 
     /**
      * Create TWBootstrap tabs
-     * 
-     * @param string $partName - DIV id
-     * @param array  $tabsList 
+     *
+     * @param string $partName       - DIV id
+     * @param array  $tabsList
      * @param array  $PartProperties
      */
-    function __construct($partName, $tabsList = null, $tagProperties = null)
+    public function __construct($partName, $tabsList = null, $tagProperties = null)
     {
         $this->partName = $partName;
         parent::__construct();
@@ -494,25 +498,26 @@ class EaseTWBTabs extends EaseContainer
 
     /**
      * Vytvoří nový tab a vloží do něj obsah
-     * 
-     * @param string $tabName jméno a titulek tabu
-     * @param mixed $tabContent 
-     * @param boolean $active Má být tento tab aktivní ?
-     * 
-     * @return pointer odkaz na vložený obsah 
+     *
+     * @param string  $tabName    jméno a titulek tabu
+     * @param mixed   $tabContent
+     * @param boolean $active     Má být tento tab aktivní ?
+     *
+     * @return pointer odkaz na vložený obsah
      */
     function &addTab($tabName, $tabContent = '', $active = false)
     {
         $this->tabs[$tabName] = $tabContent;
         if ($active)
             $this->activeTab = $tabName;
+
         return $this->tabs[$tabName];
     }
 
     /**
      * Vložení skriptu a divů do stránky
      */
-    function finalize()
+    public function finalize()
     {
         if (is_null($this->activeTab)) {
             $this->activeTab = current(array_keys($this->tabs));
@@ -526,7 +531,6 @@ class EaseTWBTabs extends EaseContainer
             }
         }
 
-
         $tabDiv = $this->addItem(new EaseHtmlDivTag($this->partName . 'body', null, array('class' => 'tab-content')));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
@@ -538,7 +542,7 @@ class EaseTWBTabs extends EaseContainer
 
         EaseTWBPart::twBootstrapize();
         EaseShared::webPage()->addJavaScript("
-        $('#" . $this->partName . " a[href=\"#" . self::lettersOnly($this->activeTab) . "\"]').tab('show');            
+        $('#" . $this->partName . " a[href=\"#" . self::lettersOnly($this->activeTab) . "\"]').tab('show');
 ", NULL, true);
     }
 
@@ -549,11 +553,11 @@ class EaseTWGlyphIcon extends EaseHtmlSpanTag
 
     /**
      * Vloží ikonu
-     * 
+     *
      * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
      * @param string $code Kód ikony z přehledu
      */
-    function __construct($code)
+    public function __construct($code)
     {
         parent::__construct(null, null, array('class' => 'glyphicon glyphicon-' . $code));
     }

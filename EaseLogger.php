@@ -1,20 +1,20 @@
 <?php
 /**
  * Třída pro logování
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 
 require_once 'EaseAtom.php';
 
 /**
  * Třída pro logování
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 class EaseLogger extends EaseAtom
 {
@@ -96,7 +96,7 @@ class EaseLogger extends EaseAtom
 
     /**
      * Pole uložených zpráv
-     * @var array 
+     * @var array
      */
     private $StoredMessages = array();
 
@@ -108,7 +108,7 @@ class EaseLogger extends EaseAtom
 
     /**
      * Obecné konfigurace frameworku
-     * @var EaseShared 
+     * @var EaseShared
      */
     public $EaseShared = null;
 
@@ -119,21 +119,21 @@ class EaseLogger extends EaseAtom
 
     /**
      * Logovací třída
-     * 
+     *
      * @param string $BaseLogDir
      */
-    function __construct($BaseLogDir = null)
+    public function __construct($BaseLogDir = null)
     {
         $this->EaseShared = EaseShared::singleton();
         $this->setupLogFiles();
     }
 
     /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako 
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho 
+     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
+     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
      * instance (ta prvni).
      *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a 
+     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
     public static function singleton()
@@ -142,13 +142,14 @@ class EaseLogger extends EaseAtom
             $Class = __CLASS__;
             self::$_instance = new $Class();
         }
+
         return self::$_instance;
     }
 
     /**
      * Nastaví cesty logovacích souborů
      */
-    function setupLogFiles()
+    public function setupLogFiles()
     {
         if ($this->LogPrefix) {
             return;
@@ -177,10 +178,10 @@ class EaseLogger extends EaseAtom
 
     /**
      * Povolí nebo zakáže ukládání zpráv
-     * 
-     * @param type $Check 
+     *
+     * @param type $Check
      */
-    function setStoreMessages($Check)
+    public function setStoreMessages($Check)
     {
         $this->StoreMessages = $Check;
         if (is_bool($Check)) {
@@ -191,31 +192,31 @@ class EaseLogger extends EaseAtom
     /**
      * Resetne pole uložených zpráv
      */
-    function resetStoredMessages()
+    public function resetStoredMessages()
     {
         $this->StoredMessages = array();
     }
 
     /**
      * Vrací pole uložených zpráv
-     * 
+     *
      * @return array
      */
-    function getStoredMessages()
+    public function getStoredMessages()
     {
         return $this->StoredMessages;
     }
 
     /**
      * Zapise zapravu do logu
-     * 
+     *
      * @param string $Caller  název volajícího objektu
      * @param string $Message zpráva
      * @param string $Type    typ zprávy (success|info|error|warning|*)
-     * 
+     *
      * @return bool byl report zapsán ?
      */
-    function addToLog($Caller, $Message, $Type = 'message')
+    public function addToLog($Caller, $Message, $Type = 'message')
     {
         $this->MessageID++;
         if (($this->LogLevel == 'silent') && ($Type != 'error')) {
@@ -264,17 +265,18 @@ class EaseLogger extends EaseAtom
                 }
             }
         }
+
         return true;
     }
 
     /**
      * Přejmenuje soubor s logem
-     * 
+     *
      * @param string $NewLogFileName new log filename
-     * 
+     *
      * @return bool
      */
-    function renameLogFile($NewLogFileName)
+    public function renameLogFile($NewLogFileName)
     {
         $NewLogFileName = dirname($this->LogFileName) . '/' . basename($NewLogFileName);
         if (rename($this->LogFileName, $NewLogFileName)) {
@@ -286,12 +288,12 @@ class EaseLogger extends EaseAtom
 
     /**
      * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)
-     * 
+     *
      * @param string $RunType force type
-     * 
+     *
      * @return string type
      */
-    function setRunType($RunType = null)
+    public function setRunType($RunType = null)
     {
         if (!$RunType) {
             if (isset($_SERVER['HTTP_HOST'])) {
@@ -299,6 +301,7 @@ class EaseLogger extends EaseAtom
             } else {
                 $this->RunType = 'cgi';
             }
+
             return $this->RunType;
         }
         if (($RunType != 'web') || ( $RunType != 'cgi')) {
@@ -310,13 +313,13 @@ class EaseLogger extends EaseAtom
 
     /**
      * Zkontroluje stav adresáře a upozorní na případné nesnáze
-     * 
+     *
      * @param string  $DirectoryPath cesta k adresáři
      * @param boolean $IsDir         detekovat existenci adresáře
-     * @param boolean $IsReadable    testovat čitelnost 
+     * @param boolean $IsReadable    testovat čitelnost
      * @param boolean $IsWritable    testovat zapisovatelnost
      * @param boolean $LogToFile     povolí logování do souboru
-     * 
+     *
      * @return boolean konečný výsledek testu
      */
     public static function testDirectory($DirectoryPath, $IsDir = true, $IsReadable = true, $IsWritable = true, $LogToFile = false)
@@ -350,17 +353,18 @@ class EaseLogger extends EaseAtom
                 $Sanity = false;
             }
         }
+
         return $Sanity;
     }
 
     /**
      * Oznamuje chybovou událost
-     * 
+     *
      * @param string $Caller     název volající funkce, nebo objektu
      * @param string $Message    zpráva
      * @param mixed  $ObjectData data k zaznamenání
      */
-    function error($Caller, $Message, $ObjectData = null)
+    public function error($Caller, $Message, $ObjectData = null)
     {
         if ($this->ErrorLogFile) {
             $LogFileHandle = @fopen($this->ErrorLogFile, 'a+');
@@ -388,9 +392,9 @@ class EaseLogger extends EaseAtom
     }
 
     /**
-     * Uzavře chybové soubory 
+     * Uzavře chybové soubory
      */
-    function __destruct()
+    public function __destruct()
     {
         if ($this->_logFileHandle) {
             fclose($this->_logFileHandle);
@@ -401,5 +405,3 @@ class EaseLogger extends EaseAtom
     }
 
 }
-
-?>

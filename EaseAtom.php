@@ -2,11 +2,11 @@
 
 /**
  * Základní pojící element všech objektů v EaseFrameWorku. Jeho hlavní schopnost je:
- * Pojímat do sebe zprávy.  
- * 
+ * Pojímat do sebe zprávy.
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 
 class EaseAtom
@@ -32,23 +32,23 @@ class EaseAtom
 
     /**
      * Pocet uchovavanych zprav
-     * @var int 
+     * @var int
      */
     public $MessageCount = 0;
 
     /**
      * Vrací jméno objektu
-     * 
+     *
      * @return string
      */
-    function getObjectName()
+    public function getObjectName()
     {
         return get_class();
     }
 
     /**
      * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu
-     * 
+     *
      * @param string $Message text zpravy
      * @param string $Type    fronta
      */
@@ -60,9 +60,9 @@ class EaseAtom
 
     /**
      * Přidá zprávy z pole uživateli do zásobníku
-     * 
+     *
      * @param array $StatusMessages pole zpráv
-     * 
+     *
      * @return int Počet zpráv přidaných do fronty
      */
     public function addStatusMessages($StatusMessages)
@@ -79,8 +79,10 @@ class EaseAtom
                 $Quee = key($Message);
                 $this->addStatusMessage(reset($Message), $Quee, false, false);
             }
+
             return count($StatusMessages);
         }
+
         return null;
     }
 
@@ -95,9 +97,9 @@ class EaseAtom
 
     /**
      * Předá zprávy
-     * 
+     *
      * @param boolean $Clean smazat originalni data ?
-     * 
+     *
      * @return array
      */
     public function getStatusMessages($Clean = false)
@@ -105,6 +107,7 @@ class EaseAtom
         if ($Clean) {
             $StatusMessages = $this->StatusMessages;
             $this->cleanMessages();
+
             return $StatusMessages;
         } else {
             return $this->StatusMessages;
@@ -113,10 +116,10 @@ class EaseAtom
 
     /**
      * Prevezme si zpravy z vnějšího zdroje
-     * 
+     *
      * @param array $StatusMessages pole zpráv např. $OUser->StatusMessages
      */
-    function takeStatusMessages($StatusMessages)
+    public function takeStatusMessages($StatusMessages)
     {
         if (is_object($StatusMessages) && isset($StatusMessages->StatusMessages)) {
             return $this->addStatusMessages($StatusMessages->StatusMessages);
@@ -127,10 +130,10 @@ class EaseAtom
 
     /**
      * Returns PATH modified for current operating system
-     * 
+     *
      * @param string $Path
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public static function sysFilename($Path)
     {
@@ -140,9 +143,8 @@ class EaseAtom
         } else {
             $Path = str_replace('\\', '/', $Path);
         }
+
         return $Path;
     }
 
 }
-
-?>

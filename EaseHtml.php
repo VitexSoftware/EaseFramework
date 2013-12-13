@@ -2,17 +2,17 @@
 
 /**
  * Classy pro generování HTML
- * 
+ *
  * @package    EaseFrameWork
  * @subpackage EaseHtml
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright  2009-2012 Vitex@hippy.cz (G) 
+ * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
 require_once 'EasePage.php';
 
 /**
  * Common HTML tag class
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -62,12 +62,12 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Objekt pro vykreslení obecného nepárového html tagu
-     * 
+     *
      * @param string       $TagType       typ tagu
      * @param array|string $TagProperties parametry tagu
      * @param mixed        $Content       vkládaný obsah
      */
-    function __construct($TagType = null, $TagProperties = null, $Content = null)
+    public function __construct($TagType = null, $TagProperties = null, $Content = null)
     {
         if (is_null($TagType)) {
             $TagType = $this->TagType;
@@ -85,12 +85,12 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Nastaví jméno objektu
-     * 
+     *
      * @param string $objectName jméno objektu
-     * 
-     * @return string New object name 
+     *
+     * @return string New object name
      */
-    function setObjectName($objectName = null)
+    public function setObjectName($objectName = null)
     {
         if ($objectName) {
             return parent::setObjectName($objectName);
@@ -108,10 +108,10 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Nastaví jméno tagu
-     * 
+     *
      * @param string $TagName jméno tagu do vlastnosti NAME
      */
-    function setTagName($TagName)
+    public function setTagName($TagName)
     {
         $this->tagName = $TagName;
         if ($this->SetName) {
@@ -122,10 +122,10 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Returns name of tag
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function getTagName()
+    public function getTagName()
     {
         if ($this->SetName) {
             if (isset($this->TagProperties['name'])) {
@@ -140,55 +140,56 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Nastaví typ tagu
-     * 
+     *
      * @param string $TagType typ tagu - např. img
      */
-    function setTagType($TagType)
+    public function setTagType($TagType)
     {
         $this->TagType = $TagType;
     }
 
     /**
      * Nastaví classu tagu
-     * 
+     *
      * @param string $ClassName jméno třídy
      */
-    function setTagClass($ClassName)
+    public function setTagClass($ClassName)
     {
         $this->setTagProperties(array('class' => $ClassName));
     }
-    
+
     /**
      * Vrací classu tagu
      */
-    function getTagClass()
+    public function getTagClass()
     {
         $this->getTagProperty('class');
     }
 
     /**
      * Nastaví tagu zadane id, nebo vygenerované náhodné
-     * 
+     *
      * @param string $TagID #ID html tagu pro JavaScript a Css
-     * 
+     *
      * @return string nastavené ID
      */
-    function setTagID($TagID = null)
+    public function setTagID($TagID = null)
     {
         if (is_null($TagID)) {
             $this->setTagProperties(array('id' => EaseBrick::randomString()));
         } else {
             $this->setTagProperties(array('id' => $TagID));
         }
+
         return $this->getTagID();
     }
 
     /**
      * Vrací ID tagu
-     * 
+     *
      * @return string
      */
-    function getTagID()
+    public function getTagID()
     {
         if (isset($this->TagProperties['id'])) {
             return $this->TagProperties['id'];
@@ -198,26 +199,27 @@ class EaseHtmlTag extends EasePage
     }
 
     /**
-     * Returns property tag value 
-     * 
+     * Returns property tag value
+     *
      * @param string $PropertyName název vlastnosti tagu. např. "src" u obrázku
-     * 
-     * @return string current tag property value 
+     *
+     * @return string current tag property value
      */
     public function getTagProperty($PropertyName)
     {
         if (isset($this->TagProperties[$PropertyName])) {
             return $this->TagProperties[$PropertyName];
         }
+
         return null;
     }
 
     /**
      * Nastaví paramatry tagu
-     * 
-     * @param mixed $TagProperties asociativní pole parametrů tagu 
+     *
+     * @param mixed $TagProperties asociativní pole parametrů tagu
      */
-    function setTagProperties($TagProperties)
+    public function setTagProperties($TagProperties)
     {
         if (is_array($TagProperties)) {
             if (is_array($this->TagProperties)) {
@@ -237,12 +239,12 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Vrátí parametry tagu jako řetězec
-     * 
+     *
      * @param mixed $tagProperties asociativní pole parametrú nebo řetězec
-     * 
+     *
      * @return string
      */
-    function tagPropertiesToString($tagProperties = null)
+    public function tagPropertiesToString($tagProperties = null)
     {
         if (!$tagProperties) {
             $tagProperties = $this->TagProperties;
@@ -262,6 +264,7 @@ class EaseHtmlTag extends EasePage
                     $TagPropertiesString .= $TagPropertyValue . ' ';
                 }
             }
+
             return $TagPropertiesString;
         } else {
             return $this->TagProperties;
@@ -270,10 +273,10 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Nastaví paramatry Css
-     * 
+     *
      * @param array|string $CssProperties asociativní pole, nebo CSS definice
      */
-    function setTagCss($CssProperties)
+    public function setTagCss($CssProperties)
     {
         if (is_array($CssProperties)) {
             if (is_array($this->CssProperties)) {
@@ -291,12 +294,12 @@ class EaseHtmlTag extends EasePage
 
     /**
      * Vrátí parametry Cssu jako řetězec
-     * 
+     *
      * @param array|string $CssProperties pole vlastností nebo CSS definice
-     * 
+     *
      * @return string
      */
-    function cssPropertiesToString($CssProperties = null)
+    public function cssPropertiesToString($CssProperties = null)
     {
         if (!$CssProperties) {
             $CssProperties = $this->CssProperties;
@@ -306,6 +309,7 @@ class EaseHtmlTag extends EasePage
             foreach ($CssProperties as $CssPropertyName => $CssPropertyValue) {
                 $CssPropertiesString .= $CssPropertyName . ':' . $CssPropertyValue . ';';
             }
+
             return $CssPropertiesString;
         } else {
             return $this->CssProperties;
@@ -315,7 +319,7 @@ class EaseHtmlTag extends EasePage
     /**
      * Vykreslí tag
      */
-    function draw()
+    public function draw()
     {
         echo "\n<" . $this->TagType;
         echo $this->tagPropertiesToString();
@@ -327,7 +331,7 @@ class EaseHtmlTag extends EasePage
 
 /**
  * Obecný párový HTML tag
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -336,14 +340,14 @@ class EaseHtmlPairTag extends EaseHtmlTag
 
     /**
      * Character to close tag
-     * @var type 
+     * @var type
      */
     public $Trail = '';
 
     /**
      * Render tag and its contents
      */
-    function draw()
+    public function draw()
     {
         $this->tagBegin();
         $this->drawAllContents();
@@ -353,7 +357,7 @@ class EaseHtmlPairTag extends EaseHtmlTag
     /**
      * Zobrazí počátek párového tagu
      */
-    function tagBegin()
+    public function tagBegin()
     {
         parent::draw();
     }
@@ -361,7 +365,7 @@ class EaseHtmlPairTag extends EaseHtmlTag
     /**
      * Zobrazí konec párového tagu
      */
-    function tagEnclousure()
+    public function tagEnclousure()
     {
         echo '</' . $this->TagType . ">\n";
     }
@@ -370,7 +374,7 @@ class EaseHtmlPairTag extends EaseHtmlTag
 
 /**
  * IMG tag class
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -379,14 +383,14 @@ class EaseHtmlImgTag extends EaseHtmlTag
 
     /**
      * Html Obrazek
-     * 
+     *
      * @param string $Image         url obrázku
      * @param string $Hint          hint při nájezu myší
      * @param int    $Width         šířka v pixelech
      * @param int    $Height        výška v pixelech
      * @param array  $TagProperties ostatni nastaveni tagu
      */
-    function __construct($Image, $Hint = null, $Width = null, $Height = null, $TagProperties = null)
+    public function __construct($Image, $Hint = null, $Width = null, $Height = null, $TagProperties = null)
     {
         if (is_null($TagProperties)) {
             $TagProperties = array();
@@ -408,7 +412,7 @@ class EaseHtmlImgTag extends EaseHtmlTag
 
 /**
  * HTML Paragraph class tag
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -417,11 +421,11 @@ class EaseHtmlPTag extends EaseHtmlPairTag
 
     /**
      * Odstavec
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('p', $Properties, $Content);
     }
@@ -430,7 +434,7 @@ class EaseHtmlPTag extends EaseHtmlPairTag
 
 /**
  * HTML Table cell class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlTdTag extends EaseHtmlPairTag
@@ -438,11 +442,11 @@ class EaseHtmlTdTag extends EaseHtmlPairTag
 
     /**
      * Buňka tabulky
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('td', $Properties, $Content);
     }
@@ -451,7 +455,7 @@ class EaseHtmlTdTag extends EaseHtmlPairTag
 
 /**
  * HTML Table Header cell class
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -460,11 +464,11 @@ class EaseHtmlThTag extends EaseHtmlPairTag
 
     /**
      * Buňka s popiskem tabulky
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('th', $Properties, $Content);
     }
@@ -473,7 +477,7 @@ class EaseHtmlThTag extends EaseHtmlPairTag
 
 /**
  * HTML Table row class
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -482,11 +486,11 @@ class EaseHtmlTrTag extends EaseHtmlPairTag
 
     /**
      * TR tag
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('tr', $Properties, $Content);
     }
@@ -495,7 +499,7 @@ class EaseHtmlTrTag extends EaseHtmlPairTag
 
 /**
  * HTML table
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -504,21 +508,21 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
 
     /**
      * Html Tabulka
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('table', $Properties, $Content);
     }
 
     /**
      * Vloží do tabulky obsah pole jako buňky
-     * 
+     *
      * @param array $Columns    pole obsahů buňek
      * @param array $Properties pole vlastností dané všem buňkám
-     * 
+     *
      * @return EaseHtmlTrTag odkaz na řádku tabulky
      */
     function & addRowColumns($Columns = null, $Properties = null)
@@ -529,15 +533,16 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
                 $TableRow->addItem(new EaseHtmlTdTag($Column, $Properties));
             }
         }
+
         return $TableRow;
     }
 
     /**
      * Vloží do tabulky obsah pole jako buňky
-     * 
+     *
      * @param array $Columns    pole obsahů buňek
      * @param array $Properties pole vlastností dané všem buňkám
-     * 
+     *
      * @return EaseHtmlTrTag odkaz na řádku tabulky
      */
     function & addRowHeaderColumns($Columns = null, $Properties = null)
@@ -548,6 +553,7 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
                 $TableRow->addItem(new EaseHtmlThTag($Column, $Properties));
             }
         }
+
         return $TableRow;
     }
 
@@ -555,7 +561,7 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
 
 /**
  * Třída pro tělo HTML stránky
- * 
+ *
  * @subpackage EaseHtml
  * @author     Vitex <vitex@hippy.cz>
  */
@@ -563,13 +569,13 @@ class EaseHtmlBodyTag extends EaseHtmlPairTag
 {
 
     /**
-     * Tělo stránky je v aplikaci vždy dostupně jako 
+     * Tělo stránky je v aplikaci vždy dostupně jako
      * $this->EaseShared->WebPage->Body
-     * 
+     *
      * @param string $TagID   id tagu
      * @param mixed  $Content vkládané prvky
      */
-    function __construct($TagID = null, $Content = null)
+    public function __construct($TagID = null, $Content = null)
     {
         parent::__construct('body', null, $Content);
         if (!is_null($TagID)) {
@@ -579,10 +585,10 @@ class EaseHtmlBodyTag extends EaseHtmlPairTag
 
     /**
      * Nastaví jméno objektu na "body"
-     * 
+     *
      * @param string $ObjectName jméno objektu
      */
-    function setObjectName($ObjectName = null)
+    public function setObjectName($ObjectName = null)
     {
         parent::setObjectName('body');
     }
@@ -591,7 +597,7 @@ class EaseHtmlBodyTag extends EaseHtmlPairTag
 
 /**
  * HTML top tag class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlHtmlTag extends EaseHtmlPairTag
@@ -601,20 +607,20 @@ class EaseHtmlHtmlTag extends EaseHtmlPairTag
 
     /**
      * HTML
-     * 
+     *
      * @param mixed $Content vložený obsah - tělo stránky
      */
-    function __construct($Content = null)
+    public function __construct($Content = null)
     {
         parent::__construct('html', array('lang' => $this->LangCode, 'xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => $this->LangCode), $Content);
     }
 
     /**
      * Nastaví jméno objektu na "html"
-     * 
+     *
      * @param string $ObjectName jméno objektu
      */
-    function setObjectName($ObjectName = null)
+    public function setObjectName($ObjectName = null)
     {
         parent::setObjectName('html');
     }
@@ -626,6 +632,7 @@ class EaseHtmlHtmlTag extends EaseHtmlPairTag
       } else {
       $ItemAdded = parent::addItem(new EaseHtmlBodyTag(null,$PageItem));
       }
+
       return $ItemAdded;
       }
      */
@@ -633,7 +640,7 @@ class EaseHtmlHtmlTag extends EaseHtmlPairTag
 
 /**
  * Siple HTML head tag class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlSimpleHeadTag extends EaseHtmlPairTag
@@ -641,17 +648,17 @@ class EaseHtmlSimpleHeadTag extends EaseHtmlPairTag
 
     /**
      * Content type of webpage
-     * @var string  
+     * @var string
      */
-    static public $ContentType = 'text/html';
+    public static $ContentType = 'text/html';
 
     /**
-     * Head tag with defined meta http-equiv content type 
-     * 
+     * Head tag with defined meta http-equiv content type
+     *
      * @param mixed $Contents   vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Contents = null, $Properties = null)
+    public function __construct($Contents = null, $Properties = null)
     {
         parent::__construct('head', $Properties, $Contents);
         $this->addItem('<meta http-equiv="Content-Type" content="' . self::$ContentType . '; charset=' . $this->CharSet . '" />');
@@ -661,7 +668,7 @@ class EaseHtmlSimpleHeadTag extends EaseHtmlPairTag
 
 /**
  * HTML title class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlTitleTag extends EaseHtmlPairTag
@@ -669,11 +676,11 @@ class EaseHtmlTitleTag extends EaseHtmlPairTag
 
     /**
      * Title html tag
-     * 
+     *
      * @param string $Contents   text titulku
      * @param array  $Properties parametry tagu
      */
-    function __construct($Contents = null, $Properties = null)
+    public function __construct($Contents = null, $Properties = null)
     {
         parent::__construct('title', $Properties, $Contents);
     }
@@ -682,7 +689,7 @@ class EaseHtmlTitleTag extends EaseHtmlPairTag
 
 /**
  * HTML WebPage head class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlHeadTag extends EaseHtmlPairTag
@@ -690,22 +697,22 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
 
     /**
      * Javascripts to render in page
-     * @var array 
+     * @var array
      */
     public $JavaScripts = null;
 
     /**
      * Css definitions
-     * @var strig 
+     * @var strig
      */
     public $CascadeStyles = null;
 
     /**
      * Html HEAD tag with basic contents and skin support
-     * 
+     *
      * @param mixed $Content vkládaný obsah
      */
-    function __construct($Content = null)
+    public function __construct($Content = null)
     {
         parent::__construct('head', null, $Content);
         $this->addItem('<meta http-equiv="Content-Type" content="text/html; charset=' . $this->CharSet . '" />');
@@ -713,22 +720,22 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
 
     /**
      * Change name directly to head
-     * 
+     *
      * @param string $ObjectName jméno objektu
      */
-    function setObjectName($ObjectName = null)
+    public function setObjectName($ObjectName = null)
     {
         parent::setObjectName('head');
     }
 
     /**
      * Vykreslení bloku scriptu
-     * 
+     *
      * @param string $JavaScript vkládaný skript
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    static function jsEnclosure($JavaScript)
+    public static function jsEnclosure($JavaScript)
     {
         return '
 <script>
@@ -742,7 +749,7 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
     /**
      * Vloží do hlavíčky název stránky
      */
-    function finalize()
+    public function finalize()
     {
         $this->addItem('<title>' . $this->WebPage->PageTitle . '</title>');
     }
@@ -750,7 +757,7 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
     /**
      * Vykreslí hlavičku HTML stránky
      */
-    function draw()
+    public function draw()
     {
 
         if (isset($this->EaseShared->CascadeStyles) && count($this->EaseShared->CascadeStyles)) {
@@ -788,7 +795,7 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
             }
             if (count($ODRStack)) {
                 $this->addItem(
-                        self::jsEnclosure('$(document).ready(function() { ' .
+                        self::jsEnclosure('$(document).ready(function () { ' .
                                 implode("\n", $ODRStack) . ' });')
                 );
             }
@@ -800,7 +807,7 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
 
 /**
  * HTML hyperling class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlATag extends EaseHtmlPairTag
@@ -808,14 +815,14 @@ class EaseHtmlATag extends EaseHtmlPairTag
 
     /**
      * zobrazí HTML odkaz
-     * 
+     *
      * @param string $Href       url odkazu
      * @param mixed  $contents   vkládaný obsah
      * @param array  $properties parametry tagu
      */
-    function __construct($href, $contents = null, $properties = null)
+    public function __construct($href, $contents = null, $properties = null)
     {
-        if (!is_array($properties)){
+        if (!is_array($properties)) {
             $properties = array();
         }
         if (!is_null($href)) {
@@ -827,7 +834,7 @@ class EaseHtmlATag extends EaseHtmlPairTag
     /**
      * Ošetření perzistentních hodnot
      */
-    function afterAdd()
+    public function afterAdd()
     {
         if (isset($this->WebPage->RequestValuesToKeep) && is_array($this->WebPage->RequestValuesToKeep) && count($this->WebPage->RequestValuesToKeep)) {
             foreach ($this->WebPage->RequestValuesToKeep as $KeepName => $KeepValue) {
@@ -850,7 +857,7 @@ class EaseHtmlATag extends EaseHtmlPairTag
 
 /**
  * HTML list item tag class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlLiTag extends EaseHtmlPairTag
@@ -858,11 +865,11 @@ class EaseHtmlLiTag extends EaseHtmlPairTag
 
     /**
      * Simple LI tag
-     * 
-     * @param mixed $ulContents obsah položky seznamu 
+     *
+     * @param mixed $ulContents obsah položky seznamu
      * @param array $properties parametry LI tagu
      */
-    function __construct($ulContents = null,$properties = null)
+    public function __construct($ulContents = null,$properties = null)
     {
         parent::__construct('li', $properties, $ulContents);
     }
@@ -871,7 +878,7 @@ class EaseHtmlLiTag extends EaseHtmlPairTag
 
 /**
  * HTML sorted list
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlUlTag extends EaseHtmlPairTag
@@ -879,37 +886,38 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
 
     /**
      * Vytvori UL container
-     * 
+     *
      * @param mixed $UlContents položky seznamu
      * @param array $Properties parametry tagu
      */
-    function __construct($UlContents = null, $Properties = null)
+    public function __construct($UlContents = null, $Properties = null)
     {
         parent::__construct('ul', $Properties, $UlContents);
     }
 
     /**
      * Every item id added in EaseHtmlLiTag envelope
-     * 
+     *
      * @param mixed  $pageItem     obsah vkládaný jako položka výčtu
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     function & addItemSmart($pageItem,$pageItemName = null)
     {
         if (is_array($pageItem)) {
-            foreach ($pageItem as $item){
+            foreach ($pageItem as $item) {
                 $this->addItemSmart($item);
             }
             $itemAdded = & $this->LastItem;
         } else {
-            if( isset($pageItem->TagType) && ($pageItem->TagType == 'li') ){
+            if ( isset($pageItem->TagType) && ($pageItem->TagType == 'li') ) {
                 $itemAdded = parent::addItem($pageItem);
             } else {
                 $itemAdded = parent::addItem(new EaseHtmlLiTag($pageItem));
             }
         }
+
         return $itemAdded;
     }
 
@@ -917,7 +925,7 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
 
 /**
  * HTML major heading tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlStrongTag extends EaseHtmlPairTag
@@ -925,11 +933,11 @@ class EaseHtmlStrongTag extends EaseHtmlPairTag
 
     /**
      * Tag pro tučné písmo
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('strong', $Properties, $Content);
     }
@@ -938,7 +946,7 @@ class EaseHtmlStrongTag extends EaseHtmlPairTag
 
 /**
  * HTML major heading tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlH1Tag extends EaseHtmlPairTag
@@ -946,11 +954,11 @@ class EaseHtmlH1Tag extends EaseHtmlPairTag
 
     /**
      * Simple H1 Tag
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('h1', $Properties, $Content);
     }
@@ -959,7 +967,7 @@ class EaseHtmlH1Tag extends EaseHtmlPairTag
 
 /**
  * HTML H2 tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlH2Tag extends EaseHtmlPairTag
@@ -967,11 +975,11 @@ class EaseHtmlH2Tag extends EaseHtmlPairTag
 
     /**
      * Nadpis druhé velikosti
-     * 
+     *
      * @param mixed  $Content    text nadpisu
      * @param string $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('h2', $Properties, $Content);
     }
@@ -980,7 +988,7 @@ class EaseHtmlH2Tag extends EaseHtmlPairTag
 
 /**
  * HTML H3 tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlH3Tag extends EaseHtmlPairTag
@@ -988,11 +996,11 @@ class EaseHtmlH3Tag extends EaseHtmlPairTag
 
     /**
      * Simple H3 tag
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('h3', $Properties, $Content);
     }
@@ -1001,7 +1009,7 @@ class EaseHtmlH3Tag extends EaseHtmlPairTag
 
 /**
  * HTML H4 tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlH4Tag extends EaseHtmlPairTag
@@ -1009,11 +1017,11 @@ class EaseHtmlH4Tag extends EaseHtmlPairTag
 
     /**
      * Simple H4 tag
-     * 
+     *
      * @param mixed $Content    vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    function __construct($Content = null, $Properties = null)
+    public function __construct($Content = null, $Properties = null)
     {
         parent::__construct('h4', $Properties, $Content);
     }
@@ -1022,7 +1030,7 @@ class EaseHtmlH4Tag extends EaseHtmlPairTag
 
 /**
  * HTML Div tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlDivTag extends EaseHtmlPairTag
@@ -1030,12 +1038,12 @@ class EaseHtmlDivTag extends EaseHtmlPairTag
 
     /**
      * Prostý tag odstavce DIV
-     * 
+     *
      * @param string $name       ID tagu
      * @param mixed  $content    vložené prvky
      * @param array  $properties pole parametrů
      */
-    function __construct($name = null, $content = null, $properties = null)
+    public function __construct($name = null, $content = null, $properties = null)
     {
         if (!is_null($name)) {
             $this->setTagName($name);
@@ -1048,7 +1056,7 @@ class EaseHtmlDivTag extends EaseHtmlPairTag
 
 /**
  * HTML5 Nav tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlNavTag extends EaseHtmlPairTag
@@ -1056,21 +1064,20 @@ class EaseHtmlNavTag extends EaseHtmlPairTag
 
     /**
      * Tag semantiky navigaze
-     * 
-     * @param mixed  $content    vložené prvky
-     * @param array  $properties pole parametrů
+     *
+     * @param mixed $content    vložené prvky
+     * @param array $properties pole parametrů
      */
-    function __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = null)
     {
         parent::__construct('div', $properties, $content);
     }
 
 }
 
-
 /**
  * HTML span tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlSpanTag extends EaseHtmlPairTag
@@ -1078,12 +1085,12 @@ class EaseHtmlSpanTag extends EaseHtmlPairTag
 
     /**
      * <span> tag
-     * 
+     *
      * @param string $Name       jméno a ID tagu
      * @param mixed  $Content    vkládaný obsah
      * @param array  $Properties parametry tagu
      */
-    function __construct($Name, $Content = null, $Properties = null)
+    public function __construct($Name, $Content = null, $Properties = null)
     {
         if ($Name) {
             $this->setTagName($Name);
@@ -1095,7 +1102,7 @@ class EaseHtmlSpanTag extends EaseHtmlPairTag
 
 /**
  * Html Fieldset
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlFieldSet extends EaseHtmlPairTag
@@ -1121,11 +1128,11 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
 
     /**
      * Zobrazí rámeček
-     * 
+     *
      * @param string|mixed $Legend  popisek - text nebo Ease objekty
      * @param mixed        $Content prvky vkládané do rámečku
      */
-    function __construct($Legend, $Content = null)
+    public function __construct($Legend, $Content = null)
     {
         $this->setTagName($Legend);
         $this->Legend = $Legend;
@@ -1138,10 +1145,10 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
 
     /**
      * Nastavení legendy
-     * 
+     *
      * @param string $Legend popisek
      */
-    function setLegend($Legend)
+    public function setLegend($Legend)
     {
         $this->Legend = $Legend;
     }
@@ -1149,7 +1156,7 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
     /**
      * Vložení legendy
      */
-    function finalize()
+    public function finalize()
     {
         if ($this->Legend) {
             if (is_object(reset($this->PageParts))) {
@@ -1165,18 +1172,18 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
 
 /**
  * Fragment skriptu ve stránce
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseScriptTag extends EaseHtmlPairTag
 {
     /**
      * Include JS code into page
-     * 
+     *
      * @param string $cData        vkládaná data
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
-     * 
-     * @return EaseScriptTag 
+     *
+     * @return EaseScriptTag
      */
     function &addItem($cData,$pageItemName = null)
     {
@@ -1185,10 +1192,10 @@ class EaseScriptTag extends EaseHtmlPairTag
 
     /**
      * fragment skriptu ve stránce
-     * 
+     *
      * @param string $content text scriptu
      */
-    function __construct($content=  '', $properties = NULL)
+    public function __construct($content=  '', $properties = NULL)
     {
         parent::__construct('script', $properties);
         if ($content) {
@@ -1200,7 +1207,7 @@ class EaseScriptTag extends EaseHtmlPairTag
 
 /**
  *  fragment skriptu ve stránce
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseJavaScript extends EaseScriptTag
@@ -1208,12 +1215,12 @@ class EaseJavaScript extends EaseScriptTag
 
     /**
      * fragment javaskriptu ve stránce
-     * 
+     *
      * @param string $content text scriptu
      */
-    function __construct($content,$properties = null)
+    public function __construct($content,$properties = null)
     {
-        if (is_null($properties)){
+        if (is_null($properties)) {
             $properties = array('type' => 'text/javascript');
     } else {
             $properties['type'] = 'text/javascript';
@@ -1225,7 +1232,7 @@ class EaseJavaScript extends EaseScriptTag
 
 /**
  * HtmlParam tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlParamTag extends EaseHtmlTag
@@ -1233,11 +1240,11 @@ class EaseHtmlParamTag extends EaseHtmlTag
 
     /**
      * Paramm tag
-     * 
+     *
      * @param string $Name  jméno parametru
      * @param string $Value hodnota parametru
      */
-    function __construct($Name, $Value)
+    public function __construct($Name, $Value)
     {
         parent::__construct('param', array('name' => $Name, 'value' => $Value));
     }
@@ -1246,7 +1253,7 @@ class EaseHtmlParamTag extends EaseHtmlTag
 
 /**
  * HTML Embed Tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlEmbedTag extends EaseHtmlTag
@@ -1254,8 +1261,8 @@ class EaseHtmlEmbedTag extends EaseHtmlTag
 
     /**
      * Clas for embeding object into webpage
-     * 
-     * @param string  $src               cesta k zobrazovaným datům 
+     *
+     * @param string  $src               cesta k zobrazovaným datům
      * @param string  $quality           kvalita zobrazení
      * @param string  $bgcolor           color name or code
      * @param int     $width             šířka v pixelech
@@ -1267,7 +1274,7 @@ class EaseHtmlEmbedTag extends EaseHtmlTag
      * @param string  $type              typ vloženého obsahu
      * @param string  $pluginspage       adresa ke stažení obslužného pluginu
      */
-    function __construct($src, $quality, $bgcolor, $width, $height, $name, $align, $allowScriptAccess, $allowFullScreen, $type, $pluginspage)
+    public function __construct($src, $quality, $bgcolor, $width, $height, $name, $align, $allowScriptAccess, $allowFullScreen, $type, $pluginspage)
     {
         parent::__construct(
                 'embed', array(
@@ -1290,7 +1297,7 @@ class EaseHtmlEmbedTag extends EaseHtmlTag
 
 /**
  * HTML Flash embeding
- * 
+ *
  * @deprecated since version 174
  * @author Vitex <vitex@hippy.cz>
  */
@@ -1309,7 +1316,7 @@ class EaseFlash extends EaseHtmlPairTag
 
     /**
      * Vlozi SWF objekt
-     * 
+     *
      * @param string $DivID   id prvku
      * @param string $Movie   url FLASHe
      * @param int    $Width   šířka prvku
@@ -1317,7 +1324,7 @@ class EaseFlash extends EaseHtmlPairTag
      * @param color  $Bgcolor barva pozadí
      * @param string $Align   zarovnávání
      */
-    function __construct($DivID, $Movie, $Width, $Height, $Bgcolor = '#FFFFFF', $Align = 'middle')
+    public function __construct($DivID, $Movie, $Width, $Height, $Bgcolor = '#FFFFFF', $Align = 'middle')
     {
         parent::__construct('object', array(
             'classid' => 'clsid:d27cdb6e-ae6d-11cf-96b8-444553540000',
@@ -1334,10 +1341,10 @@ class EaseFlash extends EaseHtmlPairTag
 
     /**
      * Setup flash params
-     * 
+     *
      * @param array $FlashParameters parametry předávané flashi
      */
-    function setParameter($FlashParameters)
+    public function setParameter($FlashParameters)
     {
         if (is_array($FlashParameters)) {
             if (is_array($this->FlashParams)) {
@@ -1358,7 +1365,7 @@ class EaseFlash extends EaseHtmlPairTag
     /**
      * Finalizing object before its draw
      */
-    function finalize()
+    public function finalize()
     {
         foreach ($this->FlashParams as $ParamName => $ParamValue) {
             $this->addItem(new EaseHtmlParamTag($ParamName, $ParamValue));
@@ -1369,7 +1376,7 @@ class EaseFlash extends EaseHtmlPairTag
 
 /**
  * Horizontal line tag
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlHrTag extends EaseHtmlTag
@@ -1377,10 +1384,10 @@ class EaseHtmlHrTag extends EaseHtmlTag
 
     /**
      * Horizontal line tag
-     * 
+     *
      * @param array $Properties parametry tagu
      */
-    function __construct($Properties = null)
+    public function __construct($Properties = null)
     {
         parent::__construct('hr', $Properties);
     }
@@ -1389,7 +1396,7 @@ class EaseHtmlHrTag extends EaseHtmlTag
 
 /**
  * iFrame element
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlIframeTag extends EaseHtmlPairTag
@@ -1399,11 +1406,11 @@ class EaseHtmlIframeTag extends EaseHtmlPairTag
 
     /**
      * iFrame element
-     * 
-     * @param string $Src        content url 
+     *
+     * @param string $Src        content url
      * @param array  $Properties HTML tag proberties
      */
-    function __construct($Src, $Properties = null)
+    public function __construct($Src, $Properties = null)
     {
         if (is_null($Properties)) {
             $Properties = array('src' => $Src);
@@ -1419,12 +1426,13 @@ class EaseHtmlIframeTag extends EaseHtmlPairTag
 /**
  * Html element pro tlačítko
  */
-class EaseHtmlButtonTag extends EaseHtmlPairTag {
+class EaseHtmlButtonTag extends EaseHtmlPairTag
+{
     /**
      * Html element pro tlačítko
-     * 
-     * @param string $Label obsah tlačítka
-     * @param array $TagProperites vlastnosti tagu
+     *
+     * @param string $Label         obsah tlačítka
+     * @param array  $TagProperites vlastnosti tagu
      */
      function __construct($Label, $TagProperties = null)
      {

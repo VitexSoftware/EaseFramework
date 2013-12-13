@@ -2,10 +2,10 @@
 
 /**
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 require_once 'EaseAtom.php';
 require_once 'EaseLogger.php';
@@ -13,10 +13,10 @@ require_once 'EaseShared.php';
 
 /**
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 class EaseSand extends EaseAtom
 {
@@ -47,7 +47,7 @@ class EaseSand extends EaseAtom
 
     /**
      * Výchozí index pole pro držení dat
-     * @var type 
+     * @var type
      */
     public $DefaultDataPrefix = null;
 
@@ -156,22 +156,22 @@ class EaseSand extends EaseAtom
 
     /**
      * Sdílený objekt frameworku
-     * 
+     *
      * @deprecated since version 1
-     * @var EaseShared 
+     * @var EaseShared
      */
     public $EaseShared = null;
 
     /**
      * Sdílený objekt frameworku
-     * @var EaseShared 
+     * @var EaseShared
      */
     public $easeShared = null;
-    
+
     /**
      * Prapředek všech objektů
      */
-    function __construct()
+    public function __construct()
     {
         $this->EaseShared = EaseShared::singleton();
         if ($this->LogType != 'none') {
@@ -183,22 +183,22 @@ class EaseSand extends EaseAtom
 
     /**
      * Přidá zprávu do sdíleného zásobníku pro zobrazení uživateli
-     * 
+     *
      * @param string  $Message  Text zprávy
      * @param string  $Type     Fronta zpráv (warning|info|error|success)
      * @param boolean $AddIcons přidá UTF8 ikonky na začátek zpráv
      * @param boolean $AddToLog zapisovat zpravu do logu ?
-     * 
-     * @return 
+     *
+     * @return
      */
-    function addStatusMessage($Message, $Type = 'info', $AddIcons = true, $AddToLog = true)
+    public function addStatusMessage($Message, $Type = 'info', $AddIcons = true, $AddToLog = true)
     {
         return EaseShared::instanced()->addStatusMessage($Message, $Type, $AddIcons, $AddToLog);
     }
 
     /**
      * Připojí ke stávajícímu objektu přiřazený objekt
-     * 
+     *
      * @param string $PropertyName název proměnné
      * @param object $Object       přiřazovaný objekt
      */
@@ -249,37 +249,38 @@ class EaseSand extends EaseAtom
 
     /**
      * Nastaví jméno objektu
-     * 
+     *
      * @param string $ObjectName
-     * 
+     *
      * @return string Jméno objektu
      */
-    function setObjectName($ObjectName = null)
+    public function setObjectName($ObjectName = null)
     {
         if ($ObjectName) {
             $this->ObjectName = $ObjectName;
         } else {
             $this->ObjectName = get_class($this);
         }
+
         return $this->ObjectName;
     }
 
     /**
      * Vrací jméno objektu
-     * 
+     *
      * @return string
      */
-    function getObjectName()
+    public function getObjectName()
     {
         return $this->ObjectName;
     }
 
     /**
      * Nastaví novou identitu objektu
-     * 
+     *
      * @param array $NewIdentity
      */
-    function setObjectIdentity($NewIdentity)
+    public function setObjectIdentity($NewIdentity)
     {
         $Changes = 0;
         $this->saveObjectIdentity();
@@ -289,30 +290,32 @@ class EaseSand extends EaseAtom
                 $Changes++;
             }
         }
+
         return $Changes;
     }
 
     /**
      * Uloží identitu objektu do pole $this->Identity
-     * 
+     *
      * @return array pole s identitou
      */
-    function saveObjectIdentity()
+    public function saveObjectIdentity()
     {
         foreach ($this->IdentityColumns as $Column) {
             if (isset($this->$Column)) {
                 $this->Identity[$Column] = $this->$Column;
             }
         }
+
         return $this->Identity;
     }
 
     /**
      * Obnoví uloženou identitu objektu
-     * 
+     *
      * @param array $Identity pole s identitou např. array('MyTable'=>'user');
      */
-    function restoreObjectIdentity($Identity = null)
+    public function restoreObjectIdentity($Identity = null)
     {
         foreach ($this->IdentityColumns as $Column)
             if (isset($this->Identity[$Column]))
@@ -320,38 +323,40 @@ class EaseSand extends EaseAtom
     }
 
     /**
-     * Obnoví poslední použitou identitu 
+     * Obnoví poslední použitou identitu
      */
-    function resetObjectIdentity()
+    public function resetObjectIdentity()
     {
         $this->Identity = $this->InitialIdenty;
         $this->restoreObjectIdentity();
     }
 
     /**
-     * Z datového pole $SourceArray přemístí políčko $ColumName do pole 
+     * Z datového pole $SourceArray přemístí políčko $ColumName do pole
      * $DestinationArray
-     * 
+     *
      * @param array  $SourceArray      zdrojové pole dat
      * @param array  $DestinationArray cílové pole dat
-     * @param string $ColumName        název položky k převzetí 
+     * @param string $ColumName        název položky k převzetí
      */
-    static public function divDataArray(& $SourceArray, & $DestinationArray, $ColumName)
+    public static function divDataArray(& $SourceArray, & $DestinationArray, $ColumName)
     {
         if (array_key_exists($ColumName, $SourceArray)) {
             $DestinationArray[$ColumName] = $SourceArray[$ColumName];
             unset($SourceArray[$ColumName]);
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Vynuluje všechny pole vlastností objektu
-     * 
+     *
      * @param array $DataPrefix název datové skupiny
      */
-    function dataReset($DataPrefix = null)
+    public function dataReset($DataPrefix = null)
     {
         if (!$DataPrefix) {
             $DataPrefix = $this->DefaultDataPrefix;
@@ -365,14 +370,14 @@ class EaseSand extends EaseAtom
 
     /**
      * Načte $Data do polí objektu
-     * 
+     *
      * @param array  $Data       asociativní pole dat
      * @param string $DataPrefix prefix skupiny dat (např. "MSSQL")
      * @param bool   $Reset      vyprazdnit pole před naplněním ?
-     * 
+     *
      * @return int počet načtených položek
      */
-    function setData($Data, $DataPrefix = null, $Reset = false)
+    public function setData($Data, $DataPrefix = null, $Reset = false)
     {
         if (is_null($Data) || !count($Data)) {
             return null;
@@ -396,17 +401,18 @@ class EaseSand extends EaseAtom
                 $this->Data = $Data;
             }
         }
+
         return count($Data);
     }
 
     /**
      * Vrací celé pole dat objektu
-     * 
+     *
      * @param string $DataPrefix
-     * 
-     * @return array 
+     *
+     * @return array
      */
-    function getData($DataPrefix = null)
+    public function getData($DataPrefix = null)
     {
         if (is_null($DataPrefix)) {
             $DataPrefix = $this->DefaultDataPrefix;
@@ -415,6 +421,7 @@ class EaseSand extends EaseAtom
             if (isset($this->Data[$DataPrefix])) {
                 return $this->Data[$DataPrefix];
             }
+
             return null;
         } else {
             return $this->Data;
@@ -423,12 +430,12 @@ class EaseSand extends EaseAtom
 
     /**
      * Vrací počet položek dat objektu
-     * 
+     *
      * @param string $DataPrefix
-     * 
-     * @return int 
+     *
+     * @return int
      */
-    function getDataCount($DataPrefix = null)
+    public function getDataCount($DataPrefix = null)
     {
         $Counter = 0;
         if (!$DataPrefix) {
@@ -443,13 +450,13 @@ class EaseSand extends EaseAtom
 
     /**
      * Vrací hodnotu z pole dat pro MySQL
-     * 
+     *
      * @param string $ColumnName název hodnoty/sloupečku
-     * @param string $DataPrefix 
-     * 
+     * @param string $DataPrefix
+     *
      * @return mixed
      */
-    function getDataValue($ColumnName, $DataPrefix = null)
+    public function getDataValue($ColumnName, $DataPrefix = null)
     {
         if (is_null($DataPrefix)) {
             $DataPrefix = $this->DefaultDataPrefix;
@@ -463,16 +470,17 @@ class EaseSand extends EaseAtom
                 return $this->Data[$ColumnName];
             }
         }
+
         return null;
     }
 
     /**
      * Nastaví hodnotu poli objektu
-     * 
+     *
      * @param string $ColumnName název datové kolonky
      * @param mixed  $Value      hodnota dat
      * @param string $DataPrefix prefix skupiny dat
-     * 
+     *
      * @return boolean Success
      */
     public function setDataValue($ColumnName, $Value, $DataPrefix = null)
@@ -485,18 +493,19 @@ class EaseSand extends EaseAtom
         } else {
             $this->Data[$ColumnName] = $Value;
         }
+
         return true;
     }
 
     /**
      * Odstrani polozku z pole dat pro MySQL
-     * 
+     *
      * @param string $ColumnName název klíče k vymazání
      * @param string $DataPrefix prefix skupiny dat
-     * 
+     *
      * @return boolean success
      */
-    function unsetDataValue($ColumnName, $DataPrefix = null)
+    public function unsetDataValue($ColumnName, $DataPrefix = null)
     {
         if (!$DataPrefix) {
             $DataPrefix = $this->DefaultDataPrefix;
@@ -504,25 +513,28 @@ class EaseSand extends EaseAtom
         if ($DataPrefix) {
             if (isset($this->Data[$DataPrefix][$ColumnName])) {
                 unset($this->Data[$DataPrefix][$ColumnName]);
+
                 return true;
             }
         }
         if (isset($this->Data[$ColumnName])) {
             unset($this->Data[$ColumnName]);
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Převezme data do aktuálního pole dat
-     * 
+     *
      * @param array  $Data       asociativní pole dat
      * @param string $DataPrefix prefix datové skupiny
-     * 
+     *
      * @return int
      */
-    function takeData($Data, $DataPrefix = null)
+    public function takeData($Data, $DataPrefix = null)
     {
         if (!$DataPrefix) {
             $DataPrefix = $this->DefaultDataPrefix;
@@ -540,14 +552,15 @@ class EaseSand extends EaseAtom
                 $this->Data = $Data;
             }
         }
+
         return count($Data);
     }
 
     /**
      * Funkce pro defaultní slashování v celém frameworku
-     * 
-     * @param string $Text 
-     * 
+     *
+     * @param string $Text
+     *
      * @return string
      */
     public function easeAddSlashes($Text)
@@ -557,7 +570,7 @@ class EaseSand extends EaseAtom
 
     /**
      * Zobrazí obsah pole nebo objektu
-     * 
+     *
      * @param mixed  $Argument All used by print_r() function
      * @param string $Comment  hint při najetí myší
      */
@@ -593,41 +606,42 @@ class EaseSand extends EaseAtom
         } else {
             $RetVal .= "\n";
         }
+
         return $RetVal;
     }
 
     /**
      * Vrací print_pre($Argument) jako řetězec
-     * 
+     *
      * @param mixed $Argument
-     * 
+     *
      * @return string
      */
-    static public function printPreBasic($Argument)
+    public static function printPreBasic($Argument)
     {
         return print_r($Argument, true);
     }
 
     /**
      * Vrací utf8 podřetězec
-     * 
+     *
      * @param string $str    utf8
      * @param int    $String offset
      * @param int    $Length length
-     * 
-     * @return string utf8 
+     *
+     * @return string utf8
      */
-    static public function substrUnicode($str, $String, $Length = null)
+    public static function substrUnicode($str, $String, $Length = null)
     {
         return join("", array_slice(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $String, $Length));
     }
 
     /**
      * Odstraní z textu diakritiku
-     * 
+     *
      * @param string $Text
      */
-    static public function rip($Text)
+    public static function rip($Text)
     {
         $ConvertTable = Array(
             'ä' => 'a',
@@ -715,18 +729,19 @@ class EaseSand extends EaseAtom
             'ź' => 'z',
             'Ź' => 'Z'
         );
+
         return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($Text, $ConvertTable));
     }
 
     /**
      * Šifrování
-     * 
+     *
      * @param string $TextToEncrypt plaintext
      * @param string $EncryptKey    klíč
-     * 
+     *
      * @return string encrypted text
      */
-    static public function easeEncrypt($TextToEncrypt, $EncryptKey)
+    public static function easeEncrypt($TextToEncrypt, $EncryptKey)
     {
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
         $EncryptKey = md5($EncryptKey);
@@ -739,16 +754,17 @@ class EaseSand extends EaseAtom
             mcrypt_generic_deinit($EncryptHandle);
             mcrypt_module_close($EncryptHandle);
             $EncryptedText = $InitialVector . $EncryptedText;
+
             return $EncryptedText;
         }
     }
 
     /**
      * Dešifrování
-     * 
+     *
      * @param string $TextToDecrypt šifrovaný text
      * @param string $EncryptKey    šifrovací klíč
-     * 
+     *
      * @return string
      */
     public static function easeDecrypt(string $TextToDecrypt, $EncryptKey)
@@ -763,19 +779,20 @@ class EaseSand extends EaseAtom
             $DecryptedText = mdecrypt_generic($EncryptHandle, $TextToDecrypt);
             mcrypt_generic_deinit($EncryptHandle);
             mcrypt_module_close($EncryptHandle);
+
             return $DecryptedText;
         }
     }
 
     /**
      * Generování náhodného čísla
-     * 
+     *
      * @param int $Minimal
      * @param int $Maximal
-     * 
+     *
      * @return float
      */
-    static public function randomNumber($Minimal = null, $Maximal = null)
+    public static function randomNumber($Minimal = null, $Maximal = null)
     {
         mt_srand((double) microtime() * 1000000);
         if (isset($Minimal) && isset($Maximal)) {
@@ -791,22 +808,22 @@ class EaseSand extends EaseAtom
 
     /**
      * Vrací náhodný řetězec dané délky
-     * 
+     *
      * @param int $Length
-     * 
+     *
      * @return string
      */
-    static public function randomString($Length = 6)
+    public static function randomString($Length = 6)
     {
         return substr(str_replace("/", "A", str_replace(".", "X", crypt(strval(self::randomNumber(1000, 9000))))), 3, $Length);
     }
 
     /**
      * Oveření mailu
-     * 
+     *
      * @param string $Email    mailová adresa
      * @param bool   $checkDNS testovat DNS ?
-     * 
+     *
      * @package	  isemail
      * @author	  Dominic Sayers <dominic_sayers@hotmail.com>
      * @copyright 2009 Dominic Sayers
@@ -814,7 +831,7 @@ class EaseSand extends EaseAtom
      * @link	  http://www.dominicsayers.com/isemail
      * @version	  1.9 - Minor modifications to make it compatible with PHPLint
      */
-    function isEmail($Email, $checkDNS = false)
+    public function isEmail($Email, $checkDNS = false)
     {
         /* Check that $email is a valid address. Read the following RFCs to understand the constraints:
           // 	(http://tools.ietf.org/html/rfc5322)
@@ -1012,42 +1029,6 @@ class EaseSand extends EaseAtom
         if ($partLength > 64)
             return false; // Local part must be 64 characters or less
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
 // Now let's check the domain part...
 // The domain name can also be replaced by an IP address in square brackets
 // 	(http://tools.ietf.org/html/rfc3696#section-3)
@@ -1206,45 +1187,6 @@ class EaseSand extends EaseAtom
             if (preg_match('/^[0-9]+$/', $element) > 0)
                 return false; // TLD can't be all-numeric
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
 // Check DNS?
             if ($checkDNS && function_exists('checkdnsrr')) {
                 if (!(checkdnsrr($domain, 'A') || checkdnsrr($domain, 'MX') )) {
@@ -1260,11 +1202,11 @@ class EaseSand extends EaseAtom
 
     /**
      * Rekurzivně překóduje pole
-     *  
-     * @param string $in_charset
-     * @param string $out_charset
-     * @param array $arr originální pole
-     * @return array překódované pole
+     *
+     * @param  string $in_charset
+     * @param  string $out_charset
+     * @param  array  $arr         originální pole
+     * @return array  překódované pole
      */
     public function recursiveIconv($in_charset, $out_charset, $arr)
     {
@@ -1273,29 +1215,30 @@ class EaseSand extends EaseAtom
         }
         $ret = $arr;
         array_walk_recursive($ret, array($this, "arrayIconv"), array($in_charset, $out_charset));
+
         return $ret;
     }
 
     /**
      * Pomocná funkce pro překódování vícerozměrného pole
-     * @param mixed $val
+     * @param mixed  $val
      * @param string $key
-     * @param mixed $userdata
+     * @param mixed  $userdata
      */
-    function arrayIconv(&$val, $key, $userdata)
+    public function arrayIconv(&$val, $key, $userdata)
     {
         $val = iconv($userdata[0], $userdata[1], $val);
     }
 
     /**
      * Zapíše zprávu do logu
-     * 
+     *
      * @param string $Message zpráva
      * @param string $Type    typ zprávy (info|warning|success|error|*)
-     * 
+     *
      * @return bool byl report zapsán ?
      */
-    function addToLog($Message, $Type = 'message')
+    public function addToLog($Message, $Type = 'message')
     {
         if (is_object($this->Logger)) {
             $this->Logger->addToLog($this->getObjectName(), $Message, $Type);
@@ -1304,11 +1247,11 @@ class EaseSand extends EaseAtom
 
     /**
      * Oznamuje chybovou událost
-     * 
+     *
      * @param string $Message    zpráva
      * @param mixed  $ObjectData pole dat k zaznamenání
      */
-    function error($Message, $ObjectData = null)
+    public function error($Message, $ObjectData = null)
     {
         if (is_object($this->Logger)) {
             $this->Logger->error($this->getObjectName(), $Message, $ObjectData = null);
@@ -1317,17 +1260,17 @@ class EaseSand extends EaseAtom
 
     /**
      * Magická funkce pro všechny potomky
-     * 
+     *
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return 'Object: ' . $this->getObjectName();
     }
 
     /**
      * Pro serializaci připraví vše
-     * 
+     *
      * @return array
      */
     public function __sleep()
@@ -1338,18 +1281,17 @@ class EaseSand extends EaseAtom
             array_push($ObjectVars, $ParentObjectVars);
         }
         $this->saveObjectIdentity();
+
         return $ObjectVars;
     }
 
     /**
      * Akce po probuzení ze serializace
      */
-    function __wakeup()
+    public function __wakeup()
     {
         $this->setObjectName();
         $this->restoreObjectIdentity();
     }
 
 }
-
-?>

@@ -2,7 +2,7 @@
 
 /**
  * Integrace jQuery
- * 
+ *
  * @category   Jquery
  * @package    EaseFrameWork
  * @subpackage EaseHtml
@@ -15,7 +15,7 @@ require_once 'EasePage.php';
 
 /**
  * jQuery common class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseJQueryPart extends EasePage
@@ -23,44 +23,44 @@ class EaseJQueryPart extends EasePage
 
     /**
      * Partname/Tag ID
-     * @var string 
+     * @var string
      */
     public $PartName = 'JQ';
 
     /**
      * Use minimized version of scripts ?
-     * @var boolean 
+     * @var boolean
      */
-    static public $UseMinimizedJS = false;
+    public static $UseMinimizedJS = false;
 
     /**
-     * Array of Part properties 
-     * @var array 
+     * Array of Part properties
+     * @var array
      */
     public $PartProperties = array();
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         EaseJQueryPart::jQueryze();
     }
 
     /**
-     * Set part name - mainly div id 
-     * 
+     * Set part name - mainly div id
+     *
      * @param string $PartName jméno vložené části
      */
-    function setPartName($PartName)
+    public function setPartName($PartName)
     {
         $this->PartName = $PartName;
     }
 
     /**
      * Returns OnDocumentReady() JS code
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function onDocumentReady()
+    public function onDocumentReady()
     {
         return '';
     }
@@ -68,7 +68,7 @@ class EaseJQueryPart extends EasePage
     /**
      * Add Js/Css into page
      */
-    function finalize()
+    public function finalize()
     {
         $JavaScript = $this->onDocumentReady();
         if ($JavaScript) {
@@ -79,17 +79,17 @@ class EaseJQueryPart extends EasePage
     /**
      * Opatří objekt vším potřebným pro funkci jQuery
      */
-    static function jQueryze()
+    public static function jQueryze()
     {
         EaseShared::webPage()->includeJavaScript('jquery/jquery.js', 0, true);
     }
 
     /**
      * Nastaví paramatry tagu
-     * 
+     *
      * @param mixed $PartProperties vlastnosti jQuery widgetu
      */
-    function setPartProperties($PartProperties)
+    public function setPartProperties($PartProperties)
     {
         if (is_array($PartProperties)) {
             if (is_array($this->PartProperties)) {
@@ -105,32 +105,33 @@ class EaseJQueryPart extends EasePage
 
     /**
      * Vyrendruje aktuální parametry části jako parametry pro jQuery
-     * 
+     *
      * @param array|string $PartProperties pole vlastností
-     * 
+     *
      * @return string
      */
-    function getPartPropertiesToString($PartProperties = null)
+    public function getPartPropertiesToString($PartProperties = null)
     {
         if (!$PartProperties) {
             $PartProperties = $this->PartProperties;
         }
+
         return self::partPropertiesToString($PartProperties);
     }
 
-    static function is_assoc($arr)
+    public static function is_assoc($arr)
     {
         return (array_values($arr) !== $arr);
     }
 
     /**
      * vyrendruje pole parametrů jako řetězec v syntaxi javascriptu
-     * 
+     *
      * @param array|string $PartProperties vlastnosti jQuery widgetu
-     * 
+     *
      * @return string
      */
-    static function partPropertiesToString($PartProperties)
+    public static function partPropertiesToString($PartProperties)
     {
         if (is_array($PartProperties)) {
             $PartPropertiesString = '';
@@ -159,7 +160,6 @@ class EaseJQueryPart extends EasePage
                                 $PartsArray[] = $PartPropertyName . ': [' . implode(',', $PartPropertyValue) . '] ';
                             }
 
-
 //                            $PartsArray[] = $PartPropertyName . ': [' . implode(',', $PartPropertyValue) . '] ';
                         } elseif (is_int($PartPropertyValue)) {
                             $PartsArray[] = $PartPropertyName . ': ' . $PartPropertyValue . ' ';
@@ -184,6 +184,7 @@ class EaseJQueryPart extends EasePage
                 }
             }
             $PartPropertiesString = implode(",\n", $PartsArray);
+
             return $PartPropertiesString;
         } else {
             return $PartProperties;
@@ -194,13 +195,13 @@ class EaseJQueryPart extends EasePage
 
 /**
  * jQuery UI common class
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseJQueryUIPart extends EaseJQueryPart
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         EaseJQueryUIPart::jQueryze();
@@ -208,10 +209,10 @@ class EaseJQueryUIPart extends EaseJQueryPart
 
     /**
      * Opatří objekt vším potřebným pro funkci jQueryUI
-     * 
+     *
      * @param EasePage|mixed $EaseObject objekt k opatření jQuery závislostmi
      */
-    static function jQueryze()
+    public static function jQueryze()
     {
         parent::jQueryze();
         $WebPage = EaseShared::webPage();
@@ -225,10 +226,10 @@ class EaseJQueryUIPart extends EaseJQueryPart
     }
 
     /**
-     * Vrací název aktuálně používaného jQueryUI skinu 
+     * Vrací název aktuálně používaného jQueryUI skinu
      * @return type
      */
-    static function getSkinName()
+    public static function getSkinName()
     {
         $jQueryUISkin = EaseShared::instanced()->getConfigValue('jQueryUISkin');
         if ($jQueryUISkin) {
@@ -238,9 +239,8 @@ class EaseJQueryUIPart extends EaseJQueryPart
                 return EaseShared::webPage()->jQueryUISkin;
             }
         }
+
         return null;
     }
 
 }
-
-?>

@@ -2,7 +2,7 @@
 
 /**
  * Abstraktní databázová třída
- * 
+ *
  * @package EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
@@ -11,15 +11,15 @@ require_once 'EaseBase.php';
 
 /**
  * Virtuálni třída pro práci s databází
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseSql extends EaseSand
+class EaseSQL extends EaseSand
 {
 
     /**
      * SQL operation result handle
-     * @var resource 
+     * @var resource
      */
     public $Result = null;
 
@@ -30,25 +30,25 @@ class EaseSql extends EaseSand
     public $SQLLink = null;
     /**
      * IP serveru
-     * @var string 
+     * @var string
      */
     public $Server = null;
 
     /**
      * DB Login
-     * @var string 
+     * @var string
      */
     public $Username = null;
 
     /**
      * DB heslo
-     * @var string 
+     * @var string
      */
     public $Password = null;
 
     /**
      * Database to connect by default
-     * @var string 
+     * @var string
      */
     public $Database = null;
 
@@ -108,7 +108,7 @@ class EaseSql extends EaseSand
 
     /**
      * Kod SQL chyby
-     * @var int 
+     * @var int
      */
     public $ErrorNumber = null;
 
@@ -144,26 +144,26 @@ class EaseSql extends EaseSand
 
     /**
      * Indikátor nastavení připojení - byly vykonány SET příkazy
-     * @var boolean 
+     * @var boolean
      */
     protected $connectAllreadyUP = false;
 
     /**
      * Obecný objekt databáze
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
-        if (!isset($this->Server) && defined('DB_SERVER')){
+        if (!isset($this->Server) && defined('DB_SERVER')) {
             $this->Server = constant('DB_SERVER');
         }
-        if (!isset($this->Username) && defined('DB_SERVER_USERNAME')){
+        if (!isset($this->Username) && defined('DB_SERVER_USERNAME')) {
             $this->Username = constant('DB_SERVER_USERNAME');
         }
-        if (!isset($this->Password) && defined('DB_SERVER_PASSWORD')){
+        if (!isset($this->Password) && defined('DB_SERVER_PASSWORD')) {
             $this->Password = constant('DB_SERVER_PASSWORD');
         }
-        if (!isset($this->Database) && defined('DB_DATABASE')){
+        if (!isset($this->Database) && defined('DB_DATABASE')) {
             $this->Database = constant('DB_DATABASE');
         }
         $this->connect();
@@ -172,7 +172,7 @@ class EaseSql extends EaseSand
     /**
      * Připojení k databázi
      */
-    function connect()
+    public function connect()
     {
         $this->setUp();
         $this->Status = true;
@@ -180,21 +180,22 @@ class EaseSql extends EaseSand
 
     /**
      * Přepene databázi
-     *  
-     * @param type $DBName
+     *
+     * @param  type    $DBName
      * @return boolean
      */
-    function selectDB($DBName = null)
+    public function selectDB($DBName = null)
     {
         if (!is_null($DBName)) {
             $this->Database = $DBName;
         }
+
         return null;
     }
 
     /**
      * Id vrácené po INSERTu
-     * 
+     *
      * @return int
      */
     public function getInsertID()
@@ -204,20 +205,20 @@ class EaseSql extends EaseSand
 
     /**
      * Otestuje moznost pripojeni k sql serveru
-     * 
+     *
      * @param boolean $succes vynucený výsledek
-     * 
-     * @return $Success 
+     *
+     * @return $Success
      */
-    function ping($succes = null)
+    public function ping($succes = null)
     {
         return $succes;
     }
 
     /**
-     * Po deserializaci se znovu připojí 
+     * Po deserializaci se znovu připojí
      */
-    function __wakeup()
+    public function __wakeup()
     {
         parent::__wakeup();
         $this->connect();
@@ -225,18 +226,19 @@ class EaseSql extends EaseSand
 
     /**
      * Odstraní z SQL dotazu "nebezpečné" znaky
-     * 
+     *
      * @param string $QueryRaw SQL Query
-     * 
+     *
      * @return string SQL Query
      */
-    function sanitizeQuery($QueryRaw)
+    public function sanitizeQuery($QueryRaw)
     {
         $SanitizedQuery = trim($QueryRaw);
+
         return $SanitizedQuery;
     }
 
-    function makeReport()
+    public function makeReport()
     {
         $this->Report['LastMessage'] = $this->LastMessage;
         $this->Report['ErrorText'] = $this->ErrorText;
@@ -246,9 +248,9 @@ class EaseSql extends EaseSand
     }
 
     /**
-     * Nastaví připojení 
+     * Nastaví připojení
      */
-    function setUp()
+    public function setUp()
     {
         if (!$this->connectAllreadyUP) {
             if (isset($this->ConnectionSettings) && is_array($this->ConnectionSettings) && count($this->ConnectionSettings)) {
@@ -262,25 +264,26 @@ class EaseSql extends EaseSand
         }
     }
 
-    function setTable($TableName)
+    public function setTable($TableName)
     {
         $this->TableName = $TableName;
     }
 
     /**
      * Otestuje všechny náležitosti pro vytvoření tabulky
-     * 
-     * @param array $TableStructure
-     * @param string $TableName
-     * @return boolean 
+     *
+     * @param  array   $TableStructure
+     * @param  string  $TableName
+     * @return boolean
      */
-    function createTableQuery(&$TableStructure, $TableName = null)
+    public function createTableQuery(&$TableStructure, $TableName = null)
     {
         if (!$TableStructure) {
             $TableStructure = $this->TableStructure;
         }
         if (!is_array($TableStructure)) {
             $this->error('Missing table structure for creating TableCreate QueryRaw');
+
             return false;
         }
         if (!$TableName) {
@@ -288,16 +291,18 @@ class EaseSql extends EaseSand
         }
         if (!$TableName) {
             $this->error('Missing table name for creating TableCreate QueryRaw');
+
             return false;
         }
+
         return true;
     }
 
     /**
      * Opraví délky políček u nichž je překročena délka
-     * 
+     *
      * @param array $Data asociativní pole dat
-     * 
+     *
      * @return array
      */
     protected function fixColumnsLength($Data)
@@ -323,18 +328,19 @@ class EaseSql extends EaseSand
                 }
             }
         }
+
         return $Data;
     }
 
     /**
      * Zkontroluje předpoklady pro vytvoření tabulky ze struktury
-     * 
+     *
      * @param array  $TableStructure struktura tabulky
      * @param string $TableName      název tabulky
-     * 
+     *
      * @return boolean Success
      */
-    function createTable(&$TableStructure = null, $TableName = null)
+    public function createTable(&$TableStructure = null, $TableName = null)
     {
         if (!$TableName) {
             $TableName = $this->TableName;
@@ -349,51 +355,54 @@ class EaseSql extends EaseSand
 
         if (!strlen($TableName)) {
             $this->error('Missing table name for table creating');
+
             return false;
         }
         if (!is_array($TableStructure)) {
             $this->error('Missing table structure for table creating');
+
             return false;
         }
+
         return true;
     }
 
     /**
      * Vrací počet řádků vrácených nebo ovlivněným posledním sql dotazem.
-     * 
+     *
      * @return int počet řádků
      */
-    function getNumRows()
+    public function getNumRows()
     {
         return $this->NumRows;
     }
 
     /**
      * Poslední vykonaný dotaz
-     * 
+     *
      * @return int počet řádků
      */
-    function getLastQuery()
+    public function getLastQuery()
     {
         return $this->LastQuery;
     }
 
     /**
      * Poslední genrované ID
-     * 
+     *
      * @return int ID
      */
-    function getLastInsertID()
+    public function getLastInsertID()
     {
         return $this->LastInsertID;
     }
 
     /**
      * Vrací chybovou zprávu SQL
-     * 
+     *
      * @return string
      */
-    function getLastError()
+    public function getLastError()
     {
         if ($this->ErrorText) {
             if (isset($this->ErrorNumber)) {
@@ -408,45 +417,49 @@ class EaseSql extends EaseSand
 
     /**
      * Vrací strukturu SQL tabulky jako pole
-     * 
-     * @param string $TableName
-     * @return null|boolean 
+     *
+     * @param  string       $TableName
+     * @return null|boolean
      */
-    function describe($TableName = null)
+    public function describe($TableName = null)
     {
         if (!$TableName) {
             $TableName = $this->TableName;
         }
         if (!$this->tableExist($TableName)) {
             $this->addToLog('Try to describe nonexistent table: ' . $TableName, 'waring');
+
             return null;
         }
+
         return true;
     }
 
     /**
      * Ověří existenci tabulky
-     * 
-     * @param string $TableName
-     * @return null|boolean 
+     *
+     * @param  string       $TableName
+     * @return null|boolean
      */
-    function tableExist($TableName = null)
+    public function tableExist($TableName = null)
     {
         if (!$TableName)
             $TableName = $this->TableName;
         if (!$TableName) {
             $this->error('TableExist: $TableName not known');
+
             return null;
         }
+
         return true;
     }
 
     /**
      * Zaznamená SQL Chybu
-     * 
+     *
      * @param string $Title volitelný popisek, většinou název volající funkce
      */
-    function logError($Title = null)
+    public function logError($Title = null)
     {
         if (is_null($Title)) {
             list(, $Caller) = debug_backtrace(false);
@@ -462,7 +475,7 @@ class EaseSql extends EaseSand
     /**
      * Znovu se připojí k databázi
      */
-    function reconnect()
+    public function reconnect()
     {
         $this->close();
         sleep($this->ReconectTimeouts[$this->EaseShared->RunType]);
@@ -471,31 +484,32 @@ class EaseSql extends EaseSand
 
     /**
      * Při serializaci vynuluje poslední Query
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
-    function __sleep()
+    public function __sleep()
     {
         $this->LastQuery = null;
+
         return parent::__sleep();
     }
 
     /**
      * Zavře databázové spojení
      */
-    function __destruct()
+    public function __destruct()
     {
         $this->Close();
     }
 
     /**
      * Vrací výsledek dotazu jako dvourozměrné pole
-     * 
+     *
      * @param string $QueryRaw SQL příkaz
-     * 
-     * @return array|null 
+     *
+     * @return array|null
      */
-    function queryTo2DArray($QueryRaw)
+    public function queryTo2DArray($QueryRaw)
     {
         $Result = $this->queryToArray($QueryRaw);
         if (count($Result)) {
@@ -503,19 +517,21 @@ class EaseSql extends EaseSand
             foreach ($Result as $Value) {
                 $Values[] = current($Value);
             }
+
             return $Values;
         }
+
         return $Result;
     }
 
     /**
      * Vrací první položku výsledku dotazu
-     * 
+     *
      * @param string $QueryRaw SQL příkaz vracející jednu hodnotu
-     * 
-     * @return string|null 
+     *
+     * @return string|null
      */
-    function queryToValue($QueryRaw)
+    public function queryToValue($QueryRaw)
     {
         $Result = $this->queryToArray($QueryRaw);
         if (count($Result)) {
@@ -527,17 +543,16 @@ class EaseSql extends EaseSand
 
     /**
      * Vrací databázový objekt Pear::DB
-     * 
+     *
      * @link http://pear.php.net/manual/en/package.database.mdb2.php
-     * @todo SET,mdb2 
-     * 
-     * @return DB|null objekt databáze  
+     * @todo SET,mdb2
+     *
+     * @return DB|null objekt databáze
      */
     public static function & getPearObject()
     {
         require_once 'DB.php';
         $DbHelper = new DB;
-
 
         $dsn = array(
             'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
@@ -558,5 +573,3 @@ class EaseSql extends EaseSand
     }
 
 }
-
-?>

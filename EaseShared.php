@@ -1,29 +1,29 @@
 <?php
 /**
- * Všeobecně sdílený objekt frameworku. 
+ * Všeobecně sdílený objekt frameworku.
  * Tento objekt je automaticky přez svůj singleton instancován do každého Ease*
  * objektu.
- * Poskytuje kdykoliv přístup k často volaným objektům framworku jako například 
+ * Poskytuje kdykoliv přístup k často volaným objektům framworku jako například
  * uživatel, databáze, webstránka nebo logy.
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author Vitex <vitex@hippy.cz>
  */
 require_once 'EaseAtom.php';
 /**
- * Všeobecně sdílený objekt frameworku. 
+ * Všeobecně sdílený objekt frameworku.
  * Tento objekt je automaticky přez svůj singleton instancován do každého Ease*
  * objektu.
- * Poskytuje kdykoliv přístup k často volaným objektům framworku jako například 
+ * Poskytuje kdykoliv přístup k často volaným objektům framworku jako například
  * uživatel, databáze, webstránka nebo logy.
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G) 
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseShared extends EaseAtom
@@ -37,7 +37,7 @@ class EaseShared extends EaseAtom
 
     /**
      * JavaScripty
-     * @var array 
+     * @var array
      */
     public $JavaScripts = null;
 
@@ -79,20 +79,20 @@ class EaseShared extends EaseAtom
 
     /**
      * Pole odkazů na všechny vložené objekty
-     * @var array pole odkazů 
+     * @var array pole odkazů
      */
     public $AllItems = array();
 
     /**
      * Název položky session s objektem uživatele
-     * @var string 
+     * @var string
      */
-    static $UserSessionName = 'User';
+    public static $UserSessionName = 'User';
 
     /**
      * Inicializace sdílené třídy
      */
-    function __construct()
+    public function __construct()
     {
         $this->setRunType();
     }
@@ -100,11 +100,11 @@ class EaseShared extends EaseAtom
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
      * se bude v ramci behu programu pouzivat pouze jedna jeho Instance (ta prvni).
-     * 
+     *
      * @param string $Class název třídy jenž má být zinstancována
-     * 
+     *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
-     * @return EaseWebPage 
+     * @return EaseWebPage
      */
     public static function singleton($Class = null)
     {
@@ -114,54 +114,57 @@ class EaseShared extends EaseAtom
             }
             self::$_instance = new $Class();
         }
+
         return self::$_instance;
     }
 
     /**
      * Vrací se
-     * 
+     *
      * @return EaseShared
      */
     public static function & instanced()
     {
         $EaseShared = EaseShared::singleton();
+
         return $EaseShared;
     }
 
     /**
      * Nastavuje hodnotu konfiguračního klíče
-     * 
-     * @param string $ConfigName klíč
+     *
+     * @param string $ConfigName  klíč
      * @param mixed  $ConfigValue hodnota klíče
      */
-    function setConfigValue($ConfigName, $ConfigValue)
+    public function setConfigValue($ConfigName, $ConfigValue)
     {
         $this->Registry[$ConfigName] = $ConfigValue;
     }
 
     /**
      * Vrací konfigurační hodnotu pod klíčem
-     * 
+     *
      * @param string $ConfigName klíč
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
-    function getConfigValue($ConfigName)
+    public function getConfigValue($ConfigName)
     {
         if (isset($this->Registry[$ConfigName])) {
             return $this->Registry[$ConfigName];
         }
+
         return null;
     }
 
     /**
      * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)
-     * 
+     *
      * @param string $RunType force type
-     * 
+     *
      * @return string type
      */
-    function setRunType($RunType = null)
+    public function setRunType($RunType = null)
     {
         if (!$RunType) {
             if (self::isCli()) {
@@ -179,44 +182,46 @@ class EaseShared extends EaseAtom
 
     /**
      * Vrací instanci objektu databáze MySQL
-     * 
-     * @return EaseDbMySqli 
+     *
+     * @return EaseDbMySqli
      */
-    static function myDbLink()
+    public static function myDbLink()
     {
         if (!class_exists('EaseDbMySqli')) {
             include 'EaseMySQL.php';
         }
+
         return EaseDbMySqli::singleton();
     }
 
     /**
      * Vrací instanci objektu databáze MSSQL
-     * 
-     * @return EaseDbMSSQL 
+     *
+     * @return EaseDbMSSQL
      */
-    static function msDbLink()
+    public static function msDbLink()
     {
         if (!class_exists('EaseDbMSSQL')) {
             include_once 'EaseMSSQL.php';
         }
+
         return EaseDbMSSQL::singleton();
     }
 
     /**
      * Vrací instanci objektu logování
-     * 
-     * @return EaseLogger 
+     *
+     * @return EaseLogger
      */
-    static function logger()
+    public static function logger()
     {
         return EaseLogger::singleton();
     }
 
     /**
      * Vrací nebo registruje instanci webové stránky
-     * 
-     * @param EaseWebPage $OPage objekt webstránky k zaregistrování
+     *
+     * @param  EaseWebPage $OPage objekt webstránky k zaregistrování
      * @return EaseWebPage
      */
     static function &webPage($OPage = null)
@@ -229,14 +234,15 @@ class EaseShared extends EaseAtom
             require_once 'EaseWebPage.php';
             EaseShared::webPage(EaseWebPage::singleton());
         }
+
         return $Shard->WebPage;
     }
 
     /**
      * Vrací, případně i založí objekt uživatele
-     * 
+     *
      * @param EaseUser|EaseAnonym $user nový uživatel
-     * 
+     *
      * @return EaseUser
      */
     public static function & user($user = NULL, $UserSessionName = NULL)
@@ -251,22 +257,23 @@ class EaseShared extends EaseAtom
             require_once 'Ease/EaseUser.php';
             $_SESSION[self::$UserSessionName] = new EaseAnonym();
         }
+
         return $_SESSION[self::$UserSessionName];
     }
 
     /**
      * Běží php v příkazovém řádku ?
-     * @return boolean 
+     * @return boolean
      */
-    static function isCli()
+    public static function isCli()
     {
         return (PHP_SAPI == 'cli' && empty($_SERVER['REMOTE_ADDR']));
     }
 
     /**
      * Vrací DB objekt Pearu
-     * 
-     * @return EasePearDBCompatible 
+     *
+     * @return EasePearDBCompatible
      */
     public static function dbCompatible()
     {
@@ -275,8 +282,8 @@ class EaseShared extends EaseAtom
 
     /**
      * Zaregistruje položku k finalizaci
-     * 
-     * @param mixed $ItemPointer 
+     *
+     * @param mixed $ItemPointer
      */
     public static function registerItem(&$ItemPointer)
     {
@@ -285,4 +292,3 @@ class EaseShared extends EaseAtom
     }
 
 }
-?>

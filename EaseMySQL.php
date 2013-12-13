@@ -2,7 +2,7 @@
 
 /**
  * Obsluha MySQL
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2012 Vitex@hippy.cz (G)
@@ -11,7 +11,7 @@ require_once 'EaseSQL.php';
 
 /**
  * Třída pro práci s MySQL
- * 
+ *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseDbMySqli extends EaseSql
@@ -19,12 +19,12 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * MySQLi class instance
-     * @var mysqli 
+     * @var mysqli
      */
     public $SQLLink = null; // MS SQL link identifier
     /**
      * SQLLink result
-     * @var mysqli_result 
+     * @var mysqli_result
      */
     public $Result = null;
     public $status = false; //Pripojeno ?
@@ -67,14 +67,15 @@ class EaseDbMySqli extends EaseSql
             $Class = __CLASS__;
             self::$instance = new $Class();
         }
+
         return self::$instance;
     }
 
     /**
      * Escapes special characters in a string for use in an SQL statement
-     * 
+     *
      * @param string $Text
-     * 
+     *
      * @return string
      */
     public function addSlashes($Text)
@@ -85,14 +86,15 @@ class EaseDbMySqli extends EaseSql
     /**
      * Připojí se k mysql databázi
      */
-    function connect()
+    public function connect()
     {
         $this->SQLLink = new mysqli($this->Server, $this->Username, $this->Password);
         if ($this->SQLLink->connect_errno) {
             $this->addStatusMessage('Connect: error #' . $this->SQLLink->connect_errno . ' ' . $this->SQLLink->connect_error, 'error');
+
             return FALSE;
         } else {
-            if ($this->selectDB($this->Database)){
+            if ($this->selectDB($this->Database)) {
                 $this->ErrorText = $this->SQLLink->error;
                 parent::connect();
             } else {
@@ -103,12 +105,12 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * Změní aktuálně použitou databázi
-     * 
+     *
      * @param string $DbName
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
-    function selectDB($DbName = null)
+    public function selectDB($DbName = null)
     {
         parent::selectDB($DbName);
         $Change = $this->SQLLink->select_db($DbName);
@@ -120,18 +122,19 @@ class EaseDbMySqli extends EaseSql
             $this->addStatusMessage('Connect: error #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
             $this->logError();
         }
+
         return $Change;
     }
 
     /**
      * Vykoná QueryRaw a vrátí výsledek
-     * 
-     * @param string $QueryRaw
+     *
+     * @param string  $QueryRaw
      * @param boolean $IgnoreErrors
-     * 
+     *
      * @return SQLhandle
      */
-    function exeQuery($QueryRaw, $IgnoreErrors = false)
+    public function exeQuery($QueryRaw, $IgnoreErrors = false)
     {
         $QueryRaw = $this->sanitizeQuery($QueryRaw);
         $this->LastQuery = $QueryRaw;
@@ -192,6 +195,7 @@ class EaseDbMySqli extends EaseSql
                 $this->addToLog('Explain: ' . $QueryRaw . "\n" . $this->printPreBasic($ExplainedQuery), 'explain');
             }
         }
+
         return $this->Result;
     }
 
@@ -200,10 +204,10 @@ class EaseDbMySqli extends EaseSql
      *
      * @param string $QueryRaw
      * @param string $KeyColumnToIndex umožní vrátit pole výsledků číslovaných podle $DataRow[$KeyColumnToIndex];
-     * 
+     *
      * @return array
      */
-    function queryToArray($QueryRaw, $KeyColumnToIndex = false)
+    public function queryToArray($QueryRaw, $KeyColumnToIndex = false)
     {
         $ResultArray = array();
         if ($this->exeQuery($QueryRaw)) {
@@ -225,6 +229,7 @@ class EaseDbMySqli extends EaseSql
         } else {
             return null;
         }
+
         return $ResultArray;
     }
 
@@ -232,10 +237,10 @@ class EaseDbMySqli extends EaseSql
      * vloží obsah pole $data do předvolené tabulky $this->MyTable
      *
      * @param string $Data
-     * 
+     *
      * @return sqlresult
      */
-    function arrayToInsert($data)
+    public function arrayToInsert($data)
     {
         return $this->exeQuery('INSERT INTO `' . $this->TableName . '` SET ' . $this->arrayToQuery($data));
     }
@@ -246,16 +251,17 @@ class EaseDbMySqli extends EaseSql
      *
      * @param array $Data  asociativní pole dat
      * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
-     * 
+     *
      * @return sqlresult
      *
      */
-    function arrayToUpdate($Data, $KeyID = null)
+    public function arrayToUpdate($Data, $KeyID = null)
     {
         if (!$KeyID) {
             $IDCol = $Data[$this->KeyColumn];
         }
         unset($Data[$this->KeyColumn]);
+
         return $this->exeQuery('UPDATE ' . $this->TableName . ' SET ' . $this->arrayToQuery($Data) . ' WHERE ' . $this->KeyColumn . '=' . $IDCol);
     }
 
@@ -263,12 +269,12 @@ class EaseDbMySqli extends EaseSql
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
      * $this->MyKeyColumn je preskocen pokud neni $key false)
      *
-     * @param array $Data
+     * @param array   $Data
      * @param boolean $Key
-     * 
+     *
      * @return string
      */
-    function arrayToQuery($Data, $Key = true)
+    public function arrayToQuery($Data, $Key = true)
     {
         $updates = '';
         foreach ($Data as $Column => $Value) {
@@ -309,18 +315,19 @@ class EaseDbMySqli extends EaseSql
 
             $updates.=" `$Column` = $Value,";
         }
+
         return substr($updates, 0, -1);
     }
 
     /**
      * Generuje fragment MySQL dotazu z pole Data
      *
-     * @param array $Data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
+     * @param array  $Data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
      * @param string $ldiv typ generovane podminky AND/OR
-     * 
+     *
      * @return sql
      */
-    function prepSelect($Data, $ldiv = 'AND')
+    public function prepSelect($Data, $ldiv = 'AND')
     {
         $Conditions = array();
         $Conditions2 = array();
@@ -372,6 +379,7 @@ class EaseDbMySqli extends EaseSql
 
             $Conditions[] = " `$Column` $Operator $Value ";
         }
+
         return trim(implode($ldiv, $Conditions) . ' ' . implode(' ', $Conditions2));
     }
 
@@ -379,10 +387,10 @@ class EaseDbMySqli extends EaseSql
      * Vrací strukturu tabulky jako pole
      *
      * @param string $TableName
-     * 
+     *
      * @return array Struktura tabulky
      */
-    function describe($TableName = null)
+    public function describe($TableName = null)
     {
         if (!parent::describe($TableName)) {
             return null;
@@ -390,6 +398,7 @@ class EaseDbMySqli extends EaseSql
         foreach ($this->queryToArray("DESCRIBE $TableName") as $Column) {
             $this->TableStructure[$TableName][$Column['Field']] = $Column;
         }
+
         return $this->TableStructure;
     }
 
@@ -397,10 +406,10 @@ class EaseDbMySqli extends EaseSql
      * Vrací 1 pokud tabulka v databázi existuje
      *
      * @param string $TableName
-     * 
+     *
      * @return int
      */
-    function tableExist($TableName = null)
+    public function tableExist($TableName = null)
     {
         if (!parent::tableExist($TableName))
             return null;
@@ -414,27 +423,28 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * Vrací počet řádek v tabulce
-     * 
+     *
      * @param string $TableName
-     * 
-     * @return int 
+     *
+     * @return int
      */
-    function getTableNumRows($TableName = null)
+    public function getTableNumRows($TableName = null)
     {
         if (!$TableName) {
             $TableName = $this->TableName;
         }
         $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM `' . $this->easeAddSlashes($TableName) . '`');
+
         return $TableRowsCount[0]['NumRows'];
     }
 
     /**
      * Vytvoří tabulku podle struktůry
-     * 
+     *
      * @param array  $TableStructure struktura SQL
      * @param string $TableName      název tabulky
      */
-    function createTable(& $TableStructure = null, $TableName = null)
+    public function createTable(& $TableStructure = null, $TableName = null)
     {
         if (!parent::createTable($TableStructure, $TableName)) {
             return null;
@@ -448,12 +458,12 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * Vyprázdní tabulku
-     * 
+     *
      * @param string $TableName
-     * 
-     * @return boolean success 
+     *
+     * @return boolean success
      */
-    function truncateTable($TableName)
+    public function truncateTable($TableName)
     {
         $this->exeQuery('TRUNCATE ' . $TableName);
         if (!$this->getTableNumRows($TableName)) {
@@ -465,14 +475,14 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * Vytvoří index na tabulkou
-     * 
+     *
      * @param string $ColumnName
-     * @param bool $Primary  create Index as Primary Key
-     * @param string $TableName if unset $this->TableName is used
-     * 
+     * @param bool   $Primary    create Index as Primary Key
+     * @param string $TableName  if unset $this->TableName is used
+     *
      * @return sql handle
      */
-    function addTableKey($ColumnName, $Primary = false, $TableName = null)
+    public function addTableKey($ColumnName, $Primary = false, $TableName = null)
     {
         if (!$TableName) {
             $TableName = $this->TableName;
@@ -486,11 +496,11 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * Vytvoří tabulku podle struktůry
-     * 
+     *
      * @param array  $TableStructure struktura tabulky
      * @param string $TableName      název tabulky
      */
-    function createTableQuery(&$TableStructure, $TableName = null)
+    public function createTableQuery(&$TableStructure, $TableName = null)
     {
         if (!$TableName) {
             $TableName = $this->TableName;
@@ -517,7 +527,6 @@ class EaseDbMySqli extends EaseSql
                     break;
             }
 
-
             $RawItem = "  `" . $ColumnName . "` " . $ColumnProperties['type'];
 
             if (isset($ColumnProperties['size'])) {
@@ -538,9 +547,6 @@ class EaseDbMySqli extends EaseSql
             if (array_key_exists('ai', $ColumnProperties)) {
                 $RawItem .= " AUTO_INCREMENT ";
             }
-
-
-
 
             $QueryRawItems[] = $RawItem;
 
@@ -576,17 +582,18 @@ class EaseDbMySqli extends EaseSql
         }
         $QueryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=" . $this->Charset . ' COLLATE=' . $this->Collate . ';';
         $QueryRaw = $QueryRawBegin . implode(",\n", array_merge($QueryRawItems, $Indexes)) . $QueryRawEnd;
+
         return $QueryRaw;
     }
 
     /**
      * Vrací seznam tabulek v aktuálné použité databázi
-     * 
+     *
      * @param bool $Sort setřídit vrácené výsledky ?
-     * 
+     *
      * @return array
      */
-    function listTables($Sort = false)
+    public function listTables($Sort = false)
     {
         $TablesList = array();
         foreach ($this->queryToArray('SHOW TABLES') as $TableName) {
@@ -595,18 +602,19 @@ class EaseDbMySqli extends EaseSql
         if ($Sort) {
             asort($TablesList, SORT_LOCALE_STRING);
         }
+
         return $TablesList;
     }
 
     /**
      * Vytvoří podle dat v objektu chybějící sloupečky v DB
-     * 
+     *
      * @param EaseBrick|mixed $EaseBrick objekt pomocí kterého se získá struktura
      * @param array           $Data      struktura sloupců k vytvoření
-     * 
+     *
      * @return int pocet operaci
      */
-    static public function createMissingColumns(& $EaseBrick, $Data = null)
+    public static function createMissingColumns(& $EaseBrick, $Data = null)
     {
         $Result = 0;
         $BadQuery = $EaseBrick->EaseShared->MyDbLink->getLastQuery();
@@ -656,15 +664,16 @@ class EaseDbMySqli extends EaseSql
             }
         }
         $EaseBrick->MyDbLink->LastQuery = $BadQuery;
+
         return $Result;
     }
 
     /**
      * Ukončí připojení k databázi
-     * 
-     * @return type 
+     *
+     * @return type
      */
-    function close()
+    public function close()
     {
         if (is_resource($this->SQLLink)) {
             return mysqli_close($this->SQLLink);
@@ -675,10 +684,10 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * Virtuální funkce
-     * 
-     * @return null 
+     *
+     * @return null
      */
-    function __destruct()
+    public function __destruct()
     {
         return null;
     }
@@ -687,16 +696,17 @@ class EaseDbMySqli extends EaseSql
 
 /**
  * Compatibility alias
- * 
+ *
  * @author     Vitex <vitex@hippy.cz>
  * @deprecated nyní se používá EaseDbMySqli
  */
 class EaseDbMySql extends EaseDbMySqli
 {
-    
+
 }
 
-class EaseDbAnsiMySQL extends EaseDbMySql {
+class EaseDbAnsiMySQL extends EaseDbMySql
+{
     /**
      * Nastavení vlastností přípojení
      * @var array
@@ -706,7 +716,5 @@ class EaseDbAnsiMySQL extends EaseDbMySql {
         'GLOBAL sql_mode  = \'ANSI\'' => '',
         'GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE' => ''
     );
-    
-}
 
-?>
+}

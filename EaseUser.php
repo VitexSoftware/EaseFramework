@@ -2,18 +2,18 @@
 
 /**
  * Objekty uživatelů
- * 
+ *
  * PHP Version 5
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2011 Vitex@hippy.cz (G) 
+ * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
 require_once 'EaseAnonym.php';
 
 /**
  * Třída uživatele
- * 
+ *
  * @package EaseFrameWork
  * @author  Vítězslav Dvořák <vitex@hippy.cz>
  */
@@ -22,13 +22,13 @@ class EaseUser extends EaseAnonym
 
     /**
      * Pracujem s tabulkou user
-     * @var string 
+     * @var string
      */
     public $MyTable = 'user';
 
     /**
      * Klíčový sloupeček tabulky
-     * @var string 
+     * @var string
      */
     public $MyKeyColumn = 'id';
 
@@ -111,36 +111,36 @@ class EaseUser extends EaseAnonym
 
     /**
      * Sloupecek pro docasne zablokovani uctu
-     * @var type 
+     * @var type
      */
     public $DisableColumn = null;
 
     /**
      * Column for user mail
-     * @var string 
+     * @var string
      */
     public $MailColumn = 'email';
 
     /**
      * Sloupeček obsahující serializované rozšířené informace
-     * @var string 
+     * @var string
      */
     public $settingsColumn = null;
 
     /**
      * Měna uživatele
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $Currency = 'Kč';
 
     /**
      * Objekt uživatele aplikace
-     * 
+     *
      * @param int|string $UserID ID nebo Login uživatele jenž se má načíst při
      *        inicializaci třídy
      */
-    function __construct($UserID = null)
+    public function __construct($UserID = null)
     {
         parent::__construct();
         if (!is_null($UserID)) {
@@ -158,19 +158,19 @@ class EaseUser extends EaseAnonym
     }
 
     /**
-     * Give you user name 
-     * 
-     * @return string 
+     * Give you user name
+     *
+     * @return string
      */
-    function getUserName()
+    public function getUserName()
     {
         return $this->getDataValue($this->LoginColumn);
     }
 
     /**
      * Retrun user's mail address
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUserEmail()
     {
@@ -180,17 +180,17 @@ class EaseUser extends EaseAnonym
     /**
      * Vykreslí GrAvatara uživatele
      */
-    function draw()
+    public function draw()
     {
         echo '<img class="avatar" src="' . $this->getIcon() . '">';
     }
 
     /**
      * Vrací odkaz na url ikony
-     * 
+     *
      * @return string url ikony
      */
-    function getIcon()
+    public function getIcon()
     {
         $Email = $this->getUserEmail();
         if ($Email) {
@@ -202,12 +202,12 @@ class EaseUser extends EaseAnonym
 
     /**
      * Pokusí se o přihlášení
-     * 
+     *
      * @param array $FormData pole dat z přihlaš. formuláře např. $_REQUEST
-     * 
+     *
      * @return bool
      */
-    function tryToLogin($FormData)
+    public function tryToLogin($FormData)
     {
         if (!count($FormData)) {
             return null;
@@ -216,10 +216,12 @@ class EaseUser extends EaseAnonym
         $Password = $this->easeAddSlashes($FormData[$this->PasswordColumn]);
         if (!$Login) {
             $this->addStatusMessage(_('chybí login'), 'error');
+
             return null;
         }
         if (!$Password) {
             $this->addStatusMessage(_('chybí heslo'), 'error');
+
             return null;
         }
         $this->setObjectIdentity(array('MyKeyColumn' => $this->LoginColumn));
@@ -232,6 +234,7 @@ class EaseUser extends EaseAnonym
             } else {
                 //$this->AReset(); MEGATODO - CO TO JE?
                 $this->UserID = null;
+
                 return false;
             }
         } else {
@@ -242,24 +245,27 @@ class EaseUser extends EaseAnonym
                 $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $Login, 'error'));
             }
             $this->dataReset();
+
             return false;
         }
     }
 
     /**
      * Je učet povolen ?
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
-    function isAccountEnabled()
+    public function isAccountEnabled()
     {
         if (is_null($this->DisableColumn)) {
             return true;
         }
         if ($this->getDataValue($this->DisableColumn)) {
             $this->addStatusMessage(_('přihlášení zakázáno administrátorem'), 'warning');
+
             return false;
         }
+
         return true;
     }
 
@@ -267,53 +273,56 @@ class EaseUser extends EaseAnonym
      * Akce provedené po úspěšném přihlášení
      * pokud tam jeste neexistuje zaznam, vytvori se novy
      */
-    function loginSuccess()
+    public function loginSuccess()
     {
         $this->UserID = (int) $this->getMyKey();
         $this->UserLogin = $this->getDataValue($this->LoginColumn);
         $this->Logged = true;
         $this->addStatusMessage( sprintf( _('Přihlášení %s proběhlo bez problémů'),  $this->UserLogin), 'success');
+
         return true;
     }
 
     /**
      * Načte nastavení uživatele
-     * 
+     *
      * @param array $Settings Serializované pole nastavení
-     * 
+     *
      * @return boolean uspěch
      */
-    function loadSettings($Settings = null)
+    public function loadSettings($Settings = null)
     {
         if (is_null($Settings)) {
             $Settings = $this->getDataValue($this->settingsColumn);
         }
         if (!is_null($Settings)) {
             $this->Settings = unserialize($Settings);
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Vrací všechna nastavení uživatele
-     * 
-     * @return array 
+     *
+     * @return array
      */
-    function getSettings()
+    public function getSettings()
     {
         return $this->Settings;
     }
 
     /**
      * Ověření hesla
-     * 
+     *
      * @param string $PlainPassword     heslo v nešifrované podobě
      * @param string $EncryptedPassword šifrovné heslo
-     * 
+     *
      * @return bool
      */
-    function passwordValidation($PlainPassword, $EncryptedPassword)
+    public function passwordValidation($PlainPassword, $EncryptedPassword)
     {
         if ($PlainPassword && $EncryptedPassword) {
             $PasswordStack = explode(':', $EncryptedPassword);
@@ -324,17 +333,18 @@ class EaseUser extends EaseAnonym
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Zašifruje heslo
-     * 
+     *
      * @param string $PlainTextPassword nešifrované heslo (plaintext)
-     * 
+     *
      * @return string Encrypted password
      */
-    function encryptPassword($PlainTextPassword)
+    public function encryptPassword($PlainTextPassword)
     {
         $EncryptedPassword = '';
         for ($i = 0; $i < 10; $i++) {
@@ -342,24 +352,26 @@ class EaseUser extends EaseAnonym
         }
         $PasswordSalt = substr(md5($EncryptedPassword), 0, 2);
         $EncryptedPassword = md5($PasswordSalt . $PlainTextPassword) . ':' . $PasswordSalt;
+
         return $EncryptedPassword;
     }
 
     /**
      * Změní uživateli uložené heslo
-     * 
+     *
      * @param string $NewPassword nové heslo
      * @param int    $UserID      id uživatele
-     * 
+     *
      * @return string password hash
      */
-    function passwordChange($NewPassword, $UserID = null)
+    public function passwordChange($NewPassword, $UserID = null)
     {
         if (!$UserID) {
             $UserID = $this->getUserID();
         }
         if (!$UserID) {
             $this->error('PasswordChange: UserID unset');
+
             return null;
         }
         $Hash = $this->encryptPassword($NewPassword);
@@ -368,78 +380,83 @@ class EaseUser extends EaseAnonym
         if ($UserID == $this->getUserID()) {
             $this->Data[$this->PasswordColumn] = $Hash;
         }
+
         return $Hash;
     }
 
     /**
      * Otestuje heslo oproti cracklib
-     * 
+     *
      * @param string $Password testované heslo
-     * 
-     * @return boolen 
+     *
+     * @return boolen
      */
-    function passwordCrackCheck($Password)
+    public function passwordCrackCheck($Password)
     {
         if (!is_file('/usr/share/dict/cracklib-words')) {
             return true;
         }
         if (!function_exists('crack_opendict')) {
             $this->error('PECL Crack is not installed');
+
             return true;
         }
         $Dictonary = crack_opendict('/usr/share/dict/cracklib-words');
         $check = crack_check($Dictonary, $Password);
         $this->addStatusMessage(crack_getlastmessage());
         crack_closedict($Dictonary);
+
         return $check;
     }
 
     /**
      * Nastaví level uživatele
-     * 
+     *
      * @param int $UserLevel uživatelská uroven
-     * 
+     *
      * @todo Přesunout do EaseCustomer
      */
-    function setUserLevel($UserLevel)
+    public function setUserLevel($UserLevel)
     {
         $this->UserLevel = intval($UserLevel);
     }
 
     /**
      * Vraci ID přihlášeného uživatele
-     * 
+     *
      * @return int ID uživatele
      */
-    function getUserID()
+    public function getUserID()
     {
         if (isset($this->UserID)) {
             return (int) $this->UserID;
         }
+
         return (int) $this->getMyKey();
     }
 
     /**
      * Vrací login uživatele
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function getUserLogin()
+    public function getUserLogin()
     {
         if (!isset($this->UserLogin)) {
             return $this->getDataValue($this->LoginColumn);
         }
+
         return $this->UserLogin;
     }
 
     /**
      * Vrací hodnotu uživatelského oprávnění
-     * 
+     *
      * @param string $PermKeyword klíčové slovo oprávnění
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
-    function getPermission($PermKeyword = null)
+    public function getPermission($PermKeyword = null)
     {
         if (isset($this->Permissions[$PermKeyword])) {
             return $this->Permissions[$PermKeyword];
@@ -451,21 +468,22 @@ class EaseUser extends EaseAnonym
     /**
      * Provede odhlášení uživatele
      */
-    function logout()
+    public function logout()
     {
         $this->Logged = false;
         $this->addStatusMessage(_('Odhlášení proběhlo uspěšně'), 'success');
+
         return true;
     }
 
     /**
      * Vrací hodnotu nastavení
-     * 
+     *
      * @param string $SettingName jméno nastavení
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
-    function getSettingValue($SettingName = null)
+    public function getSettingValue($SettingName = null)
     {
         if (isset($this->Settings[$SettingName])) {
             return $this->Settings[$SettingName];
@@ -476,58 +494,58 @@ class EaseUser extends EaseAnonym
 
     /**
      * Nastavuje nastavení
-     * 
+     *
      * @param array $Settings asociativní pole nastavení
      */
-    function setSettings($Settings)
+    public function setSettings($Settings)
     {
         $this->Settings = array_merge($this->Settings, $Settings);
     }
 
     /**
      * Nastaví položku nastavení
-     * 
+     *
      * @param string $SettingName  klíčové slovo pro nastavení
      * @param mixed  $SettingValue hodnota nastavení
      */
-    function setSettingValue($SettingName, $SettingValue)
+    public function setSettingValue($SettingName, $SettingValue)
     {
         $this->Settings[$SettingName] = $SettingValue;
     }
 
     /**
      * Načte oprávnění
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
-    function loadPermissions()
+    public function loadPermissions()
     {
         return null;
     }
 
     /**
      * Vrací jméno objektu uživatele
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    function getName()
+    public function getName()
     {
         return $this->getObjectName();
     }
 
     /**
-     * Uloží pole dat a serializovaná nastavení do MySQL. 
+     * Uloží pole dat a serializovaná nastavení do MySQL.
      * Pokud je $SearchForID 0 updatuje pokud ze nastaven  MyKeyColumn
-     * 
+     *
      * @param array $Data        asociativní pole dat
      * @param bool  $SearchForID Zjistit zdali updatovat nebo insertovat
-     * 
+     *
      * @return int ID záznamu nebo null v případě neůspěchu
      */
-    function saveToMySQL($Data = null, $SearchForID = false)
+    public function saveToMySQL($Data = null, $SearchForID = false)
     {
         if (is_null($Data)) {
-            if (array_key_exists('MySQL', $this->Data)){
+            if (array_key_exists('MySQL', $this->Data)) {
                 $Data = $this->getData('MySQL');
             } else {
                 $Data = $this->getData();
@@ -536,24 +554,26 @@ class EaseUser extends EaseAnonym
         if (!is_null($this->settingsColumn)) {
             $Data[$this->settingsColumn] = serialize($this->Settings);
         }
+
         return parent::saveToMySQL($Data, $SearchForID);
     }
 
     /**
      * Načte z MySQL data k aktuálnímu $ItemID a případně aplikuje nastavení
-     * 
-     * @param int     $ItemID     id záznamu k načtení 
-     * @param string  $DataPrefix prefix pro rozlišení sady dat 
-     * @param boolean $Multiplete nevarovat v případě vícenásobného výsledku 
-     * 
+     *
+     * @param int     $ItemID     id záznamu k načtení
+     * @param string  $DataPrefix prefix pro rozlišení sady dat
+     * @param boolean $Multiplete nevarovat v případě vícenásobného výsledku
+     *
      * @return array Results
      */
-    function loadFromMySQL($ItemID = null, $DataPrefix = null, $Multiplete = false)
+    public function loadFromMySQL($ItemID = null, $DataPrefix = null, $Multiplete = false)
     {
         $Result = parent::loadFromMySQL($ItemID, $DataPrefix, $Multiplete);
         if (!is_null($this->settingsColumn) && !is_null($Result)) {
             $this->loadSettings();
         }
+
         return $Result;
     }
 
@@ -564,16 +584,17 @@ class EaseUser extends EaseAnonym
      * @param string $Size      Size in pixels, defaults to 80px [ 1 - 512 ]
      * @param string $Default   [ 404 | mm | identicon | monsterid | wavatar ]
      * @param string $MaxRating Maximum rating (inclusive) [ g | pg | r | x ]
-     * 
+     *
      * @return String containing either just a URL or a complete image tag
-     * 
+     *
      * @source http://gravatar.com/site/implement/images/php/
      */
-    static public function getGravatar($email, $Size = 80, $Default = 'mm', $MaxRating = 'g')
+    public static function getGravatar($email, $Size = 80, $Default = 'mm', $MaxRating = 'g')
     {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$Size&d=$Default&r=$MaxRating";
+
         return $url;
     }
 
@@ -582,47 +603,45 @@ class EaseUser extends EaseAnonym
 /**
  * Objekt zákazníka umí navíce od běžného uživatele, počítaní cen, nákupní košík
  * a obchodní skupiny
- *  
+ *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class EaseCustomer extends EaseUser
 {
     /**
      * Pracujem s tabulkou user
-     * @var string 
+     * @var string
      */
     public $MyTable = 'customer';
 
     /**
      * Odkaz na adresu
-     * @var type 
+     * @var type
      */
     public $customerDelivAddr = null;
 
     /**
      * Vrací (základní) cenu anonymního zákazníka s měnou
-     * 
+     *
      * @param float $ProductPriceAnon anonymní cena
      * @param int   $ProductsID       unsigned id produktu v Shopu
      * @param int   $ProductsPohodaID id produktu z PohodaSQL
-     * 
+     *
      * @return string
      */
-    function showUserPrice($ProductPriceAnon, $ProductsID = null, $ProductsPohodaID = null)
+    public function showUserPrice($ProductPriceAnon, $ProductsID = null, $ProductsPohodaID = null)
     {
         return $this->formatPrice($ProductPriceAnon);
     }
 
     /**
      * Vrací level uživatele
-     * 
-     * @return int 
+     *
+     * @return int
      */
-    function getUserLevel()
+    public function getUserLevel()
     {
         return intval($this->UserLevel);
     }
 
 }
-
-?>

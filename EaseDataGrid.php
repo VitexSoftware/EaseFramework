@@ -2,7 +2,7 @@
 
 /**
  * Zobrazení tabulky dat
- * 
+ *
  * @package    EaseFrameWork
  * @subpackage EaseHtml
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
@@ -13,10 +13,10 @@ class EaseDataGrid extends EaseHtmlTableTag
 
     /**
      * Naplní tabulku daty
-     * 
+     *
      * @param array $AllData
      */
-    function populate($AllData)
+    public function populate($AllData)
     {
         if ($this->isEmpty() && count($AllData)) {
             $this->addRowHeaderColumns(array_keys(current($AllData)));
@@ -29,5 +29,3 @@ class EaseDataGrid extends EaseHtmlTableTag
     }
 
 }
-
-?>
