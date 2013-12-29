@@ -345,7 +345,11 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         $dropDownMenu = $dropDown->addItem(new EaseHtmlUlTag(null, array('class' => 'dropdown-menu')));
         if (is_array($items)) {
             foreach ($items as $target => $label) {
-                $dropDownMenu->addItemSmart(new EaseHtmlATag($target, $label));
+                if(!$target){
+                    $dropDownMenu->addItem( new EaseHtmlLiTag(null, array('class'=>'divider')) );
+                } else {
+                    $dropDownMenu->addItemSmart(new EaseHtmlATag($target, $label));
+                }
             }
         } else {
             $dropDownMenu->addItem($items);
