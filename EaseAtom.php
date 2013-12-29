@@ -16,25 +16,25 @@ class EaseAtom
      * Udržuje v sobě jméno objektu.
      * @var string
      */
-    public $ObjectName = 'EaseSand';
+    public $objectName = 'EaseSand';
 
     /**
      * Flag debugovacího režimu
      * @var bool
      */
-    public $Debug = false;
+    public $debug = false;
 
     /**
      * Pole informaci urcenych k logovani inebo zobrazovanych uzivateli
      * @var array
      */
-    public $StatusMessages = array();
+    public $statusMessages = array();
 
     /**
      * Pocet uchovavanych zprav
      * @var int
      */
-    public $MessageCount = 0;
+    public $messageCount = 0;
 
     /**
      * Vrací jméno objektu
@@ -49,27 +49,27 @@ class EaseAtom
     /**
      * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu
      *
-     * @param string $Message text zpravy
+     * @param string $message text zpravy
      * @param string $Type    fronta
      */
-    public function addStatusMessage($Message, $Type = 'info')
+    public function addStatusMessage($message, $Type = 'info')
     {
-        $this->MessageCount++;
-        $this->StatusMessages[$Type][$this->MessageCount] = $Message;
+        $this->messageCount++;
+        $this->statusMessages[$Type][$this->messageCount] = $message;
     }
 
     /**
      * Přidá zprávy z pole uživateli do zásobníku
      *
-     * @param array $StatusMessages pole zpráv
+     * @param array $statusMessages pole zpráv
      *
      * @return int Počet zpráv přidaných do fronty
      */
-    public function addStatusMessages($StatusMessages)
+    public function addStatusMessages($statusMessages)
     {
-        if (is_array($StatusMessages) && count($StatusMessages)) {
+        if (is_array($statusMessages) && count($statusMessages)) {
             $AllMessages = array();
-            foreach ($StatusMessages as $Quee => $Messages) {
+            foreach ($statusMessages as $Quee => $Messages) {
                 foreach ($Messages as $MesgID => $Message) {
                     $AllMessages[$MesgID][$Quee] = $Message;
                 }
@@ -80,7 +80,7 @@ class EaseAtom
                 $this->addStatusMessage(reset($Message), $Quee, false, false);
             }
 
-            return count($StatusMessages);
+            return count($statusMessages);
         }
 
         return null;
@@ -91,60 +91,60 @@ class EaseAtom
      */
     public function cleanMessages()
     {
-        $this->MessageCount = 0;
-        $this->StatusMessages = array();
+        $this->messageCount = 0;
+        $this->statusMessages = array();
     }
 
     /**
      * Předá zprávy
      *
-     * @param boolean $Clean smazat originalni data ?
+     * @param boolean $clean smazat originalni data ?
      *
      * @return array
      */
-    public function getStatusMessages($Clean = false)
+    public function getStatusMessages($clean = false)
     {
-        if ($Clean) {
-            $StatusMessages = $this->StatusMessages;
+        if ($clean) {
+            $StatusMessages = $this->statusMessages;
             $this->cleanMessages();
 
             return $StatusMessages;
         } else {
-            return $this->StatusMessages;
+            return $this->statusMessages;
         }
     }
 
     /**
      * Prevezme si zpravy z vnějšího zdroje
      *
-     * @param array $StatusMessages pole zpráv např. $OUser->StatusMessages
+     * @param array $statusMessages pole zpráv např. $OUser->StatusMessages
      */
-    public function takeStatusMessages($StatusMessages)
+    public function takeStatusMessages($statusMessages)
     {
-        if (is_object($StatusMessages) && isset($StatusMessages->StatusMessages)) {
-            return $this->addStatusMessages($StatusMessages->StatusMessages);
+        if (is_object($statusMessages) && isset($statusMessages->statusMessages)) {
+            return $this->addStatusMessages($statusMessages->statusMessages);
         } else {
-            return $this->addStatusMessages($StatusMessages);
+            return $this->addStatusMessages($statusMessages);
         }
     }
 
     /**
      * Returns PATH modified for current operating system
      *
-     * @param string $Path
+     * @param string $path
      *
      * @return string
      */
-    public static function sysFilename($Path)
+    public static function sysFilename($path)
     {
-        $Path = str_replace('//', '/', $Path);
+        $path = str_replace('//', '/', $path);
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $Path = str_replace('/', '\\', $Path);
+            $path = str_replace('/', '\\', $path);
         } else {
-            $Path = str_replace('\\', '/', $Path);
+            $path = str_replace('\\', '/', $path);
         }
 
-        return $Path;
+        return $path;
     }
 
 }

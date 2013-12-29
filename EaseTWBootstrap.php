@@ -111,13 +111,13 @@ class EaseTWBWebPage extends EaseWebPage
          */
         //$this->EaseShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
-        if (!count($this->EaseShared->StatusMessages)) {
+        if (!count($this->EaseShared->statusMessages)) {
             return '';
         }
         $htmlFargment = '';
 
         $allMessages = array();
-        foreach ($this->EaseShared->StatusMessages as $quee => $messages) {
+        foreach ($this->EaseShared->statusMessages as $quee => $messages) {
             foreach ($messages as $MesgID => $message) {
                 $allMessages[$MesgID][$quee] = $message;
             }

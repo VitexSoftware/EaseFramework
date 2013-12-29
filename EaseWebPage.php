@@ -270,13 +270,13 @@ class EaseWebPage extends EasePage
          */
         //$this->EaseShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
-        if (!count($this->EaseShared->StatusMessages)) {
+        if (!count($this->EaseShared->statusMessages)) {
             return '';
         }
         $HtmlFargment = '';
 
         $AllMessages = array();
-        foreach ($this->EaseShared->StatusMessages as $Quee => $Messages) {
+        foreach ($this->EaseShared->statusMessages as $Quee => $Messages) {
             foreach ($Messages as $MesgID => $Message) {
                 $AllMessages[$MesgID][$Quee] = $Message;
             }

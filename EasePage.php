@@ -1041,16 +1041,16 @@ class EasePage extends EaseContainer
             return count($MsgSource);
         }
         if (is_object($MsgSource)) {
-            if (isset($MsgSource->StatusMessages) && count($MsgSource->StatusMessages)) {
-                $MsgTaken = count($MsgSource->StatusMessages);
+            if (isset($MsgSource->statusMessages) && count($MsgSource->statusMessages)) {
+                $MsgTaken = count($MsgSource->statusMessages);
                 $this->addStatusMessages($MsgSource->getStatusMessages(true));
 
                 return $MsgTaken;
             } else {
-                if (isset($MsgSource->OPage) && isset($MsgSource->OPage->StatusMessages) && count($MsgSource->OPage->StatusMessages)) {
-                    $MsgTaken = count($MsgSource->OPage->StatusMessages);
-                    $this->StatusMessages = array_merge($this->StatusMessages, $MsgSource->OPage->StatusMessages);
-                    $MsgSource->OPage->StatusMessages = array();
+                if (isset($MsgSource->OPage) && isset($MsgSource->OPage->statusMessages) && count($MsgSource->OPage->statusMessages)) {
+                    $MsgTaken = count($MsgSource->OPage->statusMessages);
+                    $this->statusMessages = array_merge($this->statusMessages, $MsgSource->OPage->statusMessages);
+                    $MsgSource->OPage->statusMessages = array();
 
                     return $MsgTaken;
                 }

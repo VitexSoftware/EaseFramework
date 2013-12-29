@@ -257,12 +257,12 @@ class EaseSand extends EaseAtom
     public function setObjectName($ObjectName = null)
     {
         if ($ObjectName) {
-            $this->ObjectName = $ObjectName;
+            $this->objectName = $ObjectName;
         } else {
-            $this->ObjectName = get_class($this);
+            $this->objectName = get_class($this);
         }
 
-        return $this->ObjectName;
+        return $this->objectName;
     }
 
     /**
@@ -272,7 +272,7 @@ class EaseSand extends EaseAtom
      */
     public function getObjectName()
     {
-        return $this->ObjectName;
+        return $this->objectName;
     }
 
     /**
