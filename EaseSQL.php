@@ -28,6 +28,7 @@ class EaseSQL extends EaseSand
      * @var resource
      */
     public $SQLLink = null;
+
     /**
      * IP serveru
      * @var string
@@ -505,40 +506,52 @@ class EaseSQL extends EaseSand
     /**
      * Vrací výsledek dotazu jako dvourozměrné pole
      *
-     * @param string $QueryRaw SQL příkaz
+     * @param string $queryRaw SQL příkaz
      *
      * @return array|null
      */
-    public function queryTo2DArray($QueryRaw)
+    public function queryTo2DArray($queryRaw)
     {
-        $Result = $this->queryToArray($QueryRaw);
-        if (count($Result)) {
+        $result = $this->queryToArray($queryRaw);
+        if (count($result)) {
             $Values = array();
-            foreach ($Result as $Value) {
-                $Values[] = current($Value);
+            foreach ($result as $value) {
+                $Values[] = current($value);
             }
 
             return $Values;
         }
 
-        return $Result;
+        return $result;
     }
 
     /**
      * Vrací první položku výsledku dotazu
      *
-     * @param string $QueryRaw SQL příkaz vracející jednu hodnotu
+     * @param string $queryRaw SQL příkaz vracející jednu hodnotu
      *
      * @return string|null
      */
-    public function queryToValue($QueryRaw)
+    public function queryToValue($queryRaw)
     {
-        $Result = $this->queryToArray($QueryRaw);
-        if (count($Result)) {
-            return current(current($Result));
+        $result = $this->queryToArray($queryRaw);
+        if (count($result)) {
+            return current(current($result));
         } else {
             return null;
         }
+    }
+
+    /**
+     * Vrací počet výsledku dotazu
+     *
+     * @param string $queryRaw SQL příkaz vracející jednu hodnotu
+     *
+     * @return int
+     */
+    public function queryToCount($queryRaw)
+    {
+        return count($this->queryToArray($queryRaw));
     }
 
     /**

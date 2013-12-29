@@ -29,7 +29,7 @@ class EaseSaver extends EaseBrick
     public function __construct()
     {
         parent::__construct();
-        if (!$this->MyDbLink->tableExist($this->MyTable)) {
+        if (!$this->myDbLink->tableExist($this->myTable)) {
             $this->createMyTable();
         }
     }
@@ -40,8 +40,8 @@ class EaseSaver extends EaseBrick
     public function createMyTable()
     {
         $Structure = array($this->getMyKeyColumn() => array('type' => 'int', 'key' => 'primary', 'unsigned' => true));
-        if ($this->MyDbLink->createTable($Structure, $this->MyTable)) {
-            $this->addStatusMessage(sprintf(_('Tabulka % byla vytvořena'), $this->MyTable));
+        if ($this->myDbLink->createTable($Structure, $this->myTable)) {
+            $this->addStatusMessage(sprintf(_('Tabulka % byla vytvořena'), $this->myTable));
         }
     }
 
@@ -75,7 +75,7 @@ class EaseSaver extends EaseBrick
         }
 
         $SaveResult = parent::InsertToMySQL($Data);
-        if ($this->MyDbLink->ErrorNumber == 1054) { //Column doesn't exist
+        if ($this->myDbLink->ErrorNumber == 1054) { //Column doesn't exist
             if ($this->createMissingColumns($Data) > 0) {
                 $SaveResult = parent::InsertToMySQL($Data);
             }
@@ -97,7 +97,7 @@ class EaseSaver extends EaseBrick
             $Data = $this->getData();
         }
 
-        $actualStructure = $this->MyDbLink->describe($this->MyTable);
+        $actualStructure = $this->myDbLink->describe($this->myTable);
 
         $structure = array();
         foreach ($Data as $column => $value) {
@@ -126,7 +126,7 @@ class EaseSaver extends EaseBrick
         if ($Result) {
             return $Result;
         }
-        if ($this->MyDbLink->ErrorNumber == 1146) { //Table doesn't exist
+        if ($this->myDbLink->ErrorNumber == 1146) { //Table doesn't exist
             $this->createMyTable();
             $this->insertToMySQL();
 
@@ -149,7 +149,7 @@ class EaseSaver extends EaseBrick
             $Data = $this->getData();
         }
         $UpdateResult = parent::UpdateToMySQL($Data);
-        if ($UpdateResult && $this->MyDbLink->getNumRows()) {
+        if ($UpdateResult && $this->myDbLink->getNumRows()) {
             return $UpdateResult;
         } else {
             return $this->insertToMySQL($Data);

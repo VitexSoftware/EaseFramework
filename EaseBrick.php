@@ -25,49 +25,49 @@ class EaseBrick extends EaseSand
      * Objekt pro práci s MySQL
      * @var EaseDbMySqli
      */
-    public $MyDbLink = null;
+    public $myDbLink = null;
 
     /**
      * Objekt pro práci s MSSQL
      * @var EaseDbMSSql
      */
-    public $MSDbLink = null;
+    public $msDbLink = null;
 
     /**
      * Předvolená tabulka v MSSQL (součást identity)
      * @var string
      */
-    public $MSTable = '';
+    public $msTable = '';
 
     /**
      * Předvolená tabulka v MySQL (součást identity)
      * @var string
      */
-    public $MyTable = '';
+    public $myTable = '';
 
     /**
      * Sql Struktura databáze. Je obsažena ve dvou podpolích $SqlStruct['ms'] a $SqlStruct['my']
      * @var array
      */
-    public $SqlStruct = null;
+    public $sqlStruct = null;
 
     /**
      * Počáteční způsob přístupu k MSSQL
      * @var string online||offline
      */
-    public $MSSQLMode = 'online';
+    public $msSQLMode = 'online';
 
     /**
      * Funkční sloupečky pro MS
      * @var array
      */
-    public $MSDbRoles = null;
+    public $msDbRoles = null;
 
     /**
      * Funkční sloupečky pro My
      * @var array
      */
-    public $MyDbRoles = null;
+    public $myDbRoles = null;
 
     /**
      * Odkaz na objekt uživatele
@@ -81,12 +81,12 @@ class EaseBrick extends EaseSand
     public function __construct()
     {
         parent::__construct();
-        if ($this->MSTable) {
+        if ($this->msTable) {
             $this->msSqlUp();
         }
 
-        if ($this->MyTable) {
-            $this->takeMyTable($this->MyTable);
+        if ($this->myTable) {
+            $this->takeMyTable($this->myTable);
         }
         $this->saveObjectIdentity();
     }
@@ -124,10 +124,10 @@ class EaseBrick extends EaseSand
     public function setObjectIdentity($newIdentity)
     {
         $changes = parent::SetObjectIdentity($newIdentity);
-        if ($this->MyTable) {
+        if ($this->myTable) {
             $this->mySqlUp();
         }
-        if ($this->MSTable) {
+        if ($this->msTable) {
             $this->msSqlUp();
         }
 
@@ -223,8 +223,8 @@ class EaseBrick extends EaseSand
      */
     public function easeAddSlashes($text)
     {
-        if (is_object($this->MyDbLink) && is_resource($this->MyDbLink->SQLLink)) {
-            return mysql_real_escape_string($text, $this->MyDbLink->SQLLink);
+        if (is_object($this->myDbLink) && is_resource($this->myDbLink->SQLLink)) {
+            return mysql_real_escape_string($text, $this->myDbLink->SQLLink);
         } else {
             return parent::EaseAddSlashes($text);
         }
@@ -244,7 +244,7 @@ class EaseBrick extends EaseSand
     public function getColumnsFromMSSQL($columnsList, $conditions, $orderBy = null, $indexBy = null)
     {
         $Where = '';
-        if (!is_object($this->MSDbLink)) {
+        if (!is_object($this->msDbLink)) {
             $this->msSqlUp();
         }
 
@@ -260,7 +260,7 @@ class EaseBrick extends EaseSand
 
                 return null;
             }
-            $Where = ' WHERE ' . $this->MSDbLink->prepSelect($conditions);
+            $Where = ' WHERE ' . $this->msDbLink->prepSelect($conditions);
         } else {
             if ($conditions) {
                 $Where = ' WHERE ' . $conditions;
@@ -280,9 +280,9 @@ class EaseBrick extends EaseSand
             $OrderByCond = '';
         }
         if (is_array($columnsList)) {
-            return $this->MSDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->MSTable . " " . $Where . ' ' . $OrderByCond, $indexBy);
+            return $this->msDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->msTable . " " . $Where . ' ' . $OrderByCond, $indexBy);
         } else {
-            return $this->MSDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->MSTable . " " . $Where . ' ' . $OrderByCond, $indexBy);
+            return $this->msDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->msTable . " " . $Where . ' ' . $OrderByCond, $indexBy);
         }
     }
 
@@ -321,7 +321,7 @@ class EaseBrick extends EaseSand
 
                 return null;
             }
-            $where = ' WHERE ' . $this->MyDbLink->prepSelect($conditions);
+            $where = ' WHERE ' . $this->myDbLink->prepSelect($conditions);
         } else {
             if (!is_null($conditions)) {
                 $where = ' WHERE ' . $conditions;
@@ -349,9 +349,9 @@ class EaseBrick extends EaseSand
         }
 
         if (is_array($columnsList)) {
-            return $this->MyDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->MyTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
+            return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
         } else {
-            return $this->MyDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->MyTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
+            return $this->myDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
         }
     }
 
@@ -367,12 +367,12 @@ class EaseBrick extends EaseSand
     public function loadFromMSSQL($conditions = null, $allowMultiplete = false)
     {
         if (is_integer($conditions)) {
-            $dataRow = $this->MSDbLink->queryToArray("SELECT * FROM " . $this->MSTable . " WHERE " . $this->MSDbLink->prepSelect(array($this->MSKeyColumn => $conditions)));
+            $dataRow = $this->msDbLink->queryToArray("SELECT * FROM " . $this->msTable . " WHERE " . $this->msDbLink->prepSelect(array($this->MSKeyColumn => $conditions)));
         } else {
             if (is_array($conditions)) {
-                $dataRow = $this->MSDbLink->queryToArray("SELECT * FROM " . $this->MSTable . " WHERE " . $this->MSDbLink->prepSelect($conditions));
+                $dataRow = $this->msDbLink->queryToArray("SELECT * FROM " . $this->msTable . " WHERE " . $this->msDbLink->prepSelect($conditions));
             } else {
-                $dataRow = $this->MSDbLink->queryToArray("SELECT * FROM " . $this->MSTable . " WHERE " . $this->MSDbLink->prepSelect(array($this->MSKeyColumn => $conditions)));
+                $dataRow = $this->msDbLink->queryToArray("SELECT * FROM " . $this->msTable . " WHERE " . $this->msDbLink->prepSelect(array($this->MSKeyColumn => $conditions)));
             }
         }
 
@@ -383,7 +383,7 @@ class EaseBrick extends EaseSand
             $this->setData($dataRow[0], 'MSSQL');
         } else {
             if (!$allowMultiplete) {
-                $this->addToLog('loadFromMSSQL: Multiplete result when single result expected: ' . $this->MSDbLink->getLastQuery(), 'error');
+                $this->addToLog('loadFromMSSQL: Multiplete result when single result expected: ' . $this->msDbLink->getLastQuery(), 'error');
 
                 return null;
             }
@@ -406,7 +406,7 @@ class EaseBrick extends EaseSand
     public function getAllFromMSSQL($tableName = null, $columnsList = null, $orderBy = null)
     {
         if (!$tableName) {
-            $tableName = $this->MSTable;
+            $tableName = $this->msTable;
         }
         if ($orderBy) {
             $orderByCond = ' ORDER BY ' . implode(',', $orderBy);
@@ -414,9 +414,9 @@ class EaseBrick extends EaseSand
             $orderByCond = '';
         }
         if (!$columnsList) {
-            return $this->MSDbLink->queryToArray("SELECT * FROM " . $tableName . $orderByCond);
+            return $this->msDbLink->queryToArray("SELECT * FROM " . $tableName . $orderByCond);
         } else {
-            return $this->MSDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $orderByCond);
+            return $this->msDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $orderByCond);
         }
     }
 
@@ -441,9 +441,9 @@ class EaseBrick extends EaseSand
             $this->error('loadFromMySQL: Unknown Key', $this->Data);
         }
 
-        $queryRaw = 'SELECT * FROM `' . $this->MyTable . '` WHERE `' . $this->getMyKeyColumn() . '`=' . $itemID;
+        $queryRaw = 'SELECT * FROM `' . $this->myTable . '` WHERE `' . $this->getMyKeyColumn() . '`=' . $itemID;
 
-        return $this->MyDbLink->queryToArray($queryRaw);
+        return $this->myDbLink->queryToArray($queryRaw);
     }
 
     /**
@@ -486,7 +486,7 @@ class EaseBrick extends EaseSand
             return count($this->Data);
         } else {
             if (!$multiplete) {
-                $this->addToLog('Item Found ' . $itemID . ' v ' . $this->MyTable, 'error');
+                $this->addToLog('Item Found ' . $itemID . ' v ' . $this->myTable, 'error');
             }
 
             return null;
@@ -507,7 +507,7 @@ class EaseBrick extends EaseSand
     public function getAllFromMySQL($tableName = null, $columnsList = null, $limit = null, $orderByColumn = null, $ColumnToIndex = null)
     {
         if (is_null($tableName)) {
-            $tableName = $this->MyTable;
+            $tableName = $this->myTable;
         }
         if ($limit) {
             $limitCond = ' LIMIT ' . $limit;
@@ -525,9 +525,9 @@ class EaseBrick extends EaseSand
         }
 
         if (!$columnsList) {
-            return $this->MyDbLink->queryToArray("SELECT * FROM " . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
+            return $this->myDbLink->queryToArray("SELECT * FROM " . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
         } else {
-            return $this->MyDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
+            return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
         }
     }
 
@@ -538,25 +538,25 @@ class EaseBrick extends EaseSand
      */
     public function msSqlUp($updateStructure = false)
     {
-        if (!is_object($this->MSDbLink)) {
+        if (!is_object($this->msDbLink)) {
             try {
                 require_once 'EaseMSSQL.php';
-                $this->MSDbLink = EaseDbMSSql::singleton($this->MSSQLMode);
+                $this->msDbLink = EaseDbMSSql::singleton($this->msSQLMode);
             } catch (Exception $exc) {
                 $this->error($exc->getTraceAsString());
             }
-            $this->MSDbLink->setObjectName($this->getObjectName() . '->MSSQL');
+            $this->msDbLink->setObjectName($this->getObjectName() . '->MSSQL');
         }
 
-        $this->MSDbLink->KeyColumn = $this->MSKeyColumn;
-        $this->MSDbLink->TableName = $this->MSTable;
-        $this->MSDbLink->LastModifiedColumn = $this->MSLastModifiedColumn;
-        $this->MSDbLink->CreateColumn = $this->MSCreateColumn;
+        $this->msDbLink->KeyColumn = $this->MSKeyColumn;
+        $this->msDbLink->TableName = $this->msTable;
+        $this->msDbLink->LastModifiedColumn = $this->MSLastModifiedColumn;
+        $this->msDbLink->CreateColumn = $this->MSCreateColumn;
         if ($updateStructure) {
             $this->loadSqlStruct('ms');
         }
-        if (isset($this->SqlStruct['ms'])) {
-            $this->MSDbLink->TableStructure = $this->SqlStruct['ms'];
+        if (isset($this->sqlStruct['ms'])) {
+            $this->msDbLink->TableStructure = $this->sqlStruct['ms'];
         }
     }
 
@@ -567,20 +567,20 @@ class EaseBrick extends EaseSand
      */
     public function mySqlUp($updateStructure = false)
     {
-        if (!is_object($this->MyDbLink)) {
+        if (!is_object($this->myDbLink)) {
             $this->takeMyTable();
 
             return;
         }
-        $this->MyDbLink->KeyColumn = $this->MyKeyColumn;
-        $this->MyDbLink->TableName = $this->MyTable;
-        $this->MyDbLink->CreateColumn = $this->MyCreateColumn;
-        $this->MyDbLink->LastModifiedColumn = $this->MyLastModifiedColumn;
+        $this->myDbLink->KeyColumn = $this->MyKeyColumn;
+        $this->myDbLink->TableName = $this->myTable;
+        $this->myDbLink->CreateColumn = $this->MyCreateColumn;
+        $this->myDbLink->LastModifiedColumn = $this->MyLastModifiedColumn;
         if ($updateStructure) {
             $this->loadSqlStruct('my');
         }
-        if (isset($this->SqlStruct['my'])) {
-            $this->MyDbLink->TableStructure = $this->SqlStruct['my'];
+        if (isset($this->sqlStruct['my'])) {
+            $this->myDbLink->TableStructure = $this->sqlStruct['my'];
         }
     }
 
@@ -593,13 +593,13 @@ class EaseBrick extends EaseSand
      */
     public function takeDataToMSSQL($data)
     {
-        if (!count($this->SqlStruct['ms'])) {
+        if (!count($this->sqlStruct['ms'])) {
             $this->loadObjectSqlStruct();
         }
-        if (!count($this->SqlStruct['ms'])) {
-            $this->error('takeData: Missing MSSQL struct for ' . $this->MSTable, $data);
+        if (!count($this->sqlStruct['ms'])) {
+            $this->error('takeData: Missing MSSQL struct for ' . $this->msTable, $data);
         }
-        foreach ($this->SqlStruct['ms'] as $MSSQLColumnName => $MSSQLColumnValue) {
+        foreach ($this->sqlStruct['ms'] as $MSSQLColumnName => $MSSQLColumnValue) {
             if (array_key_exists($MSSQLColumnName, $data)) {
                 $this->DivDataArray($data, $this->Data['MSSQL'], $MSSQLColumnName);
                 if (isset($this->Data['MSSQL'][$MSSQLColumnName]) && ($MSSQLColumnValue['type'] == 'date')) {
@@ -643,7 +643,7 @@ class EaseBrick extends EaseSand
             }
         }
         if (!count($data)) {
-            $this->error('NO data for Insert to MSSQL: ' . $this->MSTable);
+            $this->error('NO data for Insert to MSSQL: ' . $this->msTable);
 
             return null;
         }
@@ -652,10 +652,10 @@ class EaseBrick extends EaseSand
         if (isset($this->MSCreateColumn) && strlen($this->MSCreateColumn) && !isset($data[$this->MSCreateColumn])) {
             $data[$this->MSCreateColumn] = 'GetDate()';
         }
-        list($cols, $vals) = $this->MSDbLink->prepCols($data);
-        $QueryRaw = 'INSERT INTO [' . MS_DB_DATABASE . '].[dbo].[' . $this->MSTable . '] (' . $cols . ') VALUES (' . $vals . ')';
-        if ($this->MSDbLink->exeQuery($QueryRaw)) {
-            $this->setMSKey($this->MSDbLink->getLastInsertID());
+        list($cols, $vals) = $this->msDbLink->prepCols($data);
+        $QueryRaw = 'INSERT INTO [' . MS_DB_DATABASE . '].[dbo].[' . $this->msTable . '] (' . $cols . ') VALUES (' . $vals . ')';
+        if ($this->msDbLink->exeQuery($QueryRaw)) {
+            $this->setMSKey($this->msDbLink->getLastInsertID());
             $this->Status['MSSQLSaved'] = true;
 
             return $this->getMSKey();
@@ -676,7 +676,7 @@ class EaseBrick extends EaseSand
     {
         if ($sqlType == 'both') {
             if (!$columns) {
-                $columns = $this->SqlStruct;
+                $columns = $this->sqlStruct;
             }
             if (isset($columns['my']) && isset($columns['ms'])) {
                 return $this->saveSqlStruct('my', $columns['my']) && $this->saveSqlStruct('ms', $columns['ms']);
@@ -688,7 +688,7 @@ class EaseBrick extends EaseSand
                 return $this->saveSqlStruct('ms', $columns['ms']);
             }
         }
-        $this->SqlStruct[$sqlType] = array();
+        $this->sqlStruct[$sqlType] = array();
         if (!is_array($columns)) {
             $this->error('SaveSqlStruct:  $Columns without key (' . $sqlType . ')', $columns);
 
@@ -735,18 +735,18 @@ class EaseBrick extends EaseSand
             }
 
             $Record = array('sql' => $sqlType, 'table' => $TableName, 'column' => $columnName, 'type' => $columnType, 'partner' => $partner);
-            $this->SqlStruct[$sqlType][$columnName] = $Record;
+            $this->sqlStruct[$sqlType][$columnName] = $Record;
 
             $ShopID = $this->getMyKey(array('sql' => $sqlType, 'table' => $TableName, 'column' => $columnName));
             if (!$ShopID) {
-                $this->MyDbLink->arrayToInsert($Record);
+                $this->myDbLink->arrayToInsert($Record);
             }
         }
 
         $this->restoreObjectIdentity();
         $this->takeMyTable();
 
-        return $this->SqlStruct[$sqlType];
+        return $this->sqlStruct[$sqlType];
     }
 
     /**
@@ -766,7 +766,7 @@ class EaseBrick extends EaseSand
         );
 
         $this->takeMyTable();
-        foreach ($this->SqlStruct['my'] as $columnName => $structs) {
+        foreach ($this->sqlStruct['my'] as $columnName => $structs) {
             $structs[$this->MyKeyColumn] = $this->getMyKey(array('sql' => $structs['sql'], 'table' => $structs['table'], 'column' => $structs['column']));
             if ($structs[$this->MyKeyColumn]) {
                 $Result = $this->updateToMySQL($structs);
@@ -775,7 +775,7 @@ class EaseBrick extends EaseSand
             }
         }
 
-        foreach ($this->SqlStruct['ms'] as $columnName => $structs) {
+        foreach ($this->sqlStruct['ms'] as $columnName => $structs) {
             $structs[$this->MyKeyColumn] = $this->getMSKey(array('sql' => $structs['sql'], 'table' => $structs['table'], 'column' => $structs['column']));
             if ($structs[$this->MyKeyColumn]) {
                 $Result = $this->updateToMySQL($structs);
@@ -798,34 +798,34 @@ class EaseBrick extends EaseSand
      */
     public function loadSqlStruct($sqlType, $tableName = null, $tableNamePartner = null)
     {
-        $this->SqlStruct[$sqlType] = $this->MSDbLink->describe($this->MSTable);
+        $this->sqlStruct[$sqlType] = $this->msDbLink->describe($this->msTable);
 
-        return $this->SqlStruct[$sqlType];
+        return $this->sqlStruct[$sqlType];
 
         if (!$tableName) {
             if ($sqlType == 'my') {
-                $tableName = $this->MyTable;
-                $tableNamePartner = $this->MSTable;
+                $tableName = $this->myTable;
+                $tableNamePartner = $this->msTable;
             } else {
-                $tableName = $this->MSTable;
-                $tableNamePartner = $this->MyTable;
+                $tableName = $this->msTable;
+                $tableNamePartner = $this->myTable;
             }
             if (!isset($tableNamePartner) || !$tableNamePartner) {
-                $SqlTableStruct = $this->MyDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` = \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\'', 'column');
+                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` = \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\'', 'column');
             } else {
-                $SqlTableStruct = $this->MyDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` = \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\' AND `partner` LIKE \'' . $tableNamePartner . '.%\'', 'column');
+                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` = \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\' AND `partner` LIKE \'' . $tableNamePartner . '.%\'', 'column');
             }
         } else {
             if (!$tableNamePartner) {
-                $SqlTableStruct = $this->MyDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` LIKE \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\'', 'column');
+                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` LIKE \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\'', 'column');
             } else {
-                $SqlTableStruct = $this->MyDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` LIKE \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\' AND `partner LIKE` \'' . $tableNamePartner . '.%\'', 'column');
+                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` LIKE \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\' AND `partner LIKE` \'' . $tableNamePartner . '.%\'', 'column');
             }
         }
 
-        $this->SqlStruct[$sqlType] = $SqlTableStruct;
-        if (count($this->SqlStruct[$sqlType])) {
-            return $this->SqlStruct[$sqlType];
+        $this->sqlStruct[$sqlType] = $SqlTableStruct;
+        if (count($this->sqlStruct[$sqlType])) {
+            return $this->sqlStruct[$sqlType];
         } else {
             return null;
         }
@@ -839,11 +839,11 @@ class EaseBrick extends EaseSand
     public function saveObjectSqlStruct($createOnly = null)
     {
 //        print_pre(array($this->MyTable,$this->MSTable),'11');
-        if ($this->MSTable && ($createOnly != 'my')) {
-            $this->saveSqlStruct('ms', $this->MSDbLink->describe($this->MSTable));
+        if ($this->msTable && ($createOnly != 'my')) {
+            $this->saveSqlStruct('ms', $this->msDbLink->describe($this->msTable));
         }
-        if ($this->MyTable && ($createOnly != 'ms')) {
-            $this->saveSqlStruct('my', $this->MyDbLink->describe($this->MyTable));
+        if ($this->myTable && ($createOnly != 'ms')) {
+            $this->saveSqlStruct('my', $this->myDbLink->describe($this->myTable));
         }
 //      print_pre(array($this->MyTable,$this->MSTable),'22');
     }
@@ -855,28 +855,28 @@ class EaseBrick extends EaseSand
      */
     public function loadObjectSqlStruct()
     {
-        if (isset($this->MSTable) && strlen($this->MSTable)) {
+        if (isset($this->msTable) && strlen($this->msTable)) {
 
             if (!count($this->loadSqlStruct('ms'))) {
-                if (is_object($this->MSDbLink)) {
-                    $this->saveSqlStruct('ms', $this->MSDbLink->describe($this->MSTable));
+                if (is_object($this->msDbLink)) {
+                    $this->saveSqlStruct('ms', $this->msDbLink->describe($this->msTable));
                 } else {
                     $this->error('LoadObjectSqlStruct: Cant load MSSQL struct');
                 }
             }
         }
-        if (isset($this->MyTable) && strlen($this->MyTable)) {
+        if (isset($this->myTable) && strlen($this->myTable)) {
 
             if (!count($this->loadSqlStruct('my'))) {
-                if (is_object($this->MyDbLink)) {
-                    $this->saveSqlStruct('my', $this->MyDbLink->describe($this->MyTable));
+                if (is_object($this->myDbLink)) {
+                    $this->saveSqlStruct('my', $this->myDbLink->describe($this->myTable));
                 } else {
                     $this->error('LoadObjectSqlStruct: Cant load MySQL struct');
                 }
             }
         }
 
-        return $this->SqlStruct;
+        return $this->sqlStruct;
     }
 
     /**
@@ -889,7 +889,7 @@ class EaseBrick extends EaseSand
     public function setupPartners($sqlStructProcessed = null)
     {
         if (!$sqlStructProcessed) {
-            $sqlStructProcessed = $this->SqlStruct;
+            $sqlStructProcessed = $this->sqlStruct;
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -897,14 +897,14 @@ class EaseBrick extends EaseSand
         $mySQLStruct = null;
         $msSSQLStruct = null;
         if (is_array($sqlStructProcessed['my'])) {
-            if ($this->MyTable == key($sqlStructProcessed['my'])) {
-                $mySQLStruct = $sqlStructProcessed['my'][$this->MyTable];
+            if ($this->myTable == key($sqlStructProcessed['my'])) {
+                $mySQLStruct = $sqlStructProcessed['my'][$this->myTable];
             } else {
                 $mySQLStruct = $sqlStructProcessed['my'];
             }
             foreach ($mySQLStruct as $columnName => $structs) {
                 if (isset($sqlStructProcessed['ms'][$columnName]) && is_array($sqlStructProcessed['ms'][$columnName])) {
-                    $mySQLStruct[$columnName]['partner'] = $this->MSTable . '.' . $columnName;
+                    $mySQLStruct[$columnName]['partner'] = $this->msTable . '.' . $columnName;
                     if (isset($sqlStructProcessed['ms'][$columnName]['keyid'])) {
                         $mySQLStruct[$columnName]['keyid'] = true;
                     }
@@ -913,14 +913,14 @@ class EaseBrick extends EaseSand
         }
 
         if (is_array($sqlStructProcessed['ms'])) {
-            if ($this->MSTable == key($sqlStructProcessed['ms'])) {
-                $msSSQLStruct = $sqlStructProcessed['ms'][$this->MSTable];
+            if ($this->msTable == key($sqlStructProcessed['ms'])) {
+                $msSSQLStruct = $sqlStructProcessed['ms'][$this->msTable];
             } else {
                 $msSSQLStruct = $sqlStructProcessed['ms'];
             }
             foreach ($msSSQLStruct as $columnName => $structs) {
                 if (isset($sqlStructProcessed['my'][$columnName]) && is_array($sqlStructProcessed['my'][$columnName])) {
-                    $msSSQLStruct[$columnName]['partner'] = $this->MyTable . '.' . $columnName;
+                    $msSSQLStruct[$columnName]['partner'] = $this->myTable . '.' . $columnName;
                     if (isset($sqlStructProcessed['my'][$columnName]['keyid'])) {
                         $msSSQLStruct[$columnName]['keyid'] = true;
                     }
@@ -929,9 +929,9 @@ class EaseBrick extends EaseSand
         }
 
         if ($useInObject) {
-            $this->SqlStruct = array('my' => $mySQLStruct, 'ms' => $msSSQLStruct);
+            $this->sqlStruct = array('my' => $mySQLStruct, 'ms' => $msSSQLStruct);
 
-            return $this->SqlStruct;
+            return $this->sqlStruct;
         } else {
             return array('my' => $mySQLStruct, 'ms' => $msSSQLStruct);
         }
@@ -947,15 +947,15 @@ class EaseBrick extends EaseSand
     public function getDbFunctions($sqlType)
     {
         $DbFunctions = array();
-        if (!isset($this->SqlStruct[$sqlType])) {
+        if (!isset($this->sqlStruct[$sqlType])) {
             $this->loadSqlStruct($sqlType);
         }
-        if (!isset($this->SqlStruct[$sqlType])) {
+        if (!isset($this->sqlStruct[$sqlType])) {
             return null;
         }
 
 // tady jsem skončil .....
-        foreach ($this->SqlStruct[$sqlType] as $columnName => $columnProperties) {
+        foreach ($this->sqlStruct[$sqlType] as $columnName => $columnProperties) {
             if (isset($columnProperties['function'])) {
                 $DbFunctions[$columnProperties['function']] = $columnName;
             }
@@ -969,31 +969,31 @@ class EaseBrick extends EaseSand
      */
     public function setUpColumnsRoles()
     {
-        $this->MSDbRoles = $this->getDbFunctions('ms');
-        $this->MyDbRoles = $this->getDbFunctions('my');
-        if (isset($this->MSDbRoles['KeyID'])) {
-            $this->setMSKeyColumn($this->MSDbRoles['KeyID']);
+        $this->msDbRoles = $this->getDbFunctions('ms');
+        $this->myDbRoles = $this->getDbFunctions('my');
+        if (isset($this->msDbRoles['KeyID'])) {
+            $this->setMSKeyColumn($this->msDbRoles['KeyID']);
         }
-        if (isset($this->MyDbRoles['KeyID'])) {
-            $this->setMyKeyColumn($this->MyDbRoles['KeyID']);
+        if (isset($this->myDbRoles['KeyID'])) {
+            $this->setMyKeyColumn($this->myDbRoles['KeyID']);
         }
-        if (isset($this->MSDbRoles['IDS'])) {
-            $this->MSIDSColumn = $this->MSDbRoles['IDS'];
+        if (isset($this->msDbRoles['IDS'])) {
+            $this->MSIDSColumn = $this->msDbRoles['IDS'];
         }
-        if (isset($this->MyDbRoles['IDS'])) {
-            $this->MyIDSColumn = $this->MyDbRoles['IDS'];
+        if (isset($this->myDbRoles['IDS'])) {
+            $this->MyIDSColumn = $this->myDbRoles['IDS'];
         }
-        if (isset($this->MSDbRoles['RefKey'])) {
-            $this->MSRefIDColumn = $this->MSDbRoles['RefKey'];
+        if (isset($this->msDbRoles['RefKey'])) {
+            $this->MSRefIDColumn = $this->msDbRoles['RefKey'];
         }
-        if (isset($this->MyDbRoles['RefKey'])) {
-            $this->MyRefIDColumn = $this->MyDbRoles['RefKey'];
+        if (isset($this->myDbRoles['RefKey'])) {
+            $this->MyRefIDColumn = $this->myDbRoles['RefKey'];
         }
-        if (isset($this->MSDbRoles['LastModifiedDate'])) {
-            $this->MSLastModifiedColumn = $this->MSDbRoles['LastModifiedDate'];
+        if (isset($this->msDbRoles['LastModifiedDate'])) {
+            $this->MSLastModifiedColumn = $this->msDbRoles['LastModifiedDate'];
         }
-        if (isset($this->MyDbRoles['LastModifiedDate'])) {
-            $this->MyLastModifiedColumn = $this->MyDbRoles['LastModifiedDate'];
+        if (isset($this->myDbRoles['LastModifiedDate'])) {
+            $this->MyLastModifiedColumn = $this->myDbRoles['LastModifiedDate'];
         }
     }
 
@@ -1006,7 +1006,7 @@ class EaseBrick extends EaseSand
      */
     public function updateToMSSQL($data = null)
     {
-        if (!$this->MSTable) {
+        if (!$this->msTable) {
             $this->error('UpdateToMSSQL: No MSTable', $data);
 
             return null;
@@ -1043,10 +1043,10 @@ class EaseBrick extends EaseSand
         unset($data[$this->MSKeyColumn]);
 
         $QueryRaw = '
-UpDaTE [' . MS_DB_DATABASE . '].[dbo].[' . $this->MSTable . '] SET ' . $this->MSDbLink->prepUpdate($data, true) . '
+UpDaTE [' . MS_DB_DATABASE . '].[dbo].[' . $this->msTable . '] SET ' . $this->msDbLink->prepUpdate($data, true) . '
 WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
 
-        if ($this->MSDbLink->exeQuery($QueryRaw)) {
+        if ($this->msDbLink->exeQuery($QueryRaw)) {
             return $msKeyColumnBackup;
         }
 
@@ -1064,7 +1064,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function saveToMSSQL($data = null, $searchForID = false)
     {
-        if (!$this->MSTable) {
+        if (!$this->msTable) {
             $this->error('SaveToMSSQL: No MSTable', $data);
 
             return null;
@@ -1110,7 +1110,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function updateToMySQL($data = null)
     {
-        if (!$this->MyTable) {
+        if (!$this->myTable) {
             return null;
         }
 
@@ -1152,8 +1152,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $key = '\'' . addslashes($key) . '\'';
         }
 
-        $queryRaw = "UPDATE `" . $this->MyTable . "` SET " . $this->MyDbLink->arrayToQuery($data) . "  WHERE `" . $this->MyKeyColumn . "` = " . $key;
-        if ($this->MyDbLink->exeQuery($queryRaw)) {
+        $queryRaw = "UPDATE `" . $this->myTable . "` SET " . $this->myDbLink->arrayToQuery($data) . "  WHERE `" . $this->MyKeyColumn . "` = " . $key;
+        if ($this->myDbLink->exeQuery($queryRaw)) {
             if ($UseInObject) {
                 if (array_key_exists($defDatPref, $this->Data)) {
                     return $this->Data[$defDatPref][$this->MyKeyColumn];
@@ -1178,7 +1178,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function saveToMySQL($data = null, $searchForID = false)
     {
-        if (!$this->MyTable) {
+        if (!$this->myTable) {
             return null;
         }
         if (is_null($data)) {
@@ -1246,13 +1246,13 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             } else {
                 $data = $this->getData();
             }
-            $UseInObject = true;
+            $useInObject = true;
         } else {
-            $UseInObject = false;
+            $useInObject = false;
         }
 
         if (!count($data)) {
-            $this->error('NO data for Insert to Shop: ' . $this->MyTable);
+            $this->error('NO data for Insert to Shop: ' . $this->myTable);
 
             return null;
         }
@@ -1260,13 +1260,13 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         if ($this->MyCreateColumn && !isset($data[$this->MyCreateColumn])) {
             $data[$this->MyCreateColumn] = 'NOW()';
         }
-        $QueryRaw = 'INSERT INTO `' . $this->MyTable . '` SET ' . $this->MyDbLink->arrayToQuery($data, false);
-        if ($this->MyDbLink->exeQuery($QueryRaw)) {
-            if ($UseInObject) {
-                $this->setMyKey($this->MyDbLink->LastInsertID);
+        $queryRaw = 'INSERT INTO `' . $this->myTable . '` SET ' . $this->myDbLink->arrayToQuery($data, false);
+        if ($this->myDbLink->exeQuery($queryRaw)) {
+            if ($useInObject) {
+                $this->setMyKey($this->myDbLink->LastInsertID);
             }
 
-            return $this->MyDbLink->LastInsertID;
+            return $this->myDbLink->LastInsertID;
         }
 
         return null;
@@ -1280,10 +1280,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function save()
     {
         $Result = array();
-        if (is_object($this->MyDbLink)) {
+        if (is_object($this->myDbLink)) {
             $Result['my'] = $this->saveToMySQL();
         }
-        if (is_object($this->MSDbLink)) {
+        if (is_object($this->msDbLink)) {
             $Result['ms'] = $this->saveToMSSQL();
         }
 
@@ -1481,8 +1481,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (count($data)) {
-            $this->MyDbLink->exeQuery('DELETE FROM `' . $this->MyTable . '` WHERE ' . $this->MyDbLink->prepSelect($data));
-            if ($this->MyDbLink->getNumRows()) {
+            $this->myDbLink->exeQuery('DELETE FROM `' . $this->myTable . '` WHERE ' . $this->myDbLink->prepSelect($data));
+            if ($this->myDbLink->getNumRows()) {
                 return true;
             } else {
                 return false;
@@ -1565,14 +1565,14 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMSSQLList($tableName = null, $msKeyColumn = null)
     {
         if (!$tableName) {
-            $tableName = $this->MSTable;
+            $tableName = $this->msTable;
         }
         if (!$msKeyColumn) {
             $msKeyColumn = $this->MSKeyColumn;
         }
         $ListQuery = "SELECT [$msKeyColumn] FROM [$tableName] ORDER BY [$msKeyColumn]";
 
-        return $this->MSDbLink->queryToArray($ListQuery);
+        return $this->msDbLink->queryToArray($ListQuery);
     }
 
     /**
@@ -1586,15 +1586,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMySQLList($tableName = null, $myKeyColumn = null)
     {
         if (!$tableName) {
-            $tableName = $this->MyTable;
+            $tableName = $this->myTable;
         }
         if (!$myKeyColumn) {
             $myKeyColumn = $this->MyKeyColumn;
         }
         $ListQuery = "SELECT `$myKeyColumn` FROM $tableName ";
 
-        $this->MyDbLink->queryToArray($ListQuery);
-        $this->DataIdList = $this->MyDbLink->ResultArray;
+        $this->myDbLink->queryToArray($ListQuery);
+        $this->DataIdList = $this->myDbLink->ResultArray;
 
         return count($this->DataIdList);
     }
@@ -1607,15 +1607,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function takeMyTable($myTable = null)
     {
         if ($myTable) {
-            $this->MyTable = $myTable;
+            $this->myTable = $myTable;
         }
-        if (!isset($this->MyDbLink) || !is_object($this->MyDbLink)) {
-            $this->MyDbLink = EaseDbMySqli::singleton();
+        if (!isset($this->myDbLink) || !is_object($this->myDbLink)) {
+            $this->myDbLink = EaseDbMySqli::singleton();
             if (!isset($this->EaseShared->MyDblink)) {
-                $this->EaseShared->MyDbLink = & $this->MyDbLink;
+                $this->EaseShared->MyDbLink = & $this->myDbLink;
             }
         }
-        if (is_string($this->MyTable)) {
+        if (is_string($this->myTable)) {
             $this->mySqlUp();
         }
     }
@@ -1638,7 +1638,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function MyIDExists($id)
     {
-        return $this->MyDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->MyTable . ' WHERE ' . $this->getMyKeyColumn() . '=' . intval($id));
+        return $this->myDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->myTable . ' WHERE ' . $this->getMyKeyColumn() . '=' . intval($id));
     }
 
     /**
@@ -1649,7 +1649,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function MSIDExists($id)
     {
-        return $this->MSDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->MSTable . ' WHERE ' . $this->getMSKeyColumn() . '=' . intval($id));
+        return $this->msDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->msTable . ' WHERE ' . $this->getMSKeyColumn() . '=' . intval($id));
     }
 
     /**
@@ -1767,9 +1767,9 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function setMyTable($myTable)
     {
-        $this->MyTable = $myTable;
+        $this->myTable = $myTable;
         $this->setObjectIdentity(array('MyTable' => $myTable));
-        unset($this->SqlStruct['my']);
+        unset($this->sqlStruct['my']);
     }
 
     /**
@@ -1779,7 +1779,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function setMSTable($msTable)
     {
-        $this->MSTable = $msTable;
+        $this->msTable = $msTable;
         $this->setObjectIdentity(array('MSTable' => $msTable));
     }
 
@@ -1808,8 +1808,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                     unset($data[$ID]);
         }
 
-        $QueryRaw = "SELECT " . $this->MSKeyColumn . " FROM [" . $this->MSTable . "] WHERE " . $this->MSDbLink->prepSelect($data, $operator);
-        $IDQuery = $this->MSDbLink->queryToArray($QueryRaw);
+        $QueryRaw = "SELECT " . $this->MSKeyColumn . " FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data, $operator);
+        $IDQuery = $this->msDbLink->queryToArray($QueryRaw);
 
         $this->LastMSSQLSearchResult = $IDQuery;
 
@@ -1847,8 +1847,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                     unset($data[$id]);
         }
 
-        $queryRaw = "SELECT " . $this->MSIDSColumn . " FROM [" . $this->MSTable . "] WHERE " . $this->MSDbLink->prepSelect($data, $operator);
-        $idQuery = $this->MSDbLink->queryToArray($queryRaw);
+        $queryRaw = "SELECT " . $this->MSIDSColumn . " FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data, $operator);
+        $idQuery = $this->msDbLink->queryToArray($queryRaw);
         if (isset($idQuery[0])) {
             return $idQuery[0][$this->MSIDSColumn];
         } else {
@@ -1880,10 +1880,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                     unset($data[$id]);
         }
 
-        $QueryRaw = "DELETE FROM [" . $this->MSTable . "] WHERE " . $this->MSDbLink->prepSelect($data);
-        $this->MSDbLink->exeQuery($QueryRaw);
+        $QueryRaw = "DELETE FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data);
+        $this->msDbLink->exeQuery($QueryRaw);
 
-        return $this->MSDbLink->NumRows;
+        return $this->msDbLink->NumRows;
     }
 
     /**
@@ -1977,12 +1977,12 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function mySQLTableExist($tableName = null)
     {
         if (!$tableName)
-            $tableName = $this->MyTable;
+            $tableName = $this->myTable;
         if (!$tableName) {
             $this->error('ShopTableExist: $TableName not known', $this->Identity);
         }
 
-        return $this->MyDbLink->tableExist($tableName);
+        return $this->myDbLink->tableExist($tableName);
     }
 
     /**
@@ -1995,12 +1995,12 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function msSQLTableExist($tableName = null)
     {
         if (!$tableName)
-            $tableName = $this->MSTable;
+            $tableName = $this->msTable;
         if (!$tableName) {
             $this->error('MSSQLTableExist: $TableName not known', $this->Identity);
         }
 
-        return $this->MSDbLink->tableExist($tableName);
+        return $this->msDbLink->tableExist($tableName);
     }
 
     /**
@@ -2013,10 +2013,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMSSQLItemsCount($tableName = null)
     {
         if (!$tableName) {
-            $tableName = $this->MSTable;
+            $tableName = $this->msTable;
         }
 
-        return $this->MSDbLink->queryToValue('SELECT ROWS FROM sysindexes WHERE id = OBJECT_ID(\'' . $tableName . '\') AND indid = 1');
+        return $this->msDbLink->queryToValue('SELECT ROWS FROM sysindexes WHERE id = OBJECT_ID(\'' . $tableName . '\') AND indid = 1');
     }
 
     /**
@@ -2029,10 +2029,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMySQLItemsCount($tableName = null)
     {
         if (!$tableName) {
-            $tableName = $this->MyTable;
+            $tableName = $this->myTable;
         }
 
-        return $this->MyDbLink->queryToValue('SELECT COUNT(' . $this->MyKeyColumn . ') FROM ' . $tableName);
+        return $this->myDbLink->queryToValue('SELECT COUNT(' . $this->MyKeyColumn . ') FROM ' . $tableName);
     }
 
     /**

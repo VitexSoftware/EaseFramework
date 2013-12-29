@@ -375,7 +375,7 @@ class EaseUser extends EaseAnonym
             return null;
         }
         $Hash = $this->encryptPassword($NewPassword);
-        $this->MyDbLink->exeQuery('UPDATE ' . $this->MyTable . ' SET ' . $this->PasswordColumn . '=\'' . $Hash . '\' WHERE ' . $this->MyKeyColumn . '=' . $UserID);
+        $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->PasswordColumn . '=\'' . $Hash . '\' WHERE ' . $this->MyKeyColumn . '=' . $UserID);
         $this->addToLog('PasswordChange: ' . $this->getDataValue($this->LoginColumn) . '@' . $UserID . '#' . $this->getDataValue($this->MyIDSColumn) . ' ' . $Hash);
         if ($UserID == $this->getUserID()) {
             $this->Data[$this->PasswordColumn] = $Hash;

@@ -202,27 +202,27 @@ class EaseDbMySqli extends EaseSql
     /**
      * vraci vysledek SQL dotazu $QueryRaw jako pole (uchovavane take jako $this->Resultarray)
      *
-     * @param string $QueryRaw
-     * @param string $KeyColumnToIndex umožní vrátit pole výsledků číslovaných podle $DataRow[$KeyColumnToIndex];
+     * @param string $queryRaw
+     * @param string $keyColumnToIndex umožní vrátit pole výsledků číslovaných podle $DataRow[$KeyColumnToIndex];
      *
      * @return array
      */
-    public function queryToArray($QueryRaw, $KeyColumnToIndex = false)
+    public function queryToArray($queryRaw, $keyColumnToIndex = false)
     {
-        $ResultArray = array();
-        if ($this->exeQuery($QueryRaw)) {
-            if (is_string($KeyColumnToIndex)) {
+        $resultArray = array();
+        if ($this->exeQuery($queryRaw)) {
+            if (is_string($keyColumnToIndex)) {
                 while ($DataRow = $this->Result->fetch_assoc()) {
-                    $ResultArray[$DataRow[$KeyColumnToIndex]] = $DataRow;
+                    $resultArray[$DataRow[$keyColumnToIndex]] = $DataRow;
                 }
             } else {
-                if (($KeyColumnToIndex == true) && isset($this->MyKeyColumn)) {
+                if (($keyColumnToIndex == true) && isset($this->MyKeyColumn)) {
                     while ($DataRow = $this->Result->fetch_assoc()) {
-                        $ResultArray[$DataRow[$this->MyKeyColumn]] = $DataRow;
+                        $resultArray[$DataRow[$this->MyKeyColumn]] = $DataRow;
                     }
                 } else {
                     while ($DataRow = $this->Result->fetch_assoc()) {
-                        $ResultArray[] = $DataRow;
+                        $resultArray[] = $DataRow;
                     }
                 }
             }
@@ -230,7 +230,7 @@ class EaseDbMySqli extends EaseSql
             return null;
         }
 
-        return $ResultArray;
+        return $resultArray;
     }
 
     /**
@@ -277,43 +277,44 @@ class EaseDbMySqli extends EaseSql
     public function arrayToQuery($Data, $Key = true)
     {
         $updates = '';
-        foreach ($Data as $Column => $Value) {
+        foreach ($Data as $Column => $value) {
             if (!strlen($Column)) {
                 continue;
             }
-            if (($Column == $this->KeyColumn) && $Key)
+            if (($Column == $this->KeyColumn) && $Key) {
                 continue;
-            switch (gettype($Value)) {
+            }
+            switch (gettype($value)) {
                 case 'integer':
-                    $Value = " $Value ";
+                    $value = " $value ";
                     break;
                 case 'float':
                 case 'double':
-                    $Value = ' ' . str_replace(',', '.', $Value) . ' ';
+                    $value = ' ' . str_replace(',', '.', $value) . ' ';
                     break;
                 case 'boolean':
-                    if ($Value) {
-                        $Value = ' 1 ';
+                    if ($value) {
+                        $value = ' 1 ';
                     } else {
-                        $Value = ' 0 ';
+                        $value = ' 0 ';
                     }
                     break;
                 case 'NULL':
-                    $Value = ' null ';
+                    $value = ' null ';
                     break;
                 case 'string':
-                    if ($Value != 'NOW()')
-                        if (!strstr($Value, "\'")) {
-                            $Value = " '" . str_replace("'", "\'", $Value) . "' ";
+                    if ($value != 'NOW()')
+                        if (!strstr($value, "\'")) {
+                            $value = " '" . str_replace("'", "\'", $value) . "' ";
                         } else {
-                            $Value = " '$Value' ";
+                            $value = " '$value' ";
                         }
                     break;
                 default:
-                    $Value = " '$Value' ";
+                    $value = " '$value' ";
             }
 
-            $updates.=" `$Column` = $Value,";
+            $updates.=" `$Column` = $value,";
         }
 
         return substr($updates, 0, -1);
@@ -331,53 +332,53 @@ class EaseDbMySqli extends EaseSql
     {
         $Conditions = array();
         $Conditions2 = array();
-        foreach ($Data as $Column => $Value) {
-            if (is_integer($Column)) {
-                $Conditions2[] = $Value;
+        foreach ($Data as $column => $value) {
+            if (is_integer($column)) {
+                $Conditions2[] = $value;
                 continue;
             }
-            if (($Column == $this->KeyColumn) && ($this->KeyColumn == ''))
+            if (($column == $this->KeyColumn) && ($this->KeyColumn == ''))
                 continue;
-            if (is_string($Value) && (($Value == '!=""') || ($Value == "!=''"))) {
-                $Conditions[] = " `$Column` !='' ";
+            if (is_string($value) && (($value == '!=""') || ($value == "!=''"))) {
+                $Conditions[] = " `$column` !='' ";
                 continue;
             }
 
-            if (is_null($Value)) {
-                $Value = 'null';
-                $Operator = ' IS ';
+            if (is_null($value)) {
+                $value = 'null';
+                $operator = ' IS ';
             } else {
-                if (strlen($Value) && ($Value[0] == '!')) {
-                    $Operator = ' != ';
-                    $Value = substr($Value, 1);
+                if (strlen($value) && ($value[0] == '!')) {
+                    $operator = ' != ';
+                    $value = substr($value, 1);
                 } else {
-                    $Operator = ' = ';
+                    $operator = ' = ';
                 }
-                if (is_bool($Value)) {
-                    if ($Value === null) {
-                        $Value.=" null,";
-                    } elseif ($Value) {
-                        $Value = " 1";
+                if (is_bool($value)) {
+                    if ($value === null) {
+                        $value.=" null,";
+                    } elseif ($value) {
+                        $value = " 1";
                     } else {
-                        $Value = " 0";
+                        $value = " 0";
                     }
-                } elseif (!is_string($Value)) {
-                    $Value = " $Value";
+                } elseif (!is_string($value)) {
+                    $value = " $value";
                 } else {
-                    if (strtoupper($Value) == 'NOW()') {
-                        $Value = " 'NOW()'";
+                    if (strtoupper($value) == 'NOW()') {
+                        $value = " 'NOW()'";
                     } else {
-                        $Value = " '" . addslashes($Value) . "'";
+                        $value = " '" . addslashes($value) . "'";
                     }
-                    if ($Operator == ' != ') {
-                        $Operator = ' NOT LIKE ';
+                    if ($operator == ' != ') {
+                        $operator = ' NOT LIKE ';
                     } else {
-                        $Operator = ' LIKE ';
+                        $operator = ' LIKE ';
                     }
                 }
             }
 
-            $Conditions[] = " `$Column` $Operator $Value ";
+            $Conditions[] = " `$column` $operator $value ";
         }
 
         return trim(implode($ldiv, $Conditions) . ' ' . implode(' ', $Conditions2));
@@ -386,19 +387,18 @@ class EaseDbMySqli extends EaseSql
     /**
      * Vrací strukturu tabulky jako pole
      *
-     * @param string $TableName
+     * @param string $tableName
      *
      * @return array Struktura tabulky
      */
-    public function describe($TableName = null)
+    public function describe($tableName = null)
     {
-        if (!parent::describe($TableName)) {
+        if (!parent::describe($tableName)) {
             return null;
         }
-        foreach ($this->queryToArray("DESCRIBE $TableName") as $Column) {
-            $this->TableStructure[$TableName][$Column['Field']] = $Column;
+        foreach ($this->queryToArray("DESCRIBE $tableName") as $column) {
+            $this->TableStructure[$tableName][$column['Field']] = $column;
         }
-
         return $this->TableStructure;
     }
 
@@ -411,8 +411,9 @@ class EaseDbMySqli extends EaseSql
      */
     public function tableExist($TableName = null)
     {
-        if (!parent::tableExist($TableName))
+        if (!parent::tableExist($TableName)){
             return null;
+        }
         $this->exeQuery("SHOW TABLES LIKE '" . $TableName . "'");
         if ($this->NumRows) {
             return true;
@@ -497,74 +498,74 @@ class EaseDbMySqli extends EaseSql
     /**
      * Vytvoří tabulku podle struktůry
      *
-     * @param array  $TableStructure struktura tabulky
-     * @param string $TableName      název tabulky
+     * @param array  $tableStructure struktura tabulky
+     * @param string $tableName      název tabulky
      */
-    public function createTableQuery(&$TableStructure, $TableName = null)
+    public function createTableQuery(&$tableStructure, $tableName = null)
     {
-        if (!$TableName) {
-            $TableName = $this->TableName;
+        if (!$tableName) {
+            $tableName = $this->TableName;
         }
-        if (!parent::createTableQuery($TableStructure, $TableName)) {
+        if (!parent::createTableQuery($tableStructure, $tableName)) {
             return null;
         }
-        $QueryRawItems = array();
+        $queryRawItems = array();
         $Indexes = array();
 
-        $QueryRawBegin = "CREATE TABLE IF NOT EXISTS `$TableName` (\n";
-        foreach ($TableStructure as $ColumnName => $ColumnProperties) {
+        $QueryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
+        foreach ($tableStructure as $columnName => $columnProperties) {
 
-            switch ($ColumnProperties['type']) {
+            switch ($columnProperties['type']) {
                 case 'bit':
-                    $ColumnProperties['type'] = 'tinyint';
+                    $columnProperties['type'] = 'tinyint';
                     break;
                 case 'money':
                 case 'decimal(10,4)(19)':
-                    $ColumnProperties['type'] = 'decimal(10,4)';
+                    $columnProperties['type'] = 'decimal(10,4)';
                     break;
 
                 default:
                     break;
             }
 
-            $RawItem = "  `" . $ColumnName . "` " . $ColumnProperties['type'];
+            $rawItem = "  `" . $columnName . "` " . $columnProperties['type'];
 
-            if (isset($ColumnProperties['size'])) {
-                $RawItem .= '(' . $ColumnProperties['size'] . ') ';
+            if (isset($columnProperties['size'])) {
+                $rawItem .= '(' . $columnProperties['size'] . ') ';
             }
 
-            if (array_key_exists('unsigned', $ColumnProperties) || isset($ColumnProperties['unsigned'])) {
-                $RawItem .= " UNSIGNED ";
+            if (array_key_exists('unsigned', $columnProperties) || isset($columnProperties['unsigned'])) {
+                $rawItem .= " UNSIGNED ";
             }
 
-            if (array_key_exists('null', $ColumnProperties)) {
-                if ($ColumnProperties['null'] == true) {
-                    $RawItem .= " NULL ";
+            if (array_key_exists('null', $columnProperties)) {
+                if ($columnProperties['null'] == true) {
+                    $rawItem .= " NULL ";
                 } else {
-                    $RawItem .= " NOT NULL ";
+                    $rawItem .= " NOT NULL ";
                 }
             }
-            if (array_key_exists('ai', $ColumnProperties)) {
-                $RawItem .= " AUTO_INCREMENT ";
+            if (array_key_exists('ai', $columnProperties)) {
+                $rawItem .= " AUTO_INCREMENT ";
             }
 
-            $QueryRawItems[] = $RawItem;
+            $queryRawItems[] = $rawItem;
 
-            if (array_key_exists('key', $ColumnProperties) || isset($ColumnProperties['key'])) {
-                if (( isset($ColumnProperties['key']) && ($ColumnProperties['key'] == 'primary')) || ( isset($ColumnProperties['Key']) && ($ColumnProperties['Key'] === 'primary') )) {
-                    $Indexes[] = 'PRIMARY KEY  (`' . $ColumnName . '`)';
+            if (array_key_exists('key', $columnProperties) || isset($columnProperties['key'])) {
+                if (( isset($columnProperties['key']) && ($columnProperties['key'] == 'primary')) || ( isset($columnProperties['Key']) && ($columnProperties['Key'] === 'primary') )) {
+                    $Indexes[] = 'PRIMARY KEY  (`' . $columnName . '`)';
                 } else {
-                    $Indexes[] = 'KEY  (`' . $ColumnName . '`)';
+                    $Indexes[] = 'KEY  (`' . $columnName . '`)';
                 }
             }
-            if (array_key_exists('ai', $ColumnProperties)) {
-                $QueryRawItems[key($QueryRawItems)] .= ' AUTO_INCREMENT ';
+            if (array_key_exists('ai', $columnProperties)) {
+                $queryRawItems[key($queryRawItems)] .= ' AUTO_INCREMENT ';
             }
-            if (array_key_exists('null', $ColumnProperties)) {
-                if ($ColumnProperties['null'] == true) {
-                    $QueryRawItems.= ' NULL ';
+            if (array_key_exists('null', $columnProperties)) {
+                if ($columnProperties['null'] == true) {
+                    $queryRawItems.= ' NULL ';
                 } else {
-                    $QueryRawItems.= ' NOT NULL ';
+                    $queryRawItems.= ' NOT NULL ';
                 }
             }
             /*
@@ -580,54 +581,53 @@ class EaseDbMySqli extends EaseSql
               ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
              */
         }
-        $QueryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=" . $this->Charset . ' COLLATE=' . $this->Collate . ';';
-        $QueryRaw = $QueryRawBegin . implode(",\n", array_merge($QueryRawItems, $Indexes)) . $QueryRawEnd;
+        $queryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=" . $this->Charset . ' COLLATE=' . $this->Collate . ';';
+        $queryRaw = $QueryRawBegin . implode(",\n", array_merge($queryRawItems, $Indexes)) . $queryRawEnd;
 
-        return $QueryRaw;
+        return $queryRaw;
     }
 
     /**
      * Vrací seznam tabulek v aktuálné použité databázi
      *
-     * @param bool $Sort setřídit vrácené výsledky ?
+     * @param bool $sort setřídit vrácené výsledky ?
      *
      * @return array
      */
-    public function listTables($Sort = false)
+    public function listTables($sort = false)
     {
-        $TablesList = array();
-        foreach ($this->queryToArray('SHOW TABLES') as $TableName) {
-            $TablesList[current($TableName)] = current($TableName);
+        $tablesList = array();
+        foreach ($this->queryToArray('SHOW TABLES') as $tableName) {
+            $tablesList[current($tableName)] = current($tableName);
         }
-        if ($Sort) {
-            asort($TablesList, SORT_LOCALE_STRING);
+        if ($sort) {
+            asort($tablesList, SORT_LOCALE_STRING);
         }
-
-        return $TablesList;
+        return $tablesList;
     }
 
     /**
      * Vytvoří podle dat v objektu chybějící sloupečky v DB
      *
-     * @param EaseBrick|mixed $EaseBrick objekt pomocí kterého se získá struktura
+     * @param EaseBrick|mixed $easeBrick objekt pomocí kterého se získá struktura
      * @param array           $Data      struktura sloupců k vytvoření
      *
      * @return int pocet operaci
      */
-    public static function createMissingColumns(& $EaseBrick, $Data = null)
+    public static function createMissingColumns(& $easeBrick, $Data = null)
     {
         $Result = 0;
-        $BadQuery = $EaseBrick->EaseShared->MyDbLink->getLastQuery();
-        $TableColumns = $EaseBrick->EaseShared->MyDbLink->describe($EaseBrick->MyTable);
-        if (count($TableColumns)) {
+        $badQuery = $easeBrick->EaseShared->MyDbLink->getLastQuery();
+        $tableColumns = $easeBrick->EaseShared->MyDbLink->describe($easeBrick->myTable);
+        if (count($tableColumns)) {
             if (is_null($Data)) {
-                $Data = $EaseBrick->getData();
+                $Data = $easeBrick->getData();
             }
             foreach ($Data as $DataColumn => $DataValue) {
                 if (!strlen($DataColumn)) {
                     continue;
                 }
-                if (!array_key_exists($DataColumn, $TableColumns[$EaseBrick->MyTable])) {
+                if (!array_key_exists($DataColumn, $tableColumns[$easeBrick->myTable])) {
                     switch (gettype($DataValue)) {
                         case 'boolean':
                             $ColumnType = 'TINYINT( 1 )';
@@ -652,18 +652,18 @@ class EaseDbMySqli extends EaseSql
                             continue;
                             break;
                     }
-                    $AddColumnQuery = 'ALTER TABLE `' . $EaseBrick->MyTable . '` ADD `' . $DataColumn . '` ' . $ColumnType . ' null DEFAULT null';
-                    if (!$EaseBrick->MyDbLink->exeQuery($AddColumnQuery)) {
-                        $EaseBrick->addStatusMessage($AddColumnQuery, 'error');
+                    $AddColumnQuery = 'ALTER TABLE `' . $easeBrick->myTable . '` ADD `' . $DataColumn . '` ' . $ColumnType . ' null DEFAULT null';
+                    if (!$easeBrick->myDbLink->exeQuery($AddColumnQuery)) {
+                        $easeBrick->addStatusMessage($AddColumnQuery, 'error');
                         $Result--;
                     } else {
-                        $EaseBrick->addStatusMessage($AddColumnQuery, 'success');
+                        $easeBrick->addStatusMessage($AddColumnQuery, 'success');
                         $Result++;
                     }
                 }
             }
         }
-        $EaseBrick->MyDbLink->LastQuery = $BadQuery;
+        $easeBrick->myDbLink->LastQuery = $badQuery;
 
         return $Result;
     }
