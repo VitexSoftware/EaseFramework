@@ -69,7 +69,7 @@ class EaseSand extends EaseAtom
      * @var array
      */
     public $IdentityColumns = array('ObjectName',
-        'MyKeyColumn', 'MSKeyColumn',
+        'myKeyColumn', 'MSKeyColumn',
         'myTable', 'MSTable',
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
@@ -86,7 +86,7 @@ class EaseSand extends EaseAtom
      * Klíčový sloupeček v používané MySQL tabulce
      * @var string
      */
-    public $MyKeyColumn = 'id';
+    public $myKeyColumn = 'id';
 
     /**
      * Synchronizační sloupeček. napr products_ids

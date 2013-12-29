@@ -30,7 +30,7 @@ class EaseUser extends EaseAnonym
      * Klíčový sloupeček tabulky
      * @var string
      */
-    public $MyKeyColumn = 'id';
+    public $myKeyColumn = 'id';
 
     /**
      * Sloupecek obsahujici datum vložení záznamu uživatele do shopu
@@ -148,7 +148,7 @@ class EaseUser extends EaseAnonym
                 $this->loadFromMySQL($UserID);
             } else {
                 if (isset($this->LoginColumn)) {
-                    $this->setMyKeyColumn($this->LoginColumn);
+                    $this->setmyKeyColumn($this->LoginColumn);
                     $this->loadFromMySQL($UserID);
                     $this->resetObjectIdentity();
                 }
@@ -224,7 +224,7 @@ class EaseUser extends EaseAnonym
 
             return null;
         }
-        $this->setObjectIdentity(array('MyKeyColumn' => $this->LoginColumn));
+        $this->setObjectIdentity(array('myKeyColumn' => $this->LoginColumn));
         $this->loadFromMySQL($Login);
         $this->setObjectName();
         $this->resetObjectIdentity(array('ObjectName'));
@@ -375,7 +375,7 @@ class EaseUser extends EaseAnonym
             return null;
         }
         $Hash = $this->encryptPassword($NewPassword);
-        $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->PasswordColumn . '=\'' . $Hash . '\' WHERE ' . $this->MyKeyColumn . '=' . $UserID);
+        $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->PasswordColumn . '=\'' . $Hash . '\' WHERE ' . $this->myKeyColumn . '=' . $UserID);
         $this->addToLog('PasswordChange: ' . $this->getDataValue($this->LoginColumn) . '@' . $UserID . '#' . $this->getDataValue($this->MyIDSColumn) . ' ' . $Hash);
         if ($UserID == $this->getUserID()) {
             $this->Data[$this->PasswordColumn] = $Hash;
@@ -535,7 +535,7 @@ class EaseUser extends EaseAnonym
 
     /**
      * Uloží pole dat a serializovaná nastavení do MySQL.
-     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  MyKeyColumn
+     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
      *
      * @param array $Data        asociativní pole dat
      * @param bool  $SearchForID Zjistit zdali updatovat nebo insertovat

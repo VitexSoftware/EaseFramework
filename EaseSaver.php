@@ -39,7 +39,7 @@ class EaseSaver extends EaseBrick
      */
     public function createmyTable()
     {
-        $Structure = array($this->getMyKeyColumn() => array('type' => 'int', 'key' => 'primary', 'unsigned' => true));
+        $Structure = array($this->getmyKeyColumn() => array('type' => 'int', 'key' => 'primary', 'unsigned' => true));
         if ($this->myDbLink->createTable($Structure, $this->myTable)) {
             $this->addStatusMessage(sprintf(_('Tabulka % byla vytvořena'), $this->myTable));
         }

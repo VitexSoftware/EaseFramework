@@ -216,9 +216,9 @@ class EaseDbMySqli extends EaseSql
                     $resultArray[$DataRow[$keyColumnToIndex]] = $DataRow;
                 }
             } else {
-                if (($keyColumnToIndex == true) && isset($this->MyKeyColumn)) {
+                if (($keyColumnToIndex == true) && isset($this->myKeyColumn)) {
                     while ($DataRow = $this->Result->fetch_assoc()) {
-                        $resultArray[$DataRow[$this->MyKeyColumn]] = $DataRow;
+                        $resultArray[$DataRow[$this->myKeyColumn]] = $DataRow;
                     }
                 } else {
                     while ($DataRow = $this->Result->fetch_assoc()) {
@@ -247,7 +247,7 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * upravi obsah zaznamu v predvolene tabulce $this->myTable, kde klicovy sloupec
-     * $this->MyKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data
+     * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data
      *
      * @param array $Data  asociativní pole dat
      * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
@@ -267,7 +267,7 @@ class EaseDbMySqli extends EaseSql
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->MyKeyColumn je preskocen pokud neni $key false)
+     * $this->myKeyColumn je preskocen pokud neni $key false)
      *
      * @param array   $Data
      * @param boolean $Key
