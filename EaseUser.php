@@ -24,7 +24,7 @@ class EaseUser extends EaseAnonym
      * Pracujem s tabulkou user
      * @var string
      */
-    public $MyTable = 'user';
+    public $myTable = 'user';
 
     /**
      * Klíčový sloupeček tabulky
@@ -612,7 +612,7 @@ class EaseCustomer extends EaseUser
      * Pracujem s tabulkou user
      * @var string
      */
-    public $MyTable = 'customer';
+    public $myTable = 'customer';
 
     /**
      * Odkaz na adresu

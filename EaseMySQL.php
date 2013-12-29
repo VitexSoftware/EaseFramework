@@ -234,7 +234,7 @@ class EaseDbMySqli extends EaseSql
     }
 
     /**
-     * vloží obsah pole $data do předvolené tabulky $this->MyTable
+     * vloží obsah pole $data do předvolené tabulky $this->myTable
      *
      * @param string $Data
      *
@@ -246,7 +246,7 @@ class EaseDbMySqli extends EaseSql
     }
 
     /**
-     * upravi obsah zaznamu v predvolene tabulce $this->MyTable, kde klicovy sloupec
+     * upravi obsah zaznamu v predvolene tabulce $this->myTable, kde klicovy sloupec
      * $this->MyKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data
      *
      * @param array $Data  asociativní pole dat
@@ -617,8 +617,8 @@ class EaseDbMySqli extends EaseSql
     public static function createMissingColumns(& $easeBrick, $Data = null)
     {
         $Result = 0;
-        $badQuery = $easeBrick->EaseShared->MyDbLink->getLastQuery();
-        $tableColumns = $easeBrick->EaseShared->MyDbLink->describe($easeBrick->myTable);
+        $badQuery = $easeBrick->EaseShared->myDbLink->getLastQuery();
+        $tableColumns = $easeBrick->EaseShared->myDbLink->describe($easeBrick->myTable);
         if (count($tableColumns)) {
             if (is_null($Data)) {
                 $Data = $easeBrick->getData();

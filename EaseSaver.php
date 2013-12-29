@@ -21,7 +21,7 @@ class EaseSaver extends EaseBrick
      * Pracujeme s tabulkou mains
      * @var string
      */
-    public $MyTable = true;
+    public $myTable = true;
 
     /**
      * Pokud tabulka do které se má ukládat, neexistuje, vytvoří se
@@ -30,14 +30,14 @@ class EaseSaver extends EaseBrick
     {
         parent::__construct();
         if (!$this->myDbLink->tableExist($this->myTable)) {
-            $this->createMyTable();
+            $this->createmyTable();
         }
     }
 
     /**
      * Vytvoří prázdnou tabulku s klíčovým sloupcem
      */
-    public function createMyTable()
+    public function createmyTable()
     {
         $Structure = array($this->getMyKeyColumn() => array('type' => 'int', 'key' => 'primary', 'unsigned' => true));
         if ($this->myDbLink->createTable($Structure, $this->myTable)) {
@@ -127,7 +127,7 @@ class EaseSaver extends EaseBrick
             return $Result;
         }
         if ($this->myDbLink->ErrorNumber == 1146) { //Table doesn't exist
-            $this->createMyTable();
+            $this->createmyTable();
             $this->insertToMySQL();
 
             return parent::loadFromMySQL($ItemID, $DataPrefix, $Multiplete);

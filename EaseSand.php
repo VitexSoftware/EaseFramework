@@ -70,7 +70,7 @@ class EaseSand extends EaseAtom
      */
     public $IdentityColumns = array('ObjectName',
         'MyKeyColumn', 'MSKeyColumn',
-        'MyTable', 'MSTable',
+        'myTable', 'MSTable',
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
         'MyCreateColumn', 'MSCreateColumn',
@@ -313,7 +313,7 @@ class EaseSand extends EaseAtom
     /**
      * Obnoví uloženou identitu objektu
      *
-     * @param array $Identity pole s identitou např. array('MyTable'=>'user');
+     * @param array $Identity pole s identitou např. array('myTable'=>'user');
      */
     public function restoreObjectIdentity($Identity = null)
     {

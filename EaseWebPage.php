@@ -58,7 +58,7 @@ class EaseWebPage extends EasePage
      * Nepřipojovat se DB
      * @var string|bool
      */
-    public $MyTable = false;
+    public $myTable = false;
 
     /**
      * Výchozí umístění javascriptů

@@ -24,7 +24,7 @@ class EaseDbMSSQL extends EaseSql
     public $LastQuery = '';
     public $Result = null;
     public $ResultArray = null;
-    public $MyDbLink = null;
+    public $myDbLink = null;
     public $Lockfile = 'mssql-offline';
 
     /**

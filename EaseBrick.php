@@ -86,7 +86,7 @@ class EaseBrick extends EaseSand
         }
 
         if ($this->myTable) {
-            $this->takeMyTable($this->myTable);
+            $this->takemyTable($this->myTable);
         }
         $this->saveObjectIdentity();
     }
@@ -105,9 +105,9 @@ class EaseBrick extends EaseSand
         if ($objectName) {
             return parent::setObjectName($objectName);
         } else {
-            $Key = $this->getMyKey($this->Data);
-            if ($Key) {
-                return parent::setObjectName(get_class($this) . '@' . $Key);
+            $key = $this->getMyKey($this->Data);
+            if ($key) {
+                return parent::setObjectName(get_class($this) . '@' . $key);
             } else {
                 return parent::setObjectName();
             }
@@ -568,7 +568,7 @@ class EaseBrick extends EaseSand
     public function mySqlUp($updateStructure = false)
     {
         if (!is_object($this->myDbLink)) {
-            $this->takeMyTable();
+            $this->takemyTable();
 
             return;
         }
@@ -619,7 +619,7 @@ class EaseBrick extends EaseSand
       $this->DivDataArray($data, $this->Data, $ShopColumnName);
       }
       if (count($data) && count(array_keys($data))) {
-      $this->AddToLog('takeData: No info how to handle My: ' . implode(',', array_keys($data)) . ' on ' . $this->MyTable, 'warning');
+      $this->AddToLog('takeData: No info how to handle My: ' . implode(',', array_keys($data)) . ' on ' . $this->myTable, 'warning');
       }
       }
      *
@@ -696,8 +696,8 @@ class EaseBrick extends EaseSand
         } else {
             $TableName = key($columns);
         }
-        $this->setObjectIdentity(array('MyTable' => 'mysqlxmssql', 'MyKeyColumn' => 'id', 'MyCreateColumn' => false, 'MyLastModifiedColumn' => false));
-        $this->takeMyTable();
+        $this->setObjectIdentity(array('myTable' => 'mysqlxmssql', 'MyKeyColumn' => 'id', 'MyCreateColumn' => false, 'MyLastModifiedColumn' => false));
+        $this->takemyTable();
         foreach ($columns[$TableName] as $columnName => $column) {
             if (is_string($column)) {
                 $columnType = str_replace('*', '', $columnType);
@@ -706,13 +706,13 @@ class EaseBrick extends EaseSand
             switch ($sqlType) {
                 case 'ms':
                     if ($columnName == $this->MSKeyColumn) {
-                        $partner = $this->Identity['MyTable'] . '.' . $this->MyRefIDColumn;
+                        $partner = $this->Identity['myTable'] . '.' . $this->MyRefIDColumn;
                     }
                     if ($columnName == $this->MSIDSColumn) {
-                        $partner = $this->Identity['MyTable'] . '.' . $this->MyIDSColumn;
+                        $partner = $this->Identity['myTable'] . '.' . $this->MyIDSColumn;
                     }
                     if ($columnName == $this->MSRefIDColumn) {
-                        $partner = $this->Identity['MyTable'] . '.' . $this->MyKeyColumn;
+                        $partner = $this->Identity['myTable'] . '.' . $this->MyKeyColumn;
                     }
                     break;
                 case 'my':
@@ -744,7 +744,7 @@ class EaseBrick extends EaseSand
         }
 
         $this->restoreObjectIdentity();
-        $this->takeMyTable();
+        $this->takemyTable();
 
         return $this->sqlStruct[$sqlType];
     }
@@ -757,7 +757,7 @@ class EaseBrick extends EaseSand
     public function saveSqlStructArrays($forceUpdate = false)
     {
         $this->setObjectIdentity(
-                array('MyTable' => 'mysqlxmssql',
+                array('myTable' => 'mysqlxmssql',
                     'MyKeyColumn' => 'id',
                     'MyCreateColumn' => false,
                     'MyLastModifiedColumn' => false,
@@ -765,7 +765,7 @@ class EaseBrick extends EaseSand
                 )
         );
 
-        $this->takeMyTable();
+        $this->takemyTable();
         foreach ($this->sqlStruct['my'] as $columnName => $structs) {
             $structs[$this->MyKeyColumn] = $this->getMyKey(array('sql' => $structs['sql'], 'table' => $structs['table'], 'column' => $structs['column']));
             if ($structs[$this->MyKeyColumn]) {
@@ -784,7 +784,7 @@ class EaseBrick extends EaseSand
             }
         }
         $this->restoreObjectIdentity();
-        $this->takeMyTable();
+        $this->takemyTable();
     }
 
     /**
@@ -838,14 +838,14 @@ class EaseBrick extends EaseSand
      */
     public function saveObjectSqlStruct($createOnly = null)
     {
-//        print_pre(array($this->MyTable,$this->MSTable),'11');
+//        print_pre(array($this->myTable,$this->MSTable),'11');
         if ($this->msTable && ($createOnly != 'my')) {
             $this->saveSqlStruct('ms', $this->msDbLink->describe($this->msTable));
         }
         if ($this->myTable && ($createOnly != 'ms')) {
             $this->saveSqlStruct('my', $this->myDbLink->describe($this->myTable));
         }
-//      print_pre(array($this->MyTable,$this->MSTable),'22');
+//      print_pre(array($this->myTable,$this->MSTable),'22');
     }
 
     /**
@@ -1604,15 +1604,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      *
      * @param string $myTable
      */
-    public function takeMyTable($myTable = null)
+    public function takemyTable($myTable = null)
     {
         if ($myTable) {
             $this->myTable = $myTable;
         }
         if (!isset($this->myDbLink) || !is_object($this->myDbLink)) {
             $this->myDbLink = EaseDbMySqli::singleton();
-            if (!isset($this->EaseShared->MyDblink)) {
-                $this->EaseShared->MyDbLink = & $this->myDbLink;
+            if (!isset($this->EaseShared->myDbLink)) {
+                $this->EaseShared->myDbLink = & $this->myDbLink;
             }
         }
         if (is_string($this->myTable)) {
@@ -1765,10 +1765,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      *
      * @param string $myTable
      */
-    public function setMyTable($myTable)
+    public function setmyTable($myTable)
     {
         $this->myTable = $myTable;
-        $this->setObjectIdentity(array('MyTable' => $myTable));
+        $this->setObjectIdentity(array('myTable' => $myTable));
         unset($this->sqlStruct['my']);
     }
 
@@ -2022,7 +2022,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     /**
      * Vrátí počet položek tabulky v MySQL
      *
-     * @param string $tableName pokud není zadáno, použije se $this->MyTable
+     * @param string $tableName pokud není zadáno, použije se $this->myTable
      *
      * @return int
      */

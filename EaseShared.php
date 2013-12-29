@@ -69,7 +69,7 @@ class EaseShared extends EaseAtom
      * Odkaz na objekt databáze
      * @var EaseDbMySqli
      */
-    public $MyDbLink = null;
+    public $myDbLink = null;
 
     /**
      * Saves obejct instace (singleton...)
