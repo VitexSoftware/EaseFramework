@@ -33,7 +33,7 @@ class EaseShared extends EaseAtom
      * Odkaz na objekt stránky
      * @var EaseWebPage
      */
-    public $WebPage = null;
+    public $webPage = null;
 
     /**
      * JavaScripty
@@ -228,14 +228,14 @@ class EaseShared extends EaseAtom
     {
         $Shard = EaseShared::instanced();
         if (is_object($OPage)) {
-            $Shard->WebPage = & $OPage;
+            $Shard->webPage = & $OPage;
         }
-        if (!is_object($Shard->WebPage)) {
+        if (!is_object($Shard->webPage)) {
             require_once 'EaseWebPage.php';
             EaseShared::webPage(EaseWebPage::singleton());
         }
 
-        return $Shard->WebPage;
+        return $Shard->webPage;
     }
 
     /**

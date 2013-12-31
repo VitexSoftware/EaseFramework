@@ -69,7 +69,7 @@ class EaseExAppStatusMessages extends EaseHtmlDivTag
      */
     public function draw()
     {
-        $statusMessages = trim($this->WebPage->getStatusMessagesAsHtml());
+        $statusMessages = trim($this->webPage->getStatusMessagesAsHtml());
         if ($statusMessages) {
             parent::addItem($statusMessages);
         } else {

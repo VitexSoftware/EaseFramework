@@ -47,19 +47,19 @@ class EaseHtmlInputTag extends EaseHtmlTag
     /**
      * Nastaví hodnotu vstupního políčka
      *
-     * @param string $Value vracená hodnota
+     * @param string $value vracená hodnota
      *
      * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
-        $this->setTagProperties(array('value' => $Value));
+        $this->setTagProperties(array('value' => $value));
     }
 
     /**
      * Vrací hodnotu vstupního políčka
      *
-     * @return string $Value
+     * @return string $value
      */
     public function getValue()
     {
@@ -79,21 +79,21 @@ class EaseHtmlInputTextTag extends EaseHtmlInputTag
     /**
      * Zobrazí input text tag
      *
-     * @param string $Name       jméno
-     * @param string $Value      předvolená hodnota
+     * @param string $name       jméno
+     * @param string $value      předvolená hodnota
      * @param array  $Properties dodatečné vlastnosti tagu
      */
-    public function __construct($Name, $Value = null, $Properties = null)
+    public function __construct($name, $value = null, $Properties = null)
     {
         $Properties['type'] = 'text';
-        if ($Value) {
-            $Properties['value'] = $Value;
+        if ($value) {
+            $Properties['value'] = $value;
         }
-        if ($Name) {
-            $Properties['name'] = $Name;
+        if ($name) {
+            $Properties['name'] = $name;
         }
         $this->setTagProperties($Properties);
-        parent::__construct($Name, $Value);
+        parent::__construct($name, $value);
     }
 
 }
@@ -198,13 +198,13 @@ class EaseHtmlInputHiddenTag extends EaseHtmlInputTag
     /**
      * Skrytý input
      *
-     * @param string $Name       jméno tagu
-     * @param string $Value      vracená hodnota
+     * @param string $name       jméno tagu
+     * @param string $value      vracená hodnota
      * @param array  $Properties vlastnosti tagu
      */
-    public function __construct($Name, $Value = null, $Properties = null)
+    public function __construct($name, $value = null, $Properties = null)
     {
-        parent::__construct($Name, $Value);
+        parent::__construct($name, $value);
         $Properties['type'] = 'hidden';
         $this->setTagProperties($Properties);
     }
@@ -223,49 +223,49 @@ class EaseHtmlInputRadioTag extends EaseHtmlInputTag
      * Vracená hodnota
      * @var string
      */
-    public $Value = null;
+    public $value = null;
 
     /**
      * Radio button
      *
-     * @param string $Name          jméno tagu
-     * @param string $Value         vracená hodnota
-     * @param array  $TagProperties vlastnosti tagu
+     * @param string $name          jméno tagu
+     * @param string $value         vracená hodnota
+     * @param array  $tagProperties vlastnosti tagu
      */
-    public function __construct($Name, $Value = null, $TagProperties = null)
+    public function __construct($name, $value = null, $tagProperties = null)
     {
-        parent::__construct($Name, $Value);
-        if ($TagProperties) {
-            $this->setTagProperties($TagProperties);
+        parent::__construct($name, $value);
+        if ($tagProperties) {
+            $this->setTagProperties($tagProperties);
         }
         $this->setTagProperties(array('type' => 'radio'));
-        $this->Value = $Value;
+        $this->Value = $value;
     }
 
     /**
      * Poprvé nastaví hodnotu checkboxu. Druhé volání nastavuje příznak checked,
      * pokud je hodnota stejná jako již nabitá
      *
-     * @param string $Value vracená hodnota
+     * @param string $value vracená hodnota
      *
      * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
         $CurrentValue = $this->getTagProperty('value');
         if ($CurrentValue) {
-            if ($CurrentValue == $Value) {
+            if ($CurrentValue == $value) {
                 $this->setTagProperties(array('checked'));
             }
         } else {
-            $this->setTagProperties(array('value' => $Value));
+            $this->setTagProperties(array('value' => $value));
         }
     }
 
     /* TODO:
       function Finalize()
       {
-      if (isset($this->TagProperties['value']) && $this->TagProperties['value'] && ($this->TagProperties['value'] == $this->Value)) {
+      if (isset($this->tagProperties['value']) && $this->tagProperties['value'] && ($this->tagProperties['value'] == $this->Value)) {
       $this->setTagProperties(array('checked'));
       }
 
@@ -286,7 +286,7 @@ class EaseInputContainer extends EaseContainer
      * Name of Radios
      * @var string
      */
-    public $Name = 'container';
+    public $name = 'container';
 
     /**
      * Stored values
@@ -309,35 +309,35 @@ class EaseInputContainer extends EaseContainer
     /**
      * Skupina inputů
      *
-     * @param string $Name          výchozí jméno tagů
+     * @param string $name          výchozí jméno tagů
      * @param array  $Items         pole položek
-     * @param string $TagProperties parametry tagů
+     * @param string $tagProperties parametry tagů
      */
-    public function __construct($Name, $Items = null, $TagProperties = null)
+    public function __construct($name, $Items = null, $tagProperties = null)
     {
         parent::__construct();
-        $this->Name = $Name;
+        $this->Name = $name;
         $this->Items = $Items;
     }
 
     /**
      * Nastaví hodnotu vstupního políčka
      *
-     * @param string $Value hodnota
+     * @param string $value hodnota
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
-        $this->Checked = $Value;
+        $this->Checked = $value;
     }
 
     /**
      * Vrací hodnotu vstupního políčka
      *
-     * @param bool $Value hodnota je ignorována
+     * @param bool $value hodnota je ignorována
      *
-     * @return string $Value binární hodnota - stav
+     * @return string $value binární hodnota - stav
      */
-    public function getValue($Value)
+    public function getValue($value)
     {
         return $this->Checked;
     }
@@ -358,13 +358,13 @@ class EaseInputContainer extends EaseContainer
     public function finalize()
     {
         $ItemID = 1;
-        foreach ($this->Items as $Value => $Caption) {
-            if ($this->Checked == $Value) {
-                $this->addItem(new $this->ItemClass($this->Name, $Value, array('checked')));
+        foreach ($this->Items as $value => $Caption) {
+            if ($this->Checked == $value) {
+                $this->addItem(new $this->ItemClass($this->Name, $value, array('checked')));
             } else {
-                $this->addItem(new $this->ItemClass($this->Name, $Value));
+                $this->addItem(new $this->ItemClass($this->Name, $value));
             }
-            $this->LastItem->setTagID($this->Name . $ItemID++);
+            $this->lastItem->setTagID($this->Name . $ItemID++);
             $this->addLabel($Caption);
         }
     }
@@ -376,7 +376,7 @@ class EaseInputContainer extends EaseContainer
      */
     public function addLabel($Label = null)
     {
-        $ForID = $this->LastItem->getTagID();
+        $ForID = $this->lastItem->getTagID();
         if (is_null($Label)) {
             $Label = $ForID;
         }
@@ -426,18 +426,18 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
     /**
      * Skupina checkboxů
      *
-     * @param string $Name
+     * @param string $name
      * @param array  $Items
      * @param array  $ItemValues
-     * @param array  $TagProperties
+     * @param array  $tagProperties
      */
-    public function __construct($Name, $Items = null, $ItemValues = null, $TagProperties = null)
+    public function __construct($name, $Items = null, $ItemValues = null, $tagProperties = null)
     {
-        parent::__construct($Name, $Items, $TagProperties);
+        parent::__construct($name, $Items, $tagProperties);
         if (!is_null($ItemValues)) {
             $Values = array();
             foreach ($ItemValues as $ItemName => $Item) {
-                $Values[$Name . '_' . $ItemName] = $Item;
+                $Values[$name . '_' . $ItemName] = $Item;
             }
             $this->setValues($Values);
         }
@@ -486,19 +486,19 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
      * Poprvé nastaví hodnotu checkboxu. Druhé volání nastavuje příznak checked,
      * pokud je hodnota stejná jako již nabitá
      *
-     * @param string $Value vracená hodnota
+     * @param string $value vracená hodnota
      *
      * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
         $CurrentValue = $this->GetTagProperty('value');
         if ($CurrentValue) {
-            if ($CurrentValue == $Value) {
+            if ($CurrentValue == $value) {
                 $this->setTagProperties(array('checked'));
             }
         } else {
-            $this->setTagProperties(array('value' => $Value));
+            $this->setTagProperties(array('value' => $value));
         }
     }
 
@@ -530,12 +530,12 @@ class EaseHtmlInputFileTag extends EaseHtmlInputTag
     /**
      * Vstupní box pro volbu souboru
      *
-     * @param string $Name  jméno tagu
-     * @param string $Value předvolená hodnota
+     * @param string $name  jméno tagu
+     * @param string $value předvolená hodnota
      */
-    public function __construct($Name, $Value = null)
+    public function __construct($name, $value = null)
     {
-        parent::__construct($Name, $Value);
+        parent::__construct($name, $value);
         $this->setTagProperties(array('type' => 'file'));
     }
 
@@ -552,12 +552,12 @@ class EaseHtmlInputPasswordTag extends EaseHtmlInputTextTag
     /**
      * Input pro heslo
      *
-     * @param string $Name  jméno tagu
-     * @param string $Value předvolené heslo
+     * @param string $name  jméno tagu
+     * @param string $value předvolené heslo
      */
-    public function __construct($Name, $Value = null)
+    public function __construct($name, $value = null)
     {
-        parent::__construct($Name, $Value);
+        parent::__construct($name, $value);
         $this->setTagProperties(array('type' => 'password'));
     }
 
@@ -574,12 +574,12 @@ class EaseHtmlCheckboxTag extends EaseHtmlInputTag
     /**
      * Zobrazuje HTML Checkbox
      *
-     * @param string $Name       jméno tagu
+     * @param string $name       jméno tagu
      * @param bool   $Checked    stav checkboxu
-     * @param string $Value      vracená hodnota checkboxu
+     * @param string $value      vracená hodnota checkboxu
      * @param array  $Properties parametry tagu
      */
-    public function __construct($Name, $Checked = false, $Value = null, $Properties = null)
+    public function __construct($name, $Checked = false, $value = null, $Properties = null)
     {
         if ($Properties) {
             $Properties['type'] = 'checkbox';
@@ -589,27 +589,27 @@ class EaseHtmlCheckboxTag extends EaseHtmlInputTag
         if ($Checked) {
             $Properties['checked'] = 'true';
         }
-        if ($Value) {
-            $Properties['value'] = $Value;
+        if ($value) {
+            $Properties['value'] = $value;
         }
-        if ($Name != '') {
-            $Properties['name'] = $Name;
+        if ($name != '') {
+            $Properties['name'] = $name;
         }
         $this->setTagProperties($Properties);
-        parent::__construct($Name);
+        parent::__construct($name);
     }
 
     /**
      * Nastaví zaškrtnutí
      *
-     * @param boolean $Value nastavuje parametr "checked" tagu
+     * @param boolean $value nastavuje parametr "checked" tagu
      */
-    public function setValue($Value = true)
+    public function setValue($value = true)
     {
-        if ($Value) {
+        if ($value) {
             $this->setTagProperties(array('checked' => 'true'));
         } else {
-            unset($this->TagProperties['checked']);
+            unset($this->tagProperties['checked']);
         }
     }
 
@@ -631,20 +631,20 @@ class EaseSubmitButton extends EaseHtmlInputTag
 
     /**
      * Odesílací tlačítko
-     * <input type="submit" name="$label" value="$Value" title="$Hint">
+     * <input type="submit" name="$label" value="$value" title="$Hint">
      *
      * @param string $Label    nápis na tlačítku
-     * @param string $Value    odesílaná hodnota
+     * @param string $value    odesílaná hodnota
      * @param string $Hint     tip při najetí myší
      * @param string $ClassCss css třída pro tag tlačítka
      */
-    public function __construct($Label, $Value = null, $Hint = null, $ClassCss = null)
+    public function __construct($Label, $value = null, $Hint = null, $ClassCss = null)
     {
         $Properties = array('type' => 'submit');
-        if (!$Value) {
-            $Value = trim(str_replace(array(' ', '?'), '', @iconv("utf-8", "us-ascii//TRANSLIT", strtolower($Label))));
+        if (!$value) {
+            $value = trim(str_replace(array(' ', '?'), '', @iconv("utf-8", "us-ascii//TRANSLIT", strtolower($Label))));
         } else {
-            $Properties['value'] = $Value;
+            $Properties['value'] = $value;
         }
         if ($Hint) {
             $Properties['title'] = $Hint;
@@ -653,20 +653,20 @@ class EaseSubmitButton extends EaseHtmlInputTag
             $Properties['class'] = $ClassCss;
         }
         $this->setTagProperties($Properties);
-        parent::__construct($Value, $Label);
+        parent::__construct($value, $Label);
         $this->Label = $Label;
     }
 
     /**
      * Nastaví hodnotu
      *
-     * @param string  $Value     vracená hodnota tagu
+     * @param string  $value     vracená hodnota tagu
      * @param boolean $Automatic Hack pro zachování labelů při plnění formuláře
      */
-    public function setValue($Value, $Automatic = false)
+    public function setValue($value, $Automatic = false)
     {
         if (!$Automatic) { //FillUp nenastavuje Labely tlačítek
-            parent::SetValue($Value);
+            parent::SetValue($value);
         }
     }
 
@@ -685,23 +685,23 @@ class EaseImageSubbmit extends EaseHtmlInputTag
      *
      * @param string $Image url obrázku
      * @param string $Label popisek obrázku
-     * @param string $Value vracená hodnota
+     * @param string $value vracená hodnota
      * @param string $Hint  text tipu
      */
-    public function __construct($Image, $Label, $Value = null, $Hint = null)
+    public function __construct($Image, $Label, $value = null, $Hint = null)
     {
         $Properties = array('type' => 'image');
-        if (!$Value) {
-            $Value = trim(str_replace(array(' ', '?'), '', @iconv("utf-8", "us-ascii//TRANSLIT", strtolower($Label))));
+        if (!$value) {
+            $value = trim(str_replace(array(' ', '?'), '', @iconv("utf-8", "us-ascii//TRANSLIT", strtolower($Label))));
         } else {
-            $Properties['value'] = $Value;
+            $Properties['value'] = $value;
         }
         if ($Hint) {
             $Properties['title'] = $Hint;
         }
         $Properties['src'] = $Image;
         $this->setTagProperties($Properties);
-        parent::__construct($Value, $Label);
+        parent::__construct($value, $Label);
     }
 
 }
@@ -717,30 +717,30 @@ class EaseHtmlInputSubmitTag extends EaseHtmlInputTag
     /**
      * Odesílací tlačítko formuláře
      *
-     * @param string $Name       jméno tagu
-     * @param string $Value      vracená hodnota
+     * @param string $name       jméno tagu
+     * @param string $value      vracená hodnota
      * @param array  $Properties Pole vlastností tagu
      */
-    public function __construct($Name, $Value = null, $Properties = null)
+    public function __construct($name, $value = null, $Properties = null)
     {
-        if (!$Value) {
-            $Value = $Name;
+        if (!$value) {
+            $value = $name;
         }
         if (is_null($Properties)) {
             $Properties = array();
         }
         $Properties['type'] = 'submit';
-        $Properties['name'] = $Name;
-        $Properties['value'] = $Value;
-        parent::__construct($Name, $Value, $Properties);
+        $Properties['name'] = $name;
+        $Properties['value'] = $value;
+        parent::__construct($name, $value, $Properties);
     }
 
     /**
      * Maketa kuli popisku
      *
-     * @param bool $Value je ignorováno
+     * @param bool $value je ignorováno
      */
-    public function setValue($Value = true)
+    public function setValue($value = true)
     {
 
     }
@@ -768,13 +768,13 @@ class EaseHtmlTextareaTag extends EaseHtmlPairTag
     /**
      * Textarea
      *
-     * @param string $Name       jméno tagu
+     * @param string $name       jméno tagu
      * @param string $Content    obsah textarey
      * @param array  $Properties vlastnosti tagu
      */
-    public function __construct($Name, $Content = '', $Properties = null)
+    public function __construct($name, $Content = '', $Properties = null)
     {
-        $this->setTagName($Name);
+        $this->setTagName($name);
         parent::__construct('textarea', $Properties);
         if ($Content) {
             $this->addItem($Content);
@@ -784,12 +784,12 @@ class EaseHtmlTextareaTag extends EaseHtmlPairTag
     /**
      * Nastaví obsah
      *
-     * @param string $Value hodnota
+     * @param string $value hodnota
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
         $this->PageParts = array();
-        $this->addItem($Value);
+        $this->addItem($value);
     }
 
 }
@@ -806,19 +806,19 @@ class EaseHtmlOptionTag extends EaseHtmlPairTag
      * Hodnota
      * @var string
      */
-    public $Value = null;
+    public $value = null;
 
     /**
      * Tag položky rozbalovací nabídky
      *
      * @param string|mixed $Content text volby
-     * @param string|int   $Value   vracená hodnota
+     * @param string|int   $value   vracená hodnota
      */
-    public function __construct($Content, $Value = null)
+    public function __construct($Content, $value = null)
     {
-        parent::__construct('option', array('value' => $Value), $Content);
-        $this->setObjectName($this->getObjectName() . '@' . $Value);
-        $this->Value = &$this->TagProperties['value'];
+        parent::__construct('option', array('value' => $value), $Content);
+        $this->setObjectName($this->getObjectName() . '@' . $value);
+        $this->Value = &$this->tagProperties['value'];
     }
 
     /**
@@ -832,11 +832,11 @@ class EaseHtmlOptionTag extends EaseHtmlPairTag
     /**
      * Nastaví hodnotu
      *
-     * @param int|string $Value vracená hodnota
+     * @param int|string $value vracená hodnota
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
-        $this->Value = $Value;
+        $this->Value = $value;
     }
 
 }
@@ -881,18 +881,18 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     /**
      * Html select box
      *
-     * @param string $Name         jmeno
+     * @param string $name         jmeno
      * @param array  $Items        polozky
      * @param mixed  $DefaultValue id predvolene polozky
      * @param array  $ItemsIDs     id položek
      * @param array  $Properties   tag properties
      */
-    public function __construct($Name, $Items = null, $DefaultValue = null, $ItemsIDs = false, $Properties = null)
+    public function __construct($name, $Items = null, $DefaultValue = null, $ItemsIDs = false, $Properties = null)
     {
         parent::__construct('select', $Properties);
         $this->DefaultValue = $DefaultValue;
         $this->_itemsIDs = $ItemsIDs;
-        $this->setTagName($Name);
+        $this->setTagName($name);
         if (is_array($Items)) {
             $this->addItems($Items);
         }
@@ -911,7 +911,7 @@ class EaseHtmlSelect extends EaseHtmlPairTag
                 $NewItem->setTagID($this->getTagName() . $ItemName);
             }
             if ($this->DefaultValue == $ItemValue) {
-                $this->LastItem->setDefault();
+                $this->lastItem->setDefault();
             }
         }
     }
@@ -919,12 +919,12 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     /**
      * Vloží hodnotu
      *
-     * @param string $Value   hodnota
+     * @param string $value   hodnota
      * @param string $ValueID id hodnoty
      */
-    public function addValue($Value, $ValueID = 0)
+    public function addValue($value, $ValueID = 0)
     {
-        $this->addItems(array($ValueID => $Value));
+        $this->addItems(array($ValueID => $value));
     }
 
     /**
@@ -940,16 +940,16 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     /**
      * Nastavení hodnoty
      *
-     * @param string $Value nastavovaná hodnota
+     * @param string $value nastavovaná hodnota
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
-        if (trim(strlen($Value))) {
+        if (trim(strlen($value))) {
             foreach ($this->PageParts as $Option) {
-                if ($Option->Value == $Value) {
+                if ($Option->Value == $value) {
                     $Option->setDefault();
                 } else {
-                    unset($Option->TagProperties['selected']);
+                    unset($Option->tagProperties['selected']);
                 }
             }
         } else {
@@ -1015,10 +1015,10 @@ class EaseHtmlForm extends EaseHtmlPairTag
      * @param string $FormAction    cíl formulář např login.php
      * @param string $FormMethod    metoda odesílání POST|GET
      * @param mixed  $FormContents  prvky uvnitř formuláře
-     * @param array  $TagProperties vlastnosti tagu například:
+     * @param array  $tagProperties vlastnosti tagu například:
      *                                      array('enctype' => 'multipart/form-data')
      */
-    public function __construct($FormName, $FormAction = null, $FormMethod = 'post', $FormContents = null, $TagProperties = null)
+    public function __construct($FormName, $FormAction = null, $FormMethod = 'post', $FormContents = null, $tagProperties = null)
     {
         parent::__construct('form', array('method' => $FormMethod, 'name' => $FormName));
         if ($FormAction) {
@@ -1029,8 +1029,8 @@ class EaseHtmlForm extends EaseHtmlPairTag
         if (isset($FormContents)) {
             $this->addItem($FormContents);
         }
-        if (!is_null($TagProperties)) {
-            $this->setTagProperties($TagProperties);
+        if (!is_null($tagProperties)) {
+            $this->setTagProperties($tagProperties);
         }
     }
 
@@ -1129,11 +1129,11 @@ class EaseHtmlForm extends EaseHtmlPairTag
     public function finalize()
     {
         $this->setupWebPage();
-        if (isset($this->WebPage->RequestValuesToKeep) && is_array($this->WebPage->RequestValuesToKeep) && count($this->WebPage->RequestValuesToKeep)) {
-            foreach ($this->WebPage->RequestValuesToKeep as $Name => $Value) {
-                if (!$this->objectContentSearch($Name)) {
-                    if (is_string($Value)) {
-                        $this->addItem(new EaseHtmlInputHiddenTag($Name, $Value));
+        if (isset($this->webPage->RequestValuesToKeep) && is_array($this->webPage->RequestValuesToKeep) && count($this->webPage->RequestValuesToKeep)) {
+            foreach ($this->webPage->RequestValuesToKeep as $name => $value) {
+                if (!$this->objectContentSearch($name)) {
+                    if (is_string($value)) {
+                        $this->addItem(new EaseHtmlInputHiddenTag($name, $value));
                     }
                 }
             }
@@ -1217,16 +1217,16 @@ class EaseLabeledInput extends EasePage
     /**
      * obecný input opatřený patřičným popiskem
      *
-     * @param string $Name       jméno
-     * @param string $Value      hondnota
+     * @param string $name       jméno
+     * @param string $value      hondnota
      * @param string $Label      popisek
      * @param array  $Properties vlastnosti tagu
      */
-    public function __construct($Name, $Value = null, $Label = null, $Properties = null)
+    public function __construct($name, $value = null, $Label = null, $Properties = null)
     {
         parent::__construct();
         if (!isset($Properties['id'])) {
-            $Properties['id'] = $Name . 'TextInput';
+            $Properties['id'] = $name . 'TextInput';
         }
         if ($Label) {
             $this->addCSS(
@@ -1241,14 +1241,14 @@ margin-top: 5px;}'
 
         switch ($this->ItemClass) {
             case 'EaseHtmlCheckboxTag':
-                $this->EnclosedElement = new $this->ItemClass($Name, $Value, $Value, $Properties);
+                $this->EnclosedElement = new $this->ItemClass($name, $value, $value, $Properties);
                 break;
             case 'EaseHtmlSelect':
-                //function __construct($Name, $Items = null, $DefaultValue = null, $ItemsIDs = false, $Properties = null)
-                $this->EnclosedElement = new $this->ItemClass($Name, null ,$Value, false, $Properties);
+                //function __construct($name, $Items = null, $DefaultValue = null, $ItemsIDs = false, $Properties = null)
+                $this->EnclosedElement = new $this->ItemClass($name, null ,$value, false, $Properties);
                 break;
             default:
-                $this->EnclosedElement = new $this->ItemClass($Name, $Value, $Properties);
+                $this->EnclosedElement = new $this->ItemClass($name, $value, $Properties);
                 break;
         }
     }

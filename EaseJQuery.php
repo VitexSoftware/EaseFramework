@@ -25,7 +25,7 @@ class EaseJQueryPart extends EasePage
      * Partname/Tag ID
      * @var string
      */
-    public $PartName = 'JQ';
+    public $partName = 'JQ';
 
     /**
      * Use minimized version of scripts ?
@@ -37,7 +37,7 @@ class EaseJQueryPart extends EasePage
      * Array of Part properties
      * @var array
      */
-    public $PartProperties = array();
+    public $partProperties = array();
 
     public function __construct()
     {
@@ -48,11 +48,11 @@ class EaseJQueryPart extends EasePage
     /**
      * Set part name - mainly div id
      *
-     * @param string $PartName jméno vložené části
+     * @param string $partName jméno vložené části
      */
-    public function setPartName($PartName)
+    public function setPartName($partName)
     {
-        $this->PartName = $PartName;
+        $this->partName = $partName;
     }
 
     /**
@@ -70,9 +70,9 @@ class EaseJQueryPart extends EasePage
      */
     public function finalize()
     {
-        $JavaScript = $this->onDocumentReady();
-        if ($JavaScript) {
-            EaseShared::webPage()->addJavaScript($JavaScript, null, true);
+        $javaScript = $this->onDocumentReady();
+        if ($javaScript) {
+            EaseShared::webPage()->addJavaScript($javaScript, null, true);
         }
     }
 
@@ -87,36 +87,36 @@ class EaseJQueryPart extends EasePage
     /**
      * Nastaví paramatry tagu
      *
-     * @param mixed $PartProperties vlastnosti jQuery widgetu
+     * @param mixed $partProperties vlastnosti jQuery widgetu
      */
-    public function setPartProperties($PartProperties)
+    public function setPartProperties($partProperties)
     {
-        if (is_array($PartProperties)) {
-            if (is_array($this->PartProperties)) {
-                $this->PartProperties = array_merge($this->PartProperties, $PartProperties);
+        if (is_array($partProperties)) {
+            if (is_array($this->partProperties)) {
+                $this->partProperties = array_merge($this->partProperties, $partProperties);
             } else {
-                $this->PartProperties = $PartProperties;
+                $this->partProperties = $partProperties;
             }
         } else {
-            $propBuff = $PartProperties;
-            $this->PartProperties = ' ' . $propBuff;
+            $propBuff = $partProperties;
+            $this->partProperties = ' ' . $propBuff;
         }
     }
 
     /**
      * Vyrendruje aktuální parametry části jako parametry pro jQuery
      *
-     * @param array|string $PartProperties pole vlastností
+     * @param array|string $partProperties pole vlastností
      *
      * @return string
      */
-    public function getPartPropertiesToString($PartProperties = null)
+    public function getPartPropertiesToString($partProperties = null)
     {
-        if (!$PartProperties) {
-            $PartProperties = $this->PartProperties;
+        if (!$partProperties) {
+            $partProperties = $this->partProperties;
         }
 
-        return self::partPropertiesToString($PartProperties);
+        return self::partPropertiesToString($partProperties);
     }
 
     public static function is_assoc($arr)
@@ -127,67 +127,67 @@ class EaseJQueryPart extends EasePage
     /**
      * vyrendruje pole parametrů jako řetězec v syntaxi javascriptu
      *
-     * @param array|string $PartProperties vlastnosti jQuery widgetu
+     * @param array|string $partProperties vlastnosti jQuery widgetu
      *
      * @return string
      */
-    public static function partPropertiesToString($PartProperties)
+    public static function partPropertiesToString($partProperties)
     {
-        if (is_array($PartProperties)) {
-            $PartPropertiesString = '';
-            $PartsArray = array();
-            foreach ($PartProperties as $PartPropertyName => $PartPropertyValue) {
-                if (!is_null($PartPropertyName)) {
-                    if (is_numeric($PartPropertyName)) {
-                        if (!strstr($PartPropertiesString, ' ' . $PartPropertyValue . ' ')) {
-                            $PartsArray[] = ' ' . $PartPropertyValue . ' ';
+        if (is_array($partProperties)) {
+            $partPropertiesString = '';
+            $partsArray = array();
+            foreach ($partProperties as $partPropertyName => $partPropertyValue) {
+                if (!is_null($partPropertyName)) {
+                    if (is_numeric($partPropertyName)) {
+                        if (!strstr($partPropertiesString, ' ' . $partPropertyValue . ' ')) {
+                            $partsArray[] = ' ' . $partPropertyValue . ' ';
                         }
                     } else {
-                        if (is_array($PartPropertyValue)) {
+                        if (is_array($partPropertyValue)) {
 
-                            if (self::is_assoc($PartPropertyValue)) {
-                                if ($PartPropertyName) {
-                                    $PartsArray[] = $PartPropertyName . ': { ' . self::partPropertiesToString($PartPropertyValue) . ' } ';
+                            if (self::is_assoc($partPropertyValue)) {
+                                if ($partPropertyName) {
+                                    $partsArray[] = $partPropertyName . ': { ' . self::partPropertiesToString($partPropertyValue) . ' } ';
                                 } else {
-                                    $PartsArray[] = self::partPropertiesToString($PartPropertyValue);
+                                    $partsArray[] = self::partPropertiesToString($partPropertyValue);
                                 }
                             } else {
-                                foreach ($PartPropertyValue as $Key => $Value) {
-                                    if (is_string($Value)) {
-                                        $PartPropertyValue[$Key] = '"' . $Value . '"';
+                                foreach ($partPropertyValue as $key => $value) {
+                                    if (is_string($value)) {
+                                        $partPropertyValue[$key] = '"' . $value . '"';
                                     }
                                 }
-                                $PartsArray[] = $PartPropertyName . ': [' . implode(',', $PartPropertyValue) . '] ';
+                                $partsArray[] = $partPropertyName . ': [' . implode(',', $partPropertyValue) . '] ';
                             }
 
 //                            $PartsArray[] = $PartPropertyName . ': [' . implode(',', $PartPropertyValue) . '] ';
-                        } elseif (is_int($PartPropertyValue)) {
-                            $PartsArray[] = $PartPropertyName . ': ' . $PartPropertyValue . ' ';
+                        } elseif (is_int($partPropertyValue)) {
+                            $partsArray[] = $partPropertyName . ': ' . $partPropertyValue . ' ';
                         } else {
-                            if (!is_null($PartPropertyValue) && ( strlen($PartPropertyValue) || $PartPropertyValue === false )) {
-                                if (!@substr_compare($PartPropertyValue, 'function', 0, 8) || ($PartPropertyValue[0] == '{') || ($PartPropertyValue === true)) {
-                                    if ($PartPropertyValue === true) {
-                                        $PartPropertyValue = 'true';
+                            if (!is_null($partPropertyValue) && ( strlen($partPropertyValue) || $partPropertyValue === false )) {
+                                if (!@substr_compare($partPropertyValue, 'function', 0, 8) || ($partPropertyValue[0] == '{') || ($partPropertyValue === true)) {
+                                    if ($partPropertyValue === true) {
+                                        $partPropertyValue = 'true';
                                     }
-                                    if ($PartPropertyValue === false) {
-                                        $PartPropertyValue = 'false';
+                                    if ($partPropertyValue === false) {
+                                        $partPropertyValue = 'false';
                                     }
-                                    $PartsArray[] = $PartPropertyName . ': ' . $PartPropertyValue . ' ';
+                                    $partsArray[] = $partPropertyName . ': ' . $partPropertyValue . ' ';
                                 } else {
-                                    $PartsArray[] = $PartPropertyName . ': "' . $PartPropertyValue . '" ';
+                                    $partsArray[] = $partPropertyName . ': "' . $partPropertyValue . '" ';
                                 }
                             }
                         }
                     }
                 } else {
-                    $PartsArray[] = $PartPropertyValue;
+                    $partsArray[] = $partPropertyValue;
                 }
             }
-            $PartPropertiesString = implode(",\n", $PartsArray);
+            $partPropertiesString = implode(",\n", $partsArray);
 
-            return $PartPropertiesString;
+            return $partPropertiesString;
         } else {
-            return $PartProperties;
+            return $partProperties;
         }
     }
 
@@ -215,13 +215,13 @@ class EaseJQueryUIPart extends EaseJQueryPart
     public static function jQueryze()
     {
         parent::jQueryze();
-        $WebPage = EaseShared::webPage();
-        $WebPage->includeJavaScript('jquery-ui/jquery-ui.js', 1, true);
+        $webPage = EaseShared::webPage();
+        $webPage->includeJavaScript('jquery-ui/jquery-ui.js', 1, true);
         $jQueryUISkin = EaseShared::instanced()->getConfigValue('jQueryUISkin');
         if ($jQueryUISkin) {
-            $WebPage->includeCss('jquery-ui-themes/' . self::getSkinName() . '/jquery-ui.css', true);
+            $webPage->includeCss('jquery-ui-themes/' . self::getSkinName() . '/jquery-ui.css', true);
         } else {
-            $WebPage->includeCss('jquery-ui/css/smoothness/jquery-ui.css', true);
+            $webPage->includeCss('jquery-ui/css/smoothness/jquery-ui.css', true);
         }
     }
 

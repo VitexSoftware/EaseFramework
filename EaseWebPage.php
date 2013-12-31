@@ -22,7 +22,7 @@ class EaseWebPage extends EasePage
      * Položky předávané do vkládaného objektu
      * @var type
      */
-    public $RaiseItems = array('SetupWebPage' => 'WebPage');
+    public $RaiseItems = array('SetupWebPage' => 'webPage');
 
     /**
      * Pole Javasriptu k vykresleni

@@ -189,17 +189,17 @@ class EaseTWSubmitButton extends EaseHtmlButtonTag
     /**
      * Odesílací tlačítko formuláře Twitter Bootstrapu
      *
-     * @param string $Value vracená hodnota
+     * @param string $value vracená hodnota
      * @param string $type  primary|info|success|warning|danger|inverse|link
      */
-    public function __construct($Value = null, $type = null, $properties = null)
+    public function __construct($value = null, $type = null, $properties = null)
     {
         if (is_null($type)) {
             $properties['class'] = 'btn';
         } else {
             $properties['class'] = 'btn btn-' . $type;
         }
-        parent::__construct($Value, $properties);
+        parent::__construct($value, $properties);
         EaseTWBPart::twBootstrapize();
     }
 
@@ -307,8 +307,8 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         } else {
             $menuItem = $this->navRight->addItemSmart($pageItem);
         }
-        if (isset($pageItem->TagProperties['href'])) {
-            $href = basename($pageItem->TagProperties['href']);
+        if (isset($pageItem->tagProperties['href'])) {
+            $href = basename($pageItem->tagProperties['href']);
             if (strstr($href, '?')) {
                 list($targetPage, $params) = explode('?', $href);
             } else {
@@ -447,7 +447,7 @@ class EaseTWBStatusMessages extends EaseHtmlDivTag
      */
     public function draw()
     {
-        $StatusMessages = trim($this->WebPage->getStatusMessagesAsHtml());
+        $StatusMessages = trim($this->webPage->getStatusMessagesAsHtml());
         if ($StatusMessages) {
             parent::addItem($StatusMessages);
             parent::draw();
@@ -486,7 +486,7 @@ class EaseTWBTabs extends EaseContainer
      *
      * @param string $partName       - DIV id
      * @param array  $tabsList
-     * @param array  $PartProperties
+     * @param array  $partProperties
      */
     public function __construct($partName, $tabsList = null, $tagProperties = null)
     {

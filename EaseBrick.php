@@ -1803,8 +1803,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (count($data)) {
-            foreach ($data as $ID => $Value)
-                if (!isset($Value)) //vyhodit prazdne polozky
+            foreach ($data as $ID => $value)
+                if (!isset($value)) //vyhodit prazdne polozky
                     unset($data[$ID]);
         }
 

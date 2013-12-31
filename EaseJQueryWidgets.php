@@ -26,7 +26,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      * Class used to create form input
      * @var type
      */
-    public $InputClass = 'EaseHtmlInputHiddenTag';
+    public $inputClass = 'EaseHtmlInputHiddenTag';
 
     /**
      * Additional JS code to solve show slider values
@@ -37,15 +37,15 @@ class EaseJQuerySlider extends EaseJQueryUIPart
     /**
      * Jquery Slider
      *
-     * @param string $Name
-     * @param int    $Value can be array for multislider
+     * @param string $name
+     * @param int    $value can be array for multislider
      */
-    public function __construct($Name, $Value = null)
+    public function __construct($name, $value = null)
     {
-        $this->PartName = $Name;
+        $this->partName = $name;
         parent::__construct();
-        if (!is_null($Value)) {
-            $this->setValue($Value);
+        if (!is_null($value)) {
+            $this->setValue($value);
         }
     }
 
@@ -62,8 +62,8 @@ class EaseJQuerySlider extends EaseJQueryUIPart
         if ($ObjectName) {
             return parent::setObjectName($ObjectName);
         } else {
-            if ($this->PartName) {
-                return parent::setObjectName(get_class($this) . '@' . $this->PartName);
+            if ($this->partName) {
+                return parent::setObjectName(get_class($this) . '@' . $this->partName);
             } else {
                 return parent::setObjectName();
             }
@@ -73,14 +73,14 @@ class EaseJQuerySlider extends EaseJQueryUIPart
     /**
      * Setup input field/s value/s
      *
-     * @param string $Value
+     * @param string $value
      */
-    public function setValue($Value)
+    public function setValue($value)
     {
-        if (is_array($Value)) {
-            $this->setPartProperties(array('values' => $Value));
+        if (is_array($value)) {
+            $this->setPartProperties(array('values' => $value));
         } else {
-            $this->setPartProperties(array('value' => $Value));
+            $this->setPartProperties(array('value' => $value));
         }
     }
 
@@ -91,11 +91,11 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      */
     public function setValues($Data)
     {
-        if (isset($this->PartProperties['values'])) {
+        if (isset($this->partProperties['values'])) {
             $NewValues = array();
-            foreach (array_keys($this->PartProperties['values']) as $Offset => $ID) {
+            foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
                 if (isset($Data[$ID])) {
-                    $this->PageParts[$this->InputClass . '@' . $ID]->setValue($Data[$ID]);
+                    $this->PageParts[$this->inputClass . '@' . $ID]->setValue($Data[$ID]);
                     $NewValues[$ID] = $Data[$ID];
                 }
             }
@@ -112,7 +112,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      */
     public function getTagName()
     {
-        return $this->PartName;
+        return $this->partName;
     }
 
     /**
@@ -122,13 +122,13 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      */
     public function onDocumentReady()
     {
-        $JavaScript = '$("#' . $this->PartName . '-slider").slider( { ' . $this->getPartPropertiesToString() . ' } );';
-        if (isset($this->PartProperties['values'])) {
-            foreach (array_keys($this->PartProperties['values']) as $Offset => $ID) {
-                $JavaScript .= "\n" . '$( "#' . $ID . '" ).val( $( "#' . $this->PartName . '-slider" ).slider( "values", ' . $Offset . ' ) );';
+        $JavaScript = '$("#' . $this->partName . '-slider").slider( { ' . $this->getPartPropertiesToString() . ' } );';
+        if (isset($this->partProperties['values'])) {
+            foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
+                $JavaScript .= "\n" . '$( "#' . $ID . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "values", ' . $Offset . ' ) );';
             }
         } else {
-            $JavaScript .= "\n" . '$( "#' . $this->PartName . '" ).val( $( "#' . $this->PartName . '-slider" ).slider( "value" ) );';
+            $JavaScript .= "\n" . '$( "#' . $this->partName . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "value" ) );';
         }
 
         return $JavaScript;
@@ -139,16 +139,16 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      */
     public function afterAdd()
     {
-        if (isset($this->PartProperties['values'])) {
-            if (is_array($this->PartProperties['values'])) {
-                foreach ($this->PartProperties['values'] as $ValueID => $Value) {
-                    $this->addItem(new $this->InputClass($ValueID, $Value));
-                    $this->LastItem->setTagID($ValueID);
+        if (isset($this->partProperties['values'])) {
+            if (is_array($this->partProperties['values'])) {
+                foreach ($this->partProperties['values'] as $valueID => $value) {
+                    $this->addItem(new $this->inputClass($valueID, $value));
+                    $this->lastItem->setTagID($valueID);
                 }
             }
         } else {
-            $this->addItem(new $this->InputClass($this->PartName, $this->PartProperties['value']));
-            $this->LastItem->setTagID($this->PartName);
+            $this->addItem(new $this->inputClass($this->partName, $this->partProperties['value']));
+            $this->lastItem->setTagID($this->partName);
         }
     }
 
@@ -157,29 +157,29 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      */
     public function finalize()
     {
-        EaseShared::WebPage()->addCSS(' #' . $this->PartName . ' { margin: 10px; }');
-        $this->addItem(new EaseHtmlDivTag($this->PartName . '-slider'));
-        if (isset($this->PartProperties['values'])) {
-            if (is_array($this->PartProperties['values'])) {
+        EaseShared::webPage()->addCSS(' #' . $this->partName . ' { margin: 10px; }');
+        $this->addItem(new EaseHtmlDivTag($this->partName . '-slider'));
+        if (isset($this->partProperties['values'])) {
+            if (is_array($this->partProperties['values'])) {
                 $JavaScript = '';
-                foreach (array_keys($this->PartProperties['values']) as $Offset => $ID) {
+                foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
                     $JavaScript .= ' $( "#' . $ID . '" ).val( ui.values[' . $Offset . '] );';
                 }
                 $this->setPartProperties(array('slide' => 'function (event, ui) { ' . $JavaScript . $this->SliderAdd . ' }'));
             }
         } else {
-            $this->setPartProperties(array('slide' => 'function (event, ui) { $( "#' . $this->PartName . '" ).val( ui.value ); ' . $this->SliderAdd . ' }'));
+            $this->setPartProperties(array('slide' => 'function (event, ui) { $( "#' . $this->partName . '" ).val( ui.value ); ' . $this->SliderAdd . ' }'));
         }
-        if (!isset($this->PartProperties['value'])) {
-            $this->PartProperties['value'] = null;
+        if (!isset($this->partProperties['value'])) {
+            $this->partProperties['value'] = null;
         }
         $this->setPartProperties(array(
             'change' => 'function (event, ui) {
-            $("#' . $this->PartName . '-slider a").html( ui.value ); }',
-            'create' => 'function (event, ui) { $("#' . $this->PartName . '-slider a").html( ' . $this->PartProperties['value'] . ' ).css("text-align", "center"); }  ')
+            $("#' . $this->partName . '-slider a").html( ui.value ); }',
+            'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ')
         );
 
-        EaseShared::WebPage()->addJavaScript(';', null, true);
+        EaseShared::webPage()->addJavaScript(';', null, true);
 
         return parent::finalize();
     }
@@ -218,8 +218,8 @@ class EaseTinyMCE extends EaseHtmlTextareaTag
     public function afterAdd()
     {
         $this->setTagID($this->getTagName());
-        $this->WebPage->includeJavaScript('includes/javascript/tiny_mce/tiny_mce.js');
-        $this->WebPage->addJavaScript('
+        $this->webPage->includeJavaScript('includes/javascript/tiny_mce/tiny_mce.js');
+        $this->webPage->addJavaScript('
 tinyMCE.init({
 mode : "textareas",
 theme : "simple"
@@ -241,10 +241,10 @@ class EaseJQColorPicker extends EaseHtmlInputTextTag
     public function finalize()
     {
         $this->setTagID($this->getTagName());
-        $this->WebPage->includeJavaScript('jquery.js', 0);
-        $this->WebPage->includeJavaScript('colorpicker.js');
-        $this->WebPage->includeCss('colorpicker.css');
-        $this->WebPage->addJavaScript(
+        $this->webPage->includeJavaScript('jquery.js', 0);
+        $this->webPage->includeJavaScript('colorpicker.js');
+        $this->webPage->includeCss('colorpicker.css');
+        $this->webPage->addJavaScript(
                 "$(document).ready(function () {
     $('#" . $this->getTagID() . "').ColorPicker({
     onSubmit: function (hsb, hex, rgb, el) {
@@ -283,19 +283,19 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
     /**
      * Create jQueryUI tabs
      *
-     * @param string $PartName       - DIV id
+     * @param string $partName       - DIV id
      * @param array  $TabsList
-     * @param array  $PartProperties
+     * @param array  $partProperties
      */
-    public function __construct($PartName, $TabsList = null, $PartProperties = null)
+    public function __construct($partName, $TabsList = null, $partProperties = null)
     {
-        $this->setPartName($PartName);
+        $this->setPartName($partName);
         parent::__construct();
         if (is_array($TabsList)) {
             $this->Tabs = array_merge($this->Tabs, $TabsList);
         }
-        if (!is_null($PartProperties)) {
-            $this->setPartProperties($PartProperties);
+        if (!is_null($partProperties)) {
+            $this->setPartProperties($partProperties);
         }
     }
 
@@ -330,18 +330,18 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
      */
     public function finalize()
     {
-        $this->addJavaScript('$(function () { $( "#' . $this->PartName . '" ).tabs( {' . $this->getPartPropertiesToString() . '} ); });',null,true);
-        $Div = $this->addItem(new EaseHtmlDivTag($this->PartName));
+        $this->addJavaScript('$(function () { $( "#' . $this->partName . '" ).tabs( {' . $this->getPartPropertiesToString() . '} ); });',null,true);
+        $Div = $this->addItem(new EaseHtmlDivTag($this->partName));
         $UlTag = $Div->addItem(new EaseHtmlUlTag());
         $Index = 0;
         foreach ($this->Tabs as $TabName => $TabContent) {
             if (!strlen($TabContent) || substr_compare($TabContent, 'url:', 0, 4)) {
-                $UlTag->addItem(new EaseHtmlATag('#' . $this->PartName . '-' . ++$Index, $TabName));
-                $Div->addItem(new EaseHtmlDivTag($this->PartName . '-' . $Index));
+                $UlTag->addItem(new EaseHtmlATag('#' . $this->partName . '-' . ++$Index, $TabName));
+                $Div->addItem(new EaseHtmlDivTag($this->partName . '-' . $Index));
                 $Div->addToLastItem($TabContent);
             } else {
                 $UlTag->addItem(new EaseHtmlATag(str_replace('url:', '', $TabContent), $TabName));
-                $Div->addItem(new EaseHtmlDivTag($this->PartName . '-' . $Index));
+                $Div->addItem(new EaseHtmlDivTag($this->partName . '-' . $Index));
             }
         }
 
@@ -373,20 +373,20 @@ class EaseInPlaceEditor extends EaseJQueryUIPart
     /**
      * Inplace Editor
      *
-     * @param name   $Name
+     * @param name   $name
      * @param string $Content
      * @param string $SubmitTo
      * @param array  $Properties
      */
-    public function __construct($Name, $Content, $SubmitTo = null, $Properties = null)
+    public function __construct($name, $Content, $SubmitTo = null, $Properties = null)
     {
-        parent::__construct($Name, $Content, $Properties);
+        parent::__construct($name, $Content, $Properties);
         if (!$SubmitTo) {
             $this->SubmitTo = str_replace('.php', 'Ajax.php', $_SERVER['PHP_SELF']);
         } else {
             $this->SubmitTo = $SubmitTo;
         }
-        $this->EditorField = $this->addItem(new EaseHtmlInputTextTag($Name, $Content, $Properties));
+        $this->EditorField = $this->addItem(new EaseHtmlInputTextTag($name, $Content, $Properties));
         $this->EditorField->setTagID();
     }
 
@@ -451,16 +451,16 @@ class EaseHtmlFieldSetCollapsable extends EaseHtmlFieldSet
     {
 
         EaseJQueryPart::jQueryze($this);
-        EaseShared::WebPage()->includeJavaScript('collapsible.js', 4, true);
-        EaseShared::WebPage()->includeCss('collapsible.css', true);
-        EaseShared::WebPage()->addJavaScript('$(\'#' . $this->getTagID() . '\').collapse({ closed: ' . (($this->Closed) ? 'true' : 'false') . ' });', null, true);
+        EaseShared::webPage()->includeJavaScript('collapsible.js', 4, true);
+        EaseShared::webPage()->includeCss('collapsible.css', true);
+        EaseShared::webPage()->addJavaScript('$(\'#' . $this->getTagID() . '\').collapse({ closed: ' . (($this->Closed) ? 'true' : 'false') . ' });', null, true);
     }
 
 }
 
 /*
-  $this->WebPage->IncludeJavaScript('http://jqueryui.com/themeroller/themeswitchertool/');
-  $this->WebPage->addJavaScript('$(\'#switcher\').themeswitcher();',null,true);
+  $this->webPage->IncludeJavaScript('http://jqueryui.com/themeroller/themeswitchertool/');
+  $this->webPage->addJavaScript('$(\'#switcher\').themeswitcher();',null,true);
   $this->addItem(new EaseHtmlDivTag('switcher'));
  */
 
@@ -484,15 +484,15 @@ class EaseAjaxFileInput extends EaseHtmlInputFileTag
     /**
      * Komponenta pro Upload souboru
      *
-     * @param string $Name
+     * @param string $name
      * @param string $UploadTarget
-     * @param string $Value
+     * @param string $value
      */
-    public function __construct($Name, $UploadTarget, $Value = null)
+    public function __construct($name, $UploadTarget, $value = null)
     {
         $this->UploadTarget = $UploadTarget;
-        parent::__construct($Name, $Value);
-        $this->setTagID($Name);
+        parent::__construct($name, $value);
+        $this->setTagID($name);
     }
 
     public function finalize()
@@ -529,7 +529,7 @@ class EaseJQueryLinkButton extends EaseJQueryUIPart
      * Jméno tlačítka
      * @var string
      */
-    private $Name = null;
+    private $name = null;
 
     /**
      * Paramatry pro jQuery .button()
@@ -613,7 +613,7 @@ class EaseJQuerySubmitButton extends EaseJQueryUIPart
      * Jméno tlačítka
      * @var string
      */
-    public $Name = null;
+    public $name = null;
 
     /**
      * Paramatry pro jQuery .button()
@@ -631,19 +631,19 @@ class EaseJQuerySubmitButton extends EaseJQueryUIPart
      * Odesílací tlačítko
      *
      * @see http://jqueryui.com/demos/button/
-     * @param string       $Name
-     * @param string       $Value
+     * @param string       $name
+     * @param string       $value
      * @param string       $Title
      * @param array|string $JQOptions  parametry pro $.button()
      * @param array        $Properties vlastnosti HTML tagu
      */
-    public function __construct($Name, $Value, $Title = null, $JQOptions = null, $Properties = null)
+    public function __construct($name, $value, $Title = null, $JQOptions = null, $Properties = null)
     {
         parent::__construct();
-        $this->Name = $Name;
+        $this->Name = $name;
         $this->JQOptions = $JQOptions;
         $Properties['title']=$Title;
-        $this->Button = $this->addItem(new EaseHtmlInputSubmitTag($Name, $Value, $Properties));
+        $this->Button = $this->addItem(new EaseHtmlInputSubmitTag($name, $value, $Properties));
     }
 
     /**
@@ -692,7 +692,7 @@ class EaseJQueryRadiobuttonGroup extends EaseHtmlRadiobuttonGroup
      */
     public function addLabel($Label = null)
     {
-        $ForID = $this->LastItem->getTagID();
+        $ForID = $this->lastItem->getTagID();
         if (is_null($Label)) {
             $Label = $ForID;
         }
@@ -731,14 +731,14 @@ class EasejQueryScroller extends EaseHtmlDivTag
     /**
      * Rolovatelná oblast
      *
-     * @param string         $Name
+     * @param string         $name
      * @param EasePage|mixed $Content
      * @param array          $Properties
      */
-    public function __construct($Name = null, $Content = null, $Properties = null)
+    public function __construct($name = null, $Content = null, $Properties = null)
     {
-        $Properties['id'] = $Name;
-        parent::__construct($Name, $Content, $Properties);
+        $Properties['id'] = $name;
+        parent::__construct($name, $Content, $Properties);
         parent::addItem(new EaseHtmlDivTag(null, null, array('class' => 'scrollingHotSpotLeft')));
         parent::addItem(new EaseHtmlDivTag(null, null, array('class' => 'scrollingHotSpotRight')));
         $ScrollWrapper = parent::addItem(new EaseHtmlDivTag(null, null, array('class' => 'scrollWrapper')));
@@ -752,9 +752,9 @@ class EasejQueryScroller extends EaseHtmlDivTag
     {
         EaseJQueryUIPart::jQueryze($this);
 
-        EaseShared::WebPage()->includeCss('smoothDivScroll.css', true);
-        EaseShared::WebPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js', null, true);
-        EaseShared::WebPage()->addJavaScript('
+        EaseShared::webPage()->includeCss('smoothDivScroll.css', true);
+        EaseShared::webPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js', null, true);
+        EaseShared::webPage()->addJavaScript('
         $(function () {
             $("div#' . $this->getTagID() . '").smoothDivScroll({});
         });
@@ -786,14 +786,14 @@ class EasePasswordInput extends EaseHtmlInputPasswordTag
     /**
      * Vloží pole pro zadávání s měřičem jeho síly
      *
-     * @param string $Name
-     * @param string $Value
+     * @param string $name
+     * @param string $value
      * @param array  $Properties
      */
-    public function __construct($Name, $Value = null, $Properties = null)
+    public function __construct($name, $value = null, $Properties = null)
     {
-        parent::__construct($Name, $Value, $Properties);
-        $this->setTagID($Name);
+        parent::__construct($name, $value, $Properties);
+        $this->setTagID($name);
     }
 
     /**
@@ -841,14 +841,14 @@ class EasePasswordControlInput extends EaseHtmlInputPasswordTag
     /**
      * Vloží pole pro zadávání hesla s kontrolou zdali souhlasí
      *
-     * @param string $Name
-     * @param string $Value
+     * @param string $name
+     * @param string $value
      * @param array  $Properties
      */
-    public function __construct($Name, $Value = null, $Properties = null)
+    public function __construct($name, $value = null, $Properties = null)
     {
-        parent::__construct($Name, $Value, $Properties);
-        $this->setTagID($Name);
+        parent::__construct($name, $value, $Properties);
+        $this->setTagID($name);
     }
 
     /**
@@ -984,7 +984,7 @@ class EaseJQConfirmedLinkButton extends EaseContainer
         $ConfirmDialog = $this->addItem(new EaseJQueryDialog($ID . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $Contents . ' ?', 'ui-icon-alert'));
         $Yes = _('Ano');
         $No = _('Ne');
-        $ConfirmDialog->PartProperties = array(
+        $ConfirmDialog->partProperties = array(
             'autoOpen' => false,
             'modal' => true,
             'show' => 'slide',
@@ -993,7 +993,7 @@ class EaseJQConfirmedLinkButton extends EaseContainer
                 $No => 'function () { $( this ).dialog( "close" ); }'
             )
         );
-        EaseShared::WebPage()->addJavascript('$( "#' . $ID
+        EaseShared::webPage()->addJavascript('$( "#' . $ID
                 . '-button" ).click( function () { $( "#' . $ID .
                 '-dialog" ).dialog( "open" ); } );
 ', null, true);
@@ -1056,7 +1056,7 @@ class EaseJQueryDialog extends EaseJQueryUIPart
         $this->Message = $Message;
         $this->Icon = $Icon;
         $this->Notice = $Notice;
-        $this->PartProperties = array('modal' => true, 'buttons' => array('Ok' => 'function () { $( this ).dialog( "close" ); }'));
+        $this->partProperties = array('modal' => true, 'buttons' => array('Ok' => 'function () { $( this ).dialog( "close" ); }'));
         parent::__construct();
     }
 
@@ -1065,7 +1065,7 @@ class EaseJQueryDialog extends EaseJQueryUIPart
      */
     public function onDocumentReady()
     {
-        return '$("#' . $this->DialogID . '").dialog( {' . EaseJQueryPart::partPropertiesToString($this->PartProperties) . '} )';
+        return '$("#' . $this->DialogID . '").dialog( {' . EaseJQueryPart::partPropertiesToString($this->partProperties) . '} )';
     }
 
     /**
@@ -1112,7 +1112,7 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
      * Propetries pass to Input
      * @var array
      */
-    public $TagProperties = NULL;
+    public $tagProperties = NULL;
 
     /**
      * Initial datetime
@@ -1124,7 +1124,7 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
      * Datetime Picker parameters
      * @var array
      */
-    public $PartProperties = array(
+    public $partProperties = array(
         'dateFormat' => 'yy-mm-dd',
         'showSecond' => true,
         'timeFormat' => 'hh:mm:ss');
@@ -1137,18 +1137,18 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
 
     /**
      * Input for Date and time
-     * @param string $PartName
+     * @param string $partName
      */
-    public function __construct($PartName, $InitialValue = NULL, $TagProperties = NULL)
+    public function __construct($partName, $InitialValue = NULL, $tagProperties = NULL)
     {
-        $this->TagProperties = $TagProperties;
+        $this->tagProperties = $tagProperties;
         $this->InitialValue = $InitialValue;
-        $this->SetPartName($PartName);
+        $this->SetPartName($partName);
         parent::__construct();
-        $this->EaseShared->WebPage->IncludeJavaScript('jquery-ui-timepicker-addon.js', 3, true);
-        $this->EaseShared->WebPage->IncludeCss('jquery-ui-timepicker-addon.css', null, true);
-        $this->InputTag = new EaseHtmlInputTextTag($this->PartName, $this->InitialValue, $this->TagProperties);
-        $this->InputTag->setTagID($this->PartName);
+        $this->EaseShared->webPage->IncludeJavaScript('jquery-ui-timepicker-addon.js', 3, true);
+        $this->EaseShared->webPage->IncludeCss('jquery-ui-timepicker-addon.css', null, true);
+        $this->InputTag = new EaseHtmlInputTextTag($this->partName, $this->InitialValue, $this->tagProperties);
+        $this->InputTag->setTagID($this->partName);
         $this->InputTag = $this->addItem($this->InputTag);
         /*
           if ($InitialValue &&  (strtotime($InitialValue) < time( ))) {
@@ -1162,7 +1162,7 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
      */
     public function finalize()
     {
-        $this->EaseShared->WebPage->addJavaScript('$(function () { $( "#' . $this->PartName . '" ).datetimepicker( { ' . $this->GetPartPropertiesToString() . ' });});', 10);
+        $this->EaseShared->webPage->addJavaScript('$(function () { $( "#' . $this->partName . '" ).datetimepicker( { ' . $this->GetPartPropertiesToString() . ' });});', 10);
     }
 
 }

@@ -119,7 +119,7 @@ class EaseContainer extends EaseBrick
                 if (method_exists($this->PageParts[$pageItemName], 'AfterAdd')) {
                     $this->PageParts[$pageItemName]->afterAdd();
                 }
-                $this->LastItem = & $this->PageParts[$pageItemName];
+                $this->lastItem = & $this->PageParts[$pageItemName];
                 $itemPointer = & $this->PageParts[$pageItemName];
             } else {
                 $this->error('Page Item object without draw() method', $pageItem);
@@ -210,11 +210,11 @@ class EaseContainer extends EaseBrick
      */
     function &addToLastItem($PageItem)
     {
-        if (!method_exists($this->LastItem, 'addItem')) {
+        if (!method_exists($this->lastItem, 'addItem')) {
             return false;
         }
 
-        return $this->LastItem->addItem($PageItem);
+        return $this->lastItem->addItem($PageItem);
     }
 
     /**
@@ -349,11 +349,11 @@ class EaseContainer extends EaseBrick
      */
     public function showContents($Level = 0)
     {
-        foreach ($this->PageParts as $PartName => $PartContents) {
+        foreach ($this->PageParts as $partName => $PartContents) {
             if (is_object($PartContents) && method_exists($PartContents, 'ShowContents')) {
                 $PartContents->showContents($Level + 1);
             } else {
-                echo str_repeat('&nbsp;.&nbsp;', $Level) . $PartName . '<br>';
+                echo str_repeat('&nbsp;.&nbsp;', $Level) . $partName . '<br>';
             }
         }
     }
@@ -411,7 +411,7 @@ class EaseContainer extends EaseBrick
     public static function fillMeUp(&$Data, &$Form)
     {
         if (isset($Form->PageParts) && is_array($Form->PageParts) && count($Form->PageParts)) {
-            foreach ($Form->PageParts as $PartName => $Part) {
+            foreach ($Form->PageParts as $partName => $Part) {
                 if (isset($Part->PageParts) && is_array($Part->PageParts) && count($Part->PageParts)) {
                     self::fillMeUp($Data, $Part);
                 }
@@ -475,13 +475,6 @@ class EasePage extends EaseContainer
 
     /**
      * Odkaz na základní objekt stránky
-     *
-     * @deprecated since version 1
-     * @var EaseWebPage
-     */
-    public $WebPage = null;
-    /**
-     * Odkaz na základní objekt stránky
      * @var EaseWebPage
      */
     public $webPage = null;
@@ -490,13 +483,13 @@ class EasePage extends EaseContainer
      * Které objekty převzít od přebírajícího objektu
      * @var array
      */
-    public $RaiseItems = array('SetUpUser' => 'User', 'WebPage', 'OutputFormat');
+    public $RaiseItems = array('SetUpUser' => 'User', 'webPage', 'OutputFormat');
 
     /**
      * Odkaz na naposledy přidaný element
      * @var object
      */
-    public $LastItem = null;
+    public $lastItem = null;
 
     /**
      * Seznam názvů proměnných které se mají stabilně udržovat
@@ -551,20 +544,20 @@ class EasePage extends EaseContainer
     }
 
     /**
-     * Přiřadí objekt stránky do WebPage
+     * Přiřadí objekt stránky do webPage
      *
      * @param object|EasePage|EaseContainer $EaseObject objekt do kterého
      *                                      přiřazujeme WebStránku
      */
     public static function assignWebPage(&$EaseObject)
     {
-        if (isset($EaseObject->EaseShared->WebPage)) {
-            $EaseObject->WebPage = &$EaseObject->EaseShared->WebPage;
+        if (isset($EaseObject->EaseShared->webPage)) {
+            $EaseObject->webPage = &$EaseObject->EaseShared->webPage;
         } else {
             if (is_subclass_of($EaseObject, 'EasePage')) {
-                $EaseObject->WebPage = &$EaseObject;
+                $EaseObject->webPage = &$EaseObject;
             } else {
-                $EaseObject->WebPage = &EaseShared::webPage();
+                $EaseObject->webPage = &EaseShared::webPage();
             }
         }
     }
@@ -582,7 +575,7 @@ class EasePage extends EaseContainer
     {
         self::assignWebPage($this);
 
-        return $this->WebPage->addJavaScript($JavaScript, $Position, $inDocumentReady);
+        return $this->webPage->addJavaScript($JavaScript, $Position, $inDocumentReady);
     }
 
     /**
@@ -598,7 +591,7 @@ class EasePage extends EaseContainer
     {
         self::assignWebPage($this);
 
-        return $this->WebPage->includeJavaScript($JavaScriptFile, $Position, $FWPrefix);
+        return $this->webPage->includeJavaScript($JavaScriptFile, $Position, $FWPrefix);
     }
 
     /**
@@ -612,7 +605,7 @@ class EasePage extends EaseContainer
     {
         self::assignWebPage($this);
 
-        return $this->WebPage->addCSS($Css);
+        return $this->webPage->addCSS($Css);
     }
 
     /**
@@ -628,7 +621,7 @@ class EasePage extends EaseContainer
     {
         self::assignWebPage($this);
 
-        return $this->WebPage->includeCss($CssFile, $FWPrefix, $media);
+        return $this->webPage->includeCss($CssFile, $FWPrefix, $media);
     }
 
     /**
@@ -709,8 +702,8 @@ class EasePage extends EaseContainer
     {
         global $_REQUEST;
         $RequestValuesToKeep = array();
-        if (isset($this->WebPage->RequestValuesToKeep) && is_array($this->WebPage->RequestValuesToKeep) && count($this->WebPage->RequestValuesToKeep)) {
-            foreach ($this->WebPage->RequestValuesToKeep as $KeyName => $KeyValue) {
+        if (isset($this->webPage->RequestValuesToKeep) && is_array($this->webPage->RequestValuesToKeep) && count($this->webPage->RequestValuesToKeep)) {
+            foreach ($this->webPage->RequestValuesToKeep as $KeyName => $KeyValue) {
                 if ($KeyValue != true) {
                     $RequestValuesToKeep[$KeyName] = $KeyValue;
                 }
@@ -737,30 +730,30 @@ class EasePage extends EaseContainer
     /**
      * Ošetří proměnou podle jejího očekávaného typu
      *
-     * @param mixed  $Value      hodnota
+     * @param mixed  $value      hodnota
      * @param string $SanitizeAs typ hodnoty int|string|float|null
      *
      * @return mixed
      */
-    public static function sanitizeAsType($Value, $SanitizeAs)
+    public static function sanitizeAsType($value, $SanitizeAs)
     {
         switch ($SanitizeAs) {
             case 'string':
-                return (string) $Value;
+                return (string) $value;
                 break;
             case 'int':
-                return (int) $Value;
+                return (int) $value;
                 break;
             case 'float':
-                return (float) $Value;
+                return (float) $value;
                 break;
             case 'bool':
             case 'boolean':
-                if (($Value == 'true') || ($Value == 1)) {
+                if (($value == 'true') || ($value == 1)) {
                     return true;
                 }
                 break;
-                if (($Value == 'false') || ($Value == 0)) {
+                if (($value == 'false') || ($value == 0)) {
                     return fals;
                 }
                 break;
@@ -768,11 +761,11 @@ class EasePage extends EaseContainer
                 return null;
             case 'null':
             case 'null':
-                if (strtoupper($Value) == 'null') {
+                if (strtoupper($value) == 'null') {
                     return null;
                 }
             default:
-                return $Value;
+                return $value;
                 break;
         }
     }
@@ -790,8 +783,8 @@ class EasePage extends EaseContainer
         global $_REQUEST;
         $this->setupWebPage();
         if (isset($_REQUEST[$Field])) {
-            if (isset($this->WebPage->RequestValuesToKeep[$Field])) {
-                $this->WebPage->RequestValuesToKeep[$Field] = $_REQUEST[$Field];
+            if (isset($this->webPage->RequestValuesToKeep[$Field])) {
+                $this->webPage->RequestValuesToKeep[$Field] = $_REQUEST[$Field];
             }
             if ($SanitizeAs) {
                 return EasePage::sanitizeAsType($_REQUEST[$Field], $SanitizeAs);
@@ -901,7 +894,7 @@ class EasePage extends EaseContainer
                 /*
                   {
                   if ($VarName == $VarValue) {
-                  if (!isset($this->WebPage->RequestValuesToKeep[$VarName])) {
+                  if (!isset($this->webPage->RequestValuesToKeep[$VarName])) {
                   $this->KeepRequestValue($VarValue, true);
                   }
                   } else {
@@ -950,9 +943,9 @@ class EasePage extends EaseContainer
             return '';
         }
         $ArgsToKeep = array();
-        foreach ($RequestValuesToKeep as $Name => $Value) {
-            if (is_string($Value) && strlen($Value)) {
-                $ArgsToKeep[$Name] = $Name . '=' . $Value;
+        foreach ($RequestValuesToKeep as $name => $value) {
+            if (is_string($value) && strlen($value)) {
+                $ArgsToKeep[$name] = $name . '=' . $value;
             }
         }
 
@@ -962,16 +955,16 @@ class EasePage extends EaseContainer
     /**
      * Zapamatuje si odkaz na základní stránku webu
      *
-     * @param EaseWebPage|true $WebPage Objekt stránky, true - force assign
+     * @param EaseWebPage|true $webPage Objekt stránky, true - force assign
      */
-    public function setupWebPage(& $WebPage = null)
+    public function setupWebPage(& $webPage = null)
     {
-        if (is_null($WebPage)) {
-            $WebPage = & $this;
+        if (is_null($webPage)) {
+            $webPage = & $this;
         }
 
-        if (!isset($this->WebPage) || !is_object($this->WebPage)) {
-            $this->WebPage = $WebPage;
+        if (!isset($this->webPage) || !is_object($this->webPage)) {
+            $this->webPage = $webPage;
         }
     }
 

@@ -392,7 +392,7 @@ class EaseDbMSSQL extends EaseSql
         $Values = '';
         $Columns = '';
         $ANSIDate = null;
-        foreach ($Data as $Column => $Value) {
+        foreach ($Data as $Column => $value) {
             if (!$PermitKeyColumn) {
                 if ($Column == $this->KeyColumn) {
                     continue;
@@ -400,9 +400,9 @@ class EaseDbMSSQL extends EaseSql
             }
             //				$deklarace[]='DECLARE @'.$col.' './*funkce_pro_mssql_typ($tabulka.$col)*/.';';
 
-            switch (gettype($Value)) {
+            switch (gettype($value)) {
                 case "boolean":
-                    if ($Value)
+                    if ($value)
                         $Values.=" 'True',";
                     else
                         $Values.=" 'False',";
@@ -412,18 +412,18 @@ class EaseDbMSSQL extends EaseSql
                     break;
                 case "integer":
                 case "double":
-                    $Values.=' ' . str_replace(',', '.', $Value) . ',';
+                    $Values.=' ' . str_replace(',', '.', $value) . ',';
                     break;
                 default:
-//                    $ANSIDate = $this->LocaleDateToANSIDate($Value);
-                    $ANSIDate = $Value;
+//                    $ANSIDate = $this->LocaleDateToANSIDate($value);
+                    $ANSIDate = $value;
                     if ($ANSIDate) {
-                        $Value = $ANSIDate;
+                        $value = $ANSIDate;
                     }
-                    if (strtolower($Value) == 'getdate()') {
+                    if (strtolower($value) == 'getdate()') {
                         $Values.=" GetDate(),";
                     } else {
-                        $Values.=" '" . addslashes($Value) . "',";
+                        $Values.=" '" . addslashes($value) . "',";
                     }
             }
             $Columns.=" [$Column],";
@@ -458,37 +458,37 @@ class EaseDbMSSQL extends EaseSql
         }
 
         $updates = '';
-        foreach ($Data as $Column => $Value) {
+        foreach ($Data as $Column => $value) {
             if ($Column == $this->KeyColumn)
                 continue;
-            switch (gettype($Value)) {
+            switch (gettype($value)) {
                 case 'boolean':
-                    if ($Value) {
-                        $Value = ' 1 ';
+                    if ($value) {
+                        $value = ' 1 ';
                     } else {
-                        $Value = ' 0 ';
+                        $value = ' 0 ';
                     }
                     break;
                 case 'null':
                 case 'null':
-                    $Value = ' null ';
+                    $value = ' null ';
                     break;
 
                 case 'integer':
                 case 'double':
-                    $Value = ' ' . str_replace(',', '.', $Value);
+                    $value = ' ' . str_replace(',', '.', $value);
                     break;
                 case 'string':
                 default:
-//                    $ANSIDate = $this->LocaleDateToANSIDate($Value);
+//                    $ANSIDate = $this->LocaleDateToANSIDate($value);
 //                    if ($ANSIDate)
-//                        $Value = $ANSIDate;
+//                        $value = $ANSIDate;
 
-                    if (strtolower($Value) != 'getdate()')
-                        $Value = " '$Value' ";
+                    if (strtolower($value) != 'getdate()')
+                        $value = " '$value' ";
                     break;
             }
-            $updates.=" [$Column] = $Value,";
+            $updates.=" [$Column] = $value,";
         }
 
         return substr($updates, 0, -1);
@@ -508,38 +508,38 @@ class EaseDbMSSQL extends EaseSql
             return $Data;
         }
         $Updates = '';
-        foreach ($Data as $Column => $Value) {
+        foreach ($Data as $Column => $value) {
             if (($Column == $this->KeyColumn) && (count($Data) != 1))
                 continue;
-            if ($Value[0] == '!') {
+            if ($value[0] == '!') {
                 $operator = ' != ';
-                $Value = substr($Value, 1);
+                $value = substr($value, 1);
             } else {
                 $operator = ' = ';
             }
             //				$deklarace[]='DECLARE @'.$col.' './*funkce_pro_mssql_typ($tabulka.$col)*/.';';
 
-            if (is_bool($Value)) {
-                if ($Value === null) {
-                    $Value = " null,";
-                } elseif ($Value) {
-                    $Value = " 1";
+            if (is_bool($value)) {
+                if ($value === null) {
+                    $value = " null,";
+                } elseif ($value) {
+                    $value = " 1";
                 } else {
-                    $Value = " 0";
+                    $value = " 0";
                 }   // 	if (is_null($val)) {
-            } elseif (!is_string($Value))
-                if (is_float($Value))
-                    $Value = ' ' . str_replace(',', '.', $Value);
+            } elseif (!is_string($value))
+                if (is_float($value))
+                    $value = ' ' . str_replace(',', '.', $value);
                 else
-                    $Value = " $Value";
+                    $value = " $value";
             else {
-                $Value = " '$Value'";
+                $value = " '$value'";
                 $operator = ' LIKE ';
             }
 
             // 				echo "<pre>$col:\n"; var_dump($val); echo '</pre>';
 
-            $Updates.=" [$Column] $operator $Value AND";
+            $Updates.=" [$Column] $operator $value AND";
         }
 
         return substr($Updates, 0, -3);

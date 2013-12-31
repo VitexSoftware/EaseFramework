@@ -478,20 +478,20 @@ class EaseSand extends EaseAtom
      * Nastaví hodnotu poli objektu
      *
      * @param string $ColumnName název datové kolonky
-     * @param mixed  $Value      hodnota dat
+     * @param mixed  $value      hodnota dat
      * @param string $DataPrefix prefix skupiny dat
      *
      * @return boolean Success
      */
-    public function setDataValue($ColumnName, $Value, $DataPrefix = null)
+    public function setDataValue($ColumnName, $value, $DataPrefix = null)
     {
         if (!$DataPrefix) {
             $DataPrefix = $this->DefaultDataPrefix;
         }
         if ($DataPrefix) {
-            $this->Data[$DataPrefix][$ColumnName] = $Value;
+            $this->Data[$DataPrefix][$ColumnName] = $value;
         } else {
-            $this->Data[$ColumnName] = $Value;
+            $this->Data[$ColumnName] = $value;
         }
 
         return true;
