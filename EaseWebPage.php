@@ -43,10 +43,10 @@ class EaseWebPage extends EasePage
     public $PageTitle = null;
 
     /**
-     * Head stránky
+     * head stránky
      * @var EaseHtmlHeadTag
      */
-    public $Head = null;
+    public $head = null;
 
     /**
      * Objekt samotného těla stránky
@@ -90,20 +90,20 @@ class EaseWebPage extends EasePage
             $this->PageTitle = $PageTitle;
         }
         parent::__construct($UserObject);
-        $this->EaseShared->setConfigValue('jQueryUISkin', $this->jQueryUISkin);
-        $this->PageParts['doctype'] = '<!DOCTYPE html>';
+        $this->easeShared->setConfigValue('jQueryUISkin', $this->jQueryUISkin);
+        $this->pageParts['doctype'] = '<!DOCTYPE html>';
         parent::addItem(new EaseHtmlHtmlTag());
-        $this->PageParts['html']->setupWebPage($this);
-        $this->PageParts['html']->addItem(new EaseHtmlHeadTag());
-        $this->PageParts['html']->addItem(new EaseHtmlBodyTag());
-        $this->Head = & $this->PageParts['html']->PageParts['head'];
-        $this->Head->raise($this);
+        $this->pageParts['html']->setupWebPage($this);
+        $this->pageParts['html']->addItem(new EaseHtmlHeadTag());
+        $this->pageParts['html']->addItem(new EaseHtmlBodyTag());
+        $this->head = & $this->pageParts['html']->pageParts['head'];
+        $this->head->raise($this);
 
-        $this->Body = & $this->PageParts['html']->PageParts['body'];
+        $this->Body = & $this->pageParts['html']->pageParts['body'];
         $this->Body->raise($this);
 
-        $this->JavaScripts = & $this->Head->JavaScripts;
-        $this->CascadeStyles = & $this->Head->CascadeStyles;
+        $this->JavaScripts = & $this->head->JavaScripts;
+        $this->CascadeStyles = & $this->head->CascadeStyles;
     }
 
     /**
@@ -177,7 +177,7 @@ class EaseWebPage extends EasePage
      */
     public function addToScriptsStack($Code, $Position = null)
     {
-        $JavaScripts = &$this->EaseShared->JavaScripts;
+        $JavaScripts = &$this->easeShared->JavaScripts;
         if (is_null($Position)) {
             if (is_array($JavaScripts)) {
                 $ScriptFound = array_search($Code, $JavaScripts);
@@ -231,7 +231,7 @@ class EaseWebPage extends EasePage
      */
     public function addCSS($Css)
     {
-        $this->EaseShared->CascadeStyles[md5($Css)] = $Css;
+        $this->easeShared->CascadeStyles[md5($Css)] = $Css;
 
         return true;
     }
@@ -248,9 +248,9 @@ class EaseWebPage extends EasePage
     public function includeCss($CssFile, $FWPrefix = false, $media = 'screen')
     {
         if ($FWPrefix) {
-            $this->EaseShared->CascadeStyles[$this->CssPrefix . $CssFile] = $this->CssPrefix . $CssFile;
+            $this->easeShared->CascadeStyles[$this->CssPrefix . $CssFile] = $this->CssPrefix . $CssFile;
         } else {
-            $this->EaseShared->CascadeStyles[$CssFile] = $CssFile;
+            $this->easeShared->CascadeStyles[$CssFile] = $CssFile;
         }
 
         return true;
@@ -268,15 +268,15 @@ class EaseWebPage extends EasePage
         /**
          * Session Singleton Problem hack
          */
-        //$this->EaseShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
+        //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
-        if (!count($this->EaseShared->statusMessages)) {
+        if (!count($this->easeShared->statusMessages)) {
             return '';
         }
         $HtmlFargment = '';
 
         $AllMessages = array();
-        foreach ($this->EaseShared->statusMessages as $Quee => $Messages) {
+        foreach ($this->easeShared->statusMessages as $Quee => $Messages) {
             foreach ($Messages as $MesgID => $Message) {
                 $AllMessages[$MesgID][$Quee] = $Message;
             }
@@ -331,13 +331,13 @@ class EaseWebPage extends EasePage
     public function finalizeRegistred()
     {
         do {
-            foreach ($this->EaseShared->AllItems as $PartID => $Part) {
+            foreach ($this->easeShared->AllItems as $PartID => $Part) {
                 if (is_object($Part) && method_exists($Part, 'finalize')) {
                     $Part->finalize();
                 }
-                unset($this->EaseShared->AllItems[$PartID]);
+                unset($this->easeShared->AllItems[$PartID]);
             }
-        } while (count($this->EaseShared->AllItems));
+        } while (count($this->easeShared->AllItems));
     }
 
     /**

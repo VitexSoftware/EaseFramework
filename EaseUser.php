@@ -378,7 +378,7 @@ class EaseUser extends EaseAnonym
         $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->PasswordColumn . '=\'' . $Hash . '\' WHERE ' . $this->myKeyColumn . '=' . $UserID);
         $this->addToLog('PasswordChange: ' . $this->getDataValue($this->LoginColumn) . '@' . $UserID . '#' . $this->getDataValue($this->MyIDSColumn) . ' ' . $Hash);
         if ($UserID == $this->getUserID()) {
-            $this->Data[$this->PasswordColumn] = $Hash;
+            $this->data[$this->PasswordColumn] = $Hash;
         }
 
         return $Hash;
@@ -537,25 +537,25 @@ class EaseUser extends EaseAnonym
      * Uloží pole dat a serializovaná nastavení do MySQL.
      * Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
      *
-     * @param array $Data        asociativní pole dat
+     * @param array $data        asociativní pole dat
      * @param bool  $SearchForID Zjistit zdali updatovat nebo insertovat
      *
      * @return int ID záznamu nebo null v případě neůspěchu
      */
-    public function saveToMySQL($Data = null, $SearchForID = false)
+    public function saveToMySQL($data = null, $SearchForID = false)
     {
-        if (is_null($Data)) {
-            if (array_key_exists('MySQL', $this->Data)) {
-                $Data = $this->getData('MySQL');
+        if (is_null($data)) {
+            if (array_key_exists('MySQL', $this->data)) {
+                $data = $this->getData('MySQL');
             } else {
-                $Data = $this->getData();
+                $data = $this->getData();
             }
         }
         if (!is_null($this->settingsColumn)) {
-            $Data[$this->settingsColumn] = serialize($this->Settings);
+            $data[$this->settingsColumn] = serialize($this->Settings);
         }
 
-        return parent::saveToMySQL($Data, $SearchForID);
+        return parent::saveToMySQL($data, $SearchForID);
     }
 
     /**

@@ -87,16 +87,16 @@ class EaseJQuerySlider extends EaseJQueryUIPart
     /**
      * Nastaví více hodnot
      *
-     * @param darray $Data hodnoty k přednastavení
+     * @param darray $data hodnoty k přednastavení
      */
-    public function setValues($Data)
+    public function setValues($data)
     {
         if (isset($this->partProperties['values'])) {
             $NewValues = array();
             foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
-                if (isset($Data[$ID])) {
-                    $this->PageParts[$this->inputClass . '@' . $ID]->setValue($Data[$ID]);
-                    $NewValues[$ID] = $Data[$ID];
+                if (isset($data[$ID])) {
+                    $this->pageParts[$this->inputClass . '@' . $ID]->setValue($data[$ID]);
+                    $NewValues[$ID] = $data[$ID];
                 }
             }
             if (count($NewValues)) {
@@ -706,8 +706,8 @@ class EaseJQueryRadiobuttonGroup extends EaseHtmlRadiobuttonGroup
     {
         EaseJQueryUIPart::jQueryze($this);
 
-        $Enclosure = new EaseHtmlDivTag($this->Name . 'Group', $this->PageParts);
-        unset($this->PageParts);
+        $Enclosure = new EaseHtmlDivTag($this->Name . 'Group', $this->pageParts);
+        unset($this->pageParts);
         $this->addItem($Enclosure);
         $this->addJavaScript('$(function () { $( "#' . $Enclosure->getTagID() . '" ).buttonset(); } );', null, true);
     }
@@ -1145,8 +1145,8 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
         $this->InitialValue = $InitialValue;
         $this->SetPartName($partName);
         parent::__construct();
-        $this->EaseShared->webPage->IncludeJavaScript('jquery-ui-timepicker-addon.js', 3, true);
-        $this->EaseShared->webPage->IncludeCss('jquery-ui-timepicker-addon.css', null, true);
+        $this->easeShared->webPage->IncludeJavaScript('jquery-ui-timepicker-addon.js', 3, true);
+        $this->easeShared->webPage->IncludeCss('jquery-ui-timepicker-addon.css', null, true);
         $this->InputTag = new EaseHtmlInputTextTag($this->partName, $this->InitialValue, $this->tagProperties);
         $this->InputTag->setTagID($this->partName);
         $this->InputTag = $this->addItem($this->InputTag);
@@ -1162,7 +1162,7 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
      */
     public function finalize()
     {
-        $this->EaseShared->webPage->addJavaScript('$(function () { $( "#' . $this->partName . '" ).datetimepicker( { ' . $this->GetPartPropertiesToString() . ' });});', 10);
+        $this->easeShared->webPage->addJavaScript('$(function () { $( "#' . $this->partName . '" ).datetimepicker( { ' . $this->GetPartPropertiesToString() . ' });});', 10);
     }
 
 }

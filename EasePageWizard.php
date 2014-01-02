@@ -165,7 +165,7 @@ class EasePageWizard extends EaseContainer
     public function setRequestedStep($stepID = null)
     {
         if (!$stepID) {
-            $stepID = $this->EaseShared->webPage()->getRequestValue('StepRequested');
+            $stepID = $this->easeShared->webPage()->getRequestValue('StepRequested');
         }
         if (array_key_exists($stepID, $this->steps)) {
             $this->currentStepID = $stepID;
@@ -230,11 +230,11 @@ class EasePageWizard extends EaseContainer
         $navigation = new EaseHtmlULTag();
         $PrevStep = $this->GetPrevStepID();
         if ($PrevStep) {
-            $navigation->addItem(new EaseHtmlATag('?StepRequested=' . $PrevStep . '&' . $this->EaseShared->webPage->getLinkParametersToKeep(), self::$prevSign . ' ' . $this->steps[$PrevStep]));
+            $navigation->addItem(new EaseHtmlATag('?StepRequested=' . $PrevStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), self::$prevSign . ' ' . $this->steps[$PrevStep]));
         }
         $NextStep = $this->GetNextStepID();
         if ($NextStep) {
-            $navigation->addItem(new EaseHtmlATag('?StepRequested=' . $NextStep . '&' . $this->EaseShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
+            $navigation->addItem(new EaseHtmlATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
         }
 
         return new EaseHtmlDivTag(null, $navigation, array('class' => 'pagination'));
@@ -255,7 +255,7 @@ class EasePageWizard extends EaseContainer
                 $Current = $stepList->addItem($StepName);
                 $Current->setTagClass('active');
             } else {
-                $stepList->addItem(new EaseHtmlATag('?StepRequested=' . $StepID . '&' . $this->EaseShared->webPage->getLinkParametersToKeep(), $StepName));
+                $stepList->addItem(new EaseHtmlATag('?StepRequested=' . $StepID . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $StepName));
             }
             if ($StepsDone != $this->stepCount) {
                 $stepList->addItem(self::$StepListDivider);

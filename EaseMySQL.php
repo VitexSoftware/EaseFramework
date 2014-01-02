@@ -32,7 +32,7 @@ class EaseDbMySqli extends EaseSql
     public $NumRows = 0;
     public $Debug = false;
     public $KeyColumn = '';
-    public $Data = null;
+    public $data = null;
     public $Charset = 'utf8';
     public $Collate = 'utf8_czech_ci';
 
@@ -236,7 +236,7 @@ class EaseDbMySqli extends EaseSql
     /**
      * vloží obsah pole $data do předvolené tabulky $this->myTable
      *
-     * @param string $Data
+     * @param string $data
      *
      * @return sqlresult
      */
@@ -249,35 +249,35 @@ class EaseDbMySqli extends EaseSql
      * upravi obsah zaznamu v predvolene tabulce $this->myTable, kde klicovy sloupec
      * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data
      *
-     * @param array $Data  asociativní pole dat
+     * @param array $data  asociativní pole dat
      * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
      *
      * @return sqlresult
      *
      */
-    public function arrayToUpdate($Data, $KeyID = null)
+    public function arrayToUpdate($data, $KeyID = null)
     {
         if (!$KeyID) {
-            $IDCol = $Data[$this->KeyColumn];
+            $IDCol = $data[$this->KeyColumn];
         }
-        unset($Data[$this->KeyColumn]);
+        unset($data[$this->KeyColumn]);
 
-        return $this->exeQuery('UPDATE ' . $this->TableName . ' SET ' . $this->arrayToQuery($Data) . ' WHERE ' . $this->KeyColumn . '=' . $IDCol);
+        return $this->exeQuery('UPDATE ' . $this->TableName . ' SET ' . $this->arrayToQuery($data) . ' WHERE ' . $this->KeyColumn . '=' . $IDCol);
     }
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
      * $this->myKeyColumn je preskocen pokud neni $key false)
      *
-     * @param array   $Data
+     * @param array   $data
      * @param boolean $Key
      *
      * @return string
      */
-    public function arrayToQuery($Data, $Key = true)
+    public function arrayToQuery($data, $Key = true)
     {
         $updates = '';
-        foreach ($Data as $Column => $value) {
+        foreach ($data as $Column => $value) {
             if (!strlen($Column)) {
                 continue;
             }
@@ -321,18 +321,18 @@ class EaseDbMySqli extends EaseSql
     }
 
     /**
-     * Generuje fragment MySQL dotazu z pole Data
+     * Generuje fragment MySQL dotazu z pole data
      *
-     * @param array  $Data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
+     * @param array  $data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
      * @param string $ldiv typ generovane podminky AND/OR
      *
      * @return sql
      */
-    public function prepSelect($Data, $ldiv = 'AND')
+    public function prepSelect($data, $ldiv = 'AND')
     {
         $Conditions = array();
         $Conditions2 = array();
-        foreach ($Data as $column => $value) {
+        foreach ($data as $column => $value) {
             if (is_integer($column)) {
                 $Conditions2[] = $value;
                 continue;
@@ -610,20 +610,20 @@ class EaseDbMySqli extends EaseSql
      * Vytvoří podle dat v objektu chybějící sloupečky v DB
      *
      * @param EaseBrick|mixed $easeBrick objekt pomocí kterého se získá struktura
-     * @param array           $Data      struktura sloupců k vytvoření
+     * @param array           $data      struktura sloupců k vytvoření
      *
      * @return int pocet operaci
      */
-    public static function createMissingColumns(& $easeBrick, $Data = null)
+    public static function createMissingColumns(& $easeBrick, $data = null)
     {
         $Result = 0;
-        $badQuery = $easeBrick->EaseShared->myDbLink->getLastQuery();
-        $tableColumns = $easeBrick->EaseShared->myDbLink->describe($easeBrick->myTable);
+        $badQuery = $easeBrick->easeShared->myDbLink->getLastQuery();
+        $tableColumns = $easeBrick->easeShared->myDbLink->describe($easeBrick->myTable);
         if (count($tableColumns)) {
-            if (is_null($Data)) {
-                $Data = $easeBrick->getData();
+            if (is_null($data)) {
+                $data = $easeBrick->getData();
             }
-            foreach ($Data as $DataColumn => $DataValue) {
+            foreach ($data as $DataColumn => $DataValue) {
                 if (!strlen($DataColumn)) {
                     continue;
                 }

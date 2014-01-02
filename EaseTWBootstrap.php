@@ -43,7 +43,7 @@ class EaseTWBPart extends EaseJQueryPart
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }
-        //TODO: ONCE: $webPage->Head->addItem('<meta name="viewport"
+        //TODO: ONCE: $webPage->head->addItem('<meta name="viewport"
         // content="width=device-width, initial-scale=1.0">');
         return true;
     }
@@ -86,10 +86,10 @@ class EaseTWBWebPage extends EaseWebPage
         }
         parent::__construct($pageTitle, $userObject);
         $this->includeCss($this->mainStyle, true);
-        $this->Head->addItem(
+        $this->head->addItem(
                 '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );
-        $this->Head->addItem('
+        $this->head->addItem('
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
@@ -109,15 +109,15 @@ class EaseTWBWebPage extends EaseWebPage
         /**
          * Session Singleton Problem hack
          */
-        //$this->EaseShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
+        //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
-        if (!count($this->EaseShared->statusMessages)) {
+        if (!count($this->easeShared->statusMessages)) {
             return '';
         }
         $htmlFargment = '';
 
         $allMessages = array();
-        foreach ($this->EaseShared->statusMessages as $quee => $messages) {
+        foreach ($this->easeShared->statusMessages as $quee => $messages) {
             foreach ($messages as $MesgID => $message) {
                 $allMessages[$MesgID][$quee] = $message;
             }

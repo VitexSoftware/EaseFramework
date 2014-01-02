@@ -22,8 +22,8 @@ class EaseDataGrid extends EaseHtmlTableTag
             $this->addRowHeaderColumns(array_keys(current($AllData)));
         }
         if (count($AllData)) {
-            foreach ($AllData as $Data) {
-                $this->addRowColumns($Data);
+            foreach ($AllData as $data) {
+                $this->addRowColumns($data);
             }
         }
     }

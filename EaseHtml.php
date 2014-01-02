@@ -570,7 +570,7 @@ class EaseHtmlBodyTag extends EaseHtmlPairTag
 
     /**
      * Tělo stránky je v aplikaci vždy dostupně jako
-     * $this->EaseShared->webPage->Body
+     * $this->easeShared->webPage->Body
      *
      * @param string $TagID   id tagu
      * @param mixed  $Content vkládané prvky
@@ -612,7 +612,7 @@ class EaseHtmlHtmlTag extends EaseHtmlPairTag
      */
     public function __construct($Content = null)
     {
-        parent::__construct('html', array('lang' => $this->LangCode, 'xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => $this->LangCode), $Content);
+        parent::__construct('html', array('lang' => $this->langCode, 'xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => $this->langCode), $Content);
     }
 
     /**
@@ -653,7 +653,7 @@ class EaseHtmlSimpleHeadTag extends EaseHtmlPairTag
     public static $ContentType = 'text/html';
 
     /**
-     * Head tag with defined meta http-equiv content type
+     * head tag with defined meta http-equiv content type
      *
      * @param mixed $Contents   vkládaný obsah
      * @param array $Properties parametry tagu
@@ -760,9 +760,9 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
     public function draw()
     {
 
-        if (isset($this->EaseShared->CascadeStyles) && count($this->EaseShared->CascadeStyles)) {
+        if (isset($this->easeShared->CascadeStyles) && count($this->easeShared->CascadeStyles)) {
             $CascadeStyles = array();
-            foreach ($this->EaseShared->CascadeStyles as $StyleRes => $Style) {
+            foreach ($this->easeShared->CascadeStyles as $StyleRes => $Style) {
                 if ($StyleRes == $Style) {
                     $this->addItem('<link href="' . $Style . '" rel="stylesheet" type="text/css" media="' . 'screen' . '" />'); //TODO: solve screen
                 } else {
@@ -772,12 +772,12 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
             $this->addItem('<style>' . implode("\n", $CascadeStyles) . '</style>');
         }
 
-        if (isset($this->EaseShared->JavaScripts) && count($this->EaseShared->JavaScripts)) {
-            ksort($this->EaseShared->JavaScripts, SORT_NUMERIC);
+        if (isset($this->easeShared->JavaScripts) && count($this->easeShared->JavaScripts)) {
+            ksort($this->easeShared->JavaScripts, SORT_NUMERIC);
 
             $ODRStack = array();
 
-            foreach ($this->EaseShared->JavaScripts as $Script) {
+            foreach ($this->easeShared->JavaScripts as $Script) {
                 $ScriptType = $Script[0];
                 $ScriptBody = substr($Script, 1);
                 switch ($ScriptType) {
@@ -1159,11 +1159,11 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
     public function finalize()
     {
         if ($this->Legend) {
-            if (is_object(reset($this->PageParts))) {
-                reset($this->PageParts)->PageParts = array($this->Legend);
+            if (is_object(reset($this->pageParts))) {
+                reset($this->pageParts)->pageParts = array($this->Legend);
             } else {
-                array_unshift($this->PageParts, $this->LegendTag);
-                reset($this->PageParts)->PageParts = array($this->Legend);
+                array_unshift($this->pageParts, $this->LegendTag);
+                reset($this->pageParts)->pageParts = array($this->Legend);
             }
         }
     }

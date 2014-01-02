@@ -74,7 +74,7 @@ class EaseLogger extends EaseAtom
      * Odkaz na vlastnící objekt
      * @var EaseSand ||
      */
-    public $ParentObject = null;
+    public $parentObject = null;
 
     /**
      * Filedescriptor Logu
@@ -124,7 +124,7 @@ class EaseLogger extends EaseAtom
      */
     public function __construct($BaseLogDir = null)
     {
-        $this->EaseShared = EaseShared::singleton();
+        $this->easeShared = EaseShared::singleton();
         $this->setupLogFiles();
     }
 
@@ -369,7 +369,7 @@ class EaseLogger extends EaseAtom
         if ($this->ErrorLogFile) {
             $LogFileHandle = @fopen($this->ErrorLogFile, 'a+');
             if ($LogFileHandle) {
-                if ($this->EaseShared->RunType == 'web') {
+                if ($this->easeShared->RunType == 'web') {
                     fputs($LogFileHandle, EaseBrick::printPreBasic($_SERVER) . "\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
                     fputs($LogFileHandle, EaseBrick::printPreBasic($_ENV) . "\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");

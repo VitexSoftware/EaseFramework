@@ -64,20 +64,20 @@ class EaseSaver extends EaseBrick
      * Pokusí se vložit  data, pokud se to nepovede, pokusí se vytvořit
      * chybějící sloupečky a vrátí vysledek dalšího uložení
      *
-     * @param array $Data
+     * @param array $data
      *
      * @return int
      */
-    public function insertToMySQL($Data = null)
+    public function insertToMySQL($data = null)
     {
-        if (is_null($Data)) {
-            $Data = $this->getData();
+        if (is_null($data)) {
+            $data = $this->getData();
         }
 
-        $SaveResult = parent::InsertToMySQL($Data);
+        $SaveResult = parent::InsertToMySQL($data);
         if ($this->myDbLink->ErrorNumber == 1054) { //Column doesn't exist
-            if ($this->createMissingColumns($Data) > 0) {
-                $SaveResult = parent::InsertToMySQL($Data);
+            if ($this->createMissingColumns($data) > 0) {
+                $SaveResult = parent::InsertToMySQL($data);
             }
         }
 
@@ -87,20 +87,20 @@ class EaseSaver extends EaseBrick
     /**
      * Vytvoří v databázi sloupeček pro uložení hodnoty widgetu
      *
-     * @param array $Data sloupečky k vytvoření
+     * @param array $data sloupečky k vytvoření
      *
      * @return int
      */
-    public function createMissingColumns($Data = null)
+    public function createMissingColumns($data = null)
     {
-        if (is_null($Data)) {
-            $Data = $this->getData();
+        if (is_null($data)) {
+            $data = $this->getData();
         }
 
         $actualStructure = $this->myDbLink->describe($this->myTable);
 
         $structure = array();
-        foreach ($Data as $column => $value) {
+        foreach ($data as $column => $value) {
             if (!array_key_exists($column, $actualStructure)) {
                 $structure[$column] = $value;
             }
@@ -139,20 +139,20 @@ class EaseSaver extends EaseBrick
     /**
      * Pokusí se updatnout záznam. Neexistuje, tak vloží nový záznam
      *
-     * @param array $Data
+     * @param array $data
      *
      * @return int
      */
-    public function updateToMySQL($Data = null)
+    public function updateToMySQL($data = null)
     {
-        if (!isset($Data)) {
-            $Data = $this->getData();
+        if (!isset($data)) {
+            $data = $this->getData();
         }
-        $UpdateResult = parent::UpdateToMySQL($Data);
+        $UpdateResult = parent::UpdateToMySQL($data);
         if ($UpdateResult && $this->myDbLink->getNumRows()) {
             return $UpdateResult;
         } else {
-            return $this->insertToMySQL($Data);
+            return $this->insertToMySQL($data);
         }
     }
 

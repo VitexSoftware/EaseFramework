@@ -788,7 +788,7 @@ class EaseHtmlTextareaTag extends EaseHtmlPairTag
      */
     public function setValue($value)
     {
-        $this->PageParts = array();
+        $this->pageParts = array();
         $this->addItem($value);
     }
 
@@ -945,7 +945,7 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     public function setValue($value)
     {
         if (trim(strlen($value))) {
-            foreach ($this->PageParts as $Option) {
+            foreach ($this->pageParts as $Option) {
                 if ($Option->Value == $value) {
                     $Option->setDefault();
                 } else {
@@ -953,8 +953,8 @@ class EaseHtmlSelect extends EaseHtmlPairTag
                 }
             }
         } else {
-            if (isset($this->PageParts) && count($this->PageParts)) {
-                $FirstItem = &reset($this->PageParts);
+            if (isset($this->pageParts) && count($this->pageParts)) {
+                $FirstItem = &reset($this->pageParts);
                 $FirstItem->setDefault();
             }
         }
@@ -965,7 +965,7 @@ class EaseHtmlSelect extends EaseHtmlPairTag
      */
     public function finalize()
     {
-        if (!count($this->PageParts)) { //Uninitialised Select - so we load items
+        if (!count($this->pageParts)) { //Uninitialised Select - so we load items
             $this->addItems($this->loadItems());
         }
     }
@@ -977,7 +977,7 @@ class EaseHtmlSelect extends EaseHtmlPairTag
      */
     public function delItem($ItemID)
     {
-        unset($this->PageParts['EaseHtmlOptionTag@' . $ItemID]);
+        unset($this->pageParts['EaseHtmlOptionTag@' . $ItemID]);
     }
 
 }
@@ -1103,8 +1103,8 @@ class EaseHtmlForm extends EaseHtmlPairTag
             $Where = & $this;
         }
         $ItemFound = null;
-        if (isset($Where->PageParts) && is_array($Where->PageParts) && count($Where->PageParts)) {
-            foreach ($Where->PageParts as $PagePart) {
+        if (isset($Where->pageParts) && is_array($Where->pageParts) && count($Where->pageParts)) {
+            foreach ($Where->pageParts as $PagePart) {
                 if (is_object($PagePart)) {
                     if (method_exists($PagePart, 'GetTagName')) {
                         if ($PagePart->getTagName() == $SearchFor) {

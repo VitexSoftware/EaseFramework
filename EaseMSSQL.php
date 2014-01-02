@@ -382,17 +382,17 @@ class EaseDbMSSQL extends EaseSql
     /**
      * Prepare columns to query fragment
      *
-     * @param array   $Data            asociativní pole
+     * @param array   $data            asociativní pole
      * @param boolean $PermitKeyColumn nepřeskočit klíčový sloupeček ?
      *
      * @return string
      */
-    public function prepCols($Data, $PermitKeyColumn = false)
+    public function prepCols($data, $PermitKeyColumn = false)
     {
         $Values = '';
         $Columns = '';
         $ANSIDate = null;
-        foreach ($Data as $Column => $value) {
+        foreach ($data as $Column => $value) {
             if (!$PermitKeyColumn) {
                 if ($Column == $this->KeyColumn) {
                     continue;
@@ -437,15 +437,15 @@ class EaseDbMSSQL extends EaseSql
     /**
      * Give Update query fragment
      *
-     * @param array  $Data         asociativní pole dat
+     * @param array  $data         asociativní pole dat
      * @param array  $CheckColumns kontrolovat délky řetězců na překročení místa
      * @param string $TableName    jméno tabulky
      *
      * @return string
      */
-    public function prepUpdate($Data, $CheckColumns = false, $TableName = null)
+    public function prepUpdate($data, $CheckColumns = false, $TableName = null)
     {
-        if (!count($Data)) {
+        if (!count($data)) {
             $this->error('Missing data for PrepUpdate');
 
             return null;
@@ -454,11 +454,11 @@ class EaseDbMSSQL extends EaseSql
             $TableName = $this->TableName;
         }
         if ($CheckColumns || count($this->TableStructure)) {
-            $this->fixColumnsLength($Data);
+            $this->fixColumnsLength($data);
         }
 
         $updates = '';
-        foreach ($Data as $Column => $value) {
+        foreach ($data as $Column => $value) {
             if ($Column == $this->KeyColumn)
                 continue;
             switch (gettype($value)) {
@@ -497,19 +497,19 @@ class EaseDbMSSQL extends EaseSql
     /**
      * Vrací framgment SQL dotazu pro SELECT
      *
-     * @param array $Data pole ze kterého se vytvoří fragment SQL dotazu
+     * @param array $data pole ze kterého se vytvoří fragment SQL dotazu
      *                    array('date'=>'','name'=>'','id AS recordID'=>10)
      *
      * @return string vzorový vstup vrátí: "`date`,`name`,`id` AS recordID"
      */
-    public function prepSelect($Data)
+    public function prepSelect($data)
     {
-        if (!is_array($Data)) {
-            return $Data;
+        if (!is_array($data)) {
+            return $data;
         }
         $Updates = '';
-        foreach ($Data as $Column => $value) {
-            if (($Column == $this->KeyColumn) && (count($Data) != 1))
+        foreach ($data as $Column => $value) {
+            if (($Column == $this->KeyColumn) && (count($data) != 1))
                 continue;
             if ($value[0] == '!') {
                 $operator = ' != ';

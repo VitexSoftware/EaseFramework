@@ -28,7 +28,7 @@ class EasePDF extends TCPDF
      * Pole vkládaného obsahu
      * @var array
      */
-    public $PageParts = null;
+    public $pageParts = null;
 
     /**
      * Pole předávaných vlastností
@@ -55,7 +55,7 @@ class EasePDF extends TCPDF
     public function __construct($Format = PDF_PAGE_FORMAT)
     {
         $this->OPage = new EasePage();
-        $this->PageParts = & $this->OPage->PageParts;
+        $this->pageParts = & $this->OPage->pageParts;
         parent::__construct(PDF_PAGE_ORIENTATION, PDF_UNIT, $Format, true, 'UTF-8', false);
         $this->setup();
     }
@@ -75,9 +75,9 @@ class EasePDF extends TCPDF
         parent::SetFont($family, $style, $size, $fontfile);
     }
 
-    public function error($Message, $Data = null)
+    public function error($Message, $data = null)
     {
-        $this->OPage->error($Message, $Data);
+        $this->OPage->error($Message, $data);
         parent::Error($Message);
     }
 

@@ -105,7 +105,7 @@ class EaseBrick extends EaseSand
         if ($objectName) {
             return parent::setObjectName($objectName);
         } else {
-            $key = $this->getMyKey($this->Data);
+            $key = $this->getMyKey($this->data);
             if ($key) {
                 return parent::setObjectName(get_class($this) . '@' . $key);
             } else {
@@ -168,8 +168,8 @@ class EaseBrick extends EaseSand
         if (isset($this->User)) {
             $User = &$this->User;
         } else {
-            if (isset($this->EaseShared->User)) {
-                $User = &$this->EaseShared->User;
+            if (isset($this->easeShared->User)) {
+                $User = &$this->easeShared->User;
             } else {
                 $User = null;
             }
@@ -438,7 +438,7 @@ class EaseBrick extends EaseSand
             $itemID = $this->easeAddSlashes($itemID);
         }
         if (is_null($itemID)) {
-            $this->error('loadFromMySQL: Unknown Key', $this->Data);
+            $this->error('loadFromMySQL: Unknown Key', $this->data);
         }
 
         $queryRaw = 'SELECT * FROM `' . $this->myTable . '` WHERE `' . $this->getmyKeyColumn() . '`=' . $itemID;
@@ -458,14 +458,14 @@ class EaseBrick extends EaseSand
     public function loadFromMySQL($itemID = null, $dataPrefix = null, $multiplete = false)
     {
         if (!$dataPrefix) {
-            $dataPrefix = $this->DefaultDataPrefix;
+            $dataPrefix = $this->defaultDataPrefix;
         }
         $MySQLResult = $this->getDataFromMySQL($itemID);
         if ($multiplete) {
             if ($dataPrefix) {
-                $this->Data[$dataPrefix] = $MySQLResult;
+                $this->data[$dataPrefix] = $MySQLResult;
             } else {
-                $this->Data = $MySQLResult;
+                $this->data = $MySQLResult;
             }
         } else {
             if (count($MySQLResult) > 1) {
@@ -473,17 +473,17 @@ class EaseBrick extends EaseSand
             }
             if (isset($MySQLResult[0])) {
                 if ($dataPrefix) {
-                    $this->Data[$dataPrefix] = $MySQLResult[0];
+                    $this->data[$dataPrefix] = $MySQLResult[0];
                 } else {
-                    $this->Data = $MySQLResult[0];
+                    $this->data = $MySQLResult[0];
                 }
             } else {
                 return null;
             }
         }
 
-        if (count($this->Data)) {
-            return count($this->Data);
+        if (count($this->data)) {
+            return count($this->data);
         } else {
             if (!$multiplete) {
                 $this->addToLog('Item Found ' . $itemID . ' v ' . $this->myTable, 'error');
@@ -585,7 +585,7 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Převezme data do $this->Data a $this->Data['MSSQL'] pokud se názvy políček shodují
+     * Převezme data do $this->data a $this->data['MSSQL'] pokud se názvy políček shodují
      *
      * @param array $data
      *
@@ -601,9 +601,9 @@ class EaseBrick extends EaseSand
         }
         foreach ($this->sqlStruct['ms'] as $MSSQLColumnName => $MSSQLColumnValue) {
             if (array_key_exists($MSSQLColumnName, $data)) {
-                $this->DivDataArray($data, $this->Data['MSSQL'], $MSSQLColumnName);
-                if (isset($this->Data['MSSQL'][$MSSQLColumnName]) && ($MSSQLColumnValue['type'] == 'date')) {
-                    $this->Data['MSSQL'][$MSSQLColumnName] = EaseDbMSSql::ReformatDateFromMySQL($this->Data['MSSQL'][$MSSQLColumnName]);
+                $this->DivDataArray($data, $this->data['MSSQL'], $MSSQLColumnName);
+                if (isset($this->data['MSSQL'][$MSSQLColumnName]) && ($MSSQLColumnValue['type'] == 'date')) {
+                    $this->data['MSSQL'][$MSSQLColumnName] = EaseDbMSSql::ReformatDateFromMySQL($this->data['MSSQL'][$MSSQLColumnName]);
                 }
             }
         }
@@ -616,7 +616,7 @@ class EaseBrick extends EaseSand
       $this->LoadObjectSqlStruct();
       foreach ($this->SqlStruct['my'] as $ShopColumnName => $ShopColumnValue)
       if (array_key_exists($ShopColumnName, $data)) {
-      $this->DivDataArray($data, $this->Data, $ShopColumnName);
+      $this->DivDataArray($data, $this->data, $ShopColumnName);
       }
       if (count($data) && count(array_keys($data))) {
       $this->AddToLog('takeData: No info how to handle My: ' . implode(',', array_keys($data)) . ' on ' . $this->myTable, 'warning');
@@ -636,7 +636,7 @@ class EaseBrick extends EaseSand
     public function insertToMSSQL($data = null)
     {
         if (!$data) {
-            if (array_key_exists('MSSQL', $this->Data)) {
+            if (array_key_exists('MSSQL', $this->data)) {
                 $data = $this->getData('MSSQL');
             } else {
                 $data = $this->getData();
@@ -706,24 +706,24 @@ class EaseBrick extends EaseSand
             switch ($sqlType) {
                 case 'ms':
                     if ($columnName == $this->MSKeyColumn) {
-                        $partner = $this->Identity['myTable'] . '.' . $this->MyRefIDColumn;
+                        $partner = $this->identity['myTable'] . '.' . $this->MyRefIDColumn;
                     }
                     if ($columnName == $this->MSIDSColumn) {
-                        $partner = $this->Identity['myTable'] . '.' . $this->MyIDSColumn;
+                        $partner = $this->identity['myTable'] . '.' . $this->MyIDSColumn;
                     }
                     if ($columnName == $this->MSRefIDColumn) {
-                        $partner = $this->Identity['myTable'] . '.' . $this->myKeyColumn;
+                        $partner = $this->identity['myTable'] . '.' . $this->myKeyColumn;
                     }
                     break;
                 case 'my':
                     if ($columnName == $this->myKeyColumn) {
-                        $partner = $this->Identity['MSTable'] . '.' . $this->MSRefIDColumn;
+                        $partner = $this->identity['MSTable'] . '.' . $this->MSRefIDColumn;
                     }
                     if ($columnName == $this->MyIDSColumn) {
-                        $partner = $this->Identity['MSTable'] . '.' . $this->MSIDSColumn;
+                        $partner = $this->identity['MSTable'] . '.' . $this->MSIDSColumn;
                     }
                     if ($columnName == $this->MyRefIDColumn) {
-                        $partner = $this->Identity['MSTable'] . '.' . $this->MSKeyColumn;
+                        $partner = $this->identity['MSTable'] . '.' . $this->MSKeyColumn;
                     }
                     break;
             }
@@ -1013,14 +1013,14 @@ class EaseBrick extends EaseSand
         }
 
         if (!$data) {
-            if (array_key_exists('MSSQL', $this->Data)) {
+            if (array_key_exists('MSSQL', $this->data)) {
                 $data = $this->getData('MSSQL');
             } else {
                 $data = $this->getData();
             }
         }
         if (!count($data)) {
-            $this->error('UpdateToMSSQL: Missing Data');
+            $this->error('UpdateToMSSQL: Missing data');
 
             return null;
         }
@@ -1073,7 +1073,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $data = $this->getData();
         }
         if (count($data) < 2) {
-            $this->error('SaveToMSSQL: Missing Data', $data);
+            $this->error('SaveToMSSQL: Missing data', $data);
 
             return null;
         }
@@ -1095,7 +1095,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         if ($Result) {
             $this->Status['MSSQLSaved'] = true;
 
-            return $this->Data['MSSQL'][$this->MSKeyColumn];
+            return $this->data['MSSQL'][$this->MSKeyColumn];
         }
 
         return null;
@@ -1115,8 +1115,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (is_null($data)) {
-            $defDatPref = $this->DefaultDataPrefix;
-            if (array_key_exists($defDatPref, $this->Data)) {
+            $defDatPref = $this->defaultDataPrefix;
+            if (array_key_exists($defDatPref, $this->data)) {
                 $data = $this->getData($defDatPref);
             } else {
                 $data = $this->getData();
@@ -1127,7 +1127,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (!count($data)) {
-            $this->error(_('UpdateToMySQL: Chybějící Data'));
+            $this->error(_('UpdateToMySQL: Chybějící data'));
 
             return null;
         }
@@ -1155,10 +1155,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         $queryRaw = "UPDATE `" . $this->myTable . "` SET " . $this->myDbLink->arrayToQuery($data) . "  WHERE `" . $this->myKeyColumn . "` = " . $key;
         if ($this->myDbLink->exeQuery($queryRaw)) {
             if ($UseInObject) {
-                if (array_key_exists($defDatPref, $this->Data)) {
-                    return $this->Data[$defDatPref][$this->myKeyColumn];
+                if (array_key_exists($defDatPref, $this->data)) {
+                    return $this->data[$defDatPref][$this->myKeyColumn];
                 } else {
-                    return $this->Data[$this->myKeyColumn];
+                    return $this->data[$this->myKeyColumn];
                 }
             } else {
                 return $key;
@@ -1182,7 +1182,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             return null;
         }
         if (is_null($data)) {
-            if (array_key_exists('MySQL', $this->Data)) {
+            if (array_key_exists('MySQL', $this->data)) {
                 $data = $this->getData('MySQL');
             } else {
                 $data = $this->getData();
@@ -1190,7 +1190,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (count($data) < 1) {
-            $this->error('SaveToMySQL: Missing Data', $data);
+            $this->error('SaveToMySQL: Missing data', $data);
 
             return null;
         }
@@ -1241,7 +1241,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function insertToMySQL($data = null)
     {
         if (is_null($data)) {
-            if (array_key_exists('MySQL', $this->Data)) {
+            if (array_key_exists('MySQL', $this->data)) {
                 $data = $this->getData('MySQL');
             } else {
                 $data = $this->getData();
@@ -1312,8 +1312,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $this->InsertMode .= 'PInsert';
         }
 
-        $this->Data['MySQL'][$this->myKeyColumn] = $initialMySQLID;
-        $this->Data['MSSQL'][$this->MSKeyColumn] = $initialMSSQLID;
+        $this->data['MySQL'][$this->myKeyColumn] = $initialMySQLID;
+        $this->data['MSSQL'][$this->MSKeyColumn] = $initialMSSQLID;
 
         switch ($this->InsertMode) {
 
@@ -1324,9 +1324,9 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                 $this->updateToMSSQL();
                 break;
             case "SUpdatePInsert":
-                $CSVShopData = $this->Data['MySQL'];
+                $CSVShopData = $this->data['MySQL'];
                 $this->loadFromMySQL($initialMySQLID, 'MySQL');
-                $this->Data['MySQL'] = array_merge($this->Data['MySQL'], $CSVShopData);
+                $this->data['MySQL'] = array_merge($this->data['MySQL'], $CSVShopData);
 //                $this->TakeShopData();
                 $this->takeMySQLData(null, true, false);
 
@@ -1337,9 +1337,9 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                 $this->updateToMSSQL();
                 break;
             case "SInsertPUpdate":
-                $CSVMSSQLData = $this->Data['MSSQL'];
+                $CSVMSSQLData = $this->data['MSSQL'];
                 $this->loadFromMSSQL($initialMSSQLID);
-                $this->Data['MSSQL'] = array_merge($this->Data['MSSQL'], $CSVMSSQLData);
+                $this->data['MSSQL'] = array_merge($this->data['MSSQL'], $CSVMSSQLData);
 
                 $this->setTagIDS();
                 $this->takeMSSQLData(null, true);
@@ -1370,8 +1370,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         } else
             $this->addToLog(
                     'SyncOK: ' . $this->InsertMode .
-                    ' MSSQL #' . $this->Data['MSSQL'][$this->MSKeyColumn] .
-                    ' Shop: #' . $this->Data['MySQL'][$this->myKeyColumn]
+                    ' MSSQL #' . $this->data['MSSQL'][$this->MSKeyColumn] .
+                    ' Shop: #' . $this->data['MySQL'][$this->myKeyColumn]
             );
 
         $this->InsertMode = '';
@@ -1385,20 +1385,20 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function setReferences()
     {
         if ($this->MSRefIDColumn) {
-            $shopColumnsOld = $this->Data;
-            if (isset($this->Data['MSSQL'][$this->MSKeyColumn])) {
-                $this->Data[$this->MyRefIDColumn] = $this->Data['MSSQL'][$this->MSKeyColumn]; // (ID)
+            $shopColumnsOld = $this->data;
+            if (isset($this->data['MSSQL'][$this->MSKeyColumn])) {
+                $this->data[$this->MyRefIDColumn] = $this->data['MSSQL'][$this->MSKeyColumn]; // (ID)
             }
-            if (count(array_diff($this->Data, $shopColumnsOld))) {
+            if (count(array_diff($this->data, $shopColumnsOld))) {
 //                $this->Status['ShopSaved'] = false;
             }
         }
         if ($this->MyRefIDColumn) {
-            $msSQLColumnsOld = $this->Data['MSSQL'];
+            $msSQLColumnsOld = $this->data['MSSQL'];
 
-            $this->Data['MSSQL'][$this->MSRefIDColumn] = $this->Data[$this->myKeyColumn]; // (id)
+            $this->data['MSSQL'][$this->MSRefIDColumn] = $this->data[$this->myKeyColumn]; // (id)
 
-            if (count(array_diff($this->Data['MSSQL'], $msSQLColumnsOld))) {
+            if (count(array_diff($this->data['MSSQL'], $msSQLColumnsOld))) {
 //                $this->Status['MSSQLSaved'] = false;
             }
         }
@@ -1413,21 +1413,21 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function isSynchronized()
     {
-        if (!isset($this->Data['MSSQL'][$this->MSIDSColumn]) ||
-                !strlen($this->Data['MSSQL'][$this->MSIDSColumn])
+        if (!isset($this->data['MSSQL'][$this->MSIDSColumn]) ||
+                !strlen($this->data['MSSQL'][$this->MSIDSColumn])
         ) {
             $this->loadFromMSSQL($this->getMSKey());
         }
-        if (!isset($this->Data[$this->MyIDSColumn]) ||
-                !strlen($this->Data[$this->MyIDSColumn])
+        if (!isset($this->data[$this->MyIDSColumn]) ||
+                !strlen($this->data[$this->MyIDSColumn])
         ) {
             $this->loadFromMySQL($this->getMyKey());
         }
-        if (!$this->Data['MSSQL'][$this->MSIDSColumn] || !$this->Data[$this->MyIDSColumn]) {
+        if (!$this->data['MSSQL'][$this->MSIDSColumn] || !$this->data[$this->MyIDSColumn]) {
             return false;
         }
 
-        return ($this->Data['MSSQL'][$this->MSIDSColumn] == $this->Data[$this->MyIDSColumn]);
+        return ($this->data['MSSQL'][$this->MSIDSColumn] == $this->data[$this->MyIDSColumn]);
     }
 
     /**
@@ -1441,26 +1441,26 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function setTagIDS($save = false)
     {
-        if ($this->Data['MSSQL'][$this->MSIDSColumn]) {
-            $this->addToLog('Pokus o znovugenerovani jiz znameho IDS v pohode: ' . $this->Data['MSSQL'][$this->MSIDSColumn], 'warning');
+        if ($this->data['MSSQL'][$this->MSIDSColumn]) {
+            $this->addToLog('Pokus o znovugenerovani jiz znameho IDS v pohode: ' . $this->data['MSSQL'][$this->MSIDSColumn], 'warning');
 
-            return $this->Data['MSSQL'][$this->MSIDSColumn];
+            return $this->data['MSSQL'][$this->MSIDSColumn];
         }
 
         $NumRowObject = new EaseNumRow($this->NumRowIDS, null, $this->RefAg);
         $IDS = $NumRowObject->NextValue(true);
 
-        $this->Data['MSSQL'][$this->MSIDSColumn] = $IDS;
+        $this->data['MSSQL'][$this->MSIDSColumn] = $IDS;
 
-        $this->Data[$this->MyIDSColumn] = $IDS;
+        $this->data[$this->MyIDSColumn] = $IDS;
         //$this->Status = array('ShopSaved' => false, 'MSSQLSaved' => false);
 
-        $this->addToLog('Generuji IDS: ' . $this->Data['MSSQL'][$this->MSIDSColumn], 'debug');
+        $this->addToLog('Generuji IDS: ' . $this->data['MSSQL'][$this->MSIDSColumn], 'debug');
 
         if ($save)
-            $this->updateToShop(array($this->MyIDSColumn => $this->Data[$this->MyIDSColumn]));
+            $this->updateToShop(array($this->MyIDSColumn => $this->data[$this->MyIDSColumn]));
 
-        return $this->Data['MSSQL'][$this->MyIDSColumn];
+        return $this->data['MSSQL'][$this->MyIDSColumn];
     }
 
     /**
@@ -1539,15 +1539,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     {
         if ($data[$column]) {
             if ($renameAs) {
-                $this->Data['MSSQL'][$renameAs] = $data[$column];
+                $this->data['MSSQL'][$renameAs] = $data[$column];
             } else {
-                $this->Data['MSSQL'][$column] = $data[$column];
+                $this->data['MSSQL'][$column] = $data[$column];
             }
 
             return $data['MSSQL'][$column];
         } else {
             if ($mayBeNull) {
-                $this->Data['MSSQL'][$column] = null;
+                $this->data['MSSQL'][$column] = null;
 
                 return null;
             }
@@ -1611,8 +1611,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
         if (!isset($this->myDbLink) || !is_object($this->myDbLink)) {
             $this->myDbLink = EaseDbMySqli::singleton();
-            if (!isset($this->EaseShared->myDbLink)) {
-                $this->EaseShared->myDbLink = & $this->myDbLink;
+            if (!isset($this->easeShared->myDbLink)) {
+                $this->easeShared->myDbLink = & $this->myDbLink;
             }
         }
         if (is_string($this->myTable)) {
@@ -1672,7 +1672,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMyKey($data = null)
     {
         if (!$data) {
-            if (isset($this->Data) && array_key_exists('MySQL', $this->Data)) {
+            if (isset($this->data) && array_key_exists('MySQL', $this->data)) {
                 $data = $this->getData('MySQL');
             } else {
                 $data = $this->getData();
@@ -1732,7 +1732,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function setMSKey($msKeyValue)
     {
         if (isset($this->MSKeyColumn)) {
-            $this->Data['MSSQL'][$this->MSKeyColumn] = $msKeyValue;
+            $this->data['MSSQL'][$this->MSKeyColumn] = $msKeyValue;
 
             return true;
         } else {
@@ -1794,10 +1794,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMSSQLID($data = null, $operator = 'AND')
     {
         if (!$data) {
-            $data = $this->Data['MSSQL'];
+            $data = $this->data['MSSQL'];
         }
         if (!count($data)) {
-            $this->error('NENI PODLE CEHO URCIT JEDINECNOST PRODUKTU v shopu ', $this->Data);
+            $this->error('NENI PODLE CEHO URCIT JEDINECNOST PRODUKTU v shopu ', $this->data);
 
             return false;
         }
@@ -1866,10 +1866,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function deleteFromMSSQL($data = null)
     {
         if (!$data)
-            $data = $this->Data['MSSQL'];
+            $data = $this->data['MSSQL'];
 
         if (!count($data)) {
-            $this->error('NENI PODLE CEHO URCIT PRODUKTY k vymazani v Pohode ', $this->Data['MSSQL']);
+            $this->error('NENI PODLE CEHO URCIT PRODUKTY k vymazani v Pohode ', $this->data['MSSQL']);
 
             return false;
         }
@@ -1887,7 +1887,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
-     * Vezme data z $this->Data['MSSQL'] a prevede do $this->Data
+     * Vezme data z $this->data['MSSQL'] a prevede do $this->data
      *
      * @param bool $replace       přepisovat sloupečky mající již hodnotu ?
      * @param bool $takeKeyColumn klíčový sloupeček se defaultne ignoruje
@@ -1919,11 +1919,11 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
           list($Type) = preg_split("/\(.*\)/", $ColProperties['type']);
           }
 
-          if (!isset($this->Data['MSSQL'][$PartnerColumn])) {
+          if (!isset($this->data['MSSQL'][$PartnerColumn])) {
           if ($this->Debug) {
           $this->addToLog('TakeMSSQLData: Partner MSSQL[' . $PartnerColumn . '] does not exists', 'waring');
           }
-          //$this->Data[$ColName] = null;
+          //$this->data[$ColName] = null;
           $this->unsetDataValue($ColName, 'MySQL');
           continue;
           }
@@ -1932,8 +1932,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
           case 'bit':
           case 'bool':
           case 'boolean':
-          if ((strtolower($this->Data['MSSQL'][$PartnerColumn]) == 'true') ||
-          ( $this->Data['MSSQL'][$PartnerColumn] == 1)
+          if ((strtolower($this->data['MSSQL'][$PartnerColumn]) == 'true') ||
+          ( $this->data['MSSQL'][$PartnerColumn] == 1)
           ) {
           $this->setDataValue($ColName, true, 'MySQL');
           } else {
@@ -1979,7 +1979,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         if (!$tableName)
             $tableName = $this->myTable;
         if (!$tableName) {
-            $this->error('ShopTableExist: $TableName not known', $this->Identity);
+            $this->error('ShopTableExist: $TableName not known', $this->identity);
         }
 
         return $this->myDbLink->tableExist($tableName);
@@ -1997,7 +1997,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         if (!$tableName)
             $tableName = $this->msTable;
         if (!$tableName) {
-            $this->error('MSSQLTableExist: $TableName not known', $this->Identity);
+            $this->error('MSSQLTableExist: $TableName not known', $this->identity);
         }
 
         return $this->msDbLink->tableExist($tableName);

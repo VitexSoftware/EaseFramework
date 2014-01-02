@@ -123,7 +123,7 @@ class EaseSQL extends EaseSand
      * Pomocná proměnná pro datové operace
      * @var array
      */
-    public $Data = null;
+    public $data = null;
 
     /**
      * Poslední zpráva obdžená od SQL serveru
@@ -302,11 +302,11 @@ class EaseSQL extends EaseSand
     /**
      * Opraví délky políček u nichž je překročena délka
      *
-     * @param array $Data asociativní pole dat
+     * @param array $data asociativní pole dat
      *
      * @return array
      */
-    protected function fixColumnsLength($Data)
+    protected function fixColumnsLength($data)
     {
         foreach ($this->TableStructure as $Column => $ColumnProperties) {
             if (array_key_exists($Column, $this->TableStructure)) {
@@ -316,10 +316,10 @@ class EaseSQL extends EaseSand
                     switch ($Type) {
                         case 'varchar':
                         case 'string':
-                            if (array_key_exists($Column, $Data) && $Size) {
-                                if (strlen($Data[$Column]) > $Size) {
-                                    $this->addToLog('Column ' . $this->TableName . '.' . $Column . ' content truncated: ' . substr($Data[$Column], $Size - strlen($Data[$Column])), 'warning');
-                                    $Data[$Column] = substr($Data[$Column], 0, $Size - 1) . '_';
+                            if (array_key_exists($Column, $data) && $Size) {
+                                if (strlen($data[$Column]) > $Size) {
+                                    $this->addToLog('Column ' . $this->TableName . '.' . $Column . ' content truncated: ' . substr($data[$Column], $Size - strlen($data[$Column])), 'warning');
+                                    $data[$Column] = substr($data[$Column], 0, $Size - 1) . '_';
                                 }
                             }
                             break;
@@ -330,7 +330,7 @@ class EaseSQL extends EaseSand
             }
         }
 
-        return $Data;
+        return $data;
     }
 
     /**
@@ -466,8 +466,8 @@ class EaseSQL extends EaseSand
             list(, $Caller) = debug_backtrace(false);
             $Title = $Caller['function'];
         }
-        if (isset($this->EaseShared->User) && is_object($this->EaseShared->User)) {
-            return $this->EaseShared->User->addStatusMessage($Title . ': #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
+        if (isset($this->easeShared->User) && is_object($this->easeShared->User)) {
+            return $this->easeShared->User->addStatusMessage($Title . ': #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
         } else {
             return $this->addToLog($Title . ': #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
         }
@@ -479,7 +479,7 @@ class EaseSQL extends EaseSand
     public function reconnect()
     {
         $this->close();
-        sleep($this->ReconectTimeouts[$this->EaseShared->RunType]);
+        sleep($this->ReconectTimeouts[$this->easeShared->RunType]);
         $this->connect();
     }
 

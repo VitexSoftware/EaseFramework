@@ -22,7 +22,7 @@ class EaseContainer extends EaseBrick
      * Pole objektů a fragmentů k vykreslení
      * @var array
      */
-    public $PageParts = array();
+    public $pageParts = array();
 
     /**
      * Byla jiz stranka vykreslena
@@ -106,21 +106,21 @@ class EaseContainer extends EaseBrick
                     $pageItemName = $pageItem->getObjectName();
                 }
 
-                while (isset($this->PageParts[$pageItemName])) {
+                while (isset($this->pageParts[$pageItemName])) {
                     $pageItemName = $pageItemName . $duplicity++;
                 }
 
-                $this->PageParts[$pageItemName] = $pageItem;
-                $this->PageParts[$pageItemName]->ParentObject = & $this;
+                $this->pageParts[$pageItemName] = $pageItem;
+                $this->pageParts[$pageItemName]->parentObject = & $this;
 
-                if (isset($this->PageParts[$pageItemName]->RaiseItems) && is_array($this->PageParts[$pageItemName]->RaiseItems) && count($this->PageParts[$pageItemName]->RaiseItems)) {
-                    $this->raise($this->PageParts[$pageItemName]);
+                if (isset($this->pageParts[$pageItemName]->RaiseItems) && is_array($this->pageParts[$pageItemName]->RaiseItems) && count($this->pageParts[$pageItemName]->RaiseItems)) {
+                    $this->raise($this->pageParts[$pageItemName]);
                 }
-                if (method_exists($this->PageParts[$pageItemName], 'AfterAdd')) {
-                    $this->PageParts[$pageItemName]->afterAdd();
+                if (method_exists($this->pageParts[$pageItemName], 'AfterAdd')) {
+                    $this->pageParts[$pageItemName]->afterAdd();
                 }
-                $this->lastItem = & $this->PageParts[$pageItemName];
-                $itemPointer = & $this->PageParts[$pageItemName];
+                $this->lastItem = & $this->pageParts[$pageItemName];
+                $itemPointer = & $this->pageParts[$pageItemName];
             } else {
                 $this->error('Page Item object without draw() method', $pageItem);
             }
@@ -130,8 +130,8 @@ class EaseContainer extends EaseBrick
                 $itemPointer = & $AddedItemPointer;
             } else {
                 if (!is_null($pageItem)) {
-                    $this->PageParts[] = $pageItem;
-                    $EndPointer = end($this->PageParts);
+                    $this->pageParts[] = $pageItem;
+                    $EndPointer = end($this->pageParts);
                     $itemPointer = &$EndPointer;
                 }
             }
@@ -146,8 +146,8 @@ class EaseContainer extends EaseBrick
      */
     public function suicide()
     {
-        if (isset($this->ParentObject) && isset($this->ParentObject->PageParts[$this->getObjectName()]) ) {
-            unset($this->ParentObject->PageParts[$this->getObjectName()]);
+        if (isset($this->parentObject) && isset($this->parentObject->pageParts[$this->getObjectName()]) ) {
+            unset($this->parentObject->pageParts[$this->getObjectName()]);
 
             return true;
         } else {
@@ -158,17 +158,17 @@ class EaseContainer extends EaseBrick
     /**
      * Vrací počet vložených položek
      *
-     * @param EaseContainer $Object hodnota nebo EaseObjekt s polem ->PageParts
+     * @param EaseContainer $Object hodnota nebo EaseObjekt s polem ->pageParts
      *
      * @return int | null
      */
     public function getItemsCount($Object = null)
     {
         if (is_null($Object)) {
-            return count($this->PageParts);
+            return count($this->pageParts);
         }
-        if (is_object($Object) && isset($Object->PageParts)) {
-            return count($Object->PageParts);
+        if (is_object($Object) && isset($Object->pageParts)) {
+            return count($Object->pageParts);
         }
 
         return null;
@@ -184,7 +184,7 @@ class EaseContainer extends EaseBrick
     function &addNextTo($PageItem)
     {
         $ItemPointer = null;
-        $ItemPointer = $this->ParentObject->addItem($PageItem);
+        $ItemPointer = $this->parentObject->addItem($PageItem);
 
         return $ItemPointer;
     }
@@ -196,7 +196,7 @@ class EaseContainer extends EaseBrick
      */
     function & lastItem()
     {
-        $LastPart = end($this->PageParts);
+        $LastPart = end($this->pageParts);
 
         return $LastPart;
     }
@@ -229,8 +229,8 @@ class EaseContainer extends EaseBrick
         if (!$PageItem) {
             $PageItem = & $this;
         }
-        if (isset($PageItem->PageParts[0])) {
-            $FirstPart = reset($PageItem->PageParts);
+        if (isset($PageItem->pageParts[0])) {
+            $FirstPart = reset($PageItem->pageParts);
         } else {
             $FirstPart = null;
         }
@@ -258,7 +258,7 @@ class EaseContainer extends EaseBrick
      */
     public function emptyContents()
     {
-        $this->PageParts = null;
+        $this->pageParts = null;
     }
 
     /**
@@ -299,7 +299,7 @@ class EaseContainer extends EaseBrick
     public function takeCascadeStyles($Styles)
     {
         if (is_object($Styles)) {
-            $StylesToProcess = & $Styles->webPage->Head->CascadeStyles;
+            $StylesToProcess = & $Styles->webPage->head->CascadeStyles;
         } else {
             $StylesToProcess = & $Styles;
         }
@@ -315,8 +315,8 @@ class EaseContainer extends EaseBrick
      */
     public function drawAllContents()
     {
-        if (count($this->PageParts))
-            foreach ($this->PageParts as $part) {
+        if (count($this->pageParts))
+            foreach ($this->pageParts as $part) {
                 if (is_object($part) && method_exists($part, 'draw')) {
                     $part->draw();
                 } else {
@@ -349,7 +349,7 @@ class EaseContainer extends EaseBrick
      */
     public function showContents($Level = 0)
     {
-        foreach ($this->PageParts as $partName => $PartContents) {
+        foreach ($this->pageParts as $partName => $PartContents) {
             if (is_object($PartContents) && method_exists($PartContents, 'ShowContents')) {
                 $PartContents->showContents($Level + 1);
             } else {
@@ -391,39 +391,39 @@ class EaseContainer extends EaseBrick
     /**
      * Naplní vložené objekty daty
      *
-     * @param type $Data asociativní pole dat
+     * @param type $data asociativní pole dat
      */
-    public function fillUp($Data = null)
+    public function fillUp($data = null)
     {
-        if (is_null($Data)) {
-            $Data = $this->getData();
+        if (is_null($data)) {
+            $data = $this->getData();
         }
-        self::fillMeUp($Data, $this);
+        self::fillMeUp($data, $this);
     }
 
     /**
      * Projde všechny vložené objekty a pokud se jejich jména shodují s klíči
      * dat, nastaví se jim hodnota.
      *
-     * @param array               $Data asociativní pole dat
+     * @param array               $data asociativní pole dat
      * @param EaseContainer|mixed $Form formulář k naplnění
      */
-    public static function fillMeUp(&$Data, &$Form)
+    public static function fillMeUp(&$data, &$Form)
     {
-        if (isset($Form->PageParts) && is_array($Form->PageParts) && count($Form->PageParts)) {
-            foreach ($Form->PageParts as $partName => $Part) {
-                if (isset($Part->PageParts) && is_array($Part->PageParts) && count($Part->PageParts)) {
-                    self::fillMeUp($Data, $Part);
+        if (isset($Form->pageParts) && is_array($Form->pageParts) && count($Form->pageParts)) {
+            foreach ($Form->pageParts as $partName => $Part) {
+                if (isset($Part->pageParts) && is_array($Part->pageParts) && count($Part->pageParts)) {
+                    self::fillMeUp($data, $Part);
                 }
                 if (is_object($Part)) {
                     if (method_exists($Part, 'setValue') && method_exists($Part, 'getTagName')) {
                         $TagName = $Part->getTagName();
-                        if (isset($Data[$TagName])) {
-                            $Part->setValue($Data[$TagName], true);
+                        if (isset($data[$TagName])) {
+                            $Part->setValue($data[$TagName], true);
                         }
                     }
                     if (method_exists($Part, 'setValues')) {
-                        $Part->setValues($Data);
+                        $Part->setValues($data);
                     }
                 }
             }
@@ -437,7 +437,7 @@ class EaseContainer extends EaseBrick
      */
     public function isEmpty()
     {
-        return !count($this->PageParts);
+        return !count($this->pageParts);
     }
 
     /**
@@ -445,7 +445,7 @@ class EaseContainer extends EaseBrick
      */
     public function draw()
     {
-        foreach ($this->PageParts as $part) {
+        foreach ($this->pageParts as $part) {
             if (is_object($part)) {
                 if (method_exists($part, 'drawIfNotDrawn')) {
                     $part->drawIfNotDrawn();
@@ -551,8 +551,8 @@ class EasePage extends EaseContainer
      */
     public static function assignWebPage(&$EaseObject)
     {
-        if (isset($EaseObject->EaseShared->webPage)) {
-            $EaseObject->webPage = &$EaseObject->EaseShared->webPage;
+        if (isset($EaseObject->easeShared->webPage)) {
+            $EaseObject->webPage = &$EaseObject->easeShared->webPage;
         } else {
             if (is_subclass_of($EaseObject, 'EasePage')) {
                 $EaseObject->webPage = &$EaseObject;
@@ -976,7 +976,7 @@ class EasePage extends EaseContainer
     public function setOutputFormat($OutputFormat)
     {
         $this->OutputFormat = $OutputFormat;
-        foreach ($this->PageParts as $Part) {
+        foreach ($this->pageParts as $Part) {
             $this->raise($Part, array('OutputFormat'));
         }
     }
