@@ -293,11 +293,11 @@ class EaseWebPage extends EasePage
 
             $Message = reset($Message);
 
-            if (is_object($this->Logger)) {
-                if (!isset($this->Logger->LogStyles[$MessageType])) {
+            if (is_object($this->logger)) {
+                if (!isset($this->logger->logStyles[$MessageType])) {
                     $MessageType = 'notice';
                 }
-                $HtmlFargment .= '<div class="MessageForUser" style="' . $this->Logger->LogStyles[$MessageType] . '" >' . $Message . '</div>' . "\n";
+                $HtmlFargment .= '<div class="MessageForUser" style="' . $this->logger->logStyles[$MessageType] . '" >' . $Message . '</div>' . "\n";
             } else {
                 $HtmlFargment .= '<div class="MessageForUser">' . $Message . '</div>' . "\n";
             }

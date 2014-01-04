@@ -23,43 +23,43 @@ class EaseLogger extends EaseAtom
      * Předvolená metoda logování
      * @var string
      */
-    public $LogType = 'file';
+    public $logType = 'file';
 
     /**
      * Adresář do kterého se zapisují logy
      * @var string dirpath
      */
-    public $LogPrefix = null;
+    public $logPrefix = null;
 
     /**
      * Soubor s do kterého se zapisuje log
      * @var string
      */
-    public $LogFileName = 'Ease.log';
+    public $logFileName = 'Ease.log';
 
     /**
      * úroveň logování
      * @var string - silent,debug
      */
-    public $LogLevel = 'debug';
+    public $logLevel = 'debug';
 
     /**
      * Soubor do kterého se zapisuje report
      * @var string filepath
      */
-    public $ReportFile = 'EaseReport.log';
+    public $reportFile = 'EaseReport.log';
 
     /**
      * Soubor do kterého se lougují pouze zprávy typu Error
      * @var string  filepath
      */
-    public $ErrorLogFile = 'EaseErrors.log';
+    public $errorLogFile = 'EaseErrors.log';
 
     /**
      * Hodnoty pro obarvování logu
      * @var array
      */
-    public $LogStyles = array(
+    public $logStyles = array(
         'notice' => 'color: black;',
         'success' => 'color: #2C5F23;',
         'message' => 'color: #2C5F23;',
@@ -92,25 +92,25 @@ class EaseLogger extends EaseAtom
      * Ukládat Zprávy do pole;
      * @var boolean
      */
-    private $StoreMessages = false;
+    private $storeMessages = false;
 
     /**
      * Pole uložených zpráv
      * @var array
      */
-    private $StoredMessages = array();
+    private $storedMessages = array();
 
     /**
      * ID naposledy ulozene zpravy
      * @var int unsigned
      */
-    private $MessageID = 0;
+    private $messageID = 0;
 
     /**
      * Obecné konfigurace frameworku
      * @var EaseShared
      */
-    public $EaseShared = null;
+    public $easeShared = null;
 
     /**
      * Saves obejct instace (singleton...)
@@ -151,27 +151,27 @@ class EaseLogger extends EaseAtom
      */
     public function setupLogFiles()
     {
-        if ($this->LogPrefix) {
+        if ($this->logPrefix) {
             return;
         } else {
             if (defined('LOG_DIRECTORY')) {
-                $this->LogPrefix = EaseBrick::sysFilename(constant('LOG_DIRECTORY'));
-                if ($this->TestDirectory($this->LogPrefix)) {
-                    $this->LogFileName = $this->LogPrefix . $this->LogFileName;
-                    $this->ReportFile = $this->LogPrefix . $this->ReportFile;
-                    $this->ErrorLogFile = $this->LogPrefix . $this->ErrorLogFile;
+                $this->logPrefix = EaseBrick::sysFilename(constant('LOG_DIRECTORY'));
+                if ($this->TestDirectory($this->logPrefix)) {
+                    $this->logFileName = $this->logPrefix . $this->logFileName;
+                    $this->reportFile = $this->logPrefix . $this->reportFile;
+                    $this->errorLogFile = $this->logPrefix . $this->errorLogFile;
                 } else {
-                    $this->LogPrefix = null;
-                    $this->LogFileName = null;
-                    $this->ReportFile = null;
-                    $this->ErrorLogFile = null;
+                    $this->logPrefix = null;
+                    $this->logFileName = null;
+                    $this->reportFile = null;
+                    $this->errorLogFile = null;
                 }
             } else {
-                $this->LogType = 'none';
-                $this->LogPrefix = null;
-                $this->LogFileName = null;
-                $this->ReportFile = null;
-                $this->ErrorLogFile = null;
+                $this->logType = 'none';
+                $this->logPrefix = null;
+                $this->logFileName = null;
+                $this->reportFile = null;
+                $this->errorLogFile = null;
             }
         }
     }
@@ -183,7 +183,7 @@ class EaseLogger extends EaseAtom
      */
     public function setStoreMessages($Check)
     {
-        $this->StoreMessages = $Check;
+        $this->storeMessages = $Check;
         if (is_bool($Check)) {
             $this->resetStoredMessages();
         }
@@ -194,7 +194,7 @@ class EaseLogger extends EaseAtom
      */
     public function resetStoredMessages()
     {
-        $this->StoredMessages = array();
+        $this->storedMessages = array();
     }
 
     /**
@@ -204,7 +204,7 @@ class EaseLogger extends EaseAtom
      */
     public function getStoredMessages()
     {
-        return $this->StoredMessages;
+        return $this->storedMessages;
     }
 
     /**
@@ -218,36 +218,36 @@ class EaseLogger extends EaseAtom
      */
     public function addToLog($Caller, $Message, $Type = 'message')
     {
-        $this->MessageID++;
-        if (($this->LogLevel == 'silent') && ($Type != 'error')) {
+        $this->messageID++;
+        if (($this->logLevel == 'silent') && ($Type != 'error')) {
             return;
         }
-        if (($this->LogLevel != 'debug') && ( $Type == 'debug')) {
+        if (($this->logLevel != 'debug') && ( $Type == 'debug')) {
             return;
         }
-        if ($this->StoreMessages) {
-            $this->StoredMessages[$Type][$this->MessageID] = $Message;
+        if ($this->storeMessages) {
+            $this->storedMessages[$Type][$this->messageID] = $Message;
         }
 
         $Message = htmlspecialchars_decode(strip_tags(stripslashes($Message)));
 
         $LogLine = date(DATE_ATOM) . ' (' . $Caller . ') ' . str_replace(array('notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'), array('**', '##', '@@', '::'), $Type) . ' ' . $Message . "\n";
-        if (!isset($this->LogStyles[$Type])) {
+        if (!isset($this->logStyles[$Type])) {
             $Type = 'notice';
         }
-        if ($this->LogType == 'console' || $this->LogType == 'both') {
+        if ($this->logType == 'console' || $this->logType == 'both') {
             if ($this->RunType == 'cgi') {
                 echo $LogLine;
             } else {
-                echo '<div style="' . $this->LogStyles[$Type] . '">' . $LogLine . "</div>\n";
+                echo '<div style="' . $this->logStyles[$Type] . '">' . $LogLine . "</div>\n";
                 flush();
             }
         }
-        if ($this->LogPrefix) {
-            if ($this->LogType == 'file' || $this->LogType == 'both') {
-                if ($this->LogFileName) {
+        if ($this->logPrefix) {
+            if ($this->logType == 'file' || $this->logType == 'both') {
+                if ($this->logFileName) {
                     if (!$this->_logFileHandle) {
-                        $this->_logFileHandle = fopen($this->LogFileName, 'a+');
+                        $this->_logFileHandle = fopen($this->logFileName, 'a+');
                     }
                     if ($this->_logFileHandle) {
                         fwrite($this->_logFileHandle, $LogLine);
@@ -255,9 +255,9 @@ class EaseLogger extends EaseAtom
                 }
             }
             if ($Type == 'error') {
-                if ($this->ErrorLogFile) {
+                if ($this->errorLogFile) {
                     if (!$this->_errorLogFileHandle) {
-                        $this->_errorLogFileHandle = fopen($this->ErrorLogFile, 'a+');
+                        $this->_errorLogFileHandle = fopen($this->errorLogFile, 'a+');
                     }
                     if ($this->_errorLogFileHandle) {
                         fputs($this->_errorLogFileHandle, $LogLine);
@@ -278,11 +278,11 @@ class EaseLogger extends EaseAtom
      */
     public function renameLogFile($NewLogFileName)
     {
-        $NewLogFileName = dirname($this->LogFileName) . '/' . basename($NewLogFileName);
-        if (rename($this->LogFileName, $NewLogFileName)) {
+        $NewLogFileName = dirname($this->logFileName) . '/' . basename($NewLogFileName);
+        if (rename($this->logFileName, $NewLogFileName)) {
             return realpath($NewLogFileName);
         } else {
-            return realpath($this->LogFileName);
+            return realpath($this->logFileName);
         }
     }
 
@@ -366,8 +366,8 @@ class EaseLogger extends EaseAtom
      */
     public function error($Caller, $Message, $ObjectData = null)
     {
-        if ($this->ErrorLogFile) {
-            $LogFileHandle = @fopen($this->ErrorLogFile, 'a+');
+        if ($this->errorLogFile) {
+            $LogFileHandle = @fopen($this->errorLogFile, 'a+');
             if ($LogFileHandle) {
                 if ($this->easeShared->RunType == 'web') {
                     fputs($LogFileHandle, EaseBrick::printPreBasic($_SERVER) . "\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
@@ -385,7 +385,7 @@ class EaseLogger extends EaseAtom
                 }
                 fclose($LogFileHandle);
             } else {
-                $this->addToLog('Error: Couldn\'t open the ' . realpath($this->ErrorLogFile) . ' error log file', 'error');
+                $this->addToLog('Error: Couldn\'t open the ' . realpath($this->errorLogFile) . ' error log file', 'error');
             }
         }
         $this->addToLog($Caller, $Message, 'error');

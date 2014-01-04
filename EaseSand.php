@@ -140,7 +140,7 @@ class EaseSand extends EaseAtom
      * Objekt pro logování
      * @var EaseLogger
      */
-    public $Logger = null;
+    public $logger = null;
 
     /**
      * Jakým objektem řešit logování ?
@@ -167,7 +167,7 @@ class EaseSand extends EaseAtom
     {
         $this->easeShared = EaseShared::singleton();
         if ($this->LogType != 'none') {
-            $this->Logger = EaseLogger::singleton();
+            $this->logger = EaseLogger::singleton();
         }
         $this->setObjectName();
         $this->initialIdenty = $this->saveObjectIdentity();
@@ -843,11 +843,11 @@ class EaseSand extends EaseAtom
         $emailLength = strlen($email);
         if ($emailLength > 256)
             return false; // Too long
-        /*
-          // Contemporary email addresses consist of a "local part" separated from
-          // a "domain part" (a fully-qualified domain name) by an at-sign ("@").
-          // 	(http://tools.ietf.org/html/rfc3696#section-3)
-         */
+            /*
+              // Contemporary email addresses consist of a "local part" separated from
+              // a "domain part" (a fully-qualified domain name) by an at-sign ("@").
+              // 	(http://tools.ietf.org/html/rfc3696#section-3)
+             */
         $atIndex = strrpos($email, '@');
 
         if ($atIndex === false)
@@ -1232,8 +1232,8 @@ class EaseSand extends EaseAtom
      */
     public function addToLog($message, $type = 'message')
     {
-        if (is_object($this->Logger)) {
-            $this->Logger->addToLog($this->getObjectName(), $message, $type);
+        if (is_object($this->logger)) {
+            $this->logger->addToLog($this->getObjectName(), $message, $type);
         }
     }
 
@@ -1245,8 +1245,8 @@ class EaseSand extends EaseAtom
      */
     public function error($message, $objectData = null)
     {
-        if (is_object($this->Logger)) {
-            $this->Logger->error($this->getObjectName(), $message, $objectData = null);
+        if (is_object($this->logger)) {
+            $this->logger->error($this->getObjectName(), $message, $objectData = null);
         }
     }
 
@@ -1275,6 +1275,31 @@ class EaseSand extends EaseAtom
         $this->saveObjectIdentity();
 
         return $ObjectVars;
+    }
+
+    /**
+     * Zobrazí velikost souboru v srozumitelném tvaru
+     *
+     * @param  int    $filesize bytů
+     * @return string
+     */
+    static public function humanFilesize($filesize)
+    {
+
+        if (is_numeric($filesize)) {
+            $decr = 1024;
+            $step = 0;
+            $prefix = array('Byte', 'KB', 'MB', 'GB', 'TB', 'PB');
+
+            while (($filesize / $decr) > 0.9) {
+                $filesize = $filesize / $decr;
+                $step++;
+            }
+
+            return round($filesize, 2) . ' ' . $prefix[$step];
+        } else {
+            return 'NaN';
+        }
     }
 
     /**

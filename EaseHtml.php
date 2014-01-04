@@ -41,7 +41,7 @@ class EaseHtmlTag extends EasePage
      * pole ze kterého se rendruje obsah STYLE tagu
      * @var array
      */
-    public $CssProperties = null;
+    public $cssProperties = null;
 
     /**
      * Nelogovat události HTML objektů
@@ -274,20 +274,20 @@ class EaseHtmlTag extends EasePage
     /**
      * Nastaví paramatry Css
      *
-     * @param array|string $CssProperties asociativní pole, nebo CSS definice
+     * @param array|string $cssProperties asociativní pole, nebo CSS definice
      */
-    public function setTagCss($CssProperties)
+    public function setTagCss($cssProperties)
     {
-        if (is_array($CssProperties)) {
-            if (is_array($this->CssProperties)) {
-                $this->CssProperties = array_merge($this->CssProperties, $CssProperties);
+        if (is_array($cssProperties)) {
+            if (is_array($this->cssProperties)) {
+                $this->cssProperties = array_merge($this->cssProperties, $cssProperties);
             } else {
-                $this->CssProperties = $CssProperties;
+                $this->cssProperties = $cssProperties;
             }
         } else {
-            $propBuff = $CssProperties;
-            //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $CssProperties;
-            $this->CssProperties = ' ' . $propBuff;
+            $propBuff = $cssProperties;
+            //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $cssProperties;
+            $this->cssProperties = ' ' . $propBuff;
         }
         $this->setTagProperties(array('style' => $this->cssPropertiesToString()));
     }
@@ -295,24 +295,24 @@ class EaseHtmlTag extends EasePage
     /**
      * Vrátí parametry Cssu jako řetězec
      *
-     * @param array|string $CssProperties pole vlastností nebo CSS definice
+     * @param array|string $cssProperties pole vlastností nebo CSS definice
      *
      * @return string
      */
-    public function cssPropertiesToString($CssProperties = null)
+    public function cssPropertiesToString($cssProperties = null)
     {
-        if (!$CssProperties) {
-            $CssProperties = $this->CssProperties;
+        if (!$cssProperties) {
+            $cssProperties = $this->cssProperties;
         }
-        if (is_array($CssProperties)) {
-            $CssPropertiesString = ' ';
-            foreach ($CssProperties as $CssPropertyName => $CssPropertyValue) {
-                $CssPropertiesString .= $CssPropertyName . ':' . $CssPropertyValue . ';';
+        if (is_array($cssProperties)) {
+            $cssPropertiesString = ' ';
+            foreach ($cssProperties as $CssPropertyName => $CssPropertyValue) {
+                $cssPropertiesString .= $CssPropertyName . ':' . $CssPropertyValue . ';';
             }
 
-            return $CssPropertiesString;
+            return $cssPropertiesString;
         } else {
-            return $this->CssProperties;
+            return $this->cssProperties;
         }
     }
 
@@ -934,12 +934,33 @@ class EaseHtmlStrongTag extends EaseHtmlPairTag
     /**
      * Tag pro tučné písmo
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('strong', $Properties, $Content);
+        parent::__construct('strong', $properties, $content);
+    }
+
+}
+
+/**
+ * HTML em tag
+ *
+ * @author Vitex <vitex@hippy.cz>
+ */
+class EaseHtmlEmTag extends EaseHtmlPairTag
+{
+
+    /**
+     * Tag kurzívu
+     *
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
+     */
+    public function __construct($content = null, $properties = null)
+    {
+        parent::__construct('em', $properties, $content);
     }
 
 }

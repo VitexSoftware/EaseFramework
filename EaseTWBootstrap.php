@@ -134,8 +134,8 @@ class EaseTWBWebPage extends EaseWebPage
 
             $message = reset($message);
 
-            if (is_object($this->Logger)) {
-                if (!isset($this->Logger->LogStyles[$messageType])) {
+            if (is_object($this->logger)) {
+                if (!isset($this->logger->logStyles[$messageType])) {
                     $messageType = 'notice';
                 }
                 $htmlFargment .= '<div class="alert alert-' . $messageType . '" >' . $message . '</div>' . "\n";
@@ -368,11 +368,11 @@ class EaseTWBNavbar extends EaseHtmlDivTag
 class EaseTWBForm extends EaseHtmlForm
 {
 
-    public function __construct($FormName, $FormAction = null, $FormMethod = 'post', $FormContents = null, $tagProperties = null)
+    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
     {
         $tagProperties['class'] = 'form-horizontal';
         $tagProperties['role'] = 'form';
-        parent::__construct($FormName, $FormAction, $FormMethod, $FormContents, $tagProperties);
+        parent::__construct($formName, $formAction, $formMethod, $formContents, $tagProperties);
     }
 
     /**

@@ -137,19 +137,19 @@ class EaseUser extends EaseAnonym
     /**
      * Objekt uživatele aplikace
      *
-     * @param int|string $UserID ID nebo Login uživatele jenž se má načíst při
+     * @param int|string $userID ID nebo Login uživatele jenž se má načíst při
      *        inicializaci třídy
      */
-    public function __construct($UserID = null)
+    public function __construct($userID = null)
     {
         parent::__construct();
-        if (!is_null($UserID)) {
-            if (is_int($UserID)) {
-                $this->loadFromMySQL($UserID);
+        if (!is_null($userID)) {
+            if (is_int($userID)) {
+                $this->loadFromMySQL($userID);
             } else {
                 if (isset($this->LoginColumn)) {
                     $this->setmyKeyColumn($this->LoginColumn);
-                    $this->loadFromMySQL($UserID);
+                    $this->loadFromMySQL($userID);
                     $this->resetObjectIdentity();
                 }
             }
