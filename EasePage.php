@@ -992,14 +992,14 @@ class EasePage extends EaseContainer
     /**
      * Vrací styl logování
      *
-     * @param string $LogType typ logu warning|info|success|error|notice|*
+     * @param string $logType typ logu warning|info|success|error|notice|*
      *
      * @return string
      */
-    public function getLogStyle($LogType = 'notice')
+    public function getLogStyle($logType = 'notice')
     {
-        if (key_exists($LogType, $this->LogStyles)) {
-            return $this->LogStyles[$LogType];
+        if (key_exists($logType, $this->LogStyles)) {
+            return $this->LogStyles[$logType];
         } else {
             return '';
         }

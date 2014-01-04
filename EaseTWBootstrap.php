@@ -255,7 +255,7 @@ class EaseTWBNavbar extends EaseHtmlDivTag
 
         $navCollapse = $this->addItem(new EaseHtmlDivTag(null, null, array('class' => 'collapse navbar-collapse navbar-' . $name . '-collapse')));
         $this->nav = $navCollapse->addItem(new EaseHtmlUlTag(null, array('class' => 'nav navbar-nav')));
-        $this->TagType = 'nav';
+        $this->tagType = 'nav';
         $pullRigt = new EaseHtmlDivTag(NULL, null, array('class' => 'pull-right'));
         $this->navRight = $pullRigt->addItem(new EaseHtmlUlTag(null, array('class' => 'nav navbar-nav nav-right')));
         $navCollapse->addItem($pullRigt);

@@ -29,7 +29,7 @@ class EaseHtmlTag extends EasePage
      * Typ tagu - např A či STRONG
      * @var string
      */
-    public $TagType = null;
+    public $tagType = null;
 
     /**
      * Pole vlastností tagu
@@ -47,39 +47,39 @@ class EaseHtmlTag extends EasePage
      * Nelogovat události HTML objektů
      * @var string
      */
-    public $LogType = 'none';
+    public $logType = 'none';
 
     /**
      * Koncové lomítko pro xhtml
      * @var string
      */
-    public $Trail = ' /';
+    public $trail = ' /';
 
     /**
      * Má si objekt automaticky plnit vlastnost name ?
      */
-    public $SetName = false;
+    public $setName = false;
 
     /**
      * Objekt pro vykreslení obecného nepárového html tagu
      *
-     * @param string       $TagType       typ tagu
+     * @param string       $tagType       typ tagu
      * @param array|string $tagProperties parametry tagu
-     * @param mixed        $Content       vkládaný obsah
+     * @param mixed        $content       vkládaný obsah
      */
-    public function __construct($TagType = null, $tagProperties = null, $Content = null)
+    public function __construct($tagType = null, $tagProperties = null, $content = null)
     {
-        if (is_null($TagType)) {
-            $TagType = $this->TagType;
+        if (is_null($tagType)) {
+            $tagType = $this->tagType;
         } else {
-            $this->setTagType($TagType);
+            $this->setTagType($tagType);
         }
         parent::__construct();
         if ($tagProperties) {
             $this->setTagProperties($tagProperties);
         }
-        if ($Content) {
-            $this->addItem($Content);
+        if ($content) {
+            $this->addItem($content);
         }
     }
 
@@ -98,8 +98,8 @@ class EaseHtmlTag extends EasePage
         if ($this->tagName) {
             return parent::setObjectName(get_class($this) . '@' . $this->tagName);
         } else {
-            if ($this->TagType) {
-                return parent::setObjectName(get_class($this) . '@' . $this->TagType);
+            if ($this->tagType) {
+                return parent::setObjectName(get_class($this) . '@' . $this->tagType);
             } else {
                 return parent::setObjectName();
             }
@@ -109,13 +109,13 @@ class EaseHtmlTag extends EasePage
     /**
      * Nastaví jméno tagu
      *
-     * @param string $TagName jméno tagu do vlastnosti NAME
+     * @param string $tagName jméno tagu do vlastnosti NAME
      */
-    public function setTagName($TagName)
+    public function setTagName($tagName)
     {
-        $this->tagName = $TagName;
-        if ($this->SetName) {
-            $this->tagProperties['name'] = $TagName;
+        $this->tagName = $tagName;
+        if ($this->setName) {
+            $this->tagProperties['name'] = $tagName;
         }
         $this->setObjectName();
     }
@@ -127,7 +127,7 @@ class EaseHtmlTag extends EasePage
      */
     public function getTagName()
     {
-        if ($this->SetName) {
+        if ($this->setName) {
             if (isset($this->tagProperties['name'])) {
                 return $this->tagProperties['name'];
             } else {
@@ -141,21 +141,21 @@ class EaseHtmlTag extends EasePage
     /**
      * Nastaví typ tagu
      *
-     * @param string $TagType typ tagu - např. img
+     * @param string $tagType typ tagu - např. img
      */
-    public function setTagType($TagType)
+    public function setTagType($tagType)
     {
-        $this->TagType = $TagType;
+        $this->tagType = $tagType;
     }
 
     /**
      * Nastaví classu tagu
      *
-     * @param string $ClassName jméno třídy
+     * @param string $className jméno třídy
      */
-    public function setTagClass($ClassName)
+    public function setTagClass($className)
     {
-        $this->setTagProperties(array('class' => $ClassName));
+        $this->setTagProperties(array('class' => $className));
     }
 
     /**
@@ -169,16 +169,16 @@ class EaseHtmlTag extends EasePage
     /**
      * Nastaví tagu zadane id, nebo vygenerované náhodné
      *
-     * @param string $TagID #ID html tagu pro JavaScript a Css
+     * @param string $tagID #ID html tagu pro JavaScript a Css
      *
      * @return string nastavené ID
      */
-    public function setTagID($TagID = null)
+    public function setTagID($tagID = null)
     {
-        if (is_null($TagID)) {
+        if (is_null($tagID)) {
             $this->setTagProperties(array('id' => EaseBrick::randomString()));
         } else {
-            $this->setTagProperties(array('id' => $TagID));
+            $this->setTagProperties(array('id' => $tagID));
         }
 
         return $this->getTagID();
@@ -201,14 +201,14 @@ class EaseHtmlTag extends EasePage
     /**
      * Returns property tag value
      *
-     * @param string $PropertyName název vlastnosti tagu. např. "src" u obrázku
+     * @param string $propertyName název vlastnosti tagu. např. "src" u obrázku
      *
      * @return string current tag property value
      */
-    public function getTagProperty($PropertyName)
+    public function getTagProperty($propertyName)
     {
-        if (isset($this->tagProperties[$PropertyName])) {
-            return $this->tagProperties[$PropertyName];
+        if (isset($this->tagProperties[$propertyName])) {
+            return $this->tagProperties[$propertyName];
         }
 
         return null;
@@ -321,9 +321,9 @@ class EaseHtmlTag extends EasePage
      */
     public function draw()
     {
-        echo "\n<" . $this->TagType;
+        echo "\n<" . $this->tagType;
         echo $this->tagPropertiesToString();
-        echo $this->Trail;
+        echo $this->trail;
         echo '>';
     }
 
@@ -342,7 +342,7 @@ class EaseHtmlPairTag extends EaseHtmlTag
      * Character to close tag
      * @var type
      */
-    public $Trail = '';
+    public $trail = '';
 
     /**
      * Render tag and its contents
@@ -367,7 +367,7 @@ class EaseHtmlPairTag extends EaseHtmlTag
      */
     public function tagEnclousure()
     {
-        echo '</' . $this->TagType . ">\n";
+        echo '</' . $this->tagType . ">\n";
     }
 
 }
@@ -911,7 +911,7 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
             }
             $itemAdded = & $this->lastItem;
         } else {
-            if ( isset($pageItem->TagType) && ($pageItem->TagType == 'li') ) {
+            if ( isset($pageItem->tagType) && ($pageItem->tagType == 'li') ) {
                 $itemAdded = parent::addItem($pageItem);
             } else {
                 $itemAdded = parent::addItem(new EaseHtmlLiTag($pageItem));
@@ -1423,7 +1423,7 @@ class EaseHtmlHrTag extends EaseHtmlTag
 class EaseHtmlIframeTag extends EaseHtmlPairTag
 {
 
-    public $TagType = 'iframe';
+    public $tagType = 'iframe';
 
     /**
      * iFrame element

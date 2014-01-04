@@ -146,7 +146,7 @@ class EaseSand extends EaseAtom
      * Jakým objektem řešit logování ?
      * @var EaseLogger
      */
-    public $LogType = 'EaseLogger';
+    public $logType = 'EaseLogger';
 
     /**
      * Odkaz na vlastnící objekt
@@ -166,7 +166,7 @@ class EaseSand extends EaseAtom
     public function __construct()
     {
         $this->easeShared = EaseShared::singleton();
-        if ($this->LogType != 'none') {
+        if ($this->logType != 'none') {
             $this->logger = EaseLogger::singleton();
         }
         $this->setObjectName();
