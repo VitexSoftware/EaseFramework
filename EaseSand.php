@@ -585,7 +585,7 @@ class EaseSand extends EaseAtom
             $Comment .= " ($itemsCount)";
         }
 
-        if ($this->easeShared->RunType == 'web') {
+        if ($this->easeShared->runType == 'web') {
             $retVal .= '<pre class="debug" style="overflow: scroll; border: solid 1px green;  color: white; background-color: black;" title="' . $Comment . '">';
         } else {
             $retVal .= "\n########### $Comment ###########\n";
@@ -593,7 +593,7 @@ class EaseSand extends EaseAtom
 
         $retVal .= $this->PrintPreBasic($argument);
 
-        if ($this->easeShared->RunType == 'web') {
+        if ($this->easeShared->runType == 'web') {
             $retVal .= '</pre>';
         } else {
             $retVal .= "\n";

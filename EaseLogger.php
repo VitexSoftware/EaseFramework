@@ -236,7 +236,7 @@ class EaseLogger extends EaseAtom
             $Type = 'notice';
         }
         if ($this->logType == 'console' || $this->logType == 'both') {
-            if ($this->RunType == 'cgi') {
+            if ($this->runType == 'cgi') {
                 echo $LogLine;
             } else {
                 echo '<div style="' . $this->logStyles[$Type] . '">' . $LogLine . "</div>\n";
@@ -289,25 +289,25 @@ class EaseLogger extends EaseAtom
     /**
      * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)
      *
-     * @param string $RunType force type
+     * @param string $runType force type
      *
      * @return string type
      */
-    public function setRunType($RunType = null)
+    public function setRunType($runType = null)
     {
-        if (!$RunType) {
+        if (!$runType) {
             if (isset($_SERVER['HTTP_HOST'])) {
-                $this->RunType = 'web';
+                $this->runType = 'web';
             } else {
-                $this->RunType = 'cgi';
+                $this->runType = 'cgi';
             }
 
-            return $this->RunType;
+            return $this->runType;
         }
-        if (($RunType != 'web') || ( $RunType != 'cgi')) {
+        if (($runType != 'web') || ( $runType != 'cgi')) {
             return null;
         } else {
-            return $this->RunType;
+            return $this->runType;
         }
     }
 
@@ -369,7 +369,7 @@ class EaseLogger extends EaseAtom
         if ($this->errorLogFile) {
             $LogFileHandle = @fopen($this->errorLogFile, 'a+');
             if ($LogFileHandle) {
-                if ($this->easeShared->RunType == 'web') {
+                if ($this->easeShared->runType == 'web') {
                     fputs($LogFileHandle, EaseBrick::printPreBasic($_SERVER) . "\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
                     fputs($LogFileHandle, EaseBrick::printPreBasic($_ENV) . "\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");

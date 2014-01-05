@@ -39,25 +39,25 @@ class EaseShared extends EaseAtom
      * JavaScripty
      * @var array
      */
-    public $JavaScripts = null;
+    public $javaScripts = null;
 
     /**
      * Pole kaskádových stylů
      * $var array
      */
-    public $CascadeStyles = null;
+    public $cascadeStyles = null;
 
     /**
      * Pole konfigurací
      * @var array
      */
-    public $Registry = array();
+    public $registry = array();
 
     /**
      * Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script
      * @var string web|cli
      */
-    public $RunType = null;
+    public $runType = null;
 
     /**
      * Odkaz na instanci objektu uživatele
@@ -95,6 +95,11 @@ class EaseShared extends EaseAtom
     public function __construct()
     {
         $this->setRunType();
+        if(isset($_SESSION['EaseMessages'])){
+            $this->statusMessages = $_SESSION['EaseMessages'];
+            unset($_SESSION['EaseMessages']);
+        }
+        
     }
 
     /**
@@ -138,7 +143,7 @@ class EaseShared extends EaseAtom
      */
     public function setConfigValue($ConfigName, $ConfigValue)
     {
-        $this->Registry[$ConfigName] = $ConfigValue;
+        $this->registry[$ConfigName] = $ConfigValue;
     }
 
     /**
@@ -150,8 +155,8 @@ class EaseShared extends EaseAtom
      */
     public function getConfigValue($ConfigName)
     {
-        if (isset($this->Registry[$ConfigName])) {
-            return $this->Registry[$ConfigName];
+        if (isset($this->registry[$ConfigName])) {
+            return $this->registry[$ConfigName];
         }
 
         return null;
@@ -160,23 +165,23 @@ class EaseShared extends EaseAtom
     /**
      * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)
      *
-     * @param string $RunType force type
+     * @param string $runType force type
      *
      * @return string type
      */
-    public function setRunType($RunType = null)
+    public function setRunType($runType = null)
     {
-        if (!$RunType) {
+        if (!$runType) {
             if (self::isCli()) {
-                $this->RunType = 'cli';
+                $this->runType = 'cli';
             } else {
-                $this->RunType = 'web';
+                $this->runType = 'web';
             }
         }
-        if (($RunType != 'web') || ( $RunType != 'cli')) {
+        if (($runType != 'web') || ( $runType != 'cli')) {
             return null;
         } else {
-            return $this->RunType;
+            return $this->runType;
         }
     }
 

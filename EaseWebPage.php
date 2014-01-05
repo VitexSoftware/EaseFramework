@@ -22,25 +22,25 @@ class EaseWebPage extends EasePage
      * Položky předávané do vkládaného objektu
      * @var type
      */
-    public $RaiseItems = array('SetupWebPage' => 'webPage');
+    public $raiseItems = array('SetupWebPage' => 'webPage');
 
     /**
      * Pole Javasriptu k vykresleni
      * @var array
      */
-    public $JavaScripts = null;
+    public $javaScripts = null;
 
     /**
      * Pole CSS k vykreslení
      * @var array
      */
-    public $CascadeStyles = null;
+    public $cascadeStyles = null;
 
     /**
      * Nadpis stránky
      * @var string
      */
-    public $PageTitle = null;
+    public $pageTitle = null;
 
     /**
      * head stránky
@@ -52,7 +52,7 @@ class EaseWebPage extends EasePage
      * Objekt samotného těla stránky
      * @var EaseHtmlBodyTag
      */
-    public $Body = null;
+    public $body = null;
 
     /**
      * Nepřipojovat se DB
@@ -61,16 +61,16 @@ class EaseWebPage extends EasePage
     public $myTable = false;
 
     /**
-     * Výchozí umístění javascriptů
+     * Výchozí umístění javascriptů v Debianu
      * @var string
      */
-    public $JSPrefix = '/javascript/';
+    public $jsPrefix = '/javascript/';
 
     /**
-     * Default CSS locaton
+     * Default CSS locaton on debian
      * @var string
      */
-    public $CssPrefix = '/javascript/';
+    public $cssPrefix = '/javascript/';
 
     /**
      * Výchozí Skin stránky. Viz: /usr/share/javascript/jquery-ui-themes
@@ -81,15 +81,15 @@ class EaseWebPage extends EasePage
     /**
      * Základní objekt pro stránku shopu
      *
-     * @param EaseUser|EaseAnonym $UserObject objekt uživatele
+     * @param EaseUser|EaseAnonym $userObject objekt uživatele
      */
-    public function __construct($PageTitle = NULL ,  & $UserObject = null)
+    public function __construct($pageTitle = NULL ,  & $userObject = null)
     {
         EaseShared::webPage($this);
-        if (!is_null($PageTitle)) {
-            $this->PageTitle = $PageTitle;
+        if (!is_null($pageTitle)) {
+            $this->pageTitle = $pageTitle;
         }
-        parent::__construct($UserObject);
+        parent::__construct($userObject);
         $this->easeShared->setConfigValue('jQueryUISkin', $this->jQueryUISkin);
         $this->pageParts['doctype'] = '<!DOCTYPE html>';
         parent::addItem(new EaseHtmlHtmlTag());
@@ -99,11 +99,11 @@ class EaseWebPage extends EasePage
         $this->head = & $this->pageParts['html']->pageParts['head'];
         $this->head->raise($this);
 
-        $this->Body = & $this->pageParts['html']->pageParts['body'];
-        $this->Body->raise($this);
+        $this->body = & $this->pageParts['html']->pageParts['body'];
+        $this->body->raise($this);
 
-        $this->JavaScripts = & $this->head->JavaScripts;
-        $this->CascadeStyles = & $this->head->CascadeStyles;
+        $this->javaScripts = & $this->head->javaScripts;
+        $this->cascadeStyles = & $this->head->cascadeStyles;
     }
 
     /**
@@ -126,26 +126,26 @@ class EaseWebPage extends EasePage
      */
     function & addItem($item,$pageItemName = null)
     {
-        return $this->Body->addItem($item,$pageItemName);
+        return $this->body->addItem($item,$pageItemName);
     }
 
     /**
      * Includuje Javascript do stránky
      *
-     * @param string  $JavaScriptFile soubor s javascriptem
-     * @param string  $Position       končná pozice: '+','-','0','--',...
-     * @param boolean $FWPrefix       Add Framework prefix ?
+     * @param string  $javaScriptFile soubor s javascriptem
+     * @param string  $position       končná pozice: '+','-','0','--',...
+     * @param boolean $fwPrefix       Add Framework prefix ?
      *
      * @return string
      */
-    public function includeJavaScript($JavaScriptFile, $Position = null, $FWPrefix = false)
+    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
     {
-        if ($FWPrefix) {
-            return $this->addToScriptsStack('#' . $this->JSPrefix .
-                            $JavaScriptFile, $Position
+        if ($fwPrefix) {
+            return $this->addToScriptsStack(
+                    '#' . $this->jsPrefix . $javaScriptFile, $position
             );
         } else {
-            return $this->addToScriptsStack('#' . $JavaScriptFile, $Position);
+            return $this->addToScriptsStack('#' . $javaScriptFile, $position);
         }
     }
 
@@ -177,45 +177,45 @@ class EaseWebPage extends EasePage
      */
     public function addToScriptsStack($Code, $Position = null)
     {
-        $JavaScripts = &$this->easeShared->JavaScripts;
+        $javaScripts = &$this->easeShared->javaScripts;
         if (is_null($Position)) {
-            if (is_array($JavaScripts)) {
-                $ScriptFound = array_search($Code, $JavaScripts);
-                if (!$ScriptFound && ($JavaScripts[0]!=$Code)) {
-                    $JavaScripts[] = $Code;
+            if (is_array($javaScripts)) {
+                $ScriptFound = array_search($Code, $javaScripts);
+                if (!$ScriptFound && ($javaScripts[0]!=$Code)) {
+                    $javaScripts[] = $Code;
 
-                    return key($JavaScripts);
+                    return key($javaScripts);
                 } else {
                     return $ScriptFound;
                 }
             } else {
-                $JavaScripts[] = $Code;
+                $javaScripts[] = $Code;
 
                 return 0;
             }
         } else { //Pozice urcena
-            if (isset($JavaScripts[$Position])) { //Uz je obsazeno
-                if ($JavaScripts[$Position] == $Code) {
+            if (isset($javaScripts[$Position])) { //Uz je obsazeno
+                if ($javaScripts[$Position] == $Code) {
                     return $Position;
                 }
 
-                $ScriptFound = array_search($Code, $JavaScripts);
+                $ScriptFound = array_search($Code, $javaScripts);
                 if ($ScriptFound) {
-                    unset($JavaScripts[$ScriptFound]);
+                    unset($javaScripts[$ScriptFound]);
                 }
 
-                $Backup = array_slice($JavaScripts, $Position);
-                $JavaScripts[$Position] = $Code;
+                $Backup = array_slice($javaScripts, $Position);
+                $javaScripts[$Position] = $Code;
                 $NextFreeID = $Position + 1;
                 foreach ($Backup as $Code) {
-                    $JavaScripts[$NextFreeID++] = $Code;
+                    $javaScripts[$NextFreeID++] = $Code;
                 }
 
                 return $Position;
             } else { //Jeste je pozice volna
-                $JavaScripts[] = $Code;
+                $javaScripts[] = $Code;
 
-                return key($JavaScripts);
+                return key($javaScripts);
             }
         }
 
@@ -231,7 +231,7 @@ class EaseWebPage extends EasePage
      */
     public function addCSS($Css)
     {
-        $this->easeShared->CascadeStyles[md5($Css)] = $Css;
+        $this->easeShared->cascadeStyles[md5($Css)] = $Css;
 
         return true;
     }
@@ -248,9 +248,9 @@ class EaseWebPage extends EasePage
     public function includeCss($CssFile, $FWPrefix = false, $media = 'screen')
     {
         if ($FWPrefix) {
-            $this->easeShared->CascadeStyles[$this->CssPrefix . $CssFile] = $this->CssPrefix . $CssFile;
+            $this->easeShared->cascadeStyles[$this->cssPrefix . $CssFile] = $this->cssPrefix . $CssFile;
         } else {
-            $this->easeShared->CascadeStyles[$CssFile] = $CssFile;
+            $this->easeShared->cascadeStyles[$CssFile] = $CssFile;
         }
 
         return true;
@@ -343,11 +343,11 @@ class EaseWebPage extends EasePage
     /**
      * Nastaví titul webové stánky
      *
-     * @param string $PageTitle titulek
+     * @param string $pageTitle titulek
      */
-    public function setPageTitle($PageTitle)
+    public function setPageTitle($pageTitle)
     {
-        $this->PageTitle = $PageTitle;
+        $this->pageTitle = $pageTitle;
     }
 
 }

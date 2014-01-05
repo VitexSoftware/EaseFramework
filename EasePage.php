@@ -46,7 +46,7 @@ class EaseContainer extends EaseBrick
      * Které objekty převzít od přebírajícího objektu
      * @var array
      */
-    public $RaiseItems = array();
+    public $raiseItems = array();
 
     /**
      * Kontejner, který může obsahovat vložené objekty, které se vykreslí
@@ -62,7 +62,7 @@ class EaseContainer extends EaseBrick
     }
 
     /**
-     * Projde $this->RaiseItems (metoda_potomka=>proměnná_rodiče) a pokud v
+     * Projde $this->raiseItems (metoda_potomka=>proměnná_rodiče) a pokud v
      * objektu najde metodu potomka, zavolá jí s parametrem
      * $this->proměnná_rodiče
      *
@@ -72,7 +72,7 @@ class EaseContainer extends EaseBrick
     public function raise(& $childObject, $itemsToRaise = null)
     {
         if (!$itemsToRaise) {
-            $itemsToRaise = $childObject->RaiseItems;
+            $itemsToRaise = $childObject->raiseItems;
         }
 
         foreach ($itemsToRaise as $method => $property) {
@@ -113,7 +113,7 @@ class EaseContainer extends EaseBrick
                 $this->pageParts[$pageItemName] = $pageItem;
                 $this->pageParts[$pageItemName]->parentObject = & $this;
 
-                if (isset($this->pageParts[$pageItemName]->RaiseItems) && is_array($this->pageParts[$pageItemName]->RaiseItems) && count($this->pageParts[$pageItemName]->RaiseItems)) {
+                if (isset($this->pageParts[$pageItemName]->raiseItems) && is_array($this->pageParts[$pageItemName]->raiseItems) && count($this->pageParts[$pageItemName]->raiseItems)) {
                     $this->raise($this->pageParts[$pageItemName]);
                 }
                 if (method_exists($this->pageParts[$pageItemName], 'AfterAdd')) {
@@ -271,12 +271,12 @@ class EaseContainer extends EaseBrick
      * Převezme JavaScripty
      *
      * @param EasePage|array $Scripts pole skriptiptů nebo EaseObjekt s
-     *                       vloženými skripty v poli ->JavaScripts
+     *                       vloženými skripty v poli ->javaScripts
      */
     public function takeJavascripts(& $Scripts)
     {
         if (is_object($Scripts)) {
-            $ScriptsToProcess = $Scripts->JavaScripts;
+            $ScriptsToProcess = $Scripts->javaScripts;
         } else {
             $ScriptsToProcess = $Scripts;
         }
@@ -299,7 +299,7 @@ class EaseContainer extends EaseBrick
     public function takeCascadeStyles($Styles)
     {
         if (is_object($Styles)) {
-            $StylesToProcess = & $Styles->webPage->head->CascadeStyles;
+            $StylesToProcess = & $Styles->webPage->head->cascadeStyles;
         } else {
             $StylesToProcess = & $Styles;
         }
@@ -483,7 +483,7 @@ class EasePage extends EaseContainer
      * Které objekty převzít od přebírajícího objektu
      * @var array
      */
-    public $RaiseItems = array('SetUpUser' => 'User', 'webPage', 'OutputFormat');
+    public $raiseItems = array('SetUpUser' => 'User', 'webPage', 'OutputFormat');
 
     /**
      * Odkaz na naposledy přidaný element
@@ -597,41 +597,45 @@ class EasePage extends EaseContainer
     /**
      * Add another CSS definition to stack
      *
-     * @param string $Css css definice
+     * @param string $css css definice
      *
      * @return boolean
      */
-    public function addCSS($Css)
+    public function addCSS($css)
     {
         self::assignWebPage($this);
 
-        return $this->webPage->addCSS($Css);
+        return $this->webPage->addCSS($css);
     }
 
     /**
      * Include an CSS file call into page
      *
-     * @param string  $CssFile  cesta k souboru vkládanému do stránky
-     * @param boolean $FWPrefix přidat prefix frameworku (obvykle /Ease/) ?
+     * @param string  $cssFile  cesta k souboru vkládanému do stránky
+     * @param boolean $fwPrefix přidat prefix frameworku (obvykle /Ease/) ?
      * @param string  $media    médium screen|print|braile apod ...
      *
      * @return int
      */
-    public function includeCss($CssFile, $FWPrefix = false, $media = 'screen')
+    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
     {
         self::assignWebPage($this);
 
-        return $this->webPage->includeCss($CssFile, $FWPrefix, $media);
+        return $this->webPage->includeCss($cssFile, $fwPrefix, $media);
     }
 
     /**
      * Provede http přesměrování
      *
-     * @param string $Url adresa přesměrování
+     * @param string $url adresa přesměrování
      */
-    public static function redirect($Url)
+    public static function redirect($url)
     {
-        header('Location: ' . $Url);
+        $messages = EaseShared::instanced()->statusMessages;
+        if(count($messages)){
+            $_SESSION['EaseMessages'] = $messages;
+        }
+        header('Location: ' . $url);
     }
 
     /**

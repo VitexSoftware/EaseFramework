@@ -570,7 +570,7 @@ class EaseHtmlBodyTag extends EaseHtmlPairTag
 
     /**
      * Tělo stránky je v aplikaci vždy dostupně jako
-     * $this->easeShared->webPage->Body
+     * $this->easeShared->webPage->body
      *
      * @param string $TagID   id tagu
      * @param mixed  $Content vkládané prvky
@@ -699,13 +699,13 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
      * Javascripts to render in page
      * @var array
      */
-    public $JavaScripts = null;
+    public $javaScripts = null;
 
     /**
      * Css definitions
      * @var strig
      */
-    public $CascadeStyles = null;
+    public $cascadeStyles = null;
 
     /**
      * Html HEAD tag with basic contents and skin support
@@ -751,7 +751,7 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
      */
     public function finalize()
     {
-        $this->addItem('<title>' . $this->webPage->PageTitle . '</title>');
+        $this->addItem('<title>' . $this->webPage->pageTitle . '</title>');
     }
 
     /**
@@ -760,30 +760,30 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
     public function draw()
     {
 
-        if (isset($this->easeShared->CascadeStyles) && count($this->easeShared->CascadeStyles)) {
-            $CascadeStyles = array();
-            foreach ($this->easeShared->CascadeStyles as $StyleRes => $Style) {
+        if (isset($this->easeShared->cascadeStyles) && count($this->easeShared->cascadeStyles)) {
+            $cascadeStyles = array();
+            foreach ($this->easeShared->cascadeStyles as $StyleRes => $Style) {
                 if ($StyleRes == $Style) {
                     $this->addItem('<link href="' . $Style . '" rel="stylesheet" type="text/css" media="' . 'screen' . '" />'); //TODO: solve screen
                 } else {
-                    $CascadeStyles[] = $Style;
+                    $cascadeStyles[] = $Style;
                 }
             }
-            $this->addItem('<style>' . implode("\n", $CascadeStyles) . '</style>');
+            $this->addItem('<style>' . implode("\n", $cascadeStyles) . '</style>');
         }
 
-        if (isset($this->easeShared->JavaScripts) && count($this->easeShared->JavaScripts)) {
-            ksort($this->easeShared->JavaScripts, SORT_NUMERIC);
+        if (isset($this->easeShared->javaScripts) && count($this->easeShared->javaScripts)) {
+            ksort($this->easeShared->javaScripts, SORT_NUMERIC);
 
             $ODRStack = array();
 
-            foreach ($this->easeShared->JavaScripts as $Script) {
+            foreach ($this->easeShared->javaScripts as $Script) {
                 $ScriptType = $Script[0];
                 $ScriptBody = substr($Script, 1);
                 switch ($ScriptType) {
                     case '#':
                         $this->addItem("\n".'<script src="' . $ScriptBody . '"></script>');
-//                      EaseShared::webPage()->Body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
+//                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
                       break;
                     case '@':
                         $this->addItem(self::jsEnclosure($ScriptBody));

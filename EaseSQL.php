@@ -479,7 +479,7 @@ class EaseSQL extends EaseSand
     public function reconnect()
     {
         $this->close();
-        sleep($this->ReconectTimeouts[$this->easeShared->RunType]);
+        sleep($this->ReconectTimeouts[$this->easeShared->runType]);
         $this->connect();
     }
 
