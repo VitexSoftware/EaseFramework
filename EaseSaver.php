@@ -159,26 +159,26 @@ class EaseSaver extends EaseBrick
     /**
      * jQuery Kod barevného označení výsledku případného uložení
      *
-     * @param EaseContainer|mixed $EnclosedElement element, který se má ukládat
+     * @param EaseContainer|mixed $enclosedElement element, který se má ukládat
      * @param string              $Infotext        volitelný zobrazovaný text
      *
      * @return string
      */
-    public static function visualResponse($EnclosedElement, $Infotext = null)
+    public static function visualResponse($enclosedElement, $Infotext = null)
     {
         if (is_null($Infotext)) {
             $Infotext = _('Položku se nepodařilo uložit. Prosím zkuste jinou hodnotu.');
         }
-        EaseShared::webPage()->addItem('<div id="dialog-message' . $EnclosedElement->GetTagID() . '" title="' . _('Neuloženo') . '">
+        EaseShared::webPage()->addItem('<div id="dialog-message' . $enclosedElement->GetTagID() . '" title="' . _('Neuloženo') . '">
     <p>
         <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
         ' . $Infotext . '
     </p>
 </div>'
         );
-        EaseShared::webPage()->addJavaScript('$( \'#dialog-message' . $EnclosedElement->GetTagID() . '\' ).dialog({ autoOpen: false, modal: true, buttons: { Ok: function () { $( this ).dialog( \'close\' );	} } });', null, true);
+        EaseShared::webPage()->addJavaScript('$( \'#dialog-message' . $enclosedElement->GetTagID() . '\' ).dialog({ autoOpen: false, modal: true, buttons: { Ok: function () { $( this ).dialog( \'close\' );	} } });', null, true);
 
-        return '.success(function (data, textStatus) { $(\'#' . $EnclosedElement->GetTagID() . '\').css(\'border\',\'green 2px solid\').css(\'margin\',\'2px\'); }).error(  function () { $(\'#' . $EnclosedElement->GetTagID() . '\').val(\'' . $EnclosedElement->getValue() . '\'); $( \'#dialog-message' . $EnclosedElement->GetTagID() . '\' ).dialog(\'open\') } );  $(\'#' . $EnclosedElement->GetTagID() . '\').css(\'border\',\'red 2px solid\').css(\'margin\',\'2px\'); ';
+        return '.success(function (data, textStatus) { $(\'#' . $enclosedElement->GetTagID() . '\').css(\'border\',\'green 2px solid\').css(\'margin\',\'2px\'); }).error(  function () { $(\'#' . $enclosedElement->GetTagID() . '\').val(\'' . $enclosedElement->getValue() . '\'); $( \'#dialog-message' . $enclosedElement->GetTagID() . '\' ).dialog(\'open\') } );  $(\'#' . $enclosedElement->GetTagID() . '\').css(\'border\',\'red 2px solid\').css(\'margin\',\'2px\'); ';
     }
 
 }

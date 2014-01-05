@@ -574,8 +574,8 @@ class EaseBrick extends EaseSand
         }
         $this->myDbLink->KeyColumn = $this->myKeyColumn;
         $this->myDbLink->TableName = $this->myTable;
-        $this->myDbLink->CreateColumn = $this->MyCreateColumn;
-        $this->myDbLink->LastModifiedColumn = $this->MyLastModifiedColumn;
+        $this->myDbLink->CreateColumn = $this->myCreateColumn;
+        $this->myDbLink->LastModifiedColumn = $this->myLastModifiedColumn;
         if ($updateStructure) {
             $this->loadSqlStruct('my');
         }
@@ -696,7 +696,7 @@ class EaseBrick extends EaseSand
         } else {
             $TableName = key($columns);
         }
-        $this->setObjectIdentity(array('myTable' => 'mysqlxmssql', 'myKeyColumn' => 'id', 'MyCreateColumn' => false, 'MyLastModifiedColumn' => false));
+        $this->setObjectIdentity(array('myTable' => 'mysqlxmssql', 'myKeyColumn' => 'id', 'myCreateColumn' => false, 'myLastModifiedColumn' => false));
         $this->takemyTable();
         foreach ($columns[$TableName] as $columnName => $column) {
             if (is_string($column)) {
@@ -759,8 +759,8 @@ class EaseBrick extends EaseSand
         $this->setObjectIdentity(
                 array('myTable' => 'mysqlxmssql',
                     'myKeyColumn' => 'id',
-                    'MyCreateColumn' => false,
-                    'MyLastModifiedColumn' => false,
+                    'myCreateColumn' => false,
+                    'myLastModifiedColumn' => false,
                     'MSTable' => false
                 )
         );
@@ -993,7 +993,7 @@ class EaseBrick extends EaseSand
             $this->MSLastModifiedColumn = $this->msDbRoles['LastModifiedDate'];
         }
         if (isset($this->myDbRoles['LastModifiedDate'])) {
-            $this->MyLastModifiedColumn = $this->myDbRoles['LastModifiedDate'];
+            $this->myLastModifiedColumn = $this->myDbRoles['LastModifiedDate'];
         }
     }
 
@@ -1144,8 +1144,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             unset($data[$this->myKeyColumn]);
         }
 
-        if (isset($this->MyLastModifiedColumn) && !isset($data[$this->MyLastModifiedColumn])) {
-            $data[$this->MyLastModifiedColumn] = 'NOW()';
+        if (isset($this->myLastModifiedColumn) && !isset($data[$this->myLastModifiedColumn])) {
+            $data[$this->myLastModifiedColumn] = 'NOW()';
         }
 
         if (!is_numeric($key)) {
@@ -1210,22 +1210,22 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             }
 
             if (count($rowsFound)) {
-                $Result = $this->updateToMySQL($data);
+                $result = $this->updateToMySQL($data);
             } else {
-                $Result = $this->insertToMySQL($data);
+                $result = $this->insertToMySQL($data);
             }
         } else {
             if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn]) && strlen($data[$this->myKeyColumn])) {
-                $Result = $this->updateToMySQL($data);
+                $result = $this->updateToMySQL($data);
             } else {
-                $Result = $this->insertToMySQL($data);
+                $result = $this->insertToMySQL($data);
             }
         }
 
-        if (!is_null($Result)) {
-            $this->setMyKey($Result);
+        if (!is_null($result)) {
+            $this->setMyKey($result);
 
-            return $Result;
+            return $result;
         }
 
         return null;
@@ -1257,8 +1257,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             return null;
         }
 
-        if ($this->MyCreateColumn && !isset($data[$this->MyCreateColumn])) {
-            $data[$this->MyCreateColumn] = 'NOW()';
+        if ($this->myCreateColumn && !isset($data[$this->myCreateColumn])) {
+            $data[$this->myCreateColumn] = 'NOW()';
         }
         $queryRaw = 'INSERT INTO `' . $this->myTable . '` SET ' . $this->myDbLink->arrayToQuery($data, false);
         if ($this->myDbLink->exeQuery($queryRaw)) {

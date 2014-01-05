@@ -36,13 +36,13 @@ class EaseUser extends EaseAnonym
      * Sloupecek obsahujici datum vložení záznamu uživatele do shopu
      * @var string
      */
-    public $MyCreateColumn = 'DatCreate';
+    public $myCreateColumn = 'DatCreate';
 
     /**
      * Sloupecek obsahujici datum poslení modifikace záznamu uživatele do shopu
      * @var string
      */
-    public $MyLastModifiedColumn = 'DatSave';
+    public $myLastModifiedColumn = 'DatSave';
 
     /**
      * Pole práv uživatele

@@ -55,7 +55,7 @@ class EaseAnonym extends EaseBrick
      *
      * @var type
      */
-    public $CustomerAddress = null;
+    public $customerAddress = null;
 
     /**
      * Indikátor přihlášení

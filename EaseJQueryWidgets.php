@@ -944,7 +944,7 @@ class EaseLabeledSelect extends EaseLabeledInput
      * Vložený select
      * @var EaseHtmlSelect
      */
-    public $EnclosedElement = NULL;
+    public $enclosedElement = NULL;
 
     /**
      * Hromadné vložení položek
@@ -953,7 +953,7 @@ class EaseLabeledSelect extends EaseLabeledInput
      */
     public function addItems($Items)
     {
-        return $this->EnclosedElement->addItems($Items);
+        return $this->enclosedElement->addItems($Items);
     }
 
 }

@@ -73,8 +73,8 @@ class EaseSand extends EaseAtom
         'myTable', 'MSTable',
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
-        'MyCreateColumn', 'MSCreateColumn',
-        'MyLastModifiedColumn', 'MSLastModifiedColumn');
+        'myCreateColumn', 'MSCreateColumn',
+        'myLastModifiedColumn', 'MSLastModifiedColumn');
 
     /**
      * Klíčový sloupeček v používané MSSQL tabulce
@@ -116,7 +116,7 @@ class EaseSand extends EaseAtom
      * Sloupeček obsahující datum vložení záznamu do shopu
      * @var string
      */
-    public $MyCreateColumn = null;
+    public $myCreateColumn = null;
 
     /**
      *  Sloupeček obsahujíci datum vložení záznamu do Pohody
@@ -128,7 +128,7 @@ class EaseSand extends EaseAtom
      * Slopecek obsahujici datum poslení modifikace záznamu do shopu
      * @var string
      */
-    public $MyLastModifiedColumn = null;
+    public $myLastModifiedColumn = null;
 
     /**
      * Slopecek obsahujici datum poslení modifikace záznamu do Pohody

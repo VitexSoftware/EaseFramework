@@ -1206,7 +1206,7 @@ class EaseLabeledInput extends EasePage
      * Objekt olabelovaný
      * @var EaseHtmlInputTag
      */
-    public $EnclosedElement = null;
+    public $enclosedElement = null;
 
     /**
      *
@@ -1241,14 +1241,14 @@ margin-top: 5px;}'
 
         switch ($this->ItemClass) {
             case 'EaseHtmlCheckboxTag':
-                $this->EnclosedElement = new $this->ItemClass($name, $value, $value, $Properties);
+                $this->enclosedElement = new $this->ItemClass($name, $value, $value, $Properties);
                 break;
             case 'EaseHtmlSelect':
                 //function __construct($name, $Items = null, $DefaultValue = null, $ItemsIDs = false, $Properties = null)
-                $this->EnclosedElement = new $this->ItemClass($name, null ,$value, false, $Properties);
+                $this->enclosedElement = new $this->ItemClass($name, null ,$value, false, $Properties);
                 break;
             default:
-                $this->EnclosedElement = new $this->ItemClass($name, $value, $Properties);
+                $this->enclosedElement = new $this->ItemClass($name, $value, $Properties);
                 break;
         }
     }
@@ -1259,7 +1259,7 @@ margin-top: 5px;}'
     public function finalize()
     {
         $this->addItem($this->LabelElement);
-        $this->addItem($this->EnclosedElement);
+        $this->addItem($this->enclosedElement);
     }
 
     /**
@@ -1269,8 +1269,8 @@ margin-top: 5px;}'
      */
     public function getTagProperties()
     {
-        if (method_exists($this->EnclosedElement, 'getTagProperties')) {
-            return $this->EnclosedElement->getTagProperties();
+        if (method_exists($this->enclosedElement, 'getTagProperties')) {
+            return $this->enclosedElement->getTagProperties();
         }
     }
 
@@ -1283,8 +1283,8 @@ margin-top: 5px;}'
      */
     public function getTagProperty($PropertyName)
     {
-        if (method_exists($this->EnclosedElement, 'getTagProperties')) {
-            return $this->EnclosedElement->getTagProperty($PropertyName);
+        if (method_exists($this->enclosedElement, 'getTagProperties')) {
+            return $this->enclosedElement->getTagProperty($PropertyName);
         }
     }
 
@@ -1295,8 +1295,8 @@ margin-top: 5px;}'
      */
     public function getTagName()
     {
-        if (method_exists($this->EnclosedElement, 'getTagName')) {
-            return $this->EnclosedElement->getTagName();
+        if (method_exists($this->enclosedElement, 'getTagName')) {
+            return $this->enclosedElement->getTagName();
         }
     }
 
@@ -1308,8 +1308,8 @@ margin-top: 5px;}'
      */
     public function setValue($value)
     {
-        if (method_exists($this->EnclosedElement, 'setValue')) {
-            return $this->EnclosedElement->setValue($value);
+        if (method_exists($this->enclosedElement, 'setValue')) {
+            return $this->enclosedElement->setValue($value);
         }
 
         return null;
@@ -1323,8 +1323,8 @@ margin-top: 5px;}'
      */
     public function setValues($values)
     {
-        if (method_exists($this->EnclosedElement, 'setValues')) {
-            return $this->EnclosedElement->setValues($values);
+        if (method_exists($this->enclosedElement, 'setValues')) {
+            return $this->enclosedElement->setValues($values);
         }
 
         return null;
@@ -1368,7 +1368,7 @@ class EaseLabeledSearchInput extends EaseLabeledInput
      */
     public function setDataSource($DataSource)
     {
-        $this->EnclosedElement->setDataSource($DataSource);
+        $this->enclosedElement->setDataSource($DataSource);
     }
 
 }
