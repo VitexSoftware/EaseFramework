@@ -228,15 +228,15 @@ class EaseSQL extends EaseSand
     /**
      * Odstraní z SQL dotazu "nebezpečné" znaky
      *
-     * @param string $QueryRaw SQL Query
+     * @param string $queryRaw SQL Query
      *
      * @return string SQL Query
      */
-    public function sanitizeQuery($QueryRaw)
+    public function sanitizeQuery($queryRaw)
     {
-        $SanitizedQuery = trim($QueryRaw);
+        $sanitizedQuery = trim($queryRaw);
 
-        return $SanitizedQuery;
+        return $sanitizedQuery;
     }
 
     public function makeReport()
@@ -255,9 +255,9 @@ class EaseSQL extends EaseSand
     {
         if (!$this->connectAllreadyUP) {
             if (isset($this->ConnectionSettings) && is_array($this->ConnectionSettings) && count($this->ConnectionSettings)) {
-                foreach ($this->ConnectionSettings as $SetName => $SetValue) {
-                    if (strlen($SetName)) {
-                        $this->exeQuery("SET $SetName $SetValue");
+                foreach ($this->ConnectionSettings as $setName => $SetValue) {
+                    if (strlen($setName)) {
+                        $this->exeQuery("SET $setName $SetValue");
                     }
                 }
                 $this->connectAllreadyUP = true;

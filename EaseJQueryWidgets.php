@@ -889,7 +889,7 @@ class EaseLabeledPasswordStrongInput extends EaseLabeledInput
      * Který input opatřit labelem ?
      * @var string EaseInputClass name
      */
-    public $ItemClass = 'EasePasswordInput';
+    public $itemClass = 'EasePasswordInput';
 
 }
 
@@ -906,7 +906,7 @@ class EaseLabeledPasswordControlInput extends EaseLabeledInput
      * Který input opatřit labelem ?
      * @var string EaseInputClass name
      */
-    public $ItemClass = 'EasePasswordControlInput';
+    public $itemClass = 'EasePasswordControlInput';
 
 }
 
@@ -922,7 +922,7 @@ class EaseLabeledCheckbox extends EaseLabeledInput
      * Který input opatřit labelem ?
      * @var string EaseInputClass name
      */
-    public $ItemClass = 'EaseHtmlCheckboxTag';
+    public $itemClass = 'EaseHtmlCheckboxTag';
 
 }
 
@@ -938,7 +938,7 @@ class EaseLabeledSelect extends EaseLabeledInput
      * Který input opatřit labelem ?
      * @var string EaseInputClass name
      */
-    public $ItemClass = 'EaseHtmlSelect';
+    public $itemClass = 'EaseHtmlSelect';
 
     /**
      * Vložený select
@@ -949,11 +949,11 @@ class EaseLabeledSelect extends EaseLabeledInput
     /**
      * Hromadné vložení položek
      *
-     * @param array $Items položky výběru
+     * @param array $items položky výběru
      */
-    public function addItems($Items)
+    public function addItems($items)
     {
-        return $this->enclosedElement->addItems($Items);
+        return $this->enclosedElement->addItems($items);
     }
 
 }
@@ -1177,6 +1177,6 @@ class EaseLabeledDateTimeSelector extends EaseLabeledInput
      * Který input opatřit labelem ?
      * @var string EaseInputClass name
      */
-    public $ItemClass = 'LQDateTimeSelector';
+    public $itemClass = 'LQDateTimeSelector';
 
 }

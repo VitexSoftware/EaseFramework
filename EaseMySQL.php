@@ -129,37 +129,37 @@ class EaseDbMySqli extends EaseSql
     /**
      * Vykoná QueryRaw a vrátí výsledek
      *
-     * @param string  $QueryRaw
-     * @param boolean $IgnoreErrors
+     * @param string  $queryRaw
+     * @param boolean $ignoreErrors
      *
      * @return SQLhandle
      */
-    public function exeQuery($QueryRaw, $IgnoreErrors = false)
+    public function exeQuery($queryRaw, $ignoreErrors = false)
     {
-        $QueryRaw = $this->sanitizeQuery($QueryRaw);
-        $this->LastQuery = $QueryRaw;
+        $queryRaw = $this->sanitizeQuery($queryRaw);
+        $this->LastQuery = $queryRaw;
         $this->LastInsertID = null;
         $this->ErrorText = null;
         $this->ErrorNumber = null;
-        $SQLAction = trim(strtolower(current(explode(' ', $QueryRaw))));
+        $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
         do {
-            $this->Result = $this->SQLLink->query($QueryRaw);
+            $this->Result = $this->SQLLink->query($queryRaw);
             $this->ErrorNumber = $this->SQLLink->errno;
             $this->ErrorText = $this->SQLLink->error;
-            if (!$this->Result && !$IgnoreErrors) {
+            if (!$this->Result && !$ignoreErrors) {
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function'))
                         echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
-                    echo "\n$QueryRaw\n\n#" . $this->ErrorNumber . ":" . $this->ErrorText;
+                    echo "\n$queryRaw\n\n#" . $this->ErrorNumber . ":" . $this->ErrorText;
                 } else {
                     echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
                     if (function_exists('xdebug_print_function_stack')) {
                         xdebug_print_function_stack("Volano tridou <b>" . xdebug_call_class() . '</b> v souboru <b>' . xdebug_call_file() . ":" . xdebug_call_line() . "</b> funkci <b>" . xdebug_call_function() . '</b>');
                     }
-                    echo "<br clear=all>$QueryRaw\n\n<br clear=\"all\">#" . $this->ErrorNumber . ":<strong>" . $this->ErrorText . '</strong></pre></br>';
+                    echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#" . $this->ErrorNumber . ":<strong>" . $this->ErrorText . '</strong></pre></br>';
                 }
                 $this->logError();
-                $this->error('ExeQuery: #' . $this->ErrorNumber . ': ' . $this->ErrorText . "\n" . $QueryRaw);
+                $this->error('ExeQuery: #' . $this->ErrorNumber . ': ' . $this->ErrorText . "\n" . $queryRaw);
                 if ($this->ErrorNumber == 2006) {
                     $this->reconnect();
                 } else {
@@ -168,7 +168,7 @@ class EaseDbMySqli extends EaseSql
             }
         } while ($this->ErrorNumber == 2006); // 'MySQL server has gone away'
 
-        switch ($SQLAction) {
+        switch ($sqlAction) {
             case 'select':
             case 'show':
                 if (!$this->ErrorText) {
@@ -189,10 +189,10 @@ class EaseDbMySqli extends EaseSql
                 $this->NumRows = null;
         }
         if ($this->ExplainMode) {
-            $EexplainQuery = $this->SQLLink->query('EXPLAIN ' . $QueryRaw);
+            $EexplainQuery = $this->SQLLink->query('EXPLAIN ' . $queryRaw);
             if ($EexplainQuery) {
                 $ExplainedQuery = $EexplainQuery->fetch_assoc();
-                $this->addToLog('Explain: ' . $QueryRaw . "\n" . $this->printPreBasic($ExplainedQuery), 'explain');
+                $this->addToLog('Explain: ' . $queryRaw . "\n" . $this->printPreBasic($ExplainedQuery), 'explain');
             }
         }
 
