@@ -404,4 +404,21 @@ class EaseLogger extends EaseAtom
         }
     }
 
+    /**
+     * Vrací styl logování
+     *
+     * @param string $logType typ logu warning|info|success|error|notice|*
+     *
+     * @return string
+     */
+    public function getLogStyle($logType = 'notice')
+    {
+        if (key_exists($logType, $this->logStyles)) {
+            return $this->logStyles[$logType];
+        } else {
+            return '';
+        }
+    }
+    
+    
 }

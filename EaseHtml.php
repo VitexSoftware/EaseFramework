@@ -661,7 +661,7 @@ class EaseHtmlSimpleHeadTag extends EaseHtmlPairTag
     public function __construct($Contents = null, $Properties = null)
     {
         parent::__construct('head', $Properties, $Contents);
-        $this->addItem('<meta http-equiv="Content-Type" content="' . self::$ContentType . '; charset=' . $this->CharSet . '" />');
+        $this->addItem('<meta http-equiv="Content-Type" content="' . self::$ContentType . '; charset=' . $this->charSet . '" />');
     }
 
 }
@@ -715,7 +715,7 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
     public function __construct($Content = null)
     {
         parent::__construct('head', null, $Content);
-        $this->addItem('<meta http-equiv="Content-Type" content="text/html; charset=' . $this->CharSet . '" />');
+        $this->addItem('<meta http-equiv="Content-Type" content="text/html; charset=' . $this->charSet . '" />');
     }
 
     /**
@@ -836,8 +836,8 @@ class EaseHtmlATag extends EaseHtmlPairTag
      */
     public function afterAdd()
     {
-        if (isset($this->webPage->RequestValuesToKeep) && is_array($this->webPage->RequestValuesToKeep) && count($this->webPage->RequestValuesToKeep)) {
-            foreach ($this->webPage->RequestValuesToKeep as $KeepName => $KeepValue) {
+        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
+            foreach ($this->webPage->requestValuesToKeep as $KeepName => $KeepValue) {
                 if ($KeepValue == true) {
                     continue;
                 }

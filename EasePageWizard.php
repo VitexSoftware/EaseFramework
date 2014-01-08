@@ -117,9 +117,9 @@ class EasePageWizard extends EaseContainer
     public function jumpToNextStep()
     {
         $Params = array('StepRequested=' . $this->GetNextStepID());
-        $RequestValuesToKeep = EaseShared::webPage()->RequestValuesToKeep;
-        if (count($RequestValuesToKeep)) {
-            foreach ($RequestValuesToKeep as $RequestName => $Request) {
+        $requestValuesToKeep = EaseShared::webPage()->requestValuesToKeep;
+        if (count($requestValuesToKeep)) {
+            foreach ($requestValuesToKeep as $RequestName => $Request) {
                 if (true !== $Request) {
                     $Params[$RequestName] = $RequestName . '=' . $Request;
                 }
@@ -143,9 +143,9 @@ class EasePageWizard extends EaseContainer
         }
 
         $Params = array('StepRequested=' . $this->GetNextStepID());
-        $RequestValuesToKeep = EaseShared::webPage()->RequestValuesToKeep;
-        if (count($RequestValuesToKeep)) {
-            foreach ($RequestValuesToKeep as $RequestName => $Request) {
+        $requestValuesToKeep = EaseShared::webPage()->requestValuesToKeep;
+        if (count($requestValuesToKeep)) {
+            foreach ($requestValuesToKeep as $RequestName => $Request) {
                 if (true !== $Request) {
                     $Params[$RequestName] = $RequestName . '=' . $Request;
                 }
