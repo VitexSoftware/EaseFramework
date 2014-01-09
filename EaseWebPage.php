@@ -152,74 +152,74 @@ class EaseWebPage extends EasePage
     /**
      * Vloží javascript do stránky
      *
-     * @param string  $JavaScript      JS code
-     * @param string  $Position        končná pozice: '+','-','0','--',...
+     * @param string  $javaScript      JS code
+     * @param string  $position        končná pozice: '+','-','0','--',...
      * @param boolean $inDocumentReady vložit do DocumentReady bloku ?
      *
      * @return string
      */
-    public function addJavaScript($JavaScript, $Position = null, $inDocumentReady = false)
+    public function addJavaScript($javaScript, $position = null, $inDocumentReady = false)
     {
         if ($inDocumentReady) {
-            return $this->addToScriptsStack('$' . $JavaScript, $Position);
+            return $this->addToScriptsStack('$' . $javaScript, $position);
         }
 
-        return $this->addToScriptsStack('@' . $JavaScript, $Position);
+        return $this->addToScriptsStack('@' . $javaScript, $position);
     }
 
     /**
      * Vloží javascript do zasobniku skriptu stránky
      *
-     * @param string $Code     JS code
-     * @param string $Position končná pozice: '+','-','0','--',...
+     * @param string $code     JS code
+     * @param string $position končná pozice: '+','-','0','--',...
      *
      * @return int
      */
-    public function addToScriptsStack($Code, $Position = null)
+    public function addToScriptsStack($code, $position = null)
     {
         $javaScripts = &$this->easeShared->javaScripts;
-        if (is_null($Position)) {
+        if (is_null($position)) {
             if (is_array($javaScripts)) {
-                $ScriptFound = array_search($Code, $javaScripts);
-                if (!$ScriptFound && ($javaScripts[0]!=$Code)) {
-                    $javaScripts[] = $Code;
+                $scriptFound = array_search($code, $javaScripts);
+                if (!$scriptFound && ($javaScripts[0]!=$code)) {
+                    $javaScripts[] = $code;
 
                     return key($javaScripts);
                 } else {
-                    return $ScriptFound;
+                    return $scriptFound;
                 }
             } else {
-                $javaScripts[] = $Code;
+                $javaScripts[] = $code;
 
                 return 0;
             }
         } else { //Pozice urcena
-            if (isset($javaScripts[$Position])) { //Uz je obsazeno
-                if ($javaScripts[$Position] == $Code) {
-                    return $Position;
+            if (isset($javaScripts[$position])) { //Uz je obsazeno
+                if ($javaScripts[$position] == $code) {
+                    return $position;
                 }
 
-                $ScriptFound = array_search($Code, $javaScripts);
-                if ($ScriptFound) {
-                    unset($javaScripts[$ScriptFound]);
+                $scriptFound = array_search($code, $javaScripts);
+                if ($scriptFound) {
+                    unset($javaScripts[$scriptFound]);
                 }
 
-                $Backup = array_slice($javaScripts, $Position);
-                $javaScripts[$Position] = $Code;
-                $NextFreeID = $Position + 1;
-                foreach ($Backup as $Code) {
-                    $javaScripts[$NextFreeID++] = $Code;
+                $Backup = array_slice($javaScripts, $position);
+                $javaScripts[$position] = $code;
+                $NextFreeID = $position + 1;
+                foreach ($Backup as $code) {
+                    $javaScripts[$NextFreeID++] = $code;
                 }
 
-                return $Position;
+                return $position;
             } else { //Jeste je pozice volna
-                $javaScripts[] = $Code;
+                $javaScripts[] = $code;
 
                 return key($javaScripts);
             }
         }
 
-        return $Position;
+        return $position;
     }
 
     /**
@@ -239,18 +239,18 @@ class EaseWebPage extends EasePage
     /**
      * Vloží do stránky odkaz na CSS definici
      *
-     * @param string  $CssFile  url CSS souboru
-     * @param boolean $FWPrefix Přidat cestu frameworku ? (obvykle /Ease/)
+     * @param string  $cssFile  url CSS souboru
+     * @param boolean $fwPrefix Přidat cestu frameworku ? (obvykle /Ease/)
      * @param string  $media    screen|printer|braile a podobně
      *
      * @return boolean
      */
-    public function includeCss($CssFile, $FWPrefix = false, $media = 'screen')
+    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
     {
-        if ($FWPrefix) {
-            $this->easeShared->cascadeStyles[$this->cssPrefix . $CssFile] = $this->cssPrefix . $CssFile;
+        if ($fwPrefix) {
+            $this->easeShared->cascadeStyles[$this->cssPrefix . $cssFile] = $this->cssPrefix . $cssFile;
         } else {
-            $this->easeShared->cascadeStyles[$CssFile] = $CssFile;
+            $this->easeShared->cascadeStyles[$cssFile] = $cssFile;
         }
 
         return true;
@@ -259,11 +259,11 @@ class EaseWebPage extends EasePage
     /**
      * Vrací zprávy uživatele
      *
-     * @param string $What info|warning|error|success
+     * @param string $what info|warning|error|success
      *
      * @return string
      */
-    public function getStatusMessagesAsHtml($What = null)
+    public function getStatusMessagesAsHtml($what = null)
     {
         /**
          * Session Singleton Problem hack
@@ -273,47 +273,48 @@ class EaseWebPage extends EasePage
         if (!count($this->easeShared->statusMessages)) {
             return '';
         }
-        $HtmlFargment = '';
+        $htmlFargment = '';
 
-        $AllMessages = array();
-        foreach ($this->easeShared->statusMessages as $Quee => $Messages) {
-            foreach ($Messages as $MesgID => $Message) {
-                $AllMessages[$MesgID][$Quee] = $Message;
+        $allMessages = array();
+        foreach ($this->easeShared->statusMessages as $Quee => $messages) {
+            foreach ($messages as $mesgID => $message) {
+                $allMessages[$mesgID][$Quee] = $message;
             }
         }
-        ksort($AllMessages);
-        foreach ($AllMessages as $Message) {
-            $MessageType = key($Message);
+        ksort($allMessages);
+        foreach ($allMessages as $message) {
+            $messageType = key($message);
 
-            if (is_array($What)) {
-                if (!in_array($MessageType, $What)) {
+            if (is_array($what)) {
+                if (!in_array($messageType, $what)) {
                     continue;
                 }
             }
 
-            $Message = reset($Message);
+            $message = reset($message);
 
             if (is_object($this->logger)) {
-                if (!isset($this->logger->logStyles[$MessageType])) {
-                    $MessageType = 'notice';
+                if (!isset($this->logger->logStyles[$messageType])) {
+                    $messageType = 'notice';
                 }
-                $HtmlFargment .= '<div class="MessageForUser" style="' . $this->logger->logStyles[$MessageType] . '" >' . $Message . '</div>' . "\n";
+                $htmlFargment .= '<div class="MessageForUser" style="' . $this->logger->logStyles[$messageType] . '" >' . $message . '</div>' . "\n";
             } else {
-                $HtmlFargment .= '<div class="MessageForUser">' . $Message . '</div>' . "\n";
+                $htmlFargment .= '<div class="MessageForUser">' . $message . '</div>' . "\n";
             }
         }
 
-        return $HtmlFargment;
+        return $htmlFargment;
     }
 
     /**
      * Nastavi skin
-     *
-     * @param string $SkinName název skinu
+     * 
+     * @deprecated since version 190
+     * @param string $skinName název skinu
      */
-    public function setSkin($SkinName)
+    public function setSkin($skinName)
     {
-        $this->SkinName = $SkinName;
+        $this->SkinName = $skinName;
     }
 
     /**
@@ -331,9 +332,9 @@ class EaseWebPage extends EasePage
     public function finalizeRegistred()
     {
         do {
-            foreach ($this->easeShared->AllItems as $PartID => $Part) {
-                if (is_object($Part) && method_exists($Part, 'finalize')) {
-                    $Part->finalize();
+            foreach ($this->easeShared->AllItems as $PartID => $part) {
+                if (is_object($part) && method_exists($part, 'finalize')) {
+                    $part->finalize();
                 }
                 unset($this->easeShared->AllItems[$PartID]);
             }

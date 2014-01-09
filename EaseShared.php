@@ -226,21 +226,21 @@ class EaseShared extends EaseAtom
     /**
      * Vrací nebo registruje instanci webové stránky
      *
-     * @param  EaseWebPage $OPage objekt webstránky k zaregistrování
+     * @param  EaseWebPage $oPage objekt webstránky k zaregistrování
      * @return EaseWebPage
      */
-    static function &webPage($OPage = null)
+    static function &webPage($oPage = null)
     {
-        $Shard = EaseShared::instanced();
-        if (is_object($OPage)) {
-            $Shard->webPage = & $OPage;
+        $shared = EaseShared::instanced();
+        if (is_object($oPage)) {
+            $shared->webPage = & $oPage;
         }
-        if (!is_object($Shard->webPage)) {
+        if (!is_object($shared->webPage)) {
             require_once 'EaseWebPage.php';
             EaseShared::webPage(EaseWebPage::singleton());
         }
 
-        return $Shard->webPage;
+        return $shared->webPage;
     }
 
     /**

@@ -989,8 +989,8 @@ class EasePage extends EaseContainer
     public function setOutputFormat($outputFormat)
     {
         $this->OutputFormat = $outputFormat;
-        foreach ($this->pageParts as $Part) {
-            $this->raise($Part, array('OutputFormat'));
+        foreach ($this->pageParts as $part) {
+            $this->raise($part, array('OutputFormat'));
         }
     }
 
@@ -1018,8 +1018,8 @@ class EasePage extends EaseContainer
                 if (is_array($denyQues) && in_array($quee, $denyQues)) {
                     continue;
                 }
-                foreach ($messages as $MesgID => $message) {
-                    $allMessages[$MesgID][$quee] = $message;
+                foreach ($messages as $mesgID => $message) {
+                    $allMessages[$mesgID][$quee] = $message;
                 }
             }
             ksort($allMessages);
@@ -1037,10 +1037,10 @@ class EasePage extends EaseContainer
 
                 return $msgTaken;
             } else {
-                if (isset($msgSource->OPage) && isset($msgSource->OPage->statusMessages) && count($msgSource->OPage->statusMessages)) {
-                    $msgTaken = count($msgSource->OPage->statusMessages);
-                    $this->statusMessages = array_merge($this->statusMessages, $msgSource->OPage->statusMessages);
-                    $msgSource->OPage->statusMessages = array();
+                if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages) && count($msgSource->webPage->statusMessages)) {
+                    $msgTaken = count($msgSource->webPage->statusMessages);
+                    $this->statusMessages = array_merge($this->statusMessages, $msgSource->webPage->statusMessages);
+                    $msgSource->webPage->statusMessages = array();
 
                     return $msgTaken;
                 }

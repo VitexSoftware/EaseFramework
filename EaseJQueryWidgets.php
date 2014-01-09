@@ -92,15 +92,15 @@ class EaseJQuerySlider extends EaseJQueryUIPart
     public function setValues($data)
     {
         if (isset($this->partProperties['values'])) {
-            $NewValues = array();
+            $newValues = array();
             foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
                 if (isset($data[$ID])) {
                     $this->pageParts[$this->inputClass . '@' . $ID]->setValue($data[$ID]);
-                    $NewValues[$ID] = $data[$ID];
+                    $newValues[$ID] = $data[$ID];
                 }
             }
-            if (count($NewValues)) {
-                $this->setValue($NewValues);
+            if (count($newValues)) {
+                $this->setValue($newValues);
             }
         }
     }
@@ -122,16 +122,16 @@ class EaseJQuerySlider extends EaseJQueryUIPart
      */
     public function onDocumentReady()
     {
-        $JavaScript = '$("#' . $this->partName . '-slider").slider( { ' . $this->getPartPropertiesToString() . ' } );';
+        $javaScript = '$("#' . $this->partName . '-slider").slider( { ' . $this->getPartPropertiesToString() . ' } );';
         if (isset($this->partProperties['values'])) {
-            foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
-                $JavaScript .= "\n" . '$( "#' . $ID . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "values", ' . $Offset . ' ) );';
+            foreach (array_keys($this->partProperties['values']) as $offset => $ID) {
+                $javaScript .= "\n" . '$( "#' . $ID . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "values", ' . $offset . ' ) );';
             }
         } else {
-            $JavaScript .= "\n" . '$( "#' . $this->partName . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "value" ) );';
+            $javaScript .= "\n" . '$( "#' . $this->partName . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "value" ) );';
         }
 
-        return $JavaScript;
+        return $javaScript;
     }
 
     /**
@@ -964,39 +964,48 @@ class EaseLabeledSelect extends EaseLabeledInput
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @todo dodělat #IDčka ...
  */
-class EaseJQConfirmedLinkButton extends EaseContainer
+class EaseJQConfirmedLinkButton extends EaseJQueryLinkButton
 {
-
+    /**
+     *
+     * @var type 
+     */
+    private $id = null;
     /**
      * Link se vzhledem tlačítka a potvrzením odeslání
      *
      * @see http://jqueryui.com/demos/button/
      *
-     * @param string       $Href       cíl odkazu
-     * @param string       $Contents   obsah tlačítka
+     * @param string       $href       cíl odkazu
+     * @param string       $contents   obsah tlačítka
      * @param array|string $JQOptions  parametry pro $.button()
      * @param array        $Properties vlastnosti HTML tagu
      */
-    public function __construct($Href, $Contents)
+    public function __construct($href, $contents)
     {
-        $ID = $this->randomString();
-        parent::__construct(new EaseJQueryLinkButton('#', $Contents, null, array('id' => $ID . '-button')));
-        $ConfirmDialog = $this->addItem(new EaseJQueryDialog($ID . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $Contents . ' ?', 'ui-icon-alert'));
-        $Yes = _('Ano');
-        $No = _('Ne');
-        $ConfirmDialog->partProperties = array(
+        $this->id = $this->randomString();
+        parent::__construct('#', $contents, null, array('id' => $this->id  . '-button'));
+        $confirmDialog = $this->addItem(new EaseJQueryDialog($this->id  . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
+        $yes = _('Ano');
+        $no = _('Ne');
+        $confirmDialog->partProperties = array(
             'autoOpen' => false,
             'modal' => true,
             'show' => 'slide',
             'buttons' => array(
-                $Yes => 'function () { window.location.href = "' . $Href . '"; }',
-                $No => 'function () { $( this ).dialog( "close" ); }'
+                $yes => 'function () { window.location.href = "' . $href . '"; }',
+                $no => 'function () { $( this ).dialog( "close" ); }'
             )
         );
-        EaseShared::webPage()->addJavascript('$( "#' . $ID
-                . '-button" ).click( function () { $( "#' . $ID .
-                '-dialog" ).dialog( "open" ); } );
-', null, true);
+        EaseShared::webPage()->addJavascript('', 1000, true);
+    }
+    
+        /**
+     * Nastaveni javascriptu
+     */
+    public function onDocumentReady()
+    {
+        return '$("#' . $this->Name . '").button( {' . EaseJQueryPart::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id  . '-dialog" ).dialog( "open" ); } );';
     }
 
 }
