@@ -26,7 +26,7 @@ class EaseDbMySqli extends EaseSql
      * SQLLink result
      * @var mysqli_result
      */
-    public $Result = null;
+    public $result = null;
     public $status = false; //Pripojeno ?
     public $LastQuery = '';
     public $NumRows = 0;
@@ -95,7 +95,7 @@ class EaseDbMySqli extends EaseSql
             return FALSE;
         } else {
             if ($this->selectDB($this->Database)) {
-                $this->ErrorText = $this->SQLLink->error;
+                $this->errorText = $this->SQLLink->error;
                 parent::connect();
             } else {
                 return FALSE;
@@ -117,9 +117,9 @@ class EaseDbMySqli extends EaseSql
         if ($Change) {
             $this->Database = $DbName;
         } else {
-            $this->ErrorText = $this->SQLLink->error;
-            $this->ErrorNumber = $this->SQLLink->errno;
-            $this->addStatusMessage('Connect: error #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
+            $this->errorText = $this->SQLLink->error;
+            $this->errorNumber = $this->SQLLink->errno;
+            $this->addStatusMessage('Connect: error #' . $this->errorNumber . ' ' . $this->errorText, 'error');
             $this->logError();
         }
 
@@ -139,44 +139,44 @@ class EaseDbMySqli extends EaseSql
         $queryRaw = $this->sanitizeQuery($queryRaw);
         $this->LastQuery = $queryRaw;
         $this->LastInsertID = null;
-        $this->ErrorText = null;
-        $this->ErrorNumber = null;
+        $this->errorText = null;
+        $this->errorNumber = null;
         $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
         do {
-            $this->Result = $this->SQLLink->query($queryRaw);
-            $this->ErrorNumber = $this->SQLLink->errno;
-            $this->ErrorText = $this->SQLLink->error;
-            if (!$this->Result && !$ignoreErrors) {
+            $this->result = $this->SQLLink->query($queryRaw);
+            $this->errorNumber = $this->SQLLink->errno;
+            $this->errorText = $this->SQLLink->error;
+            if (!$this->result && !$ignoreErrors) {
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function'))
                         echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
-                    echo "\n$queryRaw\n\n#" . $this->ErrorNumber . ":" . $this->ErrorText;
+                    echo "\n$queryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
                 } else {
                     echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
                     if (function_exists('xdebug_print_function_stack')) {
                         xdebug_print_function_stack("Volano tridou <b>" . xdebug_call_class() . '</b> v souboru <b>' . xdebug_call_file() . ":" . xdebug_call_line() . "</b> funkci <b>" . xdebug_call_function() . '</b>');
                     }
-                    echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#" . $this->ErrorNumber . ":<strong>" . $this->ErrorText . '</strong></pre></br>';
+                    echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#" . $this->errorNumber . ":<strong>" . $this->errorText . '</strong></pre></br>';
                 }
                 $this->logError();
-                $this->error('ExeQuery: #' . $this->ErrorNumber . ': ' . $this->ErrorText . "\n" . $queryRaw);
-                if ($this->ErrorNumber == 2006) {
+                $this->error('ExeQuery: #' . $this->errorNumber . ': ' . $this->errorText . "\n" . $queryRaw);
+                if ($this->errorNumber == 2006) {
                     $this->reconnect();
                 } else {
                     return null;
                 }
             }
-        } while ($this->ErrorNumber == 2006); // 'MySQL server has gone away'
+        } while ($this->errorNumber == 2006); // 'MySQL server has gone away'
 
         switch ($sqlAction) {
             case 'select':
             case 'show':
-                if (!$this->ErrorText) {
-                    $this->NumRows = $this->Result->num_rows;
+                if (!$this->errorText) {
+                    $this->NumRows = $this->result->num_rows;
                 }
                 break;
             case 'insert':
-                if (!$this->ErrorText) {
+                if (!$this->errorText) {
                     $this->LastInsertID = $this->SQLLink->insert_id;
                 }
             case 'update':
@@ -196,7 +196,7 @@ class EaseDbMySqli extends EaseSql
             }
         }
 
-        return $this->Result;
+        return $this->result;
     }
 
     /**
@@ -212,16 +212,16 @@ class EaseDbMySqli extends EaseSql
         $resultArray = array();
         if ($this->exeQuery($queryRaw)) {
             if (is_string($keyColumnToIndex)) {
-                while ($DataRow = $this->Result->fetch_assoc()) {
+                while ($DataRow = $this->result->fetch_assoc()) {
                     $resultArray[$DataRow[$keyColumnToIndex]] = $DataRow;
                 }
             } else {
                 if (($keyColumnToIndex == true) && isset($this->myKeyColumn)) {
-                    while ($DataRow = $this->Result->fetch_assoc()) {
+                    while ($DataRow = $this->result->fetch_assoc()) {
                         $resultArray[$DataRow[$this->myKeyColumn]] = $DataRow;
                     }
                 } else {
-                    while ($DataRow = $this->Result->fetch_assoc()) {
+                    while ($DataRow = $this->result->fetch_assoc()) {
                         $resultArray[] = $DataRow;
                     }
                 }

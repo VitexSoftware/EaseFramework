@@ -460,22 +460,22 @@ class EaseBrick extends EaseSand
         if (!$dataPrefix) {
             $dataPrefix = $this->defaultDataPrefix;
         }
-        $MySQLResult = $this->getDataFromMySQL($itemID);
+        $mySQLResult = $this->getDataFromMySQL($itemID);
         if ($multiplete) {
             if ($dataPrefix) {
-                $this->data[$dataPrefix] = $MySQLResult;
+                $this->data[$dataPrefix] = $mySQLResult;
             } else {
-                $this->data = $MySQLResult;
+                $this->data = $mySQLResult;
             }
         } else {
-            if (count($MySQLResult) > 1) {
-                $this->error('Multipete Query result: ' . $QueryRaw);
+            if (count($mySQLResult) > 1) {
+                $this->error('Multipete Query result: ' . $this->myDbLink->getLastQuery());
             }
-            if (isset($MySQLResult[0])) {
+            if (isset($mySQLResult[0])) {
                 if ($dataPrefix) {
-                    $this->data[$dataPrefix] = $MySQLResult[0];
+                    $this->data[$dataPrefix] = $mySQLResult[0];
                 } else {
-                    $this->data = $MySQLResult[0];
+                    $this->data = $mySQLResult[0];
                 }
             } else {
                 return null;

@@ -228,21 +228,21 @@ class EaseDbMSSQL extends EaseSql
             $this->Result = mssql_query($QueryRaw, $this->SQLLink);
             $this->LastMessage = mssql_get_last_message();
             if (($this->LastMessage == 'The statement has been terminated.') || !$this->Result) {
-                $this->ErrorText = $this->LastMessage . ":\n" . $this->LastQuery;
+                $this->errorText = $this->LastMessage . ":\n" . $this->LastQuery;
 
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function'))
                         echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
-                    echo "\n$QueryRaw\n\n#" . $this->ErrorNumber . ":" . $this->ErrorText;
+                    echo "\n$QueryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
                 } else {
                     echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
                     if (function_exists('xdebug_print_function_stack')) {
                         xdebug_print_function_stack("Volano tridou " . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkci " . xdebug_call_function() . '');
                     }
-                    echo "<br clear=all>$QueryRaw\n\n<br clear=\"all\">#" . $this->ErrorNumber . ":<strong>" . $this->ErrorText . '</strong></pre></br>';
+                    echo "<br clear=all>$QueryRaw\n\n<br clear=\"all\">#" . $this->errorNumber . ":<strong>" . $this->errorText . '</strong></pre></br>';
                 }
                 $this->logError();
-                $this->error('ExeQuery: #' . $this->ErrorNumber . ': ' . $this->ErrorText . "\n" . $QueryRaw);
+                $this->error('ExeQuery: #' . $this->errorNumber . ': ' . $this->errorText . "\n" . $QueryRaw);
 
                 //ob_end_clean();
                 return false;

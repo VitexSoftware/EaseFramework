@@ -105,13 +105,13 @@ class EaseSQL extends EaseSand
      * Poslední Chybová zpráva obdržená od SQL serveru
      * @var string
      */
-    public $ErrorText = null;
+    public $errorText = null;
 
     /**
      * Kod SQL chyby
      * @var int
      */
-    public $ErrorNumber = null;
+    public $errorNumber = null;
 
     /**
      * Pole obsahující výsledky posledního SQL příkazu
@@ -242,7 +242,7 @@ class EaseSQL extends EaseSand
     public function makeReport()
     {
         $this->Report['LastMessage'] = $this->LastMessage;
-        $this->Report['ErrorText'] = $this->ErrorText;
+        $this->Report['ErrorText'] = $this->errorText;
         $this->Report['Database'] = $this->Database;
         $this->Report['Username'] = $this->Username;
         $this->Report['Server'] = $this->Server;
@@ -405,11 +405,11 @@ class EaseSQL extends EaseSand
      */
     public function getLastError()
     {
-        if ($this->ErrorText) {
-            if (isset($this->ErrorNumber)) {
-                return '#' . $this->ErrorNumber . ': ' . $this->ErrorText;
+        if ($this->errorText) {
+            if (isset($this->errorNumber)) {
+                return '#' . $this->errorNumber . ': ' . $this->errorText;
             } else {
-                return $this->ErrorText;
+                return $this->errorText;
             }
         } else {
             return null;
@@ -467,9 +467,9 @@ class EaseSQL extends EaseSand
             $Title = $Caller['function'];
         }
         if (isset($this->easeShared->User) && is_object($this->easeShared->User)) {
-            return $this->easeShared->User->addStatusMessage($Title . ': #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
+            return $this->easeShared->User->addStatusMessage($Title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
         } else {
-            return $this->addToLog($Title . ': #' . $this->ErrorNumber . ' ' . $this->ErrorText, 'error');
+            return $this->addToLog($Title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
         }
     }
 

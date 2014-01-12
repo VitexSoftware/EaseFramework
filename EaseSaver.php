@@ -75,7 +75,7 @@ class EaseSaver extends EaseBrick
         }
 
         $SaveResult = parent::InsertToMySQL($data);
-        if ($this->myDbLink->ErrorNumber == 1054) { //Column doesn't exist
+        if ($this->myDbLink->errorNumber == 1054) { //Column doesn't exist
             if ($this->createMissingColumns($data) > 0) {
                 $SaveResult = parent::InsertToMySQL($data);
             }
@@ -126,7 +126,7 @@ class EaseSaver extends EaseBrick
         if ($Result) {
             return $Result;
         }
-        if ($this->myDbLink->ErrorNumber == 1146) { //Table doesn't exist
+        if ($this->myDbLink->errorNumber == 1146) { //Table doesn't exist
             $this->createmyTable();
             $this->insertToMySQL();
 

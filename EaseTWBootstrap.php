@@ -345,8 +345,8 @@ class EaseTWBNavbar extends EaseHtmlDivTag
         $dropDownMenu = $dropDown->addItem(new EaseHtmlUlTag(null, array('class' => 'dropdown-menu')));
         if (is_array($items)) {
             foreach ($items as $target => $label) {
-                if(!$target){
-                    $dropDownMenu->addItem( new EaseHtmlLiTag(null, array('class'=>'divider')) );
+                if (!$target) {
+                    $dropDownMenu->addItem(new EaseHtmlLiTag(null, array('class' => 'divider')));
                 } else {
                     $dropDownMenu->addItemSmart(new EaseHtmlATag($target, $label));
                 }
@@ -564,6 +564,61 @@ class EaseTWGlyphIcon extends EaseHtmlSpanTag
     public function __construct($code)
     {
         parent::__construct(null, null, array('class' => 'glyphicon glyphicon-' . $code));
+    }
+
+}
+
+class EaseTWBButtonDropdown extends EaseHtmlDivTag
+{
+
+    /**
+     * Rozbalovací nabídka
+     * @var EaseHtmlUlTag 
+     */
+    public $dropdown = null;
+
+    /**
+     *
+     * @var type 
+     */
+    public $button = null;
+
+    /**
+     * Tlačítko s rozbalovacím menu
+     * 
+     * @param string $label popisek tlačítka
+     * @param string $type  primary|info|success|warning|danger|inverse|link
+     * @param string $size  lg = velký, sm = menší, xs = nejmenší
+     * @param array  $items položky menu
+     */
+    function __construct($label = null, $type = 'default', $size = null, $items = null)
+    {
+        parent::__construct();
+        $this->setTagClass('btn-group');
+        $btnClass = 'btn btn-' . $type . ' ';
+        if ($size) {
+            $btnClass .= 'btn-' . $size;
+        }
+        $this->button = $this->addItem(new EaseHtmlButtonTag(array($label . ' <span class="caret"></span>'), array('class' => $btnClass . ' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown')));
+
+        $this->dropdown = $this->addItem(new EaseHtmlUlTag(null, array('class' => 'dropdown-menu', 'role' => 'menu')));
+
+        if (count($items)) {
+            foreach ($items as $item) {
+                $this->addMenuItem($item);
+            }
+        }
+    }
+
+    /**
+     * Vloží položku do menu tlačítka
+     * 
+     * @param type $pageItem
+     * @return EaseHtmlLiTag
+     */
+    function addMenuItem($pageItem)
+    {
+        return $this->dropdown->addItemSmart($pageItem);
     }
 
 }
