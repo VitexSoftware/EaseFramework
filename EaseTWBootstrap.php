@@ -165,16 +165,25 @@ class EaseTWBLinkButton extends EaseHtmlATag
      * @param string $href       cíl odkazu
      * @param mixed  $contents   obsah tlačítka
      * @param string $type       primary|info|success|warning|danger|inverse|link
-     * @param array  $Properties dodatečné vlastnosti
+     * @param array  $properties dodatečné vlastnosti
      */
-    public function __construct($href, $contents = null, $type = null, $Properties = null)
+    public function __construct($href, $contents = null, $type = null, $properties = null)
     {
-        if (is_null($type)) {
-            $Properties['class'] = 'btn btn-default';
+        
+        if(isset($properties['class'])){
+            $class = ' '.$properties['class'];
         } else {
-            $Properties['class'] = 'btn btn-' . $type;
+            $class = '';
         }
-        parent::__construct($href, $contents, $Properties);
+        if (is_null($type)) {
+            $properties['class'] = 'btn btn-default';
+        } else {
+            $properties['class'] = 'btn btn-' . $type;
+        }
+        
+        $properties['class'] .= $class;
+        
+        parent::__construct($href, $contents, $properties);
         EaseTWBPart::twBootstrapize();
     }
 
