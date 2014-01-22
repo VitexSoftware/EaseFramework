@@ -81,18 +81,18 @@ class EaseHtmlInputTextTag extends EaseHtmlInputTag
      *
      * @param string $name       jméno
      * @param string $value      předvolená hodnota
-     * @param array  $Properties dodatečné vlastnosti tagu
+     * @param array  $properties dodatečné vlastnosti tagu
      */
-    public function __construct($name, $value = null, $Properties = null)
+    public function __construct($name, $value = null, $properties = null)
     {
-        $Properties['type'] = 'text';
+        $properties['type'] = 'text';
         if ($value) {
-            $Properties['value'] = $value;
+            $properties['value'] = $value;
         }
         if ($name) {
-            $Properties['name'] = $name;
+            $properties['name'] = $name;
         }
-        $this->setTagProperties($Properties);
+        $this->setTagProperties($properties);
         parent::__construct($name, $value);
     }
 
@@ -110,7 +110,7 @@ class EaseHtmlInputSearchTag extends EaseHtmlInputTag
      * URL zdroje dat pro hinter
      * @var string
      */
-    public $DataSourceURL = null;
+    public $dataSourceURL = null;
 
     /**
      * Zobrazí tag pro vyhledávací box
@@ -142,7 +142,7 @@ class EaseHtmlInputSearchTag extends EaseHtmlInputTag
      */
     public function setDataSource($DataSourceURL)
     {
-        $this->DataSourceURL = $DataSourceURL;
+        $this->dataSourceURL = $DataSourceURL;
     }
 
     /**
@@ -150,7 +150,7 @@ class EaseHtmlInputSearchTag extends EaseHtmlInputTag
      */
     public function finalize()
     {
-        if (!is_null($this->DataSourceURL)) {
+        if (!is_null($this->dataSourceURL)) {
             EaseJQueryUIPart::jQueryze($this);
 
             $this->addCSS('.ui-autocomplete-loading { background: white url(\'Ease/css/images/ui-anim_basic_16x16.gif\') right center no-repeat; }');
@@ -164,7 +164,7 @@ class EaseHtmlInputSearchTag extends EaseHtmlInputTag
     })
     .autocomplete({
             source: function (request, response) {
-                    $.getJSON( "' . $this->DataSourceURL . '", { term: request.term }, response );
+                    $.getJSON( "' . $this->dataSourceURL . '", { term: request.term }, response );
             },
             focus: function () {
                     // prevent value inserted on focus

@@ -5,7 +5,7 @@
  *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2014 Vitex@hippy.cz (G)
  */
 require_once 'EaseAtom.php';
 require_once 'EaseLogger.php';
@@ -1238,6 +1238,7 @@ class EaseSand extends EaseAtom
         if (is_object($this->logger)) {
             $this->logger->error($this->getObjectName(), $message, $objectData = null);
         }
+        $this->addStatusMessage($message,'error');
     }
 
     /**
