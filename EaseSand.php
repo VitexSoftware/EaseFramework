@@ -22,18 +22,6 @@ class EaseSand extends EaseAtom
 {
 
     /**
-     * ID jazyka - přebírá se z OSCommerce
-     * @var int
-     */
-    public $languages_id = 4;
-
-    /**
-     * Nazev jazyka
-     * @var string
-     */
-    public $language = null;
-
-    /**
      * Nazev jazyka
      * @var string
      */
@@ -364,27 +352,27 @@ class EaseSand extends EaseAtom
      * Načte $data do polí objektu
      *
      * @param array  $data       asociativní pole dat
-     * @param string $DataPrefix prefix skupiny dat (např. "MSSQL")
-     * @param bool   $Reset      vyprazdnit pole před naplněním ?
+     * @param string $dataPrefix prefix skupiny dat (např. "MSSQL")
+     * @param bool   $reset      vyprazdnit pole před naplněním ?
      *
      * @return int počet načtených položek
      */
-    public function setData($data, $DataPrefix = null, $Reset = false)
+    public function setData($data, $dataPrefix = null, $reset = false)
     {
         if (is_null($data) || !count($data)) {
             return null;
         }
-        if (!$DataPrefix) {
-            $DataPrefix = $this->defaultDataPrefix;
+        if (!$dataPrefix) {
+            $dataPrefix = $this->defaultDataPrefix;
         }
-        if ($Reset) {
-            $this->dataReset($DataPrefix);
+        if ($reset) {
+            $this->dataReset($dataPrefix);
         }
-        if ($DataPrefix) {
-            if (isset($this->data[$DataPrefix]) && is_array($this->data[$DataPrefix])) {
-                $this->data[$DataPrefix] = array_merge($this->data[$DataPrefix], $data);
+        if ($dataPrefix) {
+            if (isset($this->data[$dataPrefix]) && is_array($this->data[$dataPrefix])) {
+                $this->data[$dataPrefix] = array_merge($this->data[$dataPrefix], $data);
             } else {
-                $this->data[$DataPrefix] = $data;
+                $this->data[$dataPrefix] = $data;
             }
         } else {
             if (is_array($this->data)) {
@@ -400,18 +388,18 @@ class EaseSand extends EaseAtom
     /**
      * Vrací celé pole dat objektu
      *
-     * @param string $DataPrefix
+     * @param string $dataPrefix
      *
      * @return array
      */
-    public function getData($DataPrefix = null)
+    public function getData($dataPrefix = null)
     {
-        if (is_null($DataPrefix)) {
-            $DataPrefix = $this->defaultDataPrefix;
+        if (is_null($dataPrefix)) {
+            $dataPrefix = $this->defaultDataPrefix;
         }
-        if ($DataPrefix) {
-            if (isset($this->data[$DataPrefix])) {
-                return $this->data[$DataPrefix];
+        if ($dataPrefix) {
+            if (isset($this->data[$dataPrefix])) {
+                return $this->data[$dataPrefix];
             }
 
             return null;
@@ -423,18 +411,18 @@ class EaseSand extends EaseAtom
     /**
      * Vrací počet položek dat objektu
      *
-     * @param string $DataPrefix
+     * @param string $dataPrefix
      *
      * @return int
      */
-    public function getDataCount($DataPrefix = null)
+    public function getDataCount($dataPrefix = null)
     {
-        $Counter = 0;
-        if (!$DataPrefix) {
-            $DataPrefix = $this->defaultDataPrefix;
+        $counter = 0;
+        if (!$dataPrefix) {
+            $dataPrefix = $this->defaultDataPrefix;
         }
-        if ($DataPrefix) {
-            return count($this->data[$DataPrefix]);
+        if ($dataPrefix) {
+            return count($this->data[$dataPrefix]);
         } else {
             return count($this->data);
         }
@@ -551,30 +539,30 @@ class EaseSand extends EaseAtom
     /**
      * Funkce pro defaultní slashování v celém frameworku
      *
-     * @param string $Text
+     * @param string $text
      *
      * @return string
      */
-    public function easeAddSlashes($Text)
+    public function easeAddSlashes($text)
     {
-        return addSlashes($Text);
+        return addSlashes($text);
     }
 
     /**
      * Zobrazí obsah pole nebo objektu
      *
      * @param mixed  $argument All used by print_r() function
-     * @param string $Comment  hint při najetí myší
+     * @param string $comment  hint při najetí myší
      */
-    public function printPre($argument, $Comment = '')
+    public function printPre($argument, $comment = '')
     {
         $retVal = '';
         $itemsCount = 0;
         if (is_object($argument)) {
             $itemsCount = count($argument);
-            $Comment = gettype($argument) . ': ' . get_class($argument) . ': ' . $Comment;
+            $comment = gettype($argument) . ': ' . get_class($argument) . ': ' . $comment;
         } else {
-            $Comment = gettype($argument) . ': ' . $Comment;
+            $comment = gettype($argument) . ': ' . $comment;
 
             if (is_array($argument)) {
                 $itemsCount = count($argument);
@@ -582,13 +570,13 @@ class EaseSand extends EaseAtom
         }
 
         if ($itemsCount) {
-            $Comment .= " ($itemsCount)";
+            $comment .= " ($itemsCount)";
         }
 
         if ($this->easeShared->runType == 'web') {
-            $retVal .= '<pre class="debug" style="overflow: scroll; border: solid 1px green;  color: white; background-color: black;" title="' . $Comment . '">';
+            $retVal .= '<pre class="debug" style="overflow: scroll; border: solid 1px green;  color: white; background-color: black;" title="' . $comment . '">';
         } else {
-            $retVal .= "\n########### $Comment ###########\n";
+            $retVal .= "\n########### $comment ###########\n";
         }
 
         $retVal .= $this->PrintPreBasic($argument);
@@ -635,7 +623,7 @@ class EaseSand extends EaseAtom
      */
     public static function rip($text)
     {
-        $ConvertTable = Array(
+        $convertTable = Array(
             'ä' => 'a',
             'Ä' => 'A',
             'á' => 'a',
@@ -722,7 +710,7 @@ class EaseSand extends EaseAtom
             'Ź' => 'Z'
         );
 
-        return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $ConvertTable));
+        return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
     }
 
     /**
@@ -739,13 +727,13 @@ class EaseSand extends EaseAtom
         $encryptKey = md5($encryptKey);
         $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
         $encryptKey = substr($encryptKey, 0, mcrypt_enc_get_key_size($encryptHandle));
-        $InitialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $InitialVector = mcrypt_create_iv($InitialVectorSize, MCRYPT_RAND);
-        if (mcrypt_generic_init($encryptHandle, $encryptKey, $InitialVector) != - 1) {
+        $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
+        $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
+        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
             $encryptedText = mcrypt_generic($encryptHandle, $TextToEncrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
-            $encryptedText = $InitialVector . $encryptedText;
+            $encryptedText = $initialVector . $encryptedText;
 
             return $encryptedText;
         }
@@ -754,23 +742,23 @@ class EaseSand extends EaseAtom
     /**
      * Dešifrování
      *
-     * @param string $TextToDecrypt šifrovaný text
-     * @param string $EncryptKey    šifrovací klíč
+     * @param string $textToDecrypt šifrovaný text
+     * @param string $encryptKey    šifrovací klíč
      *
      * @return string
      */
-    public static function easeDecrypt(string $TextToDecrypt, $EncryptKey)
+    public static function easeDecrypt(string $textToDercypt, $encryptKey)
     {
-        $EncryptKey = md5($EncryptKey);
-        $EncryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $EncryptKey = substr($EncryptKey, 0, mcrypt_enc_get_key_size($EncryptHandle));
-        $InitialVectorSize = mcrypt_enc_get_iv_size($EncryptHandle);
-        $InitialVector = substr($TextToDecrypt, 0, $InitialVectorSize);
-        $TextToDecrypt = substr($TextToDecrypt, $InitialVectorSize);
-        if (mcrypt_generic_init($EncryptHandle, $EncryptKey, $InitialVector) != - 1) {
-            $DecryptedText = mdecrypt_generic($EncryptHandle, $TextToDecrypt);
-            mcrypt_generic_deinit($EncryptHandle);
-            mcrypt_module_close($EncryptHandle);
+        $encryptKey = md5($encryptKey);
+        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey = substr($encryptKey, 0, mcrypt_enc_get_key_size($encryptHandle));
+        $InitialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
+        $initialVector = substr($textToDecrypt, 0, $InitialVectorSize);
+        $textToDecrypt = substr($textToDecrypt, $InitialVectorSize);
+        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
+            $DecryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
+            mcrypt_generic_deinit($encryptHandle);
+            mcrypt_module_close($encryptHandle);
 
             return $DecryptedText;
         }
@@ -1021,6 +1009,7 @@ class EaseSand extends EaseAtom
         if ($partLength > 64)
             return false; // Local part must be 64 characters or less
 
+            
 // Now let's check the domain part...
 // The domain name can also be replaced by an IP address in square brackets
 // 	(http://tools.ietf.org/html/rfc3696#section-3)
@@ -1179,6 +1168,7 @@ class EaseSand extends EaseAtom
             if (preg_match('/^[0-9]+$/', $element) > 0)
                 return false; // TLD can't be all-numeric
 
+                
 // Check DNS?
             if ($checkDNS && function_exists('checkdnsrr')) {
                 if (!(checkdnsrr($domain, 'A') || checkdnsrr($domain, 'MX') )) {
@@ -1267,14 +1257,14 @@ class EaseSand extends EaseAtom
      */
     public function __sleep()
     {
-        $ObjectVars = array_keys(get_object_vars($this));
+        $objectVars = array_keys(get_object_vars($this));
         if (@method_exists(parent, '__sleep')) {
-            $ParentObjectVars = parent::__sleep();
-            array_push($ObjectVars, $ParentObjectVars);
+            $parentObjectVars = parent::__sleep();
+            array_push($objectVars, $parentObjectVars);
         }
         $this->saveObjectIdentity();
 
-        return $ObjectVars;
+        return $objectVars;
     }
 
     /**

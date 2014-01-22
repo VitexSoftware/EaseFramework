@@ -387,6 +387,23 @@ class EaseTWBForm extends EaseHtmlForm
         $controlGroup->addItem(new EaseHtmlLabelTag($input->getTagID(), $caption, array('class' => 'control-label')));
         $controls = $controlGroup->addItem(new EaseHtmlDivTag('null', $input, array('class' => 'controls')));
     }
+    /**
+     * Vloží další element do formuláře a upraví mu css
+     *
+     * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
+     * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
+     *
+     * @return pointer Odkaz na vložený objekt
+     */
+    function &addItem($pageItem,$pageItemName = null)
+    {
+        if (is_object($pageItem) && method_exists($pageItem, 'setTagClass')) {
+            if (strtolower($pageItem->tagType) == 'select') {
+                $pageItem->setTagClass(trim(  str_replace('form_control','',$pageItem->getTagClass().' form-control')));
+            }
+        }
+        return parent::addItem($pageItem, $pageItemName);
+    }
 
 }
 

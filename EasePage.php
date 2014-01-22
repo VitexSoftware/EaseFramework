@@ -113,7 +113,11 @@ class EaseContainer extends EaseBrick
                 $this->pageParts[$pageItemName] = $pageItem;
                 $this->pageParts[$pageItemName]->parentObject = & $this;
 
-                if (isset($this->pageParts[$pageItemName]->raiseItems) && is_array($this->pageParts[$pageItemName]->raiseItems) && count($this->pageParts[$pageItemName]->raiseItems)) {
+                if (
+                        isset($this->pageParts[$pageItemName]->raiseItems) &&
+                        is_array($this->pageParts[$pageItemName]->raiseItems) &&
+                        count($this->pageParts[$pageItemName]->raiseItems)
+                        ) {
                     $this->raise($this->pageParts[$pageItemName]);
                 }
                 if (method_exists($this->pageParts[$pageItemName], 'AfterAdd')) {
@@ -744,13 +748,13 @@ class EasePage extends EaseContainer
      * Ošetří proměnou podle jejího očekávaného typu
      *
      * @param mixed  $value      hodnota
-     * @param string $SanitizeAs typ hodnoty int|string|float|null
+     * @param string $sanitizeAs typ hodnoty int|string|float|null
      *
      * @return mixed
      */
-    public static function sanitizeAsType($value, $SanitizeAs)
+    public static function sanitizeAsType($value, $sanitizeAs)
     {
-        switch ($SanitizeAs) {
+        switch ($sanitizeAs) {
             case 'string':
                 return (string) $value;
                 break;

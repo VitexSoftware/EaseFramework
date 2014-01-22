@@ -887,13 +887,29 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
     /**
      * Vytvori UL container
      *
-     * @param mixed $UlContents položky seznamu
-     * @param array $Properties parametry tagu
+     * @param mixed $ulContents položky seznamu
+     * @param array $properties parametry tagu
      */
-    public function __construct($UlContents = null, $Properties = null)
+    public function __construct($ulContents = null, $properties = null)
     {
-        parent::__construct('ul', $Properties, $UlContents);
+        parent::__construct('ul', $properties, $ulContents);
     }
+
+    /**
+     * Vloží pole elementů
+     *
+     * @param array $itemsArray pole hodnot nebo EaseObjektů s metodou draw()
+     */
+    public function addItems($itemsArray)
+    {
+        $itemsAdded = array();
+        foreach ($itemsArray as $item) {
+            $itemsAdded[] = $this->addItemSmart($item);
+        }
+
+        return $itemsAdded;
+    }
+
 
     /**
      * Every item id added in EaseHtmlLiTag envelope

@@ -1121,9 +1121,9 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             } else {
                 $data = $this->getData();
             }
-            $UseInObject = true;
+            $useInObject = true;
         } else {
-            $UseInObject = false;
+            $useInObject = false;
         }
 
         if (!count($data)) {
@@ -1154,7 +1154,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
 
         $queryRaw = "UPDATE `" . $this->myTable . "` SET " . $this->myDbLink->arrayToQuery($data) . "  WHERE `" . $this->myKeyColumn . "` = " . $key;
         if ($this->myDbLink->exeQuery($queryRaw)) {
-            if ($UseInObject) {
+            if ($useInObject) {
                 if (array_key_exists($defDatPref, $this->data)) {
                     return $this->data[$defDatPref][$this->myKeyColumn];
                 } else {

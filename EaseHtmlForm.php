@@ -200,13 +200,13 @@ class EaseHtmlInputHiddenTag extends EaseHtmlInputTag
      *
      * @param string $name       jméno tagu
      * @param string $value      vracená hodnota
-     * @param array  $Properties vlastnosti tagu
+     * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $value = null, $Properties = null)
+    public function __construct($name, $value = null, $properties = null)
     {
         parent::__construct($name, $value);
-        $Properties['type'] = 'hidden';
-        $this->setTagProperties($Properties);
+        $properties['type'] = 'hidden';
+        $this->setTagProperties($properties);
     }
 
 }
