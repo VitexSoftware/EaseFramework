@@ -572,7 +572,7 @@ class EaseBrick extends EaseSand
 
             return;
         }
-        $this->myDbLink->KeyColumn = $this->myKeyColumn;
+        $this->myDbLink->keyColumn = $this->myKeyColumn;
         $this->myDbLink->TableName = $this->myTable;
         $this->myDbLink->CreateColumn = $this->myCreateColumn;
         $this->myDbLink->LastModifiedColumn = $this->myLastModifiedColumn;

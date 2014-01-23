@@ -61,7 +61,7 @@ class EaseAnonym extends EaseBrick
      * Indikátor přihlášení
      * @var boolean
      */
-    public $Logged = false;
+    public $logged = false;
 
     /**
      * Nastavení jména objektu uživatele
@@ -128,7 +128,7 @@ class EaseAnonym extends EaseBrick
      */
     public function isLogged()
     {
-        return $this->Logged;
+        return $this->logged;
     }
 
     /**

@@ -31,7 +31,7 @@ class EaseDbMySqli extends EaseSql
     public $LastQuery = '';
     public $NumRows = 0;
     public $Debug = false;
-    public $KeyColumn = '';
+    public $keyColumn = '';
     public $data = null;
     public $Charset = 'utf8';
     public $Collate = 'utf8_czech_ci';
@@ -212,17 +212,17 @@ class EaseDbMySqli extends EaseSql
         $resultArray = array();
         if ($this->exeQuery($queryRaw)) {
             if (is_string($keyColumnToIndex)) {
-                while ($DataRow = $this->result->fetch_assoc()) {
-                    $resultArray[$DataRow[$keyColumnToIndex]] = $DataRow;
+                while ($dataRow = $this->result->fetch_assoc()) {
+                    $resultArray[$dataRow[$keyColumnToIndex]] = $dataRow;
                 }
             } else {
                 if (($keyColumnToIndex == true) && isset($this->myKeyColumn)) {
-                    while ($DataRow = $this->result->fetch_assoc()) {
-                        $resultArray[$DataRow[$this->myKeyColumn]] = $DataRow;
+                    while ($dataRow = $this->result->fetch_assoc()) {
+                        $resultArray[$dataRow[$this->myKeyColumn]] = $dataRow;
                     }
                 } else {
-                    while ($DataRow = $this->result->fetch_assoc()) {
-                        $resultArray[] = $DataRow;
+                    while ($dataRow = $this->result->fetch_assoc()) {
+                        $resultArray[] = $dataRow;
                     }
                 }
             }
@@ -258,11 +258,11 @@ class EaseDbMySqli extends EaseSql
     public function arrayToUpdate($data, $KeyID = null)
     {
         if (!$KeyID) {
-            $IDCol = $data[$this->KeyColumn];
+            $IDCol = $data[$this->keyColumn];
         }
-        unset($data[$this->KeyColumn]);
+        unset($data[$this->keyColumn]);
 
-        return $this->exeQuery('UPDATE ' . $this->TableName . ' SET ' . $this->arrayToQuery($data) . ' WHERE ' . $this->KeyColumn . '=' . $IDCol);
+        return $this->exeQuery('UPDATE ' . $this->TableName . ' SET ' . $this->arrayToQuery($data) . ' WHERE ' . $this->keyColumn . '=' . $IDCol);
     }
 
     /**
@@ -281,7 +281,7 @@ class EaseDbMySqli extends EaseSql
             if (!strlen($Column)) {
                 continue;
             }
-            if (($Column == $this->KeyColumn) && $Key) {
+            if (($Column == $this->keyColumn) && $Key) {
                 continue;
             }
             switch (gettype($value)) {
@@ -330,17 +330,19 @@ class EaseDbMySqli extends EaseSql
      */
     public function prepSelect($data, $ldiv = 'AND')
     {
-        $Conditions = array();
-        $Conditions2 = array();
+        $operator = null;
+        $conditions = array();
+        $conditionsII = array();
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
-                $Conditions2[] = $value;
+                $conditionsII[] = $value;
                 continue;
             }
-            if (($column == $this->KeyColumn) && ($this->KeyColumn == ''))
+            if (($column == $this->keyColumn) && ($this->keyColumn == '')) {
                 continue;
+            }
             if (is_string($value) && (($value == '!=""') || ($value == "!=''"))) {
-                $Conditions[] = " `$column` !='' ";
+                $conditions[] = " `$column` !='' ";
                 continue;
             }
 
@@ -352,7 +354,12 @@ class EaseDbMySqli extends EaseSql
                     $operator = ' != ';
                     $value = substr($value, 1);
                 } else {
-                    $operator = ' = ';
+                    if (($value == '!NULL') || (strtoupper($value) == 'IS NOT NULL')) {
+                        $value = 'null';
+                        $operator = 'IS NOT';
+                    } else {
+                        $operator = ' = ';
+                    }
                 }
                 if (is_bool($value)) {
                     if ($value === null) {
@@ -368,20 +375,24 @@ class EaseDbMySqli extends EaseSql
                     if (strtoupper($value) == 'NOW()') {
                         $value = " 'NOW()'";
                     } else {
-                        $value = " '" . addslashes($value) . "'";
+                        if ($value != 'null') {
+                            $value = " '" . addslashes($value) . "'";
+                        }
                     }
                     if ($operator == ' != ') {
                         $operator = ' NOT LIKE ';
                     } else {
-                        $operator = ' LIKE ';
+                        if(is_null($operator)){
+                            $operator = ' LIKE ';
+                        }
                     }
                 }
             }
 
-            $Conditions[] = " `$column` $operator $value ";
+            $conditions[] = " `$column` $operator $value ";
         }
 
-        return trim(implode($ldiv, $Conditions) . ' ' . implode(' ', $Conditions2));
+        return trim(implode($ldiv, $conditions) . ' ' . implode(' ', $conditionsII));
     }
 
     /**
@@ -411,7 +422,7 @@ class EaseDbMySqli extends EaseSql
      */
     public function tableExist($TableName = null)
     {
-        if (!parent::tableExist($TableName)){
+        if (!parent::tableExist($TableName)) {
             return null;
         }
         $this->exeQuery("SHOW TABLES LIKE '" . $TableName . "'");
@@ -702,11 +713,12 @@ class EaseDbMySqli extends EaseSql
  */
 class EaseDbMySql extends EaseDbMySqli
 {
-
+    
 }
 
 class EaseDbAnsiMySQL extends EaseDbMySql
 {
+
     /**
      * Nastavení vlastností přípojení
      * @var array
