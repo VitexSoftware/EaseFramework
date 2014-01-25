@@ -352,29 +352,27 @@ class EaseUser extends EaseAnonym
     /**
      * Změní uživateli uložené heslo
      *
-     * @param string $NewPassword nové heslo
-     * @param int    $UserID      id uživatele
+     * @param string $newPassword nové heslo
+     * @param int    $userID      id uživatele
      *
      * @return string password hash
      */
-    public function passwordChange($NewPassword, $UserID = null)
+    public function passwordChange($newPassword, $userID = null)
     {
-        if (!$UserID) {
-            $UserID = $this->getUserID();
+        if (!$userID) {
+            $userID = $this->getUserID();
         }
-        if (!$UserID) {
-            $this->error('PasswordChange: UserID unset');
-
+        if (!$userID) {
             return null;
         }
-        $Hash = $this->encryptPassword($NewPassword);
-        $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->passwordColumn . '=\'' . $Hash . '\' WHERE ' . $this->myKeyColumn . '=' . $UserID);
-        $this->addToLog('PasswordChange: ' . $this->getDataValue($this->loginColumn) . '@' . $UserID . '#' . $this->getDataValue($this->MyIDSColumn) . ' ' . $Hash);
-        if ($UserID == $this->getUserID()) {
-            $this->data[$this->passwordColumn] = $Hash;
+        $hash = $this->encryptPassword($newPassword);
+        $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->passwordColumn . '=\'' . $hash . '\' WHERE ' . $this->myKeyColumn . '=' . $userID);
+        $this->addToLog('PasswordChange: ' . $this->getDataValue($this->loginColumn) . '@' . $userID . '#' . $this->getDataValue($this->MyIDSColumn) . ' ' . $hash);
+        if ($userID == $this->getUserID()) {
+            $this->setDataValue($this->passwordColumn, $hash);
         }
 
-        return $Hash;
+        return $hash;
     }
 
     /**
