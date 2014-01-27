@@ -271,7 +271,7 @@ class EaseUser extends EaseAnonym
         $this->userID = (int) $this->getMyKey();
         $this->userLogin = $this->getDataValue($this->loginColumn);
         $this->logged = true;
-        $this->addStatusMessage( sprintf( _('Přihlášení %s proběhlo bez problémů'),  $this->userLogin), 'success');
+        $this->addStatusMessage(sprintf(_('Přihlášení %s proběhlo bez problémů'), $this->userLogin), 'success');
 
         return true;
     }
@@ -389,14 +389,12 @@ class EaseUser extends EaseAnonym
         }
         if (!function_exists('crack_opendict')) {
             $this->error('PECL Crack is not installed');
-
             return true;
         }
         $Dictonary = crack_opendict('/usr/share/dict/cracklib-words');
         $check = crack_check($Dictonary, $Password);
         $this->addStatusMessage(crack_getlastmessage());
         crack_closedict($Dictonary);
-
         return $check;
     }
 
@@ -497,11 +495,11 @@ class EaseUser extends EaseAnonym
      * Nastaví položku nastavení
      *
      * @param string $settingName  klíčové slovo pro nastavení
-     * @param mixed  $SettingValue hodnota nastavení
+     * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $SettingValue)
+    public function setSettingValue($settingName, $settingValue)
     {
-        $this->settings[$settingName] = $SettingValue;
+        $this->settings[$settingName] = $settingValue;
     }
 
     /**
@@ -550,15 +548,19 @@ class EaseUser extends EaseAnonym
     }
 
     /**
-     * Načte z MySQL data k aktuálnímu $ItemID a případně aplikuje nastavení
+     * Načte z MySQL data k aktuálnímu $ItemID a případně aplikuje 
+     * nastavení
      *
      * @param int     $itemID     id záznamu k načtení
      * @param string  $dataPrefix prefix pro rozlišení sady dat
-     * @param boolean $multiplete nevarovat v případě vícenásobného výsledku
+     * @param boolean $multiplete nevarovat v případě vícenásobného 
+     *                            výsledku
      *
      * @return array Results
      */
-    public function loadFromMySQL($itemID = null, $dataPrefix = null, $multiplete = false)
+    public function loadFromMySQL(
+    $itemID = null, $dataPrefix = null, $multiplete = false
+    )
     {
         $result = parent::loadFromMySQL($itemID, $dataPrefix, $multiplete);
         if (!is_null($this->settingsColumn) && !is_null($result)) {
@@ -569,7 +571,8 @@ class EaseUser extends EaseAnonym
     }
 
     /**
-     * Get either a Gravatar URL or complete image tag for a specified email address.
+     * Get either a Gravatar URL or complete image tag for a specified email 
+     * address.
      *
      * @param string $email     The email address
      * @param string $size      Size in pixels, defaults to 80px [ 1 - 512 ]
@@ -580,7 +583,9 @@ class EaseUser extends EaseAnonym
      *
      * @source http://gravatar.com/site/implement/images/php/
      */
-    public static function getGravatar($email, $size = 80, $default = 'mm', $maxRating = 'g')
+    public static function getGravatar(
+    $email, $size = 80, $default = 'mm', $maxRating = 'g'
+    )
     {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
@@ -592,7 +597,8 @@ class EaseUser extends EaseAnonym
 }
 
 /**
- * Objekt zákazníka umí navíce od běžného uživatele, počítaní cen, nákupní košík
+ * Objekt zákazníka umí navíce od běžného uživatele, počítaní cen, 
+ * nákupní košík
  * a obchodní skupiny 
  *
  * @todo přesunout do EaseShop
@@ -601,6 +607,7 @@ class EaseUser extends EaseAnonym
  */
 class EaseCustomer extends EaseUser
 {
+
     /**
      * Pracujem s tabulkou user
      * @var string
@@ -612,6 +619,7 @@ class EaseCustomer extends EaseUser
      * @var type
      */
     public $customerDelivAddr = null;
+
     /**
      * Měna uživatele
      *

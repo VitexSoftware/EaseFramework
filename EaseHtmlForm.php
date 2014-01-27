@@ -298,7 +298,7 @@ class EaseInputContainer extends EaseContainer
      * Default value
      * @var mixed
      */
-    public $Checked = null;
+    public $checked = null;
 
     /**
      * ClassName
@@ -327,7 +327,7 @@ class EaseInputContainer extends EaseContainer
      */
     public function setValue($value)
     {
-        $this->Checked = $value;
+        $this->checked = $value;
     }
 
     /**
@@ -339,7 +339,7 @@ class EaseInputContainer extends EaseContainer
      */
     public function getValue($value)
     {
-        return $this->Checked;
+        return $this->checked;
     }
 
     /**
@@ -359,7 +359,7 @@ class EaseInputContainer extends EaseContainer
     {
         $ItemID = 1;
         foreach ($this->items as $value => $Caption) {
-            if ($this->Checked == $value) {
+            if ($this->checked == $value) {
                 $this->addItem(new $this->itemClass($this->Name, $value, array('checked')));
             } else {
                 $this->addItem(new $this->itemClass($this->Name, $value));
@@ -575,27 +575,27 @@ class EaseHtmlCheckboxTag extends EaseHtmlInputTag
      * Zobrazuje HTML Checkbox
      *
      * @param string $name       jméno tagu
-     * @param bool   $Checked    stav checkboxu
+     * @param bool   $checked    stav checkboxu
      * @param string $value      vracená hodnota checkboxu
-     * @param array  $Properties parametry tagu
+     * @param array  $properties parametry tagu
      */
-    public function __construct($name, $Checked = false, $value = null, $Properties = null)
+    public function __construct($name, $checked = false, $value = null, $properties = null)
     {
-        if ($Properties) {
-            $Properties['type'] = 'checkbox';
+        if ($properties) {
+            $properties['type'] = 'checkbox';
         } else {
-            $Properties = array('type' => 'checkbox');
+            $properties = array('type' => 'checkbox');
         }
-        if ($Checked) {
-            $Properties['checked'] = 'true';
+        if ($checked) {
+            $properties['checked'] = 'true';
         }
         if ($value) {
-            $Properties['value'] = $value;
+            $properties['value'] = $value;
         }
         if ($name != '') {
-            $Properties['name'] = $name;
+            $properties['name'] = $name;
         }
-        $this->setTagProperties($Properties);
+        $this->setTagProperties($properties);
         parent::__construct($name);
     }
 

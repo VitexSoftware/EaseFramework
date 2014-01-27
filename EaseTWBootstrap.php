@@ -169,9 +169,9 @@ class EaseTWBLinkButton extends EaseHtmlATag
      */
     public function __construct($href, $contents = null, $type = null, $properties = null)
     {
-        
-        if(isset($properties['class'])){
-            $class = ' '.$properties['class'];
+
+        if (isset($properties['class'])) {
+            $class = ' ' . $properties['class'];
         } else {
             $class = '';
         }
@@ -180,9 +180,9 @@ class EaseTWBLinkButton extends EaseHtmlATag
         } else {
             $properties['class'] = 'btn btn-' . $type;
         }
-        
+
         $properties['class'] .= $class;
-        
+
         parent::__construct($href, $contents, $properties);
         EaseTWBPart::twBootstrapize();
     }
@@ -396,6 +396,7 @@ class EaseTWBForm extends EaseHtmlForm
         $controlGroup->addItem(new EaseHtmlLabelTag($input->getTagID(), $caption, array('class' => 'control-label')));
         $controls = $controlGroup->addItem(new EaseHtmlDivTag('null', $input, array('class' => 'controls')));
     }
+
     /**
      * Vloží další element do formuláře a upraví mu css
      *
@@ -404,11 +405,11 @@ class EaseTWBForm extends EaseHtmlForm
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem,$pageItemName = null)
+    function &addItem($pageItem, $pageItemName = null)
     {
         if (is_object($pageItem) && method_exists($pageItem, 'setTagClass')) {
             if (strtolower($pageItem->tagType) == 'select') {
-                $pageItem->setTagClass(trim(  str_replace('form_control','',$pageItem->getTagClass().' form-control')));
+                $pageItem->setTagClass(trim(str_replace('form_control', '', $pageItem->getTagClass() . ' form-control')));
             }
         }
         return parent::addItem($pageItem, $pageItemName);
@@ -645,6 +646,95 @@ class EaseTWBButtonDropdown extends EaseHtmlDivTag
     function addMenuItem($pageItem)
     {
         return $this->dropdown->addItemSmart($pageItem);
+    }
+
+}
+
+class EaseTWBCheckBoxGroup extends EaseContainer
+{
+
+    function __construct($param)
+    {
+        
+    }
+
+}
+
+class EaseTWRadioButtonGroup extends EaseContainer
+{
+
+    /**
+     * Jméno
+     * @var string 
+     */
+    public $name = null;
+    /**
+     * Typ 
+     * @var bool 
+     */
+    public $inline = false;
+    /**
+     * Položky k zobrazení
+     * @var array 
+     */
+    public $radios = array();
+    /**
+     * Předvolená hodnota
+     * @var string 
+     */
+    public $checked = null;
+
+    /**
+     * Zobrazí pole radiobuttonů
+     * 
+     * @param string $name
+     * @param array  $radios pole Hodnota=>Popisek
+     * @param string $checked
+     * @param boolean $inline 
+     */
+    function __construct($name, $radios, $checked = null, $inline = false)
+    {
+        $this->name = $name;
+        $this->checked = $checked;
+        $this->inline = $inline;
+        $this->radios = $radios;
+        parent::__construct();
+    }
+
+    /**
+     * Seskládá pole radiobuttonů
+     */
+    function finalize()
+    {
+        $class = 'radio';
+        if ($this->inline) {
+            $class .= '-inline';
+        }
+        $pos = 1;
+        foreach ($this->radios as $value => $caption) {
+            if ($value == $this->checked) {
+                $checked = 'checked';
+            } else {
+                $checked = null;
+            }
+
+            $tagProperties = array(
+                'id' => $this->name . $pos++,
+                'name' => $this->name,
+                $checked
+            );
+
+            $this->addItem(
+                    new EaseHtmlDivTag(
+                    null, new EaseHtmlLabelTag(
+                    null, array(
+                new EaseHtmlInputRadioTag($this->name, $value, $tagProperties),
+                $caption
+                    )
+                    ), array('class' => $class)
+                    )
+            );
+        }
     }
 
 }
