@@ -436,12 +436,16 @@ class EaseContainer extends EaseBrick
 
     /**
      * Je element prázdný ?
-     *
+     * 
+     * @param EaseContainer $element EaseHtmlElement
      * @return bool prázdnost
      */
-    public function isEmpty()
+    public function isEmpty($element = null)
     {
-        return !count($this->pageParts);
+        if(is_null($element)){
+            $element &= $this;
+        }
+        return !count($element->pageParts);
     }
 
     /**

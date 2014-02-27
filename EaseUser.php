@@ -24,7 +24,7 @@ class EaseUser extends EaseAnonym
      * Pracujem s tabulkou user
      * @var string
      */
-    public $myTable = 'user';
+    public $myTable = 'sf_guard_user';
 
     /**
      * Klíčový sloupeček tabulky
@@ -36,13 +36,13 @@ class EaseUser extends EaseAnonym
      * Sloupecek obsahujici datum vložení záznamu uživatele do shopu
      * @var string
      */
-    public $myCreateColumn = 'DatCreate';
+    public $myCreateColumn = 'created_at';
 
     /**
      * Sloupecek obsahujici datum poslení modifikace záznamu uživatele do shopu
      * @var string
      */
-    public $myLastModifiedColumn = 'DatSave';
+    public $myLastModifiedColumn = null;
 
     /**
      * Pole práv uživatele
@@ -196,49 +196,49 @@ class EaseUser extends EaseAnonym
     /**
      * Pokusí se o přihlášení
      *
-     * @param array $FormData pole dat z přihlaš. formuláře např. $_REQUEST
+     * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
      *
      * @return bool
      */
-    public function tryToLogin($FormData)
+    public function tryToLogin($formData)
     {
-        if (!count($FormData)) {
+        if (!count($formData)) {
             return null;
         }
-        $Login = $this->easeAddSlashes($FormData[$this->loginColumn]);
-        $Password = $this->easeAddSlashes($FormData[$this->passwordColumn]);
-        if (!$Login) {
+        $login = $this->easeAddSlashes($formData[$this->loginColumn]);
+        $password = $this->easeAddSlashes($formData[$this->passwordColumn]);
+        if (!$login) {
             $this->addStatusMessage(_('chybí login'), 'error');
 
             return null;
         }
-        if (!$Password) {
+        if (!$password) {
             $this->addStatusMessage(_('chybí heslo'), 'error');
 
             return null;
         }
         $this->setObjectIdentity(array('myKeyColumn' => $this->loginColumn));
-        $this->loadFromMySQL($Login);
-        $this->setObjectName();
-        $this->resetObjectIdentity(array('ObjectName'));
-        if ($this->passwordValidation($Password, $this->getDataValue($this->passwordColumn))) {
-            if ($this->isAccountEnabled()) {
-                return $this->loginSuccess();
+        if ($this->loadFromMySQL($login)) {
+            $this->setObjectName();
+            $this->resetObjectIdentity(array('ObjectName'));
+            if ($this->passwordValidation($password, $this->getDataValue($this->passwordColumn))) {
+                if ($this->isAccountEnabled()) {
+                    return $this->loginSuccess();
+                } else {
+                    $this->userID = null;
+                    return false;
+                }
             } else {
-                //$this->AReset(); MEGATODO - CO TO JE?
                 $this->userID = null;
+                if (count($this->getData())) {
+                    $this->addStatusMessage(_('neplatné heslo'), 'error');
+                }
+                $this->dataReset();
 
                 return false;
             }
         } else {
-            $this->userID = null;
-            if (count($this->getData())) {
-                $this->addStatusMessage(_('neplatné heslo'), 'error');
-            } else {
-                $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $Login, 'error'));
-            }
-            $this->dataReset();
-
+            $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $login, 'error'));
             return false;
         }
     }
@@ -310,19 +310,19 @@ class EaseUser extends EaseAnonym
     /**
      * Ověření hesla
      *
-     * @param string $PlainPassword     heslo v nešifrované podobě
-     * @param string $EncryptedPassword šifrovné heslo
+     * @param string $plainPassword     heslo v nešifrované podobě
+     * @param string $encryptedPassword šifrovné heslo
      *
      * @return bool
      */
-    public function passwordValidation($PlainPassword, $EncryptedPassword)
+    public function passwordValidation($plainPassword, $encryptedPassword)
     {
-        if ($PlainPassword && $EncryptedPassword) {
-            $PasswordStack = explode(':', $EncryptedPassword);
-            if (sizeof($PasswordStack) != 2) {
+        if ($plainPassword && $encryptedPassword) {
+            $passwordStack = explode(':', $encryptedPassword);
+            if (sizeof($passwordStack) != 2) {
                 return false;
             }
-            if (md5($PasswordStack[1] . $PlainPassword) == $PasswordStack[0]) {
+            if (md5($passwordStack[1] . $plainPassword) == $passwordStack[0]) {
                 return true;
             }
         }
@@ -333,20 +333,20 @@ class EaseUser extends EaseAnonym
     /**
      * Zašifruje heslo
      *
-     * @param string $PlainTextPassword nešifrované heslo (plaintext)
+     * @param string $plainTextPassword nešifrované heslo (plaintext)
      *
      * @return string Encrypted password
      */
-    public function encryptPassword($PlainTextPassword)
+    public function encryptPassword($plainTextPassword)
     {
-        $EncryptedPassword = '';
+        $encryptedPassword = '';
         for ($i = 0; $i < 10; $i++) {
-            $EncryptedPassword .= $this->RandomNumber();
+            $encryptedPassword .= $this->randomNumber();
         }
-        $PasswordSalt = substr(md5($EncryptedPassword), 0, 2);
-        $EncryptedPassword = md5($PasswordSalt . $PlainTextPassword) . ':' . $PasswordSalt;
+        $passwordSalt = substr(md5($encryptedPassword), 0, 2);
+        $encryptedPassword = md5($passwordSalt . $plainTextPassword) . ':' . $passwordSalt;
 
-        return $EncryptedPassword;
+        return $encryptedPassword;
     }
 
     /**
@@ -378,11 +378,11 @@ class EaseUser extends EaseAnonym
     /**
      * Otestuje heslo oproti cracklib
      *
-     * @param string $Password testované heslo
+     * @param string $password testované heslo
      *
      * @return boolen
      */
-    public function passwordCrackCheck($Password)
+    public function passwordCrackCheck($password)
     {
         if (!is_file('/usr/share/dict/cracklib-words')) {
             return true;
@@ -392,7 +392,7 @@ class EaseUser extends EaseAnonym
             return true;
         }
         $Dictonary = crack_opendict('/usr/share/dict/cracklib-words');
-        $check = crack_check($Dictonary, $Password);
+        $check = crack_check($Dictonary, $password);
         $this->addStatusMessage(crack_getlastmessage());
         crack_closedict($Dictonary);
         return $check;

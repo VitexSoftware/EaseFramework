@@ -3,11 +3,12 @@
 /**
  * Abstraktní databázová třída
  *
+ * @deprecated since version 200
  * @package EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
  */
-require_once 'EaseBase.php';
+require_once 'Ease/EaseBase.php';
 
 /**
  * Virtuálni třída pro práci s databází
@@ -117,7 +118,7 @@ class EaseSQL extends EaseSand
      * Pole obsahující výsledky posledního SQL příkazu
      * @var array
      */
-    public $ResultArray = array();
+    public $resultArray = array();
 
     /**
      * Pomocná proměnná pro datové operace

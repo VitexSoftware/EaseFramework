@@ -39,7 +39,7 @@ class EaseTWBPart extends EaseJQueryPart
     {
         parent::jQueryze();
         $webPage = EaseShared::webPage();
-        $webPage->includeJavaScript('twitter-bootstrap/bootstrap.js', 1, true);
+        $webPage->includeJavaScript('twitter-bootstrap/js/bootstrap.js', 1, true);
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }

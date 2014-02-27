@@ -293,32 +293,32 @@ class EaseDbMSSQL extends EaseSql
      */
     public function queryToArray($QueryRaw, $KeyColumnToIndex = false)
     {
-        $this->ResultArray = null;
+        $this->resultArray = null;
         $this->Result = $this->exeQuery($QueryRaw);
         if (!$this->Result) {
             return null;
         }
         if (is_string($KeyColumnToIndex)) {
             while ($DataRow = mssql_fetch_assoc($this->Result)) {
-                $this->ResultArray[$DataRow[$KeyColumnToIndex]] = $DataRow;
+                $this->resultArray[$DataRow[$KeyColumnToIndex]] = $DataRow;
             }
         } else {
             if (($KeyColumnToIndex == true) && isset($this->MSKeyColumn)) {
                 while ($DataRow = mssql_fetch_assoc($this->Result)) {
-                    $this->ResultArray[$DataRow[$this->MSKeyColumn]] = $DataRow;
+                    $this->resultArray[$DataRow[$this->MSKeyColumn]] = $DataRow;
                 }
             } else {
                 while ($DataRow = mssql_fetch_assoc($this->Result)) {
-                    $this->ResultArray[] = $DataRow;
+                    $this->resultArray[] = $DataRow;
                 }
             }
         }
-        if (count($this->ResultArray)) {
+        if (count($this->resultArray)) {
             if ($this->WinToUtfRecode) {
-                $this->ResultArray = $this->recursiveIconv('windows-1250', 'utf-8', $this->ResultArray);
+                $this->resultArray = $this->recursiveIconv('windows-1250', 'utf-8', $this->resultArray);
             }
 
-            return $this->ResultArray;
+            return $this->resultArray;
         } else {
             return null;
         }

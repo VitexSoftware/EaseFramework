@@ -1594,7 +1594,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         $ListQuery = "SELECT `$myKeyColumn` FROM $tableName ";
 
         $this->myDbLink->queryToArray($ListQuery);
-        $this->DataIdList = $this->myDbLink->ResultArray;
+        $this->DataIdList = $this->myDbLink->resultArray;
 
         return count($this->DataIdList);
     }

@@ -487,15 +487,40 @@ class EaseHtmlTrTag extends EaseHtmlPairTag
     /**
      * TR tag
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('tr', $Properties, $Content);
+        parent::__construct('tr', $properties, $content);
     }
 
 }
+
+class EaseHtmlThead extends EaseHtmlPairTag {
+    /**
+     * <thead>
+     * @param mixed $content
+     * @param array $properties
+     */
+    public function __construct($content = null, $properties = null)
+    {
+        parent::__construct('thead', $properties, $content);
+    }
+}
+
+class EaseHtmlTbody extends EaseHtmlPairTag {
+    /**
+     * <tbody>
+     * @param mixed $content
+     * @param array $properties
+     */
+    public function __construct($content = null, $properties = null)
+    {
+        parent::__construct('tbody', $properties, $content);
+    }
+}
+
 
 /**
  * HTML table
@@ -505,58 +530,73 @@ class EaseHtmlTrTag extends EaseHtmlPairTag
  */
 class EaseHtmlTableTag extends EaseHtmlPairTag
 {
+    public $tHead = null;
+    public $tbody = null;
 
     /**
      * Html Tabulka
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('table', $Properties, $Content);
+        parent::__construct('table', $properties, $content);
+        $this->tHead = $this->addItem(new EaseHtmlThead);
+        $this->tBody = $this->addItem(new EaseHtmlTbody);
     }
 
     /**
      * Vloží do tabulky obsah pole jako buňky
      *
-     * @param array $Columns    pole obsahů buňek
-     * @param array $Properties pole vlastností dané všem buňkám
+     * @param array $columns    pole obsahů buňek
+     * @param array $properties pole vlastností dané všem buňkám
      *
      * @return EaseHtmlTrTag odkaz na řádku tabulky
      */
-    function & addRowColumns($Columns = null, $Properties = null)
+    function & addRowColumns($columns = null, $properties = null)
     {
-        $TableRow = $this->addItem(new EaseHtmlTrTag());
-        if (is_array($Columns)) {
-            foreach ($Columns as $Column) {
-                $TableRow->addItem(new EaseHtmlTdTag($Column, $Properties));
+        $tableRow = $this->tBody->addItem(new EaseHtmlTrTag());
+        if (is_array($columns)) {
+            foreach ($columns as $column) {
+                $tableRow->addItem(new EaseHtmlTdTag($column, $properties));
             }
         }
 
-        return $TableRow;
+        return $tableRow;
     }
 
     /**
      * Vloží do tabulky obsah pole jako buňky
      *
-     * @param array $Columns    pole obsahů buňek
-     * @param array $Properties pole vlastností dané všem buňkám
+     * @param array $columns    pole obsahů buňek
+     * @param array $properties pole vlastností dané všem buňkám
      *
      * @return EaseHtmlTrTag odkaz na řádku tabulky
      */
-    function & addRowHeaderColumns($Columns = null, $Properties = null)
+    function & addRowHeaderColumns($columns = null, $properties = null)
     {
-        $TableRow = $this->addItem(new EaseHtmlTrTag());
-        if (is_array($Columns)) {
-            foreach ($Columns as $Column) {
-                $TableRow->addItem(new EaseHtmlThTag($Column, $Properties));
+        $tableRow = $this->tHead->addItem(new EaseHtmlTrTag());
+        if (is_array($columns)) {
+            foreach ($columns as $column) {
+                $tableRow->addItem(new EaseHtmlThTag($column, $properties));
             }
         }
-
-        return $TableRow;
+        
+        return $tableRow;
     }
 
+    /**
+     * Je tabulka prázdná ?
+     * 
+     * @param null $element je zde pouze z důvodu zpětné kompatibility
+     * @return type
+     */
+    function isEmpty($element = null)
+    {
+        return $this->tBody->isEmpty();
+    }
+    
 }
 
 /**

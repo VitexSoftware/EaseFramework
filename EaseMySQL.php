@@ -7,14 +7,14 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2012 Vitex@hippy.cz (G)
  */
-require_once 'EaseSQL.php';
+require_once 'Ease/EaseSQL.php';
 
 /**
  * Třída pro práci s MySQL
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseDbMySqli extends EaseSql
+class EaseDbMySqli extends EaseSQL
 {
 
     /**
