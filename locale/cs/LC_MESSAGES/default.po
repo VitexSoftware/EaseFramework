@@ -17,26 +17,26 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: /home/vitex/Projects/EaseFramework/Ease\n"
 
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:466
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:468
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:466
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:468
 msgid " není složka. Jsem v adresáři:"
 msgstr " not an folder. Current directory:"
 
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:475
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:477
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:475
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:477
 msgid " není čitelná složka. Jsem v adresáři:"
 msgstr " není čitelná složka. Jsem v adresáři:"
 
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:484
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:486
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:484
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:486
 msgid " není zapisovatelná složka. Jsem v adresáři:"
 msgstr " není zapisovatelná složka. Jsem v adresáři:"
 
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:3177
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:3177
 msgid "UpdateToMySQL: Chybějící Data"
 msgstr "UpdateToMySQL: Missing Data"
 
-#: /home/vitex/Projects/EaseFramework/Ease/EaseBase.php:3847
+#: /home/vitex/Projects/EaseFramework/Ease/EaseBrick.php:3847
 msgid "NENI PODLE CEHO URCIT JEDINECNOST PRODUKTU v shopu "
 msgstr "something goes wrong"
 

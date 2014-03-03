@@ -530,7 +530,15 @@ class EaseHtmlTbody extends EaseHtmlPairTag {
  */
 class EaseHtmlTableTag extends EaseHtmlPairTag
 {
+    /**
+     * Hlavička tabulky
+     * @var EaseHtmlThead 
+     */
     public $tHead = null;
+    /**
+     * Tělo tabulky
+     * @var EaseHtmlTbody 
+     */
     public $tbody = null;
 
     /**
@@ -544,6 +552,14 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
         parent::__construct('table', $properties, $content);
         $this->tHead = $this->addItem(new EaseHtmlThead);
         $this->tBody = $this->addItem(new EaseHtmlTbody);
+    }
+
+    /**
+     * @param array $headerColumns položky záhlaví tabulky
+     */
+    public function setHeader($headerColumns){
+        $this->tHead->emptyContents();
+        $this->addRowHeaderColumns($headerColumns);
     }
 
     /**

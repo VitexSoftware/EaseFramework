@@ -9,7 +9,7 @@
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
-require_once 'EaseBase.php';
+require_once 'EaseBrick.php';
 
 /**
  * Objekt Anonymního uživatele

@@ -24,7 +24,7 @@ class EaseUser extends EaseAnonym
      * Pracujem s tabulkou user
      * @var string
      */
-    public $myTable = 'sf_guard_user';
+    public $myTable = 'user';
 
     /**
      * Klíčový sloupeček tabulky

@@ -8,7 +8,7 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
-require_once 'EaseBase.php';
+require_once 'EaseBrick.php';
 
 /**
  * Základní třída, jenž může obsahovat vykreslující se vložené položky
@@ -443,7 +443,7 @@ class EaseContainer extends EaseBrick
     public function isEmpty($element = null)
     {
         if(is_null($element)){
-            $element &= $this;
+            $element = $this;
         }
         return !count($element->pageParts);
     }

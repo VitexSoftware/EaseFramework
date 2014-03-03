@@ -7,7 +7,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
  */
-require_once 'EaseBase.php';
+require_once 'EaseBrick.php';
 
 /**
  * Provede uložení obecných dat
