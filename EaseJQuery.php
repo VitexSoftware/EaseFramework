@@ -31,7 +31,7 @@ class EaseJQueryPart extends EasePage
      * Use minimized version of scripts ?
      * @var boolean
      */
-    public static $UseMinimizedJS = false;
+    public static $useMinimizedJS = false;
 
     /**
      * Array of Part properties
@@ -157,7 +157,16 @@ class EaseJQueryPart extends EasePage
                                         $partPropertyValue[$key] = '"' . $value . '"';
                                     }
                                 }
-                                $partsArray[] = $partPropertyName . ': [' . implode(',', $partPropertyValue) . '] ';
+                                if(is_array($partPropertyValue)){
+                                    foreach ($partPropertyValue as $pId => $piece){
+                                        if(is_array($piece)){
+                                            $partPropertyValue[$pId] = ' { '.self::partPropertiesToString($piece).' } ';
+                                        }
+                                    }
+                                    $partsArray[] = $partPropertyName . ': [' . implode(',', $partPropertyValue) . '] ';
+                                } else {
+                                    $partsArray[] = $partPropertyName .':'. $partPropertyValue;
+                                }
                             }
 
 //                            $PartsArray[] = $PartPropertyName . ': [' . implode(',', $PartPropertyValue) . '] ';
