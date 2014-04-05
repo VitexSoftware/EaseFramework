@@ -73,7 +73,7 @@ class EaseBrick extends EaseSand
      * Odkaz na objekt uživatele
      * @var EaseUser | EaseAnonym
      */
-    public $User = null;
+    public $user = null;
 
     /**
      * [Cs]Základní objekt pracující s databází
@@ -88,6 +88,7 @@ class EaseBrick extends EaseSand
         if ($this->myTable) {
             $this->takemyTable($this->myTable);
         }
+        
         $this->saveObjectIdentity();
     }
 
@@ -147,9 +148,9 @@ class EaseBrick extends EaseSand
     {
         if (is_object($user)) {
             if (is_object($targetObject)) {
-                $targetObject->User = & $user;
+                $targetObject->user = & $user;
             } else {
-                $this->User = & $user;
+                $this->user = & $user;
             }
 
             return true;
@@ -165,8 +166,8 @@ class EaseBrick extends EaseSand
      */
     public function &getUser()
     {
-        if (isset($this->User)) {
-            $User = &$this->User;
+        if (isset($this->user)) {
+            $User = &$this->user;
         } else {
             if (isset($this->easeShared->User)) {
                 $User = &$this->easeShared->User;

@@ -439,6 +439,22 @@ class EaseUser extends EaseAnonym
     }
 
     /**
+     * Nastavuje login uživatele
+     *
+     * @return string
+     */
+    public function setUserLogin($login)
+    {
+        $this->userLogin = $login;
+        if (isset($this->loginColumn)) {
+            return $this->setDataValue($this->loginColumn,$login);
+        }
+
+        return $this->userLogin;
+    }
+    
+    
+    /**
      * Vrací hodnotu uživatelského oprávnění
      *
      * @param string $permKeyword klíčové slovo oprávnění

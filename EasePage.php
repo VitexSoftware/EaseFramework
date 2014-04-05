@@ -47,6 +47,11 @@ class EaseContainer extends EaseBrick
      * @var array
      */
     public $raiseItems = array();
+    /**
+     * Odkaz na webstránku
+     * @var type 
+     */
+    public $webPage = null;
 
     /**
      * Kontejner, který může obsahovat vložené objekty, které se vykreslí
@@ -56,6 +61,7 @@ class EaseContainer extends EaseBrick
     public function __construct($initialContent = null)
     {
         parent::__construct();
+        $this->webPage = EaseShared::webPage();
         if ($initialContent) {
             $this->addItem($initialContent);
         }
@@ -1056,6 +1062,20 @@ class EasePage extends EaseContainer
         }
 
         return 0;
+    }
+
+    /**
+     * Vrací pole jako parametry URL
+     * 
+     * @param array  $params
+     * @param string $baseUrl
+     */
+    public static function arrayToUrlParams($params, $baseUrl = '') {
+       if(strstr($baseUrl, '?')) {
+           return $baseUrl.'&'.  http_build_query($params);
+       } else {
+           return $baseUrl.'?'.  http_build_query($params);
+       }
     }
 
 }

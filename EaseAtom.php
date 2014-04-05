@@ -50,12 +50,12 @@ class EaseAtom
      * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu
      *
      * @param string $message text zpravy
-     * @param string $Type    fronta
+     * @param string $type    fronta
      */
-    public function addStatusMessage($message, $Type = 'info')
+    public function addStatusMessage($message, $type = 'info')
     {
         $this->messageCount++;
-        $this->statusMessages[$Type][$this->messageCount] = $message;
+        $this->statusMessages[$type][$this->messageCount] = $message;
     }
 
     /**
@@ -68,16 +68,16 @@ class EaseAtom
     public function addStatusMessages($statusMessages)
     {
         if (is_array($statusMessages) && count($statusMessages)) {
-            $AllMessages = array();
-            foreach ($statusMessages as $Quee => $Messages) {
-                foreach ($Messages as $MesgID => $Message) {
-                    $AllMessages[$MesgID][$Quee] = $Message;
+            $allMessages = array();
+            foreach ($statusMessages as $quee => $messages) {
+                foreach ($messages as $mesgID => $message) {
+                    $allMessages[$mesgID][$quee] = $message;
                 }
             }
-            ksort($AllMessages);
-            foreach ($AllMessages as $Message) {
-                $Quee = key($Message);
-                $this->addStatusMessage(reset($Message), $Quee, false, false);
+            ksort($allMessages);
+            foreach ($allMessages as $message) {
+                $quee = key($message);
+                $this->addStatusMessage(reset($message), $quee, false, false);
             }
 
             return count($statusMessages);
@@ -105,10 +105,10 @@ class EaseAtom
     public function getStatusMessages($clean = false)
     {
         if ($clean) {
-            $StatusMessages = $this->statusMessages;
+            $statusMessages = $this->statusMessages;
             $this->cleanMessages();
 
-            return $StatusMessages;
+            return $statusMessages;
         } else {
             return $this->statusMessages;
         }

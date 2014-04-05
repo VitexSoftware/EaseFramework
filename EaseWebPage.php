@@ -90,7 +90,7 @@ class EaseWebPage extends EasePage
             $this->pageTitle = $pageTitle;
         }
         parent::__construct($userObject);
-        $this->easeShared->setConfigValue('jQueryUISkin', $this->jQueryUISkin);
+        
         $this->pageParts['doctype'] = '<!DOCTYPE html>';
         parent::addItem(new EaseHtmlHtmlTag());
         $this->pageParts['html']->setupWebPage($this);

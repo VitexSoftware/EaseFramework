@@ -121,7 +121,7 @@ class EaseSaver extends EaseBrick
      */
     public function loadFromMySQL($ItemID = null, $DataPrefix = null, $Multiplete = false)
     {
-        $this->setMyKey($this->User->getUserID());
+        $this->setMyKey($this->user->getUserID());
         $Result = parent::loadFromMySQL($ItemID, $DataPrefix, $Multiplete);
         if ($Result) {
             return $Result;

@@ -130,9 +130,9 @@ class EaseShared extends EaseAtom
      */
     public static function & instanced()
     {
-        $EaseShared = EaseShared::singleton();
+        $easeShared = EaseShared::singleton();
 
-        return $EaseShared;
+        return $easeShared;
     }
 
     /**

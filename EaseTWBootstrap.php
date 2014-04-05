@@ -738,3 +738,39 @@ class EaseTWRadioButtonGroup extends EaseContainer
     }
 
 }
+
+class EaseTWModal extends EaseContainer {
+    function __construct($name,$content = null, $properties) {
+        parent::__construct();
+        
+    EaseShared::webPage()->addItem('
+<!-- Modal -->
+<div class="modal fade" id="'.$name.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">'.$name.'</h4>
+      </div>
+      <div class="modal-body">
+        '.$content.'
+      </div>
+      <div class="modal-footer">
+        <button id="'.$name.'ko" type="button" class="btn btn-default" data-dismiss="modal">'._('Zavřít').'</button>
+        <button id="'.$name.'ok" type="button" class="btn btn-primary">'._('Uložit').'</button>
+      </div>
+    </div>
+  </div>
+</div>
+');
+    
+    EaseShared::webPage()->addJavaScript(' $(function ()    
+{ 
+    $("#'.$name.'").modal( {'. EaseTWBPart::partPropertiesToString($properties) .'});    
+}); 
+',null,true);
+        
+        
+    }
+    
+}
