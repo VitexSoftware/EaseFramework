@@ -551,8 +551,8 @@ class EaseBrick extends EaseSand
 
         $this->msDbLink->KeyColumn = $this->MSKeyColumn;
         $this->msDbLink->TableName = $this->msTable;
-        $this->msDbLink->LastModifiedColumn = $this->MSLastModifiedColumn;
-        $this->msDbLink->CreateColumn = $this->MSCreateColumn;
+        $this->msDbLink->LastModifiedColumn = $this->msLastModifiedColumn;
+        $this->msDbLink->CreateColumn = $this->msCreateColumn;
         if ($updateStructure) {
             $this->loadSqlStruct('ms');
         }
@@ -650,8 +650,8 @@ class EaseBrick extends EaseSand
         }
 
         unset($data[$this->MSKeyColumn]);
-        if (isset($this->MSCreateColumn) && strlen($this->MSCreateColumn) && !isset($data[$this->MSCreateColumn])) {
-            $data[$this->MSCreateColumn] = 'GetDate()';
+        if (isset($this->msCreateColumn) && strlen($this->msCreateColumn) && !isset($data[$this->msCreateColumn])) {
+            $data[$this->msCreateColumn] = 'GetDate()';
         }
         list($cols, $vals) = $this->msDbLink->prepCols($data);
         $QueryRaw = 'INSERT INTO [' . MS_DB_DATABASE . '].[dbo].[' . $this->msTable . '] (' . $cols . ') VALUES (' . $vals . ')';
@@ -707,23 +707,23 @@ class EaseBrick extends EaseSand
             switch ($sqlType) {
                 case 'ms':
                     if ($columnName == $this->MSKeyColumn) {
-                        $partner = $this->identity['myTable'] . '.' . $this->MyRefIDColumn;
+                        $partner = $this->identity['myTable'] . '.' . $this->myRefIDColumn;
                     }
-                    if ($columnName == $this->MSIDSColumn) {
-                        $partner = $this->identity['myTable'] . '.' . $this->MyIDSColumn;
+                    if ($columnName == $this->msIDSColumn) {
+                        $partner = $this->identity['myTable'] . '.' . $this->myIDSColumn;
                     }
-                    if ($columnName == $this->MSRefIDColumn) {
+                    if ($columnName == $this->msRefIDColumn) {
                         $partner = $this->identity['myTable'] . '.' . $this->myKeyColumn;
                     }
                     break;
                 case 'my':
                     if ($columnName == $this->myKeyColumn) {
-                        $partner = $this->identity['MSTable'] . '.' . $this->MSRefIDColumn;
+                        $partner = $this->identity['MSTable'] . '.' . $this->msRefIDColumn;
                     }
-                    if ($columnName == $this->MyIDSColumn) {
-                        $partner = $this->identity['MSTable'] . '.' . $this->MSIDSColumn;
+                    if ($columnName == $this->myIDSColumn) {
+                        $partner = $this->identity['MSTable'] . '.' . $this->msIDSColumn;
                     }
-                    if ($columnName == $this->MyRefIDColumn) {
+                    if ($columnName == $this->myRefIDColumn) {
                         $partner = $this->identity['MSTable'] . '.' . $this->MSKeyColumn;
                     }
                     break;
@@ -979,19 +979,19 @@ class EaseBrick extends EaseSand
             $this->setmyKeyColumn($this->myDbRoles['KeyID']);
         }
         if (isset($this->msDbRoles['IDS'])) {
-            $this->MSIDSColumn = $this->msDbRoles['IDS'];
+            $this->msIDSColumn = $this->msDbRoles['IDS'];
         }
         if (isset($this->myDbRoles['IDS'])) {
-            $this->MyIDSColumn = $this->myDbRoles['IDS'];
+            $this->myIDSColumn = $this->myDbRoles['IDS'];
         }
         if (isset($this->msDbRoles['RefKey'])) {
-            $this->MSRefIDColumn = $this->msDbRoles['RefKey'];
+            $this->msRefIDColumn = $this->msDbRoles['RefKey'];
         }
         if (isset($this->myDbRoles['RefKey'])) {
-            $this->MyRefIDColumn = $this->myDbRoles['RefKey'];
+            $this->myRefIDColumn = $this->myDbRoles['RefKey'];
         }
         if (isset($this->msDbRoles['LastModifiedDate'])) {
-            $this->MSLastModifiedColumn = $this->msDbRoles['LastModifiedDate'];
+            $this->msLastModifiedColumn = $this->msDbRoles['LastModifiedDate'];
         }
         if (isset($this->myDbRoles['LastModifiedDate'])) {
             $this->myLastModifiedColumn = $this->myDbRoles['LastModifiedDate'];
@@ -1034,11 +1034,11 @@ class EaseBrick extends EaseSand
 
         $msKeyColumnBackup = $data[$this->MSKeyColumn];
 
-        if (isset($this->MSLastModifiedColumn)) {
-            $data[$this->MSLastModifiedColumn] = 'GetDate()';
+        if (isset($this->msLastModifiedColumn)) {
+            $data[$this->msLastModifiedColumn] = 'GetDate()';
         }
-        if (isset($this->MSCreateColumn)) {
-            unset($data[$this->MSCreateColumn]);
+        if (isset($this->msCreateColumn)) {
+            unset($data[$this->msCreateColumn]);
         }
         $msKeyColumnBackup = $data[$this->MSKeyColumn];
         unset($data[$this->MSKeyColumn]);
@@ -1385,19 +1385,19 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function setReferences()
     {
-        if ($this->MSRefIDColumn) {
+        if ($this->msRefIDColumn) {
             $shopColumnsOld = $this->data;
             if (isset($this->data['MSSQL'][$this->MSKeyColumn])) {
-                $this->data[$this->MyRefIDColumn] = $this->data['MSSQL'][$this->MSKeyColumn]; // (ID)
+                $this->data[$this->myRefIDColumn] = $this->data['MSSQL'][$this->MSKeyColumn]; // (ID)
             }
             if (count(array_diff($this->data, $shopColumnsOld))) {
 //                $this->Status['ShopSaved'] = false;
             }
         }
-        if ($this->MyRefIDColumn) {
+        if ($this->myRefIDColumn) {
             $msSQLColumnsOld = $this->data['MSSQL'];
 
-            $this->data['MSSQL'][$this->MSRefIDColumn] = $this->data[$this->myKeyColumn]; // (id)
+            $this->data['MSSQL'][$this->msRefIDColumn] = $this->data[$this->myKeyColumn]; // (id)
 
             if (count(array_diff($this->data['MSSQL'], $msSQLColumnsOld))) {
 //                $this->Status['MSSQLSaved'] = false;
@@ -1414,21 +1414,21 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function isSynchronized()
     {
-        if (!isset($this->data['MSSQL'][$this->MSIDSColumn]) ||
-                !strlen($this->data['MSSQL'][$this->MSIDSColumn])
+        if (!isset($this->data['MSSQL'][$this->msIDSColumn]) ||
+                !strlen($this->data['MSSQL'][$this->msIDSColumn])
         ) {
             $this->loadFromMSSQL($this->getMSKey());
         }
-        if (!isset($this->data[$this->MyIDSColumn]) ||
-                !strlen($this->data[$this->MyIDSColumn])
+        if (!isset($this->data[$this->myIDSColumn]) ||
+                !strlen($this->data[$this->myIDSColumn])
         ) {
             $this->loadFromMySQL($this->getMyKey());
         }
-        if (!$this->data['MSSQL'][$this->MSIDSColumn] || !$this->data[$this->MyIDSColumn]) {
+        if (!$this->data['MSSQL'][$this->msIDSColumn] || !$this->data[$this->myIDSColumn]) {
             return false;
         }
 
-        return ($this->data['MSSQL'][$this->MSIDSColumn] == $this->data[$this->MyIDSColumn]);
+        return ($this->data['MSSQL'][$this->msIDSColumn] == $this->data[$this->myIDSColumn]);
     }
 
     /**
@@ -1442,26 +1442,26 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function setTagIDS($save = false)
     {
-        if ($this->data['MSSQL'][$this->MSIDSColumn]) {
-            $this->addToLog('Pokus o znovugenerovani jiz znameho IDS v pohode: ' . $this->data['MSSQL'][$this->MSIDSColumn], 'warning');
+        if ($this->data['MSSQL'][$this->msIDSColumn]) {
+            $this->addToLog('Pokus o znovugenerovani jiz znameho IDS v pohode: ' . $this->data['MSSQL'][$this->msIDSColumn], 'warning');
 
-            return $this->data['MSSQL'][$this->MSIDSColumn];
+            return $this->data['MSSQL'][$this->msIDSColumn];
         }
 
         $NumRowObject = new EaseNumRow($this->NumRowIDS, null, $this->RefAg);
         $IDS = $NumRowObject->NextValue(true);
 
-        $this->data['MSSQL'][$this->MSIDSColumn] = $IDS;
+        $this->data['MSSQL'][$this->msIDSColumn] = $IDS;
 
-        $this->data[$this->MyIDSColumn] = $IDS;
+        $this->data[$this->myIDSColumn] = $IDS;
         //$this->Status = array('ShopSaved' => false, 'MSSQLSaved' => false);
 
-        $this->addToLog('Generuji IDS: ' . $this->data['MSSQL'][$this->MSIDSColumn], 'debug');
+        $this->addToLog('Generuji IDS: ' . $this->data['MSSQL'][$this->msIDSColumn], 'debug');
 
         if ($save)
-            $this->updateToShop(array($this->MyIDSColumn => $this->data[$this->MyIDSColumn]));
+            $this->updateToShop(array($this->myIDSColumn => $this->data[$this->myIDSColumn]));
 
-        return $this->data['MSSQL'][$this->MyIDSColumn];
+        return $this->data['MSSQL'][$this->myIDSColumn];
     }
 
     /**
@@ -1831,7 +1831,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $data = $this->getData('MSSQL');
         }
 
-        $ids = $this->getMSSQLValue($this->MSIDSColumn);
+        $ids = $this->getMSSQLValue($this->msIDSColumn);
         if ($ids) {
             return $ids;
         }
@@ -1848,10 +1848,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                     unset($data[$id]);
         }
 
-        $queryRaw = "SELECT " . $this->MSIDSColumn . " FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data, $operator);
+        $queryRaw = "SELECT " . $this->msIDSColumn . " FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data, $operator);
         $idQuery = $this->msDbLink->queryToArray($queryRaw);
         if (isset($idQuery[0])) {
-            return $idQuery[0][$this->MSIDSColumn];
+            return $idQuery[0][$this->msIDSColumn];
         } else {
             return null;
         }

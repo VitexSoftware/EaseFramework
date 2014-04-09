@@ -56,7 +56,7 @@ class EaseSand extends EaseAtom
      * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu
      * @var array
      */
-    public $IdentityColumns = array('ObjectName',
+    public $identityColumns = array('ObjectName',
         'myKeyColumn', 'MSKeyColumn',
         'myTable', 'MSTable',
         'MyIDSColumn', 'MSIDSColumn',
@@ -80,25 +80,25 @@ class EaseSand extends EaseAtom
      * Synchronizační sloupeček. napr products_ids
      * @var string
      */
-    public $MyIDSColumn = null;
+    public $myIDSColumn = null;
 
     /**
      * Synchronizační sloupeček. napr IDS
      * @var string
      */
-    public $MSIDSColumn = null;
+    public $msIDSColumn = null;
 
     /**
      * Synchronizační sloupeček. napr products_MSSQL_id
      * @var string
      */
-    public $MyRefIDColumn = null;
+    public $myRefIDColumn = null;
 
     /**
      * Synchronizační sloupeček. napr
      * @var string
      */
-    public $MSRefIDColumn = null;
+    public $msRefIDColumn = null;
 
     /**
      * Sloupeček obsahující datum vložení záznamu do shopu
@@ -110,7 +110,7 @@ class EaseSand extends EaseAtom
      *  Sloupeček obsahujíci datum vložení záznamu do Pohody
      * @var string
      */
-    public $MSCreateColumn = null;
+    public $msCreateColumn = null;
 
     /**
      * Slopecek obsahujici datum poslení modifikace záznamu do shopu
@@ -122,7 +122,7 @@ class EaseSand extends EaseAtom
      * Slopecek obsahujici datum poslení modifikace záznamu do Pohody
      * @var string
      */
-    public $MSLastModifiedColumn = null;
+    public $msLastModifiedColumn = null;
 
     /**
      * Objekt pro logování
@@ -189,12 +189,12 @@ class EaseSand extends EaseAtom
         }
     }
 
-    public function xAttachObject($VariableName, $ObjectName, $ObjectParams = null)
+    public function xAttachObject($variableName, $ObjectName, $ObjectParams = null)
     {
 
-        if (!is_null($this->$VariableName)) {
-            if (!is_object($this->$VariableName)) {
-                die('AttachObject: UndefinedProperty $this->' . $VariableName . ' of ' . $this->getObjectName());
+        if (!is_null($this->$variableName)) {
+            if (!is_object($this->$variableName)) {
+                die('AttachObject: UndefinedProperty $this->' . $variableName . ' of ' . $this->getObjectName());
             }
         } else {
 
@@ -202,19 +202,19 @@ class EaseSand extends EaseAtom
 
                 if (property_exists($this, 'parentObject') && is_object($this->parentObject)) {
                     //Pokud již rodičovský objekt obsahuje požadovanou vlastnost, pouze na ní odkážeme
-                    if (property_exists($this->parentObject, $VariableName)) {
-                        $this->$VariableName = & $this->parentObject->$VariableName;
+                    if (property_exists($this->parentObject, $variableName)) {
+                        $this->$variableName = & $this->parentObject->$variableName;
                     }
                 } else {
                     //jinak se vytvoří nová instance objektu
                     $NumberOfArgs = func_num_args();
                     if ($NumberOfArgs == 2) {
-                        $this->$VariableName = new $ObjectName();
+                        $this->$variableName = new $ObjectName();
                     } else {
                         $Arguments = func_get_args();
                         array_shift($Arguments);
                         array_shift($Arguments);
-                        eval('$this->' . $VariableName . ' = new ' . $ObjectName . '(' . implode(',', $Arguments) . ');');
+                        eval('$this->' . $variableName . ' = new ' . $ObjectName . '(' . implode(',', $Arguments) . ');');
                     }
                 }
             }
@@ -222,22 +222,22 @@ class EaseSand extends EaseAtom
             return true;
         }
 
-        if (property_exists($this->$VariableName, 'parentObject')) {
-            $this->$VariableName->parentObject = & $this;
+        if (property_exists($this->$variableName, 'parentObject')) {
+            $this->$variableName->parentObject = & $this;
         }
     }
 
     /**
      * Nastaví jméno objektu
      *
-     * @param string $ObjectName
+     * @param string $objectName
      *
      * @return string Jméno objektu
      */
-    public function setObjectName($ObjectName = null)
+    public function setObjectName($objectName = null)
     {
-        if ($ObjectName) {
-            $this->objectName = $ObjectName;
+        if ($objectName) {
+            $this->objectName = $objectName;
         } else {
             $this->objectName = get_class($this);
         }
@@ -258,20 +258,20 @@ class EaseSand extends EaseAtom
     /**
      * Nastaví novou identitu objektu
      *
-     * @param array $NewIdentity
+     * @param array $newIdentity
      */
-    public function setObjectIdentity($NewIdentity)
+    public function setObjectIdentity($newIdentity)
     {
-        $Changes = 0;
+        $changes = 0;
         $this->saveObjectIdentity();
-        foreach ($this->IdentityColumns as $Column) {
-            if (isset($NewIdentity[$Column])) {
-                $this->$Column = $NewIdentity[$Column];
-                $Changes++;
+        foreach ($this->identityColumns as $column) {
+            if (isset($newIdentity[$column])) {
+                $this->$column = $newIdentity[$column];
+                $changes++;
             }
         }
 
-        return $Changes;
+        return $changes;
     }
 
     /**
@@ -281,9 +281,9 @@ class EaseSand extends EaseAtom
      */
     public function saveObjectIdentity()
     {
-        foreach ($this->IdentityColumns as $Column) {
-            if (isset($this->$Column)) {
-                $this->identity[$Column] = $this->$Column;
+        foreach ($this->identityColumns as $column) {
+            if (isset($this->$column)) {
+                $this->identity[$column] = $this->$column;
             }
         }
 
@@ -293,13 +293,13 @@ class EaseSand extends EaseAtom
     /**
      * Obnoví uloženou identitu objektu
      *
-     * @param array $Identity pole s identitou např. array('myTable'=>'user');
+     * @param array $identity pole s identitou např. array('myTable'=>'user');
      */
-    public function restoreObjectIdentity($Identity = null)
+    public function restoreObjectIdentity($identity = null)
     {
-        foreach ($this->IdentityColumns as $Column)
-            if (isset($this->identity[$Column]))
-                $this->$Column = $this->identity[$Column];
+        foreach ($this->identityColumns as $column)
+            if (isset($this->identity[$column]))
+                $this->$column = $this->identity[$column];
     }
 
     /**
@@ -716,12 +716,12 @@ class EaseSand extends EaseAtom
     /**
      * Šifrování
      *
-     * @param string $TextToEncrypt plaintext
+     * @param string $textToEncrypt plaintext
      * @param string $encryptKey    klíč
      *
      * @return string encrypted text
      */
-    public static function easeEncrypt($textoTEncrypt, $encryptKey)
+    public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
         $encryptKey = md5($encryptKey);
@@ -756,11 +756,11 @@ class EaseSand extends EaseAtom
         $initialVector = substr($textToDecrypt, 0, $InitialVectorSize);
         $textToDecrypt = substr($textToDecrypt, $InitialVectorSize);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
-            $DecryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
+            $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
 
-            return $DecryptedText;
+            return $decryptedText;
         }
     }
 
