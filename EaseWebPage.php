@@ -332,13 +332,13 @@ class EaseWebPage extends EasePage
     public function finalizeRegistred()
     {
         do {
-            foreach ($this->easeShared->AllItems as $PartID => $part) {
+            foreach ($this->easeShared->allItems as $PartID => $part) {
                 if (is_object($part) && method_exists($part, 'finalize')) {
                     $part->finalize();
                 }
-                unset($this->easeShared->AllItems[$PartID]);
+                unset($this->easeShared->allItems[$PartID]);
             }
-        } while (count($this->easeShared->AllItems));
+        } while (count($this->easeShared->allItems));
     }
 
     /**

@@ -81,13 +81,13 @@ class EaseShared extends EaseAtom
      * Pole odkazů na všechny vložené objekty
      * @var array pole odkazů
      */
-    public $AllItems = array();
+    public $allItems = array();
 
     /**
      * Název položky session s objektem uživatele
      * @var string
      */
-    public static $UserSessionName = 'User';
+    public static $userSessionName = 'User';
 
     /**
      * Inicializace sdílené třídy
@@ -106,18 +106,18 @@ class EaseShared extends EaseAtom
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
      * se bude v ramci behu programu pouzivat pouze jedna jeho Instance (ta prvni).
      *
-     * @param string $Class název třídy jenž má být zinstancována
+     * @param string $class název třídy jenž má být zinstancována
      *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      * @return EaseWebPage
      */
-    public static function singleton($Class = null)
+    public static function singleton($class = null)
     {
         if (!isset(self::$_instance)) {
-            if (is_null($Class)) {
-                $Class = __CLASS__;
+            if (is_null($class)) {
+                $class = __CLASS__;
             }
-            self::$_instance = new $Class();
+            self::$_instance = new $class();
         }
 
         return self::$_instance;
@@ -138,25 +138,25 @@ class EaseShared extends EaseAtom
     /**
      * Nastavuje hodnotu konfiguračního klíče
      *
-     * @param string $ConfigName  klíč
-     * @param mixed  $ConfigValue hodnota klíče
+     * @param string $configName  klíč
+     * @param mixed  $configValue hodnota klíče
      */
-    public function setConfigValue($ConfigName, $ConfigValue)
+    public function setConfigValue($configName, $configValue)
     {
-        $this->registry[$ConfigName] = $ConfigValue;
+        $this->registry[$configName] = $configValue;
     }
 
     /**
      * Vrací konfigurační hodnotu pod klíčem
      *
-     * @param string $ConfigName klíč
+     * @param string $configName klíč
      *
      * @return mixed
      */
-    public function getConfigValue($ConfigName)
+    public function getConfigValue($configName)
     {
-        if (isset($this->registry[$ConfigName])) {
-            return $this->registry[$ConfigName];
+        if (isset($this->registry[$configName])) {
+            return $this->registry[$configName];
         }
 
         return null;
@@ -250,20 +250,20 @@ class EaseShared extends EaseAtom
      *
      * @return EaseUser
      */
-    public static function & user($user = NULL, $UserSessionName = NULL)
+    public static function & user($user = NULL, $userSessionName = NULL)
     {
-        if (!is_null($UserSessionName)) {
-            self::$UserSessionName = $UserSessionName;
+        if (!is_null($userSessionName)) {
+            self::$userSessionName = $userSessionName;
         }
         if (is_object($user)) {
-            $_SESSION[self::$UserSessionName] = clone $user;
+            $_SESSION[self::$userSessionName] = clone $user;
         }
-        if (!isset($_SESSION[self::$UserSessionName])) {
+        if (!isset($_SESSION[self::$userSessionName])) {
             require_once 'Ease/EaseUser.php';
-            $_SESSION[self::$UserSessionName] = new EaseAnonym();
+            $_SESSION[self::$userSessionName] = new EaseAnonym();
         }
 
-        return $_SESSION[self::$UserSessionName];
+        return $_SESSION[self::$userSessionName];
     }
 
     /**
@@ -293,7 +293,7 @@ class EaseShared extends EaseAtom
     public static function registerItem(&$ItemPointer)
     {
         $EaseShared = EaseShared::singleton();
-        $EaseShared->AllItems[] = $ItemPointer;
+        $EaseShared->allItems[] = $ItemPointer;
     }
 
 }
