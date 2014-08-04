@@ -795,7 +795,7 @@ class EaseSand extends EaseAtom
      */
     public static function randomString($length = 6)
     {
-        return substr(str_replace("/", "A", str_replace(".", "X", crypt(strval(self::randomNumber(1000, 9000))))), 3, $length);
+        return substr(str_replace("/", "A", str_replace(".", "X", crypt(strval(self::randomNumber(1000, 9000)),$length))), 3, $length);
     }
 
     /**

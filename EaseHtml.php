@@ -612,7 +612,17 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
     {
         return $this->tBody->isEmpty();
     }
-    
+
+    /**
+     * Naplní tabulku daty 
+     * 
+     * @param array $contents
+     */
+    function populate( $contents ) {
+        foreach ( $contents as $cRow ){
+            $this->addRowColumns($cRow);
+        }
+    }
 }
 
 /**
@@ -872,7 +882,7 @@ class EaseHtmlATag extends EaseHtmlPairTag
     /**
      * zobrazí HTML odkaz
      *
-     * @param string $Href       url odkazu
+     * @param string $href       url odkazu
      * @param mixed  $contents   vkládaný obsah
      * @param array  $properties parametry tagu
      */

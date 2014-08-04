@@ -1253,7 +1253,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (!count($data)) {
-            $this->error('NO data for Insert to Shop: ' . $this->myTable);
+            $this->error('NO data for Insert to MySQL: ' . $this->myTable);
 
             return null;
         }
@@ -1995,8 +1995,9 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function msSQLTableExist($tableName = null)
     {
-        if (!$tableName)
+        if (!$tableName){
             $tableName = $this->msTable;
+        }
         if (!$tableName) {
             $this->error('MSSQLTableExist: $TableName not known', $this->identity);
         }
@@ -2044,4 +2045,20 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     {
         return preg_replace('/[^(a-zA-Z0-9)]*/','', $text);
     }
+    
+    /**
+     * Prohledá zadané slupečky
+     * 
+     * @param string $searchTerm
+     * @param array $columns
+     */
+    public function searchColumns($searchTerm,$columns){
+        $sTerm = $this->myDbLink->AddSlashes($searchTerm);
+        $conditons = array();
+        foreach ($columns as $column){
+            $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
+        }
+        return $this->myDbLink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '. implode(' OR ', $conditons) );
+    }
+    
 }

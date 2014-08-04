@@ -24,87 +24,87 @@ class EaseMail extends EasePage
      * Objekt pro odesílání pošty
      * @var
      */
-    public $Mailer = null;
-    public $Mimer = null;
-    public $TextBody = null;
-    public $MailHeaders = array();
-    public $MailHeadersDone = null;
-    public $CrLf = "\n";
-    public $MailBody = null;
-    public $Finalized = false;
+    public $mailer = null;
+    public $mimer = null;
+    public $textBody = null;
+    public $mailHeaders = array();
+    public $mailHeadersDone = null;
+    public $crLf = "\n";
+    public $mailBody = null;
+    public $finalized = false;
 
     /**
      * Již vzrendrované HTML
      * @var string
      */
-    public $HtmlBodyRendered = null;
+    public $htmlBodyRendered = null;
 
     /**
      * Adresa odesilatele zprávy
      * @var string
      */
-    public $EmailAddress = 'postmaster@localhost';
-    public $EmailSubject = null;
+    public $emailAddress = 'postmaster@localhost';
+    public $emailSubject = null;
 
     /**
      * Emailová adresa odesilatele
      * @var string
      */
-    public $FromEmailAddress = null;
+    public $fromEmailAddress = null;
 
     /**
      * Zobrazovat uživateli informaci o odeslání zprávy ?
      * @var boolean
      */
-    public $Notify = true;
+    public $notify = true;
 
     /**
      * Byla již zpráva odeslána ?
      * @var boolean
      */
-    public $SendResult = false;
+    public $sendResult = false;
 
     /**
      * Objekt stránky pro rendrování do mailu
      * @var EaseHtmlHtmlTag
      */
-    public $HtmlDocument = null;
+    public $htmlDocument = null;
 
     /**
      * Ukazatel na BODY html dokumentu
      * @var EaseHtmlBodyTag
      */
-    public $HtmlBody = null;
+    public $htmlBody = null;
 
     /**
      * Ease Mail - sestaví a odešle
      *
-     * @param string $EmailAddress  adresa
-     * @param string $EmailSubject  předmět
-     * @param mixed  $EmailContents tělo - libovolný mix textu a EaseObjektů
+     * @param string $emailAddress  adresa
+     * @param string $mmailSubject  předmět
+     * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
-    public function __construct($EmailAddress, $EmailSubject, $EmailContents = null)
+    public function __construct($emailAddress, $mmailSubject, $emailContents = null)
     {
         $this->setMailHeaders(
                 array(
-                    'To' => $EmailAddress,
-                    'From' => $this->FromEmailAddress,
-                    'Reply-To' => $this->FromEmailAddress,
-                    'Subject' => $EmailSubject,
+                    'To' => $emailAddress,
+                    'From' => $this->fromEmailAddress,
+                    'Reply-To' => $this->fromEmailAddress,
+                    'Subject' => $mmailSubject,
                     'Content-Type' => 'text/plain; charset=utf-8',
                     'Content-Transfer-Encoding' => '8bit'
                 )
         );
 
-        $this->Mimer = new Mail_mime($this->CrLf);
-        $this->Mimer->_build_params['text_charset'] = 'UTF-8';
-        $this->Mimer->_build_params['html_charset'] = 'UTF-8';
-        $this->Mimer->_build_params['head_charset'] = 'UTF-8';
+        $this->mimer = new Mail_mime($this->crLf);
+        $this->mimer->_build_params['text_charset'] = 'UTF-8';
+        $this->mimer->_build_params['html_charset'] = 'UTF-8';
+        $this->mimer->_build_params['head_charset'] = 'UTF-8';
 
         parent::__construct();
         $this->setOutputFormat('mail');
-        if (isset($EmailContents)) {
-            $this->addItem($EmailContents);
+        if (isset($emailContents)) {
+            $this->addItem($emailContents);
         }
     }
 
@@ -117,38 +117,38 @@ class EaseMail extends EasePage
      */
     public function getMailHeader($headername)
     {
-        if (isset($this->MailHeaders[$headername])) {
-            return $this->MailHeaders[$headername];
+        if (isset($this->mailHeaders[$headername])) {
+            return $this->mailHeaders[$headername];
         }
     }
 
     /**
      * Nastaví hlavičky mailu
      *
-     * @param mixed $MailHeaders asociativní pole hlaviček
+     * @param mixed $mailHeaders asociativní pole hlaviček
      *
      * @return boolean true pokud byly hlavičky nastaveny
      */
-    public function setMailHeaders(array $MailHeaders)
+    public function setMailHeaders(array $mailHeaders)
     {
-        if (is_array($this->MailHeaders)) {
-            $this->MailHeaders = array_merge($this->MailHeaders, $MailHeaders);
+        if (is_array($this->mailHeaders)) {
+            $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
         } else {
-            $this->MailHeaders = $MailHeaders;
+            $this->mailHeaders = $mailHeaders;
         }
-        if (isset($this->MailHeaders['To'])) {
-            $this->EmailAddress = $this->MailHeaders['To'];
+        if (isset($this->mailHeaders['To'])) {
+            $this->emailAddress = $this->mailHeaders['To'];
         }
-        if (isset($this->MailHeaders['From'])) {
-            $this->FromEmailAddress = $this->MailHeaders['From'];
+        if (isset($this->mailHeaders['From'])) {
+            $this->fromEmailAddress = $this->mailHeaders['From'];
         }
-        if (isset($this->MailHeaders['Subject'])) {
-            if (!strstr($this->MailHeaders['Subject'], '=?UTF-8?B?')) {
-                $this->EmailSubject = $this->MailHeaders['Subject'];
-                $this->MailHeaders['Subject'] = '=?UTF-8?B?' . base64_encode($this->MailHeaders['Subject']) . '?=';
+        if (isset($this->mailHeaders['Subject'])) {
+            if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
+                $this->emailSubject = $this->mailHeaders['Subject'];
+                $this->mailHeaders['Subject'] = '=?UTF-8?B?' . base64_encode($this->mailHeaders['Subject']) . '?=';
             }
         }
-        $this->Finalized = false;
+        $this->finalized = false;
 
         return true;
     }
@@ -156,38 +156,38 @@ class EaseMail extends EasePage
     /**
      * Přidá položku do těla mailu
      *
-     * @param mixed $Item EaseObjekt nebo cokoliv s metodou draw();
+     * @param mixed $item EaseObjekt nebo cokoliv s metodou draw();
      *
      * @return mixed ukazatel na vložený obsah
      */
-    function &addItem($Item,$PageItemName = null)
+    function &addItem($item,$pageItemName = null)
     {
 
-        if (is_object($Item)) {
-            if (is_object($this->HtmlDocument)) {
-                $this->HtmlBody->addItem($Item,$PageItemName);
+        if (is_object($item)) {
+            if (is_object($this->htmlDocument)) {
+                $this->htmlBody->addItem($item,$pageItemName);
             } else {
-                $this->HtmlDocument = new EaseHtmlHtmlTag(new EaseHtmlSimpleHeadTag(new EaseHtmlTitleTag($this->EmailSubject)));
-                $this->HtmlDocument->setOutputFormat($this->getOutputFormat());
-                $this->HtmlBody = $this->HtmlDocument->addItem(new EaseHtmlBodyTag('Mail', $Item));
+                $this->htmlDocument = new EaseHtmlHtmlTag(new EaseHtmlSimpleHeadTag(new EaseHtmlTitleTag($this->emailSubject)));
+                $this->htmlDocument->setOutputFormat($this->getOutputFormat());
+                $this->htmlBody = $this->htmlDocument->addItem(new EaseHtmlBodyTag('Mail', $item));
             }
         } else {
-            $this->TextBody .= $Item;
-            $this->Mimer->setTXTBody($this->TextBody);
+            $this->textBody .= $item;
+            $this->mimer->setTXTBody($this->textBody);
         }
 
-        return $MailBody;
+        return $mailBody;
     }
 
     /**
      * Připojí k mailu přílohu ze souboru
      *
-     * @param string $Filename cesta/název souboru k přiložení
-     * @param string $MimeType MIME typ přílohy
+     * @param string $filename cesta/název souboru k přiložení
+     * @param string $mimeType MIME typ přílohy
      */
-    public function addFile($Filename, $MimeType = 'text/plain')
+    public function addFile($filename, $mimeType = 'text/plain')
     {
-        $this->Mimer->addAttachment($Filename, $MimeType);
+        $this->mimer->addAttachment($filename, $mimeType);
     }
 
     /**
@@ -195,20 +195,20 @@ class EaseMail extends EasePage
      */
     public function finalize()
     {
-        if (method_exists($this->HtmlDocument, 'GetRendered')) {
-            $this->HtmlBodyRendered = $this->HtmlDocument->getRendered();
+        if (method_exists($this->htmlDocument, 'GetRendered')) {
+            $this->htmlBodyRendered = $this->htmlDocument->getRendered();
         } else {
-            $this->HtmlBodyRendered = $this->HtmlDocument;
+            $this->htmlBodyRendered = $this->htmlDocument;
         }
-        $this->Mimer->setHTMLBody($this->HtmlBodyRendered);
+        $this->mimer->setHTMLBody($this->htmlBodyRendered);
 
-        if (isset($this->FromEmailAddress)) {
-            $this->setMailHeaders(array('From' => $this->FromEmailAddress));
+        if (isset($this->fromEmailAddress)) {
+            $this->setMailHeaders(array('From' => $this->fromEmailAddress));
         }
 
-        $this->MailBody = $this->Mimer->get();
-        $this->MailHeadersDone = $this->Mimer->headers($this->MailHeaders);
-        $this->Finalized = true;
+        $this->mailBody = $this->mimer->get();
+        $this->mailHeadersDone = $this->mimer->headers($this->mailHeaders);
+        $this->finalized = true;
     }
 
     /**
@@ -226,25 +226,25 @@ class EaseMail extends EasePage
      */
     public function send()
     {
-        if (!$this->Finalized) {
+        if (!$this->finalized) {
             $this->finalize();
         }
-        $OMail = new Mail();
-        $this->Mailer = & $OMail->factory('mail');
-        $this->SendResult = $this->Mailer->send($this->EmailAddress, $this->MailHeadersDone, $this->MailBody);
-        if ($this->SendResult && $this->Notify) {
-            $this->addStatusMessage( sprintf(_('Zpráva %s byla odeslána na adresu %s'),$this->EmailSubject, $this->EmailAddress), 'success');
+        $oMail = new Mail();
+        $this->mailer = & $oMail->factory('mail');
+        $this->sendResult = $this->mailer->send($this->emailAddress, $this->mailHeadersDone, $this->mailBody);
+        if ($this->sendResult && $this->notify) {
+            $this->addStatusMessage( sprintf(_('Zpráva %s byla odeslána na adresu %s'),$this->emailSubject, $this->emailAddress), 'success');
         }
     }
 
     /**
      * Nastaví návěští uživatelské notifikace
      *
-     * @param bool $Notify požadovaný stav notifikace
+     * @param bool $notify požadovaný stav notifikace
      */
-    public function setUserNotification($Notify)
+    public function setUserNotification($notify)
     {
-        $this->Notify = (bool) $Notify;
+        $this->notify = (bool) $notify;
     }
 
 }
