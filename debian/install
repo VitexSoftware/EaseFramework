@@ -1,2 +1,2 @@
-build/*.php                   /usr/share/php/Ease
-build/js/*.js                 /usr/share/javascript
+*.php                   /usr/share/php/Ease
+share/js/*.js           /usr/share/javascript
