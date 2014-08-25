@@ -242,7 +242,7 @@ class EaseShared extends EaseAtom {
      * @return EaseUser
      */
     public static function & user($user = NULL, $userSessionName = NULL) {
-        if (isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
+        if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
             return $_SESSION[self::$userSessionName];
         }
 
@@ -252,11 +252,12 @@ class EaseShared extends EaseAtom {
         if (is_object($user)) {
             $_SESSION[self::$userSessionName] = clone $user;
         } else {
-            $_SESSION[self::$userSessionName] = new $user;
-        }
-        if (!isset($_SESSION[self::$userSessionName])) {
-            require_once 'Ease/EaseUser.php';
-            $_SESSION[self::$userSessionName] = new EaseAnonym();
+            if (class_exists($user)) {
+                $_SESSION[self::$userSessionName] = new $user;
+            } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[self::$userSessionName])) {
+                require_once 'Ease/EaseUser.php';
+                $_SESSION[self::$userSessionName] = new EaseAnonym();
+            }
         }
 
         return $_SESSION[self::$userSessionName];
