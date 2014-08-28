@@ -21,32 +21,32 @@ class EaseDbMySqli extends EaseSQL
      * MySQLi class instance
      * @var mysqli
      */
-    public $SQLLink = null; // MS SQL link identifier
+    public $sqlLink = null; // MS SQL link identifier
     /**
      * SQLLink result
      * @var mysqli_result
      */
     public $result = null;
     public $status = false; //Pripojeno ?
-    public $LastQuery = '';
-    public $NumRows = 0;
-    public $Debug = false;
+    public $lastQuery = '';
+    public $numRows = 0;
+    public $debug = false;
     public $keyColumn = '';
     public $data = null;
-    public $Charset = 'utf8';
-    public $Collate = 'utf8_czech_ci';
+    public $charset = 'utf8';
+    public $collate = 'utf8_czech_ci';
 
     /**
      * Povolit Explain každého dotazu do logu ?
      * @var bool
      */
-    public $ExplainMode = false;
+    public $explainMode = false;
 
     /**
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $ConnectionSettings = array(
+    public $connectionSettings = array(
         'NAMES' => 'utf8'
     );
 
@@ -64,8 +64,8 @@ class EaseDbMySqli extends EaseSQL
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            $Class = __CLASS__;
-            self::$instance = new $Class();
+            $class = __CLASS__;
+            self::$instance = new $class();
         }
 
         return self::$instance;
@@ -74,13 +74,13 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Escapes special characters in a string for use in an SQL statement
      *
-     * @param string $Text
+     * @param string $text
      *
      * @return string
      */
-    public function addSlashes($Text)
+    public function addSlashes($text)
     {
-        return $this->SQLLink->real_escape_string($Text);
+        return $this->sqlLink->real_escape_string($text);
     }
 
     /**
@@ -88,14 +88,14 @@ class EaseDbMySqli extends EaseSQL
      */
     public function connect()
     {
-        $this->SQLLink = new mysqli($this->Server, $this->Username, $this->Password);
-        if ($this->SQLLink->connect_errno) {
-            $this->addStatusMessage('Connect: error #' . $this->SQLLink->connect_errno . ' ' . $this->SQLLink->connect_error, 'error');
+        $this->sqlLink = new mysqli($this->server, $this->username, $this->password);
+        if ($this->sqlLink->connect_errno) {
+            $this->addStatusMessage('Connect: error #' . $this->sqlLink->connect_errno . ' ' . $this->sqlLink->connect_error, 'error');
 
             return FALSE;
         } else {
-            if ($this->selectDB($this->Database)) {
-                $this->errorText = $this->SQLLink->error;
+            if ($this->selectDB($this->database)) {
+                $this->errorText = $this->sqlLink->error;
                 parent::connect();
             } else {
                 return FALSE;
@@ -106,24 +106,24 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Změní aktuálně použitou databázi
      *
-     * @param string $DbName
+     * @param string $dbName
      *
      * @return boolean
      */
-    public function selectDB($DbName = null)
+    public function selectDB($dbName = null)
     {
-        parent::selectDB($DbName);
-        $Change = $this->SQLLink->select_db($DbName);
-        if ($Change) {
-            $this->Database = $DbName;
+        parent::selectDB($dbName);
+        $change = $this->sqlLink->select_db($dbName);
+        if ($change) {
+            $this->Database = $dbName;
         } else {
-            $this->errorText = $this->SQLLink->error;
-            $this->errorNumber = $this->SQLLink->errno;
+            $this->errorText = $this->sqlLink->error;
+            $this->errorNumber = $this->sqlLink->errno;
             $this->addStatusMessage('Connect: error #' . $this->errorNumber . ' ' . $this->errorText, 'error');
             $this->logError();
         }
 
-        return $Change;
+        return $change;
     }
 
     /**
@@ -137,15 +137,15 @@ class EaseDbMySqli extends EaseSQL
     public function exeQuery($queryRaw, $ignoreErrors = false)
     {
         $queryRaw = $this->sanitizeQuery($queryRaw);
-        $this->LastQuery = $queryRaw;
+        $this->lastQuery = $queryRaw;
         $this->LastInsertID = null;
         $this->errorText = null;
         $this->errorNumber = null;
         $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
         do {
-            $this->result = $this->SQLLink->query($queryRaw);
-            $this->errorNumber = $this->SQLLink->errno;
-            $this->errorText = $this->SQLLink->error;
+            $this->result = $this->sqlLink->query($queryRaw);
+            $this->errorNumber = $this->sqlLink->errno;
+            $this->errorText = $this->sqlLink->error;
             if (!$this->result && !$ignoreErrors) {
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function'))
@@ -172,27 +172,27 @@ class EaseDbMySqli extends EaseSQL
             case 'select':
             case 'show':
                 if (!$this->errorText) {
-                    $this->NumRows = $this->result->num_rows;
+                    $this->numRows = $this->result->num_rows;
                 }
                 break;
             case 'insert':
                 if (!$this->errorText) {
-                    $this->LastInsertID = $this->SQLLink->insert_id;
+                    $this->LastInsertID = $this->sqlLink->insert_id;
                 }
             case 'update':
             case 'replace':
             case 'delete':
             case 'alter':
-                $this->NumRows = $this->SQLLink->affected_rows;
+                $this->numRows = $this->sqlLink->affected_rows;
                 break;
             default:
-                $this->NumRows = null;
+                $this->numRows = null;
         }
-        if ($this->ExplainMode) {
-            $EexplainQuery = $this->SQLLink->query('EXPLAIN ' . $queryRaw);
-            if ($EexplainQuery) {
-                $ExplainedQuery = $EexplainQuery->fetch_assoc();
-                $this->addToLog('Explain: ' . $queryRaw . "\n" . $this->printPreBasic($ExplainedQuery), 'explain');
+        if ($this->explainMode) {
+            $explainQuery = $this->sqlLink->query('EXPLAIN ' . $queryRaw);
+            if ($explainQuery) {
+                $explainedQuery = $explainQuery->fetch_assoc();
+                $this->addToLog('Explain: ' . $queryRaw . "\n" . $this->printPreBasic($explainedQuery), 'explain');
             }
         }
 
@@ -277,11 +277,11 @@ class EaseDbMySqli extends EaseSQL
     public function arrayToQuery($data, $Key = true)
     {
         $updates = '';
-        foreach ($data as $Column => $value) {
-            if (!strlen($Column)) {
+        foreach ($data as $column => $value) {
+            if (!strlen($column)) {
                 continue;
             }
-            if (($Column == $this->keyColumn) && $Key) {
+            if (($column == $this->keyColumn) && $Key) {
                 continue;
             }
             switch (gettype($value)) {
@@ -314,7 +314,7 @@ class EaseDbMySqli extends EaseSQL
                     $value = " '$value' ";
             }
 
-            $updates.=" `$Column` = $value,";
+            $updates.=" `$column` = $value,";
         }
 
         return substr($updates, 0, -1);
@@ -416,17 +416,17 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Vrací 1 pokud tabulka v databázi existuje
      *
-     * @param string $TableName
+     * @param string $tableName
      *
      * @return int
      */
-    public function tableExist($TableName = null)
+    public function tableExist($tableName = null)
     {
-        if (!parent::tableExist($TableName)) {
+        if (!parent::tableExist($tableName)) {
             return null;
         }
-        $this->exeQuery("SHOW TABLES LIKE '" . $TableName . "'");
-        if ($this->NumRows) {
+        $this->exeQuery("SHOW TABLES LIKE '" . $tableName . "'");
+        if ($this->numRows) {
             return true;
         } else {
             return false;
@@ -436,16 +436,16 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Vrací počet řádek v tabulce
      *
-     * @param string $TableName
+     * @param string $tableName
      *
      * @return int
      */
-    public function getTableNumRows($TableName = null)
+    public function getTableNumRows($tableName = null)
     {
-        if (!$TableName) {
-            $TableName = $this->TableName;
+        if (!$tableName) {
+            $tableName = $this->TableName;
         }
-        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM `' . $this->easeAddSlashes($TableName) . '`');
+        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM `' . $this->easeAddSlashes($tableName) . '`');
 
         return $TableRowsCount[0]['NumRows'];
     }
@@ -453,15 +453,15 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Vytvoří tabulku podle struktůry
      *
-     * @param array  $TableStructure struktura SQL
-     * @param string $TableName      název tabulky
+     * @param array  $tableStructure struktura SQL
+     * @param string $tableName      název tabulky
      */
-    public function createTable(& $TableStructure = null, $TableName = null)
+    public function createTable(& $tableStructure = null, $tableName = null)
     {
-        if (!parent::createTable($TableStructure, $TableName)) {
+        if (!parent::createTable($tableStructure, $tableName)) {
             return null;
         }
-        if ($this->exeQuery($this->createTableQuery($TableStructure, $TableName))) {
+        if ($this->exeQuery($this->createTableQuery($tableStructure, $tableName))) {
             return true;
         } else {
             return false;
@@ -471,14 +471,14 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Vyprázdní tabulku
      *
-     * @param string $TableName
+     * @param string $tableName
      *
      * @return boolean success
      */
-    public function truncateTable($TableName)
+    public function truncateTable($tableName)
     {
-        $this->exeQuery('TRUNCATE ' . $TableName);
-        if (!$this->getTableNumRows($TableName)) {
+        $this->exeQuery('TRUNCATE ' . $tableName);
+        if (!$this->getTableNumRows($tableName)) {
             return true;
         } else {
             return false;
@@ -488,21 +488,21 @@ class EaseDbMySqli extends EaseSQL
     /**
      * Vytvoří index na tabulkou
      *
-     * @param string $ColumnName
-     * @param bool   $Primary    create Index as Primary Key
-     * @param string $TableName  if unset $this->TableName is used
+     * @param string $columnName
+     * @param bool   $primary    create Index as Primary Key
+     * @param string $tableName  if unset $this->TableName is used
      *
      * @return sql handle
      */
-    public function addTableKey($ColumnName, $Primary = false, $TableName = null)
+    public function addTableKey($columnName, $primary = false, $tableName = null)
     {
-        if (!$TableName) {
-            $TableName = $this->TableName;
+        if (!$tableName) {
+            $tableName = $this->TableName;
         }
-        if ($Primary) {
-            return $this->exeQuery("ALTER TABLE `$TableName` ADD PRIMARY KEY ( `$ColumnName` )");
+        if ($primary) {
+            return $this->exeQuery("ALTER TABLE `$tableName` ADD PRIMARY KEY ( `$columnName` )");
         } else {
-            return $this->exeQuery("ALTER TABLE `$TableName` ADD KEY ( `$ColumnName` )");
+            return $this->exeQuery("ALTER TABLE `$tableName` ADD KEY ( `$columnName` )");
         }
     }
 
@@ -523,7 +523,7 @@ class EaseDbMySqli extends EaseSQL
         $queryRawItems = array();
         $Indexes = array();
 
-        $QueryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
+        $queryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
         foreach ($tableStructure as $columnName => $columnProperties) {
 
             switch ($columnProperties['type']) {
@@ -592,8 +592,8 @@ class EaseDbMySqli extends EaseSQL
               ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
              */
         }
-        $queryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=" . $this->Charset . ' COLLATE=' . $this->Collate . ';';
-        $queryRaw = $QueryRawBegin . implode(",\n", array_merge($queryRawItems, $Indexes)) . $queryRawEnd;
+        $queryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=" . $this->charset . ' COLLATE=' . $this->collate . ';';
+        $queryRaw = $queryRawBegin . implode(",\n", array_merge($queryRawItems, $Indexes)) . $queryRawEnd;
 
         return $queryRaw;
     }
@@ -627,56 +627,56 @@ class EaseDbMySqli extends EaseSQL
      */
     public static function createMissingColumns(& $easeBrick, $data = null)
     {
-        $Result = 0;
+        $result = 0;
         $badQuery = $easeBrick->easeShared->myDbLink->getLastQuery();
         $tableColumns = $easeBrick->easeShared->myDbLink->describe($easeBrick->myTable);
         if (count($tableColumns)) {
             if (is_null($data)) {
                 $data = $easeBrick->getData();
             }
-            foreach ($data as $DataColumn => $DataValue) {
-                if (!strlen($DataColumn)) {
+            foreach ($data as $dataColumn => $dataValue) {
+                if (!strlen($dataColumn)) {
                     continue;
                 }
-                if (!array_key_exists($DataColumn, $tableColumns[$easeBrick->myTable])) {
-                    switch (gettype($DataValue)) {
+                if (!array_key_exists($dataColumn, $tableColumns[$easeBrick->myTable])) {
+                    switch (gettype($dataValue)) {
                         case 'boolean':
-                            $ColumnType = 'TINYINT( 1 )';
+                            $columnType = 'TINYINT( 1 )';
                             break;
                         case 'string':
-                            if (strlen($DataValue) > 255) {
-                                $ColumnType = 'TEXT';
+                            if (strlen($dataValue) > 255) {
+                                $columnType = 'TEXT';
                             } else {
-                                $ColumnType = 'VARCHAR(' . strlen($DataValue) . ')';
+                                $columnType = 'VARCHAR(' . strlen($dataValue) . ')';
                             }
                             break;
                         case 'integer':
-                            $ColumnType = 'INT( ' . strlen($DataValue) . ' )';
+                            $columnType = 'INT( ' . strlen($dataValue) . ' )';
                             break;
                         case 'double':
                         case 'float':
-                            list($M, $D) = explode(',', str_replace('.', ',', $DataValue));
-                            $ColumnType = 'FLOAT( ' . strlen($M) . ',' . strlen($D) . ' )';
+                            list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
+                            $columnType = 'FLOAT( ' . strlen($m) . ',' . strlen($d) . ' )';
                             break;
 
                         default:
                             continue;
                             break;
                     }
-                    $AddColumnQuery = 'ALTER TABLE `' . $easeBrick->myTable . '` ADD `' . $DataColumn . '` ' . $ColumnType . ' null DEFAULT null';
+                    $AddColumnQuery = 'ALTER TABLE `' . $easeBrick->myTable . '` ADD `' . $dataColumn . '` ' . $columnType . ' null DEFAULT null';
                     if (!$easeBrick->myDbLink->exeQuery($AddColumnQuery)) {
                         $easeBrick->addStatusMessage($AddColumnQuery, 'error');
-                        $Result--;
+                        $result--;
                     } else {
                         $easeBrick->addStatusMessage($AddColumnQuery, 'success');
-                        $Result++;
+                        $result++;
                     }
                 }
             }
         }
-        $easeBrick->myDbLink->LastQuery = $badQuery;
+        $easeBrick->myDbLink->lastQuery = $badQuery;
 
-        return $Result;
+        return $result;
     }
 
     /**
@@ -686,10 +686,10 @@ class EaseDbMySqli extends EaseSQL
      */
     public function close()
     {
-        if (is_resource($this->SQLLink)) {
-            return mysqli_close($this->SQLLink);
+        if (is_resource($this->sqlLink)) {
+            return mysqli_close($this->sqlLink);
         } else {
-            return $this->SQLLink->close();
+            return $this->sqlLink->close();
         }
     }
 
@@ -723,7 +723,7 @@ class EaseDbAnsiMySQL extends EaseDbMySql
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $ConnectionSettings = array(
+    public $connectionSettings = array(
         'NAMES' => 'utf8',
         'GLOBAL sql_mode  = \'ANSI\'' => '',
         'GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE' => ''

@@ -224,8 +224,8 @@ class EaseBrick extends EaseSand
      */
     public function easeAddSlashes($text)
     {
-        if (is_object($this->myDbLink) && is_resource($this->myDbLink->SQLLink)) {
-            return mysql_real_escape_string($text, $this->myDbLink->SQLLink);
+        if (is_object($this->myDbLink) && is_resource($this->myDbLink->sqlLink)) {
+            return mysql_real_escape_string($text, $this->myDbLink->sqlLink);
         } else {
             return parent::EaseAddSlashes($text);
         }
