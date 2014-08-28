@@ -549,15 +549,15 @@ class EaseBrick extends EaseSand
             $this->msDbLink->setObjectName($this->getObjectName() . '->MSSQL');
         }
 
-        $this->msDbLink->KeyColumn = $this->MSKeyColumn;
-        $this->msDbLink->TableName = $this->msTable;
+        $this->msDbLink->keyColumn = $this->MSKeyColumn;
+        $this->msDbLink->tableName = $this->msTable;
         $this->msDbLink->LastModifiedColumn = $this->msLastModifiedColumn;
         $this->msDbLink->CreateColumn = $this->msCreateColumn;
         if ($updateStructure) {
             $this->loadSqlStruct('ms');
         }
         if (isset($this->sqlStruct['ms'])) {
-            $this->msDbLink->TableStructure = $this->sqlStruct['ms'];
+            $this->msDbLink->tableStructure = $this->sqlStruct['ms'];
         }
     }
 
@@ -574,14 +574,14 @@ class EaseBrick extends EaseSand
             return;
         }
         $this->myDbLink->keyColumn = $this->myKeyColumn;
-        $this->myDbLink->TableName = $this->myTable;
+        $this->myDbLink->tableName = $this->myTable;
         $this->myDbLink->CreateColumn = $this->myCreateColumn;
         $this->myDbLink->LastModifiedColumn = $this->myLastModifiedColumn;
         if ($updateStructure) {
             $this->loadSqlStruct('my');
         }
         if (isset($this->sqlStruct['my'])) {
-            $this->myDbLink->TableStructure = $this->sqlStruct['my'];
+            $this->myDbLink->tableStructure = $this->sqlStruct['my'];
         }
     }
 
@@ -1884,7 +1884,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         $QueryRaw = "DELETE FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data);
         $this->msDbLink->exeQuery($QueryRaw);
 
-        return $this->msDbLink->NumRows;
+        return $this->msDbLink->numRows;
     }
 
     /**

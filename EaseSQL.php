@@ -22,7 +22,7 @@ class EaseSQL extends EaseSand
      * SQL operation result handle
      * @var resource
      */
-    public $Result = null;
+    public $result = null;
 
     /**
      * SQL Handle
@@ -34,73 +34,73 @@ class EaseSQL extends EaseSand
      * IP serveru
      * @var string
      */
-    public $Server = null;
+    public $server = null;
 
     /**
      * DB Login
      * @var string
      */
-    public $Username = null;
+    public $username = null;
 
     /**
      * DB heslo
      * @var string
      */
-    public $Password = null;
+    public $password = null;
 
     /**
      * Database to connect by default
      * @var string
      */
-    public $Database = null;
+    public $database = null;
 
     /**
      * Status připojení
      * @var bool
      */
-    public $Status = null;
+    public $status = null;
 //Pripojeno ?
     /**
      * Hodnota posledního voloženeho AutoIncrement sloupečku
      * @var int unsigned
      */
-    public $LastInsertID = null;
+    public $lastIsnertID = null;
 
     /**
      * Poslední vykonaná SQL Query
      * @var string
      */
-    public $LastQuery = '';
+    public $lastQuery = '';
 
     /**
      * Počet ovlivněných nebo vrácených řádek při $this->LastQuery
      * @var string
      */
-    public $NumRows = 0;
+    public $numRows = 0;
 
     /**
      * Pole obsahující informace o základních paramatrech SQL přiopojení
      * @var array
      */
-    public $Report = array('LastMessage' => 'Please extend');
+    public $report = array('LastMessage' => 'Please extend');
 
     /**
      * Klíčový sloupeček pro SQL operace
      * @var string
      */
-    public $KeyColumn = '';
+    public $keyColumn = '';
 
     /**
      * Název práve zpracovávané tabulky
      * @var string
      */
-    public $TableName = '';
+    public $tableName = '';
 
     /**
      * Pole obsahující strukturu SQL tabulky
      * @var array
      */
-    public $TableStructure = array();
+    public $tableStructure = array();
 
     /**
      * Poslední Chybová zpráva obdržená od SQL serveru
@@ -130,19 +130,19 @@ class EaseSQL extends EaseSand
      * Poslední zpráva obdžená od SQL serveru
      * @var string
      */
-    public $LastMessage = null;
+    public $lastMessage = null;
 
     /**
      * Prodlevy v sekundách pro znovupřipojení k databázi
      * @var array
      */
-    public $ReconectTimeouts = array('web' => 1, 'cgi' => 10);
+    public $reconectTimeouts = array('web' => 1, 'cgi' => 10);
 
     /**
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $ConnectionSettings = array();
+    public $connectionSettings = array();
 
     /**
      * Indikátor nastavení připojení - byly vykonány SET příkazy
@@ -156,17 +156,17 @@ class EaseSQL extends EaseSand
     public function __construct()
     {
         parent::__construct();
-        if (!isset($this->Server) && defined('DB_SERVER')) {
-            $this->Server = constant('DB_SERVER');
+        if (!isset($this->server) && defined('DB_SERVER')) {
+            $this->server = constant('DB_SERVER');
         }
-        if (!isset($this->Username) && defined('DB_SERVER_USERNAME')) {
-            $this->Username = constant('DB_SERVER_USERNAME');
+        if (!isset($this->username) && defined('DB_SERVER_USERNAME')) {
+            $this->username = constant('DB_SERVER_USERNAME');
         }
-        if (!isset($this->Password) && defined('DB_SERVER_PASSWORD')) {
-            $this->Password = constant('DB_SERVER_PASSWORD');
+        if (!isset($this->password) && defined('DB_SERVER_PASSWORD')) {
+            $this->password = constant('DB_SERVER_PASSWORD');
         }
-        if (!isset($this->Database) && defined('DB_DATABASE')) {
-            $this->Database = constant('DB_DATABASE');
+        if (!isset($this->database) && defined('DB_DATABASE')) {
+            $this->database = constant('DB_DATABASE');
         }
         $this->connect();
     }
@@ -177,19 +177,19 @@ class EaseSQL extends EaseSand
     public function connect()
     {
         $this->setUp();
-        $this->Status = true;
+        $this->status = true;
     }
 
     /**
      * Přepene databázi
      *
-     * @param  type    $DBName
+     * @param  type    $dbName
      * @return boolean
      */
-    public function selectDB($DBName = null)
+    public function selectDB($dbName = null)
     {
-        if (!is_null($DBName)) {
-            $this->Database = $DBName;
+        if (!is_null($dbName)) {
+            $this->database = $dbName;
         }
 
         return null;
@@ -242,11 +242,11 @@ class EaseSQL extends EaseSand
 
     public function makeReport()
     {
-        $this->Report['LastMessage'] = $this->LastMessage;
-        $this->Report['ErrorText'] = $this->errorText;
-        $this->Report['Database'] = $this->Database;
-        $this->Report['Username'] = $this->Username;
-        $this->Report['Server'] = $this->Server;
+        $this->report['LastMessage'] = $this->lastMessage;
+        $this->report['ErrorText'] = $this->errorText;
+        $this->report['Database'] = $this->database;
+        $this->report['Username'] = $this->username;
+        $this->report['Server'] = $this->server;
     }
 
     /**
@@ -255,8 +255,8 @@ class EaseSQL extends EaseSand
     public function setUp()
     {
         if (!$this->connectAllreadyUP) {
-            if (isset($this->ConnectionSettings) && is_array($this->ConnectionSettings) && count($this->ConnectionSettings)) {
-                foreach ($this->ConnectionSettings as $setName => $SetValue) {
+            if (isset($this->connectionSettings) && is_array($this->connectionSettings) && count($this->connectionSettings)) {
+                foreach ($this->connectionSettings as $setName => $SetValue) {
                     if (strlen($setName)) {
                         $this->exeQuery("SET $setName $SetValue");
                     }
@@ -268,30 +268,30 @@ class EaseSQL extends EaseSand
 
     public function setTable($TableName)
     {
-        $this->TableName = $TableName;
+        $this->tableName = $TableName;
     }
 
     /**
      * Otestuje všechny náležitosti pro vytvoření tabulky
      *
-     * @param  array   $TableStructure
-     * @param  string  $TableName
+     * @param  array   $tableStructure
+     * @param  string  $tableName
      * @return boolean
      */
-    public function createTableQuery(&$TableStructure, $TableName = null)
+    public function createTableQuery(&$tableStructure, $tableName = null)
     {
-        if (!$TableStructure) {
-            $TableStructure = $this->TableStructure;
+        if (!$tableStructure) {
+            $tableStructure = $this->tableStructure;
         }
-        if (!is_array($TableStructure)) {
+        if (!is_array($tableStructure)) {
             $this->error('Missing table structure for creating TableCreate QueryRaw');
 
             return false;
         }
-        if (!$TableName) {
-            $TableName = $this->TableName;
+        if (!$tableName) {
+            $tableName = $this->tableName;
         }
-        if (!$TableName) {
+        if (!$tableName) {
             $this->error('Missing table name for creating TableCreate QueryRaw');
 
             return false;
@@ -309,18 +309,18 @@ class EaseSQL extends EaseSand
      */
     protected function fixColumnsLength($data)
     {
-        foreach ($this->TableStructure as $Column => $ColumnProperties) {
-            if (array_key_exists($Column, $this->TableStructure)) {
+        foreach ($this->tableStructure as $column => $columnProperties) {
+            if (array_key_exists($column, $this->tableStructure)) {
                 $Regs = array();
-                if (@ereg("(.*)\((.*)\)", $ColumnProperties['type'], $Regs)) {
+                if (@ereg("(.*)\((.*)\)", $columnProperties['type'], $Regs)) {
                     list(, $Type, $Size) = $Regs;
                     switch ($Type) {
                         case 'varchar':
                         case 'string':
-                            if (array_key_exists($Column, $data) && $Size) {
-                                if (strlen($data[$Column]) > $Size) {
-                                    $this->addToLog('Column ' . $this->TableName . '.' . $Column . ' content truncated: ' . substr($data[$Column], $Size - strlen($data[$Column])), 'warning');
-                                    $data[$Column] = substr($data[$Column], 0, $Size - 1) . '_';
+                            if (array_key_exists($column, $data) && $Size) {
+                                if (strlen($data[$column]) > $Size) {
+                                    $this->addToLog('Column ' . $this->tableName . '.' . $column . ' content truncated: ' . substr($data[$column], $Size - strlen($data[$column])), 'warning');
+                                    $data[$column] = substr($data[$column], 0, $Size - 1) . '_';
                                 }
                             }
                             break;
@@ -337,30 +337,30 @@ class EaseSQL extends EaseSand
     /**
      * Zkontroluje předpoklady pro vytvoření tabulky ze struktury
      *
-     * @param array  $TableStructure struktura tabulky
-     * @param string $TableName      název tabulky
+     * @param array  $tableStructure struktura tabulky
+     * @param string $tableName      název tabulky
      *
      * @return boolean Success
      */
-    public function createTable(&$TableStructure = null, $TableName = null)
+    public function createTable(&$tableStructure = null, $tableName = null)
     {
-        if (!$TableName) {
-            $TableName = $this->TableName;
+        if (!$tableName) {
+            $tableName = $this->tableName;
         }
-        if (!$TableStructure) {
-            $TableStructure = $this->TableStructure;
-        }
-
-        if (!$TableStructure) {
-            $TableStructure = $this->TableStructure;
+        if (!$tableStructure) {
+            $tableStructure = $this->tableStructure;
         }
 
-        if (!strlen($TableName)) {
+        if (!$tableStructure) {
+            $tableStructure = $this->tableStructure;
+        }
+
+        if (!strlen($tableName)) {
             $this->error('Missing table name for table creating');
 
             return false;
         }
-        if (!is_array($TableStructure)) {
+        if (!is_array($tableStructure)) {
             $this->error('Missing table structure for table creating');
 
             return false;
@@ -376,7 +376,7 @@ class EaseSQL extends EaseSand
      */
     public function getNumRows()
     {
-        return $this->NumRows;
+        return $this->numRows;
     }
 
     /**
@@ -386,7 +386,7 @@ class EaseSQL extends EaseSand
      */
     public function getLastQuery()
     {
-        return $this->LastQuery;
+        return $this->lastQuery;
     }
 
     /**
@@ -420,16 +420,16 @@ class EaseSQL extends EaseSand
     /**
      * Vrací strukturu SQL tabulky jako pole
      *
-     * @param  string       $TableName
+     * @param  string       $tableName
      * @return null|boolean
      */
-    public function describe($TableName = null)
+    public function describe($tableName = null)
     {
-        if (!$TableName) {
-            $TableName = $this->TableName;
+        if (!$tableName) {
+            $tableName = $this->tableName;
         }
-        if (!$this->tableExist($TableName)) {
-            $this->addToLog('Try to describe nonexistent table: ' . $TableName, 'waring');
+        if (!$this->tableExist($tableName)) {
+            $this->addToLog('Try to describe nonexistent table: ' . $tableName, 'waring');
 
             return null;
         }
@@ -440,14 +440,15 @@ class EaseSQL extends EaseSand
     /**
      * Ověří existenci tabulky
      *
-     * @param  string       $TableName
+     * @param  string       $tableName
      * @return null|boolean
      */
-    public function tableExist($TableName = null)
+    public function tableExist($tableName = null)
     {
-        if (!$TableName)
-            $TableName = $this->TableName;
-        if (!$TableName) {
+        if (!$tableName) {
+            $tableName = $this->tableName;
+        }
+        if (!$tableName) {
             $this->error('TableExist: $TableName not known');
 
             return null;
@@ -480,7 +481,7 @@ class EaseSQL extends EaseSand
     public function reconnect()
     {
         $this->close();
-        sleep($this->ReconectTimeouts[$this->easeShared->runType]);
+        sleep($this->reconectTimeouts[$this->easeShared->runType]);
         $this->connect();
     }
 
@@ -491,7 +492,7 @@ class EaseSQL extends EaseSand
      */
     public function __sleep()
     {
-        $this->LastQuery = null;
+        $this->lastQuery = null;
 
         return parent::__sleep();
     }
