@@ -221,6 +221,82 @@ class EaseDB2MySql extends EaseDB2 {
         }
     }
     
+
+    /**
+     * Generuje fragment MySQL dotazu z pole data
+     *
+     * @param array  $data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
+     * @param string $ldiv typ generovane podminky AND/OR
+     *
+     * @return sql
+     */
+    public function prepSelect($data, $ldiv = 'AND')
+    {
+        $operator = null;
+        $conditions = array();
+        $conditionsII = array();
+        foreach ($data as $column => $value) {
+            if (is_integer($column)) {
+                $conditionsII[] = $value;
+                continue;
+            }
+            if (($column == $this->keyColumn) && ($this->keyColumn == '')) {
+                continue;
+            }
+            if (is_string($value) && (($value == '!=""') || ($value == "!=''"))) {
+                $conditions[] = " `$column` !='' ";
+                continue;
+            }
+
+            if (is_null($value)) {
+                $value = 'null';
+                $operator = ' IS ';
+            } else {
+                if (strlen($value) && ($value[0] == '!')) {
+                    $operator = ' != ';
+                    $value = substr($value, 1);
+                } else {
+                    if (($value == '!NULL') || (strtoupper($value) == 'IS NOT NULL')) {
+                        $value = 'null';
+                        $operator = 'IS NOT';
+                    } else {
+                        $operator = ' = ';
+                    }
+                }
+                if (is_bool($value)) {
+                    if ($value === null) {
+                        $value.=" null,";
+                    } elseif ($value) {
+                        $value = " 1";
+                    } else {
+                        $value = " 0";
+                    }
+                } elseif (!is_string($value)) {
+                    $value = " $value";
+                } else {
+                    if (strtoupper($value) == 'NOW()') {
+                        $value = " 'NOW()'";
+                    } else {
+                        if ($value != 'null') {
+                            $value = " '" . addslashes($value) . "'";
+                        }
+                    }
+                    if ($operator == ' != ') {
+                        $operator = ' NOT LIKE ';
+                    } else {
+                        if(is_null($operator)){
+                            $operator = ' LIKE ';
+                        }
+                    }
+                }
+            }
+
+            $conditions[] = " `$column` $operator $value ";
+        }
+
+        return trim(implode($ldiv, $conditions) . ' ' . implode(' ', $conditionsII));
+    }
+    
     
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
