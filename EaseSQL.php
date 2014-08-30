@@ -28,7 +28,7 @@ class EaseSQL extends EaseSand
      * SQL Handle
      * @var resource
      */
-    public $SQLLink = null;
+    public $sqlLink = null;
 
     /**
      * IP serveru
@@ -59,7 +59,7 @@ class EaseSQL extends EaseSand
      * @var bool
      */
     public $status = null;
-//Pripojeno ?
+
     /**
      * Hodnota posledního voloženeho AutoIncrement sloupečku
      * @var int unsigned
@@ -251,6 +251,8 @@ class EaseSQL extends EaseSand
 
     /**
      * Nastaví připojení
+     * 
+     * @deprecated since version 210
      */
     public function setUp()
     {
@@ -460,18 +462,18 @@ class EaseSQL extends EaseSand
     /**
      * Zaznamená SQL Chybu
      *
-     * @param string $Title volitelný popisek, většinou název volající funkce
+     * @param string $title volitelný popisek, většinou název volající funkce
      */
-    public function logError($Title = null)
+    public function logError($title = null)
     {
-        if (is_null($Title)) {
-            list(, $Caller) = debug_backtrace(false);
-            $Title = $Caller['function'];
+        if (is_null($title)) {
+            list(, $caller) = debug_backtrace(false);
+            $title = $caller['function'];
         }
         if (isset($this->easeShared->User) && is_object($this->easeShared->User)) {
-            return $this->easeShared->User->addStatusMessage($Title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
+            return $this->easeShared->User->addStatusMessage($title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
         } else {
-            return $this->addToLog($Title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
+            return $this->addToLog($title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
         }
     }
 
@@ -502,7 +504,7 @@ class EaseSQL extends EaseSand
      */
     public function __destruct()
     {
-        $this->Close();
+        $this->close();
     }
 
     /**

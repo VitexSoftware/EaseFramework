@@ -66,22 +66,22 @@ class EaseAnonym extends EaseBrick
     /**
      * Nastavení jména objektu uživatele
      *
-     * @param string $ObjectName vynucené jméno objektu
+     * @param string $objectName vynucené jméno objektu
      *
      * @return string
      */
-    public function setObjectName($ObjectName = null)
+    public function setObjectName($objectName = null)
     {
-        if (!$ObjectName && isset($_SERVER['REMOTE_ADDR'])) {
+        if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
-                $Identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
+                $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
             } else {
-                $Identity = $_SERVER['REMOTE_ADDR'];
+                $identity = $_SERVER['REMOTE_ADDR'];
             }
 
-            return parent::setObjectName(get_class($this) . '@' . $Identity);
+            return parent::setObjectName(get_class($this) . '@' . $identity);
         } else {
-            return parent::setObjectName($ObjectName);
+            return parent::setObjectName($objectName);
         }
     }
 

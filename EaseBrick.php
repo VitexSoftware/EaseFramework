@@ -8,8 +8,8 @@
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 
-require_once 'EaseSand.php';
-require_once 'EaseMySQL.php';
+require_once 'Ease/EaseSand.php';
+require_once 'Ease/EaseDB2.php';
 
 /**
  * Základní objekt pracující s databázemi
@@ -1611,7 +1611,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $this->myTable = $myTable;
         }
         if (!isset($this->myDbLink) || !is_object($this->myDbLink)) {
-            $this->myDbLink = EaseDbMySqli::singleton();
+            $this->myDbLink = EaseDB2MySql::singleton();
             if (!isset($this->easeShared->myDbLink)) {
                 $this->easeShared->myDbLink = & $this->myDbLink;
             }

@@ -297,9 +297,11 @@ class EaseSand extends EaseAtom
      */
     public function restoreObjectIdentity($identity = null)
     {
-        foreach ($this->identityColumns as $column)
-            if (isset($this->identity[$column]))
+        foreach ($this->identityColumns as $column) {
+            if (isset($this->identity[$column])) {
                 $this->$column = $this->identity[$column];
+            }
+        }
     }
 
     /**
