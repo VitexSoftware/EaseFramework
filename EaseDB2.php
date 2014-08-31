@@ -33,6 +33,7 @@ abstract class EaseDB2 extends EaseSQL {
         $this->dsn['password'] = $this->password;
         $this->dsn['hostspec'] = $this->server;
         $this->dsn['database'] = $this->database;
+        $this->connectionSettings['portability'] = MDB2_PORTABILITY_NONE;
 
         $this->sqlLink = MDB2::singleton($this->dsn, $this->connectionSettings);
 
