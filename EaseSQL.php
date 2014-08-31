@@ -202,7 +202,7 @@ class EaseSQL extends EaseSand
      */
     public function getInsertID()
     {
-        return $this->LastInsertID;
+        return $this->lastInsertID;
     }
 
     /**
@@ -396,9 +396,9 @@ class EaseSQL extends EaseSand
      *
      * @return int ID
      */
-    public function getLastInsertID()
+    public function getlastInsertID()
     {
-        return $this->LastInsertID;
+        return $this->lastInsertID;
     }
 
     /**

@@ -20,7 +20,7 @@ class EaseDbMSSQL extends EaseSql
 
     public $Debug = false;
     public $NumRows = 0;
-    public $LastInsertID = 0;
+    public $lastInsertID = 0;
     public $LastQuery = '';
     public $Result = null;
     public $ResultArray = null;
@@ -213,7 +213,7 @@ class EaseDbMSSQL extends EaseSql
 
         $this->Result = null;
         $this->LastMessage = null;
-        $this->LastInsertID = null;
+        $this->lastInsertID = null;
 
         $QueryRaw = $this->sanitizeQuery($QueryRaw);
 
@@ -255,14 +255,14 @@ class EaseDbMSSQL extends EaseSql
                     $this->NumRows = @mssql_num_rows($this->Result);
                     break;
                 case 'insert':
-                    $this->LastInsertID = (int) current(mssql_fetch_row($this->Result));
+                    $this->lastInsertID = (int) current(mssql_fetch_row($this->Result));
 
-                    if (!$this->LastInsertID) {
+                    if (!$this->lastInsertID) {
                         /*
-                          $lidquery_raw  = 'SELECT SCOPE_IDENTITY() AS LastInsertID';
+                          $lidquery_raw  = 'SELECT SCOPE_IDENTITY() AS lastInsertID';
                           if ($lidresult = mssql_query($lidquery_raw,$this->SQLLink))
-                          $this->LastInsertID = current(mssql_fetch_row($lidresult));
-                          if (!$this->LastInsertID) */
+                          $this->lastInsertID = current(mssql_fetch_row($lidresult));
+                          if (!$this->lastInsertID) */
                         $this->error('Vkládání nevrátilo InsertID :' . $this->utf8($this->LastMessage . ":\n" . $this->LastQuery));
                     }
 

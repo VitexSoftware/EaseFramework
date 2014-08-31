@@ -656,7 +656,7 @@ class EaseBrick extends EaseSand
         list($cols, $vals) = $this->msDbLink->prepCols($data);
         $QueryRaw = 'INSERT INTO [' . MS_DB_DATABASE . '].[dbo].[' . $this->msTable . '] (' . $cols . ') VALUES (' . $vals . ')';
         if ($this->msDbLink->exeQuery($QueryRaw)) {
-            $this->setMSKey($this->msDbLink->getLastInsertID());
+            $this->setMSKey($this->msDbLink->getlastInsertID());
             $this->Status['MSSQLSaved'] = true;
 
             return $this->getMSKey();
@@ -1264,10 +1264,10 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         $queryRaw = 'INSERT INTO `' . $this->myTable . '` SET ' . $this->myDbLink->arrayToQuery($data, false);
         if ($this->myDbLink->exeQuery($queryRaw)) {
             if ($useInObject) {
-                $this->setMyKey($this->myDbLink->LastInsertID);
+                $this->setMyKey($this->myDbLink->lastInsertID);
             }
 
-            return $this->myDbLink->LastInsertID;
+            return $this->myDbLink->lastInsertID;
         }
 
         return null;

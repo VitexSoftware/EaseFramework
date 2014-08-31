@@ -138,7 +138,7 @@ class EaseDbMySqli extends EaseSQL
     {
         $queryRaw = $this->sanitizeQuery($queryRaw);
         $this->lastQuery = $queryRaw;
-        $this->LastInsertID = null;
+        $this->lastInsertID = null;
         $this->errorText = null;
         $this->errorNumber = null;
         $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
@@ -177,7 +177,7 @@ class EaseDbMySqli extends EaseSQL
                 break;
             case 'insert':
                 if (!$this->errorText) {
-                    $this->LastInsertID = $this->sqlLink->insert_id;
+                    $this->lastInsertID = $this->sqlLink->insert_id;
                 }
             case 'update':
             case 'replace':
@@ -303,12 +303,13 @@ class EaseDbMySqli extends EaseSQL
                     $value = ' null ';
                     break;
                 case 'string':
-                    if ($value != 'NOW()')
+                    if ($value != 'NOW()') {
                         if (!strstr($value, "\'")) {
                             $value = " '" . str_replace("'", "\'", $value) . "' ";
                         } else {
                             $value = " '$value' ";
                         }
+                    }
                     break;
                 default:
                     $value = " '$value' ";

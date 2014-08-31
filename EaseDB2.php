@@ -69,7 +69,7 @@ abstract class EaseDB2 extends EaseSQL {
     public function exeQuery($queryRaw, $ignoreErrors = false) {
         $queryRaw = $this->sanitizeQuery($queryRaw);
         $this->lastQuery = $queryRaw;
-        $this->LastInsertID = null;
+        $this->lastInsertID = null;
         $this->errorText = null;
 
         $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
@@ -108,13 +108,13 @@ abstract class EaseDB2 extends EaseSQL {
                 break;
             case 'insert':
                 if (!$this->errorText) {
-                    $this->LastInsertID = $this->sqlLink->insert_id;
+                    $this->lastInsertID = $this->sqlLink->lastInsertID();
                 }
             case 'update':
             case 'replace':
             case 'delete':
             case 'alter':
-                $this->numRows = $this->sqlLink->affected_rows;
+                $this->numRows = $this->sqlLink->_affectedRows($this->sqlLink);
                 break;
             default:
                 $this->numRows = null;
@@ -195,6 +195,8 @@ class EaseDB2MySql extends EaseDB2 {
     function connect() {
         $this->dsn['phptype'] = 'mysql';
 
+        $this->settings = array('NAMES' => 'utf8');
+        
         $status = parent::connect();
         if($status){
             $this->setUp();
@@ -205,7 +207,6 @@ class EaseDB2MySql extends EaseDB2 {
     /**
      * Nastaví připojení
      * 
-     * @deprecated since version 210
      */
     public function setUp()
     {
@@ -221,6 +222,61 @@ class EaseDB2MySql extends EaseDB2 {
         }
     }
     
+    /**
+     * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
+     * $this->myKeyColumn je preskocen pokud neni $key false)
+     *
+     * @param array   $data
+     * @param boolean $Key
+     *
+     * @return string
+     */
+    public function arrayToQuery($data, $Key = true)
+    {
+        $updates = '';
+        foreach ($data as $column => $value) {
+            if (!strlen($column)) {
+                continue;
+            }
+            if (($column == $this->keyColumn) && $Key) {
+                continue;
+            }
+            switch (gettype($value)) {
+                case 'integer':
+                    $value = " $value ";
+                    break;
+                case 'float':
+                case 'double':
+                    $value = ' ' . str_replace(',', '.', $value) . ' ';
+                    break;
+                case 'boolean':
+                    if ($value) {
+                        $value = ' 1 ';
+                    } else {
+                        $value = ' 0 ';
+                    }
+                    break;
+                case 'NULL':
+                    $value = ' null ';
+                    break;
+                case 'string':
+                    if ($value != 'NOW()') {
+                        if (!strstr($value, "\'")) {
+                            $value = " '" . str_replace("'", "\'", $value) . "' ";
+                        } else {
+                            $value = " '$value' ";
+                        }
+                    }
+                    break;
+                default:
+                    $value = " '$value' ";
+            }
+
+            $updates.=" `$column` = $value,";
+        }
+
+        return substr($updates, 0, -1);
+    }
 
     /**
      * Generuje fragment MySQL dotazu z pole data
