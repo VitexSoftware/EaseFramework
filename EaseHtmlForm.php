@@ -988,13 +988,13 @@ class EaseHtmlForm extends EaseHtmlPairTag
      * Cíl formu
      * @var string URL cíle formuláře
      */
-    public $FormTarget = null;
+    public $formTarget = null;
 
     /**
      * Metoda odesílání
      * @var string GET|POST
      */
-    public $FormMethod = null;
+    public $formMethod = null;
 
     /**
      * Nastavovat formuláři jméno ?
@@ -1005,23 +1005,23 @@ class EaseHtmlForm extends EaseHtmlPairTag
     /**
      * Zobrazí html formulář
      *
-     * @param string $FormName      jméno formuláře
-     * @param string $FormAction    cíl formulář např login.php
-     * @param string $FormMethod    metoda odesílání POST|GET
-     * @param mixed  $FormContents  prvky uvnitř formuláře
+     * @param string $formName      jméno formuláře
+     * @param string $formAction    cíl formulář např login.php
+     * @param string $formMethod    metoda odesílání POST|GET
+     * @param mixed  $formContents  prvky uvnitř formuláře
      * @param array  $tagProperties vlastnosti tagu například:
      *                                      array('enctype' => 'multipart/form-data')
      */
-    public function __construct($FormName, $FormAction = null, $FormMethod = 'post', $FormContents = null, $tagProperties = null)
+    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
     {
-        parent::__construct('form', array('method' => $FormMethod, 'name' => $FormName));
-        if ($FormAction) {
-            $this->setFormTarget($FormAction);
+        parent::__construct('form', array('method' => $formMethod, 'name' => $formName));
+        if ($formAction) {
+            $this->setFormTarget($formAction);
         } else {
             $this->setFormTarget($_SERVER['REQUEST_URI']);
         }
-        if (isset($FormContents)) {
-            $this->addItem($FormContents);
+        if (isset($formContents)) {
+            $this->addItem($formContents);
         }
         if (!is_null($tagProperties)) {
             $this->setTagProperties($tagProperties);
@@ -1031,21 +1031,21 @@ class EaseHtmlForm extends EaseHtmlPairTag
     /**
      * Nastaví cíl odeslání
      *
-     * @param string $FormTarget cíl odeslání formuláře
+     * @param string $formTarget cíl odeslání formuláře
      */
-    public function setFormTarget($FormTarget)
+    public function setFormTarget($formTarget)
     {
-        $this->FormTarget = $FormTarget;
-        $this->setTagProperties(array('action' => $FormTarget));
+        $this->formTarget = $formTarget;
+        $this->setTagProperties(array('action' => $formTarget));
     }
 
     /**
      * Změní jeden nebo více parametrů v ACTION url formuláře
      *
      * @param array $ParametersToChange pole parametrů
-     * @param bool  $Replace            přepisovat již existující
+     * @param bool  $replace            přepisovat již existující
      */
-    public function changeActionParameter($ParametersToChange, $Replace = true)
+    public function changeActionParameter($ParametersToChange, $replace = true)
     {
         if (is_array($ParametersToChange) && count($ParametersToChange)) {
             foreach ($ParametersToChange as $ParamName => $ParamValue) {
@@ -1053,7 +1053,7 @@ class EaseHtmlForm extends EaseHtmlPairTag
                     unset($ParametersToChange[$ParamName]);
                 }
             }
-            $TargetParts = explode('&', str_replace('&&', '&', str_replace('?', '&', $this->FormTarget)));
+            $TargetParts = explode('&', str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
             if (is_array($TargetParts) && count($TargetParts)) {
                 $FormTargetComputed = '';
                 $TargetPartsValues = array();
@@ -1069,15 +1069,15 @@ class EaseHtmlForm extends EaseHtmlPairTag
                     $TargetPartsValues[$TargetPartName] = $TargetPartValue;
                 }
             }
-            if ($Replace) {
-                $NewTargPartVals = array_merge($TargetPartsValues, $ParametersToChange);
+            if ($replace) {
+                $newTargPartVals = array_merge($TargetPartsValues, $ParametersToChange);
             } else {
-                $NewTargPartVals = array_merge($ParametersToChange, $TargetPartsValues);
+                $newTargPartVals = array_merge($ParametersToChange, $TargetPartsValues);
             }
-            $GlueSign = '?';
-            foreach ($NewTargPartVals as $NewTargetPartsValName => $NewTargetPartsValue) {
-                $FormTargetComputed .= $GlueSign . urlencode($NewTargetPartsValName) . '=' . urlencode($NewTargetPartsValue);
-                $GlueSign = '&';
+            $glueSign = '?';
+            foreach ($newTargPartVals as $newTargetPartsValName => $newTargetPartsValue) {
+                $FormTargetComputed .= $glueSign . urlencode($newTargetPartsValName) . '=' . urlencode($newTargetPartsValue);
+                $glueSign = '&';
             }
             $this->setFormTarget($FormTargetComputed);
         }

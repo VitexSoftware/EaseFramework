@@ -12,7 +12,7 @@
 session_start();
 
 
-require_once 'Ease/EaseBase.php';
+require_once 'Ease/EaseBrick.php';
 require_once 'Ease/EaseUser.php';
 require_once 'Ease/EaseSQL.php';
 require_once 'Ease/EaseAnonym.php';

@@ -80,17 +80,17 @@ class EaseMail extends EasePage
      * Ease Mail - sestaví a odešle
      *
      * @param string $emailAddress  adresa
-     * @param string $mmailSubject  předmět
+     * @param string $mailSubject  předmět
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
-    public function __construct($emailAddress, $mmailSubject, $emailContents = null)
+    public function __construct($emailAddress, $mailSubject, $emailContents = null)
     {
         $this->setMailHeaders(
                 array(
                     'To' => $emailAddress,
                     'From' => $this->fromEmailAddress,
                     'Reply-To' => $this->fromEmailAddress,
-                    'Subject' => $mmailSubject,
+                    'Subject' => $mailSubject,
                     'Content-Type' => 'text/plain; charset=utf-8',
                     'Content-Transfer-Encoding' => '8bit'
                 )
