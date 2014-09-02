@@ -633,28 +633,28 @@ class EaseSubmitButton extends EaseHtmlInputTag
      * Odesílací tlačítko
      * <input type="submit" name="$label" value="$value" title="$Hint">
      *
-     * @param string $Label    nápis na tlačítku
+     * @param string $label    nápis na tlačítku
      * @param string $value    odesílaná hodnota
      * @param string $Hint     tip při najetí myší
-     * @param string $ClassCss css třída pro tag tlačítka
+     * @param string $classCss css třída pro tag tlačítka
      */
-    public function __construct($Label, $value = null, $Hint = null, $ClassCss = null)
+    public function __construct($label, $value = null, $Hint = null, $classCss = null)
     {
-        $Properties = array('type' => 'submit');
+        $properties = array('type' => 'submit');
         if (!$value) {
-            $value = trim(str_replace(array(' ', '?'), '', @iconv("utf-8", "us-ascii//TRANSLIT", strtolower($Label))));
+            $value = trim(str_replace(array(' ', '?'), '', @iconv("utf-8", "us-ascii//TRANSLIT", strtolower($label))));
         } else {
-            $Properties['value'] = $value;
+            $properties['value'] = $value;
         }
         if ($Hint) {
-            $Properties['title'] = $Hint;
+            $properties['title'] = $Hint;
         }
-        if ($ClassCss) {
-            $Properties['class'] = $ClassCss;
+        if ($classCss) {
+            $properties['class'] = $classCss;
         }
-        $this->setTagProperties($Properties);
-        parent::__construct($value, $Label);
-        $this->Label = $Label;
+        $this->setTagProperties($properties);
+        parent::__construct($value, $label);
+        $this->Label = $label;
     }
 
     /**
@@ -719,20 +719,20 @@ class EaseHtmlInputSubmitTag extends EaseHtmlInputTag
      *
      * @param string $name       jméno tagu
      * @param string $value      vracená hodnota
-     * @param array  $Properties Pole vlastností tagu
+     * @param array  $properties Pole vlastností tagu
      */
-    public function __construct($name, $value = null, $Properties = null)
+    public function __construct($name, $value = null, $properties = null)
     {
         if (!$value) {
             $value = $name;
         }
-        if (is_null($Properties)) {
-            $Properties = array();
+        if (is_null($properties)) {
+            $properties = array();
         }
-        $Properties['type'] = 'submit';
-        $Properties['name'] = $name;
-        $Properties['value'] = $value;
-        parent::__construct($name, $value, $Properties);
+        $properties['type'] = 'submit';
+        $properties['name'] = $name;
+        $properties['value'] = $value;
+        parent::__construct($name, $value, $properties);
     }
 
     /**
@@ -939,17 +939,17 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     public function setValue($value)
     {
         if (trim(strlen($value))) {
-            foreach ($this->pageParts as $Option) {
-                if ($Option->Value == $value) {
-                    $Option->setDefault();
+            foreach ($this->pageParts as $option) {
+                if ($option->value == $value) {
+                    $option->setDefault();
                 } else {
-                    unset($Option->tagProperties['selected']);
+                    unset($option->tagProperties['selected']);
                 }
             }
         } else {
             if (isset($this->pageParts) && count($this->pageParts)) {
-                $FirstItem = &reset($this->pageParts);
-                $FirstItem->setDefault();
+                $firstItem = &reset($this->pageParts);
+                $firstItem->setDefault();
             }
         }
     }
