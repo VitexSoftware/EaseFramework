@@ -448,6 +448,26 @@ class EaseBrick extends EaseSand
     }
 
     /**
+     * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu
+     *
+     * @param int     $itemID     klíč záznamu
+     * @param array   $dataPrefix název datové skupiny
+     * @param boolean $multiplete nevarovat v případě více výsledků
+     *
+     * @return array Results
+     */
+    public function loadFromSQL($itemID = null, $dataPrefix = null, $multiplete = false)
+    {
+        if( is_object($this->myDbLink)){
+            return $this->loadFromMySQL($itemID, $dataPrefix, $multiplete);
+        }
+        
+        $this->addStatusMessage(_('Databáze není definována'), 'error');
+        return null;
+    }    
+    
+    
+    /**
      * Načte z MySQL data k aktuálnímu $ItemID a použije je v objektu
      *
      * @param int     $itemID     klíč záznamu
@@ -1233,6 +1253,23 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
+     * Vloží záznam do SQL databáze
+     *
+     * @param array $data
+     *
+     * @return id
+     */
+    public function insertToSQL($data = null)
+    {
+        if( is_object($this->myDbLink)){
+            return $this->insertToMySQL($data);
+        }
+        
+        $this->addStatusMessage(_('Databáze není definována'), 'error');
+        return null;
+    }    
+    
+    /**
      * Vloží záznam do MySQL databáze
      *
      * @param array $data
@@ -1661,6 +1698,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function getMSKeyColumn()
     {
         return $this->MSKeyColumn;
+    }
+
+    /**
+     * Vrací název aktuálně použivané SQL tabulky
+     * 
+     * @return string
+     */
+    public function getMyTable(){
+        return $this->myTable;
     }
 
     /**

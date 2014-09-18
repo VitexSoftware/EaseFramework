@@ -270,16 +270,16 @@ class EaseUser extends EaseAnonym {
     /**
      * Načte nastavení uživatele
      *
-     * @param array $Settings Serializované pole nastavení
+     * @param array $settings Serializované pole nastavení
      *
      * @return boolean uspěch
      */
-    public function loadSettings($Settings = null) {
-        if (is_null($Settings)) {
-            $Settings = $this->getDataValue($this->settingsColumn);
+    public function loadSettings($settings = null) {
+        if (is_null($settings)) {
+            $settings = $this->getDataValue($this->settingsColumn);
         }
-        if (!is_null($Settings)) {
-            $this->settings = unserialize($Settings);
+        if (!is_null($settings)) {
+            $this->settings = @unserialize($settings);
 
             return true;
         }
