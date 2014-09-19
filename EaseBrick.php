@@ -1189,6 +1189,26 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         return null;
     }
 
+        /**
+     * Uloží pole dat do MySQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
+     *
+     * @param array $data        asociativní pole dat
+     * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
+     *
+     * @return int ID záznamu nebo null v případě neůspěchu
+     */
+    public function saveToSQL($data = null, $searchForID = false)
+    {
+        if( is_object($this->myDbLink)){
+            return $this->saveToMySQL($data,$searchForID);
+        }
+        
+        $this->addStatusMessage(_('Databáze není definována'), 'error');
+        return null;
+        
+    }
+    
+    
     /**
      * Uloží pole dat do MySQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
      *

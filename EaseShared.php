@@ -180,6 +180,24 @@ class EaseShared extends EaseAtom {
     }
 
     /**
+     * Vrací instanci objektu databáze
+     *
+     * @return EaseDbMySqli
+     */
+    public static function db( $type = 'mysql' ) {
+        switch ($type) {
+            case 'postgres':
+                return self::pgDbLink();
+                break;
+
+            case 'mysql':
+                return self::myDbLink();
+                break;
+        }
+    }
+    
+    
+    /**
      * Vrací instanci objektu databáze MySQL
      *
      * @return EaseDbMySqli
