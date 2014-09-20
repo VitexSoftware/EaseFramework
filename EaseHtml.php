@@ -422,12 +422,12 @@ class EaseHtmlPTag extends EaseHtmlPairTag
     /**
      * Odstavec
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('p', $Properties, $Content);
+        parent::__construct('p', $properties, $content);
     }
 
 }
@@ -443,12 +443,12 @@ class EaseHtmlTdTag extends EaseHtmlPairTag
     /**
      * Buňka tabulky
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('td', $Properties, $Content);
+        parent::__construct('td', $properties, $content);
     }
 
 }
@@ -465,12 +465,12 @@ class EaseHtmlThTag extends EaseHtmlPairTag
     /**
      * Buňka s popiskem tabulky
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('th', $Properties, $Content);
+        parent::__construct('th', $properties, $content);
     }
 
 }
@@ -1076,12 +1076,12 @@ class EaseHtmlH1Tag extends EaseHtmlPairTag
     /**
      * Simple H1 Tag
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('h1', $Properties, $Content);
+        parent::__construct('h1', $properties, $content);
     }
 
 }
@@ -1097,12 +1097,12 @@ class EaseHtmlH2Tag extends EaseHtmlPairTag
     /**
      * Nadpis druhé velikosti
      *
-     * @param mixed  $Content    text nadpisu
-     * @param string $Properties parametry tagu
+     * @param mixed  $content    text nadpisu
+     * @param string $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('h2', $Properties, $Content);
+        parent::__construct('h2', $properties, $content);
     }
 
 }
@@ -1118,12 +1118,12 @@ class EaseHtmlH3Tag extends EaseHtmlPairTag
     /**
      * Simple H3 tag
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('h3', $Properties, $Content);
+        parent::__construct('h3', $properties, $content);
     }
 
 }
@@ -1139,12 +1139,12 @@ class EaseHtmlH4Tag extends EaseHtmlPairTag
     /**
      * Simple H4 tag
      *
-     * @param mixed $Content    vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Content = null, $Properties = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct('h4', $Properties, $Content);
+        parent::__construct('h4', $properties, $content);
     }
 
 }
@@ -1208,15 +1208,15 @@ class EaseHtmlSpanTag extends EaseHtmlPairTag
      * <span> tag
      *
      * @param string $name       jméno a ID tagu
-     * @param mixed  $Content    vkládaný obsah
-     * @param array  $Properties parametry tagu
+     * @param mixed  $content    vkládaný obsah
+     * @param array  $properties parametry tagu
      */
-    public function __construct($name, $Content = null, $Properties = null)
+    public function __construct($name, $content = null, $properties = null)
     {
         if ($name) {
             $this->setTagName($name);
         }
-        parent::__construct('span', $Properties, $Content);
+        parent::__construct('span', $properties, $content);
     }
 
 }
@@ -1250,16 +1250,16 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
     /**
      * Zobrazí rámeček
      *
-     * @param string|mixed $Legend  popisek - text nebo Ease objekty
-     * @param mixed        $Content prvky vkládané do rámečku
+     * @param string|mixed $legend  popisek - text nebo Ease objekty
+     * @param mixed        $content prvky vkládané do rámečku
      */
-    public function __construct($Legend, $Content = null)
+    public function __construct($legend, $content = null)
     {
-        $this->setTagName($Legend);
-        $this->Legend = $Legend;
+        $this->setTagName($legend);
+        $this->Legend = $legend;
         $this->LegendTag = $this->addItem(new EaseHtmlPairTag('legend', null, $this->Legend));
-        if ($Content) {
-            $this->addItem($Content);
+        if ($content) {
+            $this->addItem($content);
         }
         parent::__construct('fieldset');
     }
@@ -1267,11 +1267,11 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
     /**
      * Nastavení legendy
      *
-     * @param string $Legend popisek
+     * @param string $legend popisek
      */
-    public function setLegend($Legend)
+    public function setLegend($legend)
     {
-        $this->Legend = $Legend;
+        $this->Legend = $legend;
     }
 
     /**
@@ -1417,85 +1417,6 @@ class EaseHtmlEmbedTag extends EaseHtmlTag
 }
 
 /**
- * HTML Flash embeding
- *
- * @deprecated since version 174
- * @author Vitex <vitex@hippy.cz>
- */
-class EaseFlash extends EaseHtmlPairTag
-{
-
-    /**
-     * Flash params
-     * @var array
-     */
-    public $FlashParams = array(
-        'allowScriptAccess' => 'sameDomain',
-        'allowFullScreen' => 'false',
-        'quality' => 'high'
-    );
-
-    /**
-     * Vlozi SWF objekt
-     *
-     * @param string $DivID   id prvku
-     * @param string $Movie   url FLASHe
-     * @param int    $Width   šířka prvku
-     * @param int    $Height  výška prvku
-     * @param color  $Bgcolor barva pozadí
-     * @param string $Align   zarovnávání
-     */
-    public function __construct($DivID, $Movie, $Width, $Height, $Bgcolor = '#FFFFFF', $Align = 'middle')
-    {
-        parent::__construct('object', array(
-            'classid' => 'clsid:d27cdb6e-ae6d-11cf-96b8-444553540000',
-            'codebase' => 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0',
-            'width' => $Width,
-            'height' => $Height,
-            'align' => $Align,
-            'id' => $DivID
-        ));
-        $this->setTagName($DivID);
-        $this->setParameter(array('movie' => $Movie, 'bgcolor' => $Bgcolor));
-        $this->addItem(new EaseHtmlEmbedTag($Movie, $this->FlashParams['quality'], $this->FlashParams['bgcolor'], $Width, $Height, $this->getTagName(), $Align, $this->FlashParams['allowScriptAccess'], $this->FlashParams['allowFullScreen'], 'application/x-shockwave-flash', 'http://www.adobe.com/go/getflashplayer'));
-    }
-
-    /**
-     * Setup flash params
-     *
-     * @param array $FlashParameters parametry předávané flashi
-     */
-    public function setParameter($FlashParameters)
-    {
-        if (is_array($FlashParameters)) {
-            if (is_array($this->FlashParams)) {
-                $this->FlashParams = array_merge($this->FlashParams, $FlashParameters);
-            } else {
-                $this->FlashParams = $FlashParameters;
-            }
-            if (isset($FlashParameters['name'])) {
-                $this->setTagName($FlashParameters['name']);
-            }
-        } else {
-            $propBuff = $FlashParameters;
-            //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $tagProperties;
-            $this->FlashParams = ' ' . $propBuff;
-        }
-    }
-
-    /**
-     * Finalizing object before its draw
-     */
-    public function finalize()
-    {
-        foreach ($this->FlashParams as $ParamName => $ParamValue) {
-            $this->addItem(new EaseHtmlParamTag($ParamName, $ParamValue));
-        }
-    }
-
-}
-
-/**
  * Horizontal line tag
  *
  * @author Vitex <vitex@hippy.cz>
@@ -1506,11 +1427,11 @@ class EaseHtmlHrTag extends EaseHtmlTag
     /**
      * Horizontal line tag
      *
-     * @param array $Properties parametry tagu
+     * @param array $properties parametry tagu
      */
-    public function __construct($Properties = null)
+    public function __construct($properties = null)
     {
-        parent::__construct('hr', $Properties);
+        parent::__construct('hr', $properties);
     }
 
 }
@@ -1528,17 +1449,17 @@ class EaseHtmlIframeTag extends EaseHtmlPairTag
     /**
      * iFrame element
      *
-     * @param string $Src        content url
-     * @param array  $Properties HTML tag proberties
+     * @param string $src        content url
+     * @param array  $properties HTML tag proberties
      */
-    public function __construct($Src, $Properties = null)
+    public function __construct($src, $properties = null)
     {
-        if (is_null($Properties)) {
-            $Properties = array('src' => $Src);
+        if (is_null($properties)) {
+            $properties = array('src' => $src);
         } else {
-            $Properties['src'] = $Src;
+            $properties['src'] = $src;
         }
-        $this->setTagProperties($Properties);
+        $this->setTagProperties($properties);
         parent::__construct();
     }
 
