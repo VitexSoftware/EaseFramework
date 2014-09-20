@@ -751,3 +751,46 @@ class EaseTWModal extends EaseContainer {
     }
 
 }
+
+/**
+ * Twitter Bootrstap Well 
+ */
+class EaseTWBWell extends EaseHtmlDivTag {
+    /**
+     * Twitter Bootrstap Well 
+     * 
+     * @param mixed $content
+     */
+    public function __construct($content = null) {
+        parent::__construct(null, $content, array('class'=>'well'));
+    }
+}
+
+/**
+ * Twitter Bootrstap Container
+ */
+class EaseTWBContainer extends EaseHtmlDivTag {
+    /**
+     * Twitter Bootrstap Container
+     * 
+     * @param mixed $content
+     */
+    public function __construct($content = null) {
+        parent::__construct(null, $content, array('class'=>'container'));
+    }
+}
+
+/**
+ * Twitter Bootrstap Row
+ */
+class EaseTWBRow extends EaseHtmlDivTag {
+    /**
+     * Twitter Bootrstap Row
+     * 
+     * @param mixed $content
+     */
+    public function __construct($content = null) {
+        parent::__construct(null, $content, array('class'=>'row'));
+    }
+}
+
