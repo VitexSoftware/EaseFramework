@@ -1560,3 +1560,21 @@ class EaseHtmlButtonTag extends EaseHtmlPairTag
          parent::__construct('button', $tagProperties, $content);
      }
 }
+
+/**
+ * Html element pro adresu
+ */
+class EaseHtmlAddressTag extends EaseHtmlPairTag
+{
+    /**
+     * Html element pro adresu
+     *
+     * @param string $content       text adresy
+     * @param array  $TagProperites vlastnosti tagu
+     */
+     function __construct($content, $tagProperties = null)
+     {
+         parent::__construct('address', $tagProperties, $content);
+     }
+}
+
