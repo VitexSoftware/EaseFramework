@@ -40,8 +40,8 @@ class EaseTWBPart extends EaseJQueryPart {
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }
-        //TODO: ONCE: $webPage->head->addItem('<meta name="viewport"
-        // content="width=device-width, initial-scale=1.0">');
+//TODO: ONCE: $webPage->head->addItem('<meta name="viewport"
+// content="width=device-width, initial-scale=1.0">');
         return true;
     }
 
@@ -102,7 +102,7 @@ class EaseTWBWebPage extends EaseWebPage {
         /**
          * Session Singleton Problem hack
          */
-        //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
+//$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
         if (!count($this->easeShared->statusMessages)) {
             return '';
@@ -130,6 +130,9 @@ class EaseTWBWebPage extends EaseWebPage {
             if (is_object($this->logger)) {
                 if (!isset($this->logger->logStyles[$messageType])) {
                     $messageType = 'notice';
+                }
+                if ($messageType == 'error') {
+                    $messageType = 'danger';
                 }
                 $htmlFargment .= '<div class="alert alert-' . $messageType . '" >' . $message . '</div>' . "\n";
             } else {
@@ -756,41 +759,95 @@ class EaseTWModal extends EaseContainer {
  * Twitter Bootrstap Well 
  */
 class EaseTWBWell extends EaseHtmlDivTag {
+
     /**
      * Twitter Bootrstap Well 
      * 
      * @param mixed $content
      */
     public function __construct($content = null) {
-        parent::__construct(null, $content, array('class'=>'well'));
+        parent::__construct(null, $content, array('class' => 'well'));
     }
+
 }
 
 /**
  * Twitter Bootrstap Container
  */
 class EaseTWBContainer extends EaseHtmlDivTag {
+
     /**
      * Twitter Bootrstap Container
      * 
      * @param mixed $content
      */
     public function __construct($content = null) {
-        parent::__construct(null, $content, array('class'=>'container'));
+        parent::__construct(null, $content, array('class' => 'container'));
     }
+
 }
 
 /**
  * Twitter Bootrstap Row
  */
 class EaseTWBRow extends EaseHtmlDivTag {
+
     /**
      * Twitter Bootrstap Row
      * 
      * @param mixed $content
      */
     public function __construct($content = null) {
-        parent::__construct(null, $content, array('class'=>'row'));
+        parent::__construct(null, $content, array('class' => 'row'));
     }
+
 }
 
+class EaseTWBPanel extends EaseHtmlDivTag {
+
+    /**
+     * Hlavička panelu
+     * @var EaseHtmlDivTag 
+     */
+    public $heading = null;
+    /**
+     * Tělo panelu
+     * @var EaseHtmlDivTag 
+     */
+    public $body = null;
+    /**
+     * Patička panelu
+     * @var EaseHtmlDivTag 
+     */
+    public $footer = null;
+
+    /**
+     * Panel Twitter Bootstrapu
+     * 
+     * @param type $heading
+     * @param type $type
+     * @param type $body
+     * @param type $footer
+     */
+    function __construct($heading, $type = 'default', $body = null, $footer = null) {
+        parent::__construct($name, null, array('class' => 'panel panel-' . $type));
+        $this->heading = new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading'));
+        $this->body = $this->addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
+        if ($footer) {
+            $this->footer = $this->addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer')));
+        }
+    }
+    
+    /**
+     * Vloží další element do objektu
+     *
+     * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
+     * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
+     *
+     * @return pointer Odkaz na vložený objekt
+     */
+    function addItem($pageItem, $pageItemName = null) {
+        $this->body->addItem($pageItem, $pageItemName);
+    }
+
+}
