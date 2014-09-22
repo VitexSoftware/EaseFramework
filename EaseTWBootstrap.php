@@ -830,11 +830,11 @@ class EaseTWBPanel extends EaseHtmlDivTag {
      * @param type $footer
      */
     function __construct($heading, $type = 'default', $body = null, $footer = null) {
-        parent::__construct($name, null, array('class' => 'panel panel-' . $type));
-        $this->heading = new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading'));
-        $this->body = $this->addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
+        parent::__construct(null, null, array('class' => 'panel panel-' . $type));
+        $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')));
+        $this->body = parent::addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
         if ($footer) {
-            $this->footer = $this->addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer')));
+            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer')));
         }
     }
     
@@ -846,8 +846,8 @@ class EaseTWBPanel extends EaseHtmlDivTag {
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function addItem($pageItem, $pageItemName = null) {
-        $this->body->addItem($pageItem, $pageItemName);
+    function &addItem($pageItem, $pageItemName = null) {
+        return $this->body->addItem($pageItem, $pageItemName);
     }
 
 }
