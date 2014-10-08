@@ -981,11 +981,11 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
      * Every item id added in EaseHtmlLiTag envelope
      *
      * @param mixed  $pageItem     obsah vkládaný jako položka výčtu
-     * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
+     * @param string $properties   Vlastnosti LI tagu
      *
      * @return mixed
      */
-    function & addItemSmart($pageItem,$pageItemName = null)
+    function & addItemSmart($pageItem,$properties = null)
     {
         if (is_array($pageItem)) {
             foreach ($pageItem as $item) {
@@ -996,7 +996,7 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
             if ( isset($pageItem->tagType) && ($pageItem->tagType == 'li') ) {
                 $itemAdded = parent::addItem($pageItem);
             } else {
-                $itemAdded = parent::addItem(new EaseHtmlLiTag($pageItem));
+                $itemAdded = parent::addItem(new EaseHtmlLiTag($pageItem,$properties));
             }
         }
 
