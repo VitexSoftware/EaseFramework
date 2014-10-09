@@ -863,18 +863,6 @@ class EaseTWBPagination extends EaseHtmlUlTag {
     public $url = '?page=';
 
     /**
-     * ID aktuální stránky
-     * @var int 
-     */
-    public $current = 0;
-
-    /**
-     * Celkový počet stránek
-     * @var int 
-     */
-    public $pages = 3;
-
-    /**
      * Stránkování Twitter Bootrstap
      * 
      * @param int    $pages   celkový počet stránek
@@ -882,13 +870,32 @@ class EaseTWBPagination extends EaseHtmlUlTag {
      * @param string $url     Fragment adresy
      */
     function __construct($pages, $current, $url = '?page=') {
-        $this->current = $current;
-        $this->pages = $pages;
+        $this->url = $url;
         parent::__construct(null, array('class' => 'pagination'));
-        $this->addPage($current-1, '&laquo;');
-        for ($i = 0; $i <= $pages-1; $i++) {
-            $this->addPage($i);
+
+        if (($current == 0)) {
+            $this->addPage('#', '&laquo;','disabled');
+        } else {
+            $this->addPage($current - 1, '&laquo;');
         }
+
+        
+        for ($page = 0; $page <= $pages - 1; $page++) {
+            //Stavajici
+            if ($current == $page) {
+                $this->addPage($page,$page+1, 'active');
+            } else {
+                $this->addPage($page,$page+1);
+            }
+        }
+
+        if ( $current >= $pages-1 ) {
+            $this->addPage('#', '&raquo;','disabled');
+        } else {
+            $this->addPage($current + 1, '&raquo;');
+        }
+
+
     }
 
     /**
@@ -897,35 +904,13 @@ class EaseTWBPagination extends EaseHtmlUlTag {
      * @param int $page
      * @param string $label
      */
-    function addPage($page, $label = null) {
-        $tagClass = null;
-        $link = $this->url . $page ;
-        if (is_null($label)) {
-            $label = $page + 1;
+    function addPage($page, $label = null, $style = null) {
+        $link = $this->url . $page;
+        if ($style) {
+            $this->addItemSmart(new EaseHtmlATag($link, $label), array('class' => $style));
+        } else {
+            $this->addItemSmart(new EaseHtmlATag($link, $label));
         }
-
-        if (($this->current == 0) && ( $page == -1 )) {
-            $tagClass = array('class' => 'disabled');
-            $link = '#';
-        }
-        
-        if ( $page == 3) {
-            $tagClass = array('class' => 'disabled');
-            $link = '#';
-        }
-        //Stavajici
-        if ($this->current == $page) {
-            $tagClass = array('class' => 'active');
-        }
-
-        $this->addItemSmart(new EaseHtmlATag($link, $label), $tagClass);
-    }
-
-    /**
-     * Dopnění konečné šipky
-     */
-    function finalize() {
-        $this->addPage($this->current + 1, '&raquo;');
     }
 
 }
