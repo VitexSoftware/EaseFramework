@@ -163,7 +163,7 @@ class EaseHtmlTag extends EasePage
      */
     public function getTagClass()
     {
-        $this->getTagProperty('class');
+        return $this->getTagProperty('class');
     }
 
     /**

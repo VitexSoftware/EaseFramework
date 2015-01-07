@@ -188,7 +188,7 @@ class EaseAnonym extends EaseBrick
      */
     public function logout()
     {
-        $this->UserID = null;
+        $this->userID = null;
 
         return true;
     }

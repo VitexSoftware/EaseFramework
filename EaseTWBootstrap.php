@@ -377,6 +377,16 @@ class EaseTWBNavbar extends EaseHtmlDivTag {
 
 class EaseTWBForm extends EaseHtmlForm {
 
+    /**
+     * Formulář Bootstrapu
+     * 
+     * @param string $formName      jméno formuláře
+     * @param string $formAction    cíl formulář např login.php
+     * @param string $formMethod    metoda odesílání POST|GET
+     * @param mixed  $formContents  prvky uvnitř formuláře
+     * @param array  $tagProperties vlastnosti tagu například:
+     *                              array('enctype' => 'multipart/form-data')
+     */
     public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null) {
         $tagProperties['class'] = 'form-horizontal';
         $tagProperties['role'] = 'form';
@@ -430,7 +440,8 @@ class EaseTWBFormGroup extends EaseHtmlDivTag {
         $properties['class'] = 'form-group';
         parent::__construct(null, null, $properties);
         $this->addItem(new EaseHtmlLabelTag($formKey, $label));
-        $content->setTagClass('form-control');
+        
+        $content->setTagClass(trim('form-control '.$content->getTagClass()));
         if ($placeholder) {
             $content->SetTagProperties(array('placeholder' => $placeholder));
         }
@@ -631,6 +642,15 @@ class EaseTWBButtonDropdown extends EaseHtmlDivTag {
         return $this->dropdown->addItemSmart($pageItem);
     }
 
+    /**
+     * delící čára menu
+     * 
+     * @return \EaseHtmlLiTag 
+     */
+    static function divider(){
+        return new EaseHtmlLiTag(null,array('class'=>'divider'));
+    }
+    
 }
 
 class EaseTWBCheckBoxGroup extends EaseContainer {
@@ -874,28 +894,38 @@ class EaseTWBPagination extends EaseHtmlUlTag {
         parent::__construct(null, array('class' => 'pagination'));
 
         if (($current == 0)) {
-            $this->addPage('#', '&laquo;','disabled');
+            $this->addPage('#', EaseTWBPart::glyphIcon('fast-backward'), 'disabled');
         } else {
-            $this->addPage($current - 1, '&laquo;');
+            $this->addPage(0, EaseTWBPart::glyphIcon('fast-backward'));
         }
 
-        
+        if (($current == 0)) {
+            $this->addPage('#', EaseTWBPart::glyphIcon('chevron-left'), 'disabled');
+        } else {
+            $this->addPage($current - 1, EaseTWBPart::glyphIcon('chevron-left'));
+        }
+
+
         for ($page = 0; $page <= $pages - 1; $page++) {
             //Stavajici
             if ($current == $page) {
-                $this->addPage($page,$page+1, 'active');
+                $this->addPage($page, $page + 1, 'active');
             } else {
-                $this->addPage($page,$page+1);
+                $this->addPage($page, $page + 1);
             }
         }
 
-        if ( $current >= $pages-1 ) {
-            $this->addPage('#', '&raquo;','disabled');
+        if ($current >= $pages - 1) {
+            $this->addPage('#', EaseTWBPart::glyphIcon('chevron-right'), 'disabled');
         } else {
-            $this->addPage($current + 1, '&raquo;');
+            $this->addPage($current + 1, EaseTWBPart::glyphIcon('chevron-right'));
         }
 
-
+        if ($current >= $pages - 1) {
+            $this->addPage('#', EaseTWBPart::glyphIcon('fast-forward'), 'disabled');
+        } else {
+            $this->addPage($pages - 1, EaseTWBPart::glyphIcon('fast-forward'));
+        }
     }
 
     /**

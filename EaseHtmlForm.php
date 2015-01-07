@@ -357,30 +357,30 @@ class EaseInputContainer extends EaseContainer
      */
     public function finalize()
     {
-        $ItemID = 1;
-        foreach ($this->items as $value => $Caption) {
+        $itemID = 1;
+        foreach ($this->items as $value => $caption) {
             if ($this->checked == $value) {
                 $this->addItem(new $this->itemClass($this->Name, $value, array('checked')));
             } else {
                 $this->addItem(new $this->itemClass($this->Name, $value));
             }
-            $this->lastItem->setTagID($this->Name . $ItemID++);
-            $this->addLabel($Caption);
+            $this->lastItem->setTagID($this->Name . $itemID++);
+            $this->addLabel($caption);
         }
     }
 
     /**
      * Doplní popisek prvku
      *
-     * @param string $Label text popisku
+     * @param string $label text popisku
      */
-    public function addLabel($Label = null)
+    public function addLabel($label = null)
     {
-        $ForID = $this->lastItem->getTagID();
-        if (is_null($Label)) {
-            $Label = $ForID;
+        $forID = $this->lastItem->getTagID();
+        if (is_null($label)) {
+            $label = $forID;
         }
-        $this->addItem('<label for="' . $ForID . '">' . $Label . '</label>');
+        $this->addItem('<label for="' . $forID . '">' . $label . '</label>');
     }
 
 }
@@ -428,49 +428,49 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
      *
      * @param string $name
      * @param array  $items
-     * @param array  $ItemValues
+     * @param array  $itemValues
      * @param array  $tagProperties
      */
-    public function __construct($name, $items = null, $ItemValues = null, $tagProperties = null)
+    public function __construct($name, $items = null, $itemValues = null, $tagProperties = null)
     {
         parent::__construct($name, $items, $tagProperties);
-        if (!is_null($ItemValues)) {
-            $Values = array();
-            foreach ($ItemValues as $ItemName => $Item) {
-                $Values[$name . '_' . $ItemName] = $Item;
+        if (!is_null($itemValues)) {
+            $values = array();
+            foreach ($itemValues as $ItemName => $Item) {
+                $values[$name . '_' . $ItemName] = $Item;
             }
-            $this->setValues($Values);
+            $this->setValues($values);
         }
     }
 
     /**
      * Přejmenuje vložené checkboxy pro použití ve formuláři
      *
-     * @param EaseHtmlCheckboxTag $PageItem     vkládaný objekt CheckBoxu
-     * @param string              $PageItemName Pod tímto jménem je objekt vkládán do stromu
+     * @param EaseHtmlCheckboxTag $pageItem     vkládaný objekt CheckBoxu
+     * @param string              $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return EaseHtmlCheckboxTag
      */
-    function &addItem($PageItem,$PageItemName = null)
+    function &addItem($pageItem,$pageItemName = null)
     {
         /**
          * Allready Added Item
          * @var EaseHtmlCheckboxTag
          */
-        $ItemInpage = parent::addItem($PageItem);
-        if (is_object($ItemInpage)) {
+        $itemInpage = parent::addItem($pageItem);
+        if (is_object($itemInpage)) {
             if (isset($this->items)) {
-                $Keys = array_keys($this->items);
-                $ItemInpage->setTagProperties(array('name' => $ItemInpage->getTagProperty('name') . '#' . $Keys[$this->_subitemCount]));
-                if (isset($this->Values[$Keys[$this->_subitemCount]])) {
-                    $ItemInpage->setValue((bool) $this->Values[$Keys[$this->_subitemCount]]);
+                $keys = array_keys($this->items);
+                $itemInpage->setTagProperties(array('name' => $itemInpage->getTagProperty('name') . '#' . $keys[$this->_subitemCount]));
+                if (isset($this->Values[$keys[$this->_subitemCount]])) {
+                    $itemInpage->setValue((bool) $this->Values[$keys[$this->_subitemCount]]);
                 }
                 next($this->items);
                 $this->_subitemCount++;
             }
         }
 
-        return $ItemInpage;
+        return $itemInpage;
     }
 
     /**
@@ -758,7 +758,7 @@ class EaseHtmlTextareaTag extends EaseHtmlPairTag
     /**
      * Odkaz na obsah
      */
-    public $Content = null;
+    public $content = null;
 
     /**
      *
@@ -769,15 +769,15 @@ class EaseHtmlTextareaTag extends EaseHtmlPairTag
      * Textarea
      *
      * @param string $name       jméno tagu
-     * @param string $Content    obsah textarey
-     * @param array  $Properties vlastnosti tagu
+     * @param string $content    obsah textarey
+     * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $Content = '', $Properties = null)
+    public function __construct($name, $content = '', $properties = null)
     {
         $this->setTagName($name);
-        parent::__construct('textarea', $Properties);
-        if ($Content) {
-            $this->addItem($Content);
+        parent::__construct('textarea', $properties);
+        if ($content) {
+            $this->addItem($content);
         }
     }
 
@@ -811,12 +811,12 @@ class EaseHtmlOptionTag extends EaseHtmlPairTag
     /**
      * Tag položky rozbalovací nabídky
      *
-     * @param string|mixed $Content text volby
+     * @param string|mixed $content text volby
      * @param string|int   $value   vracená hodnota
      */
-    public function __construct($Content, $value = null)
+    public function __construct($content, $value = null)
     {
-        parent::__construct('option', array('value' => $value), $Content);
+        parent::__construct('option', array('value' => $value), $content);
         $this->setObjectName($this->getObjectName() . '@' . $value);
         $this->Value = &$this->tagProperties['value'];
     }
@@ -899,12 +899,12 @@ class EaseHtmlSelect extends EaseHtmlPairTag
      */
     public function addItems($items)
     {
-        foreach ($items as $ItemName => $ItemValue) {
-            $NewItem = $this->addItem(new EaseHtmlOptionTag($ItemValue, $ItemName));
+        foreach ($items as $itemName => $itemValue) {
+            $NewItem = $this->addItem(new EaseHtmlOptionTag($itemValue, $itemName));
             if ($this->_itemsIDs) {
-                $NewItem->setTagID($this->getTagName() . $ItemName);
+                $NewItem->setTagID($this->getTagName() . $itemName);
             }
-            if ($this->defaultValue == $ItemValue) {
+            if ($this->defaultValue == $itemValue) {
                 $this->lastItem->setDefault();
             }
         }
@@ -914,11 +914,11 @@ class EaseHtmlSelect extends EaseHtmlPairTag
      * Vloží hodnotu
      *
      * @param string $value   hodnota
-     * @param string $ValueID id hodnoty
+     * @param string $valueID id hodnoty
      */
-    public function addValue($value, $ValueID = 0)
+    public function addValue($value, $valueID = 0)
     {
-        $this->addItems(array($ValueID => $value));
+        $this->addItems(array($valueID => $value));
     }
 
     /**
@@ -967,11 +967,11 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     /**
      * Odstarní položku z nabídky
      *
-     * @param string $ItemID klíč hodnoty k odstranění ze seznamu
+     * @param string $itemID klíč hodnoty k odstranění ze seznamu
      */
-    public function delItem($ItemID)
+    public function delItem($itemID)
     {
-        unset($this->pageParts['EaseHtmlOptionTag@' . $ItemID]);
+        unset($this->pageParts['EaseHtmlOptionTag@' . $itemID]);
     }
 
 }
@@ -1010,7 +1010,7 @@ class EaseHtmlForm extends EaseHtmlPairTag
      * @param string $formMethod    metoda odesílání POST|GET
      * @param mixed  $formContents  prvky uvnitř formuláře
      * @param array  $tagProperties vlastnosti tagu například:
-     *                                      array('enctype' => 'multipart/form-data')
+     *                              array('enctype' => 'multipart/form-data')
      */
     public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
     {
@@ -1042,79 +1042,79 @@ class EaseHtmlForm extends EaseHtmlPairTag
     /**
      * Změní jeden nebo více parametrů v ACTION url formuláře
      *
-     * @param array $ParametersToChange pole parametrů
+     * @param array $parametersToChange pole parametrů
      * @param bool  $replace            přepisovat již existující
      */
-    public function changeActionParameter($ParametersToChange, $replace = true)
+    public function changeActionParameter($parametersToChange, $replace = true)
     {
-        if (is_array($ParametersToChange) && count($ParametersToChange)) {
-            foreach ($ParametersToChange as $ParamName => $ParamValue) {
-                if ($ParamValue == true) {
-                    unset($ParametersToChange[$ParamName]);
+        if (is_array($parametersToChange) && count($parametersToChange)) {
+            foreach ($parametersToChange as $paramName => $paramValue) {
+                if ($paramValue == true) {
+                    unset($parametersToChange[$paramName]);
                 }
             }
-            $TargetParts = explode('&', str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
-            if (is_array($TargetParts) && count($TargetParts)) {
-                $FormTargetComputed = '';
-                $TargetPartsValues = array();
-                foreach ($TargetParts as $TargetPart) {
-                    if (!strstr($TargetPart, '=')) {
-                        $FormTargetComputed .= $TargetPart;
+            $targetParts = explode('&', str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
+            if (is_array($targetParts) && count($targetParts)) {
+                $formTargetComputed = '';
+                $targetPartsValues = array();
+                foreach ($targetParts as $targetPart) {
+                    if (!strstr($targetPart, '=')) {
+                        $formTargetComputed .= $targetPart;
                         continue;
                     }
-                    list($TargetPartName, $TargetPartValue) = explode('=', $TargetPart);
-                    if ($TargetPartValue == true) {
+                    list($targetPartName, $targetPartaValue) = explode('=', $targetPart);
+                    if ($targetPartValue == true) {
                         continue;
                     }
-                    $TargetPartsValues[$TargetPartName] = $TargetPartValue;
+                    $targetPartsValues[$targetPartName] = $targetPartValue;
                 }
             }
             if ($replace) {
-                $newTargPartVals = array_merge($TargetPartsValues, $ParametersToChange);
+                $newTargPartVals = array_merge($targetPartsValues, $parametersToChange);
             } else {
-                $newTargPartVals = array_merge($ParametersToChange, $TargetPartsValues);
+                $newTargPartVals = array_merge($parametersToChange, $targetPartsValues);
             }
             $glueSign = '?';
             foreach ($newTargPartVals as $newTargetPartsValName => $newTargetPartsValue) {
-                $FormTargetComputed .= $glueSign . urlencode($newTargetPartsValName) . '=' . urlencode($newTargetPartsValue);
+                $formTargetComputed .= $glueSign . urlencode($newTargetPartsValName) . '=' . urlencode($newTargetPartsValue);
                 $glueSign = '&';
             }
-            $this->setFormTarget($FormTargetComputed);
+            $this->setFormTarget($formTargetComputed);
         }
     }
 
     /**
      * Pokusí se najít ve vložených objektech tag zadaného jména
      *
-     * @param string        $SearchFor jméno hledaného elementu
-     * @param EaseContainer $Where     objekt v němž je hledáno
+     * @param string        $searchFor jméno hledaného elementu
+     * @param EaseContainer $where     objekt v němž je hledáno
      *
      * @return EaseContainer|class
      */
-    function & objectContentSearch($SearchFor, $Where = null)
+    function & objectContentSearch($searchFor, $where = null)
     {
-        if (is_null($Where)) {
-            $Where = & $this;
+        if (is_null($where)) {
+            $where = & $this;
         }
-        $ItemFound = null;
-        if (isset($Where->pageParts) && is_array($Where->pageParts) && count($Where->pageParts)) {
-            foreach ($Where->pageParts as $PagePart) {
-                if (is_object($PagePart)) {
-                    if (method_exists($PagePart, 'GetTagName')) {
-                        if ($PagePart->getTagName() == $SearchFor) {
-                            return $PagePart;
+        $itemFound = null;
+        if (isset($where->pageParts) && is_array($where->pageParts) && count($where->pageParts)) {
+            foreach ($where->pageParts as $pagePart) {
+                if (is_object($pagePart)) {
+                    if (method_exists($pagePart, 'GetTagName')) {
+                        if ($pagePart->getTagName() == $searchFor) {
+                            return $pagePart;
                         }
                     } else {
-                        $ItemFound = $this->objectContentSearch($SearchFor, $PagePart);
-                        if ($ItemFound) {
-                            return $ItemFound;
+                        $itemFound = $this->objectContentSearch($searchFor, $pagePart);
+                        if ($itemFound) {
+                            return $itemFound;
                         }
                     }
                 }
             }
         }
 
-        return $ItemFound;
+        return $itemFound;
     }
 
     /**
@@ -1153,28 +1153,28 @@ class EaseHtmlLabelTag extends EaseHtmlPairTag
     /**
      * zobrazí tag pro návěští
      *
-     * @param string $For        vztažný element
-     * @param mixed  $Contents   obsah opatřovaný popiskem
-     * @param array  $Properties vlastnosti tagu
+     * @param string $for        vztažný element
+     * @param mixed  $contents   obsah opatřovaný popiskem
+     * @param array  $properties vlastnosti tagu
      */
-    public function __construct($For, $Contents = null, $Properties = null)
+    public function __construct($for, $contents = null, $properties = null)
     {
-        $this->setTagProperties(array('for' => $For));
-        parent::__construct('label', $Properties);
-        $this->Contents = $this->addItem($Contents);
+        $this->setTagProperties(array('for' => $for));
+        parent::__construct('label', $properties);
+        $this->Contents = $this->addItem($contents);
     }
 
     /**
      * Nastaví jméno objektu
      *
-     * @param string $ObjectName nastavované jméno
+     * @param string $objectName nastavované jméno
      *
      * @return string New object name
      */
-    public function setObjectName($ObjectName = null)
+    public function setObjectName($objectName = null)
     {
-        if ($ObjectName) {
-            return parent::setObjectName($ObjectName);
+        if ($objectName) {
+            return parent::setObjectName($objectName);
         }
 
         return parent::setObjectName(get_class($this) . '@' . $this->getTagProperty('for'));
@@ -1271,14 +1271,14 @@ margin-top: 5px;}'
     /**
      * Vrací hodnotu parametru vloženého tagu
      *
-     * @param string $PropertyName název parametru
+     * @param string $propertyName název parametru
      *
      * @return string|int|null hodnota parametru
      */
-    public function getTagProperty($PropertyName)
+    public function getTagProperty($propertyName)
     {
         if (method_exists($this->enclosedElement, 'getTagProperties')) {
-            return $this->enclosedElement->getTagProperty($PropertyName);
+            return $this->enclosedElement->getTagProperty($propertyName);
         }
     }
 
@@ -1360,9 +1360,9 @@ class EaseLabeledSearchInput extends EaseLabeledInput
     /**
      *
      */
-    public function setDataSource($DataSource)
+    public function setDataSource($dataSource)
     {
-        $this->enclosedElement->setDataSource($DataSource);
+        $this->enclosedElement->setDataSource($dataSource);
     }
 
 }

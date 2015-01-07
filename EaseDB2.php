@@ -78,10 +78,11 @@ abstract class EaseDB2 extends EaseSQL {
             $this->result = $this->sqlLink->query($queryRaw);
 
             if (is_a($this->result, 'PEAR_Error') && !$ignoreErrors) {
-                $this->errorText = $this->result->getMessage();
+                $this->errorText = $this->result->getMessage()."\n".$this->result->getUserInfo();
                 if (EaseShared::isCli()) {
-                    if (function_exists('xdebug_call_function'))
+                    if (function_exists('xdebug_call_function')) {
                         echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
+                    }
                     echo "\n$queryRaw\n\n#" .  $this->errorText;
                 } else {
                     echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";

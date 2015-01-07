@@ -88,8 +88,8 @@ class EaseDbMSSQL extends EaseSql
         if (!isset($this->Server) && defined('MS_DB_SERVER')) {
             $this->Server = constant('MS_DB_SERVER');
         }
-        if (!isset($this->Username) && defined('MS_DB_SERVER_USERNAME')) {
-            $this->Username = constant('MS_DB_SERVER_USERNAME');
+        if (!isset($this->username) && defined('MS_DB_SERVER_USERNAME')) {
+            $this->username = constant('MS_DB_SERVER_USERNAME');
         }
         if (!isset($this->Password) && defined('MS_DB_SERVER_PASSWORD')) {
             $this->Password = constant('MS_DB_SERVER_PASSWORD');
@@ -140,7 +140,7 @@ class EaseDbMSSQL extends EaseSql
 
             return null;
         }
-        $this->SQLLink = mssql_connect($this->Server, $this->Username, $this->Password);
+        $this->SQLLink = mssql_connect($this->Server, $this->username, $this->Password);
         if ($this->SQLLink) {
             $this->Connected = true;
             mssql_min_error_severity(2);

@@ -60,7 +60,7 @@ class EaseContainer extends EaseBrick {
      */
     public function __construct($initialContent = null) {
         parent::__construct();
-        $this->webPage = EaseShared::webPage();
+        //$this->webPage = EaseShared::webPage();
         if ($initialContent) {
             $this->addItem($initialContent);
         }

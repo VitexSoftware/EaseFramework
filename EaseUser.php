@@ -179,9 +179,9 @@ class EaseUser extends EaseAnonym {
      * @return string url ikony
      */
     public function getIcon() {
-        $Email = $this->getUserEmail();
-        if ($Email) {
-            return self::getGravatar($Email, 800, 'mm', 'g', true, array('title' => $this->getUserName(), 'class' => 'gravatar_icon'));
+        $email = $this->getUserEmail();
+        if ($email) {
+            return self::getGravatar($email, 800, 'mm', 'g', true, array('title' => $this->getUserName(), 'class' => 'gravatar_icon'));
         } else {
             return null;
         }
