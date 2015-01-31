@@ -7,7 +7,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
 require_once 'Ease/EaseSand.php';
 require_once 'Ease/EaseDB2.php';
 
@@ -88,7 +87,7 @@ class EaseBrick extends EaseSand
         if ($this->myTable) {
             $this->takemyTable($this->myTable);
         }
-        
+
         $this->saveObjectIdentity();
     }
 
@@ -350,9 +349,12 @@ class EaseBrick extends EaseSand
         }
 
         if (is_array($columnsList)) {
+            foreach ($columnsList as $id => $column) {
+                $columnsList[$id] = '`' . $column . '`';
+            }
             return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
         } else {
-            return $this->myDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
+            return $this->myDbLink->queryToArray('SELECT `' . $columnsList . '` FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
         }
     }
 
@@ -458,15 +460,14 @@ class EaseBrick extends EaseSand
      */
     public function loadFromSQL($itemID = null, $dataPrefix = null, $multiplete = false)
     {
-        if( is_object($this->myDbLink)){
+        if (is_object($this->myDbLink)) {
             return $this->loadFromMySQL($itemID, $dataPrefix, $multiplete);
         }
-        
+
         $this->addStatusMessage(_('Databáze není definována'), 'error');
         return null;
-    }    
-    
-    
+    }
+
     /**
      * Načte z MySQL data k aktuálnímu $ItemID a použije je v objektu
      *
@@ -778,12 +779,12 @@ class EaseBrick extends EaseSand
     public function saveSqlStructArrays($forceUpdate = false)
     {
         $this->setObjectIdentity(
-                array('myTable' => 'mysqlxmssql',
-                    'myKeyColumn' => 'id',
-                    'myCreateColumn' => false,
-                    'myLastModifiedColumn' => false,
-                    'MSTable' => false
-                )
+            array('myTable' => 'mysqlxmssql',
+              'myKeyColumn' => 'id',
+              'myCreateColumn' => false,
+              'myLastModifiedColumn' => false,
+              'MSTable' => false
+            )
         );
 
         $this->takemyTable();
@@ -1189,7 +1190,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         return null;
     }
 
-        /**
+    /**
      * Uloží pole dat do MySQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
      *
      * @param array $data        asociativní pole dat
@@ -1199,16 +1200,14 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function saveToSQL($data = null, $searchForID = false)
     {
-        if( is_object($this->myDbLink)){
-            return $this->saveToMySQL($data,$searchForID);
+        if (is_object($this->myDbLink)) {
+            return $this->saveToMySQL($data, $searchForID);
         }
-        
+
         $this->addStatusMessage(_('Databáze není definována'), 'error');
         return null;
-        
     }
-    
-    
+
     /**
      * Uloží pole dat do MySQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
      *
@@ -1281,14 +1280,14 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function insertToSQL($data = null)
     {
-        if( is_object($this->myDbLink)){
+        if (is_object($this->myDbLink)) {
             return $this->insertToMySQL($data);
         }
-        
+
         $this->addStatusMessage(_('Databáze není definována'), 'error');
         return null;
-    }    
-    
+    }
+
     /**
      * Vloží záznam do MySQL databáze
      *
@@ -1337,15 +1336,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function save()
     {
-        $Result = array();
+        $result = array();
         if (is_object($this->myDbLink)) {
-            $Result['my'] = $this->saveToMySQL();
+            $result['my'] = $this->saveToMySQL();
         }
         if (is_object($this->msDbLink)) {
-            $Result['ms'] = $this->saveToMSSQL();
+            $result['ms'] = $this->saveToMSSQL();
         }
 
-        return $Result;
+        return $result;
     }
 
     /**
@@ -1421,15 +1420,15 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         $SyncStatus = $this->isSynchronized();
         if (!$SyncStatus) {
             $this->error(
-                    'Mega error nesynchronizovane produkty :' .
-                    $this->InsertMode . ' MSSQL #' . $initialMSSQLID .
-                    ' Shop: #' . $initialMySQLID
+                'Mega error nesynchronizovane produkty :' .
+                $this->InsertMode . ' MSSQL #' . $initialMSSQLID .
+                ' Shop: #' . $initialMySQLID
             );
         } else
             $this->addToLog(
-                    'SyncOK: ' . $this->InsertMode .
-                    ' MSSQL #' . $this->data['MSSQL'][$this->MSKeyColumn] .
-                    ' Shop: #' . $this->data['MySQL'][$this->myKeyColumn]
+                'SyncOK: ' . $this->InsertMode .
+                ' MSSQL #' . $this->data['MSSQL'][$this->MSKeyColumn] .
+                ' Shop: #' . $this->data['MySQL'][$this->myKeyColumn]
             );
 
         $this->InsertMode = '';
@@ -1472,12 +1471,12 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     public function isSynchronized()
     {
         if (!isset($this->data['MSSQL'][$this->msIDSColumn]) ||
-                !strlen($this->data['MSSQL'][$this->msIDSColumn])
+            !strlen($this->data['MSSQL'][$this->msIDSColumn])
         ) {
             $this->loadFromMSSQL($this->getMSKey());
         }
         if (!isset($this->data[$this->myIDSColumn]) ||
-                !strlen($this->data[$this->myIDSColumn])
+            !strlen($this->data[$this->myIDSColumn])
         ) {
             $this->loadFromMySQL($this->getMyKey());
         }
@@ -1722,10 +1721,11 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
 
     /**
      * Vrací název aktuálně použivané SQL tabulky
-     * 
+     *
      * @return string
      */
-    public function getMyTable(){
+    public function getMyTable()
+    {
         return $this->myTable;
     }
 
@@ -2061,7 +2061,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function msSQLTableExist($tableName = null)
     {
-        if (!$tableName){
+        if (!$tableName) {
             $tableName = $this->msTable;
         }
         if (!$tableName) {
@@ -2109,22 +2109,23 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public static function lettersOnly($text)
     {
-        return preg_replace('/[^(a-zA-Z0-9)]*/','', $text);
+        return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
     }
-    
+
     /**
      * Prohledá zadané slupečky
-     * 
+     *
      * @param string $searchTerm
      * @param array $columns
      */
-    public function searchColumns($searchTerm,$columns){
+    public function searchColumns($searchTerm, $columns)
+    {
         $sTerm = $this->myDbLink->AddSlashes($searchTerm);
         $conditons = array();
-        foreach ($columns as $column){
-            $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
+        foreach ($columns as $column) {
+            $conditons[] = '`' . $column . '` LIKE \'%' . $sTerm . '%\'';
         }
-        return $this->myDbLink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '. implode(' OR ', $conditons) );
+        return $this->myDbLink->queryToArray('SELECT * FROM ' . $this->myTable . ' WHERE ' . implode(' OR ', $conditons));
     }
-    
+
 }

@@ -451,7 +451,7 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
      *
      * @return EaseHtmlCheckboxTag
      */
-    function &addItem($pageItem,$pageItemName = null)
+    function &addItem($pageItem, $pageItemName = null)
     {
         /**
          * Allready Added Item
@@ -1224,7 +1224,7 @@ class EaseLabeledInput extends EasePage
         }
         if ($label) {
             $this->addCSS(
-                    '.InputCaption {
+                '.InputCaption {
 cursor: pointer;
 display: block;
 font-size: x-small;
@@ -1235,11 +1235,11 @@ margin-top: 5px;}'
 
         switch ($this->itemClass) {
             case 'EaseHtmlCheckboxTag':
-                $this->enclosedElement = new $this->itemClass($name, $value, $value, $properties);
+                $this->enclosedElement = new $this->itemClass($name, $value, 'on', $properties);
                 break;
             case 'EaseHtmlSelect':
                 //function __construct($name, $items = null, $DefaultValue = null, $ItemsIDs = false, $Properties = null)
-                $this->enclosedElement = new $this->itemClass($name, null ,$value, false, $properties);
+                $this->enclosedElement = new $this->itemClass($name, null, $value, false, $properties);
                 break;
             default:
                 $this->enclosedElement = new $this->itemClass($name, $value, $properties);
@@ -1366,6 +1366,7 @@ class EaseLabeledSearchInput extends EaseLabeledInput
     }
 
 }
+
 /**
  * Zobrazuje souborový input opatřený patřičným popiskem
  *
@@ -1381,6 +1382,7 @@ class EaseLabeledFileInput extends EaseLabeledInput
     public $itemClass = 'EaseHtmlInputFileTag';
 
 }
+
 /**
  * Zobrazuje textový input opatřený patřičným popiskem
  *
