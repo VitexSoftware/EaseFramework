@@ -13,8 +13,9 @@ Suggests: libjs-jquery-ui-docs, libjs-jquery-ui-theme-base, libjs-jquery-ui-them
 Section: web
 Priority: optional
 Description: Další PHP framework
- Ease Framework je aktívně vyvíjen od roku 2008. Podporuje HTML5 a jQueryUIa PHPUnit testy. Snaží se o přehledně psaný kod s PEAR upravou.
- Čeština byla zvolena jako výchozí jazyk pro dokumentaci PHPDoc a apiGen.Jazykově závislé řetězce mají gettext překlad do Anglického jazyka.
-
+ Ease Framework je aktívně vyvíjen od roku 2008. Podporuje HTML5 a jQueryUI
+ a PHPUnit testy. Snaží se o přehledně psaný kod s PEAR upravou.
+ Čeština byla zvolena jako výchozí jazyk pro dokumentaci PHPDoc a apiGen.
+ Jazykově závislé řetězce mají gettext překlad do Anglického jazyka.
 
 
