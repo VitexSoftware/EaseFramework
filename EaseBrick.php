@@ -354,7 +354,10 @@ class EaseBrick extends EaseSand
             }
             return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
         } else {
-            return $this->myDbLink->queryToArray('SELECT `' . $columnsList . '` FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
+            if ($columnsList != '*') {
+                $columnsList = '`' . $columnsList . '`';
+            }
+            return $this->myDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
         }
     }
 
