@@ -15,20 +15,22 @@ require_once 'MDB2.php';
  *
  * @author vitex
  */
-abstract class EaseDB2 extends EaseSQL {
+abstract class EaseDB2 extends EaseSQL
+{
 
     /**
-     * Parametry připojení 
+     * Parametry připojení
      * @var array
      */
     public $dsn = array();
 
     /**
      * Připojí se k mysql databázi
-     * 
+     *
      * @return boolean Status připojení
      */
-    public function connect() {
+    public function connect()
+    {
         $this->dsn['username'] = $this->username;
         $this->dsn['password'] = $this->password;
         $this->dsn['hostspec'] = $this->server;
@@ -53,7 +55,8 @@ abstract class EaseDB2 extends EaseSQL {
      *
      * @return string SQL Query
      */
-    public function sanitizeQuery($queryRaw) {
+    public function sanitizeQuery($queryRaw)
+    {
         $sanitizedQuery = trim($queryRaw);
 
         return $sanitizedQuery;
@@ -67,7 +70,8 @@ abstract class EaseDB2 extends EaseSQL {
      *
      * @return SQLhandle
      */
-    public function exeQuery($queryRaw, $ignoreErrors = false) {
+    public function exeQuery($queryRaw, $ignoreErrors = false)
+    {
         $queryRaw = $this->sanitizeQuery($queryRaw);
         $this->lastQuery = $queryRaw;
         $this->lastInsertID = null;
@@ -78,12 +82,12 @@ abstract class EaseDB2 extends EaseSQL {
             $this->result = $this->sqlLink->query($queryRaw);
 
             if (is_a($this->result, 'PEAR_Error') && !$ignoreErrors) {
-                $this->errorText = $this->result->getMessage()."\n".$this->result->getUserInfo();
+                $this->errorText = $this->result->getMessage() . "\n" . $this->result->getUserInfo();
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function')) {
                         echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
                     }
-                    echo "\n$queryRaw\n\n#" .  $this->errorText;
+                    echo "\n$queryRaw\n\n#" . $this->errorText;
                 } else {
                     echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
                     if (function_exists('xdebug_print_function_stack')) {
@@ -114,9 +118,9 @@ abstract class EaseDB2 extends EaseSQL {
                 }
             case 'update':
             case 'replace':
-            case 'delete':
             case 'alter':
-                $this->numRows = $this->sqlLink->_affectedRows($this->sqlLink);
+            case 'delete':
+                $this->numRows = $this->sqlLink->_affectedRows(null);
                 break;
             default:
                 $this->numRows = null;
@@ -132,7 +136,8 @@ abstract class EaseDB2 extends EaseSQL {
      *
      * @return array
      */
-    public function queryToArray($queryRaw, $keyColumnToIndex = false) {
+    public function queryToArray($queryRaw, $keyColumnToIndex = false)
+    {
         $resultArray = array();
         if ($this->exeQuery($queryRaw)) {
             if (is_string($keyColumnToIndex)) {
@@ -160,28 +165,32 @@ abstract class EaseDB2 extends EaseSQL {
     /**
      * Uzavře připojení k databázi
      */
-    function close(){
+    function close()
+    {
         $this->sqlLink->disconnect();
     }
-    
+
 }
 
 /**
  * MySQL DB2 třída
  */
-class EaseDB2MySql extends EaseDB2 {
+class EaseDB2MySql extends EaseDB2
+{
+
     /**
      * MySQL Handle
-     * 
+     *
      * @var MDB2_Driver_mysql
      */
     public $sqlLink = null;
+
     /**
      * Nastavení vlastností přípojení
      * @var array
      */
     public $ettings = array(
-        'NAMES' => 'utf8'
+      'NAMES' => 'utf8'
     );
 
     /**
@@ -191,16 +200,17 @@ class EaseDB2MySql extends EaseDB2 {
 
     /**
      * Připojí se k mysql databázi
-     * 
+     *
      * @return boolean Status připojení
      */
-    function connect() {
+    function connect()
+    {
         $this->dsn['phptype'] = 'mysql';
 
         $this->settings = array('NAMES' => 'utf8');
-        
+
         $status = parent::connect();
-        if($status){
+        if ($status) {
             $this->setUp();
         }
         return $status;
@@ -208,7 +218,7 @@ class EaseDB2MySql extends EaseDB2 {
 
     /**
      * Nastaví připojení
-     * 
+     *
      */
     public function setUp()
     {
@@ -223,7 +233,7 @@ class EaseDB2MySql extends EaseDB2 {
             }
         }
     }
-    
+
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
      * $this->myKeyColumn je preskocen pokud neni $key false)
@@ -342,7 +352,7 @@ class EaseDB2MySql extends EaseDB2 {
                     if ($operator == ' != ') {
                         $operator = ' NOT LIKE ';
                     } else {
-                        if(is_null($operator)){
+                        if (is_null($operator)) {
                             $operator = ' LIKE ';
                         }
                     }
@@ -354,15 +364,15 @@ class EaseDB2MySql extends EaseDB2 {
 
         return trim(implode($ldiv, $conditions) . ' ' . implode(' ', $conditionsII));
     }
-    
-    
+
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
      * se bude v ramci behu programu pouzivat pouze jedna jeho instance (ta prvni).
      *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             $class = __CLASS__;
             self::$instance = new $class();
@@ -371,6 +381,4 @@ class EaseDB2MySql extends EaseDB2 {
         return self::$instance;
     }
 
-    
-    
 }
