@@ -420,9 +420,10 @@ class EaseTWBForm extends EaseHtmlForm
     }
 
     /**
+     * Vloží prvek do formuláře
      *
-     * @param type $input
-     * @param type $caption
+     * @param mixed $input
+     * @param string $caption
      */
     public function addInput($input, $caption = null)
     {
@@ -572,8 +573,9 @@ class EaseTWBTabs extends EaseContainer
     function &addTab($tabName, $tabContent = '', $active = false)
     {
         $this->tabs[$tabName] = $tabContent;
-        if ($active)
+        if ($active) {
             $this->activeTab = $tabName;
+        }
 
         return $this->tabs[$tabName];
     }
@@ -876,6 +878,29 @@ class EaseTWBRow extends EaseHtmlDivTag
 
 }
 
+class EaseTWBCol extends EaseHtmlDivTag
+{
+
+    /**
+     * Bunka CSS tabulky bootstrapu
+     *
+     * @link http://getbootstrap.com/css/#grid
+     * @param int    $size       Velikost políčka 1 - 12
+     * @param mixed  $content    Obsah políčka
+     * @param string $target     Typ zařízení xs|sm|md|lg
+     * @param array  $properties Další vlastnosti tagu
+     */
+    function __construct($size, $content = null, $target = 'md', $properties = null)
+    {
+        if (is_null($properties)) {
+            $properties = array();
+        }
+        $properties['class'] = 'col-' . $target . '-' . $size;
+        parent::__construct(null, $content, $properties);
+    }
+
+}
+
 class EaseTWBPanel extends EaseHtmlDivTag
 {
 
@@ -900,15 +925,17 @@ class EaseTWBPanel extends EaseHtmlDivTag
     /**
      * Panel Twitter Bootstrapu
      *
-     * @param type $heading
-     * @param type $type
+     * @param string|mixed $heading
+     * @param string       $type    succes|wanring|info|danger
      * @param type $body
      * @param type $footer
      */
-    function __construct($heading, $type = 'default', $body = null, $footer = null)
+    function __construct($heading = null, $type = 'default', $body = null, $footer = null)
     {
         parent::__construct(null, null, array('class' => 'panel panel-' . $type));
-        $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')));
+        if (!is_null($heading)) {
+            $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')));
+        }
         $this->body = parent::addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
         if ($footer) {
             $this->footer = parent::addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer')));
@@ -965,7 +992,7 @@ class EaseTWBPagination extends EaseHtmlUlTag
 
 
         for ($page = 0; $page <= $pages - 1; $page++) {
-            //Stavajici
+//Stavajici
             if ($current == $page) {
                 $this->addPage($page, $page + 1, 'active');
             } else {
@@ -1000,6 +1027,56 @@ class EaseTWBPagination extends EaseHtmlUlTag
         } else {
             $this->addItemSmart(new EaseHtmlATag($link, $label));
         }
+    }
+
+}
+
+/**
+ * Checkbox pro TwitterBootstrap
+ */
+class EaseTWBCheckbox extends EaseHtmlDivTag
+{
+
+    /**
+     * Checkbox pro TwitterBootstrap
+     *
+     * @param string     $name
+     * @param string|int $value
+     * @param mixed      $content
+     * @param bool       $checked
+     * @param array      $properties
+     */
+    function __construct($name = null, $value = 'on', $content = null, $checked = false, $properties = null)
+    {
+        parent::__construct($name, new EaseHtmlLabelTag($name, array(new EaseHtmlCheckboxTag($name, $checked, $value, $properties), $content)), $properties);
+    }
+
+}
+
+/**
+ * RadioButton Twitter Bootstrapu
+ */
+class EaseTWBRadioButton extends EaseHtmlDivTag
+{
+
+    /**
+     *  RadioButton Twitter Bootstrapu
+     *
+     * @param string     $name
+     * @param string|int $value
+     * @param mixed      $caption
+     * @param array      $properties
+     */
+    function __construct($name = null, $value = null, $caption = null, $properties = null)
+    {
+        if (isset($properties['id'])) {
+            $for = $properties['id'];
+        } else {
+            $for = $name;
+        }
+        parent::__construct(
+            null, new EaseHtmlLabelTag($for, array(new EaseHtmlInputRadioTag($name, $value, $properties), $caption))
+        );
     }
 
 }

@@ -310,10 +310,6 @@ class EaseBrick extends EaseSand
             $conditions = array($this->getmyKeyColumn() => $conditions);
         }
 
-        if (!count($conditions) && $this->getMyKey()) {
-            $conditions[$this->myKeyColumn] = $this->getMyKey();
-        }
-
         $where = '';
         if (is_array($conditions)) {
             if (!count($conditions)) {
@@ -334,6 +330,9 @@ class EaseBrick extends EaseSand
 
         if ($orderBy) {
             if (is_array($orderBy)) {
+                foreach ($orderBy as $oid => $oname) {
+                    $orderBy[$oid] = "`$oname`";
+                }
                 $orderByCond = ' ORDER BY ' . implode(',', $orderBy);
             } else {
                 $orderByCond = ' ORDER BY ' . $orderBy;
@@ -439,7 +438,7 @@ class EaseBrick extends EaseSand
             $itemID = $this->getMyKey();
         }
         if (is_string($itemID)) {
-            $itemID = '\'' . $this->easeAddSlashes($itemID) . '\'';
+            $itemID = "'" . $this->easeAddSlashes($itemID) . "'";
         } else {
             $itemID = $this->easeAddSlashes($itemID);
         }
@@ -1173,11 +1172,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $data[$this->myLastModifiedColumn] = 'NOW()';
         }
 
-        if (!is_numeric($key)) {
-            $key = '\'' . addslashes($key) . '\'';
-        }
 
-        $queryRaw = "UPDATE `" . $this->myTable . "` SET " . $this->myDbLink->arrayToQuery($data) . "  WHERE `" . $this->myKeyColumn . "` = " . $key;
+        $queryRaw = "UPDATE `" . $this->myTable . "` SET " . $this->myDbLink->arrayToQuery($data) . "  WHERE `" . $this->myKeyColumn . "` = '" . $this->myDbLink->EaseAddSlashes($key) . "'";
         if ($this->myDbLink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 if (array_key_exists($defDatPref, $this->data)) {

@@ -28,9 +28,9 @@ class EaseHtmlInputTag extends EaseHtmlTag
     /**
      * Obecný input TAG
      *
-     * @param string $name       jméno tagu
-     * @param string $value      vracená hodnota
-     * @param array  $properties vlastnosti tagu
+     * @param string             $name       jméno tagu
+     * @param string|EaseObject  $value      vracená hodnota
+     * @param array              $properties vlastnosti tagu
      */
     public function __construct($name, $value = null, $properties = null)
     {
@@ -39,7 +39,10 @@ class EaseHtmlInputTag extends EaseHtmlTag
         if (isset($properties)) {
             $this->setTagProperties($properties);
         }
-        if (!is_null($value)) {
+        if (!is_null($value)) { //Pokud je hodnota EaseObjekt, vytáhne si hodnotu políčka z něj
+            if (is_object($value) && method_exists($value, 'getDataValue')) {
+                $value = $content->getDataValue($name);
+            }
             $this->setValue($value);
         }
     }
@@ -904,7 +907,7 @@ class EaseHtmlSelect extends EaseHtmlPairTag
             if ($this->_itemsIDs) {
                 $NewItem->setTagID($this->getTagName() . $itemName);
             }
-            if ($this->defaultValue == $itemValue) {
+            if ($this->defaultValue == $itemName) {
                 $this->lastItem->setDefault();
             }
         }
