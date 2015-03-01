@@ -15,7 +15,8 @@ require_once 'EaseBrick.php';
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseContainer extends EaseBrick {
+class EaseContainer extends EaseBrick
+{
 
     /**
      * Pole objektů a fragmentů k vykreslení
@@ -49,7 +50,7 @@ class EaseContainer extends EaseBrick {
 
     /**
      * Odkaz na webstránku
-     * @var type 
+     * @var type
      */
     public $webPage = null;
 
@@ -58,7 +59,8 @@ class EaseContainer extends EaseBrick {
      *
      * @param mixed $initialContent hodnota nebo EaseObjekt s metodou draw()
      */
-    public function __construct($initialContent = null) {
+    public function __construct($initialContent = null)
+    {
         parent::__construct();
         //$this->webPage = EaseShared::webPage();
         if ($initialContent) {
@@ -74,7 +76,8 @@ class EaseContainer extends EaseBrick {
      * @param object $childObject  vkládaný objekt
      * @param array  $itemsToRaise pole položek k "protlačení"
      */
-    public function raise(& $childObject, $itemsToRaise = null) {
+    public function raise(& $childObject, $itemsToRaise = null)
+    {
         if (!$itemsToRaise) {
             $itemsToRaise = $childObject->raiseItems;
         }
@@ -100,7 +103,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem, $pageItemName = null) {
+    function &addItem($pageItem, $pageItemName = null)
+    {
         $itemPointer = null;
         if (is_object($pageItem)) {
             if (method_exists($pageItem, 'draw')) {
@@ -117,9 +121,9 @@ class EaseContainer extends EaseBrick {
                 $this->pageParts[$pageItemName]->parentObject = & $this;
 
                 if (
-                        isset($this->pageParts[$pageItemName]->raiseItems) &&
-                        is_array($this->pageParts[$pageItemName]->raiseItems) &&
-                        count($this->pageParts[$pageItemName]->raiseItems)
+                    isset($this->pageParts[$pageItemName]->raiseItems) &&
+                    is_array($this->pageParts[$pageItemName]->raiseItems) &&
+                    count($this->pageParts[$pageItemName]->raiseItems)
                 ) {
                     $this->raise($this->pageParts[$pageItemName]);
                 }
@@ -156,14 +160,15 @@ class EaseContainer extends EaseBrick {
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addAsFirst($pageItem, $pageItemName = null) {
-        if(is_null($pageItemName)){
+    function &addAsFirst($pageItem, $pageItemName = null)
+    {
+        if (is_null($pageItemName)) {
             $pageItemName = '1st';
         }
         $swap = $this->pageParts;
         $this->emptyContents();
         $itemPointer = $this->addItem($pageItem, $pageItemName);
-        $this->pageParts = array_merge($this->pageParts,$swap);
+        $this->pageParts = array_merge($this->pageParts, $swap);
 
         return $itemPointer;
     }
@@ -171,7 +176,8 @@ class EaseContainer extends EaseBrick {
     /**
      * Umožní již vloženému objektu se odstranit ze stromu k vykreslení
      */
-    public function suicide() {
+    public function suicide()
+    {
         if (isset($this->parentObject) && isset($this->parentObject->pageParts[$this->getObjectName()])) {
             unset($this->parentObject->pageParts[$this->getObjectName()]);
 
@@ -188,7 +194,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return int | null
      */
-    public function getItemsCount($object = null) {
+    public function getItemsCount($object = null)
+    {
         if (is_null($object)) {
             return count($this->pageParts);
         }
@@ -206,7 +213,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addNextTo($pageItem) {
+    function &addNextTo($pageItem)
+    {
         $itemPointer = null;
         $itemPointer = $this->parentObject->addItem($pageItem);
 
@@ -218,7 +226,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return EaseBrick|mixed
      */
-    function & lastItem() {
+    function & lastItem()
+    {
         $lastPart = end($this->pageParts);
 
         return $lastPart;
@@ -231,7 +240,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return bool success
      */
-    function &addToLastItem($pageItem) {
+    function &addToLastItem($pageItem)
+    {
         if (!method_exists($this->lastItem, 'addItem')) {
             return false;
         }
@@ -246,7 +256,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return null
      */
-    function &getFirstPart($pageItem = null) {
+    function &getFirstPart($pageItem = null)
+    {
         if (!$pageItem) {
             $pageItem = & $this;
         }
@@ -264,7 +275,8 @@ class EaseContainer extends EaseBrick {
      *
      * @param array $itemsArray pole hodnot nebo EaseObjektů s metodou draw()
      */
-    public function addItems($itemsArray) {
+    public function addItems($itemsArray)
+    {
         $itemsAdded = array();
         foreach ($itemsArray as $item) {
             $itemsAdded[] = $this->addItem($item);
@@ -276,7 +288,8 @@ class EaseContainer extends EaseBrick {
     /**
      * Vyprázní obsah objektu
      */
-    public function emptyContents() {
+    public function emptyContents()
+    {
         $this->pageParts = null;
     }
 
@@ -292,7 +305,8 @@ class EaseContainer extends EaseBrick {
      * @param EasePage|array $scripts pole skriptiptů nebo EaseObjekt s
      *                                vloženými skripty v poli ->javaScripts
      */
-    public function takeJavascripts(& $scripts) {
+    public function takeJavascripts(& $scripts)
+    {
         if (is_object($scripts)) {
             $scriptsToProcess = $scripts->javaScripts;
         } else {
@@ -314,7 +328,8 @@ class EaseContainer extends EaseBrick {
      *
      * @param EasePage|array $styles pole definic stylů nebo objekt s nimi
      */
-    public function takeCascadeStyles($styles) {
+    public function takeCascadeStyles($styles)
+    {
         if (is_object($styles)) {
             $stylesToProcess = & $styles->webPage->head->cascadeStyles;
         } else {
@@ -330,7 +345,8 @@ class EaseContainer extends EaseBrick {
     /**
      * Projde rekurzivně všechny vložené objekty a zavolá jeich draw()
      */
-    public function drawAllContents() {
+    public function drawAllContents()
+    {
         if (count($this->pageParts))
             foreach ($this->pageParts as $part) {
                 if (is_object($part) && method_exists($part, 'draw')) {
@@ -347,7 +363,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return string
      */
-    public function getRendered() {
+    public function getRendered()
+    {
         $RetVal = '';
         ob_start();
         $this->draw();
@@ -362,7 +379,8 @@ class EaseContainer extends EaseBrick {
      *
      * @param int $level aktuální uroven zanoření
      */
-    public function showContents($level = 0) {
+    public function showContents($level = 0)
+    {
         foreach ($this->pageParts as $partName => $partContents) {
             if (is_object($partContents) && method_exists($partContents, 'ShowContents')) {
                 $partContents->showContents($level + 1);
@@ -375,7 +393,8 @@ class EaseContainer extends EaseBrick {
     /**
      * Vykresli se, pokud již tak nebylo učiněno
      */
-    public function drawIfNotDrawn() {
+    public function drawIfNotDrawn()
+    {
         if (!$this->drawStatus) {
             $this->draw();
         }
@@ -386,7 +405,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return boolean
      */
-    public function isFinalized() {
+    public function isFinalized()
+    {
         return $this->finalized;
     }
 
@@ -395,7 +415,8 @@ class EaseContainer extends EaseBrick {
      *
      * @param boolean $flag příznak finalizace
      */
-    public function setFinalized($flag = true) {
+    public function setFinalized($flag = true)
+    {
         $this->finalized = $flag;
     }
 
@@ -404,7 +425,8 @@ class EaseContainer extends EaseBrick {
      *
      * @param type $data asociativní pole dat
      */
-    public function fillUp($data = null) {
+    public function fillUp($data = null)
+    {
         if (is_null($data)) {
             $data = $this->getData();
         }
@@ -418,7 +440,8 @@ class EaseContainer extends EaseBrick {
      * @param array               $data asociativní pole dat
      * @param EaseContainer|mixed $form formulář k naplnění
      */
-    public static function fillMeUp(&$data, &$form) {
+    public static function fillMeUp(&$data, &$form)
+    {
         if (isset($form->pageParts) && is_array($form->pageParts) && count($form->pageParts)) {
             foreach ($form->pageParts as $partName => $part) {
                 if (isset($part->pageParts) && is_array($part->pageParts) && count($part->pageParts)) {
@@ -441,11 +464,12 @@ class EaseContainer extends EaseBrick {
 
     /**
      * Je element prázdný ?
-     * 
+     *
      * @param EaseContainer $element EaseHtmlElement
      * @return bool prázdnost
      */
-    public function isEmpty($element = null) {
+    public function isEmpty($element = null)
+    {
         if (is_null($element)) {
             $element = $this;
         }
@@ -455,7 +479,8 @@ class EaseContainer extends EaseBrick {
     /**
      * Vykreslí objekt z jeho položek
      */
-    public function draw() {
+    public function draw()
+    {
         foreach ($this->pageParts as $part) {
             if (is_object($part)) {
                 if (method_exists($part, 'drawIfNotDrawn')) {
@@ -474,7 +499,8 @@ class EaseContainer extends EaseBrick {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         $objectOut = '';
         ob_start();
         $this->draw();
@@ -491,7 +517,8 @@ class EaseContainer extends EaseBrick {
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class EasePage extends EaseContainer {
+class EasePage extends EaseContainer
+{
 
     /**
      * Saves obejct instace (singleton...)
@@ -533,7 +560,8 @@ class EasePage extends EaseContainer {
      *
      * @param EaseUser|EaseAnonym $userObject objekt uživatele
      */
-    public function __construct(& $userObject = null) {
+    public function __construct(& $userObject = null)
+    {
         parent::__construct();
         if (is_object($userObject)) {
             $this->setUpUser($userObject);
@@ -551,7 +579,8 @@ class EasePage extends EaseContainer {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      * @return EaseWebPage
      */
-    public static function singleton($user = null) {
+    public static function singleton($user = null)
+    {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
             self::$_instance = new $class($user);
@@ -566,7 +595,8 @@ class EasePage extends EaseContainer {
      * @param object|EasePage|EaseContainer $easeObject objekt do kterého
      *                                                  přiřazujeme WebStránku
      */
-    public static function assignWebPage(&$easeObject) {
+    public static function assignWebPage(&$easeObject)
+    {
         if (isset($easeObject->easeShared->webPage)) {
             $easeObject->webPage = &$easeObject->easeShared->webPage;
         } else {
@@ -587,7 +617,8 @@ class EasePage extends EaseContainer {
      *
      * @return int
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = false) {
+    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
+    {
         self::assignWebPage($this);
 
         return $this->webPage->addJavaScript($javaScript, $position, $inDocumentReady);
@@ -602,7 +633,8 @@ class EasePage extends EaseContainer {
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false) {
+    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
+    {
         self::assignWebPage($this);
 
         return $this->webPage->includeJavaScript($javaScriptFile, $position, $fwPrefix);
@@ -615,7 +647,8 @@ class EasePage extends EaseContainer {
      *
      * @return boolean
      */
-    public function addCSS($css) {
+    public function addCSS($css)
+    {
         self::assignWebPage($this);
 
         return $this->webPage->addCSS($css);
@@ -630,7 +663,8 @@ class EasePage extends EaseContainer {
      *
      * @return int
      */
-    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen') {
+    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
+    {
         self::assignWebPage($this);
 
         return $this->webPage->includeCss($cssFile, $fwPrefix, $media);
@@ -641,7 +675,8 @@ class EasePage extends EaseContainer {
      *
      * @param string $url adresa přesměrování
      */
-    public static function redirect($url) {
+    public static function redirect($url)
+    {
         $messages = EaseShared::instanced()->statusMessages;
         if (count($messages)) {
             $_SESSION['EaseMessages'] = $messages;
@@ -654,7 +689,8 @@ class EasePage extends EaseContainer {
      *
      * @return string
      */
-    public static function getUri() {
+    public static function getUri()
+    {
         return $_SERVER['REQUEST_URI'];
     }
 
@@ -665,9 +701,10 @@ class EasePage extends EaseContainer {
      *
      * @return string the current URL
      */
-    public static function phpSelf($dropqs = true) {
+    public static function phpSelf($dropqs = true)
+    {
         $url = sprintf('%s://%s%s', empty($_SERVER['HTTPS']) ?
-                        (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http', $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
+                (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http', $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
         );
 
         $parts = parse_url($url);
@@ -694,12 +731,14 @@ class EasePage extends EaseContainer {
     /**
      * Nepřihlášeného uživatele přesměruje na přihlašovací stránku
      *
-     * @param string $LoginPage adresa přihlašovací stránky
+     * @param string $loginPage adresa přihlašovací stránky
      */
-    public function onlyForLogged($LoginPage = 'login.php') {
-        if (!EaseShared::user()->isLogged()) {
+    public function onlyForLogged($loginPage = 'login.php')
+    {
+        $user = EaseShared::user();
+        if (!method_exists($user, 'isLogged') || !$user->isLogged()) {
             EaseShared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'), 'warning');
-            $this->redirect($LoginPage);
+            $this->redirect($loginPage);
             exit;
         }
     }
@@ -709,7 +748,8 @@ class EasePage extends EaseContainer {
      *
      * @return array
      */
-    public function getRequestValues() {
+    public function getRequestValues()
+    {
         global $_REQUEST;
         $requestValuesToKeep = array();
         if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
@@ -728,7 +768,8 @@ class EasePage extends EaseContainer {
      *
      * @return boolean
      */
-    public static function isPosted() {
+    public static function isPosted()
+    {
         if (isset($_POST) && count($_POST)) {
             return true;
         } else {
@@ -744,7 +785,8 @@ class EasePage extends EaseContainer {
      *
      * @return mixed
      */
-    public static function sanitizeAsType($value, $sanitizeAs) {
+    public static function sanitizeAsType($value, $sanitizeAs)
+    {
         switch ($sanitizeAs) {
             case 'string':
                 return (string) $value;
@@ -786,7 +828,8 @@ class EasePage extends EaseContainer {
      *
      * @return mixed
      */
-    public function getRequestValue($field, $sanitizeAs = null) {
+    public function getRequestValue($field, $sanitizeAs = null)
+    {
         global $_REQUEST;
         $this->setupWebPage();
         if (isset($_REQUEST[$field])) {
@@ -817,7 +860,8 @@ class EasePage extends EaseContainer {
      *
      * @return string
      */
-    public static function getGetValue($field, $sanitizeAs = null) {
+    public static function getGetValue($field, $sanitizeAs = null)
+    {
         if (isset($_GET[$field])) {
             if ($sanitizeAs) {
                 return EasePage::sanitizeAsType($_GET[$field], $sanitizeAs);
@@ -837,7 +881,8 @@ class EasePage extends EaseContainer {
      *
      * @return string
      */
-    public static function getPostValue($field, $sanitizeAs = null) {
+    public static function getPostValue($field, $sanitizeAs = null)
+    {
         if (isset($_POST[$field])) {
             if ($sanitizeAs) {
                 return EasePage::sanitizeAsType($_POST[$field], $sanitizeAs);
@@ -855,7 +900,8 @@ class EasePage extends EaseContainer {
      * @category requestValue
      * @return boolean
      */
-    public static function isFormPosted() {
+    public static function isFormPosted()
+    {
         return (isset($_POST) && count($_POST));
     }
 
@@ -867,7 +913,8 @@ class EasePage extends EaseContainer {
      * @param string $varName  název klíče
      * @param mixed  $varValue hodnota klíče
      */
-    public function keepRequestValue($varName, $varValue = true) {
+    public function keepRequestValue($varName, $varValue = true)
+    {
         EaseShared::webPage()->requestValuesToKeep[$varName] = $varValue;
     }
 
@@ -878,7 +925,8 @@ class EasePage extends EaseContainer {
      *
      * @param array $varNames asociativní pole hodnot
      */
-    public function keepRequestValues($varNames) {
+    public function keepRequestValues($varNames)
+    {
         if (is_array($varNames)) {
             foreach ($varNames as $varName => $varValue) {
                 if (is_numeric($varName)) {
@@ -915,7 +963,8 @@ class EasePage extends EaseContainer {
      *
      * @param string $varName jméno proměnné
      */
-    public function unKeepRequestValue($varName) {
+    public function unKeepRequestValue($varName)
+    {
         unset(EaseShared::webPage()->requestValuesToKeep[$varName]);
     }
 
@@ -924,7 +973,8 @@ class EasePage extends EaseContainer {
      *
      * @category requestValue
      */
-    public function unKeepRequestValues() {
+    public function unKeepRequestValues()
+    {
         EaseShared::webPage()->requestValuesToKeep = array();
     }
 
@@ -935,7 +985,8 @@ class EasePage extends EaseContainer {
      *
      * @return string
      */
-    public function getLinkParametersToKeep() {
+    public function getLinkParametersToKeep()
+    {
         $requestValuesToKeep = EaseShared::webPage()->requestValuesToKeep;
 
         if (is_null($requestValuesToKeep) || !is_array($requestValuesToKeep) || !count($requestValuesToKeep)) {
@@ -956,7 +1007,8 @@ class EasePage extends EaseContainer {
      *
      * @param EaseWebPage|true $webPage Objekt stránky, true - force assign
      */
-    public function setupWebPage(& $webPage = null) {
+    public function setupWebPage(& $webPage = null)
+    {
         if (is_null($webPage)) {
             $webPage = & $this;
         }
@@ -971,7 +1023,8 @@ class EasePage extends EaseContainer {
      *
      * @param string $outputFormat výstupní formát, např Mail nebo Print
      */
-    public function setOutputFormat($outputFormat) {
+    public function setOutputFormat($outputFormat)
+    {
         $this->OutputFormat = $outputFormat;
         foreach ($this->pageParts as $part) {
             $this->raise($part, array('OutputFormat'));
@@ -981,7 +1034,8 @@ class EasePage extends EaseContainer {
     /**
      * Vrací formát výstupu
      */
-    public function getOutputFormat() {
+    public function getOutputFormat()
+    {
         return $this->OutputFormat;
     }
 
@@ -993,7 +1047,8 @@ class EasePage extends EaseContainer {
      *
      * @return int počet převzatých hlášek
      */
-    public function takeStatusMessages($msgSource, $denyQues = null) {
+    public function takeStatusMessages($msgSource, $denyQues = null)
+    {
         if (is_array($msgSource) && count($msgSource)) {
             $allMessages = array();
             foreach ($msgSource as $quee => $messages) {
@@ -1034,11 +1089,12 @@ class EasePage extends EaseContainer {
 
     /**
      * Vrací pole jako parametry URL
-     * 
+     *
      * @param array  $params
      * @param string $baseUrl
      */
-    public static function arrayToUrlParams($params, $baseUrl = '') {
+    public static function arrayToUrlParams($params, $baseUrl = '')
+    {
         if (strstr($baseUrl, '?')) {
             return $baseUrl . '&' . http_build_query($params);
         } else {

@@ -15,7 +15,7 @@ require_once 'EaseJQuery.php';
 require_once 'EaseHtmlForm.php';
 
 /**
- * jQuery UI common class
+ * Twitter Bootstrap common class
  *
  * @author Vitex <vitex@hippy.cz>
  */
@@ -1077,6 +1077,33 @@ class EaseTWBRadioButton extends EaseHtmlDivTag
         parent::__construct(
             null, new EaseHtmlLabelTag($for, array(new EaseHtmlInputRadioTag($name, $value, $properties), $caption))
         );
+    }
+
+}
+
+/**
+ * Návěstí bootstrapu
+ */
+class EaseTWBLabel extends EaseHtmlSpanTag
+{
+
+    /**
+     * Návěstí bootstrapu
+     *
+     * @link http://getbootstrap.com/components/#labels
+     *
+     * @param string $type       info|warning|error|success
+     * @param mixed  $content
+     * @param array  $properties
+     */
+    function __construct($type = 'default', $content = null, $properties = null)
+    {
+        if (isset($properties['class'])) {
+            $properties['class'].= ' label label-' . $type;
+        } else {
+            $properties['class'] = ' label label-' . $type;
+        }
+        parent::__construct(null, $content, $properties);
     }
 
 }

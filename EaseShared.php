@@ -28,7 +28,8 @@ require_once 'EaseAtom.php';
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseShared extends EaseAtom {
+class EaseShared extends EaseAtom
+{
 
     /**
      * Odkaz na objekt stránky
@@ -93,7 +94,8 @@ class EaseShared extends EaseAtom {
     /**
      * Inicializace sdílené třídy
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->setRunType();
         if (isset($_SESSION['EaseMessages'])) {
             $this->statusMessages = $_SESSION['EaseMessages'];
@@ -110,7 +112,8 @@ class EaseShared extends EaseAtom {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      * @return EaseWebPage
      */
-    public static function singleton($class = null) {
+    public static function singleton($class = null)
+    {
         if (!isset(self::$_instance)) {
             if (is_null($class)) {
                 $class = __CLASS__;
@@ -126,7 +129,8 @@ class EaseShared extends EaseAtom {
      *
      * @return EaseShared
      */
-    public static function & instanced() {
+    public static function & instanced()
+    {
         $easeShared = EaseShared::singleton();
 
         return $easeShared;
@@ -138,7 +142,8 @@ class EaseShared extends EaseAtom {
      * @param string $configName  klíč
      * @param mixed  $configValue hodnota klíče
      */
-    public function setConfigValue($configName, $configValue) {
+    public function setConfigValue($configName, $configValue)
+    {
         $this->registry[$configName] = $configValue;
     }
 
@@ -149,7 +154,8 @@ class EaseShared extends EaseAtom {
      *
      * @return mixed
      */
-    public function getConfigValue($configName) {
+    public function getConfigValue($configName)
+    {
         if (isset($this->registry[$configName])) {
             return $this->registry[$configName];
         }
@@ -164,7 +170,8 @@ class EaseShared extends EaseAtom {
      *
      * @return string type
      */
-    public function setRunType($runType = null) {
+    public function setRunType($runType = null)
+    {
         if (!$runType) {
             if (self::isCli()) {
                 $this->runType = 'cli';
@@ -184,7 +191,8 @@ class EaseShared extends EaseAtom {
      *
      * @return EaseDbMySqli
      */
-    public static function db( $type = 'mysql' ) {
+    public static function db($type = 'mysql')
+    {
         switch ($type) {
             case 'postgres':
                 return self::pgDbLink();
@@ -195,14 +203,14 @@ class EaseShared extends EaseAtom {
                 break;
         }
     }
-    
-    
+
     /**
      * Vrací instanci objektu databáze MySQL
      *
      * @return EaseDbMySqli
      */
-    public static function myDbLink() {
+    public static function myDbLink()
+    {
         if (!class_exists('EaseDbMySqli')) {
             include 'EaseMySQL.php';
         }
@@ -215,7 +223,8 @@ class EaseShared extends EaseAtom {
      *
      * @return EaseDbMSSQL
      */
-    public static function msDbLink() {
+    public static function msDbLink()
+    {
         if (!class_exists('EaseDbMSSQL')) {
             include_once 'EaseMSSQL.php';
         }
@@ -228,7 +237,8 @@ class EaseShared extends EaseAtom {
      *
      * @return EaseLogger
      */
-    public static function logger() {
+    public static function logger()
+    {
         return EaseLogger::singleton();
     }
 
@@ -238,7 +248,8 @@ class EaseShared extends EaseAtom {
      * @param  EaseWebPage $oPage objekt webstránky k zaregistrování
      * @return EaseWebPage
      */
-    static function &webPage($oPage = null) {
+    static function &webPage($oPage = null)
+    {
         $shared = EaseShared::instanced();
         if (is_object($oPage)) {
             $shared->webPage = & $oPage;
@@ -254,12 +265,13 @@ class EaseShared extends EaseAtom {
     /**
      * Vrací, případně i založí objekt uživatele
      *
-     * @param EaseUser|EaseAnonym|string $user objekt nového uživatele nebo 
+     * @param EaseUser|EaseAnonym|string $user objekt nového uživatele nebo
      *                                         název třídy
      *
      * @return EaseUser
      */
-    public static function & user($user = NULL, $userSessionName = NULL) {
+    public static function & user($user = NULL, $userSessionName = NULL)
+    {
         if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
             return $_SESSION[self::$userSessionName];
         }
@@ -285,7 +297,8 @@ class EaseShared extends EaseAtom {
      * Běží php v příkazovém řádku ?
      * @return boolean
      */
-    public static function isCli() {
+    public static function isCli()
+    {
         return (PHP_SAPI == 'cli' && empty($_SERVER['REMOTE_ADDR']));
     }
 
@@ -294,7 +307,8 @@ class EaseShared extends EaseAtom {
      *
      * @return EasePearDBCompatible
      */
-    public static function dbCompatible() {
+    public static function dbCompatible()
+    {
         return new EasePearDBCompatible();
     }
 
@@ -303,7 +317,8 @@ class EaseShared extends EaseAtom {
      *
      * @param mixed $ItemPointer
      */
-    public static function registerItem(&$ItemPointer) {
+    public static function registerItem(&$ItemPointer)
+    {
         $EaseShared = EaseShared::singleton();
         $EaseShared->allItems[] = $ItemPointer;
     }

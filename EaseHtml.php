@@ -149,6 +149,16 @@ class EaseHtmlTag extends EasePage
     }
 
     /**
+     * Vrací typ tagu
+     *
+     * @return string typ tagu - např. img
+     */
+    public function getTagType()
+    {
+        return $this->tagType;
+    }
+
+    /**
      * Nastaví classu tagu
      *
      * @param string $className jméno třídy
@@ -497,7 +507,9 @@ class EaseHtmlTrTag extends EaseHtmlPairTag
 
 }
 
-class EaseHtmlThead extends EaseHtmlPairTag {
+class EaseHtmlThead extends EaseHtmlPairTag
+{
+
     /**
      * <thead>
      * @param mixed $content
@@ -507,9 +519,12 @@ class EaseHtmlThead extends EaseHtmlPairTag {
     {
         parent::__construct('thead', $properties, $content);
     }
+
 }
 
-class EaseHtmlTbody extends EaseHtmlPairTag {
+class EaseHtmlTbody extends EaseHtmlPairTag
+{
+
     /**
      * <tbody>
      * @param mixed $content
@@ -519,8 +534,8 @@ class EaseHtmlTbody extends EaseHtmlPairTag {
     {
         parent::__construct('tbody', $properties, $content);
     }
-}
 
+}
 
 /**
  * HTML table
@@ -530,14 +545,16 @@ class EaseHtmlTbody extends EaseHtmlPairTag {
  */
 class EaseHtmlTableTag extends EaseHtmlPairTag
 {
+
     /**
      * Hlavička tabulky
-     * @var EaseHtmlThead 
+     * @var EaseHtmlThead
      */
     public $tHead = null;
+
     /**
      * Tělo tabulky
-     * @var EaseHtmlTbody 
+     * @var EaseHtmlTbody
      */
     public $tbody = null;
 
@@ -557,7 +574,8 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
     /**
      * @param array $headerColumns položky záhlaví tabulky
      */
-    public function setHeader($headerColumns){
+    public function setHeader($headerColumns)
+    {
         $this->tHead->emptyContents();
         $this->addRowHeaderColumns($headerColumns);
     }
@@ -575,7 +593,11 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
         $tableRow = $this->tBody->addItem(new EaseHtmlTrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
-                $tableRow->addItem(new EaseHtmlTdTag($column, $properties));
+                if (is_object($column) && method_exists($column, 'getTagType') && ($column->getTagType() == 'td')) {
+                    $tableRow->addItem($column);
+                } else {
+                    $tableRow->addItem(new EaseHtmlTdTag($column, $properties));
+                }
             }
         }
 
@@ -595,16 +617,20 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
         $tableRow = $this->tHead->addItem(new EaseHtmlTrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
-                $tableRow->addItem(new EaseHtmlThTag($column, $properties));
+                if (is_object($column) && method_exists($column, 'getTagType') && ($column->getTagType() == 'th')) {
+                    $tableRow->addItem($column);
+                } else {
+                    $tableRow->addItem(new EaseHtmlThTag($column, $properties));
+                }
             }
         }
-        
+
         return $tableRow;
     }
 
     /**
      * Je tabulka prázdná ?
-     * 
+     *
      * @param null $element je zde pouze z důvodu zpětné kompatibility
      * @return type
      */
@@ -614,15 +640,17 @@ class EaseHtmlTableTag extends EaseHtmlPairTag
     }
 
     /**
-     * Naplní tabulku daty 
-     * 
+     * Naplní tabulku daty
+     *
      * @param array $contents
      */
-    function populate( $contents ) {
-        foreach ( $contents as $cRow ){
+    function populate($contents)
+    {
+        foreach ($contents as $cRow) {
             $this->addRowColumns($cRow);
         }
     }
+
 }
 
 /**
@@ -848,9 +876,9 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
                 $ScriptBody = substr($Script, 1);
                 switch ($ScriptType) {
                     case '#':
-                        $this->addItem("\n".'<script src="' . $ScriptBody . '"></script>');
+                        $this->addItem("\n" . '<script src="' . $ScriptBody . '"></script>');
 //                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
-                      break;
+                        break;
                     case '@':
                         $this->addItem(self::jsEnclosure($ScriptBody));
                         break;
@@ -861,8 +889,8 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
             }
             if (count($ODRStack)) {
                 $this->addItem(
-                        self::jsEnclosure('$(document).ready(function () { ' .
-                                implode("\n", $ODRStack) . ' });')
+                    self::jsEnclosure('$(document).ready(function () { ' .
+                        implode("\n", $ODRStack) . ' });')
                 );
             }
         }
@@ -935,7 +963,7 @@ class EaseHtmlLiTag extends EaseHtmlPairTag
      * @param mixed $ulContents obsah položky seznamu
      * @param array $properties parametry LI tagu
      */
-    public function __construct($ulContents = null,$properties = null)
+    public function __construct($ulContents = null, $properties = null)
     {
         parent::__construct('li', $properties, $ulContents);
     }
@@ -976,7 +1004,6 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
         return $itemsAdded;
     }
 
-
     /**
      * Every item id added in EaseHtmlLiTag envelope
      *
@@ -985,7 +1012,7 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
      *
      * @return mixed
      */
-    function & addItemSmart($pageItem,$properties = null)
+    function & addItemSmart($pageItem, $properties = null)
     {
         if (is_array($pageItem)) {
             foreach ($pageItem as $item) {
@@ -993,10 +1020,10 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
             }
             $itemAdded = & $this->lastItem;
         } else {
-            if ( isset($pageItem->tagType) && ($pageItem->tagType == 'li') ) {
+            if (isset($pageItem->tagType) && ($pageItem->tagType == 'li')) {
                 $itemAdded = parent::addItem($pageItem);
             } else {
-                $itemAdded = parent::addItem(new EaseHtmlLiTag($pageItem,$properties));
+                $itemAdded = parent::addItem(new EaseHtmlLiTag($pageItem, $properties));
             }
         }
 
@@ -1010,17 +1037,21 @@ class EaseHtmlUlTag extends EaseHtmlPairTag
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseHtmlOlTag extends EaseHtmlUlTag {
+class EaseHtmlOlTag extends EaseHtmlUlTag
+{
+
     /**
      * Vytvori OL container
      *
      * @param mixed $ulContents položky seznamu
      * @param array $properties parametry tagu
      */
-    function __construct($ulContents = null, $properties = null) {
+    function __construct($ulContents = null, $properties = null)
+    {
         parent::__construct($ulContents, $properties);
         $this->setTagType('ol');
     }
+
 }
 
 /**
@@ -1298,6 +1329,7 @@ class EaseHtmlFieldSet extends EaseHtmlPairTag
  */
 class EaseScriptTag extends EaseHtmlPairTag
 {
+
     /**
      * Include JS code into page
      *
@@ -1306,9 +1338,9 @@ class EaseScriptTag extends EaseHtmlPairTag
      *
      * @return EaseScriptTag
      */
-    function &addItem($cData,$pageItemName = null)
+    function &addItem($cData, $pageItemName = null)
     {
-        return parent::addItem("\n//<![CDATA[\n" . $cData . "\n// ]]>\n",$pageItemName);
+        return parent::addItem("\n//<![CDATA[\n" . $cData . "\n// ]]>\n", $pageItemName);
     }
 
     /**
@@ -1316,7 +1348,7 @@ class EaseScriptTag extends EaseHtmlPairTag
      *
      * @param string $content text scriptu
      */
-    public function __construct($content=  '', $properties = NULL)
+    public function __construct($content = '', $properties = NULL)
     {
         parent::__construct('script', $properties);
         if ($content) {
@@ -1324,6 +1356,7 @@ class EaseScriptTag extends EaseHtmlPairTag
             $this->addItem($content);
         }
     }
+
 }
 
 /**
@@ -1339,11 +1372,11 @@ class EaseJavaScript extends EaseScriptTag
      *
      * @param string $content text scriptu
      */
-    public function __construct($content,$properties = null)
+    public function __construct($content, $properties = null)
     {
         if (is_null($properties)) {
             $properties = array('type' => 'text/javascript');
-    } else {
+        } else {
             $properties['type'] = 'text/javascript';
         }
         parent::__construct($content, $properties);
@@ -1398,19 +1431,19 @@ class EaseHtmlEmbedTag extends EaseHtmlTag
     public function __construct($src, $quality, $bgcolor, $width, $height, $name, $align, $allowScriptAccess, $allowFullScreen, $type, $pluginspage)
     {
         parent::__construct(
-                'embed', array(
-            'src' => $src,
-            'quality' => $quality,
-            'bgcolor' => $bgcolor,
-            'width' => $width,
-            'height' => $height,
-            'name' => $name,
-            'align' => $align,
-            'allowScriptAccess' => $allowScriptAccess,
-            'allowFullScreen' => $allowFullScreen,
-            'type' => $type,
-            'pluginspage' => $pluginspage
-                )
+            'embed', array(
+          'src' => $src,
+          'quality' => $quality,
+          'bgcolor' => $bgcolor,
+          'width' => $width,
+          'height' => $height,
+          'name' => $name,
+          'align' => $align,
+          'allowScriptAccess' => $allowScriptAccess,
+          'allowFullScreen' => $allowFullScreen,
+          'type' => $type,
+          'pluginspage' => $pluginspage
+            )
         );
     }
 
@@ -1470,16 +1503,18 @@ class EaseHtmlIframeTag extends EaseHtmlPairTag
  */
 class EaseHtmlButtonTag extends EaseHtmlPairTag
 {
+
     /**
      * Html element pro tlačítko
      *
      * @param string $content         obsah tlačítka
      * @param array  $TagProperites vlastnosti tagu
      */
-     function __construct($content, $tagProperties = null)
-     {
-         parent::__construct('button', $tagProperties, $content);
-     }
+    function __construct($content, $tagProperties = null)
+    {
+        parent::__construct('button', $tagProperties, $content);
+    }
+
 }
 
 /**
@@ -1487,15 +1522,16 @@ class EaseHtmlButtonTag extends EaseHtmlPairTag
  */
 class EaseHtmlAddressTag extends EaseHtmlPairTag
 {
+
     /**
      * Html element pro adresu
      *
      * @param string $content       text adresy
      * @param array  $TagProperites vlastnosti tagu
      */
-     function __construct($content, $tagProperties = null)
-     {
-         parent::__construct('address', $tagProperties, $content);
-     }
-}
+    function __construct($content, $tagProperties = null)
+    {
+        parent::__construct('address', $tagProperties, $content);
+    }
 
+}
