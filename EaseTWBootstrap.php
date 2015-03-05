@@ -1126,9 +1126,9 @@ class EaseTWBTextarea extends EaseHtmlTextareaTag
     public function __construct($name, $content = '', $properties = null)
     {
         if (is_null($properties) || !isset($properties['class'])) {
-            $properties['class'] = 'form-control';
+            $properties = array('class' => 'form-control');
         } else {
-            $properties['class'] .= ' form-control';
+            $properties['class'] .= ' form - control  ';
         }
 
         parent::__construct($name, $content, $properties);

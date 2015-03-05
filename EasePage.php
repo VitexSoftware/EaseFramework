@@ -50,7 +50,7 @@ class EaseContainer extends EaseBrick
 
     /**
      * Odkaz na webstránku
-     * @var type
+     * @var EasePage
      */
     public $webPage = null;
 
