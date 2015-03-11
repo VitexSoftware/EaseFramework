@@ -251,7 +251,7 @@ class EaseSQL extends EaseSand
 
     /**
      * Nastaví připojení
-     * 
+     *
      * @deprecated since version 210
      */
     public function setUp()
@@ -518,12 +518,12 @@ class EaseSQL extends EaseSand
     {
         $result = $this->queryToArray($queryRaw);
         if (count($result)) {
-            $Values = array();
+            $values = array();
             foreach ($result as $value) {
-                $Values[] = current($value);
+                $values[] = current($value);
             }
 
-            return $Values;
+            return $values;
         }
 
         return $result;
@@ -572,10 +572,10 @@ class EaseSQL extends EaseSand
         $DbHelper = new DB;
 
         $dsn = array(
-            'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
-            'username' => DB_SERVER_USERNAME,
-            'password' => DB_SERVER_PASSWORD,
-            'hostspec' => DB_SERVER
+          'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
+          'username' => DB_SERVER_USERNAME,
+          'password' => DB_SERVER_PASSWORD,
+          'hostspec' => DB_SERVER
         );
 
         $db = & $DbHelper->connect($dsn);

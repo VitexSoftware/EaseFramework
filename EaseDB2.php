@@ -331,6 +331,15 @@ class EaseDB2MySql extends EaseDB2
                         $operator = ' = ';
                     }
                 }
+
+                if (is_string($value)) {
+                    if (!strstr($value, '%') && strstr($value, '/%')) {
+                        $operator = ' = ';
+                    } else {
+                        $operator = ' LIKE ';
+                    }
+                }
+
                 if (is_bool($value)) {
                     if ($value === null) {
                         $value.=" null,";
