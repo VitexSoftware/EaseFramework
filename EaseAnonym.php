@@ -24,38 +24,25 @@ class EaseAnonym extends EaseBrick
      * Druh uživatele
      * @var string
      */
-    public $Type = 'anonymous';
+    public $type = 'anonymous';
 
     /**
      * Anonymní uživatel má vždy ID null
      * @var null
      */
-    public $UserID = null;
+    public $userID = null;
 
     /**
-     * Nakupni kosik anonymniho zakaznika
-     * @var EaseCart
+     * Jazyk anonyma
+     * @var string
      */
-    public $ShoppingCart = null;
-    public $Language = 'cs';
+    public $language = 'cs';
 
     /**
      * Registr vlastnosti uzivatele
      * @var array
      */
-    public $ValuesToKeep = array();
-
-    /**
-     * Anonym není v žádné obchodní skupině
-     * @var array
-     */
-    public $BusinessGroups = array();
-
-    /**
-     *
-     * @var type
-     */
-    public $customerAddress = null;
+    public $valuesToKeep = array();
 
     /**
      * Indikátor přihlášení
@@ -134,11 +121,11 @@ class EaseAnonym extends EaseBrick
     /**
      * Anonym nemá nastavení
      *
-     * @param string $SettingName jméno klíče nastavení
+     * @param string $settingName jméno klíče nastavení
      *
      * @return null
      */
-    public function getSettingValue($SettingName = null)
+    public function getSettingValue($settingName = null)
     {
         return null;
     }
@@ -154,29 +141,13 @@ class EaseAnonym extends EaseBrick
     }
 
     /**
-     * Vrací cenu pro anonymního uživatele
-     *
-     * @param float $ProductPriceAnon anonymní cena
-     * @param int   $ProductsID       ID produktu v shopu
-     * @param int   $ProductsPohodaID ID produktu v PohodaSQL
-     *
-     * @todo Přesunout do EaseCustomer
-     *
-     * @return float
-     */
-    public function getUserPrice($ProductPriceAnon, $ProductsID, $ProductsPohodaID)
-    {
-        return $ProductPriceAnon;
-    }
-
-    /**
      * Maketa oprávnění
      *
-     * @param string $PermKeyword klíčové slovo oprávnění
+     * @param string $permKeyword klíčové slovo oprávnění
      *
      * @return null
      */
-    public function getPermission($PermKeyword = null)
+    public function getPermission($permKeyword = null)
     {
         return null;
     }
@@ -196,14 +167,14 @@ class EaseAnonym extends EaseBrick
     /**
      * Otestuje kvalitu hesla
      *
-     * @param string $Password heslo k otestování
+     * @param string $password heslo k otestování
      *
      * @return boolean
      * @todo Dořešit Cracklib ...
      */
-    public function passwordCrackCheck($Password)
+    public function passwordCrackCheck($password)
     {
-        return EaseCustomer::PasswordCrackCheck($Password);
+        return EaseCustomer::PasswordCrackCheck($password);
     }
 
 }
