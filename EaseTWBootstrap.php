@@ -53,10 +53,20 @@ class EaseTWBPart extends EaseJQueryPart
      *
      * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
      * @param string $code Kód ikony z přehledu
+     * @param array $properties Vlastnosti Tagu
      */
-    public static function GlyphIcon($code)
+    public static function GlyphIcon($code, $properties = null)
     {
-        return '<span class="glyphicon glyphicon-' . $code . '"></span>';
+        if (is_null($properties)) {
+            $properties = array('class' => 'glyphicon glyphicon-' . $code);
+        } else {
+            if (isset($properties['class'])) {
+                $properties['class'] = 'glyphicon glyphicon-' . $code . ' ' . $properties['class'];
+            } else {
+                $properties['class'] = 'glyphicon glyphicon-' . $code;
+            }
+        }
+        return new EaseHtmlSpan(null, $properties);
     }
 
 }
@@ -393,6 +403,9 @@ class EaseTWBNavbar extends EaseHtmlDivTag
 
 }
 
+/**
+ * Formulář Bootstrapu
+ */
 class EaseTWBForm extends EaseHtmlForm
 {
 
@@ -422,12 +435,14 @@ class EaseTWBForm extends EaseHtmlForm
     /**
      * Vloží prvek do formuláře
      *
-     * @param mixed $input
-     * @param string $caption
+     * @param mixed $input        Vstupní prvek
+     * @param string $caption     Popisek
+     * @param string $placeholder předvysvětlující text
+     * @param string $helptext    Dodatečná nápověda
      */
-    public function addInput($input, $caption = null)
+    public function addInput($input, $caption = null, $placeholder = null, $helptext = null)
     {
-        $this->addItem(new EaseTWBFormGroup($caption, $input));
+        $this->addItem(new EaseTWBFormGroup($caption, $input, $placeholder, $helptext));
     }
 
     /**

@@ -232,6 +232,9 @@ class EaseHtmlTag extends EasePage
     public function setTagProperties($tagProperties)
     {
         if (is_array($tagProperties)) {
+            if (isset($tagProperties['id'])) {
+                $tagProperties['id'] = preg_replace("/[^A-Za-z0-9 ]/", '', $tagProperties['id']);
+            }
             if (is_array($this->tagProperties)) {
                 $this->tagProperties = array_merge($this->tagProperties, $tagProperties);
             } else {
@@ -1183,6 +1186,7 @@ class EaseHtmlH4Tag extends EaseHtmlPairTag
 /**
  * HTML Div tag
  *
+ * @deprecated since version 226
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlDivTag extends EaseHtmlPairTag
@@ -1201,6 +1205,28 @@ class EaseHtmlDivTag extends EaseHtmlPairTag
             $this->setTagName($name);
             $this->setTagID($name);
         }
+        parent::__construct('div', $properties, $content);
+    }
+
+}
+
+/**
+ * HTML Div tag
+ *
+ * @author Vitex <vitex@hippy.cz>
+ */
+class EaseHtmlDiv extends EaseHtmlPairTag
+{
+
+    /**
+     * Prostý tag odstavce DIV
+     *
+     * @param string $name       ID tagu
+     * @param mixed  $content    vložené prvky
+     * @param array  $properties pole parametrů
+     */
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('div', $properties, $content);
     }
 
@@ -1238,6 +1264,7 @@ class EaseHtmlSpanTag extends EaseHtmlPairTag
     /**
      * <span> tag
      *
+     * @deprecated since version 226
      * @param string $name       jméno a ID tagu
      * @param mixed  $content    vkládaný obsah
      * @param array  $properties parametry tagu
@@ -1247,6 +1274,27 @@ class EaseHtmlSpanTag extends EaseHtmlPairTag
         if ($name) {
             $this->setTagName($name);
         }
+        parent::__construct('span', $properties, $content);
+    }
+
+}
+
+/**
+ * HTML span tag
+ *
+ * @author Vitex <vitex@hippy.cz>
+ */
+class EaseHtmlSpan extends EaseHtmlPairTag
+{
+
+    /**
+     * <span> tag
+     *
+     * @param mixed  $content    vkládaný obsah
+     * @param array  $properties parametry tagu
+     */
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('span', $properties, $content);
     }
 

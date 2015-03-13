@@ -336,7 +336,9 @@ class EaseDB2MySql extends EaseDB2
                     if (!strstr($value, '%') && strstr($value, '/%')) {
                         $operator = ' = ';
                     } else {
-                        $operator = ' LIKE ';
+                        if (is_null($operator)) {
+                            $operator = ' LIKE ';
+                        }
                     }
                 }
 

@@ -47,7 +47,7 @@ class EaseDbMySqli extends EaseSQL
      * @var array
      */
     public $connectionSettings = array(
-        'NAMES' => 'utf8'
+      'NAMES' => 'utf8'
     );
 
     /**
@@ -359,7 +359,9 @@ class EaseDbMySqli extends EaseSQL
                         $value = 'null';
                         $operator = 'IS NOT';
                     } else {
-                        $operator = ' = ';
+                        if (is_null($operator)) {
+                            $operator = ' = ';
+                        }
                     }
                 }
                 if (is_bool($value)) {
@@ -383,7 +385,7 @@ class EaseDbMySqli extends EaseSQL
                     if ($operator == ' != ') {
                         $operator = ' NOT LIKE ';
                     } else {
-                        if(is_null($operator)){
+                        if (is_null($operator)) {
                             $operator = ' LIKE ';
                         }
                     }
@@ -714,7 +716,7 @@ class EaseDbMySqli extends EaseSQL
  */
 class EaseDbMySql extends EaseDbMySqli
 {
-    
+
 }
 
 class EaseDbAnsiMySQL extends EaseDbMySql
@@ -725,9 +727,9 @@ class EaseDbAnsiMySQL extends EaseDbMySql
      * @var array
      */
     public $connectionSettings = array(
-        'NAMES' => 'utf8',
-        'GLOBAL sql_mode  = \'ANSI\'' => '',
-        'GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE' => ''
+      'NAMES' => 'utf8',
+      'GLOBAL sql_mode  = \'ANSI\'' => '',
+      'GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE' => ''
     );
 
 }

@@ -315,12 +315,12 @@ class EaseShared extends EaseAtom
     /**
      * Zaregistruje položku k finalizaci
      *
-     * @param mixed $ItemPointer
+     * @param mixed $itemPointer
      */
-    public static function registerItem(&$ItemPointer)
+    public static function registerItem(&$itemPointer)
     {
-        $EaseShared = EaseShared::singleton();
-        $EaseShared->allItems[] = $ItemPointer;
+        $easeShared = EaseShared::singleton();
+        $easeShared->allItems[] = $itemPointer;
     }
 
 }

@@ -109,7 +109,7 @@ class EaseContainer extends EaseBrick
         if (is_object($pageItem)) {
             if (method_exists($pageItem, 'draw')) {
                 $duplicity = 1;
-                if (is_null($pageItemName)) {
+                if (is_null($pageItemName) || !strlen($pageItemName)) {
                     $pageItemName = $pageItem->getObjectName();
                 }
 
