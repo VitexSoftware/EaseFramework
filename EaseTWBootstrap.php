@@ -585,8 +585,11 @@ class EaseTWBTabs extends EaseContainer
      *
      * @return pointer odkaz na vložený obsah
      */
-    function &addTab($tabName, $tabContent = '', $active = false)
+    function &addTab($tabName, $tabContent = null, $active = false)
     {
+        if (is_null($tabContent)) {
+            $tabContent = new EaseHtmlDiv;
+        }
         $this->tabs[$tabName] = $tabContent;
         if ($active) {
             $this->activeTab = $tabName;
