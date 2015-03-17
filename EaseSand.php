@@ -57,12 +57,12 @@ class EaseSand extends EaseAtom
      * @var array
      */
     public $identityColumns = array('ObjectName',
-        'myKeyColumn', 'MSKeyColumn',
-        'myTable', 'MSTable',
-        'MyIDSColumn', 'MSIDSColumn',
-        'MyRefIDColumn', 'MSRefIDColumn',
-        'myCreateColumn', 'MSCreateColumn',
-        'myLastModifiedColumn', 'MSLastModifiedColumn');
+      'myKeyColumn', 'MSKeyColumn',
+      'myTable', 'MSTable',
+      'MyIDSColumn', 'MSIDSColumn',
+      'MyRefIDColumn', 'MSRefIDColumn',
+      'myCreateColumn', 'MSCreateColumn',
+      'myLastModifiedColumn', 'MSLastModifiedColumn');
 
     /**
      * Klíčový sloupeček v používané MSSQL tabulce
@@ -626,90 +626,90 @@ class EaseSand extends EaseAtom
     public static function rip($text)
     {
         $convertTable = Array(
-            'ä' => 'a',
-            'Ä' => 'A',
-            'á' => 'a',
-            'Á' => 'A',
-            'à' => 'a',
-            'À' => 'A',
-            'ã' => 'a',
-            'Ã' => 'A',
-            'â' => 'a',
-            'Â' => 'A',
-            'č' => 'c',
-            'Č' => 'C',
-            'ć' => 'c',
-            'Ć' => 'C',
-            'ď' => 'd',
-            'Ď' => 'D',
-            'ě' => 'e',
-            'Ě' => 'E',
-            'é' => 'e',
-            'É' => 'E',
-            'ë' => 'e',
-            'Ë' => 'E',
-            'è' => 'e',
-            'È' => 'E',
-            'ê' => 'e',
-            'Ê' => 'E',
-            'í' => 'i',
-            'Í' => 'I',
-            'ï' => 'i',
-            'Ï' => 'I',
-            'ì' => 'i',
-            'Ì' => 'I',
-            'î' => 'i',
-            'Î' => 'I',
-            'ľ' => 'l',
-            'Ľ' => 'L',
-            'ĺ' => 'l',
-            'Ĺ' => 'L',
-            'ń' => 'n',
-            'Ń' => 'N',
-            'ň' => 'n',
-            'Ň' => 'N',
-            'ñ' => 'n',
-            'Ñ' => 'N',
-            'ó' => 'o',
-            'Ó' => 'O',
-            'ö' => 'o',
-            'Ö' => 'O',
-            'ô' => 'o',
-            'Ô' => 'O',
-            'ò' => 'o',
-            'Ò' => 'O',
-            'õ' => 'o',
-            'Õ' => 'O',
-            'ő' => 'o',
-            'Ő' => 'O',
-            'ř' => 'r',
-            'Ř' => 'R',
-            'ŕ' => 'r',
-            'Ŕ' => 'R',
-            'š' => 's',
-            'Š' => 'S',
-            'ś' => 's',
-            'Ś' => 'S',
-            'ť' => 't',
-            'Ť' => 'T',
-            'ú' => 'u',
-            'Ú' => 'U',
-            'ů' => 'u',
-            'Ů' => 'U',
-            'ü' => 'u',
-            'Ü' => 'U',
-            'ù' => 'u',
-            'Ù' => 'U',
-            'ũ' => 'u',
-            'Ũ' => 'U',
-            'û' => 'u',
-            'Û' => 'U',
-            'ý' => 'y',
-            'Ý' => 'Y',
-            'ž' => 'z',
-            'Ž' => 'Z',
-            'ź' => 'z',
-            'Ź' => 'Z'
+          'ä' => 'a',
+          'Ä' => 'A',
+          'á' => 'a',
+          'Á' => 'A',
+          'à' => 'a',
+          'À' => 'A',
+          'ã' => 'a',
+          'Ã' => 'A',
+          'â' => 'a',
+          'Â' => 'A',
+          'č' => 'c',
+          'Č' => 'C',
+          'ć' => 'c',
+          'Ć' => 'C',
+          'ď' => 'd',
+          'Ď' => 'D',
+          'ě' => 'e',
+          'Ě' => 'E',
+          'é' => 'e',
+          'É' => 'E',
+          'ë' => 'e',
+          'Ë' => 'E',
+          'è' => 'e',
+          'È' => 'E',
+          'ê' => 'e',
+          'Ê' => 'E',
+          'í' => 'i',
+          'Í' => 'I',
+          'ï' => 'i',
+          'Ï' => 'I',
+          'ì' => 'i',
+          'Ì' => 'I',
+          'î' => 'i',
+          'Î' => 'I',
+          'ľ' => 'l',
+          'Ľ' => 'L',
+          'ĺ' => 'l',
+          'Ĺ' => 'L',
+          'ń' => 'n',
+          'Ń' => 'N',
+          'ň' => 'n',
+          'Ň' => 'N',
+          'ñ' => 'n',
+          'Ñ' => 'N',
+          'ó' => 'o',
+          'Ó' => 'O',
+          'ö' => 'o',
+          'Ö' => 'O',
+          'ô' => 'o',
+          'Ô' => 'O',
+          'ò' => 'o',
+          'Ò' => 'O',
+          'õ' => 'o',
+          'Õ' => 'O',
+          'ő' => 'o',
+          'Ő' => 'O',
+          'ř' => 'r',
+          'Ř' => 'R',
+          'ŕ' => 'r',
+          'Ŕ' => 'R',
+          'š' => 's',
+          'Š' => 'S',
+          'ś' => 's',
+          'Ś' => 'S',
+          'ť' => 't',
+          'Ť' => 'T',
+          'ú' => 'u',
+          'Ú' => 'U',
+          'ů' => 'u',
+          'Ů' => 'U',
+          'ü' => 'u',
+          'Ü' => 'U',
+          'ù' => 'u',
+          'Ù' => 'U',
+          'ũ' => 'u',
+          'Ũ' => 'U',
+          'û' => 'u',
+          'Û' => 'U',
+          'ý' => 'y',
+          'Ý' => 'Y',
+          'ž' => 'z',
+          'Ž' => 'Z',
+          'ź' => 'z',
+          'Ź' => 'Z'
         );
 
         return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
@@ -813,7 +813,7 @@ class EaseSand extends EaseAtom
      * @link	  http://www.dominicsayers.com/isemail
      * @version	  1.9 - Minor modifications to make it compatible with PHPLint
      */
-    public function isEmail($email, $checkDNS = false)
+    static public function isEmail($email, $checkDNS = false)
     {
         /* Check that $email is a valid address. Read the following RFCs to understand the constraints:
           // 	(http://tools.ietf.org/html/rfc5322)
@@ -840,12 +840,15 @@ class EaseSand extends EaseAtom
              */
         $atIndex = strrpos($email, '@');
 
-        if ($atIndex === false)
-            return false; // No at-sign
-        if ($atIndex === 0)
-            return false; // No local part
-        if ($atIndex === $emailLength)
-            return false; // No domain part
+        if ($atIndex === false) {
+            return false;
+        } // No at-sign
+        if ($atIndex === 0) {
+            return false;
+        } // No local part
+        if ($atIndex === $emailLength) {
+            return false;
+        } // No domain part
 // Sanitize comments
 // - remove nested comments, quotes and dots in comments
 // - remove parentheses and dots from quoted strings
@@ -917,8 +920,9 @@ class EaseSand extends EaseAtom
                 }
 
                 $escapeThisChar = false;
-                if ($replaceChar)
-                    $email[$i] = 'x'; // Replace the offending character with something harmless
+                if ($replaceChar) {
+                    $email[$i] = 'x';
+                } // Replace the offending character with something harmless
             }
         }
 
@@ -969,8 +973,9 @@ class EaseSand extends EaseAtom
             $element = preg_replace("/^$FWS|$FWS\$/", '', $element);
 
 // What's left counts towards the maximum length for this part
-            if ($partLength > 0)
-                $partLength++; // for the dot
+            if ($partLength > 0) {
+                $partLength++;
+            } // for the dot
             $partLength += strlen($element);
 
 // Each dot-delimited component can be an atom or a quoted string
@@ -983,8 +988,9 @@ class EaseSand extends EaseAtom
 // My regex skillz aren't up to distinguishing between \" \\" \\\" \\\\" etc.
 // So remove all \\ from the string first...
                 $element = preg_replace('/\\\\\\\\/', ' ', $element);
-                if (preg_match('/(?<!\\\\|^)["\\r\\n\\x00](?!$)|\\\\"$|""/', $element) > 0)
-                    return false; // ", CR, LF and NUL must be escaped, "" is too short
+                if (preg_match('/(?<!\\\\|^)["\\r\\n\\x00](?!$)|\\\\"$|""/', $element) > 0) {
+                    return false;
+                } // ", CR, LF and NUL must be escaped, "" is too short
             } else {
 // Unquoted string tests:
 //
@@ -994,8 +1000,9 @@ class EaseSand extends EaseAtom
 //
                 // A zero-length element implies a period at the beginning or end of the
 // local part, or two periods together. Either way it's not allowed.
-                if ($element === '')
-                    return false; // Dots in wrong place
+                if ($element === '') {
+                    return false;
+                } // Dots in wrong place
 // Any ASCII graphic (printing) character other than the
 // at-sign ("@"), backslash, double quote, comma, or square brackets may
 // appear without quoting.  If any of that list of excluded characters
@@ -1003,15 +1010,15 @@ class EaseSand extends EaseAtom
 // 	(http://tools.ietf.org/html/rfc3696#section-3)
 //
                 // Any excluded characters? i.e. 0x00-0x20, (, ), <, >, [, ], :, ;, @, \, comma, period, "
-                if (preg_match('/[\\x00-\\x20\\(\\)<>\\[\\]:;@\\\\,\\."]/', $element) > 0)
-                    return false; // These characters must be in a quoted string
+                if (preg_match('/[\\x00-\\x20\\(\\)<>\\[\\]:;@\\\\,\\."]/', $element) > 0) {
+                    return false;
+                } // These characters must be in a quoted string
             }
         }
 
-        if ($partLength > 64)
-            return false; // Local part must be 64 characters or less
-
-            
+        if ($partLength > 64) {
+            return false;
+        } // Local part must be 64 characters or less
 // Now let's check the domain part...
 // The domain name can also be replaced by an IP address in square brackets
 // 	(http://tools.ietf.org/html/rfc3696#section-3)
@@ -1031,18 +1038,21 @@ class EaseSand extends EaseAtom
                     return true;
                 } else {
 // Assume it's an attempt at a mixed address (IPv6 + IPv4)
-                    if ($addressLiteral[$index - 1] !== ':')
-                        return false; // Character preceding IPv4 address must be ':'
-                    if (substr($addressLiteral, 0, 5) !== 'IPv6:')
-                        return false; // RFC5321 section 4.1.3
+                    if ($addressLiteral[$index - 1] !== ':') {
+                        return false;
+                    } // Character preceding IPv4 address must be ':'
+                    if (substr($addressLiteral, 0, 5) !== 'IPv6:') {
+                        return false;
+                    } // RFC5321 section 4.1.3
 
                     $IPv6 = substr($addressLiteral, 5, ($index === 7) ? 2 : $index - 6);
                     $groupMax = 6;
                 }
             } else {
 // It must be an attempt at pure IPv6
-                if (substr($addressLiteral, 0, 5) !== 'IPv6:')
-                    return false; // RFC5321 section 4.1.3
+                if (substr($addressLiteral, 0, 5) !== 'IPv6:') {
+                    return false;
+                } // RFC5321 section 4.1.3
                 $IPv6 = substr($addressLiteral, 5);
                 $groupMax = 8;
             }
@@ -1052,20 +1062,24 @@ class EaseSand extends EaseAtom
 
             if ($index === false) {
 // We need exactly the right number of groups
-                if ($groupCount !== $groupMax)
-                    return false; // RFC5321 section 4.1.3
+                if ($groupCount !== $groupMax) {
+                    return false;
+                } // RFC5321 section 4.1.3
             } else {
-                if ($index !== strrpos($IPv6, '::'))
-                    return false; // More than one '::'
+                if ($index !== strrpos($IPv6, '::')) {
+                    return false;
+                } // More than one '::'
                 $groupMax = ($index === 0 || $index === ( strlen($IPv6) - 2)) ? $groupMax : $groupMax - 1;
-                if ($groupCount > $groupMax)
-                    return false; // Too many IPv6 groups in address
+                if ($groupCount > $groupMax) {
+                    return false;
+                } // Too many IPv6 groups in address
             }
 
 // Check for unmatched characters
             array_multisort($matchesIP[1], SORT_DESC);
-            if ($matchesIP[1][0] !== '')
-                return false; // Illegal characters in address
+            if ($matchesIP[1][0] !== '') {
+                return false;
+            } // Illegal characters in address
 // It's a valid IPv6 address, so...
             return true;
         } else {
@@ -1096,8 +1110,9 @@ class EaseSand extends EaseAtom
             $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m', $domain);
             $partLength = 0;
 
-            if (count($dotArray) === 1)
-                return false; // Mail host can't be a TLD
+            if (count($dotArray) === 1) {
+                return false;
+            } // Mail host can't be a TLD
 
             foreach ($dotArray as $element) {
 // Remove any leading or trailing FWS
@@ -1132,8 +1147,9 @@ class EaseSand extends EaseAtom
                 $element = preg_replace("/^$FWS|$FWS\$/", '', $element);
 
 // What's left counts towards the maximum length for this part
-                if ($partLength > 0)
-                    $partLength++; // for the dot
+                if ($partLength > 0) {
+                    $partLength++;
+                } // for the dot
                 $partLength += strlen($element);
 
 // The DNS defines domain name syntax very generally -- a
@@ -1141,13 +1157,15 @@ class EaseSand extends EaseAtom
 // separated by dots, and with a maximum total of 255
 // octets.
 // 	(http://tools.ietf.org/html/rfc1123#section-6.1.3.5)
-                if ($elementLength > 63)
-                    return false; // Label must be 63 characters or less
+                if ($elementLength > 63) {
+                    return false;
+                } // Label must be 63 characters or less
 // Each dot-delimited component must be atext
 // A zero-length element implies a period at the beginning or end of the
 // local part, or two periods together. Either way it's not allowed.
-                if ($elementLength === 0)
-                    return false; // Dots in wrong place
+                if ($elementLength === 0) {
+                    return false;
+                } // Dots in wrong place
 // Any ASCII graphic (printing) character other than the
 // at-sign ("@"), backslash, double quote, comma, or square brackets may
 // appear without quoting.  If any of that list of excluded characters
@@ -1164,13 +1182,13 @@ class EaseSand extends EaseAtom
                 }
             }
 
-            if ($partLength > 255)
-                return false; // Local part must be 64 characters or less
+            if ($partLength > 255) {
+                return false;
+            } // Local part must be 64 characters or less
 
-            if (preg_match('/^[0-9]+$/', $element) > 0)
-                return false; // TLD can't be all-numeric
-
-                
+            if (preg_match('/^[0-9]+$/', $element) > 0) {
+                return false;
+            } // TLD can't be all-numeric
 // Check DNS?
             if ($checkDNS && function_exists('checkdnsrr')) {
                 if (!(checkdnsrr($domain, 'A') || checkdnsrr($domain, 'MX') )) {
@@ -1240,7 +1258,7 @@ class EaseSand extends EaseAtom
         if (is_object($this->logger)) {
             $this->logger->error($this->getObjectName(), $message, $objectData = null);
         }
-        $this->addStatusMessage($message,'error');
+        $this->addStatusMessage($message, 'error');
     }
 
     /**

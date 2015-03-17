@@ -770,7 +770,7 @@ class EasePage extends EaseContainer
      */
     public static function isPosted()
     {
-        if (isset($_POST) && count($_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             return true;
         } else {
             return false;

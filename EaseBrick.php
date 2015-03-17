@@ -342,21 +342,21 @@ class EaseBrick extends EaseSand
         }
 
         if ($limit) {
-            $LimitCond = ' LIMIT ' . $limit;
+            $limitCond = ' LIMIT ' . $limit;
         } else {
-            $LimitCond = '';
+            $limitCond = '';
         }
 
         if (is_array($columnsList)) {
             foreach ($columnsList as $id => $column) {
                 $columnsList[$id] = '`' . $column . '`';
             }
-            return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
+            return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
         } else {
-            if ($columnsList != '*') {
+            if (!strstr($columnsList, '*')) {
                 $columnsList = '`' . $columnsList . '`';
             }
-            return $this->myDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $LimitCond, $indexBy);
+            return $this->myDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
         }
     }
 
