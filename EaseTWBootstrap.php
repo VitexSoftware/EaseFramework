@@ -887,11 +887,25 @@ class EaseTWBRow extends EaseHtmlDivTag
     /**
      * Twitter Bootrstap Row
      *
-     * @param mixed $content
+     * @param mixed $content Prvotní obsah
      */
     public function __construct($content = null)
     {
         parent::__construct(null, $content, array('class' => 'row'));
+    }
+
+    /**
+     * Vloží do řádku políčko
+     *
+     * @link http://getbootstrap.com/css/#grid
+     * @param int    $size       Velikost políčka 1 - 12
+     * @param mixed  $content    Obsah políčka
+     * @param string $target     Typ zařízení xs|sm|md|lg
+     * @param array  $properties Další vlastnosti tagu
+     */
+    public function addColumn($size, $content, $target = 'md', $properties = null)
+    {
+        $this->addItem(new EaseTWBCol($size, $content, $target, $properties));
     }
 
 }
@@ -919,6 +933,9 @@ class EaseTWBCol extends EaseHtmlDivTag
 
 }
 
+/**
+ * Panel Twitter Bootstrapu
+ */
 class EaseTWBPanel extends EaseHtmlDivTag
 {
 

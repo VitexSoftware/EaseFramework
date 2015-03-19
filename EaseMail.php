@@ -77,6 +77,12 @@ class EaseMail extends EasePage
     public $htmlBody = null;
 
     /**
+     * Parametry odchozí pošty
+     * @var array
+     */
+    public $parameters = array();
+
+    /**
      * Ease Mail - sestaví a odešle
      *
      * @param string $emailAddress  adresa
@@ -85,15 +91,23 @@ class EaseMail extends EasePage
      */
     public function __construct($emailAddress, $mailSubject, $emailContents = null)
     {
+        if (defined('EASE_SMTP')) {
+            $this->parameters = (array) json_decode(constant('EASE_SMTP'));
+        }
+
+        if (is_array($emailAddress)) {
+            $emailAddress = current($emailAddress) . ' <' . key($emailAddress) . '>';
+        }
+
         $this->setMailHeaders(
-                array(
-                    'To' => $emailAddress,
-                    'From' => $this->fromEmailAddress,
-                    'Reply-To' => $this->fromEmailAddress,
-                    'Subject' => $mailSubject,
-                    'Content-Type' => 'text/plain; charset=utf-8',
-                    'Content-Transfer-Encoding' => '8bit'
-                )
+            array(
+              'To' => $emailAddress,
+              'From' => $this->fromEmailAddress,
+              'Reply-To' => $this->fromEmailAddress,
+              'Subject' => $mailSubject,
+              'Content-Type' => 'text/plain; charset=utf-8',
+              'Content-Transfer-Encoding' => '8bit'
+            )
         );
 
         $this->mimer = new Mail_mime($this->crLf);
@@ -160,16 +174,17 @@ class EaseMail extends EasePage
      *
      * @return mixed ukazatel na vložený obsah
      */
-    function &addItem($item,$pageItemName = null)
+    function &addItem($item, $pageItemName = null)
     {
-
+        $mailBody = '';
         if (is_object($item)) {
             if (is_object($this->htmlDocument)) {
-                $this->htmlBody->addItem($item,$pageItemName);
+                $mailBody = $this->htmlBody->addItem($item, $pageItemName);
             } else {
                 $this->htmlDocument = new EaseHtmlHtmlTag(new EaseHtmlSimpleHeadTag(new EaseHtmlTitleTag($this->emailSubject)));
                 $this->htmlDocument->setOutputFormat($this->getOutputFormat());
                 $this->htmlBody = $this->htmlDocument->addItem(new EaseHtmlBodyTag('Mail', $item));
+                $mailBody = $this->htmlDocument;
             }
         } else {
             $this->textBody .= $item;
@@ -206,6 +221,7 @@ class EaseMail extends EasePage
             $this->setMailHeaders(array('From' => $this->fromEmailAddress));
         }
 
+        $this->setMailHeaders(array('Date' => date("r")));
         $this->mailBody = $this->mimer->get();
         $this->mailHeadersDone = $this->mimer->headers($this->mailHeaders);
         $this->finalized = true;
@@ -229,12 +245,22 @@ class EaseMail extends EasePage
         if (!$this->finalized) {
             $this->finalize();
         }
+
         $oMail = new Mail();
-        $this->mailer = & $oMail->factory('mail');
-        $this->sendResult = $this->mailer->send($this->emailAddress, $this->mailHeadersDone, $this->mailBody);
-        if ($this->sendResult && $this->notify) {
-            $this->addStatusMessage( sprintf(_('Zpráva %s byla odeslána na adresu %s'),$this->emailSubject, $this->emailAddress), 'success');
+        if (count($this->parameters)) {
+            $this->mailer = & $oMail->factory('smtp', $this->parameters);
+        } else {
+            $this->mailer = & $oMail->factory('mail');
         }
+        $this->sendResult = $this->mailer->send($this->emailAddress, $this->mailHeadersDone, $this->mailBody);
+        if ($this->sendResult) {
+            if ($this->notify) {
+                $this->addStatusMessage(sprintf(_('Zpráva %s byla odeslána na adresu %s'), $this->emailSubject, $this->emailAddress), 'success');
+            }
+        } else {
+            $this->addStatusMessage(sprintf(_('Zpráva %s, pro %s nebyla odeslána z důvodu %s'), $this->emailSubject, $this->emailAddress, $this->sendResult->message), 'warning');
+        }
+        return $this->sendResult;
     }
 
     /**
