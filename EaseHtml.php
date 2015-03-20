@@ -161,7 +161,7 @@ class EaseHtmlTag extends EasePage
     /**
      * Nastaví classu tagu
      *
-     * @param string $className jméno třídy
+     * @param string $className jméno css třídy
      */
     public function setTagClass($className)
     {
@@ -169,7 +169,17 @@ class EaseHtmlTag extends EasePage
     }
 
     /**
-     * Vrací classu tagu
+     * Přidá classu tagu
+     *
+     * @param string $className jméno css třídy
+     */
+    public function addTagClass($className)
+    {
+        $this->setTagClass($this->getTagClass() . ' ' . $className);
+    }
+
+    /**
+     * Vrací css classu tagu
      */
     public function getTagClass()
     {
@@ -195,7 +205,7 @@ class EaseHtmlTag extends EasePage
     }
 
     /**
-     * Vrací ID tagu
+     * Vrací ID html tagu
      *
      * @return string
      */

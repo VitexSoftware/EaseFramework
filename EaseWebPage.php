@@ -83,14 +83,14 @@ class EaseWebPage extends EasePage
      *
      * @param EaseUser|EaseAnonym $userObject objekt uživatele
      */
-    public function __construct($pageTitle = NULL ,  & $userObject = null)
+    public function __construct($pageTitle = NULL, & $userObject = null)
     {
         EaseShared::webPage($this);
         if (!is_null($pageTitle)) {
             $this->pageTitle = $pageTitle;
         }
         parent::__construct($userObject);
-        
+
         $this->pageParts['doctype'] = '<!DOCTYPE html>';
         parent::addItem(new EaseHtmlHtmlTag());
         $this->pageParts['html']->setupWebPage($this);
@@ -124,9 +124,9 @@ class EaseWebPage extends EasePage
      *
      * @return EasePage poiner to object well included
      */
-    function & addItem($item,$pageItemName = null)
+    function & addItem($item, $pageItemName = null)
     {
-        return $this->body->addItem($item,$pageItemName);
+        return $this->body->addItem($item, $pageItemName);
     }
 
     /**
@@ -181,7 +181,7 @@ class EaseWebPage extends EasePage
         if (is_null($position)) {
             if (is_array($javaScripts)) {
                 $scriptFound = array_search($code, $javaScripts);
-                if (!$scriptFound && ($javaScripts[0]!=$code)) {
+                if (!$scriptFound && ($javaScripts[0] != $code)) {
                     $javaScripts[] = $code;
 
                     return key($javaScripts);
@@ -225,13 +225,16 @@ class EaseWebPage extends EasePage
     /**
      * Add another CSS definition to stack
      *
-     * @param string $Css definice CSS pravidla
+     * @param string $css definice CSS pravidla
      *
      * @return boolean
      */
-    public function addCSS($Css)
+    public function addCSS($css)
     {
-        $this->easeShared->cascadeStyles[md5($Css)] = $Css;
+        if (is_array($css)) {
+            $css = key($css) . '{' . current($css) . '}';
+        }
+        $this->easeShared->cascadeStyles[md5($css)] = $css;
 
         return true;
     }
@@ -308,7 +311,7 @@ class EaseWebPage extends EasePage
 
     /**
      * Nastavi skin
-     * 
+     *
      * @deprecated since version 190
      * @param string $skinName název skinu
      */
