@@ -243,7 +243,7 @@ class EaseHtmlTag extends EasePage
     {
         if (is_array($tagProperties)) {
             if (isset($tagProperties['id'])) {
-                $tagProperties['id'] = preg_replace("/[^A-Za-z0-9 ]/", '', $tagProperties['id']);
+                $tagProperties['id'] = preg_replace("/[^A-Za-z0-9_\-]/", '', $tagProperties['id']);
             }
             if (is_array($this->tagProperties)) {
                 $this->tagProperties = array_merge($this->tagProperties, $tagProperties);

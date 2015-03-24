@@ -1217,9 +1217,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function saveToMySQL($data = null, $searchForID = false)
     {
-        if (!$this->myTable) {
-            return null;
-        }
+        $result = null;
         if (is_null($data)) {
             if (array_key_exists('MySQL', $this->data)) {
                 $data = $this->getData('MySQL');
@@ -1230,44 +1228,40 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
 
         if (count($data) < 1) {
             $this->error('SaveToMySQL: Missing data', $data);
-
-            return null;
-        }
-
-        if ($searchForID) {
-            if ($this->getMyKey($data)) {
-                $rowsFound = $this->getColumnsFromMySQL($this->getmyKeyColumn(), array($this->getmyKeyColumn() => $this->getMyKey($data)));
-            } else {
-                $rowsFound = $this->getColumnsFromMySQL($this->getmyKeyColumn(), $data);
-                if (count($rowsFound)) {
-                    if (is_numeric($rowsFound[0][$this->getmyKeyColumn()])) {
-                        $data[$this->getmyKeyColumn()] = (int) $rowsFound[0][$this->getmyKeyColumn()];
-                    } else {
-                        $data[$this->getmyKeyColumn()] = $rowsFound[0][$this->getmyKeyColumn()];
+        } else {
+            if ($searchForID) {
+                if ($this->getMyKey($data)) {
+                    $rowsFound = $this->getColumnsFromMySQL($this->getmyKeyColumn(), array($this->getmyKeyColumn() => $this->getMyKey($data)));
+                } else {
+                    $rowsFound = $this->getColumnsFromMySQL($this->getmyKeyColumn(), $data);
+                    if (count($rowsFound)) {
+                        if (is_numeric($rowsFound[0][$this->getmyKeyColumn()])) {
+                            $data[$this->getmyKeyColumn()] = (int) $rowsFound[0][$this->getmyKeyColumn()];
+                        } else {
+                            $data[$this->getmyKeyColumn()] = $rowsFound[0][$this->getmyKeyColumn()];
+                        }
                     }
                 }
-            }
 
-            if (count($rowsFound)) {
-                $result = $this->updateToMySQL($data);
+                if (count($rowsFound)) {
+                    $result = $this->updateToMySQL($data);
+                } else {
+                    $result = $this->insertToMySQL($data);
+                }
             } else {
-                $result = $this->insertToMySQL($data);
-            }
-        } else {
-            if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn]) && strlen($data[$this->myKeyColumn])) {
-                $result = $this->updateToMySQL($data);
-            } else {
-                $result = $this->insertToMySQL($data);
+                if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn]) && strlen($data[$this->myKeyColumn])) {
+                    $result = $this->updateToMySQL($data);
+                } else {
+                    $result = $this->insertToMySQL($data);
+                }
             }
         }
 
         if (!is_null($result)) {
             $this->setMyKey($result);
-
-            return $result;
         }
 
-        return null;
+        return $result;
     }
 
     /**

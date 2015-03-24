@@ -648,7 +648,7 @@ class EaseTWGlyphIcon extends EaseHtmlSpanTag
 
 }
 
-class EaseTWBButtonDropdown extends EaseHtmlDivTag
+class EaseTWBButtonDropdown extends EaseHtmlDiv
 {
 
     /**
@@ -666,14 +666,15 @@ class EaseTWBButtonDropdown extends EaseHtmlDivTag
     /**
      * Tlačítko s rozbalovacím menu
      *
-     * @param string $label popisek tlačítka
-     * @param string $type  primary|info|success|warning|danger|inverse|link
-     * @param string $size  lg = velký, sm = menší, xs = nejmenší
-     * @param array  $items položky menu
+     * @param string $label      popisek tlačítka
+     * @param string $type       primary|info|success|warning|danger|inverse|link
+     * @param string $size       lg = velký, sm = menší, xs = nejmenší
+     * @param array  $items      položky menu
+     * @param array  $properties Parametry tagu
      */
-    function __construct($label = null, $type = 'default', $size = null, $items = null)
+    function __construct($label = null, $type = 'default', $size = null, $items = null, $properties = null)
     {
-        parent::__construct();
+        parent::__construct(null, $properties);
         $this->setTagClass('btn-group');
         $btnClass = 'btn btn-' . $type . ' ';
         if ($size) {

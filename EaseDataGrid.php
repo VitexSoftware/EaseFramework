@@ -1,4 +1,5 @@
 <?php
+
 require_once 'Ease/EaseHtml.php';
 
 /**
@@ -11,10 +12,17 @@ require_once 'Ease/EaseHtml.php';
  */
 class EaseDataGrid extends EaseHtmlTableTag
 {
-   function __construct($content = null, $properties = null)
+
+    /**
+     * Datagrid
+     *
+     * @param mixed $content
+     * @param array $properties
+     */
+    function __construct($content = null, $properties = null)
     {
         parent::__construct(null, $properties);
-        if(is_array($content)){
+        if (is_array($content)) {
             $this->populate($content);
         }
     }
