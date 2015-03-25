@@ -904,9 +904,9 @@ class EaseTWBRow extends EaseHtmlDivTag
      * @param string $target     Typ zařízení xs|sm|md|lg
      * @param array  $properties Další vlastnosti tagu
      */
-    public function addColumn($size, $content, $target = 'md', $properties = null)
+    public function &addColumn($size, $content = null, $target = 'md', $properties = null)
     {
-        $this->addItem(new EaseTWBCol($size, $content, $target, $properties));
+        return $this->addItem(new EaseTWBCol($size, $content, $target, $properties));
     }
 
 }
