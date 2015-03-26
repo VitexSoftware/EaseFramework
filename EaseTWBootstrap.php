@@ -963,8 +963,8 @@ class EaseTWBPanel extends EaseHtmlDivTag
      *
      * @param string|mixed $heading
      * @param string       $type    succes|wanring|info|danger
-     * @param type $body
-     * @param type $footer
+     * @param mixes        $body    tělo panelu
+     * @param mixed        $footer  patička panelu. FALSE = nezobrazit vůbec
      */
     function __construct($heading = null, $type = 'default', $body = null, $footer = null)
     {
@@ -973,7 +973,7 @@ class EaseTWBPanel extends EaseHtmlDivTag
             $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')));
         }
         $this->body = parent::addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
-        if ($footer) {
+        if ($footer !== false) {
             $this->footer = parent::addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer')));
         }
     }
@@ -1168,6 +1168,39 @@ class EaseTWBTextarea extends EaseHtmlTextareaTag
         }
 
         parent::__construct($name, $content, $properties);
+    }
+
+}
+
+class EeaseTWBListGroup extends EaseHtmlUlTag
+{
+
+    /**
+     * Vytvori ListGroup
+     *
+     * @link http://getbootstrap.com/components/#list-group ListGroup
+     * @param mixed $ulContents položky seznamu
+     * @param array $properties parametry tagu
+     */
+    public function __construct($ulContents = null, $properties = null)
+    {
+        parent::__construct($ulContents, $properties);
+        $this->addTagClass('list-group');
+    }
+
+    /**
+     * Every item id added in EaseHtmlLiTag envelope
+     *
+     * @param mixed  $pageItem     obsah vkládaný jako položka výčtu
+     * @param string $properties   Vlastnosti LI tagu
+     *
+     * @return mixed
+     */
+    function &addItemSmart($pageItem, $properties = null)
+    {
+        $item = parent::addItemSmart($pageItem, $properties);
+        $item->addTagClass('list-group-item');
+        return $item;
     }
 
 }
