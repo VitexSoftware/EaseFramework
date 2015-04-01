@@ -959,6 +959,12 @@ class EaseTWBPanel extends EaseHtmlDivTag
     public $footer = null;
 
     /**
+     * Typ Panelu
+     * @var string    succes|wanring|info|danger
+     */
+    public $type = 'default';
+
+    /**
      * Panel Twitter Bootstrapu
      *
      * @param string|mixed $heading
@@ -968,13 +974,14 @@ class EaseTWBPanel extends EaseHtmlDivTag
      */
     function __construct($heading = null, $type = 'default', $body = null, $footer = null)
     {
-        parent::__construct(null, null, array('class' => 'panel panel-' . $type));
+        $this->type = $type;
+        parent::__construct(null, null, array('class' => 'panel panel-' . $this->type));
         if (!is_null($heading)) {
             $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')));
         }
         $this->body = parent::addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
         if ($footer !== false) {
-            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer')));
+            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer panel-' . $this->type))); //TODO: Bootstrap zatím neumí
         }
     }
 

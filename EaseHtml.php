@@ -227,11 +227,12 @@ class EaseHtmlTag extends EasePage
      */
     public function getTagProperty($propertyName)
     {
+        $property = null;
         if (isset($this->tagProperties[$propertyName])) {
-            return $this->tagProperties[$propertyName];
+            $property = $this->tagProperties[$propertyName];
         }
 
-        return null;
+        return $property;
     }
 
     /**
@@ -1590,6 +1591,75 @@ class EaseHtmlAddressTag extends EaseHtmlPairTag
     function __construct($content, $tagProperties = null)
     {
         parent::__construct('address', $tagProperties, $content);
+    }
+
+}
+
+/**
+ * Definiční list
+ */
+class EaseHtmlDlTag extends EaseHtmlPairTag
+{
+
+    /**
+     * Definice
+     *
+     * @param mixed $content
+     * @param array $tagProperties vlastnosti tagu
+     */
+    public function __construct($content = null, $tagProperties = null)
+    {
+        parent::__construct('dl', $tagProperties, $content);
+    }
+
+    /**
+     * Vloží novou definici
+     *
+     * @param string|mixed $term    Subjekt
+     * @param string|mixed $value   Popis subjektu
+     */
+    function addDef($term, $value)
+    {
+        $this->addItem(new EaseHtmlDtTag($term));
+        $this->addItem(new EaseHtmlDdTag($value));
+    }
+
+}
+
+/**
+ * Pojem definice
+ */
+class EaseHtmlDtTag extends EaseHtmlPairTag
+{
+
+    /**
+     * Pojem definice
+     *
+     * @param string|mixed $content        název pojmu / klíčové slovo
+     * @param array        $tagProperties
+     */
+    public function __construct($content = null, $tagProperties = null)
+    {
+        parent::__construct('dt', $tagProperties, $content);
+    }
+
+}
+
+/**
+ * Obsah definice
+ */
+class EaseHtmlDdTag extends EaseHtmlPairTag
+{
+
+    /**
+     * Obsah definice
+     *
+     * @param string|mixed $content
+     * @param array        $tagProperties
+     */
+    public function __construct($content = null, $tagProperties = null)
+    {
+        parent::__construct('dd', $tagProperties, $content);
     }
 
 }

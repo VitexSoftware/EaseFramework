@@ -4,6 +4,7 @@
  * Pro pohodlnou práci s jQuery widgety, nabízí EaseFrameWork třídy pro všechny
  * běžně používané prvky UI
  *
+ * @deprecated since version 232
  * @package    EaseFrameWork
  * @subpackage EaseHtml
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
@@ -174,9 +175,9 @@ class EaseJQuerySlider extends EaseJQueryUIPart
             $this->partProperties['value'] = null;
         }
         $this->setPartProperties(array(
-            'change' => 'function (event, ui) {
+          'change' => 'function (event, ui) {
             $("#' . $this->partName . '-slider a").html( ui.value ); }',
-            'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ')
+          'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ')
         );
 
         EaseShared::webPage()->addJavaScript(';', null, true);
@@ -245,7 +246,7 @@ class EaseJQColorPicker extends EaseHtmlInputTextTag
         $this->webPage->includeJavaScript('colorpicker.js');
         $this->webPage->includeCss('colorpicker.css');
         $this->webPage->addJavaScript(
-                "$(document).ready(function () {
+            "$(document).ready(function () {
     $('#" . $this->getTagID() . "').ColorPicker({
     onSubmit: function (hsb, hex, rgb, el) {
         $(el).val(hex);
@@ -330,7 +331,7 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
      */
     public function finalize()
     {
-        $this->addJavaScript('$(function () { $( "#' . $this->partName . '" ).tabs( {' . $this->getPartPropertiesToString() . '} ); });',null,true);
+        $this->addJavaScript('$(function () { $( "#' . $this->partName . '" ).tabs( {' . $this->getPartPropertiesToString() . '} ); });', null, true);
         $Div = $this->addItem(new EaseHtmlDivTag($this->partName));
         $UlTag = $Div->addItem(new EaseHtmlUlTag());
         $Index = 0;
@@ -642,7 +643,7 @@ class EaseJQuerySubmitButton extends EaseJQueryUIPart
         parent::__construct();
         $this->Name = $name;
         $this->JQOptions = $JQOptions;
-        $Properties['title']=$Title;
+        $Properties['title'] = $Title;
         $this->Button = $this->addItem(new EaseHtmlInputSubmitTag($name, $value, $Properties));
     }
 
@@ -770,7 +771,7 @@ class EasejQueryScroller extends EaseHtmlDivTag
      */
     function &addItem($PageItem, $PageItemName = null)
     {
-        return $this->ScrollableArea->addItem($PageItem,$PageItemName);
+        return $this->ScrollableArea->addItem($PageItem, $PageItemName);
     }
 
 }
@@ -966,11 +967,13 @@ class EaseLabeledSelect extends EaseLabeledInput
  */
 class EaseJQConfirmedLinkButton extends EaseJQueryLinkButton
 {
+
     /**
      *
-     * @var type 
+     * @var type
      */
     private $id = null;
+
     /**
      * Link se vzhledem tlačítka a potvrzením odeslání
      *
@@ -984,28 +987,28 @@ class EaseJQConfirmedLinkButton extends EaseJQueryLinkButton
     public function __construct($href, $contents)
     {
         $this->id = $this->randomString();
-        parent::__construct('#', $contents, null, array('id' => $this->id  . '-button'));
-        $confirmDialog = $this->addItem(new EaseJQueryDialog($this->id  . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
+        parent::__construct('#', $contents, null, array('id' => $this->id . '-button'));
+        $confirmDialog = $this->addItem(new EaseJQueryDialog($this->id . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
         $yes = _('Ano');
         $no = _('Ne');
         $confirmDialog->partProperties = array(
-            'autoOpen' => false,
-            'modal' => true,
-            'show' => 'slide',
-            'buttons' => array(
-                $yes => 'function () { window.location.href = "' . $href . '"; }',
-                $no => 'function () { $( this ).dialog( "close" ); }'
-            )
+          'autoOpen' => false,
+          'modal' => true,
+          'show' => 'slide',
+          'buttons' => array(
+            $yes => 'function () { window.location.href = "' . $href . '"; }',
+            $no => 'function () { $( this ).dialog( "close" ); }'
+          )
         );
         EaseShared::webPage()->addJavascript('', 1000, true);
     }
-    
-        /**
+
+    /**
      * Nastaveni javascriptu
      */
     public function onDocumentReady()
     {
-        return '$("#' . $this->Name . '").button( {' . EaseJQueryPart::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id  . '-dialog" ).dialog( "open" ); } );';
+        return '$("#' . $this->Name . '").button( {' . EaseJQueryPart::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id . '-dialog" ).dialog( "open" ); } );';
     }
 
 }
@@ -1084,19 +1087,16 @@ class EaseJQueryDialog extends EaseJQueryUIPart
     {
 
         $DialogDiv = $this->addItem(new EaseHtmlDivTag(
-                        $this->DialogID,
-                        NULL,
-                        array('title' => $this->Title))
+            $this->DialogID, NULL, array('title' => $this->Title))
         );
 
         $DialogMessage = $DialogDiv->addItem(new EaseHtmlPTag());
 
         $DialogMessage->addItem(
-                new EaseHtmlSpanTag(NULL, NULL,
-                        array('class' => 'ui-icon ' . $this->Icon,
-                            'style' => 'float:left; margin:0 7px 50px 0;'
-                        )
-                )
+            new EaseHtmlSpanTag(NULL, NULL, array('class' => 'ui-icon ' . $this->Icon,
+          'style' => 'float:left; margin:0 7px 50px 0;'
+            )
+            )
         );
         $DialogMessage->addItem($this->Message);
 
@@ -1134,9 +1134,9 @@ class EaseDateTimeSelector extends EaseJQueryUIPart
      * @var array
      */
     public $partProperties = array(
-        'dateFormat' => 'yy-mm-dd',
-        'showSecond' => true,
-        'timeFormat' => 'hh:mm:ss');
+      'dateFormat' => 'yy-mm-dd',
+      'showSecond' => true,
+      'timeFormat' => 'hh:mm:ss');
 
     /**
      * Text Input
