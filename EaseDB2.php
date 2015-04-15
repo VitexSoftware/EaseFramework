@@ -170,6 +170,18 @@ abstract class EaseDB2 extends EaseSQL
         $this->sqlLink->disconnect();
     }
 
+    /**
+     * Escapes special characters in a string for use in an SQL statement
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    public function addSlashes($text)
+    {
+        return addslashes($text); //TODO
+    }
+
 }
 
 /**

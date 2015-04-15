@@ -203,7 +203,7 @@ class EaseTWBLinkButton extends EaseHtmlATag
 }
 
 /**
- *
+ * Odesílací tlačítko formuláře Twitter Bootstrapu
  */
 class EaseTWSubmitButton extends EaseHtmlButtonTag
 {
