@@ -854,9 +854,10 @@ class EaseTWBWell extends EaseHtmlDivTag
      *
      * @param mixed $content
      */
-    public function __construct($content = null)
+    public function __construct($content = null, $properties = null)
     {
-        parent::__construct(null, $content, array('class' => 'well'));
+        parent::__construct(null, $content, $properties);
+        $this->addTagClass('well');
     }
 
 }

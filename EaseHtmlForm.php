@@ -88,7 +88,9 @@ class EaseHtmlInputTextTag extends EaseHtmlInputTag
      */
     public function __construct($name, $value = null, $properties = null)
     {
-        $properties['type'] = 'text';
+        if (!isset($properties['type'])) {
+            $properties['type'] = 'text';
+        }
         if ($value) {
             $properties['value'] = $value;
         }
@@ -1298,6 +1300,42 @@ margin-top: 5px;}'
     {
         if (method_exists($this->enclosedElement, 'getTagProperties')) {
             return $this->enclosedElement->getTagProperties();
+        }
+    }
+
+    /**
+     * Nastaví ID třídu obsaženého tagu
+     *
+     * @return string
+     */
+    public function setTagID($id)
+    {
+        if (method_exists($this->enclosedElement, 'setTagID')) {
+            return $this->enclosedElement->setTagID();
+        }
+    }
+
+    /**
+     * Nastaví css třídu obsaženého tagu
+     *
+     * @return string
+     */
+    public function setTagClass($class)
+    {
+        if (method_exists($this->enclosedElement, 'setTagClass')) {
+            return $this->enclosedElement->setTagClass($class);
+        }
+    }
+
+    /**
+     * Vrací css třídu obsaženého tagu
+     *
+     * @return string
+     */
+    public function getTagClass()
+    {
+        if (method_exists($this->enclosedElement, 'getTagClass')) {
+            return $this->enclosedElement->getTagClass();
         }
     }
 
