@@ -839,16 +839,16 @@ class EaseHtmlHeadTag extends EaseHtmlPairTag
     /**
      * Vykreslení bloku scriptu
      *
-     * @param string $JavaScript vkládaný skript
+     * @param string $javaScript vkládaný skript
      *
      * @return string
      */
-    public static function jsEnclosure($JavaScript)
+    public static function jsEnclosure($javaScript)
     {
         return '
 <script>
 // <![CDATA[
-' . $JavaScript . '
+' . $javaScript . '
 // ]]>
 </script>
 ';
@@ -1679,6 +1679,27 @@ class EaseHtmlPreTag extends EaseHtmlPairTag
     public function __construct($content = null, $tagProperties = null)
     {
         parent::__construct('pre', $tagProperties, $content);
+    }
+
+}
+
+/**
+ * Skript ve stránce
+ */
+class EaseHtmlScriptTag extends EaseHtmlPairTag
+{
+
+    /**
+     * Skript
+     *
+     * @param string|mixed $content
+     * @param array        $tagProperties
+     */
+    public function __construct($content = null, $tagProperties = null)
+    {
+        parent::__construct('script', $tagProperties, '// <![CDATA[
+' . $content . '
+// ]]>');
     }
 
 }
