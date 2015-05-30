@@ -289,11 +289,11 @@ class EaseBrick extends EaseSand
     /**
      * Vrací z databáze sloupečky podle podmínek
      *
-     * @param array        $columnsList seznam položek
-     * @param array|int    $conditions  pole podmínek nebo ID záznamu
-     * @param array|string $orderBy     třídit dle
-     * @param string       $indexBy     klice vysledku naplnit hodnotou ze
-     *                                  sloupečku
+     * @param array            $columnsList seznam položek
+     * @param array|int|string $conditions  pole podmínek nebo ID záznamu
+     * @param array|string     $orderBy     třídit dle
+     * @param string           $indexBy     klice vysledku naplnit hodnotou ze
+     *                                      sloupečku
      * @param int $limit maximální počet vrácených záznamů
      *
      * @return array

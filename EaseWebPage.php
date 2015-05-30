@@ -73,12 +73,6 @@ class EaseWebPage extends EasePage
     public $cssPrefix = '/javascript/';
 
     /**
-     * Výchozí Skin stránky. Viz: /usr/share/javascript/jquery-ui-themes
-     * @var string
-     */
-    public $jQueryUISkin = null;
-
-    /**
      * Základní objekt pro stránku shopu
      *
      * @param EaseUser|EaseAnonym $userObject objekt uživatele
@@ -107,13 +101,13 @@ class EaseWebPage extends EasePage
     }
 
     /**
-     * Vrací css skin použitý frameworkem pro jQueryUI
+     * Nastaví ID stránky
      *
      * @return string
      */
-    public function getjQueryUISkin()
+    public function setTagID($tagID = null)
     {
-        return $this->jQueryUISkin;
+        return $this->body->setTagID($tagID);
     }
 
     /**
@@ -158,7 +152,7 @@ class EaseWebPage extends EasePage
      *
      * @return string
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = false)
+    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
     {
         if ($inDocumentReady) {
             return $this->addToScriptsStack('$' . $javaScript, $position);

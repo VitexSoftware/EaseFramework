@@ -543,6 +543,10 @@ class EaseTWBStatusMessages extends EaseHtmlDivTag
 class EaseTWBTabs extends EaseContainer
 {
 
+    /**
+     * Název
+     * @var string
+     */
     public $partName = 'TWBTabs';
 
     /**
@@ -596,6 +600,16 @@ class EaseTWBTabs extends EaseContainer
         }
 
         return $this->tabs[$tabName];
+    }
+
+    /**
+     * Vrací ID tagu
+     *
+     * @return string
+     */
+    function getTagID()
+    {
+        return $this->partName;
     }
 
     /**

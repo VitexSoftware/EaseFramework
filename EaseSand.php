@@ -958,17 +958,18 @@ class EaseSand extends EaseAtom
                 }
             }
 
-            if ($element[$elementLength - 1] === ')') {
-                $indexBrace = strrpos($element, '(');
-                if ($indexBrace !== false) {
-                    if (preg_match('/(?<!\\\\)(?:[\\(\\)])/', substr($element, $indexBrace + 1, $elementLength - $indexBrace - 2)) > 0) {
-                        return false; // Illegal characters in comment
+            if ($elementLength) {
+                if ($element[$elementLength - 1] === ')') {
+                    $indexBrace = strrpos($element, '(');
+                    if ($indexBrace !== false) {
+                        if (preg_match('/(?<!\\\\)(?:[\\(\\)])/', substr($element, $indexBrace + 1, $elementLength - $indexBrace - 2)) > 0) {
+                            return false; // Illegal characters in comment
+                        }
+                        $element = substr($element, 0, $indexBrace);
+                        $elementLength = strlen($element);
                     }
-                    $element = substr($element, 0, $indexBrace);
-                    $elementLength = strlen($element);
                 }
             }
-
 // Remove any leading or trailing FWS around the element (inside any comments)
             $element = preg_replace("/^$FWS|$FWS\$/", '', $element);
 

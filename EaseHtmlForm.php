@@ -351,7 +351,7 @@ class EaseInputContainer extends EaseContainer
     public function __construct($name, $items = null, $tagProperties = null)
     {
         parent::__construct();
-        $this->Name = $name;
+        $this->name = $name;
         $this->items = $items;
     }
 
@@ -395,11 +395,11 @@ class EaseInputContainer extends EaseContainer
         $itemID = 1;
         foreach ($this->items as $value => $caption) {
             if ($this->checked == $value) {
-                $this->addItem(new $this->itemClass($this->Name, $value, array('checked')));
+                $this->addItem(new $this->itemClass($this->name, $value, array('checked')));
             } else {
-                $this->addItem(new $this->itemClass($this->Name, $value));
+                $this->addItem(new $this->itemClass($this->name, $value));
             }
-            $this->lastItem->setTagID($this->Name . $itemID++);
+            $this->lastItem->setTagID($this->name . $itemID++);
             $this->addLabel($caption);
         }
     }
@@ -959,7 +959,7 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     /**
      * Maketa načtení položek
      *
-     * @return string
+     * @return array
      */
     public function loadItems()
     {
