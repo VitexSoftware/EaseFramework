@@ -1159,7 +1159,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         if (!isset($data[$this->myKeyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->error('UpdateToMySQL: Unknown myKeyColumn:' . $this->myKeyColumn, $data);
+                $this->error(get_class($this) . ':UpdateToMySQL: Unknown myKeyColumn:' . $this->myKeyColumn, $data);
 
                 return null;
             }

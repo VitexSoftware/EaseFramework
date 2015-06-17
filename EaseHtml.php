@@ -1567,7 +1567,7 @@ class EaseHtmlButtonTag extends EaseHtmlPairTag
      * Html element pro tlačítko
      *
      * @param string $content         obsah tlačítka
-     * @param array  $TagProperites vlastnosti tagu
+     * @param array  $tagProperties   vlastnosti tagu
      */
     function __construct($content, $tagProperties = null)
     {

@@ -120,7 +120,8 @@ class EaseWebPage extends EasePage
      */
     function & addItem($item, $pageItemName = null)
     {
-        return $this->body->addItem($item, $pageItemName);
+        $added = $this->body->addItem($item, $pageItemName);
+        return $added;
     }
 
     /**

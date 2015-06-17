@@ -17,7 +17,8 @@ require_once 'EaseAnonym.php';
  * @package EaseFrameWork
  * @author  Vítězslav Dvořák <vitex@hippy.cz>
  */
-class EaseUser extends EaseAnonym {
+class EaseUser extends EaseAnonym
+{
 
     /**
      * Pracujem s tabulkou user
@@ -132,7 +133,8 @@ class EaseUser extends EaseAnonym {
      * @param int|string $userID ID nebo Login uživatele jenž se má načíst při
      *        inicializaci třídy
      */
-    public function __construct($userID = null) {
+    public function __construct($userID = null)
+    {
         parent::__construct();
         if (!is_null($userID)) {
             if (is_int($userID)) {
@@ -153,7 +155,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string
      */
-    public function getUserName() {
+    public function getUserName()
+    {
         return $this->getDataValue($this->loginColumn);
     }
 
@@ -162,14 +165,16 @@ class EaseUser extends EaseAnonym {
      *
      * @return string
      */
-    public function getUserEmail() {
+    public function getUserEmail()
+    {
         return $this->getDataValue($this->mailColumn);
     }
 
     /**
      * Vykreslí GrAvatara uživatele
      */
-    public function draw() {
+    public function draw()
+    {
         echo '<img class="avatar" src="' . $this->getIcon() . '">';
     }
 
@@ -178,7 +183,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string url ikony
      */
-    public function getIcon() {
+    public function getIcon()
+    {
         $email = $this->getUserEmail();
         if ($email) {
             return self::getGravatar($email, 800, 'mm', 'g', true, array('title' => $this->getUserName(), 'class' => 'gravatar_icon'));
@@ -194,7 +200,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return bool
      */
-    public function tryToLogin($formData) {
+    public function tryToLogin($formData)
+    {
         if (!count($formData)) {
             return null;
         }
@@ -241,7 +248,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return boolean
      */
-    public function isAccountEnabled() {
+    public function isAccountEnabled()
+    {
         if (is_null($this->disableColumn)) {
             return true;
         }
@@ -258,7 +266,8 @@ class EaseUser extends EaseAnonym {
      * Akce provedené po úspěšném přihlášení
      * pokud tam jeste neexistuje zaznam, vytvori se novy
      */
-    public function loginSuccess() {
+    public function loginSuccess()
+    {
         $this->userID = (int) $this->getMyKey();
         $this->userLogin = $this->getDataValue($this->loginColumn);
         $this->logged = true;
@@ -274,7 +283,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return boolean uspěch
      */
-    public function loadSettings($settings = null) {
+    public function loadSettings($settings = null)
+    {
         if (is_null($settings)) {
             $settings = $this->getDataValue($this->settingsColumn);
         }
@@ -288,11 +298,23 @@ class EaseUser extends EaseAnonym {
     }
 
     /**
+     * Uloží nastavení uživatele
+     *
+     * @return int
+     */
+    public function saveSettings()
+    {
+        $this->setDataValue($this->settingsColumn, $this->myDbLink->addSlashes(serialize($this->getSettings())));
+        return $this->saveToSQL();
+    }
+
+    /**
      * Vrací všechna nastavení uživatele
      *
      * @return array
      */
-    public function getSettings() {
+    public function getSettings()
+    {
         return $this->settings;
     }
 
@@ -304,7 +326,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return bool
      */
-    public function passwordValidation($plainPassword, $encryptedPassword) {
+    public function passwordValidation($plainPassword, $encryptedPassword)
+    {
         if ($plainPassword && $encryptedPassword) {
             $passwordStack = explode(':', $encryptedPassword);
             if (sizeof($passwordStack) != 2) {
@@ -325,7 +348,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string Encrypted password
      */
-    public function encryptPassword($plainTextPassword) {
+    public function encryptPassword($plainTextPassword)
+    {
         $encryptedPassword = '';
         for ($i = 0; $i < 10; $i++) {
             $encryptedPassword .= $this->randomNumber();
@@ -344,7 +368,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string password hash
      */
-    public function passwordChange($newPassword, $userID = null) {
+    public function passwordChange($newPassword, $userID = null)
+    {
         if (!$userID) {
             $userID = $this->getUserID();
         }
@@ -368,7 +393,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return boolen
      */
-    public function passwordCrackCheck($password) {
+    public function passwordCrackCheck($password)
+    {
         if (!is_file('/usr/share/dict/cracklib-words')) {
             return true;
         }
@@ -390,7 +416,8 @@ class EaseUser extends EaseAnonym {
      *
      * @todo Přesunout do EaseCustomer
      */
-    public function setUserLevel($userLevel) {
+    public function setUserLevel($userLevel)
+    {
         $this->userLevel = intval($userLevel);
     }
 
@@ -399,7 +426,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return int ID uživatele
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         if (isset($this->userID)) {
             return (int) $this->userID;
         }
@@ -412,7 +440,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string
      */
-    public function getUserLogin() {
+    public function getUserLogin()
+    {
         if (!isset($this->userLogin)) {
             return $this->getDataValue($this->loginColumn);
         }
@@ -425,7 +454,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string
      */
-    public function setUserLogin($login) {
+    public function setUserLogin($login)
+    {
         $this->userLogin = $login;
         if (isset($this->loginColumn)) {
             return $this->setDataValue($this->loginColumn, $login);
@@ -441,7 +471,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return mixed
      */
-    public function getPermission($permKeyword = null) {
+    public function getPermission($permKeyword = null)
+    {
         if (isset($this->permissions[$permKeyword])) {
             return $this->permissions[$permKeyword];
         } else {
@@ -452,7 +483,8 @@ class EaseUser extends EaseAnonym {
     /**
      * Provede odhlášení uživatele
      */
-    public function logout() {
+    public function logout()
+    {
         $this->logged = false;
         $this->addStatusMessage(_('Odhlášení proběhlo uspěšně'), 'success');
 
@@ -466,7 +498,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return mixed
      */
-    public function getSettingValue($settingName = null) {
+    public function getSettingValue($settingName = null)
+    {
         if (isset($this->settings[$settingName])) {
             return $this->settings[$settingName];
         } else {
@@ -479,7 +512,8 @@ class EaseUser extends EaseAnonym {
      *
      * @param array $settings asociativní pole nastavení
      */
-    public function setSettings($settings) {
+    public function setSettings($settings)
+    {
         $this->settings = array_merge($this->settings, $settings);
     }
 
@@ -489,7 +523,8 @@ class EaseUser extends EaseAnonym {
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $settingValue) {
+    public function setSettingValue($settingName, $settingValue)
+    {
         $this->settings[$settingName] = $settingValue;
     }
 
@@ -498,7 +533,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return mixed
      */
-    public function loadPermissions() {
+    public function loadPermissions()
+    {
         return null;
     }
 
@@ -507,7 +543,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->getObjectName();
     }
 
@@ -520,7 +557,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return int ID záznamu nebo null v případě neůspěchu
      */
-    public function saveToMySQL($data = null, $searchForID = false) {
+    public function saveToMySQL($data = null, $searchForID = false)
+    {
         if (is_null($data)) {
             if (array_key_exists('MySQL', $this->data)) {
                 $data = $this->getData('MySQL');
@@ -536,19 +574,20 @@ class EaseUser extends EaseAnonym {
     }
 
     /**
-     * Načte z MySQL data k aktuálnímu $ItemID a případně aplikuje 
+     * Načte z MySQL data k aktuálnímu $ItemID a případně aplikuje
      * nastavení
      *
      * @param int     $itemID     id záznamu k načtení
      * @param string  $dataPrefix prefix pro rozlišení sady dat
-     * @param boolean $multiplete nevarovat v případě vícenásobného 
+     * @param boolean $multiplete nevarovat v případě vícenásobného
      *                            výsledku
      *
      * @return array Results
      */
     public function loadFromMySQL(
     $itemID = null, $dataPrefix = null, $multiplete = false
-    ) {
+    )
+    {
         $result = parent::loadFromMySQL($itemID, $dataPrefix, $multiplete);
         if (!is_null($this->settingsColumn) && !is_null($result)) {
             $this->loadSettings();
@@ -558,7 +597,7 @@ class EaseUser extends EaseAnonym {
     }
 
     /**
-     * Get either a Gravatar URL or complete image tag for a specified email 
+     * Get either a Gravatar URL or complete image tag for a specified email
      * address.
      *
      * @param string $email     The email address
@@ -572,7 +611,8 @@ class EaseUser extends EaseAnonym {
      */
     public static function getGravatar(
     $email, $size = 80, $default = 'mm', $maxRating = 'g'
-    ) {
+    )
+    {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";
@@ -587,7 +627,8 @@ class EaseUser extends EaseAnonym {
      *
      * @return string
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
                 $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
@@ -604,15 +645,16 @@ class EaseUser extends EaseAnonym {
 }
 
 /**
- * Objekt zákazníka umí navíce od běžného uživatele, počítaní cen, 
+ * Objekt zákazníka umí navíce od běžného uživatele, počítaní cen,
  * nákupní košík
- * a obchodní skupiny 
+ * a obchodní skupiny
  *
  * @todo přesunout do EaseShop
- *  
+ *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class EaseCustomer extends EaseUser {
+class EaseCustomer extends EaseUser
+{
 
     /**
      * Pracujem s tabulkou user
@@ -642,7 +684,8 @@ class EaseCustomer extends EaseUser {
      *
      * @return string
      */
-    public function showUserPrice($productPriceAnon, $productsID = null, $productsPohodaID = null) {
+    public function showUserPrice($productPriceAnon, $productsID = null, $productsPohodaID = null)
+    {
         return $this->formatPrice($productPriceAnon);
     }
 
@@ -651,7 +694,8 @@ class EaseCustomer extends EaseUser {
      *
      * @return int
      */
-    public function getUserLevel() {
+    public function getUserLevel()
+    {
         return intval($this->userLevel);
     }
 

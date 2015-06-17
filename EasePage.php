@@ -99,11 +99,12 @@ class EaseContainer extends EaseBrick
      * Vloží další element do objektu
      *
      * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
+     * @param mixed  $context      Objekt do nějž jsou prvky/položky vkládány
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem, $pageItemName = null)
+    static function &addItemCustom($pageItem, $context, $pageItemName = null)
     {
         $itemPointer = null;
         if (is_object($pageItem)) {
@@ -113,36 +114,36 @@ class EaseContainer extends EaseBrick
                     $pageItemName = $pageItem->getObjectName();
                 }
 
-                while (isset($this->pageParts[$pageItemName])) {
+                while (isset($context->pageParts[$pageItemName])) {
                     $pageItemName = $pageItemName . $duplicity++;
                 }
 
-                $this->pageParts[$pageItemName] = $pageItem;
-                $this->pageParts[$pageItemName]->parentObject = & $this;
+                $context->pageParts[$pageItemName] = $pageItem;
+                $context->pageParts[$pageItemName]->parentObject = & $context;
 
                 if (
-                    isset($this->pageParts[$pageItemName]->raiseItems) &&
-                    is_array($this->pageParts[$pageItemName]->raiseItems) &&
-                    count($this->pageParts[$pageItemName]->raiseItems)
+                    isset($context->pageParts[$pageItemName]->raiseItems) &&
+                    is_array($context->pageParts[$pageItemName]->raiseItems) &&
+                    count($context->pageParts[$pageItemName]->raiseItems)
                 ) {
-                    $this->raise($this->pageParts[$pageItemName]);
+                    $context->raise($context->pageParts[$pageItemName]);
                 }
-                if (method_exists($this->pageParts[$pageItemName], 'AfterAdd')) {
-                    $this->pageParts[$pageItemName]->afterAdd();
+                if (method_exists($context->pageParts[$pageItemName], 'AfterAdd')) {
+                    $context->pageParts[$pageItemName]->afterAdd();
                 }
-                $this->lastItem = & $this->pageParts[$pageItemName];
-                $itemPointer = & $this->pageParts[$pageItemName];
+                $context->lastItem = & $context->pageParts[$pageItemName];
+                $itemPointer = & $context->pageParts[$pageItemName];
             } else {
-                $this->error('Page Item object without draw() method', $pageItem);
+                $context->error('Page Item object without draw() method', $pageItem);
             }
         } else {
             if (is_array($pageItem)) {
-                $addedItemPointer = $this->addItems($pageItem);
+                $addedItemPointer = $context->addItems($pageItem);
                 $itemPointer = & $addedItemPointer;
             } else {
                 if (!is_null($pageItem)) {
-                    $this->pageParts[] = $pageItem;
-                    $EndPointer = end($this->pageParts);
+                    $context->pageParts[] = $pageItem;
+                    $EndPointer = end($context->pageParts);
                     $itemPointer = &$EndPointer;
                 }
             }
@@ -150,6 +151,19 @@ class EaseContainer extends EaseBrick
         EaseShared::instanced()->registerItem($itemPointer);
 
         return $itemPointer;
+    }
+
+    /**
+     * Vloží další element do aktuálního objektu
+     *
+     * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
+     * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
+     *
+     * @return pointer Odkaz na vložený objekt
+     */
+    function addItem($pageItem, $pageItemName = null)
+    {
+        return self::addItemCustom($pageItem, $this, $pageItemName);
     }
 
     /**

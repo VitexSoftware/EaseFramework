@@ -384,7 +384,7 @@ class EaseInputContainer extends EaseContainer
      */
     public function getTagName()
     {
-        return $this->Name;
+        return $this->name;
     }
 
     /**
@@ -402,6 +402,7 @@ class EaseInputContainer extends EaseContainer
             $this->lastItem->setTagID($this->name . $itemID++);
             $this->addLabel($caption);
         }
+        $this->finalized = true;
     }
 
     /**
@@ -456,7 +457,7 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
      * Pole hodnot k nastavení
      * @var array
      */
-    public $Values = array();
+    public $values = array();
 
     /**
      * Skupina checkboxů
@@ -471,8 +472,8 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
         parent::__construct($name, $items, $tagProperties);
         if (!is_null($itemValues)) {
             $values = array();
-            foreach ($itemValues as $ItemName => $Item) {
-                $values[$name . '_' . $ItemName] = $Item;
+            foreach ($itemValues as $itemName => $item) {
+                $values[$name . '_' . $itemName] = $item;
             }
             $this->setValues($values);
         }
@@ -497,8 +498,8 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
             if (isset($this->items)) {
                 $keys = array_keys($this->items);
                 $itemInpage->setTagProperties(array('name' => $itemInpage->getTagProperty('name') . '#' . $keys[$this->_subitemCount]));
-                if (isset($this->Values[$keys[$this->_subitemCount]])) {
-                    $itemInpage->setValue((bool) $this->Values[$keys[$this->_subitemCount]]);
+                if (isset($this->values[$keys[$this->_subitemCount]])) {
+                    $itemInpage->setValue((bool) $this->values[$keys[$this->_subitemCount]]);
                 }
                 next($this->items);
                 $this->_subitemCount++;
@@ -514,7 +515,7 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
     public function finalize()
     {
         parent::finalize();
-        parent::addItem(new EaseHtmlInputHiddenTag('CheckBoxGroups[' . $this->Name . ']', $this->getTagName()));
+        parent::addItem(new EaseHtmlInputHiddenTag('CheckBoxGroups[' . $this->name . ']', $this->getTagName()));
     }
 
     /**
@@ -547,7 +548,7 @@ class EaseHtmlCheckboxGroup extends EaseInputContainer
         $TagName = $this->getTagName();
         foreach (array_keys($this->items) as $ItemKey) {
             if (isset($Values[$TagName . '_' . $ItemKey])) {
-                $this->Values[$ItemKey] = $Values[$TagName . '_' . $ItemKey];
+                $this->values[$ItemKey] = $Values[$TagName . '_' . $ItemKey];
             }
         }
     }
@@ -1244,6 +1245,12 @@ class EaseLabeledInput extends EasePage
     public $labelElement = null;
 
     /**
+     * Typ Tagu
+     * @var string
+     */
+    public $tagType = null;
+
+    /**
      * obecný input opatřený patřičným popiskem
      *
      * @param string $name       jméno
@@ -1287,6 +1294,7 @@ margin-top: 5px;}'
      */
     public function finalize()
     {
+        $this->tagType = $this->enclosedElement->tagType;
         $this->addItem($this->labelElement);
         $this->addItem($this->enclosedElement);
     }

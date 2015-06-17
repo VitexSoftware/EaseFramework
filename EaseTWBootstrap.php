@@ -311,7 +311,8 @@ class EaseTWBNavbar extends EaseHtmlDivTag
      */
     function & addItem($Item, $PageItemName = null)
     {
-        return $this->menuInnerContent->addItem($Item, $PageItemName);
+        $added = $this->menuInnerContent->addItem($Item, $PageItemName);
+        return $added;
     }
 
     /**
@@ -442,7 +443,7 @@ class EaseTWBForm extends EaseHtmlForm
      */
     public function addInput($input, $caption = null, $placeholder = null, $helptext = null)
     {
-        $this->addItem(new EaseTWBFormGroup($caption, $input, $placeholder, $helptext));
+        return $this->addItem(new EaseTWBFormGroup($caption, $input, $placeholder, $helptext));
     }
 
     /**
@@ -460,7 +461,8 @@ class EaseTWBForm extends EaseHtmlForm
                 $pageItem->setTagClass(trim(str_replace('form_control', '', $pageItem->getTagClass() . ' form-control')));
             }
         }
-        return parent::addItem($pageItem, $pageItemName);
+        $added = parent::addItem($pageItem, $pageItemName);
+        return $added;
     }
 
 }
@@ -820,39 +822,98 @@ class EaseTWRadioButtonGroup extends EaseContainer
 
 }
 
-class EaseTWModal extends EaseContainer
+class EaseTWModal extends EaseHtmlDiv
 {
 
-    function __construct($name, $content = null, $properties)
+    /**
+     * Spodek dialogu s tlačítky
+     * @var EaseHtmlDiv
+     */
+    public $footer;
+
+    /**
+     * Vlastnosti dialogu
+     * @var array
+     */
+    private $properties;
+
+    /**
+     * Jméno dialogu
+     * @var string
+     */
+    public $name;
+
+    /**
+     * Titulek dialogu
+     * @var string
+     */
+    public $title;
+
+    /**
+     * Tělo dialogu
+     * @var EaseHtmlDiv
+     */
+    public $body;
+
+    /**
+     * Hlavička dialogu
+     * @var EaseHtmlDiv
+     */
+    public $header;
+
+    /**
+     * Vytvoří modální dialogs
+     *
+     * @param string $name
+     * @param mixed  $content
+     * @param array  $properties
+     */
+    function __construct($name, $title, $content = null, $properties)
     {
-        parent::__construct();
+        parent::__construct(null, array('class' => "modal fade", 'id' => $name, 'tabindex' => "-1", 'role' => "dialog", 'aria-labelledby' => $title . 'ID', 'aria-hidden' => "true"));
+        $this->properties = $properties;
+        $this->name = $name;
+        $this->title = $title;
 
-        EaseShared::webPage()->addItem('
-<!-- Modal -->
-<div class="modal fade" id="' . $name . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">' . $name . '</h4>
-      </div>
-      <div class="modal-body">
-        ' . $content . '
-      </div>
-      <div class="modal-footer">
-        <button id="' . $name . 'ko" type="button" class="btn btn-default" data-dismiss="modal">' . _('Zavřít') . '</button>
-        <button id="' . $name . 'ok" type="button" class="btn btn-primary">' . _('Uložit') . '</button>
-      </div>
-    </div>
-  </div>
-</div>
-');
+        $this->header = new EaseHtmlDiv(null, array('class' => 'modal-header'));
+        $this->header->addItem(new EaseHtmlButtonTag('&times;', array('class' => "close", 'data-dismiss' => "modal", 'aria-hidden' => "true")));
 
-        EaseShared::webPage()->addJavaScript(' $(function ()
+        $this->body = new EaseHtmlDiv($content, array('class' => 'modal-body'));
+
+        $this->footer = new EaseHtmlDiv(null, array('class' => 'modal-footer'));
+        $this->footer->addItem(new EaseHtmlButtonTag(_('Zavřít'), array('id' => $name . 'ko', 'type' => "button", 'class' => "btn btn-default", 'data-dismiss' => "modal")));
+        $this->footer->addItem(new EaseHtmlButtonTag(_('Uložit'), array('id' => $name . 'ok', 'type' => "button", 'class' => "btn btn-primary")));
+    }
+
+    function finalize()
+    {
+
+        $modalDialog = $this->addItem(new EaseHtmlDiv(null, array('class' => 'modal-dialog')));
+
+        $modalContent = $modalDialog->addItem(new EaseHtmlDiv(null, array('class' => 'modal-content')));
+
+        $this->header->addItem(new EaseHtmlH4Tag($this->title, array('class' => 'modal-title', 'id' => $this->title . 'ID')));
+
+
+        $modalContent->addItem($this->header);
+        $modalContent->addItem($this->body);
+        $modalContent->addItem($this->footer);
+
+
+        if (is_array($this->properties)) {
+
+            EaseShared::webPage()->addJavaScript(' $(function ()
 {
-    $("#' . $name . '").modal( {' . EaseTWBPart::partPropertiesToString($properties) . '});
+    $("#' . $this->name . '").modal( {' . EaseTWBPart::partPropertiesToString($this->properties) . '});
 });
 ', null, true);
+        } else {
+            EaseShared::webPage()->addJavaScript(' $(function ()
+{
+    $("#' . $this->name . '").modal( ' . $this->properties . ');
+});
+', null, true);
+        }
     }
 
 }
@@ -921,7 +982,8 @@ class EaseTWBRow extends EaseHtmlDivTag
      */
     public function &addColumn($size, $content = null, $target = 'md', $properties = null)
     {
-        return $this->addItem(new EaseTWBCol($size, $content, $target, $properties));
+        $added = $this->addItem(new EaseTWBCol($size, $content, $target, $properties));
+        return $added;
     }
 
 }
@@ -980,6 +1042,12 @@ class EaseTWBPanel extends EaseHtmlDivTag
     public $type = 'default';
 
     /**
+     * Obsah k přidání do patičky panelu
+     * @var mixed
+     */
+    public $addToFooter = null;
+
+    /**
      * Panel Twitter Bootstrapu
      *
      * @param string|mixed $heading
@@ -990,14 +1058,12 @@ class EaseTWBPanel extends EaseHtmlDivTag
     function __construct($heading = null, $type = 'default', $body = null, $footer = null)
     {
         $this->type = $type;
+        $this->addToFooter = $footer;
         parent::__construct(null, null, array('class' => 'panel panel-' . $this->type));
         if (!is_null($heading)) {
-            $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')));
+            $this->heading = parent::addItem(new EaseHtmlDivTag(null, $heading, array('class' => 'panel-heading')), 'head');
         }
-        $this->body = parent::addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')));
-        if ($footer !== false) {
-            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $footer, array('class' => 'panel-footer panel-' . $this->type))); //TODO: Bootstrap zatím neumí
-        }
+        $this->body = parent::addItem(new EaseHtmlDivTag(null, $body, array('class' => 'panel-body')), 'body');
     }
 
     /**
@@ -1010,7 +1076,21 @@ class EaseTWBPanel extends EaseHtmlDivTag
      */
     function &addItem($pageItem, $pageItemName = null)
     {
-        return $this->body->addItem($pageItem, $pageItemName);
+        $added = $this->body->addItem($pageItem, $pageItemName);
+        return $added;
+    }
+
+    /**
+     * Vloží obsah do patičky
+     */
+    function finalize()
+    {
+        if (!count($this->body->pageParts)) {
+            unset($this->pageParts['body']);
+        }
+        if ($this->addToFooter) {
+            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $this->addToFooter, array('class' => 'panel-footer panel-' . $this->type)), 'footer'); //TODO: Bootstrap zatím neumí
+        }
     }
 
 }
@@ -1162,6 +1242,28 @@ class EaseTWBLabel extends EaseHtmlSpanTag
             $properties['class'] = ' label label-' . $type;
         }
         parent::__construct(null, $content, $properties);
+    }
+
+}
+
+/**
+ * Odznak bootstrapu
+ */
+class EaseTWBBadge extends EaseHtmlSpanTag
+{
+
+    /**
+     * Návěstí bootstrapu
+     *
+     * @link http://getbootstrap.com/components/#badges
+     *
+     * @param mixed  $content
+     * @param array  $properties
+     */
+    function __construct($content = null, $properties = null)
+    {
+        parent::__construct(null, $content, $properties);
+        $this->addTagClass('badge');
     }
 
 }
