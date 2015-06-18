@@ -1126,7 +1126,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
-     * Proved update záznamu do MySQL
+     * Provede update záznamu do MySQL
      *
      * @param array $data
      *

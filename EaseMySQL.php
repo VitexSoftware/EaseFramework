@@ -210,7 +210,7 @@ class EaseDbMySqli extends EaseSQL
     public function queryToArray($queryRaw, $keyColumnToIndex = false)
     {
         $resultArray = array();
-        if ($this->exeQuery($queryRaw)) {
+        if ($this->exeQuery($queryRaw) && is_object($this->result)) {
             if (is_string($keyColumnToIndex)) {
                 while ($dataRow = $this->result->fetch_assoc()) {
                     $resultArray[$dataRow[$keyColumnToIndex]] = $dataRow;
