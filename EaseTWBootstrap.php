@@ -1089,8 +1089,26 @@ class EaseTWBPanel extends EaseHtmlDivTag
             unset($this->pageParts['body']);
         }
         if ($this->addToFooter) {
-            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $this->addToFooter, array('class' => 'panel-footer panel-' . $this->type)), 'footer'); //TODO: Bootstrap zatím neumí
+            $this->footer()->addItem($this->addToFooter); //TODO: Bootstrap zatím neumí
         }
+    }
+
+    /**
+     * Vrací patičku panelu
+     *
+     * @param mixed $content obsah pro vložení to patičky
+     * @return EaseHtmlDivTag
+     */
+    public function footer($content = null)
+    {
+        if (is_object($this->footer)) {
+            if ($content) {
+                $this->footer->addItem($content);
+            }
+        } else {
+            $this->footer = parent::addItem(new EaseHtmlDivTag(null, $content, array('class' => 'panel-footer panel-' . $this->type)), 'footer'); //TODO: Bootstrap zatím neumí
+        }
+        return $this->footer;
     }
 
 }

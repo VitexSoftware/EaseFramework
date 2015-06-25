@@ -549,7 +549,7 @@ class EaseBrick extends EaseSand
         }
 
         if (!$columnsList) {
-            return $this->myDbLink->queryToArray("SELECT * FROM " . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
+            return $this->myDbLink->queryToArray("SELECT * FROM `" . $tableName . "` " . $limitCond . $orderByCond, $ColumnToIndex);
         } else {
             return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
         }
