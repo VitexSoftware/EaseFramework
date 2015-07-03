@@ -736,10 +736,11 @@ class EasePage extends EaseContainer
             $host = "$host:$port";
         }
         $url = "$scheme://$host$path";
-        if (!$dropqs)
+        if (!$dropqs) {
             return "{$url}?{$qs}";
-        else
+        } else {
             return $url;
+        }
     }
 
     /**

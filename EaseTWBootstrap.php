@@ -86,8 +86,8 @@ class EaseTWBWebPage extends EaseWebPage
     /**
      * Stránka s podporou pro twitter bootstrap
      *
-     * @param type $pageTitle
-     * @param type $userObject
+     * @param string   $pageTitle
+     * @param EaseUser $userObject
      */
     public function __construct($pageTitle = null, &$userObject = null)
     {
@@ -99,12 +99,6 @@ class EaseTWBWebPage extends EaseWebPage
         $this->head->addItem(
             '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );
-        $this->head->addItem('
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->');
     }
 
     /**
@@ -733,9 +727,22 @@ class EaseTWBButtonDropdown extends EaseHtmlDiv
 class EaseTWBCheckBoxGroup extends EaseContainer
 {
 
-    function __construct($param)
-    {
+    /**
+     *
+     * @param array $items
+     */
+    public $items = array();
 
+    function __construct($items)
+    {
+        $this->items = $items;
+    }
+
+    function finalize()
+    {
+        foreach ($this->items as $name => $value) {
+            $this->addItem(new EaseTWBCheckbox($name, $value, $value, $checked));
+        }
     }
 
 }
@@ -1194,6 +1201,12 @@ class EaseTWBCheckbox extends EaseHtmlDivTag
 {
 
     /**
+     * Odkaz na checkbox
+     * @var  EaseHtmlCheckboxTag
+     */
+    public $checkbox = null;
+
+    /**
      * Checkbox pro TwitterBootstrap
      *
      * @param string     $name
@@ -1204,7 +1217,13 @@ class EaseTWBCheckbox extends EaseHtmlDivTag
      */
     function __construct($name = null, $value = 'on', $content = null, $checked = false, $properties = null)
     {
-        parent::__construct($name, new EaseHtmlLabelTag($name, array(new EaseHtmlCheckboxTag($name, $checked, $value, $properties), $content)), $properties);
+
+        $label = new EaseHtmlLabelTag($name);
+        $this->checkbox = $label->addItem(new EaseHtmlCheckboxTag($name, $checked, $value, $properties));
+        if ($content) {
+            $label->addItem($content);
+        }
+        parent::__construct($name, $label, $properties);
     }
 
 }
