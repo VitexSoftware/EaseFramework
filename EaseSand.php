@@ -493,13 +493,13 @@ class EaseSand extends EaseAtom
             $dataPrefix = $this->defaultDataPrefix;
         }
         if ($dataPrefix) {
-            if (isset($this->data[$dataPrefix][$columnName])) {
+            if (array_key_exists($columnName, $this->data[$dataPrefix])) {
                 unset($this->data[$dataPrefix][$columnName]);
 
                 return true;
             }
         }
-        if (isset($this->data[$columnName])) {
+        if (array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
 
             return true;
