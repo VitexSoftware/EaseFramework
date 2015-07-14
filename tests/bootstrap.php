@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zaváděcí soubor pro provádění PHPUnit testů na EaseFrameworkem
  *
@@ -6,28 +7,35 @@
  * @subpackage UnitTests
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2012 Vitex@hippy.cz (G)
-*/
-
-
+ */
 session_start();
+ini_set(
+    'include_path', dirname(__FILE__) . '/../' . PATH_SEPARATOR . dirname(__FILE__) . '/../Ease/' . PATH_SEPARATOR . ini_get('include_path')
+);
 
 
-require_once 'Ease/EaseBrick.php';
+include_once 'Token.php';
+include_once 'Token/Stream.php';
+
+require_once 'Ease/EaseShared.php';
 require_once 'Ease/EaseUser.php';
-require_once 'Ease/EaseSQL.php';
-require_once 'Ease/EaseAnonym.php';
 require_once 'Ease/EaseWebPage.php';
 
-
-EaseShared::user( new EaseAnonym );
-EaseShared::webPage( new EaseWebPage );
+EaseShared::user(new EaseAnonym);
+EaseShared::webPage(new EaseWebPage);
 
 /**
  * Logovací adresář
  */
-define('LOG_DIRECTORY','/var/tmp/');
+define('LOG_DIRECTORY', '/var/tmp/');
 
-define('DB_SERVER', 'localhost'); define('DB_SERVER_PASSWORD', 'triband'); define('DB_DATABASE', 'EaseShop'); define('DB_SERVER_USERNAME', 'triband');
-define('MS_DB_SERVER', 'mssql.murka.cz:1433'); define('MS_DB_SERVER_USERNAME', 'sa'); define('MS_DB_SERVER_PASSWORD', '_sql0206'); define('MS_DB_DATABASE', 'StwPh_26685337_2011');
+define('DB_SERVER', 'localhost');
+define('DB_SERVER_PASSWORD', 'easetest');
+define('DB_DATABASE', 'easetest');
+define('DB_SERVER_USERNAME', 'easetest');
+define('MS_DB_SERVER', 'mssql.easetest:1433');
+define('MS_DB_SERVER_USERNAME', 'sa');
+define('MS_DB_SERVER_PASSWORD', 'xxxx');
+define('MS_DB_DATABASE', 'ease');
 
 

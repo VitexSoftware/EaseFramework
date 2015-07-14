@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class EaseShared</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Packages</h3>
+			<ul>
+				<li>
+					<a href="package-EaseFrameWork.html">
+						EaseFrameWork<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="package-EaseFrameWork.EaseHtml.html">
+						EaseHtml					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-EaseAnonym.html">EaseAnonym</a></li>
+				<li><a href="class-EaseAtom.html">EaseAtom</a></li>
+				<li><a href="class-EaseBrick.html">EaseBrick</a></li>
+				<li><a href="class-EaseCustomer.html">EaseCustomer</a></li>
+				<li><a href="class-EaseDB2.html">EaseDB2</a></li>
+				<li><a href="class-EaseDB2MySql.html">EaseDB2MySql</a></li>
+				<li><a href="class-EaseDbAnsiMySQL.html" class="deprecated">EaseDbAnsiMySQL</a></li>
+				<li><a href="class-EaseDbMSSQL.html">EaseDbMSSQL</a></li>
+				<li><a href="class-EaseDbMySql.html" class="deprecated">EaseDbMySql</a></li>
+				<li><a href="class-EaseDbMySqli.html">EaseDbMySqli</a></li>
+				<li><a href="class-EaseLogger.html">EaseLogger</a></li>
+				<li><a href="class-EaseMail.html">EaseMail</a></li>
+				<li><a href="class-EaseMSDbPinger.html">EaseMSDbPinger</a></li>
+				<li><a href="class-EasePDF.html">EasePDF</a></li>
+				<li><a href="class-EaseSand.html">EaseSand</a></li>
+				<li><a href="class-EaseSaver.html">EaseSaver</a></li>
+				<li class="active"><a href="class-EaseShared.html">EaseShared</a></li>
+				<li><a href="class-EaseSQL.html">EaseSQL</a></li>
+				<li><a href="class-EaseUser.html">EaseUser</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+<span>Package</span>			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class EaseShared</h1>
+
+
+	<div class="description">
+	<p>Všeobecně sdílený objekt frameworku.
+Tento objekt je automaticky přez svůj singleton instancován do každého Ease*
+objektu.
+Poskytuje kdykoliv přístup k často volaným objektům framworku jako například
+uživatel, databáze, webstránka nebo logy.
+Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-EaseAtom.html"><span>EaseAtom</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>EaseShared</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-EaseFrameWork.html">EaseFrameWork</a><br>
+
+				<b>Copyright:</b>
+				2009-2012 Vitex@hippy.cz (G)<br>
+				<b>Author:</b>
+				Vitex <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;v&#x69;&#x74;&#x65;&#x78;&#64;&#104;&#105;p&#x70;&#x79;&#x2e;&#x63;&#122;">v&#x69;&#x74;&#x65;&#x78;&#64;&#104;&#105;p&#x70;&#x79;&#x2e;&#x63;&#122;</a><br>
+				<b>Author:</b>
+				Vitex <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;v&#x69;&#x74;&#x65;&#x78;&#64;&#104;&#105;p&#x70;&#x79;&#x2e;&#x63;&#122;">v&#x69;&#x74;&#x65;&#x78;&#64;&#104;&#105;p&#x70;&#x79;&#x2e;&#x63;&#122;</a><br>
+			<b>Located at</b> <a href="source-class-EaseShared.html#18-326" title="Go to source code">EaseShared.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-EaseShared.html#94-104" title="Go to source code">__construct</a>( )</code>
+
+		<div class="description short">
+			<p>Inicializace sdílené třídy</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Inicializace sdílené třídy</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="singleton" id="_singleton">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseWebPage.html">EaseWebPage</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_singleton">#</a>
+		<code><a href="source-class-EaseShared.html#106-125" title="Go to source code">singleton</a>( <span>string <var>$class</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
+se bude v ramci behu programu pouzivat pouze jedna jeho Instance (ta prvni).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
+se bude v ramci behu programu pouzivat pouze jedna jeho Instance (ta prvni).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$class</var></dt>
+					<dd>název třídy jenž má být zinstancována</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseWebPage.html">EaseWebPage</a></code>
+				</div>
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.php.net/en/language.oop5.patterns.html">Dokumentace a priklad</a><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="instanced" id="_instanced">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseShared.html">EaseShared</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_instanced">#</a>
+		<code><a href="source-class-EaseShared.html#127-137" title="Go to source code">instanced</a>( )</code>
+
+		<div class="description short">
+			<p>Vrací se</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací se</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseShared.html">EaseShared</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setConfigValue" id="_setConfigValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setConfigValue">#</a>
+		<code><a href="source-class-EaseShared.html#139-148" title="Go to source code">setConfigValue</a>( <span>string <var>$configName</var></span>, <span>mixed <var>$configValue</var></span> )</code>
+
+		<div class="description short">
+			<p>Nastavuje hodnotu konfiguračního klíče</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Nastavuje hodnotu konfiguračního klíče</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$configName</var></dt>
+					<dd>klíč</dd>
+					<dt><var>$configValue</var></dt>
+					<dd>hodnota klíče</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getConfigValue" id="_getConfigValue">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getConfigValue">#</a>
+		<code><a href="source-class-EaseShared.html#150-164" title="Go to source code">getConfigValue</a>( <span>string <var>$configName</var></span> )</code>
+
+		<div class="description short">
+			<p>Vrací konfigurační hodnotu pod klíčem</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací konfigurační hodnotu pod klíčem</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$configName</var></dt>
+					<dd>klíč</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setRunType" id="_setRunType">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setRunType">#</a>
+		<code><a href="source-class-EaseShared.html#166-187" title="Go to source code">setRunType</a>( <span>string <var>$runType</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$runType</var></dt>
+					<dd>force type</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>type
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="db" id="_db">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseDbMySqli.html">EaseDbMySqli</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_db">#</a>
+		<code><a href="source-class-EaseShared.html#189-205" title="Go to source code">db</a>( <span> <var>$type</var> = <span class="php-quote">'mysql'</span></span> )</code>
+
+		<div class="description short">
+			<p>Vrací instanci objektu databáze</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací instanci objektu databáze</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseDbMySqli.html">EaseDbMySqli</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="myDbLink" id="_myDbLink">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseDbMySqli.html">EaseDbMySqli</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_myDbLink">#</a>
+		<code><a href="source-class-EaseShared.html#207-219" title="Go to source code">myDbLink</a>( )</code>
+
+		<div class="description short">
+			<p>Vrací instanci objektu databáze MySQL</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací instanci objektu databáze MySQL</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseDbMySqli.html">EaseDbMySqli</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="msDbLink" id="_msDbLink">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseDbMSSQL.html">EaseDbMSSQL</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_msDbLink">#</a>
+		<code><a href="source-class-EaseShared.html#221-233" title="Go to source code">msDbLink</a>( )</code>
+
+		<div class="description short">
+			<p>Vrací instanci objektu databáze MSSQL</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací instanci objektu databáze MSSQL</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseDbMSSQL.html">EaseDbMSSQL</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="logger" id="_logger">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseLogger.html">EaseLogger</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_logger">#</a>
+		<code><a href="source-class-EaseShared.html#235-243" title="Go to source code">logger</a>( )</code>
+
+		<div class="description short">
+			<p>Vrací instanci objektu logování</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací instanci objektu logování</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseLogger.html">EaseLogger</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="webPage" id="_webPage">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseWebPage.html">EaseWebPage</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_webPage">#</a>
+		<code><a href="source-class-EaseShared.html#245-263" title="Go to source code">webPage</a>( <span><code><a href="class-EaseWebPage.html">EaseWebPage</a></code> <var>$oPage</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Vrací nebo registruje instanci webové stránky</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací nebo registruje instanci webové stránky</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$oPage</var></dt>
+					<dd>objekt webstránky k zaregistrování</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseWebPage.html">EaseWebPage</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="user" id="_user">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-EaseUser.html">EaseUser</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_user">#</a>
+		<code><a href="source-class-EaseShared.html#265-294" title="Go to source code">user</a>( <span><code><a href="class-EaseUser.html">EaseUser</a></code>|<code><a href="class-EaseAnonym.html">EaseAnonym</a></code>|string <var>$user</var> = <span class="php-keyword1">NULL</span></span>, <span> <var>$userSessionName</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			<p>Vrací, případně i založí objekt uživatele</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací, případně i založí objekt uživatele</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$user</var></dt>
+					<dd><p>objekt nového uživatele nebo
+                                        název třídy</p></dd>
+					<dt><var>$userSessionName</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-EaseUser.html">EaseUser</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isCli" id="_isCli">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isCli">#</a>
+		<code><a href="source-class-EaseShared.html#296-303" title="Go to source code">isCli</a>( )</code>
+
+		<div class="description short">
+			<p>Běží php v příkazovém řádku ?</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Běží php v příkazovém řádku ?</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dbCompatible" id="_dbCompatible">
+
+		<td class="attributes"><code>
+			 public static
+
+			EasePearDBCompatible
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dbCompatible">#</a>
+		<code><a href="source-class-EaseShared.html#305-313" title="Go to source code">dbCompatible</a>( )</code>
+
+		<div class="description short">
+			<p>Vrací DB objekt Pearu</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Vrací DB objekt Pearu</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					EasePearDBCompatible
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="registerItem" id="_registerItem">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_registerItem">#</a>
+		<code><a href="source-class-EaseShared.html#315-324" title="Go to source code">registerItem</a>( <span>mixed <var>&amp; $itemPointer</var></span> )</code>
+
+		<div class="description short">
+			<p>Zaregistruje položku k finalizaci</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Zaregistruje položku k finalizaci</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$itemPointer</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-EaseAtom.html#methods">EaseAtom</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-EaseAtom.html#_addStatusMessage">addStatusMessage()</a>, 
+			<a href="class-EaseAtom.html#_addStatusMessages">addStatusMessages()</a>, 
+			<a href="class-EaseAtom.html#_cleanMessages">cleanMessages()</a>, 
+			<a href="class-EaseAtom.html#_getObjectName">getObjectName()</a>, 
+			<a href="class-EaseAtom.html#_getStatusMessages">getStatusMessages()</a>, 
+			<a href="class-EaseAtom.html#_sysFilename">sysFilename()</a>, 
+			<a href="class-EaseAtom.html#_takeStatusMessages">takeStatusMessages()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="webPage" id="$webPage">
+		<td class="attributes"><code>
+			public  
+			<code><a href="class-EaseWebPage.html">EaseWebPage</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#34-38" title="Go to source code"><var>$webPage</var></a>
+
+			<div class="description short">
+				<p>Odkaz na objekt stránky</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Odkaz na objekt stránky</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$webPage" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="javaScripts" id="$javaScripts">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#40-44" title="Go to source code"><var>$javaScripts</var></a>
+
+			<div class="description short">
+				<p>JavaScripty</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>JavaScripty</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$javaScripts" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="cascadeStyles" id="$cascadeStyles">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#46-50" title="Go to source code"><var>$cascadeStyles</var></a>
+
+			<div class="description short">
+				<p>Pole kaskádových stylů
+$var array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Pole kaskádových stylů
+$var array</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$cascadeStyles" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="registry" id="$registry">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#52-56" title="Go to source code"><var>$registry</var></a>
+
+			<div class="description short">
+				<p>Pole konfigurací</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Pole konfigurací</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$registry" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="runType" id="$runType">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#58-62" title="Go to source code"><var>$runType</var></a>
+
+			<div class="description short">
+				<p>Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$runType" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="User" id="$User">
+		<td class="attributes"><code>
+			public  
+			<code><a href="class-EaseUser.html">EaseUser</a></code>|<code><a href="class-EaseAnonym.html">EaseAnonym</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#64-68" title="Go to source code"><var>$User</var></a>
+
+			<div class="description short">
+				<p>Odkaz na instanci objektu uživatele</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Odkaz na instanci objektu uživatele</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$User" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="myDbLink" id="$myDbLink">
+		<td class="attributes"><code>
+			public  
+			<code><a href="class-EaseDbMySqli.html">EaseDbMySqli</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#70-74" title="Go to source code"><var>$myDbLink</var></a>
+
+			<div class="description short">
+				<p>Odkaz na objekt databáze</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Odkaz na objekt databáze</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$myDbLink" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="allItems" id="$allItems">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#82-86" title="Go to source code"><var>$allItems</var></a>
+
+			<div class="description short">
+				<p>Pole odkazů na všechny vložené objekty</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Pole odkazů na všechny vložené objekty</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$allItems" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="userSessionName" id="$userSessionName">
+		<td class="attributes"><code>
+			public static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-EaseShared.html#88-92" title="Go to source code"><var>$userSessionName</var></a>
+
+			<div class="description short">
+				<p>Název položky session s objektem uživatele</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Název položky session s objektem uživatele</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$userSessionName" class="anchor">#</a>
+				<code><span class="php-quote">'User'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-EaseAtom.html#properties">EaseAtom</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-EaseAtom.html#$debug"><var>$debug</var></a>, 
+			<a href="class-EaseAtom.html#$messageCount"><var>$messageCount</var></a>, 
+			<a href="class-EaseAtom.html#$objectName"><var>$objectName</var></a>, 
+			<a href="class-EaseAtom.html#$statusMessages"><var>$statusMessages</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

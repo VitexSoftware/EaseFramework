@@ -1,0 +1,11 @@
+{
+    "name": "vitexsoftware/ease-framework",
+    "description": "An PHP Framework for Ease of writing Applications",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz"
+        }
+    ],
+    "require": {}
+}
