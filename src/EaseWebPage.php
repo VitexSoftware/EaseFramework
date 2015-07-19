@@ -8,7 +8,7 @@
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
-require_once 'EaseHtml.php';
+require_once 'EaseHtmlPairTag.php';
 
 /**
  * Trida obecne html stranky

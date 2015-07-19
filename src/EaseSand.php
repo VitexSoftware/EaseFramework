@@ -177,6 +177,27 @@ class EaseSand extends EaseAtom
     }
 
     /**
+     * Předá zprávy
+     *
+     * @param boolean $clean smazat originalni data ?
+     *
+     * @return array
+     */
+    public function getStatusMessages($clean = false)
+    {
+        return EaseShared::instanced()->getStatusMessages($clean);
+    }
+
+    /**
+     * Vymaže zprávy
+     */
+    public function cleanMessages()
+    {
+        parent::cleanMessages();
+        return EaseShared::instanced()->cleanMessages();
+    }
+
+    /**
      * Připojí ke stávajícímu objektu přiřazený objekt
      *
      * @param string $propertyName název proměnné

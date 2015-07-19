@@ -19,6 +19,11 @@ Docker:
 
     pull vitexus/ease-framework
 
+Composer:
+---------
+    composer require vitexsoftware/ease-framework
+    
+
 Domovská stránka:
 https://www.vitexsoftware.cz/ease.php
 

@@ -87,12 +87,12 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
      */
     public function testgetstatusMessages()
     {
+        $this->object->cleanMessages();
         $this->object->addStatusMessage('Message', 'warning');
         $this->object->addStatusMessage('Message', 'debug');
         $this->object->addStatusMessage('Message', 'error');
         $messages = $this->object->getstatusMessages();
-        print_r($messages);
-        $this->assertArrayHasKey(2, $messages);
+        $this->assertEquals(3, count($messages));
     }
 
     /**
@@ -100,13 +100,13 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
      */
     public function testtakestatusMessages()
     {
-        $MsgSrc = new EaseAtom();
+        $msgSrc = new EaseAtom();
         $this->object->cleanMessages();
-        $MsgSrc->addStatusMessage('testing info message', 'info');
-        $MsgSrc->addStatusMessage('testing success message', 'success');
-        $this->object->takestatusMessages($MsgSrc);
-        $this->object->takestatusMessages($MsgSrc->statusMessages);
-        $this->assertArrayHasKey('info', $this->object->statusMessages);
+        $msgSrc->addStatusMessage('testing info message', 'info');
+        $msgSrc->addStatusMessage('testing success message', 'success');
+        $this->object->takestatusMessages($msgSrc);
+        $this->object->takestatusMessages($msgSrc->statusMessages);
+        $this->assertArrayHasKey('info', $this->object->getStatusMessages());
     }
 
     /**

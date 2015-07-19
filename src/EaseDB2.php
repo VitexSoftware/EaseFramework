@@ -404,4 +404,22 @@ class EaseDB2MySql extends EaseDB2
         return self::$instance;
     }
 
+    /**
+     * Test existence tabulky
+     *
+     * @param string $tableName
+     * @return boolean
+     */
+    function tableExist($tableName = null)
+    {
+        if (parent::tableExist($tableName)) {
+
+            $result = $this->exeQuery(
+                'SELECT TABLE_NAME FROM information_schema.TABLES '
+                . 'WHERE TABLE_NAME LIKE \'' . $tableName . '\' AND TABLE_SCHEMA="' . $this->sqlLink->database_name . '"');
+            return boolval($this->getNumRows());
+        }
+        return FALSE;
+    }
+
 }

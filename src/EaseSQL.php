@@ -504,7 +504,9 @@ class EaseSQL extends EaseSand
      */
     public function __destruct()
     {
-        $this->close();
+        if (method_exists($this, 'close')) {
+            $this->close();
+        }
     }
 
     /**
