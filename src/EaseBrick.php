@@ -2036,10 +2036,11 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function mySQLTableExist($tableName = null)
     {
-        if (!$tableName)
-            $tableName = $this->myTable;
         if (!$tableName) {
-            $this->error('ShopTableExist: $TableName not known', $this->identity);
+            $tableName = $this->myTable;
+        }
+        if (!$tableName) {
+            $this->error('TableExist: $TableName not set', $this->identity);
         }
 
         return $this->myDbLink->tableExist($tableName);

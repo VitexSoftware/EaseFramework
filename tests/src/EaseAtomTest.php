@@ -70,6 +70,7 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
     {
         $this->object->addstatusMessages(array('info' => array('test msg 1'), 'debug' => array('test msg 2')));
         $this->assertArrayHasKey('info', $this->object->statusMessages);
+        $this->assertNull($this->object->addStatusMessages(false));
     }
 
     /**
@@ -93,6 +94,10 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
         $this->object->addStatusMessage('Message', 'error');
         $messages = $this->object->getstatusMessages();
         $this->assertEquals(3, count($messages));
+
+        $this->object->getStatusMessages(TRUE);
+        $messages = $this->object->getstatusMessages();
+        $this->assertEquals(0, count($messages));
     }
 
     /**

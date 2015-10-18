@@ -415,6 +415,7 @@ class EaseHtmlParamTag extends EaseHtmlTag
 /**
  * HTML Embed Tag
  *
+ * @deprecated since version 200
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseHtmlEmbedTag extends EaseHtmlTag

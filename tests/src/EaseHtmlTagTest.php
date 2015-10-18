@@ -67,26 +67,20 @@ class EaseHtmlTagTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers EaseHtmlTag::setTagType
-     * @todo   Implement testSetTagType().
      */
     public function testSetTagType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagType('test');
+        $this->assertEquals('test', $this->object->tagType);
     }
 
     /**
      * @covers EaseHtmlTag::getTagType
-     * @todo   Implement testGetTagType().
+     * @depends testSetTagType
      */
     public function testGetTagType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals('test', $this->object->getTagType());
     }
 
     /**
@@ -127,26 +121,23 @@ class EaseHtmlTagTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers EaseHtmlTag::setTagID
-     * @todo   Implement testSetTagID().
      */
     public function testSetTagID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagID();
+        $this->assertNotEmpty($this->object->getTagProperty('id'));
+        $this->object->setTagID('testid');
+        $this->assertEquals('testid', $this->object->getTagProperty('id'));
     }
 
     /**
      * @covers EaseHtmlTag::getTagID
-     * @todo   Implement testGetTagID().
+     * @depends testSetTagID
      */
     public function testGetTagID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagID('testid2');
+        $this->assertEquals('testid2', $this->object->getTagProperty('id'));
     }
 
     /**

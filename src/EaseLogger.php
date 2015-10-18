@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Třída pro logování
  *
@@ -6,7 +7,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
 require_once 'EaseAtom.php';
 
 /**
@@ -60,14 +60,14 @@ class EaseLogger extends EaseAtom
      * @var array
      */
     public $logStyles = array(
-        'notice' => 'color: black;',
-        'success' => 'color: #2C5F23;',
-        'message' => 'color: #2C5F23;',
-        'warning' => 'color: #AB250E;',
-        'error' => 'color: red;',
-        'debug' => 'font-style: italic;',
-        'report' => 'font-wight: bold;',
-        'info' => 'color: blue;'
+      'notice' => 'color: black;',
+      'success' => 'color: #2C5F23;',
+      'message' => 'color: #2C5F23;',
+      'warning' => 'color: #AB250E;',
+      'error' => 'color: red;',
+      'debug' => 'font-style: italic;',
+      'report' => 'font-wight: bold;',
+      'info' => 'color: blue;'
     );
 
     /**
@@ -210,36 +210,36 @@ class EaseLogger extends EaseAtom
     /**
      * Zapise zapravu do logu
      *
-     * @param string $Caller  název volajícího objektu
-     * @param string $Message zpráva
-     * @param string $Type    typ zprávy (success|info|error|warning|*)
+     * @param string $caller  název volajícího objektu
+     * @param string $message zpráva
+     * @param string $type    typ zprávy (success|info|error|warning|*)
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($Caller, $Message, $Type = 'message')
+    public function addToLog($caller, $message, $type = 'message')
     {
         $this->messageID++;
-        if (($this->logLevel == 'silent') && ($Type != 'error')) {
+        if (($this->logLevel == 'silent') && ($type != 'error')) {
             return;
         }
-        if (($this->logLevel != 'debug') && ( $Type == 'debug')) {
+        if (($this->logLevel != 'debug') && ( $type == 'debug')) {
             return;
         }
         if ($this->storeMessages) {
-            $this->storedMessages[$Type][$this->messageID] = $Message;
+            $this->storedMessages[$type][$this->messageID] = $message;
         }
 
-        $Message = htmlspecialchars_decode(strip_tags(stripslashes($Message)));
+        $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $LogLine = date(DATE_ATOM) . ' (' . $Caller . ') ' . str_replace(array('notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'), array('**', '##', '@@', '::'), $Type) . ' ' . $Message . "\n";
-        if (!isset($this->logStyles[$Type])) {
-            $Type = 'notice';
+        $LogLine = date(DATE_ATOM) . ' (' . $caller . ') ' . str_replace(array('notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'), array('**', '##', '@@', '::'), $type) . ' ' . $message . "\n";
+        if (!isset($this->logStyles[$type])) {
+            $type = 'notice';
         }
         if ($this->logType == 'console' || $this->logType == 'both') {
             if ($this->runType == 'cgi') {
                 echo $LogLine;
             } else {
-                echo '<div style="' . $this->logStyles[$Type] . '">' . $LogLine . "</div>\n";
+                echo '<div style="' . $this->logStyles[$type] . '">' . $LogLine . "</div>\n";
                 flush();
             }
         }
@@ -254,7 +254,7 @@ class EaseLogger extends EaseAtom
                     }
                 }
             }
-            if ($Type == 'error') {
+            if ($type == 'error') {
                 if ($this->errorLogFile) {
                     if (!$this->_errorLogFileHandle) {
                         $this->_errorLogFileHandle = fopen($this->errorLogFile, 'a+');
@@ -272,15 +272,15 @@ class EaseLogger extends EaseAtom
     /**
      * Přejmenuje soubor s logem
      *
-     * @param string $NewLogFileName new log filename
+     * @param string $newLogFileName new log filename
      *
      * @return bool
      */
-    public function renameLogFile($NewLogFileName)
+    public function renameLogFile($newLogFileName)
     {
-        $NewLogFileName = dirname($this->logFileName) . '/' . basename($NewLogFileName);
-        if (rename($this->logFileName, $NewLogFileName)) {
-            return realpath($NewLogFileName);
+        $newLogFileName = dirname($this->logFileName) . '/' . basename($newLogFileName);
+        if (rename($this->logFileName, $newLogFileName)) {
+            return realpath($newLogFileName);
         } else {
             return realpath($this->logFileName);
         }
@@ -419,6 +419,5 @@ class EaseLogger extends EaseAtom
             return '';
         }
     }
-    
-    
+
 }

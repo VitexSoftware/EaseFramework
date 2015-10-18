@@ -468,11 +468,12 @@ class EaseTWBForm extends EaseHtmlForm
  * @param EaseHtmlTag $content     widget formuláře
  * @param string      $placeholder předvysvětlující text
  * @param string      $helptext    Nápvěda pod prvkem
+ * @param string $addTagClass CSS třída kterou má být oskiován vložený prvek
  */
 class EaseTWBFormGroup extends EaseHtmlDivTag
 {
 
-    public function __construct($label = null, $content = null, $placeholder = null, $helptext = null)
+    public function __construct($label = null, $content = null, $placeholder = null, $helptext = null, $addTagClass = 'form-control')
     {
         $formKey = self::lettersOnly($label);
 
@@ -480,7 +481,7 @@ class EaseTWBFormGroup extends EaseHtmlDivTag
         parent::__construct(null, null, $properties);
         $this->addItem(new EaseHtmlLabelTag($formKey, $label));
 
-        $content->setTagClass(trim('form-control ' . $content->getTagClass()));
+        $content->addTagClass($addTagClass);
         if ($placeholder) {
             $content->SetTagProperties(array('placeholder' => $placeholder));
         }

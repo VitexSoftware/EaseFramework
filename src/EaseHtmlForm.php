@@ -936,9 +936,9 @@ class EaseHtmlSelect extends EaseHtmlPairTag
     public function addItems($items)
     {
         foreach ($items as $itemName => $itemValue) {
-            $NewItem = $this->addItem(new EaseHtmlOptionTag($itemValue, $itemName));
+            $newItem = $this->addItem(new EaseHtmlOptionTag($itemValue, $itemName));
             if ($this->_itemsIDs) {
-                $NewItem->setTagID($this->getTagName() . $itemName);
+                $newItem->setTagID($this->getTagName() . $itemName);
             }
             if ($this->defaultValue == $itemName) {
                 $this->lastItem->setDefault();
