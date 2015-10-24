@@ -1947,87 +1947,6 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
-     * Vezme data z $this->data['MSSQL'] a prevede do $this->data
-     *
-     * @param bool $replace       přepisovat sloupečky mající již hodnotu ?
-     * @param bool $takeKeyColumn klíčový sloupeček se defaultne ignoruje
-     *
-     * @return int počet provedených přiřazení
-     */
-    public function takeMSSQLData($replace = false, $takeKeyColumn = false)
-    {
-        $this->dataReset('MySQL');
-
-        return $this->setData($this->getData('MSSQL'), 'MySQL');
-
-        /*
-          foreach ($this->SqlStruct['my'] as $ColName => $ColProperties) {
-          if (!$ColProperties['partner']) //Brat v potaz pouze sloupecky se znamym partenerem
-          continue;
-          list($PartnerTable, $PartnerColumn) = explode('.', $ColProperties['partner']); //TODO: Zde brat v potaz moznost vice partneru oddelenych carkou
-          if ($PartnerTable != $this->MSTable) //Preskocit vsechny protejsky z mimotabulek
-          continue;
-          if (isset($ColProperties['keyid']) && intval($ColProperties['keyid']) && !$TakeKeyColumn) //Preskocit klicove sloupecky je-li pozadovano
-          continue;
-          if (!$Replace && $this->getDataValue($ColName, 'MSSQL')) //Preskakovat neprazdne je-li pozadovano
-          continue;
-          $Success++;
-
-          if (isset($ColProperties['type']['Type'])) {
-          list($Type) = preg_split("/\(.*\)/", $ColProperties['type']['Type']);
-          } else {
-          list($Type) = preg_split("/\(.*\)/", $ColProperties['type']);
-          }
-
-          if (!isset($this->data['MSSQL'][$PartnerColumn])) {
-          if ($this->Debug) {
-          $this->addToLog('TakeMSSQLData: Partner MSSQL[' . $PartnerColumn . '] does not exists', 'waring');
-          }
-          //$this->data[$ColName] = null;
-          $this->unsetDataValue($ColName, 'MySQL');
-          continue;
-          }
-
-          switch ($Type) {
-          case 'bit':
-          case 'bool':
-          case 'boolean':
-          if ((strtolower($this->data['MSSQL'][$PartnerColumn]) == 'true') ||
-          ( $this->data['MSSQL'][$PartnerColumn] == 1)
-          ) {
-          $this->setDataValue($ColName, true, 'MySQL');
-          } else {
-          $this->setDataValue($ColName, false, 'MySQL');
-          }
-          case 'tinyint':
-          case 'smallint':
-          case 'int':
-          case 'bigint':
-          $this->setDataValue($ColName, intval($this->getDataValue($PartnerColumn, 'MSSQL')), 'MySQL');
-          break;
-          case 'double':
-          case 'decimal':
-          case 'float':
-          $this->setDataValue($ColName, floatval($this->getDataValue($PartnerColumn, 'MSSQL')), 'MySQL');
-          break;
-          case 'char':
-          case 'varchar':
-          case 'text':
-          case 'datetime':
-          case 'longtext':
-          $this->setDataValue($ColName, $this->getDataValue($PartnerColumn, 'MSSQL'), 'MySQL');
-          break;
-          default:
-          $this->addToLog('TakeMSSQLData: Unknown Column Type: "' . $Type . '"', 'waring');
-          $this->setDataValue($ColName, $this->getDataValue($PartnerColumn, 'MSSQL'), 'MySQL');
-          break;
-          }
-          } */
-
-        return $success;
-    }
-
-    /**
      * Test na existenci tabulky v MySQL databázi
      *
      * @param string $tableName
@@ -2036,6 +1955,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
      */
     public function mySQLTableExist($tableName = null)
     {
+        $existence = null;
         if (!$tableName) {
             $tableName = $this->myTable;
         }
@@ -2043,26 +1963,12 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $this->error('TableExist: $TableName not set', $this->identity);
         }
 
-        return $this->myDbLink->tableExist($tableName);
-    }
-
-    /**
-     * Test na existenci tabulky v MSSQL
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     */
-    public function msSQLTableExist($tableName = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->msTable;
+        if (is_object($this->myDbLink)) {
+            $existence = $this->myDbLink->tableExist($tableName);
+        } else {
+            $existence = null;
         }
-        if (!$tableName) {
-            $this->error('MSSQLTableExist: $TableName not known', $this->identity);
-        }
-
-        return $this->msDbLink->tableExist($tableName);
+        return $existence;
     }
 
     /**

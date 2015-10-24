@@ -39,10 +39,11 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     *
+     * @covers EaseBrick::getstatusMessages
      */
     public function testgetstatusMessages()
     {
+        $this->object->cleanMessages();
         $this->object->addStatusMessage('Message', 'warning');
         $this->object->addStatusMessage('Message', 'debug');
         $this->object->addStatusMessage('Message', 'error');
@@ -59,7 +60,7 @@ class EaseBrickTest extends EaseSandTest
         $this->object->setObjectName('Testing');
         $this->assertEquals('Testing', $this->object->getObjectName());
         $this->object->setObjectName();
-        $this->assertEquals('EaseBrickTester', $this->object->getObjectName());
+        $this->assertEquals(get_class($this->object), $this->object->getObjectName());
     }
 
     /**
@@ -722,20 +723,8 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::takeMSSQLData
-     * @todo   Implement testTakeMSSQLData().
-     */
-    public function testTakeMSSQLData()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers EaseBrick::mySQLTableExist
-     * @todo   Implement testMySQLTableExist().
+     * @depends methodName
      */
     public function testMySQLTableExist()
     {

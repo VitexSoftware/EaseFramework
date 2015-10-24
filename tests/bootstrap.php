@@ -13,9 +13,21 @@ ini_set(
     'include_path', dirname(__FILE__) . '/../' . PATH_SEPARATOR . dirname(__FILE__) . '/../Ease/' . PATH_SEPARATOR . ini_get('include_path')
 );
 
+spl_autoload_register(
+    function($class) {
+    $filepath = "../src/{$class}.php";
+    is_file($filepath) && include $filepath;
+}, false, false
+);
+spl_autoload_register(
+    function($class) {
+    $filepath = "src/{$class}.php";
+    is_file($filepath) && include $filepath;
+}, false, false
+);
 
-include_once 'Token.php';
-include_once 'Token/Stream.php';
+
+require_once('PHP/Token/Stream/Autoload.php');
 
 require_once 'Ease/EaseShared.php';
 require_once 'Ease/EaseUser.php';
