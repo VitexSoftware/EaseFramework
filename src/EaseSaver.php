@@ -113,16 +113,15 @@ class EaseSaver extends EaseBrick
      * Načte ze shopu data k aktuálnímu $ItemID
      * Pokud tabulka neexistuje, vytvoří ji
      *
-     * @param int     $ItemID     klíč záznamu k načtení
-     * @param string  $DataPrefix název datové skupiny
-     * @param boolean $Multiplete nevarovat v případě více výsledků
+     * @param int     $itemID     klíč záznamu k načtení
+     * @param boolean $multiplete nevarovat v případě více výsledků
      *
      * @return array Results
      */
-    public function loadFromMySQL($ItemID = null, $DataPrefix = null, $Multiplete = false)
+    public function loadFromMySQL($itemID = null, $multiplete = false)
     {
         $this->setMyKey($this->user->getUserID());
-        $Result = parent::loadFromMySQL($ItemID, $DataPrefix, $Multiplete);
+        $Result = parent::loadFromMySQL($itemID, $multiplete);
         if ($Result) {
             return $Result;
         }
@@ -130,7 +129,7 @@ class EaseSaver extends EaseBrick
             $this->createmyTable();
             $this->insertToMySQL();
 
-            return parent::loadFromMySQL($ItemID, $DataPrefix, $Multiplete);
+            return parent::loadFromMySQL($itemID, $multiplete);
         }
 
         return $Result;

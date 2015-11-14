@@ -9,11 +9,16 @@
             "homepage": "http://v.s.cz/"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "Ease": "src/"
+        }
+    },
     "minimum-stability": "dev",
     "type": "library",
     "require": {},
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",
     "license": "GPL-2.0+"
-    
+
 }

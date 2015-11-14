@@ -45,9 +45,3 @@ define('DB_SERVER', 'localhost');
 define('DB_SERVER_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');
 define('DB_SERVER_USERNAME', 'easetest');
-define('MS_DB_SERVER', 'mssql.easetest:1433');
-define('MS_DB_SERVER_USERNAME', 'sa');
-define('MS_DB_SERVER_PASSWORD', 'xxxx');
-define('MS_DB_DATABASE', 'ease');
-
-

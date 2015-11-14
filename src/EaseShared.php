@@ -221,6 +221,8 @@ class EaseShared extends EaseAtom
     /**
      * Vrací instanci objektu databáze MSSQL
      *
+     * @deprecated since version 200
+     * 
      * @return EaseDbMSSQL
      */
     public static function msDbLink()

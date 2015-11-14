@@ -578,17 +578,14 @@ class EaseUser extends EaseAnonym
      * nastavení
      *
      * @param int     $itemID     id záznamu k načtení
-     * @param string  $dataPrefix prefix pro rozlišení sady dat
      * @param boolean $multiplete nevarovat v případě vícenásobného
      *                            výsledku
      *
      * @return array Results
      */
-    public function loadFromMySQL(
-    $itemID = null, $dataPrefix = null, $multiplete = false
-    )
+    public function loadFromMySQL($itemID = null, $multiplete = false)
     {
-        $result = parent::loadFromMySQL($itemID, $dataPrefix, $multiplete);
+        $result = parent::loadFromMySQL($itemID, $multiplete);
         if (!is_null($this->settingsColumn) && !is_null($result)) {
             $this->loadSettings();
         }

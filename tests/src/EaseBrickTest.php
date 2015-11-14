@@ -123,46 +123,10 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::getColumnsFromMSSQL
-     * @todo   Implement testGetColumnsFromMSSQL().
-     */
-    public function testGetColumnsFromMSSQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers EaseBrick::getColumnsFromMySQL
      * @todo   Implement testGetColumnsFromMySQL().
      */
     public function testGetColumnsFromMySQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::loadFromMSSQL
-     * @todo   Implement testLoadFromMSSQL().
-     */
-    public function testLoadFromMSSQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::getAllFromMSSQL
-     * @todo   Implement testGetAllFromMSSQL().
-     */
-    public function testGetAllFromMSSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -207,46 +171,10 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::msSqlUp
-     * @todo   Implement testMsSqlUp().
-     */
-    public function testMsSqlUp()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers EaseBrick::mySqlUp
      * @todo   Implement testMySqlUp().
      */
     public function testMySqlUp()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::takeDataToMSSQL
-     * @todo   Implement testTakeDataToMSSQL().
-     */
-    public function testTakeDataToMSSQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::insertToMSSQL
-     * @todo   Implement testInsertToMSSQL().
-     */
-    public function testInsertToMSSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -343,30 +271,6 @@ class EaseBrickTest extends EaseSandTest
      * @todo   Implement testSetUpColumnsRoles().
      */
     public function testSetUpColumnsRoles()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::updateToMSSQL
-     * @todo   Implement testUpdateToMSSQL().
-     */
-    public function testUpdateToMSSQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::saveToMSSQL
-     * @todo   Implement testSaveToMSSQL().
-     */
-    public function testSaveToMSSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -487,30 +391,6 @@ class EaseBrickTest extends EaseSandTest
      * @todo   Implement testTakeToData().
      */
     public function testTakeToData()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::takeToMSSQL
-     * @todo   Implement testTakeToMSSQL().
-     */
-    public function testTakeToMSSQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::getMSSQLList
-     * @todo   Implement testGetMSSQLList().
-     */
-    public function testGetMSSQLList()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -687,42 +567,6 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::getMSSQLID
-     * @todo   Implement testGetMSSQLID().
-     */
-    public function testGetMSSQLID()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::getMSSQLIDS
-     * @todo   Implement testGetMSSQLIDS().
-     */
-    public function testGetMSSQLIDS()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::deleteFromMSSQL
-     * @todo   Implement testDeleteFromMSSQL().
-     */
-    public function testDeleteFromMSSQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers EaseBrick::mySQLTableExist
      * @depends methodName
      */
@@ -730,30 +574,6 @@ class EaseBrickTest extends EaseSandTest
     {
         $this->assertTrue($this->object->mySQLTableExist('test'));
         $this->assertFalse($this->object->mySQLTableExist('Nonexist'));
-    }
-
-    /**
-     * @covers EaseBrick::msSQLTableExist
-     * @todo   Implement testMsSQLTableExist().
-     */
-    public function testMsSQLTableExist()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::getMSSQLItemsCount
-     * @todo   Implement testGetMSSQLItemsCount().
-     */
-    public function testGetMSSQLItemsCount()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 
     /**

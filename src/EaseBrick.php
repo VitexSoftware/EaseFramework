@@ -27,18 +27,6 @@ class EaseBrick extends EaseSand
     public $myDbLink = null;
 
     /**
-     * Objekt pro práci s MSSQL
-     * @var EaseDbMSSql
-     */
-    public $msDbLink = null;
-
-    /**
-     * Předvolená tabulka v MSSQL (součást identity)
-     * @var string
-     */
-    public $msTable = '';
-
-    /**
      * Předvolená tabulka v MySQL (součást identity)
      * @var string
      */
@@ -49,18 +37,6 @@ class EaseBrick extends EaseSand
      * @var array
      */
     public $sqlStruct = null;
-
-    /**
-     * Počáteční způsob přístupu k MSSQL
-     * @var string online||offline
-     */
-    public $msSQLMode = 'online';
-
-    /**
-     * Funkční sloupečky pro MS
-     * @var array
-     */
-    public $msDbRoles = null;
 
     /**
      * Funkční sloupečky pro My
@@ -80,9 +56,6 @@ class EaseBrick extends EaseSand
     public function __construct()
     {
         parent::__construct();
-        if ($this->msTable) {
-            $this->msSqlUp();
-        }
 
         if ($this->myTable) {
             $this->takemyTable($this->myTable);
@@ -126,9 +99,6 @@ class EaseBrick extends EaseSand
         $changes = parent::SetObjectIdentity($newIdentity);
         if ($this->myTable) {
             $this->mySqlUp();
-        }
-        if ($this->msTable) {
-            $this->msSqlUp();
         }
 
         return $changes;
@@ -231,62 +201,6 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Načte z MSSQL sloupečky podle podmínek
-     *
-     * @param array        $columnsList sloupce k načtení
-     * @param array        $conditions  podmínky výběru
-     * @param array|string $orderBy     třídit dle
-     * @param array        $indexBy     klíče výsledku naplnit hodnotou ze
-     *                                  sloupečku
-     *
-     * @return array
-     */
-    public function getColumnsFromMSSQL($columnsList, $conditions, $orderBy = null, $indexBy = null)
-    {
-        $Where = '';
-        if (!is_object($this->msDbLink)) {
-            $this->msSqlUp();
-        }
-
-        if (!count($columnsList)) {
-            $this->error('GetColumnsFromMSSQL: Missing ColumnList');
-
-            return null;
-        }
-
-        if (is_array($conditions)) {
-            if (!count($conditions)) {
-                $this->error('GetColumnsFromMSSQL: Missing Conditions');
-
-                return null;
-            }
-            $Where = ' WHERE ' . $this->msDbLink->prepSelect($conditions);
-        } else {
-            if ($conditions) {
-                $Where = ' WHERE ' . $conditions;
-            }
-        }
-
-        if (is_array($indexBy)) {
-            $indexBy = implode(',', $indexBy);
-        }
-        if ($orderBy) {
-            if (is_array($orderBy)) {
-                $OrderByCond = ' ORDER BY ' . implode(',', $orderBy);
-            } else {
-                $OrderByCond = ' ORDER BY ' . $orderBy;
-            }
-        } else {
-            $OrderByCond = '';
-        }
-        if (is_array($columnsList)) {
-            return $this->msDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->msTable . " " . $Where . ' ' . $OrderByCond, $indexBy);
-        } else {
-            return $this->msDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->msTable . " " . $Where . ' ' . $OrderByCond, $indexBy);
-        }
-    }
-
-    /**
      * Vrací z databáze sloupečky podle podmínek
      *
      * @param array            $columnsList seznam položek
@@ -361,71 +275,6 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Nacte data z pohody. Pokud nejsou zadány podmínky pokusi se načíst
-     * položku s ID MSKeyColumn
-     *
-     * @param array $conditions      Pole dosazena za podminky
-     * @param bool  $allowMultiplete nevarovat při vícenásobném výsledku
-     *
-     * @return array Načtená data nebo null
-     */
-    public function loadFromMSSQL($conditions = null, $allowMultiplete = false)
-    {
-        if (is_integer($conditions)) {
-            $dataRow = $this->msDbLink->queryToArray("SELECT * FROM " . $this->msTable . " WHERE " . $this->msDbLink->prepSelect(array($this->MSKeyColumn => $conditions)));
-        } else {
-            if (is_array($conditions)) {
-                $dataRow = $this->msDbLink->queryToArray("SELECT * FROM " . $this->msTable . " WHERE " . $this->msDbLink->prepSelect($conditions));
-            } else {
-                $dataRow = $this->msDbLink->queryToArray("SELECT * FROM " . $this->msTable . " WHERE " . $this->msDbLink->prepSelect(array($this->MSKeyColumn => $conditions)));
-            }
-        }
-
-        if (!count($dataRow)) {
-            return null;
-        }
-        if (count($dataRow) == 1) {
-            $this->setData($dataRow[0], 'MSSQL');
-        } else {
-            if (!$allowMultiplete) {
-                $this->addToLog('loadFromMSSQL: Multiplete result when single result expected: ' . $this->msDbLink->getLastQuery(), 'error');
-
-                return null;
-            }
-
-            return $dataRow;
-        }
-
-        return count($this->getData('MSSQL'));
-    }
-
-    /**
-     * Načte všechny záznamy z pohody
-     *
-     * @param string $tableName   jméno tabulky
-     * @param array  $columnsList sloupečky k načtené
-     * @param string $orderBy     sloupečky ke třídení
-     *
-     * @return array
-     */
-    public function getAllFromMSSQL($tableName = null, $columnsList = null, $orderBy = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->msTable;
-        }
-        if ($orderBy) {
-            $orderByCond = ' ORDER BY ' . implode(',', $orderBy);
-        } else {
-            $orderByCond = '';
-        }
-        if (!$columnsList) {
-            return $this->msDbLink->queryToArray("SELECT * FROM " . $tableName . $orderByCond);
-        } else {
-            return $this->msDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $orderByCond);
-        }
-    }
-
-    /**
      * Načte z MySQL data k aktuálnímu $ItemID
      *
      * @param int $itemID klíč záznamu
@@ -455,15 +304,13 @@ class EaseBrick extends EaseSand
      * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu
      *
      * @param int     $itemID     klíč záznamu
-     * @param array   $dataPrefix název datové skupiny
-     * @param boolean $multiplete nevarovat v případě více výsledků
      *
      * @return array Results
      */
-    public function loadFromSQL($itemID = null, $dataPrefix = null, $multiplete = false)
+    public function loadFromSQL($itemID = null, $multiplete = false)
     {
         if (is_object($this->myDbLink)) {
-            return $this->loadFromMySQL($itemID, $dataPrefix, $multiplete);
+            return $this->loadFromMySQL($itemID, $multiplete);
         }
 
         $this->addStatusMessage(_('Databáze není definována'), 'error');
@@ -474,33 +321,21 @@ class EaseBrick extends EaseSand
      * Načte z MySQL data k aktuálnímu $ItemID a použije je v objektu
      *
      * @param int     $itemID     klíč záznamu
-     * @param array   $dataPrefix název datové skupiny
      * @param boolean $multiplete nevarovat v případě více výsledků
      *
      * @return array Results
      */
-    public function loadFromMySQL($itemID = null, $dataPrefix = null, $multiplete = false)
+    public function loadFromMySQL($itemID = null, $multiplete = false)
     {
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
         $mySQLResult = $this->getDataFromMySQL($itemID);
         if ($multiplete) {
-            if ($dataPrefix) {
-                $this->data[$dataPrefix] = $mySQLResult;
-            } else {
-                $this->data = $mySQLResult;
-            }
+            $this->data = $mySQLResult;
         } else {
             if (count($mySQLResult) > 1) {
                 $this->error('Multipete Query result: ' . $this->myDbLink->getLastQuery());
             }
             if (isset($mySQLResult[0])) {
-                if ($dataPrefix) {
-                    $this->data[$dataPrefix] = $mySQLResult[0];
-                } else {
-                    $this->data = $mySQLResult[0];
-                }
+                $this->data = $mySQLResult[0];
             } else {
                 return null;
             }
@@ -556,37 +391,9 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Inicializueje MSSQL
-     *
-     * @param $updateStructure znovunahraje strukturu
-     */
-    public function msSqlUp($updateStructure = false)
-    {
-        if (!is_object($this->msDbLink)) {
-            try {
-                require_once 'EaseMSSQL.php';
-                $this->msDbLink = EaseDbMSSql::singleton($this->msSQLMode);
-            } catch (Exception $exc) {
-                $this->error($exc->getTraceAsString());
-            }
-            $this->msDbLink->setObjectName($this->getObjectName() . '->MSSQL');
-        }
-
-        $this->msDbLink->keyColumn = $this->MSKeyColumn;
-        $this->msDbLink->tableName = $this->msTable;
-        $this->msDbLink->LastModifiedColumn = $this->msLastModifiedColumn;
-        $this->msDbLink->CreateColumn = $this->msCreateColumn;
-        if ($updateStructure) {
-            $this->loadSqlStruct('ms');
-        }
-        if (isset($this->sqlStruct['ms'])) {
-            $this->msDbLink->tableStructure = $this->sqlStruct['ms'];
-        }
-    }
-
-    /**
      * Oznámí MySQL objektu vlastnosti predvolene tabulky
      *
+     * @deprecated since version 200
      * @param $updateStructure znovunahraje strukturu
      */
     public function mySqlUp($updateStructure = false)
@@ -609,523 +416,6 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Převezme data do $this->data a $this->data['MSSQL'] pokud se názvy políček shodují
-     *
-     * @param array $data
-     *
-     * @return array nezpracované položky
-     */
-    public function takeDataToMSSQL($data)
-    {
-        if (!count($this->sqlStruct['ms'])) {
-            $this->loadObjectSqlStruct();
-        }
-        if (!count($this->sqlStruct['ms'])) {
-            $this->error('takeData: Missing MSSQL struct for ' . $this->msTable, $data);
-        }
-        foreach ($this->sqlStruct['ms'] as $MSSQLColumnName => $MSSQLColumnValue) {
-            if (array_key_exists($MSSQLColumnName, $data)) {
-                $this->DivDataArray($data, $this->data['MSSQL'], $MSSQLColumnName);
-                if (isset($this->data['MSSQL'][$MSSQLColumnName]) && ($MSSQLColumnValue['type'] == 'date')) {
-                    $this->data['MSSQL'][$MSSQLColumnName] = EaseDbMSSql::ReformatDateFromMySQL($this->data['MSSQL'][$MSSQLColumnName]);
-                }
-            }
-        }
-    }
-
-    /*
-     * TODO - add work with table SQL struct - take only existing columns
-      public function takeData($data, $dataType = 'MySQL')
-      {
-      $this->LoadObjectSqlStruct();
-      foreach ($this->SqlStruct['my'] as $ShopColumnName => $ShopColumnValue)
-      if (array_key_exists($ShopColumnName, $data)) {
-      $this->DivDataArray($data, $this->data, $ShopColumnName);
-      }
-      if (count($data) && count(array_keys($data))) {
-      $this->AddToLog('takeData: No info how to handle My: ' . implode(',', array_keys($data)) . ' on ' . $this->myTable, 'warning');
-      }
-      }
-     *
-     */
-
-    /**
-     * Vloží nový záznam do MSSQL tabulky
-     *
-     * @param array $data asiciativní pole dat
-     *
-     * @return int|null id nově vloženého řádku nebo null, pokud se data
-     * nepovede vložit
-     */
-    public function insertToMSSQL($data = null)
-    {
-        if (!$data) {
-            if (array_key_exists('MSSQL', $this->data)) {
-                $data = $this->getData('MSSQL');
-            } else {
-                $data = $this->getData();
-            }
-        }
-        if (!count($data)) {
-            $this->error('NO data for Insert to MSSQL: ' . $this->msTable);
-
-            return null;
-        }
-
-        unset($data[$this->MSKeyColumn]);
-        if (isset($this->msCreateColumn) && strlen($this->msCreateColumn) && !isset($data[$this->msCreateColumn])) {
-            $data[$this->msCreateColumn] = 'GetDate()';
-        }
-        list($cols, $vals) = $this->msDbLink->prepCols($data);
-        $QueryRaw = 'INSERT INTO [' . MS_DB_DATABASE . '].[dbo].[' . $this->msTable . '] (' . $cols . ') VALUES (' . $vals . ')';
-        if ($this->msDbLink->exeQuery($QueryRaw)) {
-            $this->setMSKey($this->msDbLink->getlastInsertID());
-            $this->Status['MSSQLSaved'] = true;
-
-            return $this->getMSKey();
-        }
-
-        return null;
-    }
-
-    /**
-     * Ulozi strukturu sql tabulek obektem defaultne pouzivanych
-     *
-     * @param string $sqlType ms|my|both
-     * @param array  $columns sloupečky k vytvoření
-     *
-     * @return array vysledna struktura
-     */
-    public function saveSqlStruct($sqlType = 'both', $columns = null)
-    {
-        if ($sqlType == 'both') {
-            if (!$columns) {
-                $columns = $this->sqlStruct;
-            }
-            if (isset($columns['my']) && isset($columns['ms'])) {
-                return $this->saveSqlStruct('my', $columns['my']) && $this->saveSqlStruct('ms', $columns['ms']);
-            }
-            if (isset($columns['my'])) {
-                return $this->saveSqlStruct('my', $columns['my']);
-            }
-            if (isset($columns['ms'])) {
-                return $this->saveSqlStruct('ms', $columns['ms']);
-            }
-        }
-        $this->sqlStruct[$sqlType] = array();
-        if (!is_array($columns)) {
-            $this->error('SaveSqlStruct:  $Columns without key (' . $sqlType . ')', $columns);
-
-            return null;
-        } else {
-            $TableName = key($columns);
-        }
-        $this->setObjectIdentity(array('myTable' => 'mysqlxmssql', 'myKeyColumn' => 'id', 'myCreateColumn' => false, 'myLastModifiedColumn' => false));
-        $this->takemyTable();
-        foreach ($columns[$TableName] as $columnName => $column) {
-            if (is_string($column)) {
-                $columnType = str_replace('*', '', $columnType);
-            }
-            $partner = null;
-            switch ($sqlType) {
-                case 'ms':
-                    if ($columnName == $this->MSKeyColumn) {
-                        $partner = $this->identity['myTable'] . '.' . $this->myRefIDColumn;
-                    }
-                    if ($columnName == $this->msIDSColumn) {
-                        $partner = $this->identity['myTable'] . '.' . $this->myIDSColumn;
-                    }
-                    if ($columnName == $this->msRefIDColumn) {
-                        $partner = $this->identity['myTable'] . '.' . $this->myKeyColumn;
-                    }
-                    break;
-                case 'my':
-                    if ($columnName == $this->myKeyColumn) {
-                        $partner = $this->identity['MSTable'] . '.' . $this->msRefIDColumn;
-                    }
-                    if ($columnName == $this->myIDSColumn) {
-                        $partner = $this->identity['MSTable'] . '.' . $this->msIDSColumn;
-                    }
-                    if ($columnName == $this->myRefIDColumn) {
-                        $partner = $this->identity['MSTable'] . '.' . $this->MSKeyColumn;
-                    }
-                    break;
-            }
-
-            $columnType = $column['Type'];
-
-            if (isset($column['Size'])) {
-                $column .= '(' . $column['Size'] . ')';
-            }
-
-            $Record = array('sql' => $sqlType, 'table' => $TableName, 'column' => $columnName, 'type' => $columnType, 'partner' => $partner);
-            $this->sqlStruct[$sqlType][$columnName] = $Record;
-
-            $ShopID = $this->getMyKey(array('sql' => $sqlType, 'table' => $TableName, 'column' => $columnName));
-            if (!$ShopID) {
-                $this->myDbLink->arrayToInsert($Record);
-            }
-        }
-
-        $this->restoreObjectIdentity();
-        $this->takemyTable();
-
-        return $this->sqlStruct[$sqlType];
-    }
-
-    /**
-     * Uloží do struktury tabulek
-     *
-     * @param boolean $forceUpdate nepoužívá se
-     */
-    public function saveSqlStructArrays($forceUpdate = false)
-    {
-        $this->setObjectIdentity(
-            array('myTable' => 'mysqlxmssql',
-              'myKeyColumn' => 'id',
-              'myCreateColumn' => false,
-              'myLastModifiedColumn' => false,
-              'MSTable' => false
-            )
-        );
-
-        $this->takemyTable();
-        foreach ($this->sqlStruct['my'] as $columnName => $structs) {
-            $structs[$this->myKeyColumn] = $this->getMyKey(array('sql' => $structs['sql'], 'table' => $structs['table'], 'column' => $structs['column']));
-            if ($structs[$this->myKeyColumn]) {
-                $Result = $this->updateToMySQL($structs);
-            } else {
-                $Result = $this->insertToMySQL($structs);
-            }
-        }
-
-        foreach ($this->sqlStruct['ms'] as $columnName => $structs) {
-            $structs[$this->myKeyColumn] = $this->getMSKey(array('sql' => $structs['sql'], 'table' => $structs['table'], 'column' => $structs['column']));
-            if ($structs[$this->myKeyColumn]) {
-                $Result = $this->updateToMySQL($structs);
-            } else {
-                $Result = $this->insertToMySQL($structs);
-            }
-        }
-        $this->restoreObjectIdentity();
-        $this->takemyTable();
-    }
-
-    /**
-     * Načte uloženou strukturu tabulky z databáze
-     *
-     * @param string $sqlType          'ms' nebo 'my'
-     * @param string $tableName        jméno tabulky
-     * @param string $tableNamePartner jméno tabulky na druhé straně, liší-li se
-     *
-     * @return array Sql Stuktura pro daný typ databáze
-     */
-    public function loadSqlStruct($sqlType, $tableName = null, $tableNamePartner = null)
-    {
-        $this->sqlStruct[$sqlType] = $this->msDbLink->describe($this->msTable);
-
-        return $this->sqlStruct[$sqlType];
-
-        if (!$tableName) {
-            if ($sqlType == 'my') {
-                $tableName = $this->myTable;
-                $tableNamePartner = $this->msTable;
-            } else {
-                $tableName = $this->msTable;
-                $tableNamePartner = $this->myTable;
-            }
-            if (!isset($tableNamePartner) || !$tableNamePartner) {
-                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` = \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\'', 'column');
-            } else {
-                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` = \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\' AND `partner` LIKE \'' . $tableNamePartner . '.%\'', 'column');
-            }
-        } else {
-            if (!$tableNamePartner) {
-                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` LIKE \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\'', 'column');
-            } else {
-                $SqlTableStruct = $this->myDbLink->queryToArray('SELECT * FROM `mysqlxmssql` WHERE `sql` LIKE \'' . $sqlType . '\' AND `table` LIKE \'' . $tableName . '\' AND `partner LIKE` \'' . $tableNamePartner . '.%\'', 'column');
-            }
-        }
-
-        $this->sqlStruct[$sqlType] = $SqlTableStruct;
-        if (count($this->sqlStruct[$sqlType])) {
-            return $this->sqlStruct[$sqlType];
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * ulozi strukturu databazi objektu
-     *
-     * @param string $createOnly vytvoří strukturu pouze na jedné straně:  [my|ms]
-     */
-    public function saveObjectSqlStruct($createOnly = null)
-    {
-//        print_pre(array($this->myTable,$this->MSTable),'11');
-        if ($this->msTable && ($createOnly != 'my')) {
-            $this->saveSqlStruct('ms', $this->msDbLink->describe($this->msTable));
-        }
-        if ($this->myTable && ($createOnly != 'ms')) {
-            $this->saveSqlStruct('my', $this->myDbLink->describe($this->myTable));
-        }
-//      print_pre(array($this->myTable,$this->MSTable),'22');
-    }
-
-    /**
-     * Nacte strukturu databazovy tabulek do poli $this->SqlStruct()
-     *
-     * @return array
-     */
-    public function loadObjectSqlStruct()
-    {
-        if (isset($this->msTable) && strlen($this->msTable)) {
-
-            if (!count($this->loadSqlStruct('ms'))) {
-                if (is_object($this->msDbLink)) {
-                    $this->saveSqlStruct('ms', $this->msDbLink->describe($this->msTable));
-                } else {
-                    $this->error('LoadObjectSqlStruct: Cant load MSSQL struct');
-                }
-            }
-        }
-        if (isset($this->myTable) && strlen($this->myTable)) {
-
-            if (!count($this->loadSqlStruct('my'))) {
-                if (is_object($this->myDbLink)) {
-                    $this->saveSqlStruct('my', $this->myDbLink->describe($this->myTable));
-                } else {
-                    $this->error('LoadObjectSqlStruct: Cant load MySQL struct');
-                }
-            }
-        }
-
-        return $this->sqlStruct;
-    }
-
-    /**
-     * Pokud jsou jsou známy protějšky stejného názvu automaticky je doplní do položky partner
-     *
-     * @param array $sqlStructProcessed pokud není určeno použije se $this->SqlStruct
-     *
-     * @return array $SqlStruct s vyplněnými položkami 'partner'
-     */
-    public function setupPartners($sqlStructProcessed = null)
-    {
-        if (!$sqlStructProcessed) {
-            $sqlStructProcessed = $this->sqlStruct;
-            $useInObject = true;
-        } else {
-            $useInObject = false;
-        }
-        $mySQLStruct = null;
-        $msSSQLStruct = null;
-        if (is_array($sqlStructProcessed['my'])) {
-            if ($this->myTable == key($sqlStructProcessed['my'])) {
-                $mySQLStruct = $sqlStructProcessed['my'][$this->myTable];
-            } else {
-                $mySQLStruct = $sqlStructProcessed['my'];
-            }
-            foreach ($mySQLStruct as $columnName => $structs) {
-                if (isset($sqlStructProcessed['ms'][$columnName]) && is_array($sqlStructProcessed['ms'][$columnName])) {
-                    $mySQLStruct[$columnName]['partner'] = $this->msTable . '.' . $columnName;
-                    if (isset($sqlStructProcessed['ms'][$columnName]['keyid'])) {
-                        $mySQLStruct[$columnName]['keyid'] = true;
-                    }
-                }
-            }
-        }
-
-        if (is_array($sqlStructProcessed['ms'])) {
-            if ($this->msTable == key($sqlStructProcessed['ms'])) {
-                $msSSQLStruct = $sqlStructProcessed['ms'][$this->msTable];
-            } else {
-                $msSSQLStruct = $sqlStructProcessed['ms'];
-            }
-            foreach ($msSSQLStruct as $columnName => $structs) {
-                if (isset($sqlStructProcessed['my'][$columnName]) && is_array($sqlStructProcessed['my'][$columnName])) {
-                    $msSSQLStruct[$columnName]['partner'] = $this->myTable . '.' . $columnName;
-                    if (isset($sqlStructProcessed['my'][$columnName]['keyid'])) {
-                        $msSSQLStruct[$columnName]['keyid'] = true;
-                    }
-                }
-            }
-        }
-
-        if ($useInObject) {
-            $this->sqlStruct = array('my' => $mySQLStruct, 'ms' => $msSSQLStruct);
-
-            return $this->sqlStruct;
-        } else {
-            return array('my' => $mySQLStruct, 'ms' => $msSSQLStruct);
-        }
-    }
-
-    /**
-     * Vrací funkce sloupečků v aktuální databázové tabulce
-     *
-     * @param string $sqlType
-     *
-     * @return array
-     */
-    public function getDbFunctions($sqlType)
-    {
-        $DbFunctions = array();
-        if (!isset($this->sqlStruct[$sqlType])) {
-            $this->loadSqlStruct($sqlType);
-        }
-        if (!isset($this->sqlStruct[$sqlType])) {
-            return null;
-        }
-
-// tady jsem skončil .....
-        foreach ($this->sqlStruct[$sqlType] as $columnName => $columnProperties) {
-            if (isset($columnProperties['function'])) {
-                $DbFunctions[$columnProperties['function']] = $columnName;
-            }
-        }
-
-        return $DbFunctions;
-    }
-
-    /**
-     * Naplní patřičné proměné názvy funkčních sloupečků
-     */
-    public function setUpColumnsRoles()
-    {
-        $this->msDbRoles = $this->getDbFunctions('ms');
-        $this->myDbRoles = $this->getDbFunctions('my');
-        if (isset($this->msDbRoles['KeyID'])) {
-            $this->setMSKeyColumn($this->msDbRoles['KeyID']);
-        }
-        if (isset($this->myDbRoles['KeyID'])) {
-            $this->setmyKeyColumn($this->myDbRoles['KeyID']);
-        }
-        if (isset($this->msDbRoles['IDS'])) {
-            $this->msIDSColumn = $this->msDbRoles['IDS'];
-        }
-        if (isset($this->myDbRoles['IDS'])) {
-            $this->myIDSColumn = $this->myDbRoles['IDS'];
-        }
-        if (isset($this->msDbRoles['RefKey'])) {
-            $this->msRefIDColumn = $this->msDbRoles['RefKey'];
-        }
-        if (isset($this->myDbRoles['RefKey'])) {
-            $this->myRefIDColumn = $this->myDbRoles['RefKey'];
-        }
-        if (isset($this->msDbRoles['LastModifiedDate'])) {
-            $this->msLastModifiedColumn = $this->msDbRoles['LastModifiedDate'];
-        }
-        if (isset($this->myDbRoles['LastModifiedDate'])) {
-            $this->myLastModifiedColumn = $this->myDbRoles['LastModifiedDate'];
-        }
-    }
-
-    /**
-     * Updatne záznam v pohodě
-     *
-     * @param array $data
-     *
-     * @return int Id záznamu nebo null v případě chyby
-     */
-    public function updateToMSSQL($data = null)
-    {
-        if (!$this->msTable) {
-            $this->error('UpdateToMSSQL: No MSTable', $data);
-
-            return null;
-        }
-
-        if (!$data) {
-            if (array_key_exists('MSSQL', $this->data)) {
-                $data = $this->getData('MSSQL');
-            } else {
-                $data = $this->getData();
-            }
-        }
-        if (!count($data)) {
-            $this->error('UpdateToMSSQL: Missing data');
-
-            return null;
-        }
-
-        if (!isset($data[$this->MSKeyColumn]) || !$data[$this->MSKeyColumn]) {
-            $this->error('UpdateToMSSQL: Missing MSKeyColumn', $data);
-
-            return null;
-        }
-
-        $msKeyColumnBackup = $data[$this->MSKeyColumn];
-
-        if (isset($this->msLastModifiedColumn)) {
-            $data[$this->msLastModifiedColumn] = 'GetDate()';
-        }
-        if (isset($this->msCreateColumn)) {
-            unset($data[$this->msCreateColumn]);
-        }
-        $msKeyColumnBackup = $data[$this->MSKeyColumn];
-        unset($data[$this->MSKeyColumn]);
-
-        $QueryRaw = '
-UpDaTE [' . MS_DB_DATABASE . '].[dbo].[' . $this->msTable . '] SET ' . $this->msDbLink->prepUpdate($data, true) . '
-WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
-
-        if ($this->msDbLink->exeQuery($QueryRaw)) {
-            return $msKeyColumnBackup;
-        }
-
-        return null;
-    }
-
-    /**
-     * Uloží pole dat do MSSQL.
-     * Pokud je $SearchForID 0 updatuje pokud je nastaven  MSKeyColumn
-     *
-     * @param array $data        asociativní pole dat
-     * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
-     *
-     * @return int ID záznamu nebo null v případě neůspěchu
-     */
-    public function saveToMSSQL($data = null, $searchForID = false)
-    {
-        if (!$this->msTable) {
-            $this->error('SaveToMSSQL: No MSTable', $data);
-
-            return null;
-        }
-        if (!$data) {
-            $data = $this->getData();
-        }
-        if (count($data) < 2) {
-            $this->error('SaveToMSSQL: Missing data', $data);
-
-            return null;
-        }
-
-        if ($searchForID) {
-            if ($this->getMSSQLID(array($this->MSKeyColumn => $data[$this->MSKeyColumn]))) {
-                $Result = $this->updateToMSSQL($data);
-            } else {
-                $Result = $this->insertToMSSQL($data);
-            }
-        } else {
-            if (isset($data[$this->MSKeyColumn]) && $data[$this->MSKeyColumn]) {
-                $Result = $this->updateToMSSQL($data);
-            } else {
-                $Result = $this->insertToMSSQL($data);
-            }
-        }
-
-        if ($Result) {
-            $this->Status['MSSQLSaved'] = true;
-
-            return $this->data['MSSQL'][$this->MSKeyColumn];
-        }
-
-        return null;
-    }
-
-    /**
      * Provede update záznamu do MySQL
      *
      * @param array $data
@@ -1139,12 +429,7 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         }
 
         if (is_null($data)) {
-            $defDatPref = $this->defaultDataPrefix;
-            if (array_key_exists($defDatPref, $this->data)) {
-                $data = $this->getData($defDatPref);
-            } else {
-                $data = $this->getData();
-            }
+            $data = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -1333,184 +618,8 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
         if (is_object($this->myDbLink)) {
             $result['my'] = $this->saveToMySQL();
         }
-        if (is_object($this->msDbLink)) {
-            $result['ms'] = $this->saveToMSSQL();
-        }
 
         return $result;
-    }
-
-    /**
-     * Vloží data do databází
-     *
-     * @param array $data
-     */
-    public function insert($data = null)
-    {
-        $this->InsertMode = '';
-
-        $initialMySQLID = $this->getMySQLID();
-        if ($initialMySQLID) {
-            $this->InsertMode = 'SUpdate';
-        } else {
-            $this->InsertMode = 'SInsert';
-        }
-        $initialMSSQLID = $this->getMSSQLID();
-        if ($initialMSSQLID) {
-            $this->InsertMode .= 'PUpdate';
-        } else {
-            $this->InsertMode .= 'PInsert';
-        }
-
-        $this->data['MySQL'][$this->myKeyColumn] = $initialMySQLID;
-        $this->data['MSSQL'][$this->MSKeyColumn] = $initialMSSQLID;
-
-        switch ($this->InsertMode) {
-
-            case "SUpdatePUpdate":
-//                $this->loadFromMySQL($InitialShopID);
-                $this->updateToMySQL();
-//                $this->loadFromMSSQL($InitialMSSQLID);
-                $this->updateToMSSQL();
-                break;
-            case "SUpdatePInsert":
-                $CSVShopData = $this->data['MySQL'];
-                $this->loadFromMySQL($initialMySQLID, 'MySQL');
-                $this->data['MySQL'] = array_merge($this->data['MySQL'], $CSVShopData);
-//                $this->TakeShopData();
-                $this->takeMySQLData(null, true, false);
-
-                $this->updateToShop();
-                $this->insertToMSSQL();
-                $this->setReferences();
-                $this->updateToMySQL();
-                $this->updateToMSSQL();
-                break;
-            case "SInsertPUpdate":
-                $CSVMSSQLData = $this->data['MSSQL'];
-                $this->loadFromMSSQL($initialMSSQLID);
-                $this->data['MSSQL'] = array_merge($this->data['MSSQL'], $CSVMSSQLData);
-
-                $this->setTagIDS();
-                $this->takeMSSQLData(null, true);
-
-                $this->updateToMSSQL();
-                $this->insertToMySQL();
-                $this->setReferences();
-                $this->updateToMySQL();
-                $this->updateToMSSQL();
-                break;
-            case "SInsertPInsert":
-                $this->insertToMySQL();
-                $this->insertToMSSQL();
-                $this->setTagIDS();
-                $this->setReferences();
-                $this->updateToMySQL();
-                $this->updateToMSSQL();
-                break;
-        }
-
-        $SyncStatus = $this->isSynchronized();
-        if (!$SyncStatus) {
-            $this->error(
-                'Mega error nesynchronizovane produkty :' .
-                $this->InsertMode . ' MSSQL #' . $initialMSSQLID .
-                ' Shop: #' . $initialMySQLID
-            );
-        } else
-            $this->addToLog(
-                'SyncOK: ' . $this->InsertMode .
-                ' MSSQL #' . $this->data['MSSQL'][$this->MSKeyColumn] .
-                ' Shop: #' . $this->data['MySQL'][$this->myKeyColumn]
-            );
-
-        $this->InsertMode = '';
-
-        return $SyncStatus;
-    }
-
-    /**
-     * pokud jsou znamy referencni sloupce, naplni se
-     */
-    public function setReferences()
-    {
-        if ($this->msRefIDColumn) {
-            $shopColumnsOld = $this->data;
-            if (isset($this->data['MSSQL'][$this->MSKeyColumn])) {
-                $this->data[$this->myRefIDColumn] = $this->data['MSSQL'][$this->MSKeyColumn]; // (ID)
-            }
-            if (count(array_diff($this->data, $shopColumnsOld))) {
-//                $this->Status['ShopSaved'] = false;
-            }
-        }
-        if ($this->myRefIDColumn) {
-            $msSQLColumnsOld = $this->data['MSSQL'];
-
-            $this->data['MSSQL'][$this->msRefIDColumn] = $this->data[$this->myKeyColumn]; // (id)
-
-            if (count(array_diff($this->data['MSSQL'], $msSQLColumnsOld))) {
-//                $this->Status['MSSQLSaved'] = false;
-            }
-        }
-    }
-
-    /**
-     * Vrací true pokud jsou MSSQL a shop synchronizovány
-     *
-     * @todo používá se to ještě ?
-     *
-     * @return bool
-     */
-    public function isSynchronized()
-    {
-        if (!isset($this->data['MSSQL'][$this->msIDSColumn]) ||
-            !strlen($this->data['MSSQL'][$this->msIDSColumn])
-        ) {
-            $this->loadFromMSSQL($this->getMSKey());
-        }
-        if (!isset($this->data[$this->myIDSColumn]) ||
-            !strlen($this->data[$this->myIDSColumn])
-        ) {
-            $this->loadFromMySQL($this->getMyKey());
-        }
-        if (!$this->data['MSSQL'][$this->msIDSColumn] || !$this->data[$this->myIDSColumn]) {
-            return false;
-        }
-
-        return ($this->data['MSSQL'][$this->msIDSColumn] == $this->data[$this->myIDSColumn]);
-    }
-
-    /**
-     * Nastaví hodnotu identifikačního sloupečku IDS
-     *
-     * @todo používá se to ještě ?
-     *
-     * @param bool $save Uložit záznam okamžitě ?
-     *
-     * @return string Hodnota  IDS
-     */
-    public function setTagIDS($save = false)
-    {
-        if ($this->data['MSSQL'][$this->msIDSColumn]) {
-            $this->addToLog('Pokus o znovugenerovani jiz znameho IDS v pohode: ' . $this->data['MSSQL'][$this->msIDSColumn], 'warning');
-
-            return $this->data['MSSQL'][$this->msIDSColumn];
-        }
-
-        $NumRowObject = new EaseNumRow($this->NumRowIDS, null, $this->RefAg);
-        $IDS = $NumRowObject->NextValue(true);
-
-        $this->data['MSSQL'][$this->msIDSColumn] = $IDS;
-
-        $this->data[$this->myIDSColumn] = $IDS;
-        //$this->Status = array('ShopSaved' => false, 'MSSQLSaved' => false);
-
-        $this->addToLog('Generuji IDS: ' . $this->data['MSSQL'][$this->msIDSColumn], 'debug');
-
-        if ($save)
-            $this->updateToShop(array($this->myIDSColumn => $this->data[$this->myIDSColumn]));
-
-        return $this->data['MSSQL'][$this->myIDSColumn];
     }
 
     /**
@@ -1571,58 +680,6 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
                 return null;
             }
         }
-    }
-
-    /**
-     * Přiřadí data z políčka do pole pohody
-     *
-     * @param array  $data      asociativní pole dat
-     * @param string $column    název položky k převzetí
-     * @param bool   $mayBeNull nahrazovat chybejici hodnotu nullem ?
-     * @param string $Reneme    název cílového políčka
-     *
-     * @todo pořešit práci s daty více databází
-     *
-     * @return mixed převzatá do pole
-     */
-    public function takeToMSSQL($data, $column, $mayBeNull = false, $renameAs = null)
-    {
-        if ($data[$column]) {
-            if ($renameAs) {
-                $this->data['MSSQL'][$renameAs] = $data[$column];
-            } else {
-                $this->data['MSSQL'][$column] = $data[$column];
-            }
-
-            return $data['MSSQL'][$column];
-        } else {
-            if ($mayBeNull) {
-                $this->data['MSSQL'][$column] = null;
-
-                return null;
-            }
-        }
-    }
-
-    /**
-     * Vrátí IDčka záznamu tabulky v MSSQL
-     *
-     * @param string $tableName   jméno tabulky
-     * @param string $msKeyColumn klíčový sloupeček
-     *
-     * @return array Pole hodnot klíčového sloupečku
-     */
-    public function getMSSQLList($tableName = null, $msKeyColumn = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->msTable;
-        }
-        if (!$msKeyColumn) {
-            $msKeyColumn = $this->MSKeyColumn;
-        }
-        $ListQuery = "SELECT [$msKeyColumn] FROM [$tableName] ORDER BY [$msKeyColumn]";
-
-        return $this->msDbLink->queryToArray($ListQuery);
     }
 
     /**
@@ -1703,16 +760,6 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
-     * Vrací název klíčového sloupce pro MSSQL
-     *
-     * @return string
-     */
-    public function getMSKeyColumn()
-    {
-        return $this->MSKeyColumn;
-    }
-
-    /**
      * Vrací název aktuálně použivané SQL tabulky
      *
      * @return string
@@ -1764,43 +811,6 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
-     * Vrací hodnotu klíčového políčka v Pohodě
-     *
-     * @param array $data data z nichž se vrací hodnota klíče
-     *
-     * @return int
-     */
-    public function getMSKey($data = null)
-    {
-        if (!$data) {
-            $data = $this->getData('MSSQL');
-        }
-        if (isset($this->MSKeyColumn) && isset($data[$this->MSKeyColumn])) {
-            return $data[$this->MSKeyColumn];
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Nastavuje hodnotu klíčového políčka v Pohodě
-     *
-     * @param int|string $msKeyValue
-     *
-     * @return bool
-     */
-    public function setMSKey($msKeyValue)
-    {
-        if (isset($this->MSKeyColumn)) {
-            $this->data['MSSQL'][$this->MSKeyColumn] = $msKeyValue;
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Nastaví jméno klíčového sloupečku v pohodě
      *
      * @param string $msKeyColumn
@@ -1833,120 +843,6 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
     }
 
     /**
-     * Nastaví aktuální pracovní tabulku pro MSSQL
-     *
-     * @param string $msTable
-     */
-    public function setMSTable($msTable)
-    {
-        $this->msTable = $msTable;
-        $this->setObjectIdentity(array('MSTable' => $msTable));
-    }
-
-    /**
-     * Vrátí ID záznamu nalezeného v MSSQL podle pole $data
-     *
-     * @param array  $data     asociativní pole dat
-     * @param string $operator SQL operator AND nebo OR
-     *
-     * @return unsigned int
-     */
-    public function getMSSQLID($data = null, $operator = 'AND')
-    {
-        if (!$data) {
-            $data = $this->data['MSSQL'];
-        }
-        if (!count($data)) {
-            $this->error('NENI PODLE CEHO URCIT JEDINECNOST PRODUKTU v shopu ', $this->data);
-
-            return false;
-        }
-
-        if (count($data)) {
-            foreach ($data as $ID => $value)
-                if (!isset($value)) //vyhodit prazdne polozky
-                    unset($data[$ID]);
-        }
-
-        $QueryRaw = "SELECT " . $this->MSKeyColumn . " FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data, $operator);
-        $IDQuery = $this->msDbLink->queryToArray($QueryRaw);
-
-        $this->LastMSSQLSearchResult = $IDQuery;
-
-        return $IDQuery[0][$this->MSKeyColumn];
-    }
-
-    /**
-     * Vrátí IDS záznamu nalezeného v pohodě podle pole $data
-     *
-     * @param array  $data     asociativní pole dat
-     * @param string $operator SQL operator AND nebo OR
-     *
-     * @return unsigned int
-     */
-    public function getMSSQLIDS($data = null, $operator = 'AND')
-    {
-        if (!$data) {
-            $data = $this->getData('MSSQL');
-        }
-
-        $ids = $this->getMSSQLValue($this->msIDSColumn);
-        if ($ids) {
-            return $ids;
-        }
-
-        if (!count($data)) {
-            $this->error(_('NENI PODLE CEHO URCIT JEDINECNOST PRODUKTU v shopu ', $this->getData('MSSQL')));
-
-            return false;
-        }
-
-        if (count($data)) {
-            foreach ($data as $id => $value)
-                if (!isset($value)) //vyhodit prazdne polozky
-                    unset($data[$id]);
-        }
-
-        $queryRaw = "SELECT " . $this->msIDSColumn . " FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data, $operator);
-        $idQuery = $this->msDbLink->queryToArray($queryRaw);
-        if (isset($idQuery[0])) {
-            return $idQuery[0][$this->msIDSColumn];
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Smaže z pohody záznamy vyhovující podmínkám v poli $data a vrací počet smazaných záznamů
-     *
-     * @param array $data
-     *
-     * @return int
-     */
-    public function deleteFromMSSQL($data = null)
-    {
-        if (!$data)
-            $data = $this->data['MSSQL'];
-
-        if (!count($data)) {
-            $this->error('NENI PODLE CEHO URCIT PRODUKTY k vymazani v Pohode ', $this->data['MSSQL']);
-
-            return false;
-        }
-
-        if (count($data)) {
-            foreach ($data as $id => $value)
-                if (!isset($value)) //vyhodit prazdne polozky
-                    unset($data[$id]);
-        }
-
-        $QueryRaw = "DELETE FROM [" . $this->msTable . "] WHERE " . $this->msDbLink->prepSelect($data);
-        $this->msDbLink->exeQuery($QueryRaw);
-
-        return $this->msDbLink->numRows;
-    }
-
-    /**
      * Test na existenci tabulky v MySQL databázi
      *
      * @param string $tableName
@@ -1969,22 +865,6 @@ WHERE [' . $this->MSKeyColumn . '] = ' . $msKeyColumnBackup;
             $existence = null;
         }
         return $existence;
-    }
-
-    /**
-     * Vrátí počet položek tabulky v Pohodě
-     *
-     * @param string $tableName pokud není zadáno, použije se $this->MSTable
-     *
-     * @return int
-     */
-    public function getMSSQLItemsCount($tableName = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->msTable;
-        }
-
-        return $this->msDbLink->queryToValue('SELECT ROWS FROM sysindexes WHERE id = OBJECT_ID(\'' . $tableName . '\') AND indid = 1');
     }
 
     /**

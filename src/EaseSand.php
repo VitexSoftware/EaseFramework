@@ -34,12 +34,6 @@ class EaseSand extends EaseAtom
     public $data = null;
 
     /**
-     * Výchozí index pole pro držení dat
-     * @var type
-     */
-    public $defaultDataPrefix = null;
-
-    /**
      * Obsahuje všechna pole souhrně považovaná za identitu. Toto pole je plněno
      * v metodě SaveObjectIdentity {volá se automaticky v EaseSand::__construct()}
      * @var array
@@ -65,12 +59,6 @@ class EaseSand extends EaseAtom
       'myLastModifiedColumn', 'MSLastModifiedColumn');
 
     /**
-     * Klíčový sloupeček v používané MSSQL tabulce
-     * @var string
-     */
-    public $MSKeyColumn = 'ID';
-
-    /**
      * Klíčový sloupeček v používané MySQL tabulce
      * @var string
      */
@@ -89,40 +77,16 @@ class EaseSand extends EaseAtom
     public $msIDSColumn = null;
 
     /**
-     * Synchronizační sloupeček. napr products_MSSQL_id
-     * @var string
-     */
-    public $myRefIDColumn = null;
-
-    /**
-     * Synchronizační sloupeček. napr
-     * @var string
-     */
-    public $msRefIDColumn = null;
-
-    /**
      * Sloupeček obsahující datum vložení záznamu do shopu
      * @var string
      */
     public $myCreateColumn = null;
 
     /**
-     *  Sloupeček obsahujíci datum vložení záznamu do Pohody
-     * @var string
-     */
-    public $msCreateColumn = null;
-
-    /**
      * Slopecek obsahujici datum poslení modifikace záznamu do shopu
      * @var string
      */
     public $myLastModifiedColumn = null;
-
-    /**
-     * Slopecek obsahujici datum poslení modifikace záznamu do Pohody
-     * @var string
-     */
-    public $msLastModifiedColumn = null;
 
     /**
      * Objekt pro logování
@@ -357,52 +321,32 @@ class EaseSand extends EaseAtom
     /**
      * Vynuluje všechny pole vlastností objektu
      *
-     * @param array $dataPrefix název datové skupiny
      */
-    public function dataReset($dataPrefix = null)
+    public function dataReset()
     {
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            $this->data[$dataPrefix] = array();
-        } else {
-            $this->data = array();
-        }
+        $this->data = array();
     }
 
     /**
      * Načte $data do polí objektu
      *
      * @param array  $data       asociativní pole dat
-     * @param string $dataPrefix prefix skupiny dat (např. "MSSQL")
      * @param bool   $reset      vyprazdnit pole před naplněním ?
      *
      * @return int počet načtených položek
      */
-    public function setData($data, $dataPrefix = null, $reset = false)
+    public function setData($data, $reset = false)
     {
         if (is_null($data) || !count($data)) {
             return null;
         }
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
         if ($reset) {
-            $this->dataReset($dataPrefix);
+            $this->dataReset();
         }
-        if ($dataPrefix) {
-            if (isset($this->data[$dataPrefix]) && is_array($this->data[$dataPrefix])) {
-                $this->data[$dataPrefix] = array_merge($this->data[$dataPrefix], $data);
-            } else {
-                $this->data[$dataPrefix] = $data;
-            }
+        if (is_array($this->data)) {
+            $this->data = array_merge($this->data, $data);
         } else {
-            if (is_array($this->data)) {
-                $this->data = array_merge($this->data, $data);
-            } else {
-                $this->data = $data;
-            }
+            $this->data = $data;
         }
 
         return count($data);
@@ -411,67 +355,34 @@ class EaseSand extends EaseAtom
     /**
      * Vrací celé pole dat objektu
      *
-     * @param string $dataPrefix
-     *
      * @return array
      */
-    public function getData($dataPrefix = null)
+    public function getData()
     {
-        if (is_null($dataPrefix)) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            if (isset($this->data[$dataPrefix])) {
-                return $this->data[$dataPrefix];
-            }
-
-            return null;
-        } else {
-            return $this->data;
-        }
+        return $this->data;
     }
 
     /**
      * Vrací počet položek dat objektu
      *
-     * @param string $dataPrefix
-     *
      * @return int
      */
-    public function getDataCount($dataPrefix = null)
+    public function getDataCount()
     {
-        $counter = 0;
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            return count($this->data[$dataPrefix]);
-        } else {
-            return count($this->data);
-        }
+        return count($this->data);
     }
 
     /**
      * Vrací hodnotu z pole dat pro MySQL
      *
      * @param string $columnName název hodnoty/sloupečku
-     * @param string $dataPrefix
      *
      * @return mixed
      */
-    public function getDataValue($columnName, $dataPrefix = null)
+    public function getDataValue($columnName)
     {
-        if (is_null($dataPrefix)) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            if (isset($this->data[$dataPrefix]) && isset($this->data[$dataPrefix][$columnName])) {
-                return $this->data[$dataPrefix][$columnName];
-            }
-        } else {
-            if (isset($this->data[$columnName])) {
-                return $this->data[$columnName];
-            }
+        if (isset($this->data[$columnName])) {
+            return $this->data[$columnName];
         }
 
         return null;
@@ -482,21 +393,12 @@ class EaseSand extends EaseAtom
      *
      * @param string $columnName název datové kolonky
      * @param mixed  $value      hodnota dat
-     * @param string $dataPrefix prefix skupiny dat
      *
      * @return boolean Success
      */
-    public function setDataValue($columnName, $value, $dataPrefix = null)
+    public function setDataValue($columnName, $value)
     {
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            $this->data[$dataPrefix][$columnName] = $value;
-        } else {
-            $this->data[$columnName] = $value;
-        }
-
+        $this->data[$columnName] = $value;
         return true;
     }
 
@@ -504,25 +406,13 @@ class EaseSand extends EaseAtom
      * Odstrani polozku z pole dat pro MySQL
      *
      * @param string $columnName název klíče k vymazání
-     * @param string $dataPrefix prefix skupiny dat
      *
      * @return boolean success
      */
-    public function unsetDataValue($columnName, $dataPrefix = null)
+    public function unsetDataValue($columnName)
     {
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            if (array_key_exists($columnName, $this->data[$dataPrefix])) {
-                unset($this->data[$dataPrefix][$columnName]);
-
-                return true;
-            }
-        }
         if (array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
-
             return true;
         }
 
@@ -533,29 +423,16 @@ class EaseSand extends EaseAtom
      * Převezme data do aktuálního pole dat
      *
      * @param array  $data       asociativní pole dat
-     * @param string $dataPrefix prefix datové skupiny
      *
      * @return int
      */
-    public function takeData($data, $dataPrefix = null)
+    public function takeData($data)
     {
-        if (!$dataPrefix) {
-            $dataPrefix = $this->defaultDataPrefix;
-        }
-        if ($dataPrefix) {
-            if (isset($this->data[$dataPrefix]) && is_array($this->data[$dataPrefix])) {
-                $this->data[$dataPrefix] = array_merge($this->data[$dataPrefix], $data);
-            } else {
-                $this->data[$dataPrefix] = $data;
-            }
+        if (is_array($this->data)) {
+            $this->data = array_merge($this->data, $data);
         } else {
-            if (is_array($this->data)) {
-                $this->data = array_merge($this->data, $data);
-            } else {
-                $this->data = $data;
-            }
+            $this->data = $data;
         }
-
         return count($data);
     }
 
