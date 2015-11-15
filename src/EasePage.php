@@ -51,22 +51,7 @@ class EasePage extends EaseContainer
      * Specifikuje preferovaný účel zobrazení například mail
      * @var string
      */
-    public $OutputFormat = null;
-
-    /**
-     * Objekt vykreslující stránku
-     *
-     * @param EaseUser|EaseAnonym $userObject objekt uživatele
-     */
-    public function __construct(& $userObject = null)
-    {
-        parent::__construct();
-        if (is_object($userObject)) {
-            $this->setUpUser($userObject);
-        } else {
-            $this->setUpUser(EaseShared::user());
-        }
-    }
+    public $outputFormat = null;
 
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
@@ -524,7 +509,7 @@ class EasePage extends EaseContainer
      */
     public function setOutputFormat($outputFormat)
     {
-        $this->OutputFormat = $outputFormat;
+        $this->outputFormat = $outputFormat;
         foreach ($this->pageParts as $part) {
             $this->raise($part, array('OutputFormat'));
         }

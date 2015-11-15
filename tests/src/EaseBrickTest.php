@@ -44,16 +44,16 @@ class EaseBrickTest extends EaseSandTest
     public function testgetstatusMessages()
     {
         $this->object->cleanMessages();
+        $this->object->addStatusMessage('Message', 'email');
         $this->object->addStatusMessage('Message', 'warning');
         $this->object->addStatusMessage('Message', 'debug');
         $this->object->addStatusMessage('Message', 'error');
         $messages = $this->object->getstatusMessages();
-        $this->assertEquals(3, count($messages));
+        $this->assertEquals(4, count($messages));
     }
 
     /**
      * @covers EaseBrick::setObjectName
-     * @todo   Implement testSetObjectName().
      */
     public function testSetObjectName()
     {
@@ -61,42 +61,9 @@ class EaseBrickTest extends EaseSandTest
         $this->assertEquals('Testing', $this->object->getObjectName());
         $this->object->setObjectName();
         $this->assertEquals(get_class($this->object), $this->object->getObjectName());
-    }
-
-    /**
-     * @covers EaseBrick::setObjectIdentity
-     * @todo   Implement testSetObjectIdentity().
-     */
-    public function testSetObjectIdentity()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::setUpUser
-     * @todo   Implement testSetUpUser().
-     */
-    public function testSetUpUser()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::getUser
-     * @todo   Implement testGetUser().
-     */
-    public function testGetUser()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setMyKey(123);
+        $this->object->setObjectName();
+        $this->assertEquals('EaseBrickTester@123', $this->object->getObjectName());
     }
 
     /**
@@ -106,15 +73,20 @@ class EaseBrickTest extends EaseSandTest
     public function testAddStatusMessage()
     {
         $this->object->addStatusMessage('Testing');
+        $this->object->addStatusMessage('email Message', 'email');
+        $this->object->addStatusMessage('warning Message', 'warning');
+        $this->object->addStatusMessage('debug Message', 'debug');
+        $this->object->addStatusMessage('error Message', 'error');
+        $this->object->addStatusMessage('success Message', 'success');
         $messages = $this->object->getStatusMessages();
         $this->assertEquals($messages, $messages);
     }
 
     /**
-     * @covers EaseBrick::easeAddSlashes
-     * @todo   Implement testEaseAddSlashes().
+     * @covers EaseBrick::getColumnsFromSQL
+     * @todo   Implement testGetColumnsFromSQL().
      */
-    public function testEaseAddSlashes()
+    public function testGetColumnsFromSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -123,10 +95,10 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::getColumnsFromMySQL
-     * @todo   Implement testGetColumnsFromMySQL().
+     * @covers EaseBrick::getDataFromSQL
+     * @todo   Implement testGetDataFromSQL().
      */
-    public function testGetColumnsFromMySQL()
+    public function testGetDataFromSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -135,10 +107,10 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::getDataFromMySQL
-     * @todo   Implement testGetDataFromMySQL().
+     * @covers EaseBrick::loadFromSQL
+     * @todo   Implement testLoadFromSQL().
      */
-    public function testGetDataFromMySQL()
+    public function testLoadFromSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -147,22 +119,10 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::loadFromMySQL
-     * @todo   Implement testLoadFromMySQL().
+     * @covers EaseBrick::getAllFromSQL
+     * @todo   Implement testGetAllFromSQL().
      */
-    public function testLoadFromMySQL()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers EaseBrick::getAllFromMySQL
-     * @todo   Implement testGetAllFromMySQL().
-     */
-    public function testGetAllFromMySQL()
+    public function testGetAllFromSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -375,10 +335,10 @@ class EaseBrickTest extends EaseSandTest
     }
 
     /**
-     * @covers EaseBrick::deleteFromMySQL
-     * @todo   Implement testDeleteFromMySQL().
+     * @covers EaseBrick::deleteFromSQL
+     * @todo   Implement testDeleteFromSQL().
      */
-    public function testDeleteFromMySQL()
+    public function testDeleteFromSQL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

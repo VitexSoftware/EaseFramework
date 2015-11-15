@@ -387,29 +387,6 @@ class EaseUser extends EaseAnonym
     }
 
     /**
-     * Otestuje heslo oproti cracklib
-     *
-     * @param string $password testované heslo
-     *
-     * @return boolen
-     */
-    public function passwordCrackCheck($password)
-    {
-        if (!is_file('/usr/share/dict/cracklib-words')) {
-            return true;
-        }
-        if (!function_exists('crack_opendict')) {
-            $this->error('PECL Crack is not installed');
-            return true;
-        }
-        $Dictonary = crack_opendict('/usr/share/dict/cracklib-words');
-        $check = crack_check($Dictonary, $password);
-        $this->addStatusMessage(crack_getlastmessage());
-        crack_closedict($Dictonary);
-        return $check;
-    }
-
-    /**
      * Nastaví level uživatele
      *
      * @param int $userLevel uživatelská uroven
