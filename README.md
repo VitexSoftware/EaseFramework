@@ -31,11 +31,13 @@ Example
 Twitter Bootstrap page with simple Form
 ----------------------
 
+```php
 $oPage = new EaseTWBWebPage('Page title');
 $form = $oPage->addItem( new EaseTWBForm('ExampleForm') );
 $form->addItem(new EaseHtmlInputText('Name'));
 $form->addItem(new EaseTWSubmitButton('OK', 'success') );
 $oPage->draw();
+```
 
 Links
 =====
