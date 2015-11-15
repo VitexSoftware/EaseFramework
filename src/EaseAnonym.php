@@ -91,14 +91,6 @@ class EaseAnonym extends EaseBrick
     }
 
     /**
-     * Anonym nema IDS
-     */
-    public function getUserIDS()
-    {
-        return null;
-    }
-
-    /**
      * Anonym nemá login
      *
      * @return null
@@ -162,19 +154,6 @@ class EaseAnonym extends EaseBrick
         $this->userID = null;
 
         return true;
-    }
-
-    /**
-     * Otestuje kvalitu hesla
-     *
-     * @param string $password heslo k otestování
-     *
-     * @return boolean
-     * @todo Dořešit Cracklib ...
-     */
-    public function passwordCrackCheck($password)
-    {
-        return EaseCustomer::PasswordCrackCheck($password);
     }
 
 }
