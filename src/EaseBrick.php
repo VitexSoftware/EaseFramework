@@ -129,7 +129,7 @@ class EaseBrick extends EaseSand
      *
      * @return array
      */
-    public function getColumnsFromSQL($columnsList, $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
+    public function getColumnsFromSQL($columnsList = '*', $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
     {
         if (($columnsList != '*') && !count($columnsList)) {
             $this->error('getColumnsFromSQL: Missing ColumnList');

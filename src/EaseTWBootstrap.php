@@ -89,12 +89,9 @@ class EaseTWBWebPage extends EaseWebPage
      * @param string   $pageTitle
      * @param EaseUser $userObject
      */
-    public function __construct($pageTitle = null, &$userObject = null)
+    public function __construct($pageTitle = null)
     {
-        if (is_null($userObject)) {
-            $userObject = EaseShared::user();
-        }
-        parent::__construct($pageTitle, $userObject);
+        parent::__construct($pageTitle);
         $this->includeCss($this->mainStyle, true);
         $this->head->addItem(
             '<meta name="viewport" content="width=device-width,initial-scale=1.0">'

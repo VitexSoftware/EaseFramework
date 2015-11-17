@@ -68,7 +68,6 @@ class EaseBrickTest extends EaseSandTest
 
     /**
      * @covers EaseBrick::addStatusMessage
-     * @todo   Implement testAddStatusMessage().
      */
     public function testAddStatusMessage()
     {
@@ -84,14 +83,21 @@ class EaseBrickTest extends EaseSandTest
 
     /**
      * @covers EaseBrick::getColumnsFromSQL
-     * @todo   Implement testGetColumnsFromSQL().
      */
     public function testGetColumnsFromSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getColumnsFromSQL(null));
+        $this->assertEquals([0 => ['id' => '3']], $this->object->getColumnsFromSQL('id', 3));
+
+        $ids = $this->object->getColumnsFromSQL(array('id'));
+        $this->assertEquals([0 => ['id' => 2], 1 => ['id' => 3]], $ids);
+        $names = $this->object->getColumnsFromSQL(array('name'));
+        $this->assertEquals($names, [0 => ['name' => 'beta'], 1 => ['name' => 'alpha']]);
+        $all = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
+        $this->assertEquals([2 => ['id' => '2', 'name' => 'beta', 'date' => '2015-11-18 00:00:00'], 3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00']], $all);
+        $this->assertNull($this->object->getColumnsFromSQL('*', []));
+        $some = $this->object->getColumnsFromSQL(['name', 'id'], "test.date LIKE  '2015-11-18 00:00:00'");
+        $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
     }
 
     /**
@@ -550,7 +556,6 @@ class EaseBrickTest extends EaseSandTest
 
     /**
      * @covers EaseBrick::lettersOnly
-     * @todo   Implement testLettersOnly().
      */
     public function testLettersOnly()
     {
