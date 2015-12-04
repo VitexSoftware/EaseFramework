@@ -8,14 +8,13 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
-require_once 'EaseBrick.php';
 
 /**
  * Základní třída, jenž může obsahovat vykreslující se vložené položky
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseContainer extends EaseBrick
+class EaseContainer extends EaseSand
 {
 
     /**

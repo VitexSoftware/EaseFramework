@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bb5b8d9ac7f82038dc6ccfb8b6209320",
-    "content-hash": "14149239325d65b6e3cbe79a2c06c404",
+    "hash": "c0d2ea51a2ed2e1cd70f7fa680b34534",
+    "content-hash": "826cb1fd9d0ef1eb4b17d88210896732",
     "packages": [],
     "packages-dev": [
         {
@@ -14,12 +14,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/robmorgan/phinx.git",
-                "reference": "06740769d9b02365cfbed104f9a44776a3d14478"
+                "reference": "f1115cad0888b3c6d25b9d0b91ba828fa7ac5410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/06740769d9b02365cfbed104f9a44776a3d14478",
-                "reference": "06740769d9b02365cfbed104f9a44776a3d14478",
+                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/f1115cad0888b3c6d25b9d0b91ba828fa7ac5410",
+                "reference": "f1115cad0888b3c6d25b9d0b91ba828fa7ac5410",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2015-11-04 21:03:56"
+            "time": "2015-11-30 15:27:19"
         },
         {
             "name": "symfony/config",
@@ -80,7 +80,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/f042c9257b2bdebda285f7a5c089b9348bcb6f3d",
+                "url": "https://api.github.com/repos/symfony/config/zipball/f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae",
                 "reference": "f042c9257b2bdebda285f7a5c089b9348bcb6f3d",
                 "shasum": ""
             },
@@ -130,7 +130,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/74bf9202a531cc6942454eb9e2dd1e13bde34a31",
+                "url": "https://api.github.com/repos/symfony/console/zipball/d232bfc100dfd32b18ccbcab4bcc8f28697b7e41",
                 "reference": "74bf9202a531cc6942454eb9e2dd1e13bde34a31",
                 "shasum": ""
             },
@@ -239,7 +239,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/0b6a8940385311a24e060ec1fe35680e17c74497",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
                 "reference": "0b6a8940385311a24e060ec1fe35680e17c74497",
                 "shasum": ""
             },
@@ -295,7 +295,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/5ff00ea2999343d42398fcb793bbfc64c92235ff",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f79824187de95064a2f5038904c4d7f0227fedb5",
                 "reference": "5ff00ea2999343d42398fcb793bbfc64c92235ff",
                 "shasum": ""
             },
@@ -337,9 +337,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "robmorgan/phinx": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

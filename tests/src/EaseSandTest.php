@@ -69,14 +69,13 @@ class EaseSandTest extends EaseAtomTest
 
     /**
      * @covers EaseSand::setObjectName
-     * @todo   Implement testSetObjectName().
      */
     public function testSetObjectName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setObjectName('Testing');
+        $this->assertEquals('Testing', $this->object->getObjectName());
+        $this->object->setObjectName();
+        $this->assertEquals(get_class($this->object), $this->object->getObjectName());
     }
 
     /**

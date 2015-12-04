@@ -9,9 +9,6 @@
  * @copyright  2012 Vitex@hippy.cz (G)
  */
 session_start();
-ini_set(
-    'include_path', dirname(__FILE__) . '/../' . PATH_SEPARATOR . dirname(__FILE__) . '/../Ease/' . PATH_SEPARATOR . ini_get('include_path')
-);
 
 spl_autoload_register(
     function($class) {
@@ -29,10 +26,6 @@ spl_autoload_register(
 
 require_once('PHP/Token/Stream/Autoload.php');
 
-require_once 'Ease/EaseShared.php';
-require_once 'Ease/EaseUser.php';
-require_once 'Ease/EaseWebPage.php';
-
 EaseShared::user(new EaseAnonym);
 EaseShared::webPage(new EaseWebPage);
 
@@ -45,3 +38,4 @@ define('DB_SERVER', 'localhost');
 define('DB_SERVER_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');
 define('DB_SERVER_USERNAME', 'easetest');
+define('DB_TYPE', 'mysql');

@@ -8,7 +8,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2014 Vitex@vitexsoftware.cz (G)
  */
-require_once 'Ease/EaseSand.php';
 
 /**
  * Virtuálni třída pro práci s databází
@@ -151,11 +150,20 @@ class EaseSQL extends EaseSand
     protected $connectAllreadyUP = false;
 
     /**
+     * Type of used database
+     * @var string mysql|pgsql|..
+     */
+    public $dbType;
+
+    /**
      * Obecný objekt databáze
      */
     public function __construct()
     {
         parent::__construct();
+        if (!isset($this->dbType) && defined('DB_TYPE')) {
+            $this->dbType = constant('DB_TYPE');
+        }
         if (!isset($this->server) && defined('DB_SERVER')) {
             $this->server = constant('DB_SERVER');
         }
@@ -589,6 +597,16 @@ class EaseSQL extends EaseSand
         $db->query('USE ' . DB_DATABASE);
 
         return $db;
+    }
+
+    /**
+     * Vrací uvozovky pro označení sloupečků
+     *
+     * @return string
+     */
+    function getColumnComma()
+    {
+        return '';
     }
 
 }

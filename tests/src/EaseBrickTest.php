@@ -57,10 +57,7 @@ class EaseBrickTest extends EaseSandTest
      */
     public function testSetObjectName()
     {
-        $this->object->setObjectName('Testing');
-        $this->assertEquals('Testing', $this->object->getObjectName());
-        $this->object->setObjectName();
-        $this->assertEquals(get_class($this->object), $this->object->getObjectName());
+        parent::testSetObjectName();
         $this->object->setMyKey(123);
         $this->object->setObjectName();
         $this->assertEquals('EaseBrickTester@123', $this->object->getObjectName());

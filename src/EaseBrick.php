@@ -8,7 +8,6 @@
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 require_once 'Ease/EaseSand.php';
-require_once 'Ease/EaseDB2.php';
 
 /**
  * Základní objekt pracující s databázemi
@@ -21,13 +20,13 @@ class EaseBrick extends EaseSand
 {
 
     /**
-     * Objekt pro práci s MySQL
+     * Objekt pro práci s SQL
      * @var EaseDbMySqli
      */
-    public $myDbLink = null;
+    public $dblink = null;
 
     /**
-     * Předvolená tabulka v MySQL (součást identity)
+     * Předvolená tabulka v SQL (součást identity)
      * @var string
      */
     public $myTable = '';
@@ -39,10 +38,29 @@ class EaseBrick extends EaseSand
     public $sqlStruct = null;
 
     /**
+     * Funkční sloupečky pro MS
+     * @var array
+     */
+    public $msDbRoles = null;
+
+    /**
      * Funkční sloupečky pro My
      * @var array
      */
     public $myDbRoles = null;
+
+    /**
+     * Odkaz na objekt uživatele
+     * @var EaseUser | EaseAnonym
+     */
+    public $user = null;
+
+    /**
+     * Multiplete DATA indicator
+     *
+     * @var int
+     */
+    protected $multipleteResult;
 
     /**
      * [Cs]Základní objekt pracující s databází
@@ -72,13 +90,73 @@ class EaseBrick extends EaseSand
         if ($objectName) {
             return parent::setObjectName($objectName);
         } else {
-            $key = $this->getMyKey();
+            $key = $this->getMyKey($this->data);
             if ($key) {
                 return parent::setObjectName(get_class($this) . '@' . $key);
             } else {
                 return parent::setObjectName();
             }
         }
+    }
+
+    /**
+     * Nastavi identitu objektu a jeho SQL Objektů
+     *
+     * @param array $newIdentity
+     *
+     * @return int Počet provedených změn
+     */
+    public function setObjectIdentity($newIdentity)
+    {
+        $changes = parent::SetObjectIdentity($newIdentity);
+        if ($this->myTable) {
+            $this->mySqlUp();
+        }
+        return $changes;
+    }
+
+    /**
+     * Přiřadí objektu odkaz na objekt uživatele
+     *
+     * @param object|EaseUser $user         pointer to user object
+     * @param object          $targetObject objekt kterému je uživatel
+     *                                      přiřazován.
+     *
+     * @return boolean
+     */
+    public function setUpUser(& $user, & $targetObject = null)
+    {
+        if (is_object($user)) {
+            if (is_object($targetObject)) {
+                $targetObject->user = & $user;
+            } else {
+                $this->user = & $user;
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Vraci objekt uzivatele
+     *
+     * @return EaseUser
+     */
+    public function &getUser()
+    {
+        if (isset($this->user)) {
+            $User = &$this->user;
+        } else {
+            if (isset($this->easeShared->User)) {
+                $User = &$this->easeShared->User;
+            } else {
+                $User = null;
+            }
+        }
+
+        return $User;
     }
 
     /**
@@ -93,7 +171,7 @@ class EaseBrick extends EaseSand
     {
         if ($addIcons) {
             switch ($type) {
-                case 'email':                    // Obalka
+                case 'mail':                    // Obalka
                     $message = ' ✉ ' . $message;
                     break;
                 case 'warning':                    // Vykřičník v trojůhelníku
@@ -118,6 +196,22 @@ class EaseBrick extends EaseSand
     }
 
     /**
+     * Funkce pro defaultní slashování v celém projektu
+     *
+     * @param string $text text k olomítkování
+     *
+     * @return string
+     */
+    public function easeAddSlashes($text)
+    {
+        if (is_object($this->dblink) && is_resource($this->dblink->sqlLink)) {
+            return mysql_real_escape_string($text, $this->dblink->sqlLink);
+        } else {
+            return parent::EaseAddSlashes($text);
+        }
+    }
+
+    /**
      * Vrací z databáze sloupečky podle podmínek
      *
      * @param array            $columnsList seznam položek
@@ -129,8 +223,9 @@ class EaseBrick extends EaseSand
      *
      * @return array
      */
-    public function getColumnsFromSQL($columnsList = '*', $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
+    public function getColumnsFromSQL($columnsList, $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
     {
+        $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
             $this->error('getColumnsFromSQL: Missing ColumnList');
 
@@ -148,7 +243,7 @@ class EaseBrick extends EaseSand
 
                 return null;
             }
-            $where = ' WHERE ' . $this->myDbLink->prepSelect($conditions);
+            $where = ' WHERE ' . $this->dblink->prepSelect($conditions);
         } else {
             if (!is_null($conditions)) {
                 $where = ' WHERE ' . $conditions;
@@ -180,19 +275,19 @@ class EaseBrick extends EaseSand
 
         if (is_array($columnsList)) {
             foreach ($columnsList as $id => $column) {
-                $columnsList[$id] = '`' . $column . '`';
+                $columnsList[$id] = $cc . $column . $cc;
             }
-            return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
+            return $this->dblink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
         } else {
             if (!strstr($columnsList, '*')) {
-                $columnsList = '`' . $columnsList . '`';
+                $columnsList = $cc . $columnsList . $cc;
             }
-            return $this->myDbLink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
+            return $this->dblink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
         }
     }
 
     /**
-     * Načte z MySQL data k aktuálnímu $ItemID
+     * Načte z SQL data k aktuálnímu $ItemID
      *
      * @param int $itemID klíč záznamu
      *
@@ -211,49 +306,50 @@ class EaseBrick extends EaseSand
         if (is_null($itemID)) {
             $this->error('loadFromSQL: Unknown Key', $this->data);
         }
+        $cc = $this->dblink->getColumnComma();
+        $queryRaw = 'SELECT * FROM ' . $cc . $this->myTable . $cc . ' WHERE ' . $cc . $this->getmyKeyColumn() . $cc . '=' . $itemID;
 
-        $queryRaw = 'SELECT * FROM `' . $this->myTable . '` WHERE `' . $this->getmyKeyColumn() . '`=' . $itemID;
-
-        return $this->myDbLink->queryToArray($queryRaw);
+        return $this->dblink->queryToArray($queryRaw);
     }
 
     /**
-     * Načte z MySQL data k aktuálnímu $ItemID a použije je v objektu
+     * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu
      *
      * @param int     $itemID     klíč záznamu
-     * @param boolean $multiplete nevarovat v případě více výsledků
+     * @param array   $dataPrefix název datové skupiny
      *
      * @return array Results
      */
-    public function loadFromSQL($itemID = null, $multiplete = false)
+    public function loadFromSQL($itemID = null)
     {
-        $mySQLResult = $this->getDataFromSQL($itemID);
-        if ($multiplete) {
-            $this->data = $mySQLResult;
-        } else {
-            if (count($mySQLResult) > 1) {
-                $this->error('Multipete Query result: ' . $this->myDbLink->getLastQuery());
+        if (is_null($itemID)) {
+            $itemID = $this->getMyKey();
+        }
+        $SQLResult = $this->getDataFromSQL($itemID);
+        $this->multipleteResult = (count($SQLResult) > 1);
+
+        if ($this->multipleteResult) {
+            $results = array();
+            foreach ($SQLResult as $id => $data) {
+                $this->takeData($data);
+                $results[$id] = $this->getData();
             }
-            if (isset($mySQLResult[0])) {
-                $this->data = $mySQLResult[0];
+            $this->data = $results;
+        } else {
+            if (isset($SQLResult[0])) {
+                $this->takeData($SQLResult[0]);
             } else {
                 return null;
             }
         }
-
         if (count($this->data)) {
             return count($this->data);
-        } else {
-            if (!$multiplete) {
-                $this->addToLog('Item Found ' . $itemID . ' v ' . $this->myTable, 'error');
-            }
-
-            return null;
         }
+        return null;
     }
 
     /**
-     * Vrátí z MySQL všechny záznamy
+     * Vrátí z SQL všechny záznamy
      *
      * @param string $tableName     jméno tabulky
      * @param array  $columnsList   získat pouze vyjmenované sloupečky
@@ -284,45 +380,21 @@ class EaseBrick extends EaseSand
         }
 
         if (!$columnsList) {
-            return $this->myDbLink->queryToArray("SELECT * FROM `" . $tableName . "` " . $limitCond . $orderByCond, $ColumnToIndex);
+            $cc = $this->dblink->getColumnComma();
+            return $this->dblink->queryToArray("SELECT * FROM " . $cc . $tableName . $cc . " " . $limitCond . $orderByCond, $ColumnToIndex);
         } else {
-            return $this->myDbLink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
+            return $this->dblink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
         }
     }
 
     /**
-     * Oznámí MySQL objektu vlastnosti predvolene tabulky
-     *
-     * @deprecated since version 200
-     * @param $updateStructure znovunahraje strukturu
-     */
-    public function mySqlUp($updateStructure = false)
-    {
-        if (!is_object($this->myDbLink)) {
-            $this->takemyTable();
-
-            return;
-        }
-        $this->myDbLink->keyColumn = $this->myKeyColumn;
-        $this->myDbLink->tableName = $this->myTable;
-        $this->myDbLink->CreateColumn = $this->myCreateColumn;
-        $this->myDbLink->LastModifiedColumn = $this->myLastModifiedColumn;
-        if ($updateStructure) {
-            $this->loadSqlStruct('my');
-        }
-        if (isset($this->sqlStruct['my'])) {
-            $this->myDbLink->tableStructure = $this->sqlStruct['my'];
-        }
-    }
-
-    /**
-     * Provede update záznamu do MySQL
+     * Provede update záznamu do SQL
      *
      * @param array $data
      *
      * @return int Id záznamu nebo null v případě chyby
      */
-    public function updateToMySQL($data = null)
+    public function updateToSQL($data = null)
     {
         if (!$this->myTable) {
             return null;
@@ -336,7 +408,7 @@ class EaseBrick extends EaseSand
         }
 
         if (!count($data)) {
-            $this->error(_('UpdateToMySQL: Chybějící data'));
+            $this->error(_('UpdateToSQL: Missing data'));
 
             return null;
         }
@@ -344,7 +416,7 @@ class EaseBrick extends EaseSand
         if (!isset($data[$this->myKeyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->error(get_class($this) . ':UpdateToMySQL: Unknown myKeyColumn:' . $this->myKeyColumn, $data);
+                $this->error(get_class($this) . ':UpdateToSQL: Unknown myKeyColumn:' . $this->myKeyColumn, $data);
 
                 return null;
             }
@@ -357,9 +429,9 @@ class EaseBrick extends EaseSand
             $data[$this->myLastModifiedColumn] = 'NOW()';
         }
 
-
-        $queryRaw = "UPDATE `" . $this->myTable . "` SET " . $this->myDbLink->arrayToQuery($data) . "  WHERE `" . $this->myKeyColumn . "` = '" . $this->myDbLink->EaseAddSlashes($key) . "'";
-        if ($this->myDbLink->exeQuery($queryRaw)) {
+        $cc = $this->dblink->getColumnComma();
+        $queryRaw = "UPDATE " . $cc . $this->myTable . $cc . " SET " . $this->dblink->arrayToSetQuery($data) . "  WHERE " . $cc . $this->myKeyColumn . $cc . " = '" . $this->dblink->EaseAddSlashes($key) . "'";
+        if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 if (array_key_exists($defDatPref, $this->data)) {
                     return $this->data[$defDatPref][$this->myKeyColumn];
@@ -375,7 +447,7 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Uloží pole dat do MySQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
+     * Uloží pole dat do SQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
      *
      * @param array $data        asociativní pole dat
      * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
@@ -384,35 +456,13 @@ class EaseBrick extends EaseSand
      */
     public function saveToSQL($data = null, $searchForID = false)
     {
-        if (is_object($this->myDbLink)) {
-            return $this->saveToMySQL($data, $searchForID);
-        }
-
-        $this->addStatusMessage(_('Databáze není definována'), 'error');
-        return null;
-    }
-
-    /**
-     * Uloží pole dat do MySQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
-     *
-     * @param array $data        asociativní pole dat
-     * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
-     *
-     * @return int ID záznamu nebo null v případě neůspěchu
-     */
-    public function saveToMySQL($data = null, $searchForID = false)
-    {
         $result = null;
         if (is_null($data)) {
-            if (array_key_exists('MySQL', $this->data)) {
-                $data = $this->getData('MySQL');
-            } else {
-                $data = $this->getData();
-            }
+            $data = $this->getData();
         }
 
         if (count($data) < 1) {
-            $this->error('SaveToMySQL: Missing data', $data);
+            $this->error('SaveToSQL: Missing data', $data);
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
@@ -429,15 +479,15 @@ class EaseBrick extends EaseSand
                 }
 
                 if (count($rowsFound)) {
-                    $result = $this->updateToMySQL($data);
+                    $result = $this->updateToSQL($data);
                 } else {
-                    $result = $this->insertToMySQL($data);
+                    $result = $this->insertToSQL($data);
                 }
             } else {
                 if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn]) && strlen($data[$this->myKeyColumn])) {
-                    $result = $this->updateToMySQL($data);
+                    $result = $this->updateToSQL($data);
                 } else {
-                    $result = $this->insertToMySQL($data);
+                    $result = $this->insertToSQL($data);
                 }
             }
         }
@@ -458,36 +508,15 @@ class EaseBrick extends EaseSand
      */
     public function insertToSQL($data = null)
     {
-        if (is_object($this->myDbLink)) {
-            return $this->insertToMySQL($data);
-        }
-
-        $this->addStatusMessage(_('Databáze není definována'), 'error');
-        return null;
-    }
-
-    /**
-     * Vloží záznam do MySQL databáze
-     *
-     * @param array $data
-     *
-     * @return id
-     */
-    public function insertToMySQL($data = null)
-    {
         if (is_null($data)) {
-            if (array_key_exists('MySQL', $this->data)) {
-                $data = $this->getData('MySQL');
-            } else {
-                $data = $this->getData();
-            }
+            $data = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
         }
 
         if (!count($data)) {
-            $this->error('NO data for Insert to MySQL: ' . $this->myTable);
+            $this->error('NO data for Insert to SQL: ' . $this->myTable);
 
             return null;
         }
@@ -495,13 +524,13 @@ class EaseBrick extends EaseSand
         if ($this->myCreateColumn && !isset($data[$this->myCreateColumn])) {
             $data[$this->myCreateColumn] = 'NOW()';
         }
-        $queryRaw = 'INSERT INTO `' . $this->myTable . '` SET ' . $this->myDbLink->arrayToQuery($data, false);
-        if ($this->myDbLink->exeQuery($queryRaw)) {
+        $queryRaw = 'INSERT INTO ' . $this->dblink->getColumnComma() . $this->myTable . $this->dblink->getColumnComma() . ' ' . $this->dblink->arrayToInsertQuery($data, false);
+        if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
-                $this->setMyKey($this->myDbLink->lastInsertID);
+                $this->setMyKey($this->dblink->lastInsertID);
             }
 
-            return $this->myDbLink->lastInsertID;
+            return $this->dblink->lastInsertID;
         }
 
         return null;
@@ -514,16 +543,11 @@ class EaseBrick extends EaseSand
      */
     public function save()
     {
-        $result = array();
-        if (is_object($this->myDbLink)) {
-            $result['my'] = $this->saveToMySQL();
-        }
-
-        return $result;
+        return $this->saveToSQL();
     }
 
     /**
-     * Smaže záznam z MySQL
+     * Smaže záznam z SQL
      *
      * @param array|int $data
      *
@@ -540,8 +564,9 @@ class EaseBrick extends EaseSand
         }
 
         if (count($data)) {
-            $this->myDbLink->exeQuery('DELETE FROM `' . $this->myTable . '` WHERE ' . $this->myDbLink->prepSelect($data));
-            if ($this->myDbLink->getNumRows()) {
+            $cc = $this->dblink->getColumnComma();
+            $this->dblink->exeQuery('DELETE FROM ' . $cc . $this->myTable . $cc . ' WHERE ' . $this->dblink->prepSelect($data));
+            if ($this->dblink->getNumRows()) {
                 return true;
             } else {
                 return false;
@@ -590,7 +615,7 @@ class EaseBrick extends EaseSand
      *
      * @return int počet položek
      */
-    public function getMySQLList($tableName = null, $myKeyColumn = null)
+    public function getSQLList($tableName = null, $myKeyColumn = null)
     {
         if (!$tableName) {
             $tableName = $this->myTable;
@@ -598,16 +623,17 @@ class EaseBrick extends EaseSand
         if (!$myKeyColumn) {
             $myKeyColumn = $this->myKeyColumn;
         }
-        $ListQuery = "SELECT `$myKeyColumn` FROM $tableName ";
+        $cc = $this->dblink->getColumnComma();
+        $listQuery = "SELECT $cc" . $myKeyColumn . "$cc FROM $tableName ";
 
-        $this->myDbLink->queryToArray($ListQuery);
-        $this->DataIdList = $this->myDbLink->resultArray;
+        $this->dblink->queryToArray($listQuery);
+        $this->DataIdList = $this->dblink->resultArray;
 
         return count($this->DataIdList);
     }
 
     /**
-     * Provede přiřazení MySQL tabulky objektu
+     * Provede přiřazení SQL tabulky objektu
      *
      * @param string $myTable
      */
@@ -616,19 +642,15 @@ class EaseBrick extends EaseSand
         if ($myTable) {
             $this->myTable = $myTable;
         }
-        if (!isset($this->myDbLink) || !is_object($this->myDbLink)) {
-            $this->myDbLink = EaseDB2MySql::singleton();
-            if (!isset($this->easeShared->myDbLink)) {
-                $this->easeShared->myDbLink = & $this->myDbLink;
-            }
+        if (!isset($this->dblink) || !is_object($this->dblink)) {
+            $this->dblink = EasePDO::singleton();
         }
-        if (is_string($this->myTable)) {
-            $this->mySqlUp();
-        }
+        $this->dblink->setTableName($myTable);
+        $this->dblink->setKeyColumn($this->myKeyColumn);
     }
 
     /**
-     * Vrací název klíčového sloupce pro MySQL
+     * Vrací název klíčového sloupce pro SQL
      *
      * @return string
      */
@@ -645,7 +667,7 @@ class EaseBrick extends EaseSand
      */
     public function MyIDExists($id)
     {
-        return $this->myDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->myTable . ' WHERE ' . $this->getmyKeyColumn() . '=' . intval($id));
+        return $this->dblink->queryToValue('SELECT COUNT(*) FROM ' . $this->myTable . ' WHERE ' . $this->getmyKeyColumn() . '=' . intval($id));
     }
 
     /**
@@ -670,7 +692,7 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Vrací hodnotu klíčového políčka pro MySQL
+     * Vrací hodnotu klíčového políčka pro SQL
      *
      * @param array $data data z nichž se vrací hodnota klíče
      *
@@ -679,11 +701,7 @@ class EaseBrick extends EaseSand
     public function getMyKey($data = null)
     {
         if (!$data) {
-            if (isset($this->data) && array_key_exists('MySQL', $this->data)) {
-                $data = $this->getData('MySQL');
-            } else {
-                $data = $this->getData();
-            }
+            $data = $this->getData();
         }
         if (isset($data) && isset($data[$this->myKeyColumn])) {
             return $data[$this->myKeyColumn];
@@ -693,7 +711,7 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Nastavuje hodnotu klíčového políčka pro MySQL
+     * Nastavuje hodnotu klíčového políčka pro SQL
      *
      * @param int|string $myKeyValue
      *
@@ -711,16 +729,6 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Nastaví jméno klíčového sloupečku v pohodě
-     *
-     * @param string $msKeyColumn
-     */
-    public function setMSKeyColumn($msKeyColumn)
-    {
-        $this->MSKeyColumn = $msKeyColumn;
-    }
-
-    /**
      * Nastaví jméno klíčového sloupečku v shopu
      *
      * @param string $myKeyColumn
@@ -731,7 +739,7 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Nastaví aktuální pracovní tabulku pro MySQL
+     * Nastaví aktuální pracovní tabulku pro SQL
      *
      * @param string $myTable
      */
@@ -743,7 +751,7 @@ class EaseBrick extends EaseSand
     }
 
     /**
-     * Test na existenci tabulky v MySQL databázi
+     * Test na existenci tabulky v SQL databázi
      *
      * @param string $tableName
      *
@@ -751,36 +759,30 @@ class EaseBrick extends EaseSand
      */
     public function mySQLTableExist($tableName = null)
     {
-        $existence = null;
         if (!$tableName) {
             $tableName = $this->myTable;
         }
         if (!$tableName) {
-            $this->error('TableExist: $TableName not set', $this->identity);
+            $this->error('ShopTableExist: $TableName not known', $this->identity);
         }
 
-        if (is_object($this->myDbLink)) {
-            $existence = $this->myDbLink->tableExist($tableName);
-        } else {
-            $existence = null;
-        }
-        return $existence;
+        return $this->dblink->tableExist($tableName);
     }
 
     /**
-     * Vrátí počet položek tabulky v MySQL
+     * Vrátí počet položek tabulky v SQL
      *
      * @param string $tableName pokud není zadáno, použije se $this->myTable
      *
      * @return int
      */
-    public function getMySQLItemsCount($tableName = null)
+    public function getSQLItemsCount($tableName = null)
     {
         if (!$tableName) {
             $tableName = $this->myTable;
         }
 
-        return $this->myDbLink->queryToValue('SELECT COUNT(' . $this->myKeyColumn . ') FROM ' . $tableName);
+        return $this->dblink->queryToValue('SELECT COUNT(' . $this->myKeyColumn . ') FROM ' . $tableName);
     }
 
     /**
@@ -800,12 +802,12 @@ class EaseBrick extends EaseSand
      */
     public function searchColumns($searchTerm, $columns)
     {
-        $sTerm = $this->myDbLink->AddSlashes($searchTerm);
+        $sTerm = $this->dblink->AddSlashes($searchTerm);
         $conditons = array();
         foreach ($columns as $column) {
             $conditons[] = '`' . $column . '` LIKE \'%' . $sTerm . '%\'';
         }
-        return $this->myDbLink->queryToArray('SELECT * FROM ' . $this->myTable . ' WHERE ' . implode(' OR ', $conditons));
+        return $this->dblink->queryToArray('SELECT * FROM ' . $this->myTable . ' WHERE ' . implode(' OR ', $conditons));
     }
 
 }

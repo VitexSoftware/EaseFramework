@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ukázková webstránka
  *
@@ -6,7 +7,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
 require_once 'Ease/EaseWebPage.php';
 
 /**
@@ -14,13 +14,13 @@ require_once 'Ease/EaseWebPage.php';
  */
 $oPage = new EaseWebPage();
 
-$oPage->addStatusMessage(_('debug'),'debug');
-$oPage->addStatusMessage(_('info'),'info');
-$oPage->addStatusMessage(_('success'),'success');
-$oPage->addStatusMessage(_('warning'),'warning');
-$oPage->addStatusMessage(_('error'),'error');
+$oPage->addStatusMessage(_('debug'), 'debug');
+$oPage->addStatusMessage(_('info'), 'info');
+$oPage->addStatusMessage(_('success'), 'success');
+$oPage->addStatusMessage(_('warning'), 'warning');
+$oPage->addStatusMessage(_('error'), 'error');
 
-$oPage->addItem( $oPage->getStatusMessagesAsHtml() );
+$oPage->addItem($oPage->getStatusMessagesAsHtml());
 
 /**
  * Vyrendrování stránky

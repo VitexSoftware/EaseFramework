@@ -1,7 +1,7 @@
 {
     "name": "vitexsoftware/ease-framework",
     "description": "An PHP Framework for Ease of writing Applications",
-    "version": "0.243",
+    "version": "0.244",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -21,6 +21,6 @@
     "homepage": "http://v.s.cz/ease.php",
     "license": "GPL-2.0+",
     "require-dev": {
-        "robmorgan/phinx": "dev-master"
+        "robmorgan/phinx": "* dev-master"
     }
 }
