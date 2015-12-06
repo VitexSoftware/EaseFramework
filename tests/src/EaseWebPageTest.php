@@ -7,7 +7,7 @@ class EaseWebPageTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EaseWebPage
+     * @var Ease\WebPage
      */
     protected $object;
 
@@ -17,7 +17,7 @@ class EaseWebPageTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new EaseWebPage;
+        $this->object = new Ease\WebPage;
     }
 
     /**

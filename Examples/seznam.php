@@ -12,15 +12,15 @@
 
 require_once 'Ease/EaseWebPage.php';
 
-$oPage = new EaseWebPage();
+$oPage = new Ease\WebPage();
 
 
-$listA = $oPage->addItem( new EaseHtmlUlTag() );
+$listA = $oPage->addItem( new Ease\Html\UlTag() );
 $listA->addItemSmart('Práce malého rozsahu: 400 Kč za hodinu');
 $listA->addItemSmart('Práce středního rozsahu: 1500 Kč za den');
 $listA->addItemSmart('Paušální cena 30000 Kč za měsíc');
 
-$listB = $oPage->addItem( new EaseHtmlOlTag() );
+$listB = $oPage->addItem( new Ease\Html\OlTag() );
 $listB->addItemSmart('Práce malého rozsahu: 500 Kč za hodinu');
 $listB->addItemSmart('Práce středního rozsahu: 2000 Kč za den');
 $listB->addItemSmart('Paušální cena 35000 Kč za měsíc');

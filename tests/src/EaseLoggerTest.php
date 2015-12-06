@@ -7,7 +7,7 @@ class EaseLoggerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EaseLogger
+     * @var Ease\Logger
      */
     protected $object;
 
@@ -17,7 +17,7 @@ class EaseLoggerTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new EaseLogger;
+        $this->object = new Ease\Logger;
     }
 
     /**

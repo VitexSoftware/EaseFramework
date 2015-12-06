@@ -7,7 +7,7 @@ class EasePageTest extends EaseContainerTest
 {
 
     /**
-     * @var EasePage
+     * @var Ease\Page
      */
     protected
         $object;
@@ -18,7 +18,7 @@ class EasePageTest extends EaseContainerTest
      */
     protected function setUp()
     {
-        $this->object = new EasePage;
+        $this->object = new Ease\Page;
     }
 
     /**

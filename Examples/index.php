@@ -14,9 +14,9 @@ require_once 'Ease/EaseJQueryWidgets.php';
 /**
  * Instancujeme objekt webové stránky
  */
-$oPage = new EaseWebPage(_('Ease Framework - ukázky použití'));
+$oPage = new Ease\WebPage(_('Ease Framework - ukázky použití'));
 
-$oPage->addItem(new EaseHtmlH1Tag(_('Ease Framework - ukázky použití')));
+$oPage->addItem(new Ease\Html\H1Tag(_('Ease Framework - ukázky použití')));
 
 $tabs = $oPage->addItem( new EaseJQueryUITabs('priklady'));
 

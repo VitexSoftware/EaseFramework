@@ -11,8 +11,13 @@
     ],
     "autoload": {
         "psr-0": {
-            "Ease": "src/"
+            "Ease\\": "Ease/",
+            "Ease\\Html\\": "Ease/Html",
+            "Ease\\JQuery\\": "Ease/JQuery",
+            "Ease\\SQL\\": "Ease/SQL",
+            "Ease\\TWB\\": "Ease/TwBootstrap"
         }
+
     },
     "minimum-stability": "dev",
     "type": "library",

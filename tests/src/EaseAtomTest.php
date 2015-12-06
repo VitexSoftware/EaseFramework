@@ -22,7 +22,7 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EaseAtom
+     * @var Ease\Atom
      */
     protected $object;
 
@@ -32,7 +32,7 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new EaseAtom;
+        $this->object = new Ease\Atom;
     }
 
     /**
@@ -105,7 +105,7 @@ class EaseAtomTest extends PHPUnit_Framework_TestCase
      */
     public function testtakestatusMessages()
     {
-        $msgSrc = new EaseAtom();
+        $msgSrc = new Ease\Atom();
         $this->object->cleanMessages();
         $msgSrc->addStatusMessage('testing info message', 'info');
         $msgSrc->addStatusMessage('testing success message', 'success');

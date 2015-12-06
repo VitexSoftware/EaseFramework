@@ -1,2 +1,7 @@
-*.php                   /usr/share/php/Ease
-share/js/*.js           /usr/share/javascript
+Ease/*.php                   /usr/share/php/Ease
+Ease/Html/*.php              /usr/share/php/Ease/Html
+Ease/JQuery/*.php            /usr/share/php/Ease/JQuery
+Ease/SQL/*.php               /usr/share/php/Ease/SQL
+Ease/TWB/*.php               /usr/share/php/Ease/TWB
+
+share/js/*.js                /usr/share/javascript

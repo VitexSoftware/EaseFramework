@@ -7,7 +7,7 @@ class EaseUserTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EaseUser
+     * @var Ease\User
      */
     protected $object;
 
@@ -17,7 +17,7 @@ class EaseUserTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new EaseUser;
+        $this->object = new Ease\User;
     }
 
     /**

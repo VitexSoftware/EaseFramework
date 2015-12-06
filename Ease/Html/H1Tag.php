@@ -1,0 +1,24 @@
+<?php
+
+namespace Ease\Html;
+
+/**
+ * HTML major heading tag
+ *
+ * @author Vitex <vitex@hippy.cz>
+ */
+class H1Tag extends Ease\Html\PairTag
+{
+
+    /**
+     * Simple H1 Tag
+     *
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
+     */
+    public function __construct($content = null, $properties = null)
+    {
+        parent::__construct('h1', $properties, $content);
+    }
+
+}

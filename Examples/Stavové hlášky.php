@@ -12,7 +12,7 @@ require_once 'Ease/EaseWebPage.php';
 /**
  * Instancujeme objekt webové stránky
  */
-$oPage = new EaseWebPage();
+$oPage = new Ease\WebPage();
 
 $oPage->addStatusMessage(_('debug'),'debug');
 $oPage->addStatusMessage(_('info'),'info');

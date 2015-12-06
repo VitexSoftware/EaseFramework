@@ -26,8 +26,8 @@ spl_autoload_register(
 
 require_once('PHP/Token/Stream/Autoload.php');
 
-EaseShared::user(new EaseAnonym);
-EaseShared::webPage(new EaseWebPage);
+Ease\Shared::user(new Ease\Anonym);
+Ease\Shared::webPage(new Ease\WebPage);
 
 /**
  * Logovací adresář

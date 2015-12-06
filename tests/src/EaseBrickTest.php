@@ -2,7 +2,7 @@
 
 require_once 'EaseSandTest.php';
 
-class EaseBrickTester extends EaseBrick
+class EaseBrickTester extends Ease\Brick
 {
 
     public $myTable = 'test';
@@ -16,7 +16,7 @@ class EaseBrickTest extends EaseSandTest
 {
 
     /**
-     * @var EaseBrick
+     * @var Ease\Brick
      */
     protected $object;
 

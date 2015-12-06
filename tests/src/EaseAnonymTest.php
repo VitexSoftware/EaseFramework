@@ -11,7 +11,7 @@ class EaseAnonymTest extends PHPUnit_Framework_TestCase
     protected $backupGlobalsBlacklist = array('_SERVER');
 
     /**
-     * @var EaseAnonym
+     * @var Ease\Anonym
      */
     protected $object;
 
@@ -24,7 +24,7 @@ class EaseAnonymTest extends PHPUnit_Framework_TestCase
         $_SERVER['REMOTE_USER'] = 'Tester';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-        $this->object = new EaseAnonym;
+        $this->object = new Ease\Anonym;
     }
 
     /**

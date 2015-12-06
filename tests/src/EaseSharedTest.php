@@ -7,7 +7,7 @@ class EaseSharedTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var EaseShared
+     * @var Ease\Shared
      */
     protected $object;
 
@@ -17,7 +17,7 @@ class EaseSharedTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new EaseShared;
+        $this->object = new Ease\Shared;
     }
 
     /**

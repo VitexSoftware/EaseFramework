@@ -9,7 +9,7 @@ class EaseContainerTest extends EaseSandTest
 {
 
     /**
-     * @var EaseContainer
+     * @var Ease\Container
      */
     protected $object;
 
@@ -19,7 +19,7 @@ class EaseContainerTest extends EaseSandTest
      */
     protected function setUp()
     {
-        $this->object = new EaseContainer;
+        $this->object = new Ease\Container;
     }
 
     /**

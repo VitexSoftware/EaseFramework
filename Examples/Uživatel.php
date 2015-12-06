@@ -13,12 +13,12 @@ require_once 'Ease/EaseUser.php';
 /**
  * Instancujeme objekt webové stránky
  */
-$oPage = new EaseWebPage();
+$oPage = new Ease\WebPage();
 
-EaseShared::user( new EaseAnonym );
-EaseShared::user()->setDataValue('email', 'vitex@hippy.cz');
+Ease\Shared::user( new Ease\Anonym );
+Ease\Shared::user()->setDataValue('email', 'vitex@hippy.cz');
 
-$oPage->addItem(EaseShared::user());
+$oPage->addItem(Ease\Shared::user());
 
 $oPage->addItem( $oPage->getStatusMessagesAsHtml() );
 
