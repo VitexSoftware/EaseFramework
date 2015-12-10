@@ -1,18 +1,22 @@
 <?php
 
+namespace Ease\JQuery;
+
 /**
  * Create jQueryUI tabs
  *
  * @see http://jqueryui.com/demos/tabs/
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class EaseJQueryUITabs extends EaseJQueryUIPart
+class UITabs extends UIPart
 {
+
     /**
      * Array of tab names=>contents
      * @var array
      */
     public $Tabs = array();
+
     /**
      * Create jQueryUI tabs
      *
@@ -31,6 +35,7 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
             $this->setPartProperties($partProperties);
         }
     }
+
     /**
      * Vytvoří nový tab a vloží do něj obsah
      *
@@ -44,6 +49,7 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
         $this->Tabs[$TabName] = $TabContent;
         return $this->Tabs[$TabName];
     }
+
     /**
      * Add dynamicaly loaded content
      *
@@ -54,6 +60,7 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
     {
         $this->Tabs[$TabName] = 'url:' . $Url;
     }
+
     /**
      * Vložení skriptu a divů do stránky
      */
@@ -75,4 +82,5 @@ class EaseJQueryUITabs extends EaseJQueryUIPart
         }
         self::jQueryze($this);
     }
+
 }

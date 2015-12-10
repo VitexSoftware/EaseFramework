@@ -76,7 +76,7 @@ class Shared extends Atom
 
     /**
      * Saves obejct instace (singleton...)
-     * @var Ease\Shared
+     * @var Shared
      */
     private static $_instance = null;
 
@@ -128,11 +128,11 @@ class Shared extends Atom
     /**
      * Vrací se
      *
-     * @return Ease\Shared
+     * @return Shared
      */
     public static function & instanced()
     {
-        $easeShared = Ease\Shared::singleton();
+        $easeShared = Shared::singleton();
 
         return $easeShared;
     }
@@ -206,36 +206,6 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací instanci objektu databáze MySQL
-     *
-     * @return EaseDbMySqli
-     */
-    public static function myDbLink()
-    {
-        if (!class_exists('EaseDbMySqli')) {
-            include 'EaseMySQL.php';
-        }
-
-        return EaseDbMySqli::singleton();
-    }
-
-    /**
-     * Vrací instanci objektu databáze MSSQL
-     *
-     * @deprecated since version 200
-     *
-     * @return EaseDbMSSQL
-     */
-    public static function msDbLink()
-    {
-        if (!class_exists('EaseDbMSSQL')) {
-            include_once 'EaseMSSQL.php';
-        }
-
-        return EaseDbMSSQL::singleton();
-    }
-
-    /**
      * Vrací instanci objektu logování
      *
      * @return Ease\Logger
@@ -253,13 +223,13 @@ class Shared extends Atom
      */
     static function &webPage($oPage = null)
     {
-        $shared = Ease\Shared::instanced();
+        $shared = Shared::instanced();
         if (is_object($oPage)) {
             $shared->webPage = & $oPage;
         }
         if (!is_object($shared->webPage)) {
-            require_once 'EaseWebPage.php';
-            Ease\Shared::webPage(EaseWebPage::singleton());
+            require_once 'WebPage.php';
+            Shared::webPage(EaseWebPage::singleton());
         }
 
         return $shared->webPage;
@@ -306,23 +276,13 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací DB objekt Pearu
-     *
-     * @return EasePearDBCompatible
-     */
-    public static function dbCompatible()
-    {
-        return new EasePearDBCompatible();
-    }
-
-    /**
      * Zaregistruje položku k finalizaci
      *
      * @param mixed $itemPointer
      */
     public static function registerItem(&$itemPointer)
     {
-        $easeShared = Ease\Shared::singleton();
+        $easeShared = Shared::singleton();
         $easeShared->allItems[] = $itemPointer;
     }
 

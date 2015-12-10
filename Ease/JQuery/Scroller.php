@@ -5,7 +5,7 @@
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class EasejQueryScroller extends Ease\Html\DivTag
+class Scroller extends Ease\Html\DivTag
 {
     /**
      * Objekt do nejž se vkládá rolovaný
@@ -16,7 +16,7 @@ class EasejQueryScroller extends Ease\Html\DivTag
      * Rolovatelná oblast
      *
      * @param string         $name
-     * @param EasePage|mixed $Content
+     * @param \Ease\Page|mixed $Content
      * @param array          $Properties
      */
     public function __construct($name = null, $Content = null, $Properties = null)
@@ -33,10 +33,10 @@ class EasejQueryScroller extends Ease\Html\DivTag
      */
     public function finalize()
     {
-        EaseJQueryUIPart::jQueryze($this);
-        EaseShared::webPage()->includeCss('smoothDivScroll.css', true);
-        EaseShared::webPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js', null, true);
-        EaseShared::webPage()->addJavaScript('
+        UIPart::jQueryze($this);
+        \Ease\Shared::webPage()->includeCss('smoothDivScroll.css', true);
+        \Ease\Shared::webPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js', null, true);
+        \Ease\Shared::webPage()->addJavaScript('
         $(function () {
             $("div#' . $this->getTagID() . '").smoothDivScroll({});
         });

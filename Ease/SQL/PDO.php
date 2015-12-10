@@ -15,7 +15,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class PDO extends Ease\SQL
+class PDO extends SQL
 {
 
     /**

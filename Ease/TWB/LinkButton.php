@@ -9,7 +9,7 @@ namespace Ease\TWB;
  * @copyright  2012 Vitex@vitexsoftware.cz (G)
  * @link       http://twitter.github.com/bootstrap/base-css.html#buttons Buttons
  */
-class LinkButton extends Ease\Html\ATag
+class LinkButton extends \Ease\Html\ATag
 {
 
     /**
@@ -34,7 +34,7 @@ class LinkButton extends Ease\Html\ATag
         }
         $properties['class'] .= $class;
         parent::__construct($href, $contents, $properties);
-        Ease\TWB\Part::twBootstrapize();
+        Part::twBootstrapize();
     }
 
 }

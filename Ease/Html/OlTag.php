@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class OlTag extends Ease\Html\UlTag
+class OlTag extends UlTag
 {
 
     /**

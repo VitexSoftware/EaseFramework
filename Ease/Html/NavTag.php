@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends Ease\Html\PairTag
+class NavTag extends PairTag
 {
 
     /**

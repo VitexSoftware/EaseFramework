@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class SubmitButton extends Ease\Html\InputTag
+class SubmitButton extends InputTag
 {
 
     /**

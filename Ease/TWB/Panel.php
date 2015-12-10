@@ -6,24 +6,24 @@
 
 namespace Ease\TWB;
 
-class Panel extends Ease\Html\DivTag
+class Panel extends \Ease\Html\DivTag
 {
 
     /**
      * Hlavička panelu
-     * @var Ease\Html\DivTag
+     * @var \Ease\Html\DivTag
      */
     public $heading = null;
 
     /**
      * Tělo panelu
-     * @var Ease\Html\DivTag
+     * @var \Ease\Html\DivTag
      */
     public $body = null;
 
     /**
      * Patička panelu
-     * @var Ease\Html\DivTag
+     * @var \Ease\Html\DivTag
      */
     public $footer = null;
 
@@ -53,9 +53,9 @@ class Panel extends Ease\Html\DivTag
         $this->addToFooter = $footer;
         parent::__construct(null, null, array('class' => 'panel panel-' . $this->type));
         if (!is_null($heading)) {
-            $this->heading = parent::addItem(new Ease\Html\DivTag(null, $heading, array('class' => 'panel-heading')), 'head');
+            $this->heading = parent::addItem(new \Ease\Html\DivTag(null, $heading, array('class' => 'panel-heading')), 'head');
         }
-        $this->body = parent::addItem(new Ease\Html\DivTag(null, $body, array('class' => 'panel-body')), 'body');
+        $this->body = parent::addItem(new \Ease\Html\DivTag(null, $body, array('class' => 'panel-body')), 'body');
     }
 
     /**
@@ -89,7 +89,7 @@ class Panel extends Ease\Html\DivTag
      * Vrací patičku panelu
      *
      * @param mixed $content obsah pro vložení to patičky
-     * @return Ease\Html\DivTag
+     * @return \Ease\Html\DivTag
      */
     public function footer($content = null)
     {
@@ -98,7 +98,7 @@ class Panel extends Ease\Html\DivTag
                 $this->footer->addItem($content);
             }
         } else {
-            $this->footer = parent::addItem(new Ease\Html\DivTag(null, $content, array('class' => 'panel-footer panel-' . $this->type)), 'footer');
+            $this->footer = parent::addItem(new \Ease\Html\DivTag(null, $content, array('class' => 'panel-footer panel-' . $this->type)), 'footer');
         }
         return $this->footer;
     }

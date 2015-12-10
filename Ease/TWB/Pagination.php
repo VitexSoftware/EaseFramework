@@ -2,7 +2,7 @@
 
 namespace Ease\TWB;
 
-class Pagination extends Ease\Html\UlTag
+class Pagination extends \Ease\Html\UlTag
 {
 
     /**
@@ -23,14 +23,14 @@ class Pagination extends Ease\Html\UlTag
         $this->url = $url;
         parent::__construct(null, array('class' => 'pagination'));
         if ($current == 0) {
-            $this->addPage('#', Ease\TWB\Part::glyphIcon('fast-backward'), 'disabled');
+            $this->addPage('#', Part::glyphIcon('fast-backward'), 'disabled');
         } else {
-            $this->addPage(0, Ease\TWB\Part::glyphIcon('fast-backward'));
+            $this->addPage(0, Part::glyphIcon('fast-backward'));
         }
         if ($current == 0) {
-            $this->addPage('#', Ease\TWB\Part::glyphIcon('chevron-left'), 'disabled');
+            $this->addPage('#', Part::glyphIcon('chevron-left'), 'disabled');
         } else {
-            $this->addPage($current - 1, Ease\TWB\Part::glyphIcon('chevron-left'));
+            $this->addPage($current - 1, Part::glyphIcon('chevron-left'));
         }
         for ($page = 0; $page <= $pages - 1; $page++) {
             //Stavajici
@@ -41,14 +41,14 @@ class Pagination extends Ease\Html\UlTag
             }
         }
         if ($current >= $pages - 1) {
-            $this->addPage('#', Ease\TWB\Part::glyphIcon('chevron-right'), 'disabled');
+            $this->addPage('#', Part::glyphIcon('chevron-right'), 'disabled');
         } else {
-            $this->addPage($current + 1, Ease\TWB\Part::glyphIcon('chevron-right'));
+            $this->addPage($current + 1, Part::glyphIcon('chevron-right'));
         }
         if ($current >= $pages - 1) {
-            $this->addPage('#', Ease\TWB\Part::glyphIcon('fast-forward'), 'disabled');
+            $this->addPage('#', Part::glyphIcon('fast-forward'), 'disabled');
         } else {
-            $this->addPage($pages - 1, Ease\TWB\Part::glyphIcon('fast-forward'));
+            $this->addPage($pages - 1, Part::glyphIcon('fast-forward'));
         }
     }
 
@@ -62,9 +62,9 @@ class Pagination extends Ease\Html\UlTag
     {
         $link = $this->url . $page;
         if ($style) {
-            $this->addItemSmart(new Ease\Html\ATag($link, $label), array('class' => $style));
+            $this->addItemSmart(new \Ease\Html\ATag($link, $label), array('class' => $style));
         } else {
-            $this->addItemSmart(new Ease\Html\ATag($link, $label));
+            $this->addItemSmart(new \Ease\Html\ATag($link, $label));
         }
     }
 

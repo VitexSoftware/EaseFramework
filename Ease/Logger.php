@@ -102,7 +102,7 @@ class Logger extends Atom
 
     /**
      * Obecné konfigurace frameworku
-     * @var EaseShared
+     * @var Shared
      */
     public $easeShared = null;
 
@@ -118,7 +118,7 @@ class Logger extends Atom
      */
     public function __construct($BaseLogDir = null)
     {
-        $this->easeShared = EaseShared::singleton();
+        $this->easeShared = Shared::singleton();
         $this->setupLogFiles();
     }
 

@@ -144,7 +144,7 @@ class Container extends Sand
                 }
             }
         }
-        EaseShared::instanced()->registerItem($itemPointer);
+        Shared::instanced()->registerItem($itemPointer);
 
         return $itemPointer;
     }

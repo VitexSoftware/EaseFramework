@@ -2,7 +2,7 @@
 
 namespace Ease\Html;
 
-class Thead extends Ease\Html\PairTag
+class Thead extends PairTag
 {
 
     /**

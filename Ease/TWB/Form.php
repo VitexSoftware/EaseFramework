@@ -6,7 +6,7 @@
 
 namespace Ease\TWB;
 
-class Form extends Ease\Html\Form
+class Form extends \Ease\Html\Form
 {
 
     /**
@@ -42,7 +42,7 @@ class Form extends Ease\Html\Form
      */
     public function addInput($input, $caption = null, $placeholder = null, $helptext = null)
     {
-        return $this->addItem(new Ease\TWB\FormGroup($caption, $input, $placeholder, $helptext));
+        return $this->addItem(new FormGroup($caption, $input, $placeholder, $helptext));
     }
 
     /**

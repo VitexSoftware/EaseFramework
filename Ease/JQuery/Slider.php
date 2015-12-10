@@ -1,23 +1,28 @@
 <?php
 
+namespace Ease\JQuery;
+
 /**
  * Slider
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @see http://docs.jquery.com/UI/Slider
  */
-class EaseJQuerySlider extends EaseJQueryUIPart
+class Slider extends UIPart
 {
+
     /**
      * Class used to create form input
      * @var type
      */
     public $inputClass = 'Ease\Html\InputHiddenTag';
+
     /**
      * Additional JS code to solve show slider values
      * @var type
      */
     public $SliderAdd = '';
+
     /**
      * Jquery Slider
      *
@@ -32,6 +37,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
             $this->setValue($value);
         }
     }
+
     /**
      * Nastavuje jméno objektu
      * Je li znnámý, doplní jméno objektu jménem inputu
@@ -52,6 +58,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
             }
         }
     }
+
     /**
      * Setup input field/s value/s
      *
@@ -65,6 +72,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
             $this->setPartProperties(array('value' => $value));
         }
     }
+
     /**
      * Nastaví více hodnot
      *
@@ -85,6 +93,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
             }
         }
     }
+
     /**
      * Return assigned form input Tag name
      *
@@ -94,6 +103,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
     {
         return $this->partName;
     }
+
     /**
      * Javascriptvový kod slideru
      *
@@ -113,6 +123,7 @@ class EaseJQuerySlider extends EaseJQueryUIPart
         }
         return $javaScript;
     }
+
     /**
      * Naplnění hodnotami
      */
@@ -130,12 +141,13 @@ class EaseJQuerySlider extends EaseJQueryUIPart
             $this->lastItem->setTagID($this->partName);
         }
     }
+
     /**
      * Vložení skriptů do schránky
      */
     public function finalize()
     {
-        EaseShared::webPage()->addCSS(' #' . $this->partName . ' { margin: 10px; }');
+        \Ease\Shared::webPage()->addCSS(' #' . $this->partName . ' { margin: 10px; }');
         $this->addItem(new Ease\Html\DivTag($this->partName . '-slider'));
         if (isset($this->partProperties['values'])) {
             if (is_array($this->partProperties['values'])) {
@@ -153,7 +165,8 @@ class EaseJQuerySlider extends EaseJQueryUIPart
         }
         $this->setPartProperties(array('change' => 'function (event, ui) {
             $("#' . $this->partName . '-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  '));
-        EaseShared::webPage()->addJavaScript(';', null, true);
+        \Ease\Shared::webPage()->addJavaScript(';', null, true);
         return parent::finalize();
     }
+
 }

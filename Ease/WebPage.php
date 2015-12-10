@@ -80,17 +80,17 @@ class WebPage extends Page
      */
     public function __construct($pageTitle = NULL, & $userObject = null)
     {
-        Ease\Shared::webPage($this);
+        Shared::webPage($this);
         if (!is_null($pageTitle)) {
             $this->pageTitle = $pageTitle;
         }
         parent::__construct($userObject);
 
         $this->pageParts['doctype'] = '<!DOCTYPE html>';
-        parent::addItem(new Ease\Html\HtmlTag());
+        parent::addItem(new Html\HtmlTag());
         $this->pageParts['html']->setupWebPage($this);
-        $this->pageParts['html']->addItem(new Ease\Html\HeadTag());
-        $this->pageParts['html']->addItem(new Ease\Html\BodyTag());
+        $this->pageParts['html']->addItem(new Html\HeadTag());
+        $this->pageParts['html']->addItem(new Html\BodyTag());
         $this->head = & $this->pageParts['html']->pageParts['head'];
         $this->head->raise($this);
 

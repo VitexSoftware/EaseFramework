@@ -5,7 +5,7 @@ namespace Ease\Html;
 /**
  * Skript ve stránce
  */
-class ScriptTag extends Ease\Html\PairTag
+class ScriptTag extends PairTag
 {
 
     /**

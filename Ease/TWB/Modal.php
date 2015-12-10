@@ -2,12 +2,12 @@
 
 namespace Ease\TWB;
 
-class Modal extends Ease\Html\Div
+class Modal extends \Ease\Html\Div
 {
 
     /**
      * Spodek dialogu s tlačítky
-     * @var Ease\Html\Div
+     * @var \Ease\Html\Div
      */
     public $footer;
 
@@ -31,13 +31,13 @@ class Modal extends Ease\Html\Div
 
     /**
      * Tělo dialogu
-     * @var Ease\Html\Div
+     * @var \Ease\Html\Div
      */
     public $body;
 
     /**
      * Hlavička dialogu
-     * @var Ease\Html\Div
+     * @var \Ease\Html\Div
      */
     public $header;
 
@@ -54,26 +54,26 @@ class Modal extends Ease\Html\Div
         $this->properties = $properties;
         $this->name = $name;
         $this->title = $title;
-        $this->header = new Ease\Html\Div(null, array('class' => 'modal-header'));
-        $this->header->addItem(new Ease\Html\ButtonTag('&times;', array('class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true')));
-        $this->body = new Ease\Html\Div($content, array('class' => 'modal-body'));
-        $this->footer = new Ease\Html\Div(null, array('class' => 'modal-footer'));
-        $this->footer->addItem(new Ease\Html\ButtonTag(_('Zavřít'), array('id' => $name . 'ko', 'type' => 'button', 'class' => 'btn btn-default', 'data-dismiss' => 'modal')));
-        $this->footer->addItem(new Ease\Html\ButtonTag(_('Uložit'), array('id' => $name . 'ok', 'type' => 'button', 'class' => 'btn btn-primary')));
+        $this->header = new \Ease\Html\Div(null, array('class' => 'modal-header'));
+        $this->header->addItem(new \Ease\Html\ButtonTag('&times;', array('class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true')));
+        $this->body = new \Ease\Html\Div($content, array('class' => 'modal-body'));
+        $this->footer = new \Ease\Html\Div(null, array('class' => 'modal-footer'));
+        $this->footer->addItem(new \Ease\Html\ButtonTag(_('Zavřít'), array('id' => $name . 'ko', 'type' => 'button', 'class' => 'btn btn-default', 'data-dismiss' => 'modal')));
+        $this->footer->addItem(new \Ease\Html\ButtonTag(_('Uložit'), array('id' => $name . 'ok', 'type' => 'button', 'class' => 'btn btn-primary')));
     }
 
     function finalize()
     {
-        $modalDialog = $this->addItem(new Ease\Html\Div(null, array('class' => 'modal-dialog')));
-        $modalContent = $modalDialog->addItem(new Ease\Html\Div(null, array('class' => 'modal-content')));
-        $this->header->addItem(new Ease\Html\H4Tag($this->title, array('class' => 'modal-title', 'id' => $this->title . 'ID')));
+        $modalDialog = $this->addItem(new \Ease\Html\Div(null, array('class' => 'modal-dialog')));
+        $modalContent = $modalDialog->addItem(new \Ease\Html\Div(null, array('class' => 'modal-content')));
+        $this->header->addItem(new \Ease\Html\H4Tag($this->title, array('class' => 'modal-title', 'id' => $this->title . 'ID')));
         $modalContent->addItem($this->header);
         $modalContent->addItem($this->body);
         $modalContent->addItem($this->footer);
         if (is_array($this->properties)) {
             EaseShared::webPage()->addJavaScript(' $(function ()
 {
-    $("#' . $this->name . '").modal( {' . Ease\TWB\Part::partPropertiesToString($this->properties) . '});
+    $("#' . $this->name . '").modal( {' . Part::partPropertiesToString($this->properties) . '});
 });
 ', null, true);
         } else {

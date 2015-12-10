@@ -8,7 +8,7 @@
 
 namespace Ease\TWB;
 
-class Part extends EaseJQueryPart
+class Part extends \Ease\JQuery\Part
 {
 
     /**
@@ -27,7 +27,7 @@ class Part extends EaseJQueryPart
     public static function twBootstrapize()
     {
         parent::jQueryze();
-        $webPage = EaseShared::webPage();
+        $webPage = \Ease\Shared::webPage();
         $webPage->includeJavaScript('twitter-bootstrap/js/bootstrap.js', 1, true);
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
@@ -55,7 +55,7 @@ class Part extends EaseJQueryPart
                 $properties['class'] = 'glyphicon glyphicon-' . $code;
             }
         }
-        return new Ease\Html\Span(null, $properties);
+        return new \Ease\Html\Span(null, $properties);
     }
 
 }

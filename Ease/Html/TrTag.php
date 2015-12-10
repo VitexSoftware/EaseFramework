@@ -5,10 +5,10 @@ namespace Ease\Html;
 /**
  * HTML Table row class
  *
- * @subpackage Ease\Html\
+ * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class TrTag extends Ease\Html\PairTag
+class TrTag extends PairTag
 {
 
     /**

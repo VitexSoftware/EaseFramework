@@ -6,7 +6,7 @@
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 namespace Ease\Html; 
- class Form extends Ease\Html\PairTag
+ class Form extends PairTag
 {
     /**
      * Cíl formu
@@ -143,7 +143,7 @@ namespace Ease\Html;
             foreach ($this->webPage->requestValuesToKeep as $name => $value) {
                 if (!$this->objectContentSearch($name)) {
                     if (is_string($value)) {
-                        $this->addItem(new Ease\Html\InputHiddenTag($name, $value));
+                        $this->addItem(new InputHiddenTag($name, $value));
                     }
                 }
             }

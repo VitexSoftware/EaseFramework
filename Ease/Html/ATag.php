@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class ATag extends Ease\Html\PairTag
+class ATag extends PairTag
 {
 
     /**

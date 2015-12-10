@@ -5,7 +5,7 @@ namespace Ease\Html;
 /**
  * Html element pro adresu
  */
-class AddressTag extends Ease\Html\PairTag
+class AddressTag extends PairTag
 {
 
     /**

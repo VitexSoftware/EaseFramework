@@ -5,6 +5,7 @@ namespace Ease\SQL;
 /**
  * Podpora MSSQL databáze
  *
+ * @deprecated since version 2.0
  * @category  Sql
  * @package   EaseFrameWork
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
@@ -16,7 +17,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class MSSQL extends EaseSql
+class MSSQL extends SQL
 {
 
     public $Debug = false;

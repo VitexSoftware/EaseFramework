@@ -5,7 +5,7 @@ namespace Ease\Html;
 /**
  * Preformátovaný text
  */
-class PreTag extends Ease\Html\PairTag
+class PreTag extends PairTag
 {
 
     /**

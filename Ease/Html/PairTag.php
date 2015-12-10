@@ -5,10 +5,10 @@ namespace Ease\Html;
 /**
  * Obecný párový HTML tag
  *
- * @subpackage Ease\Html\
+ * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class PairTag extends Ease\Html\Tag
+class PairTag extends Tag
 {
 
     /**

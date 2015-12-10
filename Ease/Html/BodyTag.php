@@ -5,10 +5,10 @@ namespace Ease\Html;
 /**
  * Třída pro tělo HTML stránky
  *
- * @subpackage Ease\Html\
+ * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class BodyTag extends Ease\Html\PairTag
+class BodyTag extends PairTag
 {
 
     /**

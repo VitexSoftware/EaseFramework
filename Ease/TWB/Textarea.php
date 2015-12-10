@@ -7,7 +7,7 @@ namespace Ease\TWB;
  *
  * @author vitex
  */
-class Textarea extends Ease\Html\TextareaTag
+class Textarea extends \Ease\Html\TextareaTag
 {
 
     /**

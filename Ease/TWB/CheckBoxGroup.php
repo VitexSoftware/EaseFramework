@@ -19,7 +19,7 @@ class CheckBoxGroup extends Ease\Container
     function finalize()
     {
         foreach ($this->items as $name => $value) {
-            $this->addItem(new Ease\TWB\Checkbox($name, $value, $value, $checked));
+            $this->addItem(new Checkbox($name, $value, $value, $checked));
         }
     }
 

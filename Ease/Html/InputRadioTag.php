@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputRadioTag extends Ease\Html\InputTag
+class InputRadioTag extends InputTag
 {
 
     /**

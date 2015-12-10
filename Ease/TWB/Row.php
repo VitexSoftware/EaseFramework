@@ -6,7 +6,7 @@
 
 namespace Ease\TWB;
 
-class Row extends Ease\Html\DivTag
+class Row extends \Ease\Html\DivTag
 {
 
     /**
@@ -30,7 +30,7 @@ class Row extends Ease\Html\DivTag
      */
     public function &addColumn($size, $content = null, $target = 'md', $properties = null)
     {
-        $added = $this->addItem(new Ease\TWB\Col($size, $content, $target, $properties));
+        $added = $this->addItem(new Col($size, $content, $target, $properties));
         return $added;
     }
 

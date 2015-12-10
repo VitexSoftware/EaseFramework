@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class ParamTag extends Ease\Html\Tag
+class ParamTag extends Tag
 {
 
     /**

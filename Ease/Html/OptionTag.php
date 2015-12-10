@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class OptionTag extends Ease\Html\PairTag
+class OptionTag extends PairTag
 {
 
     /**

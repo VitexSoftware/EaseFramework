@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class FieldSet extends Ease\Html\PairTag
+class FieldSet extends PairTag
 {
 
     /**
@@ -18,7 +18,7 @@ class FieldSet extends Ease\Html\PairTag
 
     /**
      * Objekt s tagem Legendy
-     * @var Ease\Html\PairTag
+     * @var PairTag
      */
     public $LegendTag = null;
 
@@ -38,7 +38,7 @@ class FieldSet extends Ease\Html\PairTag
     {
         $this->setTagName($legend);
         $this->Legend = $legend;
-        $this->LegendTag = $this->addItem(new Ease\Html\PairTag('legend', null, $this->Legend));
+        $this->LegendTag = $this->addItem(new PairTag('legend', null, $this->Legend));
         if ($content) {
             $this->addItem($content);
         }

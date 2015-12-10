@@ -6,7 +6,7 @@
 
 namespace Ease\TWB;
 
-class Container extends Ease\Html\DivTag
+class Container extends \Ease\Html\Div
 {
 
     /**
@@ -16,7 +16,7 @@ class Container extends Ease\Html\DivTag
      */
     public function __construct($content = null)
     {
-        parent::__construct(null, $content, array('class' => 'container'));
+        parent::__construct($content, array('class' => 'container'));
     }
 
 }

@@ -3,6 +3,7 @@
 /**
  * Obsluha MySQL
  *
+ * @deprecated since version 2.0
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2012 Vitex@hippy.cz (G)
@@ -15,7 +16,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class MySqli extends EaseSQL
+class MySqli extends SQL
 {
 
     /**
@@ -706,31 +707,5 @@ class MySqli extends EaseSQL
     {
         return null;
     }
-
-}
-
-/**
- * Compatibility alias
- *
- * @author     Vitex <vitex@hippy.cz>
- * @deprecated nyní se používá EaseDbMySqli
- */
-class EaseDbMySql extends EaseDbMySqli
-{
-
-}
-
-class EaseDbAnsiMySQL extends EaseDbMySql
-{
-
-    /**
-     * Nastavení vlastností přípojení
-     * @var array
-     */
-    public $connectionSettings = array(
-      'NAMES' => 'utf8',
-      'GLOBAL sql_mode  = \'ANSI\'' => '',
-      'GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE' => ''
-    );
 
 }

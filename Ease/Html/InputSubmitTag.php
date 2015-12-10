@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputSubmitTag extends Ease\Html\InputTag
+class InputSubmitTag extends InputTag
 {
 
     /**

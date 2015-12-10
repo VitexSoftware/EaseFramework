@@ -2,7 +2,7 @@
 
 namespace Ease\Html;
 
-class Tbody extends Ease\Html\PairTag
+class Tbody extends PairTag
 {
 
     /**

@@ -6,12 +6,12 @@
 
 namespace Ease\TWB;
 
-class Checkbox extends Ease\Html\DivTag
+class Checkbox extends \Ease\Html\DivTag
 {
 
     /**
      * Odkaz na checkbox
-     * @var  Ease\Html\CheckboxTag
+     * @var  \Ease\Html\CheckboxTag
      */
     public $checkbox = null;
 
@@ -26,8 +26,8 @@ class Checkbox extends Ease\Html\DivTag
      */
     function __construct($name = null, $value = 'on', $content = null, $checked = false, $properties = null)
     {
-        $label = new Ease\Html\LabelTag($name);
-        $this->checkbox = $label->addItem(new Ease\Html\CheckboxTag($name, $checked, $value, $properties));
+        $label = new \Ease\Html\LabelTag($name);
+        $this->checkbox = $label->addItem(new \Ease\Html\CheckboxTag($name, $checked, $value, $properties));
         if ($content) {
             $label->addItem($content);
         }

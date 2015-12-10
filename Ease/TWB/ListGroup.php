@@ -2,7 +2,7 @@
 
 namespace Ease\TWB;
 
-class ListGroup extends Ease\Html\UlTag
+class ListGroup extends \Ease\Html\UlTag
 {
 
     /**
@@ -19,7 +19,7 @@ class ListGroup extends Ease\Html\UlTag
     }
 
     /**
-     * Every item id added in Ease\Html\LiTag envelope
+     * Every item id added in \Ease\Html\LiTag envelope
      *
      * @param mixed  $pageItem     obsah vkládaný jako položka výčtu
      * @param string $properties   Vlastnosti LI tagu

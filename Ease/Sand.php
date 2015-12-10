@@ -89,25 +89,25 @@ class Sand extends Atom
 
     /**
      * Objekt pro logování
-     * @var Ease\Logger
+     * @var Logger
      */
     public $logger = null;
 
     /**
      * Jakým objektem řešit logování ?
-     * @var Ease\Logger
+     * @var Logger
      */
-    public $logType = 'EaseLogger';
+    public $logType = 'Logger';
 
     /**
      * Odkaz na vlastnící objekt
-     * @var Ease\Sand|mixed object
+     * @var Sand|mixed object
      */
     public $parentObject = null;
 
     /**
      * Sdílený objekt frameworku
-     * @var EaseShared
+     * @var Shared
      */
     public $easeShared = null;
 
@@ -116,9 +116,9 @@ class Sand extends Atom
      */
     public function __construct()
     {
-        $this->easeShared = EaseShared::singleton();
+        $this->easeShared = Shared::singleton();
         if ($this->logType != 'none') {
-            $this->logger = Ease\Logger::singleton();
+            $this->logger = Logger::singleton();
         }
         $this->setObjectName();
         $this->initialIdenty = $this->saveObjectIdentity();
@@ -136,7 +136,7 @@ class Sand extends Atom
      */
     public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true)
     {
-        return EaseShared::instanced()->addStatusMessage($message, $type, $addIcons, $addToLog);
+        return Shared::instanced()->addStatusMessage($message, $type, $addIcons, $addToLog);
     }
 
     /**
@@ -148,7 +148,7 @@ class Sand extends Atom
      */
     public function getStatusMessages($clean = false)
     {
-        return EaseShared::instanced()->getStatusMessages($clean);
+        return Shared::instanced()->getStatusMessages($clean);
     }
 
     /**
@@ -157,7 +157,7 @@ class Sand extends Atom
     public function cleanMessages()
     {
         parent::cleanMessages();
-        return EaseShared::instanced()->cleanMessages();
+        return Shared::instanced()->cleanMessages();
     }
 
     /**
@@ -170,44 +170,6 @@ class Sand extends Atom
     {
         if (is_object($object)) {
             $this->$propertyName = & $object;
-        }
-    }
-
-    public function xAttachObject($variableName, $ObjectName, $ObjectParams = null)
-    {
-
-        if (!is_null($this->$variableName)) {
-            if (!is_object($this->$variableName)) {
-                die('AttachObject: UndefinedProperty $this->' . $variableName . ' of ' . $this->getObjectName());
-            }
-        } else {
-
-            if (class_exists($ObjectName)) {
-
-                if (property_exists($this, 'parentObject') && is_object($this->parentObject)) {
-                    //Pokud již rodičovský objekt obsahuje požadovanou vlastnost, pouze na ní odkážeme
-                    if (property_exists($this->parentObject, $variableName)) {
-                        $this->$variableName = & $this->parentObject->$variableName;
-                    }
-                } else {
-                    //jinak se vytvoří nová instance objektu
-                    $NumberOfArgs = func_num_args();
-                    if ($NumberOfArgs == 2) {
-                        $this->$variableName = new $ObjectName();
-                    } else {
-                        $Arguments = func_get_args();
-                        array_shift($Arguments);
-                        array_shift($Arguments);
-                        eval('$this->' . $variableName . ' = new ' . $ObjectName . '(' . implode(',', $Arguments) . ');');
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        if (property_exists($this->$variableName, 'parentObject')) {
-            $this->$variableName->parentObject = & $this;
         }
     }
 

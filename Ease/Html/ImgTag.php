@@ -5,10 +5,10 @@ namespace Ease\Html;
 /**
  * IMG tag class
  *
- * @subpackage Ease\Html\
+ * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class ImgTag extends Ease\Html\Tag
+class ImgTag extends Tag
 {
 
     /**

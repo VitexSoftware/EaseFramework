@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class HtmlTag extends Ease\Html\PairTag
+class HtmlTag extends PairTag
 {
 
     public $LangCode = 'cs-CZ';

@@ -5,7 +5,7 @@ namespace Ease\TWB;
 /**
  * Odesílací tlačítko formuláře Twitter Bootstrapu
  */
-class SubmitButton extends Ease\Html\ButtonTag
+class SubmitButton extends \Ease\Html\ButtonTag
 {
 
     /**
@@ -22,7 +22,7 @@ class SubmitButton extends Ease\Html\ButtonTag
             $properties['class'] = 'btn btn-' . $type;
         }
         parent::__construct($value, $properties);
-        Ease\TWB\Part::twBootstrapize();
+        Part::twBootstrapize();
     }
 
 }

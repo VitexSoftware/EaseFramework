@@ -110,7 +110,7 @@ class SysLogger extends Atom
         if (!is_null($logName)) {
             $this->logger = openlog($logName, LOG_NDELAY, LOG_USER);
         }
-//        $this->easeShared = EaseShared::singleton();
+//        $this->easeShared = Shared::singleton();
     }
 
     /**

@@ -8,7 +8,7 @@ namespace Ease\Html;
  * @deprecated since version 1.0
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class ImageSubbmit extends Ease\Html\InputTag
+class ImageSubbmit extends InputTag
 {
 
     /**

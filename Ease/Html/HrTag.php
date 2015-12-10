@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class HrTag extends Ease\Html\Tag
+class HrTag extends Tag
 {
 
     /**

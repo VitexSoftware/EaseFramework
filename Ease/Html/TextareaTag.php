@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class TextareaTag extends Ease\Html\PairTag
+class TextareaTag extends PairTag
 {
 
     /**

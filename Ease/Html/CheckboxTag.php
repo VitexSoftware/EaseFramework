@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class CheckboxTag extends Ease\Html\InputTag
+class CheckboxTag extends InputTag
 {
 
     /**

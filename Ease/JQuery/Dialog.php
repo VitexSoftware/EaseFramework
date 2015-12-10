@@ -1,38 +1,46 @@
 <?php
 
+namespace Ease\JQuery;
+
 /**
  * Dialog
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @todo dodělat #IDčka ...
  */
-class EaseJQueryDialog extends EaseJQueryUIPart
+class Dialog extends UIPart
 {
+
     /**
      * ID divu s dialogem
      * @var string
      */
     public $DialogID = NULL;
+
     /**
      * Titulek okna
      * @var string
      */
     public $Title = '';
+
     /**
      * Zpráva zobrazená v dialogu
      * @var type
      */
     public $Message = '';
+
     /**
      * Ikona zprávy
      * @var type
      */
     public $Icon = '';
+
     /**
      * Doplnující informace
      * @var type
      */
     public $Notice = NULL;
+
     /**
      * jQuery dialog
      *
@@ -52,13 +60,15 @@ class EaseJQueryDialog extends EaseJQueryUIPart
         $this->partProperties = array('modal' => true, 'buttons' => array('Ok' => 'function () { $( this ).dialog( "close" ); }'));
         parent::__construct();
     }
+
     /**
      * Nastaveni javascriptu
      */
     public function onDocumentReady()
     {
-        return '$("#' . $this->DialogID . '").dialog( {' . EaseJQueryPart::partPropertiesToString($this->partProperties) . '} )';
+        return '$("#' . $this->DialogID . '").dialog( {' . Part::partPropertiesToString($this->partProperties) . '} )';
     }
+
     /**
      * Seskládání HTML
      */
@@ -73,4 +83,5 @@ class EaseJQueryDialog extends EaseJQueryUIPart
         }
         parent::finalize();
     }
+
 }

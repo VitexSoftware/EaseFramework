@@ -10,7 +10,7 @@ namespace Ease\Html;
 class CheckboxGroup extends EaseInputContainer
 {
 
-    public $itemClass = 'Ease\Html\CheckboxTag';
+    public $itemClass = 'CheckboxTag';
 
     /**
      * Pocet vlozenych polozek
@@ -47,16 +47,16 @@ class CheckboxGroup extends EaseInputContainer
     /**
      * Přejmenuje vložené checkboxy pro použití ve formuláři
      *
-     * @param Ease\Html\CheckboxTag $pageItem     vkládaný objekt CheckBoxu
+     * @param CheckboxTag $pageItem     vkládaný objekt CheckBoxu
      * @param string              $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
-     * @return Ease\Html\CheckboxTag
+     * @return CheckboxTag
      */
     function &addItem($pageItem, $pageItemName = null)
     {
         /**
          * Allready Added Item
-         * @var Ease\Html\CheckboxTag
+         * @var CheckboxTag
          */
         $itemInpage = parent::addItem($pageItem);
         if (is_object($itemInpage)) {
@@ -79,7 +79,7 @@ class CheckboxGroup extends EaseInputContainer
     public function finalize()
     {
         parent::finalize();
-        parent::addItem(new Ease\Html\InputHiddenTag('CheckBoxGroups[' . $this->name . ']', $this->getTagName()));
+        parent::addItem(new InputHiddenTag('CheckBoxGroups[' . $this->name . ']', $this->getTagName()));
     }
 
     /**

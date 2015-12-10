@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class IframeTag extends Ease\Html\PairTag
+class IframeTag extends PairTag
 {
 
     public $tagType = 'iframe';

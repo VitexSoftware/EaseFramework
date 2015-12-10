@@ -31,9 +31,9 @@ class InputContainer extends Ease\Container
 
     /**
      * ClassName
-     * @var Ease\Html\InputTag or childs
+     * @var InputTag or childs
      */
-    public $itemClass = 'Ease\Html\InputTextTag';
+    public $itemClass = 'InputTextTag';
 
     /**
      * Skupina inputů

@@ -5,10 +5,10 @@ namespace Ease\Html;
 /**
  * Common HTML tag class
  *
- * @subpackage Ease\Html\
+ * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
-class Tag extends EasePage
+class Tag extends \Ease\Page
 {
 
     /**

@@ -1,28 +1,34 @@
 <?php
 
+namespace Ease\JQuery;
+
 /**
  * Odesílací tlačítko
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @link http://jqueryui.com/demos/button/
  */
-class EaseJQuerySubmitButton extends EaseJQueryUIPart
+class SubmitButton extends UIPart
 {
+
     /**
      * Jméno tlačítka
      * @var string
      */
     public $name = null;
+
     /**
      * Paramatry pro jQuery .button()
      * @var array
      */
     public $JQOptions = null;
+
     /**
      * Odkaz na objekt tlačítka
      * @var Ease\Html\InputSubmitTag
      */
     public $Button = null;
+
     /**
      * Odesílací tlačítko
      *
@@ -41,13 +47,15 @@ class EaseJQuerySubmitButton extends EaseJQueryUIPart
         $Properties['title'] = $Title;
         $this->Button = $this->addItem(new Ease\Html\InputSubmitTag($name, $value, $Properties));
     }
+
     /**
      * Nastaveni javascriptu
      */
     public function onDocumentReady()
     {
-        return '$("input[name=' . $this->Name . ']").button( {' . EaseJQueryPart::partPropertiesToString($this->JQOptions) . '} )';
+        return '$("input[name=' . $this->Name . ']").button( {' . Part::partPropertiesToString($this->JQOptions) . '} )';
     }
+
     /**
      * Nastaví classu tagu
      *
@@ -57,6 +65,7 @@ class EaseJQuerySubmitButton extends EaseJQueryUIPart
     {
         return $this->Button->setTagClass($ClassName);
     }
+
     /**
      * Nastaví jméno tagu
      *
@@ -66,4 +75,5 @@ class EaseJQuerySubmitButton extends EaseJQueryUIPart
     {
         return $this->Button->setTagName($TagName);
     }
+
 }

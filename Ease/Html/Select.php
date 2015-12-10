@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class Select extends Ease\Html\PairTag
+class Select extends PairTag
 {
 
     /**
@@ -61,7 +61,7 @@ class Select extends Ease\Html\PairTag
     public function addItems($items)
     {
         foreach ($items as $itemName => $itemValue) {
-            $newItem = $this->addItem(new Ease\Html\OptionTag($itemValue, $itemName));
+            $newItem = $this->addItem(new OptionTag($itemValue, $itemName));
             if ($this->_itemsIDs) {
                 $newItem->setTagID($this->getTagName() . $itemName);
             }
@@ -133,7 +133,7 @@ class Select extends Ease\Html\PairTag
      */
     public function delItem($itemID)
     {
-        unset($this->pageParts['Ease\Html\OptionTag@' . $itemID]);
+        unset($this->pageParts['OptionTag@' . $itemID]);
     }
 
 }

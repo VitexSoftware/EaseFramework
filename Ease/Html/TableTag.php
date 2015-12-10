@@ -5,21 +5,21 @@ namespace Ease\Html;
 /**
  * HTML table
  *
- * @subpackage Ease\Html\
+ * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class TableTag extends Ease\Html\PairTag
+class TableTag extends PairTag
 {
 
     /**
      * Hlavička tabulky
-     * @var Ease\Html\Thead
+     * @var Thead
      */
     public $tHead = null;
 
     /**
      * Tělo tabulky
-     * @var Ease\Html\Tbody
+     * @var Tbody
      */
     public $tbody = null;
 
@@ -32,8 +32,8 @@ class TableTag extends Ease\Html\PairTag
     public function __construct($content = null, $properties = null)
     {
         parent::__construct('table', $properties, $content);
-        $this->tHead = $this->addItem(new Ease\Html\Thead());
-        $this->tBody = $this->addItem(new Ease\Html\Tbody());
+        $this->tHead = $this->addItem(new Thead());
+        $this->tBody = $this->addItem(new Tbody());
     }
 
     /**
@@ -51,17 +51,17 @@ class TableTag extends Ease\Html\PairTag
      * @param array $columns    pole obsahů buňek
      * @param array $properties pole vlastností dané všem buňkám
      *
-     * @return Ease\Html\TrTag odkaz na řádku tabulky
+     * @return TrTag odkaz na řádku tabulky
      */
     function &addRowColumns($columns = null, $properties = null)
     {
-        $tableRow = $this->tBody->addItem(new Ease\Html\TrTag());
+        $tableRow = $this->tBody->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
                 if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType() == 'td') {
                     $tableRow->addItem($column);
                 } else {
-                    $tableRow->addItem(new Ease\Html\TdTag($column, $properties));
+                    $tableRow->addItem(new TdTag($column, $properties));
                 }
             }
         }
@@ -74,17 +74,17 @@ class TableTag extends Ease\Html\PairTag
      * @param array $columns    pole obsahů buňek
      * @param array $properties pole vlastností dané všem buňkám
      *
-     * @return Ease\Html\TrTag odkaz na řádku tabulky
+     * @return TrTag odkaz na řádku tabulky
      */
     function &addRowHeaderColumns($columns = null, $properties = null)
     {
-        $tableRow = $this->tHead->addItem(new Ease\Html\TrTag());
+        $tableRow = $this->tHead->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
                 if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType() == 'th') {
                     $tableRow->addItem($column);
                 } else {
-                    $tableRow->addItem(new Ease\Html\ThTag($column, $properties));
+                    $tableRow->addItem(new ThTag($column, $properties));
                 }
             }
         }

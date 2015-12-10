@@ -6,12 +6,12 @@ namespace Ease\TWB;
  * Stránka TwitterBootstrap
  *
  * @package    EaseFrameWork
- * @subpackage Ease\Html\
+ * @subpackage \Ease\Html\
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2012 Vitex@vitexsoftware.cz (G)
  * @link       http://twitter.github.com/bootstrap/index.html
  */
-class WebPage extends EaseWebPage
+class WebPage extends \Ease\WebPage
 {
 
     /**

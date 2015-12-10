@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class UlTag extends Ease\Html\PairTag
+class UlTag extends PairTag
 {
 
     /**
@@ -36,7 +36,7 @@ class UlTag extends Ease\Html\PairTag
     }
 
     /**
-     * Every item id added in Ease\Html\LiTag envelope
+     * Every item id added in LiTag envelope
      *
      * @param mixed  $pageItem     obsah vkládaný jako položka výčtu
      * @param string $properties   Vlastnosti LI tagu
@@ -54,7 +54,7 @@ class UlTag extends Ease\Html\PairTag
             if (isset($pageItem->tagType) && $pageItem->tagType == 'li') {
                 $itemAdded = parent::addItem($pageItem);
             } else {
-                $itemAdded = parent::addItem(new Ease\Html\LiTag($pageItem, $properties));
+                $itemAdded = parent::addItem(new LiTag($pageItem, $properties));
             }
         }
         return $itemAdded;

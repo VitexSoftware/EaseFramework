@@ -6,7 +6,7 @@
 
 namespace Ease\TWB;
 
-class Label extends Ease\Html\SpanTag
+class Label extends \Ease\Html\SpanTag
 {
 
     /**

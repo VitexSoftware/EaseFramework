@@ -5,7 +5,7 @@ namespace Ease\Html;
 /**
  * Pojem definice
  */
-class DtTag extends Ease\Html\PairTag
+class DtTag extends PairTag
 {
 
     /**

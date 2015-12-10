@@ -2,12 +2,12 @@
 
 namespace Ease\TWB;
 
-class ButtonDropdown extends Ease\Html\Div
+class ButtonDropdown extends \Ease\Html\Div
 {
 
     /**
      * Rozbalovací nabídka
-     * @var Ease\Html\UlTag
+     * @var \Ease\Html\UlTag
      */
     public $dropdown = null;
 
@@ -34,8 +34,8 @@ class ButtonDropdown extends Ease\Html\Div
         if ($size) {
             $btnClass .= 'btn-' . $size;
         }
-        $this->button = $this->addItem(new Ease\Html\ButtonTag(array($label . ' <span class="caret"></span>'), array('class' => $btnClass . ' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown')));
-        $this->dropdown = $this->addItem(new Ease\Html\UlTag(null, array('class' => 'dropdown-menu', 'role' => 'menu')));
+        $this->button = $this->addItem(new \Ease\Html\ButtonTag(array($label . ' <span class="caret"></span>'), array('class' => $btnClass . ' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown')));
+        $this->dropdown = $this->addItem(new \Ease\Html\UlTag(null, array('class' => 'dropdown-menu', 'role' => 'menu')));
         if (count($items)) {
             foreach ($items as $item) {
                 $this->addMenuItem($item);
@@ -47,7 +47,7 @@ class ButtonDropdown extends Ease\Html\Div
      * Vloží položku do menu tlačítka
      *
      * @param type $pageItem
-     * @return Ease\Html\LiTag
+     * @return \Ease\Html\LiTag
      */
     function addMenuItem($pageItem)
     {
@@ -61,7 +61,7 @@ class ButtonDropdown extends Ease\Html\Div
      */
     static function divider()
     {
-        return new Ease\Html\LiTag(null, array('class' => 'divider'));
+        return new \Ease\Html\LiTag(null, array('class' => 'divider'));
     }
 
 }

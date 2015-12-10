@@ -1,18 +1,22 @@
 <?php
 
+namespace Ease\JQuery;
+
 /**
  * Tlačítko s potvrzením
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @todo dodělat #IDčka ...
  */
-class EaseJQConfirmedLinkButton extends EaseJQueryLinkButton
+class ConfirmedLinkButton extends LinkButton
 {
+
     /**
      *
      * @var type
      */
     private $id = null;
+
     /**
      * Link se vzhledem tlačítka a potvrzením odeslání
      *
@@ -27,17 +31,19 @@ class EaseJQConfirmedLinkButton extends EaseJQueryLinkButton
     {
         $this->id = $this->randomString();
         parent::__construct('#', $contents, null, array('id' => $this->id . '-button'));
-        $confirmDialog = $this->addItem(new EaseJQueryDialog($this->id . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
+        $confirmDialog = $this->addItem(new Dialog($this->id . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
         $yes = _('Ano');
         $no = _('Ne');
         $confirmDialog->partProperties = array('autoOpen' => false, 'modal' => true, 'show' => 'slide', 'buttons' => array($yes => 'function () { window.location.href = "' . $href . '"; }', $no => 'function () { $( this ).dialog( "close" ); }'));
-        EaseShared::webPage()->addJavascript('', 1000, true);
+        \Ease\Shared::webPage()->addJavascript('', 1000, true);
     }
+
     /**
      * Nastaveni javascriptu
      */
     public function onDocumentReady()
     {
-        return '$("#' . $this->Name . '").button( {' . EaseJQueryPart::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id . '-dialog" ).dialog( "open" ); } );';
+        return '$("#' . $this->Name . '").button( {' . Part::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id . '-dialog" ).dialog( "open" ); } );';
     }
+
 }

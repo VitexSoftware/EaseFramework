@@ -5,7 +5,7 @@ namespace Ease\Html;
 /**
  * Definiční list
  */
-class DlTag extends Ease\Html\PairTag
+class DlTag extends PairTag
 {
 
     /**
@@ -27,8 +27,8 @@ class DlTag extends Ease\Html\PairTag
      */
     function addDef($term, $value)
     {
-        $this->addItem(new Ease\Html\DtTag($term));
-        $this->addItem(new Ease\Html\DdTag($value));
+        $this->addItem(new DtTag($term));
+        $this->addItem(new DdTag($value));
     }
 
 }
