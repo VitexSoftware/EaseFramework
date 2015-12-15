@@ -6,7 +6,7 @@
 
 namespace Ease\TWB;
 
-class Navbar extends \Ease\Html\DivTag
+class Navbar extends \Ease\Html\Div
 {
 
     /**
@@ -46,13 +46,14 @@ class Navbar extends \Ease\Html\DivTag
             }
         }
         $properties['role'] = 'navigation';
-        parent::__construct($name, null, $properties);
-        $this->menuInnerContent = parent::addItem(new \Ease\Html\DivTag(null, null, array('class' => 'navbar-inner')));
+        $properties['name'] = $name;
+        $this->menuInnerContent = parent::addItem(new \Ease\Html\Div( null, array('class' => 'navbar-inner')));
+        parent::__construct(null, $properties);
         $this->addItem(self::NavBarHeader($name, $brand));
-        $navCollapse = $this->addItem(new \Ease\Html\DivTag(null, null, array('class' => 'collapse navbar-collapse navbar-' . $name . '-collapse')));
+        $navCollapse = $this->addItem(new \Ease\Html\Div( null, array('class' => 'collapse navbar-collapse navbar-' . $name . '-collapse')));
         $this->nav = $navCollapse->addItem(new \Ease\Html\UlTag(null, array('class' => 'nav navbar-nav')));
         $this->tagType = 'nav';
-        $pullRigt = new \Ease\Html\DivTag(NULL, null, array('class' => 'pull-right'));
+        $pullRigt = new \Ease\Html\Div( null, array('class' => 'pull-right'));
         $this->navRight = $pullRigt->addItem(new \Ease\Html\UlTag(null, array('class' => 'nav navbar-nav nav-right')));
         $navCollapse->addItem($pullRigt);
         Part::twBootstrapize();
@@ -65,7 +66,7 @@ class Navbar extends \Ease\Html\DivTag
         if ($brand) {
             $nbhc['brand'] = new \Ease\Html\ATag('./', $brand, array('class' => 'navbar-brand'));
         }
-        return new \Ease\Html\DivTag(null, $nbhc, array('class' => 'navbar-header'));
+        return new \Ease\Html\Div( $nbhc, array('class' => 'navbar-header'));
     }
 
     /**
@@ -104,7 +105,7 @@ class Navbar extends \Ease\Html\DivTag
             } else {
                 $targetPage = $href;
             }
-            if ($targetPage == basename(EasePage::phpSelf())) {
+            if ($targetPage == basename(\Ease\Page::phpSelf())) {
                 if ($pull == 'left') {
                     $this->nav->lastItem()->setTagProperties(array('class' => 'active'));
                 } else {
@@ -137,7 +138,7 @@ class Navbar extends \Ease\Html\DivTag
     function &addDropDownMenu($label, $items, $pull = 'left')
     {
         Part::twBootstrapize();
-        EaseShared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();', null, true);
+        \Ease\Shared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();', null, true);
         $dropDown = new \Ease\Html\LiTag(null, array('class' => 'dropdown', 'id' => $label));
         $dropDown->addItem(new \Ease\Html\ATag('#' . $label . '', $label . '<b class="caret"></b>', array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown')));
         $dropDownMenu = $dropDown->addItem(new \Ease\Html\UlTag(null, array('class' => 'dropdown-menu')));

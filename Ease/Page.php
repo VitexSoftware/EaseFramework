@@ -87,7 +87,7 @@ class Page extends Container
             if (is_subclass_of($easeObject, 'EasePage')) {
                 $easeObject->webPage = &$easeObject;
             } else {
-                $easeObject->webPage = &EaseShared::webPage();
+                $easeObject->webPage = &Shared::webPage();
             }
         }
     }
@@ -161,7 +161,7 @@ class Page extends Container
      */
     public static function redirect($url)
     {
-        $messages = EaseShared::instanced()->statusMessages;
+        $messages = Shared::instanced()->statusMessages;
         if (count($messages)) {
             $_SESSION['EaseMessages'] = $messages;
         }
@@ -220,9 +220,9 @@ class Page extends Container
      */
     public function onlyForLogged($loginPage = 'login.php')
     {
-        $user = EaseShared::user();
+        $user = Shared::user();
         if (!method_exists($user, 'isLogged') || !$user->isLogged()) {
-            EaseShared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'), 'warning');
+            Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'), 'warning');
             $this->redirect($loginPage);
             exit;
         }
@@ -400,7 +400,7 @@ class Page extends Container
      */
     public function keepRequestValue($varName, $varValue = true)
     {
-        EaseShared::webPage()->requestValuesToKeep[$varName] = $varValue;
+        Shared::webPage()->requestValuesToKeep[$varName] = $varValue;
     }
 
     /**
@@ -450,7 +450,7 @@ class Page extends Container
      */
     public function unKeepRequestValue($varName)
     {
-        unset(EaseShared::webPage()->requestValuesToKeep[$varName]);
+        unset(Shared::webPage()->requestValuesToKeep[$varName]);
     }
 
     /**
@@ -460,7 +460,7 @@ class Page extends Container
      */
     public function unKeepRequestValues()
     {
-        EaseShared::webPage()->requestValuesToKeep = array();
+        Shared::webPage()->requestValuesToKeep = array();
     }
 
     /**
@@ -472,7 +472,7 @@ class Page extends Container
      */
     public function getLinkParametersToKeep()
     {
-        $requestValuesToKeep = EaseShared::webPage()->requestValuesToKeep;
+        $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
 
         if (is_null($requestValuesToKeep) || !is_array($requestValuesToKeep) || !count($requestValuesToKeep)) {
             return '';

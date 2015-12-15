@@ -238,10 +238,10 @@ class Shared extends Atom
     /**
      * Vrací, případně i založí objekt uživatele
      *
-     * @param EaseUser|Ease\Anonym|string $user objekt nového uživatele nebo
+     * @param Ease\User|Ease\Anonym|string $user objekt nového uživatele nebo
      *                                         název třídy
      *
-     * @return EaseUser
+     * @return User
      */
     public static function & user($user = NULL, $userSessionName = NULL)
     {

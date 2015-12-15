@@ -93,22 +93,6 @@ class Brick extends Sand
     }
 
     /**
-     * Nastavi identitu objektu a jeho SQL Objektů
-     *
-     * @param array $newIdentity
-     *
-     * @return int Počet provedených změn
-     */
-    public function setObjectIdentity($newIdentity)
-    {
-        $changes = parent::SetObjectIdentity($newIdentity);
-        if ($this->myTable) {
-            $this->mySqlUp();
-        }
-        return $changes;
-    }
-
-    /**
      * Přiřadí objektu odkaz na objekt uživatele
      *
      * @param object|Ease\User $user         pointer to user object
@@ -636,7 +620,7 @@ class Brick extends Sand
             $this->myTable = $myTable;
         }
         if (!isset($this->dblink) || !is_object($this->dblink)) {
-            $this->dblink = EasePDO::singleton();
+            $this->dblink = SQL\PDO::singleton();
         }
         $this->dblink->setTableName($myTable);
         $this->dblink->setKeyColumn($this->myKeyColumn);

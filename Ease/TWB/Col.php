@@ -2,7 +2,7 @@
 
 namespace Ease\TWB;
 
-class Col extends \Ease\Html\DivTag
+class Col extends \Ease\Html\Div
 {
 
     /**
@@ -20,7 +20,7 @@ class Col extends \Ease\Html\DivTag
             $properties = array();
         }
         $properties['class'] = 'col-' . $target . '-' . $size;
-        parent::__construct(null, $content, $properties);
+        parent::__construct($content, $properties);
     }
 
 }

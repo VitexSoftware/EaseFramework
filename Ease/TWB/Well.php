@@ -5,7 +5,7 @@ namespace Ease\TWB;
 /**
  * Twitter Bootrstap Well
  */
-class Well extends \Ease\Html\DivTag
+class Well extends \Ease\Html\Div
 {
 
     /**
@@ -15,7 +15,7 @@ class Well extends \Ease\Html\DivTag
      */
     public function __construct($content = null, $properties = null)
     {
-        parent::__construct(null, $content, $properties);
+        parent::__construct($content, $properties);
         $this->addTagClass('well');
     }
 

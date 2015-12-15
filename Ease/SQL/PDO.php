@@ -15,8 +15,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class PDO extends SQL
-{
+class PDO extends SQL {
 
     /**
      * DBO class instance
@@ -78,8 +77,7 @@ class PDO extends SQL
      *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      */
-    public static function singleton()
-    {
+    public static function singleton() {
         if (!isset(self::$instance)) {
             $class = __CLASS__;
             self::$instance = new $class();
@@ -93,8 +91,7 @@ class PDO extends SQL
      *
      * @param string $column
      */
-    public function setKeyColumn($column = null)
-    {
+    public function setKeyColumn($column = null) {
         if (!is_null($column)) {
             $this->keyColumn = $column;
         }
@@ -106,8 +103,7 @@ class PDO extends SQL
      *
      * @param string $tablename
      */
-    public function setTableName($tablename = null)
-    {
+    public function setTableName($tablename = null) {
         if ($tablename) {
             $this->myTable = $tablename;
         }
@@ -121,23 +117,23 @@ class PDO extends SQL
      *
      * @return string
      */
-    public function addSlashes($text)
-    {
+    public function addSlashes($text) {
         return $this->sqlLink->real_escape_string($text);
     }
 
     /**
      * Připojí se k mysql databázi
      */
-    public function connect()
-    {
+    public function connect() {
         switch ($this->dbType) {
             case 'mysql':
                 $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';charset=utf8', $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''));
                 break;
             case 'pgsql':
                 $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server, $this->username, $this->password);
-                $this->sqlLink->query("SET NAMES 'UTF-8'");
+                if (is_object($this->sqlLink)) {
+                    $this->sqlLink->query("SET NAMES 'UTF-8'");
+                }
                 break;
 
             default:
@@ -145,8 +141,12 @@ class PDO extends SQL
                 break;
         }
 
-        $this->errorNumber = $this->sqlLink->errorCode();
-        $this->errorText = $this->sqlLink->errorInfo();
+        if (is_object($this->sqlLink)) {
+            $this->errorNumber = $this->sqlLink->errorCode();
+            $this->errorText = $this->sqlLink->errorInfo();
+        } else {
+            return false;
+        }
         if ($this->errorNumber != '00000') {
             $this->addStatusMessage('Connect: error #' . $this->errorNumer . ' ' . $this->errorText, 'error');
             return FALSE;
@@ -162,8 +162,7 @@ class PDO extends SQL
      *
      * @return boolean
      */
-    public function selectDB($dbName = null)
-    {
+    public function selectDB($dbName = null) {
         parent::selectDB($dbName);
         $change = $this->sqlLink->select_db($dbName);
         if ($change) {
@@ -186,8 +185,7 @@ class PDO extends SQL
      *
      * @return SQLhandle
      */
-    public function exeQuery($queryRaw, $ignoreErrors = false)
-    {
+    public function exeQuery($queryRaw, $ignoreErrors = false) {
         $queryRaw = $this->sanitizeQuery($queryRaw);
         $this->lastQuery = $queryRaw;
         $this->lastInsertID = null;
@@ -268,8 +266,7 @@ class PDO extends SQL
      *
      * @return int ID
      */
-    public function getlastInsertID($column = null)
-    {
+    public function getlastInsertID($column = null) {
         if (is_null($column)) {
             return $this->lastInsertID;
         }
@@ -284,8 +281,7 @@ class PDO extends SQL
      *
      * @return array
      */
-    public function queryToArray($queryRaw, $keyColumnToIndex = false)
-    {
+    public function queryToArray($queryRaw, $keyColumnToIndex = false) {
         $resultArray = array();
         if ($this->exeQuery($queryRaw) && is_object($this->result)) {
             if (is_string($keyColumnToIndex)) {
@@ -317,8 +313,7 @@ class PDO extends SQL
      *
      * @return sqlresult
      */
-    public function arrayToInsert($data)
-    {
+    public function arrayToInsert($data) {
         return $this->exeQuery('INSERT INTO ' . $this->getColumnComma() . $this->TableName . $this->getColumnComma() . ' SET ' . $this->arrayToQuery($data));
     }
 
@@ -332,8 +327,7 @@ class PDO extends SQL
      * @return sqlresult
      *
      */
-    public function arrayToUpdate($data, $KeyID = null)
-    {
+    public function arrayToUpdate($data, $KeyID = null) {
         if (!$KeyID) {
             $IDCol = $data[$this->keyColumn];
         }
@@ -351,8 +345,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    function arrayToQuery($data, $key = true)
-    {
+    function arrayToQuery($data, $key = true) {
         switch ($this->dbType) {
             case 'pgsql':
                 $fragment = $this->arrayToValuesQuery($data, $key);
@@ -373,8 +366,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    function arrayToInsertQuery($data, $key = true)
-    {
+    function arrayToInsertQuery($data, $key = true) {
         switch ($this->dbType) {
             case 'mysql':
                 $fragment = ' SET ' . $this->arrayToSetQuery($data, $key);
@@ -395,8 +387,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    public function arrayToValuesQuery($data, $key = true)
-    {
+    public function arrayToValuesQuery($data, $key = true) {
         $values = array();
         $query = '';
 
@@ -460,8 +451,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    public function arrayToSetQuery($data, $key = true)
-    {
+    public function arrayToSetQuery($data, $key = true) {
         $updates = '';
         foreach ($data as $column => $value) {
             if (!strlen($column)) {
@@ -501,7 +491,7 @@ class PDO extends SQL
                     $value = " '$value' ";
             }
 
-            $updates.=' ' . $this->getColumnComma() . $column . $this->getColumnComma() . " = $value,";
+            $updates .= ' ' . $this->getColumnComma() . $column . $this->getColumnComma() . " = $value,";
         }
 
         return substr($updates, 0, -1);
@@ -515,8 +505,7 @@ class PDO extends SQL
      *
      * @return sql
      */
-    public function prepSelect($data, $ldiv = 'AND')
-    {
+    public function prepSelect($data, $ldiv = 'AND') {
         $operator = null;
         $conditions = array();
         $conditionsII = array();
@@ -552,7 +541,7 @@ class PDO extends SQL
                 }
                 if (is_bool($value)) {
                     if ($value === null) {
-                        $value.=" null,";
+                        $value .= " null,";
                     } elseif ($value) {
                         $value = " 1";
                     } else {
@@ -591,8 +580,7 @@ class PDO extends SQL
      *
      * @return array Struktura tabulky
      */
-    public function describe($tableName = null)
-    {
+    public function describe($tableName = null) {
         if (!parent::describe($tableName)) {
             return null;
         }
@@ -609,8 +597,7 @@ class PDO extends SQL
      *
      * @return int
      */
-    public function tableExist($tableName = null)
-    {
+    public function tableExist($tableName = null) {
         if (!parent::tableExist($tableName)) {
             return null;
         }
@@ -629,8 +616,7 @@ class PDO extends SQL
      *
      * @return int
      */
-    public function getTableNumRows($tableName = null)
-    {
+    public function getTableNumRows($tableName = null) {
         if (!$tableName) {
             $tableName = $this->TableName;
         }
@@ -645,8 +631,7 @@ class PDO extends SQL
      * @param array  $tableStructure struktura SQL
      * @param string $tableName      název tabulky
      */
-    public function createTable(& $tableStructure = null, $tableName = null)
-    {
+    public function createTable(& $tableStructure = null, $tableName = null) {
         if (!parent::createTable($tableStructure, $tableName)) {
             return null;
         }
@@ -664,8 +649,7 @@ class PDO extends SQL
      *
      * @return boolean success
      */
-    public function truncateTable($tableName)
-    {
+    public function truncateTable($tableName) {
         $this->exeQuery('TRUNCATE ' . $tableName);
         if (!$this->getTableNumRows($tableName)) {
             return true;
@@ -683,8 +667,7 @@ class PDO extends SQL
      *
      * @return sql handle
      */
-    public function addTableKey($columnName, $primary = false, $tableName = null)
-    {
+    public function addTableKey($columnName, $primary = false, $tableName = null) {
         if (!$tableName) {
             $tableName = $this->TableName;
         }
@@ -701,8 +684,7 @@ class PDO extends SQL
      * @param array  $tableStructure struktura tabulky
      * @param string $tableName      název tabulky
      */
-    public function createTableQuery(&$tableStructure, $tableName = null)
-    {
+    public function createTableQuery(&$tableStructure, $tableName = null) {
         if (!$tableName) {
             $tableName = $this->TableName;
         }
@@ -763,9 +745,9 @@ class PDO extends SQL
             }
             if (array_key_exists('null', $columnProperties)) {
                 if ($columnProperties['null'] == true) {
-                    $queryRawItems.= ' NULL ';
+                    $queryRawItems .= ' NULL ';
                 } else {
-                    $queryRawItems.= ' NOT NULL ';
+                    $queryRawItems .= ' NOT NULL ';
                 }
             }
             /*
@@ -794,8 +776,7 @@ class PDO extends SQL
      *
      * @return array
      */
-    public function listTables($sort = false)
-    {
+    public function listTables($sort = false) {
         $tablesList = array();
         foreach ($this->queryToArray('SHOW TABLES') as $tableName) {
             $tablesList[current($tableName)] = current($tableName);
@@ -814,8 +795,7 @@ class PDO extends SQL
      *
      * @return int pocet operaci
      */
-    public static function createMissingColumns(& $easeBrick, $data = null)
-    {
+    public static function createMissingColumns(& $easeBrick, $data = null) {
         $result = 0;
         $badQuery = $easeBrick->easeShared->dblink->getLastQuery();
         $tableColumns = $easeBrick->easeShared->dblink->describe($easeBrick->myTable);
@@ -873,8 +853,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    function getColumnComma()
-    {
+    function getColumnComma() {
         switch ($this->dbType) {
             case 'pgsql':
                 $coma = '"';
@@ -894,8 +873,7 @@ class PDO extends SQL
      *
      * @return type
      */
-    public function close()
-    {
+    public function close() {
         if (is_resource($this->sqlLink)) {
             return mysqli_close($this->sqlLink);
         } else {
@@ -908,8 +886,7 @@ class PDO extends SQL
      *
      * @return null
      */
-    public function __destruct()
-    {
+    public function __destruct() {
         return null;
     }
 
@@ -918,8 +895,7 @@ class PDO extends SQL
      *
      * @return array fields to serialize
      */
-    public function __sleep()
-    {
+    public function __sleep() {
         unset($this->sqlLink);
         unset($this->result);
         return parent::__sleep();

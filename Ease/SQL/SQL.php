@@ -16,7 +16,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-abstract class SQL extends Ease\Sand
+abstract class SQL extends \Ease\Sand
 {
 
     /**
