@@ -45,13 +45,13 @@ class WebPage extends Page
 
     /**
      * head stránky
-     * @var Ease\Html\HeadTag
+     * @var Html\HeadTag
      */
     public $head = null;
 
     /**
      * Objekt samotného těla stránky
-     * @var Ease\Html\BodyTag
+     * @var Html\BodyTag
      */
     public $body = null;
 
@@ -76,7 +76,7 @@ class WebPage extends Page
     /**
      * Základní objekt pro stránku shopu
      *
-     * @param Ease\User|Ease\Anonym $userObject objekt uživatele
+     * @param User|Anonym $userObject objekt uživatele
      */
     public function __construct($pageTitle = NULL, & $userObject = null)
     {
@@ -117,7 +117,7 @@ class WebPage extends Page
      * @param mixed  $item         vkládaná položka
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
-     * @return Ease\Page poiner to object well included
+     * @return Page poiner to object well included
      */
     function & addItem($item, $pageItemName = null)
     {

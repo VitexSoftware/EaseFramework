@@ -67,13 +67,13 @@ class Mail extends Page
 
     /**
      * Objekt stránky pro rendrování do mailu
-     * @var Ease\Html\HtmlTag
+     * @var Html\HtmlTag
      */
     public $htmlDocument = null;
 
     /**
      * Ukazatel na BODY html dokumentu
-     * @var Ease\Html\BodyTag
+     * @var Html\BodyTag
      */
     public $htmlBody = null;
 
@@ -182,9 +182,9 @@ class Mail extends Page
             if (is_object($this->htmlDocument)) {
                 $mailBody = $this->htmlBody->addItem($item, $pageItemName);
             } else {
-                $this->htmlDocument = new Ease\Html\HtmlTag(new Ease\Html\SimpleHeadTag(new Ease\Html\TitleTag($this->emailSubject)));
+                $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
                 $this->htmlDocument->setOutputFormat($this->getOutputFormat());
-                $this->htmlBody = $this->htmlDocument->addItem(new Ease\Html\BodyTag('Mail', $item));
+                $this->htmlBody = $this->htmlDocument->addItem(new Html\BodyTag('Mail', $item));
                 $mailBody = $this->htmlDocument;
             }
         } else {

@@ -200,7 +200,7 @@ class Container extends Sand
     /**
      * Vrací počet vložených položek
      *
-     * @param Ease\Container $object hodnota nebo EaseObjekt s polem ->pageParts
+     * @param Container $object hodnota nebo EaseObjekt s polem ->pageParts
      *
      * @return int | null
      */
@@ -262,7 +262,7 @@ class Container extends Sand
     /**
      * Vrací první vloženou položku
      *
-     * @param Ease\Container|mixed $pageItem kontext
+     * @param Container|mixed $pageItem kontext
      *
      * @return null
      */
@@ -448,7 +448,7 @@ class Container extends Sand
      * dat, nastaví se jim hodnota.
      *
      * @param array               $data asociativní pole dat
-     * @param Ease\Container|mixed $form formulář k naplnění
+     * @param Container|mixed $form formulář k naplnění
      */
     public static function fillMeUp(&$data, &$form)
     {
@@ -475,7 +475,7 @@ class Container extends Sand
     /**
      * Je element prázdný ?
      *
-     * @param Ease\Container $element Ease\Html\Element
+     * @param Container $element Ease Html Element
      * @return bool prázdnost
      */
     public function isEmpty($element = null)

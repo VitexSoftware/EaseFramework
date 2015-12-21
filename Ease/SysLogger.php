@@ -61,7 +61,7 @@ class SysLogger extends Atom
 
     /**
      * Odkaz na vlastnící objekt
-     * @var Ease\Sand ||
+     * @var Sand ||
      */
     public $parentObject = null;
 
@@ -85,7 +85,7 @@ class SysLogger extends Atom
 
     /**
      * Obecné konfigurace frameworku
-     * @var Ease\Shared
+     * @var Shared
      */
     public $easeShared = null;
 

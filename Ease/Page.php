@@ -76,7 +76,7 @@ class Page extends Container
     /**
      * Přiřadí objekt stránky do webPage
      *
-     * @param object|Ease\Page|Ease\Container $easeObject objekt do kterého
+     * @param object|Page|Container $easeObject objekt do kterého
      *                                                  přiřazujeme WebStránku
      */
     public static function assignWebPage(&$easeObject)
@@ -322,7 +322,7 @@ class Page extends Container
                 $this->webPage->requestValuesToKeep[$field] = $_REQUEST[$field];
             }
             if ($sanitizeAs) {
-                return Ease\Page::sanitizeAsType($_REQUEST[$field], $sanitizeAs);
+                return Page::sanitizeAsType($_REQUEST[$field], $sanitizeAs);
             } else {
                 return $_REQUEST[$field];
             }
@@ -349,7 +349,7 @@ class Page extends Container
     {
         if (isset($_GET[$field])) {
             if ($sanitizeAs) {
-                return Ease\Page::sanitizeAsType($_GET[$field], $sanitizeAs);
+                return Page::sanitizeAsType($_GET[$field], $sanitizeAs);
             } else {
                 return $_GET[$field];
             }
@@ -370,7 +370,7 @@ class Page extends Container
     {
         if (isset($_POST[$field])) {
             if ($sanitizeAs) {
-                return Ease\Page::sanitizeAsType($_POST[$field], $sanitizeAs);
+                return Page::sanitizeAsType($_POST[$field], $sanitizeAs);
             } else {
                 return $_POST[$field];
             }

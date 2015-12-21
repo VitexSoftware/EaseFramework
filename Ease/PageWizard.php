@@ -118,7 +118,7 @@ class PageWizard extends Container
     public function jumpToNextStep()
     {
         $Params = array('StepRequested=' . $this->GetNextStepID());
-        $requestValuesToKeep = Ease\Shared::webPage()->requestValuesToKeep;
+        $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
             foreach ($requestValuesToKeep as $RequestName => $Request) {
                 if (true !== $Request) {
@@ -126,7 +126,7 @@ class PageWizard extends Container
                 }
             }
         }
-        Ease\WebPage::redirect('?' . implode('&', $Params));
+        WebPage::redirect('?' . implode('&', $Params));
     }
 
     /**
@@ -144,7 +144,7 @@ class PageWizard extends Container
         }
 
         $Params = array('StepRequested=' . $this->GetNextStepID());
-        $requestValuesToKeep = Ease\Shared::webPage()->requestValuesToKeep;
+        $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
             foreach ($requestValuesToKeep as $RequestName => $Request) {
                 if (true !== $Request) {
@@ -153,7 +153,7 @@ class PageWizard extends Container
             }
         }
 
-        return new Ease\TWB\LinkButton('?' . implode('&', $Params), $Caption);
+        return new TWB\LinkButton('?' . implode('&', $Params), $Caption);
     }
 
     /**
@@ -224,31 +224,31 @@ class PageWizard extends Container
 
     /**
      * Vrací div s navigací
-     * @return Ease\Html\DivTag
+     * @return Html\DivTag
      */
     public function getNavigation()
     {
-        $navigation = new Ease\Html\ULTag();
+        $navigation = new Html\ULTag();
         $PrevStep = $this->GetPrevStepID();
         if ($PrevStep) {
-            $navigation->addItem(new Ease\Html\ATag('?StepRequested=' . $PrevStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), self::$prevSign . ' ' . $this->steps[$PrevStep]));
+            $navigation->addItem(new Html\ATag('?StepRequested=' . $PrevStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), self::$prevSign . ' ' . $this->steps[$PrevStep]));
         }
         $NextStep = $this->GetNextStepID();
         if ($NextStep) {
-            $navigation->addItem(new Ease\Html\ATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
+            $navigation->addItem(new Html\ATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
         }
 
-        return new Ease\Html\DivTag(null, $navigation, array('class' => 'pagination'));
+        return new Html\DivTag(null, $navigation, array('class' => 'pagination'));
     }
 
     /**
      * Vrací seznam kroků s odkazy
      *
-     * @return Ease\Html\DivTag
+     * @return Html\DivTag
      */
     public function getStepList()
     {
-        $stepList = new Ease\Html\UlTag(null, array('class' => 'breadcrumb'));
+        $stepList = new Html\UlTag(null, array('class' => 'breadcrumb'));
         $StepsDone = 0;
         foreach ($this->steps as $StepID => $StepName) {
             $StepsDone++;
@@ -256,7 +256,7 @@ class PageWizard extends Container
                 $Current = $stepList->addItem($StepName);
                 $Current->setTagClass('active');
             } else {
-                $stepList->addItem(new Ease\Html\ATag('?StepRequested=' . $StepID . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $StepName));
+                $stepList->addItem(new Html\ATag('?StepRequested=' . $StepID . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $StepName));
             }
             if ($StepsDone != $this->stepCount) {
                 $stepList->addItem(self::$StepListDivider);

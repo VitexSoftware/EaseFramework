@@ -44,7 +44,7 @@ class Brick extends Sand
 
     /**
      * Odkaz na objekt uživatele
-     * @var Ease\User | EaseAnonym
+     * @var User | EaseAnonym
      */
     public $user = null;
 
@@ -95,7 +95,7 @@ class Brick extends Sand
     /**
      * Přiřadí objektu odkaz na objekt uživatele
      *
-     * @param object|Ease\User $user         pointer to user object
+     * @param object|User $user         pointer to user object
      * @param object          $targetObject objekt kterému je uživatel
      *                                      přiřazován.
      *
@@ -119,7 +119,7 @@ class Brick extends Sand
     /**
      * Vraci objekt uzivatele
      *
-     * @return Ease\User
+     * @return User
      */
     public function &getUser()
     {

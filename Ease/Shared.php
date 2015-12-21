@@ -64,13 +64,13 @@ class Shared extends Atom
 
     /**
      * Odkaz na instanci objektu uživatele
-     * @var EaseUser|Ease\Anonym
+     * @var User|Anonym
      */
     public $User = null;
 
     /**
      * Odkaz na objekt databáze
-     * @var EaseDbMySqli
+     * @var SQL\PDO
      */
     public $myDbLink = null;
 
@@ -208,11 +208,11 @@ class Shared extends Atom
     /**
      * Vrací instanci objektu logování
      *
-     * @return Ease\Logger
+     * @return Logger
      */
     public static function logger()
     {
-        return Ease\Logger::singleton();
+        return Logger::singleton();
     }
 
     /**
@@ -238,7 +238,7 @@ class Shared extends Atom
     /**
      * Vrací, případně i založí objekt uživatele
      *
-     * @param Ease\User|Ease\Anonym|string $user objekt nového uživatele nebo
+     * @param User|Anonym|string $user objekt nového uživatele nebo
      *                                         název třídy
      *
      * @return User
@@ -259,7 +259,7 @@ class Shared extends Atom
                 $_SESSION[self::$userSessionName] = new $user;
             } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[self::$userSessionName])) {
                 require_once 'Ease/EaseUser.php';
-                $_SESSION[self::$userSessionName] = new Ease\Anonym();
+                $_SESSION[self::$userSessionName] = new Anonym();
             }
         }
 

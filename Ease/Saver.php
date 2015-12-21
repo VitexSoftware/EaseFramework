@@ -159,7 +159,7 @@ class Saver extends Brick
     /**
      * jQuery Kod barevného označení výsledku případného uložení
      *
-     * @param Ease\Container|mixed $enclosedElement element, který se má ukládat
+     * @param Container|mixed $enclosedElement element, který se má ukládat
      * @param string              $Infotext        volitelný zobrazovaný text
      *
      * @return string
