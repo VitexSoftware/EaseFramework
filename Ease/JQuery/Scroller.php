@@ -23,10 +23,10 @@ class Scroller extends Ease\Html\DivTag
     {
         $Properties['id'] = $name;
         parent::__construct($name, $Content, $Properties);
-        parent::addItem(new Ease\Html\DivTag(null, null, array('class' => 'scrollingHotSpotLeft')));
-        parent::addItem(new Ease\Html\DivTag(null, null, array('class' => 'scrollingHotSpotRight')));
-        $ScrollWrapper = parent::addItem(new Ease\Html\DivTag(null, null, array('class' => 'scrollWrapper')));
-        $this->ScrollableArea = $ScrollWrapper->addItem(new Ease\Html\DivTag(null, null, array('class' => 'scrollableArea')));
+        parent::addItem(new Ease\Html\Div( null, array('class' => 'scrollingHotSpotLeft')));
+        parent::addItem(new Ease\Html\Div( null, array('class' => 'scrollingHotSpotRight')));
+        $ScrollWrapper = parent::addItem(new Ease\Html\Div( null, array('class' => 'scrollWrapper')));
+        $this->ScrollableArea = $ScrollWrapper->addItem(new Ease\Html\Div( null, array('class' => 'scrollableArea')));
     }
     /**
      * Vloží javascripty a csska

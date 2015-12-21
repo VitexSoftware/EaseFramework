@@ -67,17 +67,17 @@ class UITabs extends UIPart
     public function finalize()
     {
         $this->addJavaScript('$(function () { $( "#' . $this->partName . '" ).tabs( {' . $this->getPartPropertiesToString() . '} ); });', null, true);
-        $Div = $this->addItem(new Ease\Html\DivTag($this->partName));
+        $Div = $this->addItem(new Ease\Html\Div(null,array('id'=>$this->partName)));
         $UlTag = $Div->addItem(new Ease\Html\UlTag());
         $Index = 0;
         foreach ($this->Tabs as $TabName => $TabContent) {
             if (!strlen($TabContent) || substr_compare($TabContent, 'url:', 0, 4)) {
                 $UlTag->addItem(new Ease\Html\ATag('#' . $this->partName . '-' . ++$Index, $TabName));
-                $Div->addItem(new Ease\Html\DivTag($this->partName . '-' . $Index));
+                $Div->addItem(new Ease\Html\Div(null,array('id'=>$this->partName . '-' . $Index)));
                 $Div->addToLastItem($TabContent);
             } else {
                 $UlTag->addItem(new Ease\Html\ATag(str_replace('url:', '', $TabContent), $TabName));
-                $Div->addItem(new Ease\Html\DivTag($this->partName . '-' . $Index));
+                $Div->addItem(new Ease\Html\Div(null,array('id'=>$this->partName . '-' . $Index)));
             }
         }
         self::jQueryze($this);

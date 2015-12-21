@@ -31,10 +31,10 @@ class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup
     public function finalize()
     {
         UIPart::jQueryze($this);
-        $Enclosure = new Ease\Html\DivTag($this->Name . 'Group', $this->pageParts);
+        $enclosure = new Ease\Html\Div($this->pageParts,array('id'=>$this->Name . 'Group'));
         unset($this->pageParts);
-        $this->addItem($Enclosure);
-        $this->addJavaScript('$(function () { $( "#' . $Enclosure->getTagID() . '" ).buttonset(); } );', null, true);
+        $this->addItem($enclosure);
+        $this->addJavaScript('$(function () { $( "#' . $enclosure->getTagID() . '" ).buttonset(); } );', null, true);
     }
 
 }

@@ -148,7 +148,7 @@ class Slider extends UIPart
     public function finalize()
     {
         \Ease\Shared::webPage()->addCSS(' #' . $this->partName . ' { margin: 10px; }');
-        $this->addItem(new Ease\Html\DivTag($this->partName . '-slider'));
+        $this->addItem(new Ease\Html\Div(null,array('id'=>$this->partName . '-slider')));
         if (isset($this->partProperties['values'])) {
             if (is_array($this->partProperties['values'])) {
                 $JavaScript = '';

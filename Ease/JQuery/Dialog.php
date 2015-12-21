@@ -74,7 +74,7 @@ class Dialog extends UIPart
      */
     public function finalize()
     {
-        $DialogDiv = $this->addItem(new Ease\Html\DivTag($this->DialogID, NULL, array('title' => $this->Title)));
+        $DialogDiv = $this->addItem(new Ease\Html\Div( NULL, array('id'=>$this->DialogID,'title' => $this->Title)));
         $DialogMessage = $DialogDiv->addItem(new Ease\Html\PTag());
         $DialogMessage->addItem(new Ease\Html\SpanTag(NULL, NULL, array('class' => 'ui-icon ' . $this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;')));
         $DialogMessage->addItem($this->Message);

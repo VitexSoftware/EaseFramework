@@ -4,7 +4,7 @@
  * Vypisuje stavové hlášky
  */
 namespace Ease\TWB; 
- class StatusMessages extends \Ease\Html\DivTag
+ class StatusMessages extends \Ease\Html\Div
 {
     /**
      * Blok stavových zpráv

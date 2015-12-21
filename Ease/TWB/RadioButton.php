@@ -6,7 +6,7 @@
 
 namespace Ease\TWB;
 
-class RadioButton extends \Ease\Html\DivTag
+class RadioButton extends \Ease\Html\Div
 {
 
     /**

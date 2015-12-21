@@ -11,7 +11,7 @@ class Navbar extends \Ease\Html\Div
 
     /**
      * Vnitřek menu
-     * @var \Ease\Html\DivTag
+     * @var \Ease\Html\Div
      */
     public $menuInnerContent = null;
 

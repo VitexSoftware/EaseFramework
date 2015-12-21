@@ -238,7 +238,7 @@ class PageWizard extends Container
             $navigation->addItem(new Html\ATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
         }
 
-        return new Html\DivTag(null, $navigation, array('class' => 'pagination'));
+        return new Html\Div( $navigation, array('class' => 'pagination'));
     }
 
     /**

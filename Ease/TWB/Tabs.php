@@ -95,12 +95,12 @@ class Tabs extends EaseContainer
                 $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#' . self::lettersOnly($tabName), $tabName, array('data-toggle' => 'tab'))));
             }
         }
-        $tabDiv = $this->addItem(new \Ease\Html\DivTag($this->partName . 'body', null, array('class' => 'tab-content')));
+        $tabDiv = $this->addItem(new \Ease\Html\Div(null, array('id'=>$this->partName . 'body','class' => 'tab-content')));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabDiv->addItem(new \Ease\Html\DivTag(self::lettersOnly($tabName), $tabContent, array('class' => 'tab-pane active')));
+                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, array('id'=>self::lettersOnly($tabName),'class' => 'tab-pane active')));
             } else {
-                $tabDiv->addItem(new \Ease\Html\DivTag(self::lettersOnly($tabName), $tabContent, array('class' => 'tab-pane')));
+                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, array('id'=>self::lettersOnly($tabName),'class' => 'tab-pane')));
             }
         }
         Part::twBootstrapize();
