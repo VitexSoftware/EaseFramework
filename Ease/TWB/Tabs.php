@@ -8,7 +8,7 @@ namespace Ease\TWB;
  * @see http://getbootstrap.com/2.3.2/components.html#navs
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class Tabs extends EaseContainer
+class Tabs extends \Ease\Container
 {
 
     /**
@@ -104,7 +104,7 @@ class Tabs extends EaseContainer
             }
         }
         Part::twBootstrapize();
-        EaseShared::webPage()->addJavaScript('
+        \Ease\Shared::webPage()->addJavaScript('
         $(\'#' . $this->partName . ' a[href="#' . self::lettersOnly($this->activeTab) . '"]\').tab(\'show\');
 ', NULL, true);
     }
