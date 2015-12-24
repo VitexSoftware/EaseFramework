@@ -51,7 +51,7 @@ class Panel extends \Ease\Html\Div
     {
         $this->type = $type;
         $this->addToFooter = $footer;
-        parent::__construct(null, null, array('class' => 'panel panel-' . $this->type));
+        parent::__construct( null, array('class' => 'panel panel-' . $this->type));
         if (!is_null($heading)) {
             $this->heading = parent::addItem(new \Ease\Html\Div( $heading, array('class' => 'panel-heading')), 'head');
         }

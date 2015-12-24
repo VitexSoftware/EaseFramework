@@ -90,22 +90,22 @@ class Tabs extends \Ease\Container
         $tabsUl = $this->addItem(new \Ease\Html\UlTag(null, array('class' => 'nav nav-tabs', 'id' => $this->partName)));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#' . self::lettersOnly($tabName), $tabName, array('data-toggle' => 'tab')), array('class' => 'active')));
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#' . \Ease\Brick::lettersOnly($tabName), $tabName, array('data-toggle' => 'tab')), array('class' => 'active')));
             } else {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#' . self::lettersOnly($tabName), $tabName, array('data-toggle' => 'tab'))));
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#' . \Ease\Brick::lettersOnly($tabName), $tabName, array('data-toggle' => 'tab'))));
             }
         }
         $tabDiv = $this->addItem(new \Ease\Html\Div(null, array('id'=>$this->partName . 'body','class' => 'tab-content')));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, array('id'=>self::lettersOnly($tabName),'class' => 'tab-pane active')));
+                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, array('id'=>\Ease\Brick::lettersOnly($tabName),'class' => 'tab-pane active')));
             } else {
-                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, array('id'=>self::lettersOnly($tabName),'class' => 'tab-pane')));
+                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, array('id'=>\Ease\Brick::lettersOnly($tabName),'class' => 'tab-pane')));
             }
         }
         Part::twBootstrapize();
         \Ease\Shared::webPage()->addJavaScript('
-        $(\'#' . $this->partName . ' a[href="#' . self::lettersOnly($this->activeTab) . '"]\').tab(\'show\');
+        $(\'#' . $this->partName . ' a[href="#' . \Ease\Brick::lettersOnly($this->activeTab) . '"]\').tab(\'show\');
 ', NULL, true);
     }
 
