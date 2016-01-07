@@ -26,7 +26,7 @@ class OptionTag extends PairTag
     {
         parent::__construct('option', array('value' => $value), $content);
         $this->setObjectName($this->getObjectName() . '@' . $value);
-        $this->Value = & $this->tagProperties['value'];
+        $this->value = & $this->tagProperties['value'];
     }
 
     /**
@@ -44,7 +44,16 @@ class OptionTag extends PairTag
      */
     public function setValue($value)
     {
-        $this->Value = $value;
+        $this->value = $value;
     }
 
+    /**
+     * Value Getter
+     * 
+     * @return string
+     */
+    public function getValue(){
+        return $this->value;
+    }
+    
 }
