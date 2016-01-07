@@ -27,6 +27,7 @@ class Row extends \Ease\Html\Div
      * @param mixed  $content    Obsah políčka
      * @param string $target     Typ zařízení xs|sm|md|lg
      * @param array  $properties Další vlastnosti tagu
+     * @return Col Column contains $content
      */
     public function &addColumn($size, $content = null, $target = 'md', $properties = null)
     {

@@ -232,6 +232,10 @@ class PDO extends SQL {
                 $stmt->execute();
                 $this->errorNumber = $this->sqlLink->errorCode();
                 $this->errorText = $this->sqlLink->errorInfo();
+                
+                if( isset($this->errorText[2])){
+                    $this->error($this->errorText[2],$queryRaw);
+                }
 
                 if ($this->errorText[0] == '0000') {
                     $this->lastInsertID = $this->sqlLink->lastInsertId();
