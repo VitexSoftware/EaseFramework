@@ -284,7 +284,7 @@ class Brick extends Sand
             $this->error('loadFromSQL: Unknown Key', $this->data);
         }
         $cc = $this->dblink->getColumnComma();
-        $queryRaw = 'SELECT * FROM ' . $cc . $this->myTable . $cc . ' WHERE ' . $cc . $this->getmyKeyColumn() . $cc . '=' . $itemID;
+        $queryRaw = 'SELECT * FROM ' . $cc . $this->myTable . $cc . ' WHERE ' . $cc . $this->getmyKeyColumn() . $cc . ' = ' . $itemID;
 
         return $this->dblink->queryToArray($queryRaw);
     }

@@ -258,7 +258,6 @@ class Shared extends Atom
             if (class_exists($user)) {
                 $_SESSION[self::$userSessionName] = new $user;
             } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[self::$userSessionName])) {
-                require_once 'Ease/EaseUser.php';
                 $_SESSION[self::$userSessionName] = new Anonym();
             }
         }
