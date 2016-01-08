@@ -101,7 +101,7 @@ class Select extends PairTag
     {
         if (trim(strlen($value))) {
             foreach ($this->pageParts as $option) {
-                if ($option->value == $value) {
+                if ($option->getValue() == $value) {
                     $option->setDefault();
                 } else {
                     unset($option->tagProperties['selected']);
