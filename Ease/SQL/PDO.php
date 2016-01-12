@@ -204,7 +204,7 @@ class PDO extends SQL {
                     $this->errorText = $errorText[2];
                 }
                 if (!$this->result && !$ignoreErrors) {
-                    if (EaseShared::isCli()) {
+                    if (\Ease\Shared::isCli()) {
                         if (function_exists('xdebug_call_function')) {
                             echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
                         }

@@ -15,7 +15,7 @@
             "Ease\\Html\\": "Ease/Html",
             "Ease\\JQuery\\": "Ease/JQuery",
             "Ease\\SQL\\": "Ease/SQL",
-            "Ease\\TWB\\": "Ease/TwB"
+            "Ease\\TWB\\": "Ease/TWB"
         }
 
     },
