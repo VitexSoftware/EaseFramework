@@ -8,23 +8,15 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2012 Vitex@hippy.cz (G)
  */
-session_start();
 
-spl_autoload_register(
-    function($class) {
-    $filepath = "../src/{$class}.php";
-    is_file($filepath) && include $filepath;
-}, false, false
-);
-spl_autoload_register(
-    function($class) {
-    $filepath = "src/{$class}.php";
-    is_file($filepath) && include $filepath;
-}, false, false
-);
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+require __DIR__ . '/../vendor/autoload.php';
 
 
-require_once('PHP/Token/Stream/Autoload.php');
+#require_once('PHP/Token/Stream/Autoload.php');
 
 Ease\Shared::user(new Ease\Anonym);
 Ease\Shared::webPage(new Ease\WebPage);
@@ -38,4 +30,4 @@ define('DB_SERVER', 'localhost');
 define('DB_SERVER_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');
 define('DB_SERVER_USERNAME', 'easetest');
-define('DB_TYPE', 'mysql');
+define('DB_TYPE', 'pgsql');

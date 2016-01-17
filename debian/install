@@ -1,7 +1,7 @@
-Ease/*.php                   /usr/share/php/Ease
-Ease/Html/*.php              /usr/share/php/Ease/Html
-Ease/JQuery/*.php            /usr/share/php/Ease/JQuery
-Ease/SQL/*.php               /usr/share/php/Ease/SQL
-Ease/TWB/*.php               /usr/share/php/Ease/TWB
+src/Ease/*.php                   /usr/share/php/Ease
+src/Ease/Html/*.php              /usr/share/php/Ease/Html
+src/Ease/JQuery/*.php            /usr/share/php/Ease/JQuery
+src/Ease/SQL/*.php               /usr/share/php/Ease/SQL
+src/Ease/TWB/*.php               /usr/share/php/Ease/TWB
 
 share/js/*.js                /usr/share/javascript
