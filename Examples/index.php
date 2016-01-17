@@ -8,17 +8,18 @@
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 
-require_once 'Ease/EaseWebPage.php';
-require_once 'Ease/EaseJQueryWidgets.php';
+namespace Ease;
+
+require_once '../vendor/autoload.php';
 
 /**
  * Instancujeme objekt webové stránky
  */
-$oPage = new Ease\WebPage(_('Ease Framework - ukázky použití'));
+$oPage = new WebPage(\_('Ease Framework - Usage examples'));
 
-$oPage->addItem(new Ease\Html\H1Tag(_('Ease Framework - ukázky použití')));
+$oPage->addItem(new Html\H1Tag(\_('Ease Framework - Usage examples')));
 
-$tabs = $oPage->addItem( new EaseJQueryUITabs('priklady'));
+$tabs = $oPage->addItem( new JQuery\UITabs('examples'));
 
 $d = dir(".");
 while (false !== ($entry = $d->read())) {

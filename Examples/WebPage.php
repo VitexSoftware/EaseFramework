@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Ukázková webstránka
+ * WebPage example 
  *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-require_once 'Ease/EaseWebPage.php';
+require_once '../vendor/autoload.php';
 
 /**
  * Instancujeme objekt webové stránky
@@ -20,7 +20,9 @@ $oPage->addStatusMessage(_('success'), 'success');
 $oPage->addStatusMessage(_('warning'), 'warning');
 $oPage->addStatusMessage(_('error'), 'error');
 
-$oPage->addItem($oPage->getStatusMessagesAsHtml());
+$oPage->addItem(new Ease\Html\H1Tag(_('Example Web Page')));
+
+$oPage->addItem(new Ease\Html\FieldSet(_('Status messages'),  $oPage->getStatusMessagesAsHtml()));
 
 /**
  * Vyrendrování stránky

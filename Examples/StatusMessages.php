@@ -1,16 +1,15 @@
 <?php
 /**
- * Ukázková webstránka
+ * Example Messages
  *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
-require_once 'Ease/EaseWebPage.php';
+require_once '../vendor/autoload.php';
 
 /**
- * Instancujeme objekt webové stránky
+ * Instanced web page Object
  */
 $oPage = new Ease\WebPage();
 

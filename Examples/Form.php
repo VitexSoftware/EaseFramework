@@ -7,25 +7,25 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-require_once 'Ease/EaseWebPage.php';
-require_once 'Ease/Ease\Html\Form.php';
-require_once 'Ease/EaseJQueryWidgets.php';
+namespace Ease;
+require_once '../vendor/autoload.php';
+
 
 /**
  * Instancujeme objekt webové stránky
  */
-$oPage = new Ease\WebPage();
+$oPage = new WebPage();
 
 $Text = $oPage->getRequestValue('text');
 if ($Text) {
     $oPage->addStatusMessage(sprintf(_('Bylo zadáno: %s .'), $Text), 'success');
 }
 
-$Form = new Ease\Html\Form('example');
-$Form->addItem(new EaseLabeledTextInput('text', 'text', 'text'));
-$Form->addItem(new EaseJQuerySubmitButton('ok', 'ok'));
+$form = new TWB\Form('example');
+$form->addInput(new Html\InputTextTag('text'),_('Text'),_('Default text'),_('Text hint'));
+$form->addItem(new TWB\SubmitButton('ok', 'success'));
 
-$oPage->addItem($Form);
+$oPage->addItem($form);
 
 $oPage->addItem($oPage->getStatusMessagesAsHtml());
 

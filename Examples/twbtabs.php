@@ -7,15 +7,16 @@
  * @copyright Vitex@hippy.cz (G) 2013
  */
 
-require_once 'Ease/Ease\TWB\ootstrap.php';
+namespace Ease;
+require_once '../vendor/autoload.php';
 
 /**
- * Objekt pro práci se stránkou
- * @global LQPage
+ * Web Page
+ * @global TWB\WebPage
  */
-$oPage = new Ease\TWB\WebPage(_('Příklad použití tabs'));
+$oPage = new TWB\WebPage(_('Twitter bootrstrap Tabs Example'));
 
-$domainTabs = $oPage->addItem(new Ease\TWB\Tabs('DomainTabs'));
+$domainTabs = $oPage->addItem(new TWB\Tabs('DomainTabs'));
 
 $domainTabs->addTab("TabA", "TextA");
 $domainTabs->addTab("TabB", "TextB", true);

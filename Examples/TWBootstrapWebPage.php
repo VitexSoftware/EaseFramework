@@ -8,18 +8,20 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
-require_once 'Ease/Ease\TWB\ootstrap.php';
+namespace Ease;
+
+require_once '../vendor/autoload.php';
 
 /**
  * Description of EaseBiWebPage
  *
  * @author vitex
  */
-class EaseExAppWebPage extends Ease\TWB\WebPage
+class EaseExAppWebPage extends TWB\WebPage
 {
 
     /**
-     * Menu aplikace
+     * Applicaton Menu
      * @var EaseBiMenu
      */
     public $navBar = null;
@@ -38,13 +40,13 @@ class EaseExAppWebPage extends Ease\TWB\WebPage
         );
         $this->addItem(new EaseExAppStatusMessages());
         $this->container = $this->addItem(
-            new Ease\Html\DivTag(null, null, array('class' => 'container'))
+            new Html\Div(null, array('class' => 'container'))
         );
     }
 
 }
 
-class EaseExAppStatusMessages extends Ease\Html\DivTag
+class EaseExAppStatusMessages extends Html\Div
 {
 
     /**
@@ -80,7 +82,7 @@ class EaseExAppStatusMessages extends Ease\Html\DivTag
 
 }
 
-class EaseExAppMenu extends Ease\TWB\Navbar
+class EaseExAppMenu extends TWB\Navbar
 {
 
     /**
@@ -93,8 +95,8 @@ class EaseExAppMenu extends Ease\TWB\Navbar
     public function __construct($name = null, $brand = null, $properties = null)
     {
         parent::__construct($name, $brand, $properties);
-        $this->addMenuItem(new Ease\Html\ATag('http://v.s.cz/ease.php', _('Homepage')));
-        $this->addMenuItem(new Ease\Html\ATag('http://l.q.cz/', _('LinkQuick')));
+        $this->addMenuItem(new Html\ATag('http://v.s.cz/ease.php', _('Homepage')));
+        $this->addMenuItem(new Html\ATag('http://l.q.cz/', _('LinkQuick')));
 
         $this->addDropDownMenu(_('Systém'), array(
             'settings.php' => '<i class="icon-list"></i>&nbsp;' . _('Nastavení'),
@@ -122,7 +124,7 @@ $oPage->addStatusMessage(_('success'), 'success');
 $oPage->addStatusMessage(_('warning'), 'warning');
 $oPage->addStatusMessage(_('error'), 'error');
 
-$oPage->addItem(new Ease\TWB\LinkButton('./', _('Zpět na přehled příkladů'), 'info'));
+$oPage->addItem(new TWB\LinkButton('./', _('Zpět na přehled příkladů'), 'info'));
 
 /**
  * Vyrendrování stránky
