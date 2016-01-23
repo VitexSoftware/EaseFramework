@@ -620,7 +620,7 @@ class Brick extends Sand
             $this->myTable = $myTable;
         }
         if (!isset($this->dblink) || !is_object($this->dblink)) {
-            $this->dblink = SQL\PDO::singleton();
+            $this->dblink = Shared::db();
         }
         $this->dblink->setTableName($myTable);
         $this->dblink->setKeyColumn($this->myKeyColumn);

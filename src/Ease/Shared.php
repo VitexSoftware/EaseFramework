@@ -202,6 +202,9 @@ class Shared extends Atom
             case 'mysql':
                 return self::myDbLink();
                 break;
+            default :
+                return $this->sqlLink;
+                break;
         }
     }
 
