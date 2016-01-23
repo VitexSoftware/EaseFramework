@@ -188,24 +188,13 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací instanci objektu databáze
+     * Returns database object instance
      *
      * @return EaseDbMySqli
      */
-    public static function db($type = 'mysql')
+    public static function db()
     {
-        switch ($type) {
-            case 'postgres':
-                return self::pgDbLink();
-                break;
-
-            case 'mysql':
-                return self::myDbLink();
-                break;
-            default :
-                return $this->sqlLink;
-                break;
-        }
+        return SQL\PDO::singleton();
     }
 
     /**
