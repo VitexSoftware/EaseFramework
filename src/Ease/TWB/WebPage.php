@@ -15,8 +15,8 @@ class WebPage extends \Ease\WebPage
 {
 
     /**
-     * CSSKo bootstrapu
-     * @var string url
+     * Boostrap URL Strart path with ./ to use local one
+     * @var string relative path/url
      */
     public $mainStyle = 'twitter-bootstrap/css/bootstrap.css';
 
@@ -29,7 +29,7 @@ class WebPage extends \Ease\WebPage
     public function __construct($pageTitle = null)
     {
         parent::__construct($pageTitle);
-        $this->includeCss($this->mainStyle, true);
+        $this->includeCss($this->mainStyle, ($this->mainStyle[0]!='.'));
         $this->head->addItem(
             '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );

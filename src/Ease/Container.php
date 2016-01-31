@@ -271,7 +271,7 @@ class Container extends Sand
         if (!$pageItem) {
             $pageItem = & $this;
         }
-        if (isset($pageItem->pageParts[0])) {
+        if (count($pageItem->pageParts)) {
             $firstPart = reset($pageItem->pageParts);
         } else {
             $firstPart = null;

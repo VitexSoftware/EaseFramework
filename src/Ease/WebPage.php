@@ -330,14 +330,15 @@ class WebPage extends Page
      */
     public function finalizeRegistred()
     {
+        $shared = \Ease\Shared::instanced();
         do {
-            foreach ($this->easeShared->allItems as $PartID => $part) {
+            foreach ($shared->allItems as $PartID => $part) {
                 if (is_object($part) && method_exists($part, 'finalize')) {
                     $part->finalize();
                 }
-                unset($this->easeShared->allItems[$PartID]);
+                unset($shared->allItems[$PartID]);
             }
-        } while (count($this->easeShared->allItems));
+        } while (count($shared->allItems));
     }
 
     /**

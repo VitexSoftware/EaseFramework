@@ -36,7 +36,7 @@ class User extends Anonym {
      * Sloupecek obsahujici datum vložení záznamu uživatele do shopu
      * @var string
      */
-    public $myCreateColumn = 'created_at';
+    public $myCreateColumn = null;
 
     /**
      * Sloupecek obsahujici datum poslení modifikace záznamu uživatele do shopu

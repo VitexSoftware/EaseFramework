@@ -13,12 +13,12 @@ class TitleTag extends PairTag
     /**
      * Title html tag
      *
-     * @param string $Contents   text titulku
-     * @param array  $Properties parametry tagu
+     * @param string $contents   text titulku
+     * @param array  $properties parametry tagu
      */
-    public function __construct($Contents = null, $Properties = null)
+    public function __construct($contents = null, $properties = null)
     {
-        parent::__construct('title', $Properties, $Contents);
+        parent::__construct('title', $properties, $contents);
     }
 
 }
