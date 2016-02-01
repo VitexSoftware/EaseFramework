@@ -149,7 +149,7 @@ class Logger extends Atom
             return;
         } else {
             if (defined('LOG_DIRECTORY')) {
-                $this->logPrefix = EaseBrick::sysFilename(constant('LOG_DIRECTORY'));
+                $this->logPrefix = Brick::sysFilename(constant('LOG_DIRECTORY'));
                 if ($this->TestDirectory($this->logPrefix)) {
                     $this->logFileName = $this->logPrefix . $this->logFileName;
                     $this->reportFile = $this->logPrefix . $this->reportFile;
