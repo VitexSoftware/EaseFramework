@@ -7,7 +7,11 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-require_once 'Mail.php';
+
+namespace Ease;
+
+//We Use System/Pear ones: 
+require_once 'Mail.php';  
 require_once 'Mail/mime.php';
 
 /**
@@ -15,11 +19,7 @@ require_once 'Mail/mime.php';
  *
  * @author Vitex <vitex@hippy.cz>
  */
-
-namespace Ease;
-
-class Mail extends Page
-{
+class Mailer extends Page {
 
     /**
      * Objekt pro odesílání pošty
@@ -90,8 +90,7 @@ class Mail extends Page
      * @param string $mailSubject  předmět
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
-    public function __construct($emailAddress, $mailSubject, $emailContents = null)
-    {
+    public function __construct($emailAddress, $mailSubject, $emailContents = null) {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
         }
@@ -101,17 +100,17 @@ class Mail extends Page
         }
 
         $this->setMailHeaders(
-            array(
-              'To' => $emailAddress,
-              'From' => $this->fromEmailAddress,
-              'Reply-To' => $this->fromEmailAddress,
-              'Subject' => $mailSubject,
-              'Content-Type' => 'text/plain; charset=utf-8',
-              'Content-Transfer-Encoding' => '8bit'
-            )
+                array(
+                    'To' => $emailAddress,
+                    'From' => $this->fromEmailAddress,
+                    'Reply-To' => $this->fromEmailAddress,
+                    'Subject' => $mailSubject,
+                    'Content-Type' => 'text/plain; charset=utf-8',
+                    'Content-Transfer-Encoding' => '8bit'
+                )
         );
 
-        $this->mimer = new Mail_mime($this->crLf);
+        $this->mimer = new \Mail_mime($this->crLf);
         $this->mimer->_build_params['text_charset'] = 'UTF-8';
         $this->mimer->_build_params['html_charset'] = 'UTF-8';
         $this->mimer->_build_params['head_charset'] = 'UTF-8';
@@ -130,8 +129,7 @@ class Mail extends Page
      *
      * @return string
      */
-    public function getMailHeader($headername)
-    {
+    public function getMailHeader($headername) {
         if (isset($this->mailHeaders[$headername])) {
             return $this->mailHeaders[$headername];
         }
@@ -144,8 +142,7 @@ class Mail extends Page
      *
      * @return boolean true pokud byly hlavičky nastaveny
      */
-    public function setMailHeaders(array $mailHeaders)
-    {
+    public function setMailHeaders(array $mailHeaders) {
         if (is_array($this->mailHeaders)) {
             $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
         } else {
@@ -175,8 +172,7 @@ class Mail extends Page
      *
      * @return mixed ukazatel na vložený obsah
      */
-    function &addItem($item, $pageItemName = null)
-    {
+    function &addItem($item, $pageItemName = null) {
         $mailBody = '';
         if (is_object($item)) {
             if (is_object($this->htmlDocument)) {
@@ -201,16 +197,14 @@ class Mail extends Page
      * @param string $filename cesta/název souboru k přiložení
      * @param string $mimeType MIME typ přílohy
      */
-    public function addFile($filename, $mimeType = 'text/plain')
-    {
+    public function addFile($filename, $mimeType = 'text/plain') {
         $this->mimer->addAttachment($filename, $mimeType);
     }
 
     /**
      * Sestavení těla mailu
      */
-    public function finalize()
-    {
+    public function finalize() {
         if (method_exists($this->htmlDocument, 'GetRendered')) {
             $this->htmlBodyRendered = $this->htmlDocument->getRendered();
         } else {
@@ -233,21 +227,19 @@ class Mail extends Page
      *
      * @return null
      */
-    public function draw()
-    {
+    public function draw() {
         return null;
     }
 
     /**
      * Odešle mail
      */
-    public function send()
-    {
+    public function send() {
         if (!$this->finalized) {
             $this->finalize();
         }
 
-        $oMail = new Mail();
+        $oMail = new \Mail();
         if (count($this->parameters)) {
             $this->mailer = & $oMail->factory('smtp', $this->parameters);
         } else {
@@ -269,8 +261,7 @@ class Mail extends Page
      *
      * @param bool $notify požadovaný stav notifikace
      */
-    public function setUserNotification($notify)
-    {
+    public function setUserNotification($notify) {
         $this->notify = (bool) $notify;
     }
 

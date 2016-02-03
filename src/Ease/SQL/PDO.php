@@ -127,10 +127,10 @@ class PDO extends SQL {
     public function connect() {
         switch ($this->dbType) {
             case 'mysql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';charset=utf8', $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''));
+                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server .';port='.$this->port. ';charset=utf8', $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''));
                 break;
             case 'pgsql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server, $this->username, $this->password);
+                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server.';port='.$this->port, $this->username, $this->password);
                 if (is_object($this->sqlLink)) {
                     $this->sqlLink->query("SET NAMES 'UTF-8'");
                 }

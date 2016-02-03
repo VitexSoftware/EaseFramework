@@ -521,7 +521,7 @@ class Page extends Container
      */
     public function getOutputFormat()
     {
-        return $this->OutputFormat;
+        return $this->outputFormat;
     }
 
     /**

@@ -149,7 +149,7 @@ class Logger extends Atom
             return;
         } else {
             if (defined('LOG_DIRECTORY')) {
-                $this->logPrefix = EaseBrick::sysFilename(constant('LOG_DIRECTORY'));
+                $this->logPrefix = Brick::sysFilename(constant('LOG_DIRECTORY'));
                 if ($this->TestDirectory($this->logPrefix)) {
                     $this->logFileName = $this->logPrefix . $this->logFileName;
                     $this->reportFile = $this->logPrefix . $this->reportFile;
@@ -318,14 +318,14 @@ class Logger extends Atom
      */
     public static function testDirectory($DirectoryPath, $IsDir = true, $IsReadable = true, $IsWritable = true, $LogToFile = false)
     {
-        $Sanity = true;
+        $sanity = true;
         if ($IsDir) {
             if (!is_dir($DirectoryPath)) {
                 echo ($DirectoryPath . _(' není složka. Jsem v adresáři:') . ' ' . getcwd());
                 if ($LogToFile) {
                     $this->addToLog('TestDirectory', $DirectoryPath . _(' není složka. Jsem v adresáři:') . ' ' . getcwd());
                 }
-                $Sanity = false;
+                $sanity = false;
             }
         }
         if ($IsReadable) {
@@ -334,7 +334,7 @@ class Logger extends Atom
                 if ($LogToFile) {
                     $this->addToLog('TestDirectory', $DirectoryPath . _(' není čitelná složka. Jsem v adresáři:') . ' ' . getcwd());
                 }
-                $Sanity = false;
+                $sanity = false;
             }
         }
         if ($IsWritable) {
@@ -344,45 +344,45 @@ class Logger extends Atom
                     $this->addToLog('TestDirectory', $DirectoryPath . _(' není zapisovatelná složka. Jsem v adresáři:') . ' ' . getcwd());
                 }
 
-                $Sanity = false;
+                $sanity = false;
             }
         }
 
-        return $Sanity;
+        return $sanity;
     }
 
     /**
      * Oznamuje chybovou událost
      *
-     * @param string $Caller     název volající funkce, nebo objektu
-     * @param string $Message    zpráva
-     * @param mixed  $ObjectData data k zaznamenání
+     * @param string $caller     název volající funkce, nebo objektu
+     * @param string $message    zpráva
+     * @param mixed  $objectData data k zaznamenání
      */
-    public function error($Caller, $Message, $ObjectData = null)
+    public function error($caller, $message, $objectData = null)
     {
         if ($this->errorLogFile) {
             $LogFileHandle = @fopen($this->errorLogFile, 'a+');
             if ($LogFileHandle) {
                 if ($this->easeShared->runType == 'web') {
-                    fputs($LogFileHandle, EaseBrick::printPreBasic($_SERVER) . "\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_SERVER) . "\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
-                    fputs($LogFileHandle, EaseBrick::printPreBasic($_ENV) . "\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_ENV) . "\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_POST) && count($_POST)) {
-                    fputs($LogFileHandle, EaseBrick::printPreBasic($_POST) . "\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_POST) . "\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_GET) && count($_GET)) {
-                    fputs($LogFileHandle, EaseBrick::printPreBasic($_GET) . "\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_GET) . "\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
-                if ($ObjectData) {
-                    fputs($LogFileHandle, EaseBrick::printPreBasic($ObjectData) . "\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
+                if ($objectData) {
+                    fputs($LogFileHandle, Brick::printPreBasic($objectData) . "\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
                 }
                 fclose($LogFileHandle);
             } else {
                 $this->addToLog('Error: Couldn\'t open the ' . realpath($this->errorLogFile) . ' error log file', 'error');
             }
         }
-        $this->addToLog($Caller, $Message, 'error');
+        $this->addToLog($caller, $message, 'error');
     }
 
     /**
