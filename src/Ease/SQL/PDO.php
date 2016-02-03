@@ -127,10 +127,10 @@ class PDO extends SQL {
     public function connect() {
         switch ($this->dbType) {
             case 'mysql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server .';port='.$this->port. ';charset=utf8', $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''));
+                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port . ';charset=utf8', $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''));
                 break;
             case 'pgsql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server.';port='.$this->port, $this->username, $this->password);
+                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port, $this->username, $this->password);
                 if (is_object($this->sqlLink)) {
                     $this->sqlLink->query("SET NAMES 'UTF-8'");
                 }
@@ -232,13 +232,13 @@ class PDO extends SQL {
                 $stmt->execute();
                 $this->errorNumber = $this->sqlLink->errorCode();
                 $this->errorText = $this->sqlLink->errorInfo();
-                
-                if( isset($this->errorText[2])){
-                    $this->error($this->errorText[2],$queryRaw);
+
+                if (isset($this->errorText[2])) {
+                    $this->error($this->errorText[2], $queryRaw);
                 }
 
                 if ($this->errorText[0] == '0000') {
-                    $this->lastInsertID = $this->sqlLink->lastInsertId();
+                    $this->lastInsertID = $this->getlastInsertID();
                     $this->numRows = $stmt->rowCount();
                 }
                 break;
@@ -271,9 +271,19 @@ class PDO extends SQL {
      * @return int ID
      */
     public function getlastInsertID($column = null) {
-        if (is_null($column)) {
-            return $this->lastInsertID;
+        switch ($this->dbType) {
+            case 'pgsql':
+                if (is_null($column)) {
+                    $column = $this->myTable . '_' . $this->myKeyColumn . '_seq';
+                } else {
+                    $column = $this->myTable . '_' . $column . '_seq';
+                }
+                break;
+
+            default:
+                break;
         }
+
         return $this->sqlLink->lastInsertId($column);
     }
 
@@ -870,6 +880,16 @@ class PDO extends SQL {
                 break;
         }
         return $coma;
+    }
+
+    /**
+     * Set Up PDO for curent usage
+     * 
+     * @param \Ease\Brick $object or its child
+     */
+    function useObject($object) {
+        $this->setKeyColumn($object->getmyKeyColumn());
+        $this->setTableName($object->getMyTable());
     }
 
     /**

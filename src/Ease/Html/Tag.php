@@ -188,7 +188,7 @@ class Tag extends \Ease\Page
     public function setTagID($tagID = null)
     {
         if (is_null($tagID)) {
-            $this->setTagProperties(array('id' => EaseBrick::randomString()));
+            $this->setTagProperties(array('id' => \Ease\Brick::randomString()));
         } else {
             $this->setTagProperties(array('id' => $tagID));
         }
