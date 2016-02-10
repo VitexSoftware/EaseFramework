@@ -29,8 +29,7 @@ namespace Ease;
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author Vitex <vitex@hippy.cz>
  */
-class Shared extends Atom
-{
+class Shared extends Atom {
 
     /**
      * Odkaz na objekt stránky
@@ -95,8 +94,7 @@ class Shared extends Atom
     /**
      * Inicializace sdílené třídy
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->setRunType();
         if (isset($_SESSION['EaseMessages'])) {
             $this->statusMessages = $_SESSION['EaseMessages'];
@@ -113,8 +111,7 @@ class Shared extends Atom
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      * @return EaseWebPage
      */
-    public static function singleton($class = null)
-    {
+    public static function singleton($class = null) {
         if (!isset(self::$_instance)) {
             if (is_null($class)) {
                 $class = __CLASS__;
@@ -130,8 +127,7 @@ class Shared extends Atom
      *
      * @return Shared
      */
-    public static function & instanced()
-    {
+    public static function & instanced() {
         $easeShared = Shared::singleton();
 
         return $easeShared;
@@ -143,8 +139,7 @@ class Shared extends Atom
      * @param string $configName  klíč
      * @param mixed  $configValue hodnota klíče
      */
-    public function setConfigValue($configName, $configValue)
-    {
+    public function setConfigValue($configName, $configValue) {
         $this->registry[$configName] = $configValue;
     }
 
@@ -155,8 +150,7 @@ class Shared extends Atom
      *
      * @return mixed
      */
-    public function getConfigValue($configName)
-    {
+    public function getConfigValue($configName) {
         if (isset($this->registry[$configName])) {
             return $this->registry[$configName];
         }
@@ -171,8 +165,7 @@ class Shared extends Atom
      *
      * @return string type
      */
-    public function setRunType($runType = null)
-    {
+    public function setRunType($runType = null) {
         if (!$runType) {
             if (self::isCli()) {
                 $this->runType = 'cli';
@@ -192,8 +185,7 @@ class Shared extends Atom
      *
      * @return EaseDbMySqli
      */
-    public static function db()
-    {
+    public static function db() {
         return SQL\PDO::singleton();
     }
 
@@ -202,9 +194,12 @@ class Shared extends Atom
      *
      * @return Logger
      */
-    public static function logger()
-    {
-        return Logger::singleton();
+    public static function logger() {
+        if (defined('LOG_NAME')) {
+            return SysLogger::singleton();
+        } else {
+            return Logger::singleton();
+        }
     }
 
     /**
@@ -213,8 +208,7 @@ class Shared extends Atom
      * @param  EaseWebPage $oPage objekt webstránky k zaregistrování
      * @return EaseWebPage
      */
-    static function &webPage($oPage = null)
-    {
+    static function &webPage($oPage = null) {
         $shared = Shared::instanced();
         if (is_object($oPage)) {
             $shared->webPage = & $oPage;
@@ -235,8 +229,7 @@ class Shared extends Atom
      *
      * @return User
      */
-    public static function & user($user = NULL, $userSessionName = NULL)
-    {
+    public static function & user($user = NULL, $userSessionName = NULL) {
         if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
             return $_SESSION[self::$userSessionName];
         }
@@ -261,8 +254,7 @@ class Shared extends Atom
      * Běží php v příkazovém řádku ?
      * @return boolean
      */
-    public static function isCli()
-    {
+    public static function isCli() {
         return (PHP_SAPI == 'cli' && empty($_SERVER['REMOTE_ADDR']));
     }
 
@@ -271,8 +263,7 @@ class Shared extends Atom
      *
      * @param mixed $itemPointer
      */
-    public static function registerItem(&$itemPointer)
-    {
+    public static function registerItem(&$itemPointer) {
         $easeShared = Shared::singleton();
         $easeShared->allItems[] = $itemPointer;
     }

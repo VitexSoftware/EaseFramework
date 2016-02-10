@@ -54,6 +54,11 @@ abstract class SQL extends \Ease\Sand
      * @var string
      */
     public $database = null;
+    /**
+     * Database port
+     * @var string
+     */
+    public $port = null;
 
     /**
      * Status připojení
@@ -177,6 +182,9 @@ abstract class SQL extends \Ease\Sand
         }
         if (!isset($this->database) && defined('DB_DATABASE')) {
             $this->database = constant('DB_DATABASE');
+        }
+        if (!isset($this->port) && defined('DB_PORT')) {
+            $this->port = constant('DB_PORT');
         }
         $this->connect();
     }

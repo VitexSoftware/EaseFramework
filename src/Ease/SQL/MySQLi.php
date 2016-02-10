@@ -90,7 +90,7 @@ class MySqli extends SQL
      */
     public function connect()
     {
-        $this->sqlLink = new mysqli($this->server, $this->username, $this->password);
+        $this->sqlLink = new \mysqli($this->server, $this->username, $this->password);
         if ($this->sqlLink->connect_errno) {
             $this->addStatusMessage('Connect: error #' . $this->sqlLink->connect_errno . ' ' . $this->sqlLink->connect_error, 'error');
 

@@ -254,12 +254,12 @@ class Brick extends Sand
             foreach ($columnsList as $id => $column) {
                 $columnsList[$id] = $cc . $column . $cc;
             }
-            return $this->dblink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
+            return $this->dblink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' .$cc . $this->myTable . $cc . ' ' . $where . $orderByCond . $limitCond, $indexBy);
         } else {
             if (!strstr($columnsList, '*')) {
                 $columnsList = $cc . $columnsList . $cc;
             }
-            return $this->dblink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $this->myTable . ' ' . $where . $orderByCond . $limitCond, $indexBy);
+            return $this->dblink->queryToArray('SELECT ' . $columnsList . ' FROM ' .$cc. $this->myTable .$cc . ' ' . $where . $orderByCond . $limitCond, $indexBy);
         }
     }
 
@@ -502,6 +502,7 @@ class Brick extends Sand
             $data[$this->myCreateColumn] = 'NOW()';
         }
         $queryRaw = 'INSERT INTO ' . $this->dblink->getColumnComma() . $this->myTable . $this->dblink->getColumnComma() . ' ' . $this->dblink->arrayToInsertQuery($data, false);
+        $this->dblink->useObject($this);
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 $this->setMyKey($this->dblink->lastInsertID);
