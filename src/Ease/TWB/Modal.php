@@ -48,7 +48,7 @@ class Modal extends \Ease\Html\Div
      * @param mixed  $content
      * @param array  $properties
      */
-    function __construct($name, $title, $content = null, $properties)
+    function __construct($name, $title, $content = null, $properties = [])
     {
         parent::__construct(null, array('class' => 'modal fade', 'id' => $name, 'tabindex' => '-1', 'role' => 'dialog', 'aria-labelledby' => $title . 'ID', 'aria-hidden' => 'true'));
         $this->properties = $properties;
@@ -58,26 +58,30 @@ class Modal extends \Ease\Html\Div
         $this->header->addItem(new \Ease\Html\ButtonTag('&times;', array('class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true')));
         $this->body = new \Ease\Html\Div($content, array('class' => 'modal-body'));
         $this->footer = new \Ease\Html\Div(null, array('class' => 'modal-footer'));
-        $this->footer->addItem(new \Ease\Html\ButtonTag(_('Zavřít'), array('id' => $name . 'ko', 'type' => 'button', 'class' => 'btn btn-default', 'data-dismiss' => 'modal')));
-        $this->footer->addItem(new \Ease\Html\ButtonTag(_('Uložit'), array('id' => $name . 'ok', 'type' => 'button', 'class' => 'btn btn-primary')));
+        $this->footer->addItem(new \Ease\Html\ButtonTag(_('Close'), array('id' => $name . 'ko', 'type' => 'button', 'class' => 'btn btn-default', 'data-dismiss' => 'modal')));
+        $this->footer->addItem(new \Ease\Html\ButtonTag(_('Save'), array('id' => $name . 'ok', 'type' => 'button', 'class' => 'btn btn-primary')));
     }
-
+    
+/**
+ * Finalize modal
+ */
     function finalize()
     {
-        $modalDialog = $this->addItem(new \Ease\Html\Div(null, array('class' => 'modal-dialog')));
+        Part::twBootstrapize();
+        $modalDialog = $this->addItem(new \Ease\Html\Div(null, array('class' => 'modal-dialog','role'=>'document')));
         $modalContent = $modalDialog->addItem(new \Ease\Html\Div(null, array('class' => 'modal-content')));
         $this->header->addItem(new \Ease\Html\H4Tag($this->title, array('class' => 'modal-title', 'id' => $this->title . 'ID')));
         $modalContent->addItem($this->header);
         $modalContent->addItem($this->body);
         $modalContent->addItem($this->footer);
         if (is_array($this->properties)) {
-            EaseShared::webPage()->addJavaScript(' $(function ()
+            \Ease\Shared::webPage()->addJavaScript(' $(function ()
 {
     $("#' . $this->name . '").modal( {' . Part::partPropertiesToString($this->properties) . '});
 });
 ', null, true);
         } else {
-            EaseShared::webPage()->addJavaScript(' $(function ()
+            \Ease\Shared::webPage()->addJavaScript(' $(function ()
 {
     $("#' . $this->name . '").modal( ' . $this->properties . ');
 });
