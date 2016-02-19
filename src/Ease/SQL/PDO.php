@@ -58,7 +58,7 @@ class PDO extends SQL {
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $connectionSettings = array();
+    public $connectionSettings = [];
 
     /**
      * Saves obejct instace (singleton...)
@@ -127,7 +127,7 @@ class PDO extends SQL {
     public function connect() {
         switch ($this->dbType) {
             case 'mysql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port . ';charset=utf8', $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\''));
+                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port . ';charset=utf8', $this->username, $this->password, [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
                 break;
             case 'pgsql':
                 $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port, $this->username, $this->password);
@@ -296,7 +296,7 @@ class PDO extends SQL {
      * @return array
      */
     public function queryToArray($queryRaw, $keyColumnToIndex = false) {
-        $resultArray = array();
+        $resultArray = [];
         if ($this->exeQuery($queryRaw) && is_object($this->result)) {
             if (is_string($keyColumnToIndex)) {
                 foreach ($this->result->fetchAll(\PDO::FETCH_ASSOC) as $dataRow) {
@@ -402,7 +402,7 @@ class PDO extends SQL {
      * @return string
      */
     public function arrayToValuesQuery($data, $key = true) {
-        $values = array();
+        $values = [];
         $query = '';
 
         foreach ($data as $column => $value) {
@@ -446,7 +446,7 @@ class PDO extends SQL {
             $values[$column] = "$value";
         }
 
-        $keys = array();
+        $keys = [];
         $cc = $this->getColumnComma();
         foreach (array_keys($values) as $columnKey) {
             $keys[] = $cc . $columnKey . $cc;
@@ -521,8 +521,8 @@ class PDO extends SQL {
      */
     public function prepSelect($data, $ldiv = 'AND') {
         $operator = null;
-        $conditions = array();
-        $conditionsII = array();
+        $conditions = [];
+        $conditionsII = [];
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
                 $conditionsII[] = $value;
@@ -705,8 +705,8 @@ class PDO extends SQL {
         if (!parent::createTableQuery($tableStructure, $tableName)) {
             return null;
         }
-        $queryRawItems = array();
-        $Indexes = array();
+        $queryRawItems = [];
+        $Indexes = [];
 
         $queryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
         foreach ($tableStructure as $columnName => $columnProperties) {
@@ -791,7 +791,7 @@ class PDO extends SQL {
      * @return array
      */
     public function listTables($sort = false) {
-        $tablesList = array();
+        $tablesList = [];
         foreach ($this->queryToArray('SHOW TABLES') as $tableName) {
             $tablesList[current($tableName)] = current($tableName);
         }

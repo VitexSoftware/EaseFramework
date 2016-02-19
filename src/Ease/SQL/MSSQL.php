@@ -51,12 +51,12 @@ class MSSQL extends SQL
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $ConnectionSettings = array(
+    public $ConnectionSettings = [
       'ANSI_NULLS' => 'ON',
       'QUOTED_IDENTIFIER' => 'ON',
       'CONCAT_NULL_YIELDS_NULL' => 'ON',
       'ANSI_WARNINGS' => 'ON',
-      'ANSI_PADDING' => 'ON');
+      'ANSI_PADDING' => 'ON'];
 
     /**
      * Saves obejct instace (singleton...)
@@ -433,7 +433,7 @@ class MSSQL extends SQL
         $Columns = substr($Columns, 0, -1);
         $Values = substr($Values, 0, -1);
 
-        return array($Columns, $Values);
+        return [$Columns, $Values];
     }
 
     /**
@@ -601,7 +601,7 @@ class MSSQL extends SQL
      */
     public function sanitizeQuery($QueryRaw)
     {
-        $SanitizedQuery = str_replace(array("\'", '\"'), array("''", '""'), parent::SanitizeQuery($QueryRaw));
+        $SanitizedQuery = str_replace(["\'", '\"'], ["''", '""'], parent::SanitizeQuery($QueryRaw));
 
         return $SanitizedQuery;
     }
@@ -615,7 +615,7 @@ class MSSQL extends SQL
      */
     public function listTables($Sort = false)
     {
-        $TablesList = array();
+        $TablesList = [];
         $TablesQuery = $this->queryToArray("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type FROM INFORMATION_SCHEMA.TABLES");
         if (is_array($TablesQuery)) {
             foreach ($TablesQuery as $TableName) {

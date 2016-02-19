@@ -43,7 +43,7 @@ class TextareaTag extends PairTag
      */
     public function setValue($value)
     {
-        $this->pageParts = array();
+        $this->pageParts = [];
         $this->addItem($value);
     }
 

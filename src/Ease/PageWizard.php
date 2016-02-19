@@ -28,7 +28,7 @@ class PageWizard extends Container
      * Pole kroků průvodce
      * @var array
      */
-    public $steps = array();
+    public $steps = [];
 
     /**
      * Aktuálního krok
@@ -117,7 +117,7 @@ class PageWizard extends Container
      */
     public function jumpToNextStep()
     {
-        $Params = array('StepRequested=' . $this->GetNextStepID());
+        $Params = ['StepRequested=' . $this->GetNextStepID()];
         $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
             foreach ($requestValuesToKeep as $RequestName => $Request) {
@@ -143,7 +143,7 @@ class PageWizard extends Container
             $Caption = $this->getStepName($this->getNextStepID()) . ' ' . self::$nextSign;
         }
 
-        $Params = array('StepRequested=' . $this->GetNextStepID());
+        $Params = ['StepRequested=' . $this->GetNextStepID()];
         $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
             foreach ($requestValuesToKeep as $RequestName => $Request) {
@@ -238,7 +238,7 @@ class PageWizard extends Container
             $navigation->addItem(new Html\ATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
         }
 
-        return new Html\Div( $navigation, array('class' => 'pagination'));
+        return new Html\Div( $navigation, ['class' => 'pagination']);
     }
 
     /**
@@ -248,7 +248,7 @@ class PageWizard extends Container
      */
     public function getStepList()
     {
-        $stepList = new Html\UlTag(null, array('class' => 'breadcrumb'));
+        $stepList = new Html\UlTag(null, ['class' => 'breadcrumb']);
         $StepsDone = 0;
         foreach ($this->steps as $StepID => $StepName) {
             $StepsDone++;

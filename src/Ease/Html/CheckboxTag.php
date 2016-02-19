@@ -23,7 +23,7 @@ class CheckboxTag extends InputTag
         if ($properties) {
             $properties['type'] = 'checkbox';
         } else {
-            $properties = array('type' => 'checkbox');
+            $properties = ['type' => 'checkbox'];
         }
         if ($checked) {
             $properties['checked'] = 'true';
@@ -46,7 +46,7 @@ class CheckboxTag extends InputTag
     public function setValue($value = true)
     {
         if ($value) {
-            $this->setTagProperties(array('checked' => 'true'));
+            $this->setTagProperties(['checked' => 'true']);
         } else {
             unset($this->tagProperties['checked']);
         }

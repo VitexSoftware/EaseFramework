@@ -16,7 +16,7 @@ class GlyphIcon extends \Ease\Html\SpanTag
      */
     public function __construct($code)
     {
-        parent::__construct(null, null, array('class' => 'glyphicon glyphicon-' . $code));
+        parent::__construct(null, null, ['class' => 'glyphicon glyphicon-' . $code]);
     }
 
 }

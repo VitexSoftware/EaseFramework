@@ -75,7 +75,7 @@ class HeadTag extends PairTag
     public function draw()
     {
         if (isset($this->easeShared->cascadeStyles) && count($this->easeShared->cascadeStyles)) {
-            $cascadeStyles = array();
+            $cascadeStyles = [];
             foreach ($this->easeShared->cascadeStyles as $StyleRes => $Style) {
                 if ($StyleRes == $Style) {
                     $this->addItem('<link href="' . $Style . '" rel="stylesheet" type="text/css" media="' . 'screen' . '" />');
@@ -88,7 +88,7 @@ class HeadTag extends PairTag
         }
         if (isset($this->easeShared->javaScripts) && count($this->easeShared->javaScripts)) {
             ksort($this->easeShared->javaScripts, SORT_NUMERIC);
-            $ODRStack = array();
+            $ODRStack = [];
             foreach ($this->easeShared->javaScripts as $Script) {
                 $ScriptType = $Script[0];
                 $ScriptBody = substr($Script, 1);

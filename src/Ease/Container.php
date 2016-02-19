@@ -18,7 +18,7 @@ class Container extends Sand
      * Pole objektů a fragmentů k vykreslení
      * @var array
      */
-    public $pageParts = array();
+    public $pageParts = [];
 
     /**
      * Byla jiz stranka vykreslena
@@ -42,7 +42,7 @@ class Container extends Sand
      * Které objekty převzít od přebírajícího objektu
      * @var array
      */
-    public $raiseItems = array();
+    public $raiseItems = [];
 
     /**
      * Odkaz na webstránku
@@ -287,7 +287,7 @@ class Container extends Sand
      */
     public function addItems($itemsArray)
     {
-        $itemsAdded = array();
+        $itemsAdded = [];
         foreach ($itemsArray as $item) {
             $itemsAdded[] = $this->addItem($item);
         }

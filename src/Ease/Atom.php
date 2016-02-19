@@ -30,7 +30,7 @@ class Atom
      * Pole informaci urcenych k logovani inebo zobrazovanych uzivateli
      * @var array
      */
-    public $statusMessages = array();
+    public $statusMessages = [];
 
     /**
      * Pocet uchovavanych zprav
@@ -70,7 +70,7 @@ class Atom
     public function addStatusMessages($statusMessages)
     {
         if (is_array($statusMessages) && count($statusMessages)) {
-            $allMessages = array();
+            $allMessages = [];
             foreach ($statusMessages as $quee => $messages) {
                 foreach ($messages as $mesgID => $message) {
                     $allMessages[$mesgID][$quee] = $message;
@@ -94,7 +94,7 @@ class Atom
     public function cleanMessages()
     {
         $this->messageCount = 0;
-        $this->statusMessages = array();
+        $this->statusMessages = [];
     }
 
     /**

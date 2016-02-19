@@ -37,7 +37,7 @@ class Anonym extends Brick
      * Registr vlastnosti uzivatele
      * @var array
      */
-    public $valuesToKeep = array();
+    public $valuesToKeep = [];
 
     /**
      * Indikátor přihlášení

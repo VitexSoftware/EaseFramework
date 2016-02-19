@@ -25,7 +25,7 @@ class Select extends PairTag
     /**
      * @var pole hodnot k nabídnutí selectu
      */
-    public $items = array();
+    public $items = [];
 
     /**
      * Mají se vloženým položkám nastavovat ID ?
@@ -79,7 +79,7 @@ class Select extends PairTag
      */
     public function addValue($value, $valueID = 0)
     {
-        $this->addItems(array($valueID => $value));
+        $this->addItems([$valueID => $value]);
     }
 
     /**
@@ -89,7 +89,7 @@ class Select extends PairTag
      */
     public function loadItems()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -35,7 +35,7 @@ class SysLogger extends Atom {
      * Hodnoty pro obarvování logu
      * @var array
      */
-    public $logStyles = array(
+    public $logStyles = [
         'notice' => 'color: black;',
         'success' => 'color: #2C5F23;',
         'message' => 'color: #2C5F23;',
@@ -44,7 +44,7 @@ class SysLogger extends Atom {
         'debug' => 'font-style: italic;',
         'report' => 'font-wight: bold;',
         'info' => 'color: blue;'
-    );
+    ];
 
     /**
      * Odkaz na vlastnící objekt
@@ -62,7 +62,7 @@ class SysLogger extends Atom {
      * Pole uložených zpráv
      * @var array
      */
-    private $storedMessages = array();
+    private $storedMessages = [];
 
     /**
      * ID naposledy ulozene zpravy
@@ -136,7 +136,7 @@ class SysLogger extends Atom {
      * Resetne pole uložených zpráv
      */
     public function resetStoredMessages() {
-        $this->storedMessages = array();
+        $this->storedMessages = [];
     }
 
     /**
@@ -171,7 +171,7 @@ class SysLogger extends Atom {
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = ' ~' . $Caller . '~ ' . str_replace(array('notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'), array('**', '##', '@@', '::'), $type) . ' ' . $message . "\n";
+        $logLine = ' ~' . $Caller . '~ ' . str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type) . ' ' . $message . "\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }

@@ -34,7 +34,7 @@ class Page extends Container
      * Které objekty převzít od přebírajícího objektu
      * @var array
      */
-    public $raiseItems = array('SetUpUser' => 'User', 'webPage', 'OutputFormat');
+    public $raiseItems = ['SetUpUser' => 'User', 'webPage', 'OutputFormat'];
 
     /**
      * Odkaz na naposledy přidaný element
@@ -236,7 +236,7 @@ class Page extends Container
     public function getRequestValues()
     {
         global $_REQUEST;
-        $requestValuesToKeep = array();
+        $requestValuesToKeep = [];
         if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
             foreach ($this->webPage->requestValuesToKeep as $KeyName => $KeyValue) {
                 if ($KeyValue != true) {
@@ -460,7 +460,7 @@ class Page extends Container
      */
     public function unKeepRequestValues()
     {
-        Shared::webPage()->requestValuesToKeep = array();
+        Shared::webPage()->requestValuesToKeep = [];
     }
 
     /**
@@ -477,7 +477,7 @@ class Page extends Container
         if (is_null($requestValuesToKeep) || !is_array($requestValuesToKeep) || !count($requestValuesToKeep)) {
             return '';
         }
-        $ArgsToKeep = array();
+        $ArgsToKeep = [];
         foreach ($requestValuesToKeep as $name => $value) {
             if (is_string($value) && strlen($value)) {
                 $ArgsToKeep[$name] = $name . '=' . $value;
@@ -512,7 +512,7 @@ class Page extends Container
     {
         $this->outputFormat = $outputFormat;
         foreach ($this->pageParts as $part) {
-            $this->raise($part, array('OutputFormat'));
+            $this->raise($part, ['OutputFormat']);
         }
     }
 
@@ -535,7 +535,7 @@ class Page extends Container
     public function takeStatusMessages($msgSource, $denyQues = null)
     {
         if (is_array($msgSource) && count($msgSource)) {
-            $allMessages = array();
+            $allMessages = [];
             foreach ($msgSource as $quee => $messages) {
                 if (is_array($denyQues) && in_array($quee, $denyQues)) {
                     continue;
@@ -562,7 +562,7 @@ class Page extends Container
                 if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages) && count($msgSource->webPage->statusMessages)) {
                     $msgTaken = count($msgSource->webPage->statusMessages);
                     $this->statusMessages = array_merge($this->statusMessages, $msgSource->webPage->statusMessages);
-                    $msgSource->webPage->statusMessages = array();
+                    $msgSource->webPage->statusMessages = [];
 
                     return $msgTaken;
                 }

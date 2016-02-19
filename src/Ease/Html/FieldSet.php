@@ -62,10 +62,10 @@ class FieldSet extends PairTag
     {
         if ($this->Legend) {
             if (is_object(reset($this->pageParts))) {
-                reset($this->pageParts)->pageParts = array($this->Legend);
+                reset($this->pageParts)->pageParts = [$this->Legend];
             } else {
                 array_unshift($this->pageParts, $this->LegendTag);
-                reset($this->pageParts)->pageParts = array($this->Legend);
+                reset($this->pageParts)->pageParts = [$this->Legend];
             }
         }
     }

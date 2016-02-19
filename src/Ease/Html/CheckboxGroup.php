@@ -22,7 +22,7 @@ class CheckboxGroup extends EaseInputContainer
      * Pole hodnot k nastavení
      * @var array
      */
-    public $values = array();
+    public $values = [];
 
     /**
      * Skupina checkboxů
@@ -36,7 +36,7 @@ class CheckboxGroup extends EaseInputContainer
     {
         parent::__construct($name, $items, $tagProperties);
         if (!is_null($itemValues)) {
-            $values = array();
+            $values = [];
             foreach ($itemValues as $itemName => $item) {
                 $values[$name . '_' . $itemName] = $item;
             }
@@ -62,7 +62,7 @@ class CheckboxGroup extends EaseInputContainer
         if (is_object($itemInpage)) {
             if (isset($this->items)) {
                 $keys = array_keys($this->items);
-                $itemInpage->setTagProperties(array('name' => $itemInpage->getTagProperty('name') . '#' . $keys[$this->_subitemCount]));
+                $itemInpage->setTagProperties(['name' => $itemInpage->getTagProperty('name') . '#' . $keys[$this->_subitemCount]]);
                 if (isset($this->values[$keys[$this->_subitemCount]])) {
                     $itemInpage->setValue((bool) $this->values[$keys[$this->_subitemCount]]);
                 }
@@ -95,10 +95,10 @@ class CheckboxGroup extends EaseInputContainer
         $CurrentValue = $this->GetTagProperty('value');
         if ($CurrentValue) {
             if ($CurrentValue == $value) {
-                $this->setTagProperties(array('checked'));
+                $this->setTagProperties(['checked']);
             }
         } else {
-            $this->setTagProperties(array('value' => $value));
+            $this->setTagProperties(['value' => $value]);
         }
     }
 

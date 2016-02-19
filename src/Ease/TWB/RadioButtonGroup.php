@@ -21,7 +21,7 @@ class RadioButtonGroup extends Ease\Container
      * Položky k zobrazení
      * @var array
      */
-    public $radios = array();
+    public $radios = [];
 
     /**
      * Předvolená hodnota
@@ -62,8 +62,8 @@ class RadioButtonGroup extends Ease\Container
             } else {
                 $checked = null;
             }
-            $tagProperties = array('id' => $this->name . $pos++, 'name' => $this->name, $checked);
-            $this->addItem(new \Ease\Html\Div( new \Ease\Html\LabelTag(null, array(new \Ease\Html\InputRadioTag($this->name, $value, $tagProperties), $caption)), array('class' => $class)));
+            $tagProperties = ['id' => $this->name . $pos++, 'name' => $this->name, $checked];
+            $this->addItem(new \Ease\Html\Div( new \Ease\Html\LabelTag(null, [new \Ease\Html\InputRadioTag($this->name, $value, $tagProperties), $caption]), ['class' => $class]));
         }
     }
 

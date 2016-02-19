@@ -29,7 +29,7 @@ class InputRadioTag extends InputTag
         if ($tagProperties) {
             $this->setTagProperties($tagProperties);
         }
-        $this->setTagProperties(array('type' => 'radio'));
+        $this->setTagProperties(['type' => 'radio']);
         $this->Value = $value;
     }
 
@@ -46,10 +46,10 @@ class InputRadioTag extends InputTag
         $CurrentValue = $this->getTagProperty('value');
         if ($CurrentValue) {
             if ($CurrentValue == $value) {
-                $this->setTagProperties(array('checked'));
+                $this->setTagProperties(['checked']);
             }
         } else {
-            $this->setTagProperties(array('value' => $value));
+            $this->setTagProperties(['value' => $value]);
         }
     }
 

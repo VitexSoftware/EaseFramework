@@ -47,7 +47,7 @@ class Part extends \Ease\JQuery\Part
     public static function GlyphIcon($code, $properties = null)
     {
         if (is_null($properties)) {
-            $properties = array('class' => 'glyphicon glyphicon-' . $code);
+            $properties = ['class' => 'glyphicon glyphicon-' . $code];
         } else {
             if (isset($properties['class'])) {
                 $properties['class'] = 'glyphicon glyphicon-' . $code . ' ' . $properties['class'];

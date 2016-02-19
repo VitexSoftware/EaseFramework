@@ -9,7 +9,7 @@ class CheckBoxGroup extends Ease\Container
      *
      * @param array $items
      */
-    public $items = array();
+    public $items = [];
 
     function __construct($items)
     {

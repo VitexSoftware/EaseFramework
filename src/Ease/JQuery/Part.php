@@ -26,7 +26,7 @@ class Part extends \Ease\Page
      * Array of Part properties
      * @var array
      */
-    public $partProperties = array();
+    public $partProperties = [];
 
     public function __construct()
     {
@@ -123,7 +123,7 @@ class Part extends \Ease\Page
     {
         if (is_array($partProperties)) {
             $partPropertiesString = '';
-            $partsArray = array();
+            $partsArray = [];
             foreach ($partProperties as $partPropertyName => $partPropertyValue) {
                 if (!is_null($partPropertyName)) {
                     if (is_numeric($partPropertyName)) {

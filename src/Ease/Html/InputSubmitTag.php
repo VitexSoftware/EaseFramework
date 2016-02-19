@@ -23,7 +23,7 @@ class InputSubmitTag extends InputTag
             $value = $name;
         }
         if (is_null($properties)) {
-            $properties = array();
+            $properties = [];
         }
         $properties['type'] = 'submit';
         $properties['name'] = $name;

@@ -28,7 +28,7 @@ class Mailer extends Page {
     public $mailer = null;
     public $mimer = null;
     public $textBody = null;
-    public $mailHeaders = array();
+    public $mailHeaders = [];
     public $mailHeadersDone = null;
     public $crLf = "\n";
     public $mailBody = null;
@@ -81,7 +81,7 @@ class Mailer extends Page {
      * Parametry odchozí pošty
      * @var array
      */
-    public $parameters = array();
+    public $parameters = [];
 
     /**
      * Ease Mail - sestaví a odešle
@@ -100,14 +100,14 @@ class Mailer extends Page {
         }
 
         $this->setMailHeaders(
-                array(
+                [
                     'To' => $emailAddress,
                     'From' => $this->fromEmailAddress,
                     'Reply-To' => $this->fromEmailAddress,
                     'Subject' => $mailSubject,
                     'Content-Type' => 'text/plain; charset=utf-8',
                     'Content-Transfer-Encoding' => '8bit'
-                )
+                ]
         );
 
         $this->mimer = new \Mail_mime($this->crLf);
@@ -213,10 +213,10 @@ class Mailer extends Page {
         $this->mimer->setHTMLBody($this->htmlBodyRendered);
 
         if (isset($this->fromEmailAddress)) {
-            $this->setMailHeaders(array('From' => $this->fromEmailAddress));
+            $this->setMailHeaders(['From' => $this->fromEmailAddress]);
         }
 
-        $this->setMailHeaders(array('Date' => date("r")));
+        $this->setMailHeaders(['Date' => date("r")]);
         $this->mailBody = $this->mimer->get();
         $this->mailHeadersDone = $this->mimer->headers($this->mailHeaders);
         $this->finalized = true;

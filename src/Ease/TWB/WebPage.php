@@ -54,7 +54,7 @@ class WebPage extends \Ease\WebPage
         }
         $htmlFargment = '';
 
-        $allMessages = array();
+        $allMessages = [];
         foreach ($this->easeShared->statusMessages as $quee => $messages) {
             foreach ($messages as $MesgID => $message) {
                 $allMessages[$MesgID][$quee] = $message;

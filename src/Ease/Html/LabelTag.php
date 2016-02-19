@@ -25,7 +25,7 @@ class LabelTag extends PairTag
      */
     public function __construct($for, $contents = null, $properties = null)
     {
-        $this->setTagProperties(array('for' => $for));
+        $this->setTagProperties(['for' => $for]);
         parent::__construct('label', $properties);
         $this->Contents = $this->addItem($contents);
     }

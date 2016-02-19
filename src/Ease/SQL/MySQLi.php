@@ -48,9 +48,9 @@ class MySqli extends SQL
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $connectionSettings = array(
+    public $connectionSettings = [
       'NAMES' => 'utf8'
-    );
+    ];
 
     /**
      * Saves obejct instace (singleton...)
@@ -211,7 +211,7 @@ class MySqli extends SQL
      */
     public function queryToArray($queryRaw, $keyColumnToIndex = false)
     {
-        $resultArray = array();
+        $resultArray = [];
         if ($this->exeQuery($queryRaw) && is_object($this->result)) {
             if (is_string($keyColumnToIndex)) {
                 while ($dataRow = $this->result->fetch_assoc()) {
@@ -334,8 +334,8 @@ class MySqli extends SQL
     public function prepSelect($data, $ldiv = 'AND')
     {
         $operator = null;
-        $conditions = array();
-        $conditionsII = array();
+        $conditions = [];
+        $conditionsII = [];
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
                 $conditionsII[] = $value;
@@ -525,8 +525,8 @@ class MySqli extends SQL
         if (!parent::createTableQuery($tableStructure, $tableName)) {
             return null;
         }
-        $queryRawItems = array();
-        $Indexes = array();
+        $queryRawItems = [];
+        $Indexes = [];
 
         $queryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
         foreach ($tableStructure as $columnName => $columnProperties) {
@@ -612,7 +612,7 @@ class MySqli extends SQL
      */
     public function listTables($sort = false)
     {
-        $tablesList = array();
+        $tablesList = [];
         foreach ($this->queryToArray('SHOW TABLES') as $tableName) {
             $tablesList[current($tableName)] = current($tableName);
         }

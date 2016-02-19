@@ -27,9 +27,9 @@ class SubmitButton extends InputTag
      */
     public function __construct($label, $value = null, $Hint = null, $classCss = null)
     {
-        $properties = array('type' => 'submit');
+        $properties = ['type' => 'submit'];
         if (!$value) {
-            $value = trim(str_replace(array(' ', '?'), '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($label))));
+            $value = trim(str_replace([' ', '?'], '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($label))));
         } else {
             $properties['value'] = $value;
         }

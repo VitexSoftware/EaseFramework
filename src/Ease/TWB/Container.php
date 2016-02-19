@@ -20,7 +20,7 @@ class Container extends \Ease\Html\Div
      */
     public function __construct($content = null)
     {
-        parent::__construct($content, array('class' => 'container'));
+        parent::__construct($content, ['class' => 'container']);
     }
 
 }

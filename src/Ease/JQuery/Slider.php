@@ -67,9 +67,9 @@ class Slider extends UIPart
     public function setValue($value)
     {
         if (is_array($value)) {
-            $this->setPartProperties(array('values' => $value));
+            $this->setPartProperties(['values' => $value]);
         } else {
-            $this->setPartProperties(array('value' => $value));
+            $this->setPartProperties(['value' => $value]);
         }
     }
 
@@ -81,7 +81,7 @@ class Slider extends UIPart
     public function setValues($data)
     {
         if (isset($this->partProperties['values'])) {
-            $newValues = array();
+            $newValues = [];
             foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
                 if (isset($data[$ID])) {
                     $this->pageParts[$this->inputClass . '@' . $ID]->setValue($data[$ID]);
@@ -148,23 +148,23 @@ class Slider extends UIPart
     public function finalize()
     {
         \Ease\Shared::webPage()->addCSS(' #' . $this->partName . ' { margin: 10px; }');
-        $this->addItem(new Ease\Html\Div(null,array('id'=>$this->partName . '-slider')));
+        $this->addItem(new Ease\Html\Div(null,['id'=>$this->partName . '-slider']));
         if (isset($this->partProperties['values'])) {
             if (is_array($this->partProperties['values'])) {
                 $JavaScript = '';
                 foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
                     $JavaScript .= ' $( "#' . $ID . '" ).val( ui.values[' . $Offset . '] );';
                 }
-                $this->setPartProperties(array('slide' => 'function (event, ui) { ' . $JavaScript . $this->SliderAdd . ' }'));
+                $this->setPartProperties(['slide' => 'function (event, ui) { ' . $JavaScript . $this->SliderAdd . ' }']);
             }
         } else {
-            $this->setPartProperties(array('slide' => 'function (event, ui) { $( "#' . $this->partName . '" ).val( ui.value ); ' . $this->SliderAdd . ' }'));
+            $this->setPartProperties(['slide' => 'function (event, ui) { $( "#' . $this->partName . '" ).val( ui.value ); ' . $this->SliderAdd . ' }']);
         }
         if (!isset($this->partProperties['value'])) {
             $this->partProperties['value'] = null;
         }
-        $this->setPartProperties(array('change' => 'function (event, ui) {
-            $("#' . $this->partName . '-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  '));
+        $this->setPartProperties(['change' => 'function (event, ui) {
+            $("#' . $this->partName . '-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ']);
         \Ease\Shared::webPage()->addJavaScript(';', null, true);
         return parent::finalize();
     }

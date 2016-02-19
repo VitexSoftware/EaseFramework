@@ -20,7 +20,7 @@ class ATag extends PairTag
     public function __construct($href, $contents = null, $properties = null)
     {
         if (!is_array($properties)) {
-            $properties = array();
+            $properties = [];
         }
         if (!is_null($href)) {
             $properties['href'] = $href;

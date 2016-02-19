@@ -57,7 +57,7 @@ class Dialog extends UIPart
         $this->Message = $Message;
         $this->Icon = $Icon;
         $this->Notice = $Notice;
-        $this->partProperties = array('modal' => true, 'buttons' => array('Ok' => 'function () { $( this ).dialog( "close" ); }'));
+        $this->partProperties = ['modal' => true, 'buttons' => ['Ok' => 'function () { $( this ).dialog( "close" ); }']];
         parent::__construct();
     }
 
@@ -74,9 +74,9 @@ class Dialog extends UIPart
      */
     public function finalize()
     {
-        $DialogDiv = $this->addItem(new Ease\Html\Div( NULL, array('id'=>$this->DialogID,'title' => $this->Title)));
+        $DialogDiv = $this->addItem(new Ease\Html\Div( NULL, ['id'=>$this->DialogID,'title' => $this->Title]));
         $DialogMessage = $DialogDiv->addItem(new Ease\Html\PTag());
-        $DialogMessage->addItem(new Ease\Html\SpanTag(NULL, NULL, array('class' => 'ui-icon ' . $this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;')));
+        $DialogMessage->addItem(new Ease\Html\SpanTag(NULL, NULL, ['class' => 'ui-icon ' . $this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;']));
         $DialogMessage->addItem($this->Message);
         if (!is_null($this->Notice)) {
             $DialogDiv->addItem(new Ease\Html\PTag($this->Notice));

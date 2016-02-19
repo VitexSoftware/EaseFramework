@@ -21,7 +21,7 @@ class InputContainer extends Ease\Container
      * Stored values
      * @var array
      */
-    public $items = array();
+    public $items = [];
 
     /**
      * Default value
@@ -89,7 +89,7 @@ class InputContainer extends Ease\Container
         $itemID = 1;
         foreach ($this->items as $value => $caption) {
             if ($this->checked == $value) {
-                $this->addItem(new $this->itemClass($this->name, $value, array('checked')));
+                $this->addItem(new $this->itemClass($this->name, $value, ['checked']));
             } else {
                 $this->addItem(new $this->itemClass($this->name, $value));
             }

@@ -34,8 +34,8 @@ class ButtonDropdown extends \Ease\Html\Div
         if ($size) {
             $btnClass .= 'btn-' . $size;
         }
-        $this->button = $this->addItem(new \Ease\Html\ButtonTag(array($label . ' <span class="caret"></span>'), array('class' => $btnClass . ' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown')));
-        $this->dropdown = $this->addItem(new \Ease\Html\UlTag(null, array('class' => 'dropdown-menu', 'role' => 'menu')));
+        $this->button = $this->addItem(new \Ease\Html\ButtonTag([$label . ' <span class="caret"></span>'], ['class' => $btnClass . ' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown']));
+        $this->dropdown = $this->addItem(new \Ease\Html\UlTag(null, ['class' => 'dropdown-menu', 'role' => 'menu']));
         if (count($items)) {
             foreach ($items as $item) {
                 $this->addMenuItem($item);
@@ -61,7 +61,7 @@ class ButtonDropdown extends \Ease\Html\Div
      */
     static function divider()
     {
-        return new \Ease\Html\LiTag(null, array('class' => 'divider'));
+        return new \Ease\Html\LiTag(null, ['class' => 'divider']);
     }
 
 }

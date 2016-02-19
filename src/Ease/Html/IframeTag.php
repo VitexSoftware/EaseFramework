@@ -21,7 +21,7 @@ class IframeTag extends PairTag
     public function __construct($src, $properties = null)
     {
         if (is_null($properties)) {
-            $properties = array('src' => $src);
+            $properties = ['src' => $src];
         } else {
             $properties['src'] = $src;
         }

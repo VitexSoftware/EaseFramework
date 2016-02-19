@@ -35,7 +35,7 @@ namespace Ease\Html;
      */
     public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
     {
-        parent::__construct('form', array('method' => $formMethod, 'name' => $formName));
+        parent::__construct('form', ['method' => $formMethod, 'name' => $formName]);
         if ($formAction) {
             $this->setFormTarget($formAction);
         } else {
@@ -56,7 +56,7 @@ namespace Ease\Html;
     public function setFormTarget($formTarget)
     {
         $this->formTarget = $formTarget;
-        $this->setTagProperties(array('action' => $formTarget));
+        $this->setTagProperties(['action' => $formTarget]);
     }
     /**
      * Změní jeden nebo více parametrů v ACTION url formuláře
@@ -75,7 +75,7 @@ namespace Ease\Html;
             $targetParts = explode('&', str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
             if (is_array($targetParts) && count($targetParts)) {
                 $formTargetComputed = '';
-                $targetPartsValues = array();
+                $targetPartsValues = [];
                 foreach ($targetParts as $targetPart) {
                     if (!strstr($targetPart, '=')) {
                         $formTargetComputed .= $targetPart;

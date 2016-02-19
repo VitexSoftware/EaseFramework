@@ -23,7 +23,7 @@ class WebPage extends Page
      * Položky předávané do vkládaného objektu
      * @var type
      */
-    public $raiseItems = array('SetupWebPage' => 'webPage');
+    public $raiseItems = ['SetupWebPage' => 'webPage'];
 
     /**
      * Pole Javasriptu k vykresleni
@@ -274,7 +274,7 @@ class WebPage extends Page
         }
         $htmlFargment = '';
 
-        $allMessages = array();
+        $allMessages = [];
         foreach ($this->easeShared->statusMessages as $Quee => $messages) {
             foreach ($messages as $mesgID => $message) {
                 $allMessages[$mesgID][$Quee] = $message;

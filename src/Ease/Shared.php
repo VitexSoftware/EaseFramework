@@ -53,7 +53,7 @@ class Shared extends Atom {
      * Pole konfigurací
      * @var array
      */
-    public $registry = array();
+    public $registry = [];
 
     /**
      * Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script
@@ -83,7 +83,7 @@ class Shared extends Atom {
      * Pole odkazů na všechny vložené objekty
      * @var array pole odkazů
      */
-    public $allItems = array();
+    public $allItems = [];
 
     /**
      * Název položky session s objektem uživatele

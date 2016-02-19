@@ -28,7 +28,7 @@ class UlTag extends PairTag
      */
     public function addItems($itemsArray)
     {
-        $itemsAdded = array();
+        $itemsAdded = [];
         foreach ($itemsArray as $item) {
             $itemsAdded[] = $this->addItemSmart($item);
         }

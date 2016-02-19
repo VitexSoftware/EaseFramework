@@ -18,7 +18,7 @@ class JavaScript extends Ease\html\ScriptTag
     public function __construct($content, $properties = null)
     {
         if (is_null($properties)) {
-            $properties = array('type' => 'text/javascript');
+            $properties = ['type' => 'text/javascript'];
         } else {
             $properties['type'] = 'text/javascript';
         }

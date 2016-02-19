@@ -52,7 +52,7 @@ class LinkButton extends UIPart
         if ($Properties) {
             $this->Button->setTagProperties($Properties);
         }
-        $this->Button->setTagProperties(array('id' => $this->Name));
+        $this->Button->setTagProperties(['id' => $this->Name]);
     }
 
     /**

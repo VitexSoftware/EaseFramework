@@ -36,25 +36,25 @@ class Sand extends Atom {
      * v metodě SaveObjectIdentity {volá se automaticky v EaseSand::__construct()}
      * @var array
      */
-    public $identity = array();
+    public $identity = [];
 
     /**
      * Původní identita sloužící jako záloha k zrekonstruování počátečního stavu objektu.
      * @var array
      */
-    public $initialIdenty = array();
+    public $initialIdenty = [];
 
     /**
      * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu
      * @var array
      */
-    public $identityColumns = array('ObjectName',
+    public $identityColumns = ['ObjectName',
         'myKeyColumn', 'MSKeyColumn',
         'myTable', 'MSTable',
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
         'myCreateColumn', 'MSCreateColumn',
-        'myLastModifiedColumn', 'MSLastModifiedColumn');
+        'myLastModifiedColumn', 'MSLastModifiedColumn'];
 
     /**
      * Klíčový sloupeček v používané MySQL tabulce
@@ -279,7 +279,7 @@ class Sand extends Atom {
      *
      */
     public function dataReset() {
-        $this->data = array();
+        $this->data = [];
     }
 
     /**
@@ -466,7 +466,7 @@ class Sand extends Atom {
      * @param string $text
      */
     public static function rip($text) {
-        $convertTable = Array(
+        $convertTable = [
             'ä' => 'a',
             'Ä' => 'A',
             'á' => 'a',
@@ -551,7 +551,7 @@ class Sand extends Atom {
             'Ž' => 'Z',
             'ź' => 'z',
             'Ź' => 'Z'
-        );
+        ];
 
         return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
     }
@@ -864,7 +864,7 @@ class Sand extends Atom {
         if (preg_match('/^\\[(.)+]$/', $domain) === 1) {
 // It's an address-literal
             $addressLiteral = substr($domain, 1, strlen($domain) - 2);
-            $matchesIP = array();
+            $matchesIP = [];
 
 // Extract IPv4 part from the end of the address-literal (if there is one)
             if (preg_match('/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.) {3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/', $addressLiteral, $matchesIP) > 0) {
@@ -1052,7 +1052,7 @@ class Sand extends Atom {
             return iconv($in_charset, $out_charset, $arr);
         }
         $ret = $arr;
-        array_walk_recursive($ret, array($this, "arrayIconv"), array($in_charset, $out_charset));
+        array_walk_recursive($ret, [$this, "arrayIconv"], [$in_charset, $out_charset]);
 
         return $ret;
     }
@@ -1130,7 +1130,7 @@ class Sand extends Atom {
         if (is_numeric($filesize)) {
             $decr = 1024;
             $step = 0;
-            $prefix = array('Byte', 'KB', 'MB', 'GB', 'TB', 'PB');
+            $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
             while (($filesize / $decr) > 0.9) {
                 $filesize = $filesize / $decr;

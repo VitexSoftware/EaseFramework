@@ -40,7 +40,7 @@ class Saver extends Brick
      */
     public function createmyTable()
     {
-        $Structure = array($this->getmyKeyColumn() => array('type' => 'int', 'key' => 'primary', 'unsigned' => true));
+        $Structure = [$this->getmyKeyColumn() => ['type' => 'int', 'key' => 'primary', 'unsigned' => true]];
         if ($this->myDbLink->createTable($Structure, $this->myTable)) {
             $this->addStatusMessage(sprintf(_('Tabulka % byla vytvořena'), $this->myTable));
         }
@@ -100,7 +100,7 @@ class Saver extends Brick
 
         $actualStructure = $this->myDbLink->describe($this->myTable);
 
-        $structure = array();
+        $structure = [];
         foreach ($data as $column => $value) {
             if (!array_key_exists($column, $actualStructure)) {
                 $structure[$column] = $value;

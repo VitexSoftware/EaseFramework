@@ -49,7 +49,7 @@ class InputTag extends Tag
      */
     public function setValue($value)
     {
-        $this->setTagProperties(array('value' => $value));
+        $this->setTagProperties(['value' => $value]);
     }
 
     /**

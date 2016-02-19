@@ -16,7 +16,7 @@ class Row extends \Ease\Html\Div
      */
     public function __construct($content = null)
     {
-        parent::__construct(null, $content, array('class' => 'row'));
+        parent::__construct(null, $content, ['class' => 'row']);
     }
 
     /**

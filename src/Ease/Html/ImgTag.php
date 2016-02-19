@@ -23,7 +23,7 @@ class ImgTag extends Tag
     public function __construct($image, $hint = null, $width = null, $height = null, $tagProperties = null)
     {
         if (is_null($tagProperties)) {
-            $tagProperties = array();
+            $tagProperties = [];
         }
         $tagProperties['src'] = $image;
         if (isset($hint)) {

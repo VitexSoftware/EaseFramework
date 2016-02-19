@@ -210,7 +210,7 @@ class Brick extends Sand
         }
 
         if (is_int($conditions)) {
-            $conditions = array($this->getmyKeyColumn() => $conditions);
+            $conditions = [$this->getmyKeyColumn() => $conditions];
         }
 
         $where = '';
@@ -306,7 +306,7 @@ class Brick extends Sand
         $this->multipleteResult = (count($SQLResult) > 1);
 
         if ($this->multipleteResult) {
-            $results = array();
+            $results = [];
             foreach ($SQLResult as $id => $data) {
                 $this->takeData($data);
                 $results[$id] = $this->getData();
@@ -443,7 +443,7 @@ class Brick extends Sand
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
-                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(), array($this->getmyKeyColumn() => $this->getMyKey($data)));
+                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(), [$this->getmyKeyColumn() => $this->getMyKey($data)]);
                 } else {
                     $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(), $data);
                     if (count($rowsFound)) {
@@ -534,7 +534,7 @@ class Brick extends Sand
     public function deleteFromSQL($data = null)
     {
         if (is_int($data)) {
-            $data = array($this->getmyKeyColumn() => intval($data));
+            $data = [$this->getmyKeyColumn() => intval($data)];
         } else {
             if (is_null($data)) {
                 $data = $this->getData();
@@ -724,7 +724,7 @@ class Brick extends Sand
     public function setmyTable($myTable)
     {
         $this->myTable = $myTable;
-        $this->setObjectIdentity(array('myTable' => $myTable));
+        $this->setObjectIdentity(['myTable' => $myTable]);
         unset($this->sqlStruct['my']);
     }
 
@@ -781,7 +781,7 @@ class Brick extends Sand
     public function searchColumns($searchTerm, $columns)
     {
         $sTerm = $this->dblink->AddSlashes($searchTerm);
-        $conditons = array();
+        $conditons = [];
         foreach ($columns as $column) {
             $conditons[] = '`' . $column . '` LIKE \'%' . $sTerm . '%\'';
         }

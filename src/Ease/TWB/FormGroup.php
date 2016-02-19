@@ -22,12 +22,12 @@ class FormGroup extends \Ease\Html\Div
         $this->addItem(new \Ease\Html\LabelTag($formKey, $label));
         $content->addTagClass($addTagClass);
         if ($placeholder) {
-            $content->SetTagProperties(array('placeholder' => $placeholder));
+            $content->SetTagProperties(['placeholder' => $placeholder]);
         }
         $content->setTagId($formKey);
         $this->addItem($content);
         if ($helptext) {
-            $this->addItem(new \Ease\Html\PTag($helptext, array('class' => 'help-block')));
+            $this->addItem(new \Ease\Html\PTag($helptext, ['class' => 'help-block']));
         }
     }
 

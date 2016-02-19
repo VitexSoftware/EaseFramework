@@ -18,7 +18,7 @@ class ParamTag extends Tag
      */
     public function __construct($name, $value)
     {
-        parent::__construct('param', array('name' => $name, 'value' => $value));
+        parent::__construct('param', ['name' => $name, 'value' => $value]);
     }
 
 }

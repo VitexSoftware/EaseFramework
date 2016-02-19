@@ -21,7 +21,7 @@ class Pagination extends \Ease\Html\UlTag
     function __construct($pages, $current, $url = '?page=')
     {
         $this->url = $url;
-        parent::__construct(null, array('class' => 'pagination'));
+        parent::__construct(null, ['class' => 'pagination']);
         if ($current == 0) {
             $this->addPage('#', Part::glyphIcon('fast-backward'), 'disabled');
         } else {
@@ -62,7 +62,7 @@ class Pagination extends \Ease\Html\UlTag
     {
         $link = $this->url . $page;
         if ($style) {
-            $this->addItemSmart(new \Ease\Html\ATag($link, $label), array('class' => $style));
+            $this->addItemSmart(new \Ease\Html\ATag($link, $label), ['class' => $style]);
         } else {
             $this->addItemSmart(new \Ease\Html\ATag($link, $label));
         }

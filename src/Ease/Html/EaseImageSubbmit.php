@@ -21,9 +21,9 @@ class ImageSubbmit extends InputTag
      */
     public function __construct($Image, $Label, $value = null, $Hint = null)
     {
-        $Properties = array('type' => 'image');
+        $Properties = ['type' => 'image'];
         if (!$value) {
-            $value = trim(str_replace(array(' ', '?'), '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($Label))));
+            $value = trim(str_replace([' ', '?'], '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($Label))));
         } else {
             $Properties['value'] = $value;
         }

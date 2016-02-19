@@ -17,7 +17,7 @@ class Col extends \Ease\Html\Div
     function __construct($size, $content = null, $target = 'md', $properties = null)
     {
         if (is_null($properties)) {
-            $properties = array();
+            $properties = [];
         }
         $properties['class'] = 'col-' . $target . '-' . $size;
         parent::__construct($content, $properties);

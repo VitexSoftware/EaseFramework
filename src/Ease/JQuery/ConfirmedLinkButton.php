@@ -30,11 +30,11 @@ class ConfirmedLinkButton extends LinkButton
     public function __construct($href, $contents)
     {
         $this->id = $this->randomString();
-        parent::__construct('#', $contents, null, array('id' => $this->id . '-button'));
+        parent::__construct('#', $contents, null, ['id' => $this->id . '-button']);
         $confirmDialog = $this->addItem(new Dialog($this->id . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
         $yes = _('Ano');
         $no = _('Ne');
-        $confirmDialog->partProperties = array('autoOpen' => false, 'modal' => true, 'show' => 'slide', 'buttons' => array($yes => 'function () { window.location.href = "' . $href . '"; }', $no => 'function () { $( this ).dialog( "close" ); }'));
+        $confirmDialog->partProperties = ['autoOpen' => false, 'modal' => true, 'show' => 'slide', 'buttons' => [$yes => 'function () { window.location.href = "' . $href . '"; }', $no => 'function () { $( this ).dialog( "close" ); }']];
         \Ease\Shared::webPage()->addJavascript('', 1000, true);
     }
 

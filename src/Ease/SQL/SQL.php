@@ -88,7 +88,7 @@ abstract class SQL extends \Ease\Sand
      * Pole obsahující informace o základních paramatrech SQL přiopojení
      * @var array
      */
-    public $report = array('LastMessage' => 'Please extend');
+    public $report = ['LastMessage' => 'Please extend'];
 
     /**
      * Klíčový sloupeček pro SQL operace
@@ -106,7 +106,7 @@ abstract class SQL extends \Ease\Sand
      * Pole obsahující strukturu SQL tabulky
      * @var array
      */
-    public $tableStructure = array();
+    public $tableStructure = [];
 
     /**
      * Poslední Chybová zpráva obdržená od SQL serveru
@@ -124,7 +124,7 @@ abstract class SQL extends \Ease\Sand
      * Pole obsahující výsledky posledního SQL příkazu
      * @var array
      */
-    public $resultArray = array();
+    public $resultArray = [];
 
     /**
      * Pomocná proměnná pro datové operace
@@ -142,13 +142,13 @@ abstract class SQL extends \Ease\Sand
      * Prodlevy v sekundách pro znovupřipojení k databázi
      * @var array
      */
-    public $reconectTimeouts = array('web' => 1, 'cgi' => 10);
+    public $reconectTimeouts = ['web' => 1, 'cgi' => 10];
 
     /**
      * Nastavení vlastností přípojení
      * @var array
      */
-    public $connectionSettings = array();
+    public $connectionSettings = [];
 
     /**
      * Indikátor nastavení připojení - byly vykonány SET příkazy
@@ -331,7 +331,7 @@ abstract class SQL extends \Ease\Sand
     {
         foreach ($this->tableStructure as $column => $columnProperties) {
             if (array_key_exists($column, $this->tableStructure)) {
-                $Regs = array();
+                $Regs = [];
                 if (@ereg("(.*)\((.*)\)", $columnProperties['type'], $Regs)) {
                     list(, $Type, $Size) = $Regs;
                     switch ($Type) {
@@ -538,7 +538,7 @@ abstract class SQL extends \Ease\Sand
     {
         $result = $this->queryToArray($queryRaw);
         if (count($result)) {
-            $values = array();
+            $values = [];
             foreach ($result as $value) {
                 $values[] = current($value);
             }
@@ -591,12 +591,12 @@ abstract class SQL extends \Ease\Sand
         require_once 'DB.php';
         $DbHelper = new DB;
 
-        $dsn = array(
+        $dsn = [
           'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
           'username' => DB_SERVER_USERNAME,
           'password' => DB_SERVER_PASSWORD,
           'hostspec' => DB_SERVER
-        );
+        ];
 
         $db = & $DbHelper->connect($dsn);
 

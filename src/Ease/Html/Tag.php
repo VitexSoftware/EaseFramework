@@ -157,7 +157,7 @@ class Tag extends \Ease\Page
      */
     public function setTagClass($className)
     {
-        $this->setTagProperties(array('class' => $className));
+        $this->setTagProperties(['class' => $className]);
     }
 
     /**
@@ -188,9 +188,9 @@ class Tag extends \Ease\Page
     public function setTagID($tagID = null)
     {
         if (is_null($tagID)) {
-            $this->setTagProperties(array('id' => \Ease\Brick::randomString()));
+            $this->setTagProperties(['id' => \Ease\Brick::randomString()]);
         } else {
-            $this->setTagProperties(array('id' => $tagID));
+            $this->setTagProperties(['id' => $tagID]);
         }
         return $this->getTagID();
     }
@@ -302,7 +302,7 @@ class Tag extends \Ease\Page
             //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $cssProperties;
             $this->cssProperties = ' ' . $propBuff;
         }
-        $this->setTagProperties(array('style' => $this->cssPropertiesToString()));
+        $this->setTagProperties(['style' => $this->cssPropertiesToString()]);
     }
 
     /**

@@ -19,7 +19,7 @@ class InputFileTag extends InputTag
     public function __construct($name, $value = null)
     {
         parent::__construct($name, $value);
-        $this->setTagProperties(array('type' => 'file'));
+        $this->setTagProperties(['type' => 'file']);
     }
 
 }

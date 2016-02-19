@@ -20,7 +20,7 @@ class Textarea extends \Ease\Html\TextareaTag
     public function __construct($name, $content = '', $properties = null)
     {
         if (is_null($properties) || !isset($properties['class'])) {
-            $properties = array('class' => 'form-control');
+            $properties = ['class' => 'form-control'];
         } else {
             $properties['class'] .= ' form - control  ';
         }

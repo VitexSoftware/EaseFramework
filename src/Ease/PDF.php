@@ -35,7 +35,7 @@ class PDF extends \TCPDF
      * Pole předávaných vlastností
      * @var array
      */
-    public $raiseItems = array('SetUpUser' => 'User', 'webPage');
+    public $raiseItems = ['SetUpUser' => 'User', 'webPage'];
 
     /**
      * Soubor do kterého je rendrováno výsledné PDF voláním WriteToFile

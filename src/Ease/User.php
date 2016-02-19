@@ -89,13 +89,13 @@ class User extends Anonym {
      * Registr vlastnosti uzivatele
      * @var array
      */
-    public $valuesToKeep = array();
+    public $valuesToKeep = [];
 
     /**
      * Pole uživatelských nastavení
      * @var array
      */
-    public $settings = array();
+    public $settings = [];
 
     /**
      * Sloupeček s loginem
@@ -182,7 +182,7 @@ class User extends Anonym {
     public function getIcon() {
         $email = $this->getUserEmail();
         if ($email) {
-            return self::getGravatar($email, 800, 'mm', 'g', true, array('title' => $this->getUserName(), 'class' => 'gravatar_icon'));
+            return self::getGravatar($email, 800, 'mm', 'g', true, ['title' => $this->getUserName(), 'class' => 'gravatar_icon']);
         } else {
             return null;
         }
@@ -211,10 +211,10 @@ class User extends Anonym {
 
             return null;
         }
-        $this->setObjectIdentity(array('myKeyColumn' => $this->loginColumn));
+        $this->setObjectIdentity(['myKeyColumn' => $this->loginColumn]);
         if ($this->loadFromSQL($login)) {
             $this->setObjectName();
-            $this->resetObjectIdentity(array('ObjectName'));
+            $this->resetObjectIdentity(['ObjectName']);
             if ($this->passwordValidation($password, $this->getDataValue($this->passwordColumn))) {
                 if ($this->isAccountEnabled()) {
                     return $this->loginSuccess();
