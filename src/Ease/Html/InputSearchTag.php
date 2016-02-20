@@ -33,7 +33,7 @@ class InputSearchTag extends InputTag
             $properties['name'] = $name;
         }
         if (!isset($properties['id'])) {
-            $this->setTagID($name . EaseBrick::randomString());
+            $this->setTagID($name . \Ease\Brick::randomString());
         }
         $this->setTagProperties($properties);
         parent::__construct($name, $value);

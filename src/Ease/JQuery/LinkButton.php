@@ -34,23 +34,23 @@ class LinkButton extends UIPart
      *
      * @see http://jqueryui.com/demos/button/
      *
-     * @param string       $Href       cíl odkazu
-     * @param string       $Contents   obsah tlačítka
-     * @param array|string $JQOptions  parametry pro $.button()
-     * @param array        $Properties vlastnosti HTML tagu
+     * @param string       $href       cíl odkazu
+     * @param string       $contents   obsah tlačítka
+     * @param array|string $jQOptions  parametry pro $.button()
+     * @param array        $properties vlastnosti HTML tagu
      */
-    public function __construct($Href, $Contents, $JQOptions = null, $Properties = null)
+    public function __construct($href, $contents, $jQOptions = null, $properties = null)
     {
         parent::__construct();
-        if (!isset($Properties['id'])) {
-            $this->Name = EaseBrick::randomString();
+        if (!isset($properties['id'])) {
+            $this->Name = \Ease\Brick::randomString();
         } else {
-            $this->Name = $Properties['id'];
+            $this->Name = $properties['id'];
         }
-        $this->JQOptions = $JQOptions;
-        $this->Button = $this->addItem(new Ease\Html\ATag($Href, $Contents));
-        if ($Properties) {
-            $this->Button->setTagProperties($Properties);
+        $this->JQOptions = $jQOptions;
+        $this->Button = $this->addItem(new \Ease\Html\ATag($href, $contents));
+        if ($properties) {
+            $this->Button->setTagProperties($properties);
         }
         $this->Button->setTagProperties(['id' => $this->Name]);
     }

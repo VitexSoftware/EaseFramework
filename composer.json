@@ -15,7 +15,12 @@
             "Ease\\Html\\": "src/Ease/Html",
             "Ease\\JQuery\\": "src/Ease/JQuery",
             "Ease\\SQL\\": "src/Ease/SQL",
-            "Ease\\TWB\\": "src/Ease/TWB"
+            "Ease\\TWB\\": "src/Ease/TWB",
+            "Test\\Ease\\": "tests/src/Ease/",
+            "Test\\Ease\\Html\\": "tests/src/Ease/Html",
+            "Test\\Ease\\JQuery\\": "tests/src/Ease/JQuery",
+            "Test\\Ease\\SQL\\": "tests/src/Ease/SQL",
+            "Test\\Ease\\TWB\\": "tests/src/Ease/TWB"
         }
 
     },
@@ -26,8 +31,18 @@
     },
 
     "minimum-stability": "dev",
-    "type": "library",
-    "require": {},
+    "require": {
+        "php": ">=5.5.0",
+        "ext-curl": "*",
+        "phpunit/phpunit": "^5.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "mockery/mockery": "~0.9",
+        "squizlabs/php_codesniffer": "~2.0",
+        "satooshi/php-coveralls": "0.6.*",
+        "jakub-onderka/php-parallel-lint": "0.8.*"
+    },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",
     "license": "GPL-2.0+",
