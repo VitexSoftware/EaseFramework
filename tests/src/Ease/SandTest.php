@@ -236,15 +236,15 @@ class SandTest extends AtomTest {
      */
     public function testEaseEncrypt() {
         $enc = $this->object->easeEncrypt('secret', 'key');
-        $this->assertEqals('', $enc);
+        $this->assertEquals(0xb70b2e5f88837b808206dfc335a5, $enc);
     }
 
     /**
      * @covers Ease\Sand::easeDecrypt
      */
     public function testEaseDecrypt() {
-        $dec = $this->object->easeDecrypt('', 'key');
-        $this->assertEqals('secret', $dec);
+        $dec = $this->object->easeDecrypt(0xb70b2e5f88837b808206dfc335a5, 'key');
+        $this->assertEquals('secret', $dec);
     }
 
     /**

@@ -572,7 +572,7 @@ class Sand extends Atom {
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
         $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
-            $encryptedText = mcrypt_generic($encryptHandle, $TextToEncrypt);
+            $encryptedText = mcrypt_generic($encryptHandle, $textToEncrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
             $encryptedText = $initialVector . $encryptedText;
