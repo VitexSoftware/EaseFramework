@@ -17,7 +17,7 @@ class DdTagTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new DdTag;
+        $this->object = new \Ease\Html\DdTag;
     }
 
     /**

@@ -17,7 +17,7 @@ class ModalTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Modal;
+        $this->object = new \Ease\TWB\Modal('modal','Modal');
     }
 
     /**

@@ -17,7 +17,7 @@ class ScriptTagTest extends PairTagTest {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new ScriptTag;
+        $this->object = new \Ease\Html\ScriptTag;
     }
 
     /**

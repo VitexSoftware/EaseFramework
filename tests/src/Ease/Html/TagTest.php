@@ -17,7 +17,7 @@ class TagTest extends \Ease\PageTest {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Tag;
+        $this->object = new \Ease\Html\Tag;
     }
 
     /**

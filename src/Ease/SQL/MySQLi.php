@@ -16,7 +16,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class MySqli extends SQL
+class MySQLi extends SQL
 {
 
     /**

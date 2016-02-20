@@ -17,7 +17,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Select;
+        $this->object = new \Ease\Html\Select;
     }
 
     /**

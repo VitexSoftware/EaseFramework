@@ -17,7 +17,7 @@ class RowTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Row;
+        $this->object = new \Ease\TWB\Row;
     }
 
     /**

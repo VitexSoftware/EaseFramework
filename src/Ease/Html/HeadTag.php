@@ -25,20 +25,20 @@ class HeadTag extends PairTag
     /**
      * Html HEAD tag with basic contents and skin support
      *
-     * @param mixed $Content vkládaný obsah
+     * @param mixed $content vkládaný obsah
      */
-    public function __construct($Content = null)
+    public function __construct($content = null)
     {
-        parent::__construct('head', null, $Content);
+        parent::__construct('head', null, $content);
         $this->addItem('<meta http-equiv="Content-Type" content="text/html; charset=' . $this->charSet . '" />');
     }
 
     /**
      * Change name directly to head
      *
-     * @param string $ObjectName jméno objektu
+     * @param string $objectName jméno objektu
      */
-    public function setObjectName($ObjectName = null)
+    public function setObjectName($objectName = null)
     {
         parent::setObjectName('head');
     }

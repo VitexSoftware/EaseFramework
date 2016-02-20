@@ -17,7 +17,7 @@ class H4TagTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new H4Tag;
+        $this->object = new \Ease\Html\H4Tag;
     }
 
     /**

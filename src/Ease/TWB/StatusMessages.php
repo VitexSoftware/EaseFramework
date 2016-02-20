@@ -16,7 +16,7 @@ namespace Ease\TWB;
         $properties['title'] = _('kliknutím skryjete zprávy');
         $properties['style'] = 'padding-top: 40px; padding-bottom: 0px;';
         parent::__construct(null, null, $properties);
-        EaseJQueryPart::jQueryze();
+        \Ease\JQuery\Part::jQueryze();
         $this->addJavaScript('$("#StatusMessages").click(function () { $("#StatusMessages").fadeTo("slow",0.25).slideUp("slow"); });', 3, true);
     }
     /**
