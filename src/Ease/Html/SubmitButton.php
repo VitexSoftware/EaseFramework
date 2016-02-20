@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class SubmitButton extends InputTag
-{
+class SubmitButton extends InputTag {
 
     /**
      * Popisek odesílacího tlačítka
@@ -25,8 +24,7 @@ class SubmitButton extends InputTag
      * @param string $Hint     tip při najetí myší
      * @param string $classCss css třída pro tag tlačítka
      */
-    public function __construct($label, $value = null, $Hint = null, $classCss = null)
-    {
+    public function __construct($label, $value = null, $Hint = null, $classCss = null) {
         $properties = ['type' => 'submit'];
         if (!$value) {
             $value = trim(str_replace([' ', '?'], '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($label))));
@@ -50,8 +48,7 @@ class SubmitButton extends InputTag
      * @param string  $value     vracená hodnota tagu
      * @param boolean $Automatic Hack pro zachování labelů při plnění formuláře
      */
-    public function setValue($value, $Automatic = false)
-    {
+    public function setValue($value, $Automatic = false) {
         if (!$Automatic) {
             //FillUp nenastavuje Labely tlačítek
             parent::SetValue($value);

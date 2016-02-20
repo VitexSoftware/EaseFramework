@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class H3Tag extends PairTag
-{
+class H3Tag extends PairTag {
 
     /**
      * Simple H3 tag
@@ -16,8 +15,7 @@ class H3Tag extends PairTag
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null)
-    {
+    public function __construct($content = null, $properties = null) {
         parent::__construct('h3', $properties, $content);
     }
 

@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputTextTag extends InputTag
-{
+class InputTextTag extends InputTag {
 
     /**
      * Zobrazí input text tag
@@ -17,8 +16,7 @@ class InputTextTag extends InputTag
      * @param string $value      předvolená hodnota
      * @param array  $properties dodatečné vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
-    {
+    public function __construct($name, $value = null, $properties = null) {
         if (!isset($properties['type'])) {
             $properties['type'] = 'text';
         }

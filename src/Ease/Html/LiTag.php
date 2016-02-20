@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class LiTag extends PairTag
-{
+class LiTag extends PairTag {
 
     /**
      * Simple LI tag
@@ -16,8 +15,7 @@ class LiTag extends PairTag
      * @param mixed $ulContents obsah položky seznamu
      * @param array $properties parametry LI tagu
      */
-    public function __construct($ulContents = null, $properties = null)
-    {
+    public function __construct($ulContents = null, $properties = null) {
         parent::__construct('li', $properties, $ulContents);
     }
 

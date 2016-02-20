@@ -7,11 +7,9 @@ namespace Ease\JQuery;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class UIPart extends Part
-{
+class UIPart extends Part {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         UIPart::jQueryze();
     }
@@ -21,8 +19,7 @@ class UIPart extends Part
      *
      * @param \Ease\Page|mixed $EaseObject objekt k opatření jQuery závislostmi
      */
-    public static function jQueryze()
-    {
+    public static function jQueryze() {
         parent::jQueryze();
         $webPage = \Ease\Shared::webPage();
         $webPage->includeJavaScript('jquery-ui/jquery-ui.js', 1, true);
@@ -38,8 +35,7 @@ class UIPart extends Part
      * Vrací název aktuálně používaného jQueryUI skinu
      * @return type
      */
-    public static function getSkinName()
-    {
+    public static function getSkinName() {
         $jQueryUISkin = \Ease\Shared::instanced()->getConfigValue('jQueryUISkin');
         if ($jQueryUISkin) {
             return $jQueryUISkin;

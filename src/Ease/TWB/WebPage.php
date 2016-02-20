@@ -11,8 +11,7 @@ namespace Ease\TWB;
  * @copyright  2012 Vitex@vitexsoftware.cz (G)
  * @link       http://twitter.github.com/bootstrap/index.html
  */
-class WebPage extends \Ease\WebPage
-{
+class WebPage extends \Ease\WebPage {
 
     /**
      * Boostrap URL Strart path with ./ to use local one
@@ -26,12 +25,11 @@ class WebPage extends \Ease\WebPage
      * @param string   $pageTitle
      * @param EaseUser $userObject
      */
-    public function __construct($pageTitle = null)
-    {
+    public function __construct($pageTitle = null) {
         parent::__construct($pageTitle);
-        $this->includeCss($this->mainStyle, ($this->mainStyle[0]!='.'));
+        $this->includeCss($this->mainStyle, ($this->mainStyle[0] != '.'));
         $this->head->addItem(
-            '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
+                '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );
     }
 
@@ -42,8 +40,7 @@ class WebPage extends \Ease\WebPage
      *
      * @return string
      */
-    public function getStatusMessagesAsHtml($what = null)
-    {
+    public function getStatusMessagesAsHtml($what = null) {
         /**
          * Session Singleton Problem hack
          */

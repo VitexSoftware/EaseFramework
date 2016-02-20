@@ -6,8 +6,7 @@
 
 namespace Ease\TWB;
 
-class Label extends \Ease\Html\SpanTag
-{
+class Label extends \Ease\Html\SpanTag {
 
     /**
      * Návěstí bootstrapu
@@ -18,8 +17,7 @@ class Label extends \Ease\Html\SpanTag
      * @param mixed  $content
      * @param array  $properties
      */
-    function __construct($type = 'default', $content = null, $properties = null)
-    {
+    function __construct($type = 'default', $content = null, $properties = null) {
         if (isset($properties['class'])) {
             $properties['class'] .= ' label label-' . $type;
         } else {

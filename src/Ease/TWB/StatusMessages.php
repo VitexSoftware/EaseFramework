@@ -3,14 +3,15 @@
 /**
  * Vypisuje stavové hlášky
  */
-namespace Ease\TWB; 
- class StatusMessages extends \Ease\Html\Div
-{
+
+namespace Ease\TWB;
+
+class StatusMessages extends \Ease\Html\Div {
+
     /**
      * Blok stavových zpráv
      */
-    public function __construct()
-    {
+    public function __construct() {
         $properties['class'] = 'well';
         $properties['id'] = 'StatusMessages';
         $properties['title'] = _('kliknutím skryjete zprávy');
@@ -19,11 +20,11 @@ namespace Ease\TWB;
         \Ease\JQuery\Part::jQueryze();
         $this->addJavaScript('$("#StatusMessages").click(function () { $("#StatusMessages").fadeTo("slow",0.25).slideUp("slow"); });', 3, true);
     }
+
     /**
      * Vypíše stavové zprávy
      */
-    public function draw()
-    {
+    public function draw() {
         $StatusMessages = trim($this->webPage->getStatusMessagesAsHtml());
         if ($StatusMessages) {
             parent::addItem($StatusMessages);
@@ -32,4 +33,5 @@ namespace Ease\TWB;
             $this->suicide();
         }
     }
+
 }

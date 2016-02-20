@@ -8,8 +8,7 @@ namespace Ease\JQuery;
  * @see http://jqueryui.com/demos/tabs/
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class UITabs extends UIPart
-{
+class UITabs extends UIPart {
 
     /**
      * Array of tab names=>contents
@@ -24,8 +23,7 @@ class UITabs extends UIPart
      * @param array  $TabsList
      * @param array  $partProperties
      */
-    public function __construct($partName, $TabsList = null, $partProperties = null)
-    {
+    public function __construct($partName, $TabsList = null, $partProperties = null) {
         $this->setPartName($partName);
         parent::__construct();
         if (is_array($TabsList)) {
@@ -44,8 +42,7 @@ class UITabs extends UIPart
      *
      * @return pointer odkaz na vložený obsah
      */
-    function &addTab($TabName, $TabContent = '')
-    {
+    function &addTab($TabName, $TabContent = '') {
         $this->Tabs[$TabName] = $TabContent;
         return $this->Tabs[$TabName];
     }
@@ -56,28 +53,26 @@ class UITabs extends UIPart
      * @param string $TabName
      * @param string $Url
      */
-    public function addAjaxTab($TabName, $Url)
-    {
+    public function addAjaxTab($TabName, $Url) {
         $this->Tabs[$TabName] = 'url:' . $Url;
     }
 
     /**
      * Vložení skriptu a divů do stránky
      */
-    public function finalize()
-    {
+    public function finalize() {
         $this->addJavaScript('$(function () { $( "#' . $this->partName . '" ).tabs( {' . $this->getPartPropertiesToString() . '} ); });', null, true);
-        $Div = $this->addItem(new \Ease\Html\Div(null,['id'=>$this->partName]));
+        $Div = $this->addItem(new \Ease\Html\Div(null, ['id' => $this->partName]));
         $UlTag = $Div->addItem(new \Ease\Html\UlTag());
         $Index = 0;
         foreach ($this->Tabs as $TabName => $TabContent) {
             if (!strlen($TabContent) || substr_compare($TabContent, 'url:', 0, 4)) {
                 $UlTag->addItem(new \Ease\Html\ATag('#' . $this->partName . '-' . ++$Index, $TabName));
-                $Div->addItem(new \Ease\Html\Div(null,['id'=>$this->partName . '-' . $Index]));
+                $Div->addItem(new \Ease\Html\Div(null, ['id' => $this->partName . '-' . $Index]));
                 $Div->addToLastItem($TabContent);
             } else {
                 $UlTag->addItem(new \Ease\Html\ATag(str_replace('url:', '', $TabContent), $TabName));
-                $Div->addItem(new \Ease\Html\Div(null,['id'=>$this->partName . '-' . $Index]));
+                $Div->addItem(new \Ease\Html\Div(null, ['id' => $this->partName . '-' . $Index]));
             }
         }
         self::jQueryze($this);

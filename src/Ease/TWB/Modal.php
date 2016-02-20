@@ -2,8 +2,7 @@
 
 namespace Ease\TWB;
 
-class Modal extends \Ease\Html\Div
-{
+class Modal extends \Ease\Html\Div {
 
     /**
      * Spodek dialogu s tlačítky
@@ -48,8 +47,7 @@ class Modal extends \Ease\Html\Div
      * @param mixed  $content
      * @param array  $properties
      */
-    function __construct($name, $title, $content = null, $properties = [])
-    {
+    function __construct($name, $title, $content = null, $properties = []) {
         parent::__construct(null, ['class' => 'modal fade', 'id' => $name, 'tabindex' => '-1', 'role' => 'dialog', 'aria-labelledby' => $title . 'ID', 'aria-hidden' => 'true']);
         $this->properties = $properties;
         $this->name = $name;
@@ -61,14 +59,13 @@ class Modal extends \Ease\Html\Div
         $this->footer->addItem(new \Ease\Html\ButtonTag(_('Close'), ['id' => $name . 'ko', 'type' => 'button', 'class' => 'btn btn-default', 'data-dismiss' => 'modal']));
         $this->footer->addItem(new \Ease\Html\ButtonTag(_('Save'), ['id' => $name . 'ok', 'type' => 'button', 'class' => 'btn btn-primary']));
     }
-    
-/**
- * Finalize modal
- */
-    function finalize()
-    {
+
+    /**
+     * Finalize modal
+     */
+    function finalize() {
         Part::twBootstrapize();
-        $modalDialog = $this->addItem(new \Ease\Html\Div(null, ['class' => 'modal-dialog','role'=>'document']));
+        $modalDialog = $this->addItem(new \Ease\Html\Div(null, ['class' => 'modal-dialog', 'role' => 'document']));
         $modalContent = $modalDialog->addItem(new \Ease\Html\Div(null, ['class' => 'modal-content']));
         $this->header->addItem(new \Ease\Html\H4Tag($this->title, ['class' => 'modal-title', 'id' => $this->title . 'ID']));
         $modalContent->addItem($this->header);

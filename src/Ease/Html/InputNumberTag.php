@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputNumberTag extends InputTag
-{
+class InputNumberTag extends InputTag {
 
     /**
      * Vstupní pole čísla
@@ -17,8 +16,7 @@ class InputNumberTag extends InputTag
      * @param string $value      předvolená hodnota
      * @param array  $properties dodatečné vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
-    {
+    public function __construct($name, $value = null, $properties = null) {
         $properties['type'] = 'number';
         if ($value) {
             $properties['value'] = $value;

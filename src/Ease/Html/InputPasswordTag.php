@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputPasswordTag extends InputTextTag
-{
+class InputPasswordTag extends InputTextTag {
 
     /**
      * Input pro heslo
@@ -16,8 +15,7 @@ class InputPasswordTag extends InputTextTag
      * @param string $name  jméno tagu
      * @param string $value předvolené heslo
      */
-    public function __construct($name, $value = null)
-    {
+    public function __construct($name, $value = null) {
         parent::__construct($name, $value);
         $this->setTagProperties(['type' => 'password']);
     }

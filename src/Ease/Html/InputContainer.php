@@ -8,8 +8,7 @@ namespace Ease\Html;
  * @deprecated since version 1.0
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputContainer extends Ease\Container
-{
+class InputContainer extends Ease\Container {
 
     /**
      * Name of Radios
@@ -42,8 +41,7 @@ class InputContainer extends Ease\Container
      * @param array  $items         pole položek
      * @param string $tagProperties parametry tagů
      */
-    public function __construct($name, $items = null, $tagProperties = null)
-    {
+    public function __construct($name, $items = null, $tagProperties = null) {
         parent::__construct();
         $this->name = $name;
         $this->items = $items;
@@ -54,8 +52,7 @@ class InputContainer extends Ease\Container
      *
      * @param string $value hodnota
      */
-    public function setValue($value)
-    {
+    public function setValue($value) {
         $this->checked = $value;
     }
 
@@ -66,8 +63,7 @@ class InputContainer extends Ease\Container
      *
      * @return string $value binární hodnota - stav
      */
-    public function getValue($value)
-    {
+    public function getValue($value) {
         return $this->checked;
     }
 
@@ -76,16 +72,14 @@ class InputContainer extends Ease\Container
      *
      * @return string
      */
-    public function getTagName()
-    {
+    public function getTagName() {
         return $this->name;
     }
 
     /**
      * Vloží podprvky
      */
-    public function finalize()
-    {
+    public function finalize() {
         $itemID = 1;
         foreach ($this->items as $value => $caption) {
             if ($this->checked == $value) {
@@ -104,8 +98,7 @@ class InputContainer extends Ease\Container
      *
      * @param string $label text popisku
      */
-    public function addLabel($label = null)
-    {
+    public function addLabel($label = null) {
         $forID = $this->lastItem->getTagID();
         if (is_null($label)) {
             $label = $forID;

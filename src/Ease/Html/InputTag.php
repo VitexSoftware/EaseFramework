@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputTag extends Tag
-{
+class InputTag extends Tag {
 
     /**
      * Nastavovat automaticky jméno tagu ?
@@ -24,8 +23,7 @@ class InputTag extends Tag
      * @param string|EaseObject  $value      vracená hodnota
      * @param array              $properties vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
-    {
+    public function __construct($name, $value = null, $properties = null) {
         parent::__construct('input');
         $this->setTagName($name);
         if (isset($properties)) {
@@ -47,8 +45,7 @@ class InputTag extends Tag
      *
      * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
-    public function setValue($value)
-    {
+    public function setValue($value) {
         $this->setTagProperties(['value' => $value]);
     }
 
@@ -57,8 +54,7 @@ class InputTag extends Tag
      *
      * @return string $value
      */
-    public function getValue()
-    {
+    public function getValue() {
         return $this->getTagProperty('value');
     }
 

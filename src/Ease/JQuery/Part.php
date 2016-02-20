@@ -7,8 +7,7 @@ namespace Ease\JQuery;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Part extends \Ease\Page
-{
+class Part extends \Ease\Page {
 
     /**
      * Partname/Tag ID
@@ -28,8 +27,7 @@ class Part extends \Ease\Page
      */
     public $partProperties = [];
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         Part::jQueryze();
     }
@@ -39,8 +37,7 @@ class Part extends \Ease\Page
      *
      * @param string $partName jméno vložené části
      */
-    public function setPartName($partName)
-    {
+    public function setPartName($partName) {
         $this->partName = $partName;
     }
 
@@ -49,16 +46,14 @@ class Part extends \Ease\Page
      *
      * @return string
      */
-    public function onDocumentReady()
-    {
+    public function onDocumentReady() {
         return '';
     }
 
     /**
      * Add Js/Css into page
      */
-    public function finalize()
-    {
+    public function finalize() {
         $javaScript = $this->onDocumentReady();
         if ($javaScript) {
             \Ease\Shared::webPage()->addJavaScript($javaScript, null, true);
@@ -68,8 +63,7 @@ class Part extends \Ease\Page
     /**
      * Opatří objekt vším potřebným pro funkci jQuery
      */
-    public static function jQueryze()
-    {
+    public static function jQueryze() {
         \Ease\Shared::webPage()->includeJavaScript('jquery/jquery.js', 0, true);
     }
 
@@ -78,8 +72,7 @@ class Part extends \Ease\Page
      *
      * @param mixed $partProperties vlastnosti jQuery widgetu
      */
-    public function setPartProperties($partProperties)
-    {
+    public function setPartProperties($partProperties) {
         if (is_array($partProperties)) {
             if (is_array($this->partProperties)) {
                 $this->partProperties = array_merge($this->partProperties, $partProperties);
@@ -99,16 +92,14 @@ class Part extends \Ease\Page
      *
      * @return string
      */
-    public function getPartPropertiesToString($partProperties = null)
-    {
+    public function getPartPropertiesToString($partProperties = null) {
         if (!$partProperties) {
             $partProperties = $this->partProperties;
         }
         return self::partPropertiesToString($partProperties);
     }
 
-    public static function is_assoc($arr)
-    {
+    public static function is_assoc($arr) {
         return array_values($arr) !== $arr;
     }
 
@@ -119,8 +110,7 @@ class Part extends \Ease\Page
      *
      * @return string
      */
-    public static function partPropertiesToString($partProperties)
-    {
+    public static function partPropertiesToString($partProperties) {
         if (is_array($partProperties)) {
             $partPropertiesString = '';
             $partsArray = [];

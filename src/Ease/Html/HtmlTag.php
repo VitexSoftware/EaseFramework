@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class HtmlTag extends PairTag
-{
+class HtmlTag extends PairTag {
 
     public $LangCode = 'cs-CZ';
 
@@ -17,8 +16,7 @@ class HtmlTag extends PairTag
      *
      * @param mixed $Content vložený obsah - tělo stránky
      */
-    public function __construct($Content = null)
-    {
+    public function __construct($Content = null) {
         parent::__construct('html', ['lang' => $this->langCode, 'xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => $this->langCode], $Content);
     }
 
@@ -27,8 +25,7 @@ class HtmlTag extends PairTag
      *
      * @param string $ObjectName jméno objektu
      */
-    public function setObjectName($ObjectName = null)
-    {
+    public function setObjectName($ObjectName = null) {
         parent::setObjectName('html');
     }
 

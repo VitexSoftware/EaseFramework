@@ -16,8 +16,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class MySQLi extends SQL
-{
+class MySQLi extends SQL {
 
     /**
      * MySQLi class instance
@@ -49,7 +48,7 @@ class MySQLi extends SQL
      * @var array
      */
     public $connectionSettings = [
-      'NAMES' => 'utf8'
+        'NAMES' => 'utf8'
     ];
 
     /**
@@ -63,8 +62,7 @@ class MySQLi extends SQL
      *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      */
-    public static function singleton()
-    {
+    public static function singleton() {
         if (!isset(self::$instance)) {
             $class = __CLASS__;
             self::$instance = new $class();
@@ -80,16 +78,14 @@ class MySQLi extends SQL
      *
      * @return string
      */
-    public function addSlashes($text)
-    {
+    public function addSlashes($text) {
         return $this->sqlLink->real_escape_string($text);
     }
 
     /**
      * Připojí se k mysql databázi
      */
-    public function connect()
-    {
+    public function connect() {
         $this->sqlLink = new \mysqli($this->server, $this->username, $this->password);
         if ($this->sqlLink->connect_errno) {
             $this->addStatusMessage('Connect: error #' . $this->sqlLink->connect_errno . ' ' . $this->sqlLink->connect_error, 'error');
@@ -112,8 +108,7 @@ class MySQLi extends SQL
      *
      * @return boolean
      */
-    public function selectDB($dbName = null)
-    {
+    public function selectDB($dbName = null) {
         parent::selectDB($dbName);
         $change = $this->sqlLink->select_db($dbName);
         if ($change) {
@@ -136,8 +131,7 @@ class MySQLi extends SQL
      *
      * @return SQLhandle
      */
-    public function exeQuery($queryRaw, $ignoreErrors = false)
-    {
+    public function exeQuery($queryRaw, $ignoreErrors = false) {
         $queryRaw = $this->sanitizeQuery($queryRaw);
         $this->lastQuery = $queryRaw;
         $this->lastInsertID = null;
@@ -209,8 +203,7 @@ class MySQLi extends SQL
      *
      * @return array
      */
-    public function queryToArray($queryRaw, $keyColumnToIndex = false)
-    {
+    public function queryToArray($queryRaw, $keyColumnToIndex = false) {
         $resultArray = [];
         if ($this->exeQuery($queryRaw) && is_object($this->result)) {
             if (is_string($keyColumnToIndex)) {
@@ -242,8 +235,7 @@ class MySQLi extends SQL
      *
      * @return sqlresult
      */
-    public function arrayToInsert($data)
-    {
+    public function arrayToInsert($data) {
         return $this->exeQuery('INSERT INTO `' . $this->TableName . '` SET ' . $this->arrayToQuery($data));
     }
 
@@ -257,8 +249,7 @@ class MySQLi extends SQL
      * @return sqlresult
      *
      */
-    public function arrayToUpdate($data, $KeyID = null)
-    {
+    public function arrayToUpdate($data, $KeyID = null) {
         if (!$KeyID) {
             $IDCol = $data[$this->keyColumn];
         }
@@ -276,8 +267,7 @@ class MySQLi extends SQL
      *
      * @return string
      */
-    public function arrayToQuery($data, $Key = true)
-    {
+    public function arrayToQuery($data, $Key = true) {
         $updates = '';
         foreach ($data as $column => $value) {
             if (!strlen($column)) {
@@ -331,8 +321,7 @@ class MySQLi extends SQL
      *
      * @return sql
      */
-    public function prepSelect($data, $ldiv = 'AND')
-    {
+    public function prepSelect($data, $ldiv = 'AND') {
         $operator = null;
         $conditions = [];
         $conditionsII = [];
@@ -407,8 +396,7 @@ class MySQLi extends SQL
      *
      * @return array Struktura tabulky
      */
-    public function describe($tableName = null)
-    {
+    public function describe($tableName = null) {
         if (!parent::describe($tableName)) {
             return null;
         }
@@ -425,8 +413,7 @@ class MySQLi extends SQL
      *
      * @return int
      */
-    public function tableExist($tableName = null)
-    {
+    public function tableExist($tableName = null) {
         if (!parent::tableExist($tableName)) {
             return null;
         }
@@ -445,8 +432,7 @@ class MySQLi extends SQL
      *
      * @return int
      */
-    public function getTableNumRows($tableName = null)
-    {
+    public function getTableNumRows($tableName = null) {
         if (!$tableName) {
             $tableName = $this->TableName;
         }
@@ -461,8 +447,7 @@ class MySQLi extends SQL
      * @param array  $tableStructure struktura SQL
      * @param string $tableName      název tabulky
      */
-    public function createTable(& $tableStructure = null, $tableName = null)
-    {
+    public function createTable(& $tableStructure = null, $tableName = null) {
         if (!parent::createTable($tableStructure, $tableName)) {
             return null;
         }
@@ -480,8 +465,7 @@ class MySQLi extends SQL
      *
      * @return boolean success
      */
-    public function truncateTable($tableName)
-    {
+    public function truncateTable($tableName) {
         $this->exeQuery('TRUNCATE ' . $tableName);
         if (!$this->getTableNumRows($tableName)) {
             return true;
@@ -499,8 +483,7 @@ class MySQLi extends SQL
      *
      * @return sql handle
      */
-    public function addTableKey($columnName, $primary = false, $tableName = null)
-    {
+    public function addTableKey($columnName, $primary = false, $tableName = null) {
         if (!$tableName) {
             $tableName = $this->TableName;
         }
@@ -517,8 +500,7 @@ class MySQLi extends SQL
      * @param array  $tableStructure struktura tabulky
      * @param string $tableName      název tabulky
      */
-    public function createTableQuery(&$tableStructure, $tableName = null)
-    {
+    public function createTableQuery(&$tableStructure, $tableName = null) {
         if (!$tableName) {
             $tableName = $this->TableName;
         }
@@ -610,8 +592,7 @@ class MySQLi extends SQL
      *
      * @return array
      */
-    public function listTables($sort = false)
-    {
+    public function listTables($sort = false) {
         $tablesList = [];
         foreach ($this->queryToArray('SHOW TABLES') as $tableName) {
             $tablesList[current($tableName)] = current($tableName);
@@ -630,8 +611,7 @@ class MySQLi extends SQL
      *
      * @return int pocet operaci
      */
-    public static function createMissingColumns(& $easeBrick, $data = null)
-    {
+    public static function createMissingColumns(& $easeBrick, $data = null) {
         $result = 0;
         $badQuery = $easeBrick->easeShared->myDbLink->getLastQuery();
         $tableColumns = $easeBrick->easeShared->myDbLink->describe($easeBrick->myTable);
@@ -689,8 +669,7 @@ class MySQLi extends SQL
      *
      * @return type
      */
-    public function close()
-    {
+    public function close() {
         if (is_resource($this->sqlLink)) {
             return mysqli_close($this->sqlLink);
         } else {
@@ -703,8 +682,7 @@ class MySQLi extends SQL
      *
      * @return null
      */
-    public function __destruct()
-    {
+    public function __destruct() {
         return null;
     }
 

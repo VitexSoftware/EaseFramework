@@ -6,8 +6,7 @@
 
 namespace Ease\TWB;
 
-class Checkbox extends \Ease\Html\Div
-{
+class Checkbox extends \Ease\Html\Div {
 
     /**
      * Odkaz na checkbox
@@ -24,8 +23,7 @@ class Checkbox extends \Ease\Html\Div
      * @param bool       $checked
      * @param array      $properties
      */
-    function __construct($name = null, $value = 'on', $content = null, $checked = false, $properties = null)
-    {
+    function __construct($name = null, $value = 'on', $content = null, $checked = false, $properties = null) {
         $label = new \Ease\Html\LabelTag($name);
         $this->checkbox = $label->addItem(new \Ease\Html\CheckboxTag($name, $checked, $value, $properties));
         if ($content) {

@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class TextareaTag extends PairTag
-{
+class TextareaTag extends PairTag {
 
     /**
      * Odkaz na obsah
@@ -27,8 +26,7 @@ class TextareaTag extends PairTag
      * @param string $content    obsah textarey
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $content = '', $properties = null)
-    {
+    public function __construct($name, $content = '', $properties = null) {
         $this->setTagName($name);
         parent::__construct('textarea', $properties);
         if ($content) {
@@ -41,8 +39,7 @@ class TextareaTag extends PairTag
      *
      * @param string $value hodnota
      */
-    public function setValue($value)
-    {
+    public function setValue($value) {
         $this->pageParts = [];
         $this->addItem($value);
     }

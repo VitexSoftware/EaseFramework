@@ -12,8 +12,7 @@
 
 namespace Ease;
 
-class Anonym extends Brick
-{
+class Anonym extends Brick {
 
     /**
      * Druh uživatele
@@ -52,8 +51,7 @@ class Anonym extends Brick
      *
      * @return string
      */
-    public function setObjectName($objectName = null)
-    {
+    public function setObjectName($objectName = null) {
         if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
                 $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
@@ -72,16 +70,14 @@ class Anonym extends Brick
      *
      * @return int
      */
-    public function getUserLevel()
-    {
+    public function getUserLevel() {
         return -1;
     }
 
     /**
      * Anonym nema ID
      */
-    public function getUserID()
-    {
+    public function getUserID() {
         return null;
     }
 
@@ -90,8 +86,7 @@ class Anonym extends Brick
      *
      * @return null
      */
-    public function getUserLogin()
-    {
+    public function getUserLogin() {
         return null;
     }
 
@@ -100,8 +95,7 @@ class Anonym extends Brick
      *
      * @return bool FALSE
      */
-    public function isLogged()
-    {
+    public function isLogged() {
         return $this->logged;
     }
 
@@ -112,8 +106,7 @@ class Anonym extends Brick
      *
      * @return null
      */
-    public function getSettingValue($settingName = null)
-    {
+    public function getSettingValue($settingName = null) {
         return null;
     }
 
@@ -122,8 +115,7 @@ class Anonym extends Brick
      *
      * @return null
      */
-    public function getUserEmail()
-    {
+    public function getUserEmail() {
         return null;
     }
 
@@ -134,8 +126,7 @@ class Anonym extends Brick
      *
      * @return null
      */
-    public function getPermission($permKeyword = null)
-    {
+    public function getPermission($permKeyword = null) {
         return null;
     }
 
@@ -144,10 +135,10 @@ class Anonym extends Brick
      *
      * @return bool
      */
-    public function logout()
-    {
+    public function logout() {
         $this->userID = null;
 
         return true;
     }
+
 }

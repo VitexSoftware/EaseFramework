@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class ScriptTag extends PairTag
-{
+class ScriptTag extends PairTag {
 
     /**
      * Include JS code into page
@@ -18,8 +17,7 @@ class ScriptTag extends PairTag
      *
      * @return EaseScriptTag
      */
-    function &addItem($cData, $pageItemName = null)
-    {
+    function &addItem($cData, $pageItemName = null) {
         return parent::addItem('
 //<![CDATA[
 ' . $cData . '
@@ -32,8 +30,7 @@ class ScriptTag extends PairTag
      *
      * @param string $content text scriptu
      */
-    public function __construct($content = '', $properties = NULL)
-    {
+    public function __construct($content = '', $properties = NULL) {
         parent::__construct('script', $properties);
         if ($content) {
             $this->setTagName(md5($content));

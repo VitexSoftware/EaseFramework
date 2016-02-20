@@ -15,8 +15,7 @@ namespace Ease;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Saver extends Brick
-{
+class Saver extends Brick {
 
     /**
      * Pracujeme s tabulkou mains
@@ -27,8 +26,7 @@ class Saver extends Brick
     /**
      * Pokud tabulka do které se má ukládat, neexistuje, vytvoří se
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         if (!$this->myDbLink->tableExist($this->myTable)) {
             $this->createmyTable();
@@ -38,8 +36,7 @@ class Saver extends Brick
     /**
      * Vytvoří prázdnou tabulku s klíčovým sloupcem
      */
-    public function createmyTable()
-    {
+    public function createmyTable() {
         $Structure = [$this->getmyKeyColumn() => ['type' => 'int', 'key' => 'primary', 'unsigned' => true]];
         if ($this->myDbLink->createTable($Structure, $this->myTable)) {
             $this->addStatusMessage(sprintf(_('Tabulka % byla vytvořena'), $this->myTable));
@@ -54,8 +51,7 @@ class Saver extends Brick
      *
      * @return boolen
      */
-    public function setUpUser(&$User, &$TargetObject = null)
-    {
+    public function setUpUser(&$User, &$TargetObject = null) {
         $this->setMyKey($User->getUserID());
 
         return parent::SetUpUser($User, $TargetObject);
@@ -69,8 +65,7 @@ class Saver extends Brick
      *
      * @return int
      */
-    public function insertToMySQL($data = null)
-    {
+    public function insertToMySQL($data = null) {
         if (is_null($data)) {
             $data = $this->getData();
         }
@@ -92,8 +87,7 @@ class Saver extends Brick
      *
      * @return int
      */
-    public function createMissingColumns($data = null)
-    {
+    public function createMissingColumns($data = null) {
         if (is_null($data)) {
             $data = $this->getData();
         }
@@ -119,8 +113,7 @@ class Saver extends Brick
      *
      * @return array Results
      */
-    public function loadFromMySQL($itemID = null, $multiplete = false)
-    {
+    public function loadFromMySQL($itemID = null, $multiplete = false) {
         $this->setMyKey($this->user->getUserID());
         $Result = parent::loadFromMySQL($itemID, $multiplete);
         if ($Result) {
@@ -143,8 +136,7 @@ class Saver extends Brick
      *
      * @return int
      */
-    public function updateToMySQL($data = null)
-    {
+    public function updateToMySQL($data = null) {
         if (!isset($data)) {
             $data = $this->getData();
         }
@@ -164,8 +156,7 @@ class Saver extends Brick
      *
      * @return string
      */
-    public static function visualResponse($enclosedElement, $Infotext = null)
-    {
+    public static function visualResponse($enclosedElement, $Infotext = null) {
         if (is_null($Infotext)) {
             $Infotext = _('Položku se nepodařilo uložit. Prosím zkuste jinou hodnotu.');
         }

@@ -47,7 +47,7 @@ class Carousel extends \Ease\Html\Div {
      * @param array $properties ['data-ride'=>'carousel'] means autorun
      */
     public function __construct($name = null, $properties = null) {
-        
+
         parent::__construct(null, $properties);
         $this->name = $this->setTagID($name);
         $this->setTagClass('carousel slide');
@@ -107,7 +107,7 @@ class Carousel extends \Ease\Html\Div {
             new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-right', 'aria-hidden' => 'true']),
             new \Ease\Html\Span(_('Next'), ['class' => 'sr-only'])
                 ], ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']));
-        if($this->getTagProperty('data-ride')!='carousel'){
+        if ($this->getTagProperty('data-ride') != 'carousel') {
             $this->addJavaScript('$(\'#' . $this->name . '\').carousel();', null, true);
         }
 //$this->includeJavaScript('js/bootstrap-carousel.js');

@@ -16,8 +16,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-abstract class SQL extends \Ease\Sand
-{
+abstract class SQL extends \Ease\Sand {
 
     /**
      * SQL operation result handle
@@ -54,6 +53,7 @@ abstract class SQL extends \Ease\Sand
      * @var string
      */
     public $database = null;
+
     /**
      * Database port
      * @var string
@@ -165,8 +165,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Obecný objekt databáze
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         if (!isset($this->dbType) && defined('DB_TYPE')) {
             $this->dbType = constant('DB_TYPE');
@@ -192,8 +191,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Připojení k databázi
      */
-    public function connect()
-    {
+    public function connect() {
         $this->setUp();
         $this->status = true;
     }
@@ -204,8 +202,7 @@ abstract class SQL extends \Ease\Sand
      * @param  type    $dbName
      * @return boolean
      */
-    public function selectDB($dbName = null)
-    {
+    public function selectDB($dbName = null) {
         if (!is_null($dbName)) {
             $this->database = $dbName;
         }
@@ -218,8 +215,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return int
      */
-    public function getInsertID()
-    {
+    public function getInsertID() {
         return $this->lastInsertID;
     }
 
@@ -230,16 +226,14 @@ abstract class SQL extends \Ease\Sand
      *
      * @return $Success
      */
-    public function ping($succes = null)
-    {
+    public function ping($succes = null) {
         return $succes;
     }
 
     /**
      * Po deserializaci se znovu připojí
      */
-    public function __wakeup()
-    {
+    public function __wakeup() {
         parent::__wakeup();
         $this->connect();
     }
@@ -251,15 +245,13 @@ abstract class SQL extends \Ease\Sand
      *
      * @return string SQL Query
      */
-    public function sanitizeQuery($queryRaw)
-    {
+    public function sanitizeQuery($queryRaw) {
         $sanitizedQuery = trim($queryRaw);
 
         return $sanitizedQuery;
     }
 
-    public function makeReport()
-    {
+    public function makeReport() {
         $this->report['LastMessage'] = $this->lastMessage;
         $this->report['ErrorText'] = $this->errorText;
         $this->report['Database'] = $this->database;
@@ -272,8 +264,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @deprecated since version 210
      */
-    public function setUp()
-    {
+    public function setUp() {
         if (!$this->connectAllreadyUP) {
             if (isset($this->connectionSettings) && is_array($this->connectionSettings) && count($this->connectionSettings)) {
                 foreach ($this->connectionSettings as $setName => $SetValue) {
@@ -286,8 +277,7 @@ abstract class SQL extends \Ease\Sand
         }
     }
 
-    public function setTable($TableName)
-    {
+    public function setTable($TableName) {
         $this->tableName = $TableName;
     }
 
@@ -298,8 +288,7 @@ abstract class SQL extends \Ease\Sand
      * @param  string  $tableName
      * @return boolean
      */
-    public function createTableQuery(&$tableStructure, $tableName = null)
-    {
+    public function createTableQuery(&$tableStructure, $tableName = null) {
         if (!$tableStructure) {
             $tableStructure = $this->tableStructure;
         }
@@ -327,8 +316,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return array
      */
-    protected function fixColumnsLength($data)
-    {
+    protected function fixColumnsLength($data) {
         foreach ($this->tableStructure as $column => $columnProperties) {
             if (array_key_exists($column, $this->tableStructure)) {
                 $Regs = [];
@@ -362,8 +350,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return boolean Success
      */
-    public function createTable(&$tableStructure = null, $tableName = null)
-    {
+    public function createTable(&$tableStructure = null, $tableName = null) {
         if (!$tableName) {
             $tableName = $this->tableName;
         }
@@ -394,8 +381,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return int počet řádků
      */
-    public function getNumRows()
-    {
+    public function getNumRows() {
         return $this->numRows;
     }
 
@@ -404,8 +390,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return int počet řádků
      */
-    public function getLastQuery()
-    {
+    public function getLastQuery() {
         return $this->lastQuery;
     }
 
@@ -414,8 +399,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return int ID
      */
-    public function getlastInsertID()
-    {
+    public function getlastInsertID() {
         return $this->lastInsertID;
     }
 
@@ -424,8 +408,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return string
      */
-    public function getLastError()
-    {
+    public function getLastError() {
         if ($this->errorText) {
             if (isset($this->errorNumber)) {
                 return '#' . $this->errorNumber . ': ' . $this->errorText;
@@ -443,8 +426,7 @@ abstract class SQL extends \Ease\Sand
      * @param  string       $tableName
      * @return null|boolean
      */
-    public function describe($tableName = null)
-    {
+    public function describe($tableName = null) {
         if (!$tableName) {
             $tableName = $this->tableName;
         }
@@ -463,8 +445,7 @@ abstract class SQL extends \Ease\Sand
      * @param  string       $tableName
      * @return null|boolean
      */
-    public function tableExist($tableName = null)
-    {
+    public function tableExist($tableName = null) {
         if (!$tableName) {
             $tableName = $this->tableName;
         }
@@ -482,8 +463,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @param string $title volitelný popisek, většinou název volající funkce
      */
-    public function logError($title = null)
-    {
+    public function logError($title = null) {
         if (is_null($title)) {
             list(, $caller) = debug_backtrace(false);
             $title = $caller['function'];
@@ -498,8 +478,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Znovu se připojí k databázi
      */
-    public function reconnect()
-    {
+    public function reconnect() {
         $this->close();
         sleep($this->reconectTimeouts[$this->easeShared->runType]);
         $this->connect();
@@ -510,8 +489,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return boolean
      */
-    public function __sleep()
-    {
+    public function __sleep() {
         $this->lastQuery = null;
 
         return parent::__sleep();
@@ -520,8 +498,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Zavře databázové spojení
      */
-    public function __destruct()
-    {
+    public function __destruct() {
         if (method_exists($this, 'close')) {
             $this->close();
         }
@@ -534,8 +511,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return array|null
      */
-    public function queryTo2DArray($queryRaw)
-    {
+    public function queryTo2DArray($queryRaw) {
         $result = $this->queryToArray($queryRaw);
         if (count($result)) {
             $values = [];
@@ -556,8 +532,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return string|null
      */
-    public function queryToValue($queryRaw)
-    {
+    public function queryToValue($queryRaw) {
         $result = $this->queryToArray($queryRaw);
         if (count($result)) {
             return current(current($result));
@@ -573,8 +548,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return int
      */
-    public function queryToCount($queryRaw)
-    {
+    public function queryToCount($queryRaw) {
         return count($this->queryToArray($queryRaw));
     }
 
@@ -586,16 +560,15 @@ abstract class SQL extends \Ease\Sand
      *
      * @return DB|null objekt databáze
      */
-    public static function & getPearObject()
-    {
+    public static function & getPearObject() {
         require_once 'DB.php';
         $DbHelper = new DB;
 
         $dsn = [
-          'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
-          'username' => DB_SERVER_USERNAME,
-          'password' => DB_SERVER_PASSWORD,
-          'hostspec' => DB_SERVER
+            'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
+            'username' => DB_SERVER_USERNAME,
+            'password' => DB_SERVER_PASSWORD,
+            'hostspec' => DB_SERVER
         ];
 
         $db = & $DbHelper->connect($dsn);
@@ -614,8 +587,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return string
      */
-    function getColumnComma()
-    {
+    function getColumnComma() {
         return '';
     }
 

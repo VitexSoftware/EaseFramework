@@ -5,24 +5,29 @@
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-namespace Ease\Html; 
- class Form extends PairTag
-{
+
+namespace Ease\Html;
+
+class Form extends PairTag {
+
     /**
      * Cíl formu
      * @var string URL cíle formuláře
      */
     public $formTarget = null;
+
     /**
      * Metoda odesílání
      * @var string GET|POST
      */
     public $formMethod = null;
+
     /**
      * Nastavovat formuláři jméno ?
      * @var type
      */
     public $setName = false;
+
     /**
      * Zobrazí html formulář
      *
@@ -33,8 +38,7 @@ namespace Ease\Html;
      * @param array  $tagProperties vlastnosti tagu například:
      *                              array('enctype' => 'multipart/form-data')
      */
-    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
-    {
+    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null) {
         parent::__construct('form', ['method' => $formMethod, 'name' => $formName]);
         if ($formAction) {
             $this->setFormTarget($formAction);
@@ -48,24 +52,24 @@ namespace Ease\Html;
             $this->setTagProperties($tagProperties);
         }
     }
+
     /**
      * Nastaví cíl odeslání
      *
      * @param string $formTarget cíl odeslání formuláře
      */
-    public function setFormTarget($formTarget)
-    {
+    public function setFormTarget($formTarget) {
         $this->formTarget = $formTarget;
         $this->setTagProperties(['action' => $formTarget]);
     }
+
     /**
      * Změní jeden nebo více parametrů v ACTION url formuláře
      *
      * @param array $parametersToChange pole parametrů
      * @param bool  $replace            přepisovat již existující
      */
-    public function changeActionParameter($parametersToChange, $replace = true)
-    {
+    public function changeActionParameter($parametersToChange, $replace = true) {
         if (is_array($parametersToChange) && count($parametersToChange)) {
             foreach ($parametersToChange as $paramName => $paramValue) {
                 if ($paramValue == true) {
@@ -101,6 +105,7 @@ namespace Ease\Html;
             $this->setFormTarget($formTargetComputed);
         }
     }
+
     /**
      * Pokusí se najít ve vložených objektech tag zadaného jména
      *
@@ -109,10 +114,9 @@ namespace Ease\Html;
      *
      * @return EaseContainer|class
      */
-    function &objectContentSearch($searchFor, $where = null)
-    {
+    function &objectContentSearch($searchFor, $where = null) {
         if (is_null($where)) {
-            $where =& $this;
+            $where = & $this;
         }
         $itemFound = null;
         if (isset($where->pageParts) && is_array($where->pageParts) && count($where->pageParts)) {
@@ -133,11 +137,11 @@ namespace Ease\Html;
         }
         return $itemFound;
     }
+
     /**
      * Doplnění perzistentních hodnot
      */
-    public function finalize()
-    {
+    public function finalize() {
         $this->setupWebPage();
         if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
             foreach ($this->webPage->requestValuesToKeep as $name => $value) {
@@ -149,4 +153,5 @@ namespace Ease\Html;
             }
         }
     }
+
 }

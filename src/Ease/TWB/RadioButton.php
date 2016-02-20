@@ -6,8 +6,7 @@
 
 namespace Ease\TWB;
 
-class RadioButton extends \Ease\Html\Div
-{
+class RadioButton extends \Ease\Html\Div {
 
     /**
      *  RadioButton Twitter Bootstrapu
@@ -17,8 +16,7 @@ class RadioButton extends \Ease\Html\Div
      * @param mixed      $caption
      * @param array      $properties
      */
-    function __construct($name = null, $value = null, $caption = null, $properties = null)
-    {
+    function __construct($name = null, $value = null, $caption = null, $properties = null) {
         if (isset($properties['id'])) {
             $for = $properties['id'];
         } else {

@@ -21,8 +21,7 @@ namespace Ease;
  * @package  EaseFrameWork
  * @author   Vitex <vitex@hippy.cz>
  */
-class PageWizard extends Container
-{
+class PageWizard extends Container {
 
     /**
      * Pole kroků průvodce
@@ -78,8 +77,7 @@ class PageWizard extends Container
      * @param array $Steps       pole kroků: array(1=>'Název',2=>'Pozice',3=>'Ikona')
      * @param int   $CurrentStep aktuální přednastavený krok
      */
-    public function __construct($Steps = null, $CurrentStep = null)
-    {
+    public function __construct($Steps = null, $CurrentStep = null) {
         parent::__construct();
         if (!is_null($Steps)) {
             $this->addSteps($Steps);
@@ -98,8 +96,7 @@ class PageWizard extends Container
      *
      * @return null
      */
-    public function setCurrentByID($stepID)
-    {
+    public function setCurrentByID($stepID) {
         if (isset($this->steps[$stepID])) {
             $this->currentStepID = $stepID;
             $this->currentStepName = $this->steps[$stepID];
@@ -115,8 +112,7 @@ class PageWizard extends Container
      *
      * @return null
      */
-    public function jumpToNextStep()
-    {
+    public function jumpToNextStep() {
         $Params = ['StepRequested=' . $this->GetNextStepID()];
         $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
@@ -136,8 +132,7 @@ class PageWizard extends Container
      *
      * @return EaseJQueryLinkButton
      */
-    public function buttonToNextStep($Caption = null)
-    {
+    public function buttonToNextStep($Caption = null) {
 
         if (is_null($Caption)) {
             $Caption = $this->getStepName($this->getNextStepID()) . ' ' . self::$nextSign;
@@ -163,8 +158,7 @@ class PageWizard extends Container
      *
      * @return int
      */
-    public function setRequestedStep($stepID = null)
-    {
+    public function setRequestedStep($stepID = null) {
         if (!$stepID) {
             $stepID = $this->easeShared->webPage()->getRequestValue('StepRequested');
         }
@@ -185,8 +179,7 @@ class PageWizard extends Container
      *
      * @return boolean success
      */
-    public function addStep($Step)
-    {
+    public function addStep($Step) {
         $this->stepCount++;
         $this->steps[$this->stepCount] = $Step;
 
@@ -200,8 +193,7 @@ class PageWizard extends Container
      *
      * @return int počet vložených kroků
      */
-    public function addSteps($Steps)
-    {
+    public function addSteps($Steps) {
         $success = 0;
         foreach ($Steps as $Step) {
             if ($this->AddStep($Step)) {
@@ -217,8 +209,7 @@ class PageWizard extends Container
      *
      * @return null
      */
-    public function addNavigation()
-    {
+    public function addNavigation() {
         $this->addItem($this->getNavigation());
     }
 
@@ -226,8 +217,7 @@ class PageWizard extends Container
      * Vrací div s navigací
      * @return Html\DivTag
      */
-    public function getNavigation()
-    {
+    public function getNavigation() {
         $navigation = new Html\ULTag();
         $PrevStep = $this->GetPrevStepID();
         if ($PrevStep) {
@@ -238,7 +228,7 @@ class PageWizard extends Container
             $navigation->addItem(new Html\ATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
         }
 
-        return new Html\Div( $navigation, ['class' => 'pagination']);
+        return new Html\Div($navigation, ['class' => 'pagination']);
     }
 
     /**
@@ -246,8 +236,7 @@ class PageWizard extends Container
      *
      * @return Html\DivTag
      */
-    public function getStepList()
-    {
+    public function getStepList() {
         $stepList = new Html\UlTag(null, ['class' => 'breadcrumb']);
         $StepsDone = 0;
         foreach ($this->steps as $StepID => $StepName) {
@@ -270,8 +259,7 @@ class PageWizard extends Container
      * Vloží do sebe seznam kroků s odkazy
      *
      */
-    public function addStepList()
-    {
+    public function addStepList() {
         $this->addItem($this->getStepList());
     }
 
@@ -282,8 +270,7 @@ class PageWizard extends Container
      *
      * @return int
      */
-    public function setCurrentStepByName($Step)
-    {
+    public function setCurrentStepByName($Step) {
         $StepsReversed = array_flip($this->steps);
         if (array_key_exists($Step, $StepsReversed)) {
             $this->currentStepID = $StepsReversed[$Step];
@@ -300,8 +287,7 @@ class PageWizard extends Container
      *
      * @return int právě nastavený krok
      */
-    public function setCurrentStepByID($stepID)
-    {
+    public function setCurrentStepByID($stepID) {
         if (array_key_exists($stepID, $this->steps)) {
             $this->currentStepID = $stepID;
             $this->currentStepName = $this->steps[$stepID];
@@ -317,8 +303,7 @@ class PageWizard extends Container
      *
      * @return string
      */
-    public function getStepName($StepID = NULL)
-    {
+    public function getStepName($StepID = NULL) {
         if (is_null($StepID)) {
             return $this->currentStepName;
         } else {
@@ -331,8 +316,7 @@ class PageWizard extends Container
      *
      * @return int
      */
-    public function getStepID()
-    {
+    public function getStepID() {
         return $this->currentStepID;
     }
 
@@ -341,8 +325,7 @@ class PageWizard extends Container
      *
      * @return array
      */
-    public function getFirstStep()
-    {
+    public function getFirstStep() {
         return reset($this->steps);
     }
 
@@ -351,8 +334,7 @@ class PageWizard extends Container
      *
      * @return null
      */
-    public function getNextStepID()
-    {
+    public function getNextStepID() {
         if (isset($this->steps[$this->currentStepID + 1])) {
             return $this->currentStepID + 1;
         } else {
@@ -363,16 +345,14 @@ class PageWizard extends Container
     /**
      * Posune průvodce o jeden krok dále
      */
-    public function forward()
-    {
+    public function forward() {
         $this->setCurrentStepByID($this->getNextStepID());
     }
 
     /**
      * Posune průvodce o jeden krok zpět
      */
-    public function backward()
-    {
+    public function backward() {
         $this->setCurrentStepByID($this->getPrevStepID());
     }
 
@@ -381,8 +361,7 @@ class PageWizard extends Container
      *
      * @return null
      */
-    public function getPrevStepID()
-    {
+    public function getPrevStepID() {
         if (isset($this->steps[$this->currentStepID - 1])) {
             return $this->currentStepID - 1;
         } else {
@@ -395,8 +374,7 @@ class PageWizard extends Container
      *
      * @return string
      */
-    public function getLastStep()
-    {
+    public function getLastStep() {
         return end($this->steps);
     }
 

@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class HeadTag extends PairTag
-{
+class HeadTag extends PairTag {
 
     /**
      * Javascripts to render in page
@@ -27,8 +26,7 @@ class HeadTag extends PairTag
      *
      * @param mixed $content vkládaný obsah
      */
-    public function __construct($content = null)
-    {
+    public function __construct($content = null) {
         parent::__construct('head', null, $content);
         $this->addItem('<meta http-equiv="Content-Type" content="text/html; charset=' . $this->charSet . '" />');
     }
@@ -38,8 +36,7 @@ class HeadTag extends PairTag
      *
      * @param string $objectName jméno objektu
      */
-    public function setObjectName($objectName = null)
-    {
+    public function setObjectName($objectName = null) {
         parent::setObjectName('head');
     }
 
@@ -50,8 +47,7 @@ class HeadTag extends PairTag
      *
      * @return string
      */
-    public static function jsEnclosure($javaScript)
-    {
+    public static function jsEnclosure($javaScript) {
         return '
 <script>
 // <![CDATA[
@@ -64,16 +60,14 @@ class HeadTag extends PairTag
     /**
      * Vloží do hlavíčky název stránky
      */
-    public function finalize()
-    {
+    public function finalize() {
         $this->addItem('<title>' . $this->webPage->pageTitle . '</title>');
     }
 
     /**
      * Vykreslí hlavičku HTML stránky
      */
-    public function draw()
-    {
+    public function draw() {
         if (isset($this->easeShared->cascadeStyles) && count($this->easeShared->cascadeStyles)) {
             $cascadeStyles = [];
             foreach ($this->easeShared->cascadeStyles as $StyleRes => $Style) {

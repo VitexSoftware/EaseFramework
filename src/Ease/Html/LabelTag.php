@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class LabelTag extends PairTag
-{
+class LabelTag extends PairTag {
 
     /**
      * Odkaz na obsah
@@ -23,8 +22,7 @@ class LabelTag extends PairTag
      * @param mixed  $contents   obsah opatřovaný popiskem
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($for, $contents = null, $properties = null)
-    {
+    public function __construct($for, $contents = null, $properties = null) {
         $this->setTagProperties(['for' => $for]);
         parent::__construct('label', $properties);
         $this->Contents = $this->addItem($contents);
@@ -37,8 +35,7 @@ class LabelTag extends PairTag
      *
      * @return string New object name
      */
-    public function setObjectName($objectName = null)
-    {
+    public function setObjectName($objectName = null) {
         if ($objectName) {
             return parent::setObjectName($objectName);
         }

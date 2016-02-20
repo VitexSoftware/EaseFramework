@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class UlTag extends PairTag
-{
+class UlTag extends PairTag {
 
     /**
      * Vytvori UL container
@@ -16,8 +15,7 @@ class UlTag extends PairTag
      * @param mixed $ulContents položky seznamu
      * @param array $properties parametry tagu
      */
-    public function __construct($ulContents = null, $properties = null)
-    {
+    public function __construct($ulContents = null, $properties = null) {
         parent::__construct('ul', $properties, $ulContents);
     }
 
@@ -26,8 +24,7 @@ class UlTag extends PairTag
      *
      * @param array $itemsArray pole hodnot nebo EaseObjektů s metodou draw()
      */
-    public function addItems($itemsArray)
-    {
+    public function addItems($itemsArray) {
         $itemsAdded = [];
         foreach ($itemsArray as $item) {
             $itemsAdded[] = $this->addItemSmart($item);
@@ -43,8 +40,7 @@ class UlTag extends PairTag
      *
      * @return mixed
      */
-    function &addItemSmart($pageItem, $properties = null)
-    {
+    function &addItemSmart($pageItem, $properties = null) {
         if (is_array($pageItem)) {
             foreach ($pageItem as $item) {
                 $this->addItemSmart($item);

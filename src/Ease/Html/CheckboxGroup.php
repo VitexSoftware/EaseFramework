@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class CheckboxGroup extends EaseInputContainer
-{
+class CheckboxGroup extends EaseInputContainer {
 
     public $itemClass = 'CheckboxTag';
 
@@ -32,8 +31,7 @@ class CheckboxGroup extends EaseInputContainer
      * @param array  $itemValues
      * @param array  $tagProperties
      */
-    public function __construct($name, $items = null, $itemValues = null, $tagProperties = null)
-    {
+    public function __construct($name, $items = null, $itemValues = null, $tagProperties = null) {
         parent::__construct($name, $items, $tagProperties);
         if (!is_null($itemValues)) {
             $values = [];
@@ -52,8 +50,7 @@ class CheckboxGroup extends EaseInputContainer
      *
      * @return CheckboxTag
      */
-    function &addItem($pageItem, $pageItemName = null)
-    {
+    function &addItem($pageItem, $pageItemName = null) {
         /**
          * Allready Added Item
          * @var CheckboxTag
@@ -76,8 +73,7 @@ class CheckboxGroup extends EaseInputContainer
     /**
      * Vložení jména skupiny
      */
-    public function finalize()
-    {
+    public function finalize() {
         parent::finalize();
         parent::addItem(new InputHiddenTag('CheckBoxGroups[' . $this->name . ']', $this->getTagName()));
     }
@@ -90,8 +86,7 @@ class CheckboxGroup extends EaseInputContainer
      *
      * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
-    public function setValue($value)
-    {
+    public function setValue($value) {
         $CurrentValue = $this->GetTagProperty('value');
         if ($CurrentValue) {
             if ($CurrentValue == $value) {
@@ -107,8 +102,7 @@ class CheckboxGroup extends EaseInputContainer
      *
      * @param array $Values pole hodnot
      */
-    public function setValues($Values)
-    {
+    public function setValues($Values) {
         $TagName = $this->getTagName();
         foreach (array_keys($this->items) as $ItemKey) {
             if (isset($Values[$TagName . '_' . $ItemKey])) {

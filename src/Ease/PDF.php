@@ -16,8 +16,7 @@ namespace Ease;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class PDF extends \TCPDF
-{
+class PDF extends \TCPDF {
 
     /**
      * Objekt pro vykreslování
@@ -53,16 +52,14 @@ class PDF extends \TCPDF
      *
      * @param string $Format formát pdf strany
      */
-    public function __construct($Format = PDF_PAGE_FORMAT)
-    {
+    public function __construct($Format = PDF_PAGE_FORMAT) {
         $this->OPage = new EasePage();
         $this->pageParts = & $this->OPage->pageParts;
         parent::__construct(PDF_PAGE_ORIENTATION, PDF_UNIT, $Format, true, 'UTF-8', false);
         $this->setup();
     }
 
-    public function setup()
-    {
+    public function setup() {
         $this->SetCreator(PDF_CREATOR);
         $this->SetAuthor('Nicola Asuni');
         $this->SetTitle('TCPDF Example 001');
@@ -70,32 +67,27 @@ class PDF extends \TCPDF
         $this->SetKeywords('TCPDF, PDF, example, test, guide');
     }
 
-    public function setFont($family, $style = '', $size = 0, $fontfile = '')
-    {
+    public function setFont($family, $style = '', $size = 0, $fontfile = '') {
         $family = str_ireplace('arial', 'dejavusans', $family);
         parent::SetFont($family, $style, $size, $fontfile);
     }
 
-    public function error($Message, $data = null)
-    {
+    public function error($Message, $data = null) {
         $this->OPage->error($Message, $data);
         parent::Error($Message);
     }
 
-    function &addItem($Item)
-    {
+    function &addItem($Item) {
         $AddedItem = $this->OPage->addItem($Item);
 
         return $AddedItem;
     }
 
-    public function draw()
-    {
+    public function draw() {
         $this->Output($PDFFile);
     }
 
-    public function finalize()
-    {
+    public function finalize() {
         if ($this->Finalized) {
             return null;
         }
@@ -106,8 +98,7 @@ class PDF extends \TCPDF
         return true;
     }
 
-    public function sendToBrowser($OutFile = null)
-    {
+    public function sendToBrowser($OutFile = null) {
         if (!$OutFile) {
             $OutFile = $this->OutFile;
         }
@@ -116,8 +107,7 @@ class PDF extends \TCPDF
         return $this->Output(basename($OutFile), 'I');
     }
 
-    public function writeToFile($OutFile)
-    {
+    public function writeToFile($OutFile) {
         if (!$OutFile) {
             $OutFile = $this->OutFile;
         }

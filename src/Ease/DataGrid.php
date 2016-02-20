@@ -11,8 +11,7 @@
 
 namespace Ease;
 
-class DataGrid extends Html\TableTag
-{
+class DataGrid extends Html\TableTag {
 
     /**
      * Datagrid
@@ -20,8 +19,7 @@ class DataGrid extends Html\TableTag
      * @param mixed $content
      * @param array $properties
      */
-    function __construct($content = null, $properties = null)
-    {
+    function __construct($content = null, $properties = null) {
         parent::__construct(null, $properties);
         if (is_array($content)) {
             $this->populate($content);
@@ -33,8 +31,7 @@ class DataGrid extends Html\TableTag
      *
      * @param array $allData
      */
-    public function populate($allData)
-    {
+    public function populate($allData) {
         if ($this->isEmpty() && count($allData)) {
             $this->addRowHeaderColumns(array_keys(current($allData)));
         }

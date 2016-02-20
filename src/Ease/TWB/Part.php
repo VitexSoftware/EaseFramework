@@ -8,14 +8,12 @@
 
 namespace Ease\TWB;
 
-class Part extends \Ease\JQuery\Part
-{
+class Part extends \Ease\JQuery\Part {
 
     /**
      * Vložení náležitostí pro twitter bootstrap
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         self::twBootstrapize();
     }
@@ -24,8 +22,7 @@ class Part extends \Ease\JQuery\Part
      * Opatří objekt vším potřebným pro funkci bootstrapu
      *
      */
-    public static function twBootstrapize()
-    {
+    public static function twBootstrapize() {
         parent::jQueryze();
         $webPage = \Ease\Shared::webPage();
         $webPage->includeJavaScript('twitter-bootstrap/js/bootstrap.js', 1, true);
@@ -44,8 +41,7 @@ class Part extends \Ease\JQuery\Part
      * @param string $code Kód ikony z přehledu
      * @param array $properties Vlastnosti Tagu
      */
-    public static function GlyphIcon($code, $properties = null)
-    {
+    public static function GlyphIcon($code, $properties = null) {
         if (is_null($properties)) {
             $properties = ['class' => 'glyphicon glyphicon-' . $code];
         } else {

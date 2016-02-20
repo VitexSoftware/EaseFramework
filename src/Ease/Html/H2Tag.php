@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class H2Tag extends PairTag
-{
+class H2Tag extends PairTag {
 
     /**
      * Nadpis druhé velikosti
@@ -16,8 +15,7 @@ class H2Tag extends PairTag
      * @param mixed  $content    text nadpisu
      * @param string $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null)
-    {
+    public function __construct($content = null, $properties = null) {
         parent::__construct('h2', $properties, $content);
     }
 

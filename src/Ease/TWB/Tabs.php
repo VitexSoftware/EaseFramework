@@ -8,8 +8,7 @@ namespace Ease\TWB;
  * @see http://getbootstrap.com/2.3.2/components.html#navs
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class Tabs extends \Ease\Container
-{
+class Tabs extends \Ease\Container {
 
     /**
      * Název
@@ -36,8 +35,7 @@ class Tabs extends \Ease\Container
      * @param array  $tabsList
      * @param array  $partProperties
      */
-    public function __construct($partName, $tabsList = null, $tagProperties = null)
-    {
+    public function __construct($partName, $tabsList = null, $tagProperties = null) {
         $this->partName = $partName;
         parent::__construct();
         if (is_array($tabsList)) {
@@ -57,8 +55,7 @@ class Tabs extends \Ease\Container
      *
      * @return pointer odkaz na vložený obsah
      */
-    function &addTab($tabName, $tabContent = null, $active = false)
-    {
+    function &addTab($tabName, $tabContent = null, $active = false) {
         if (is_null($tabContent)) {
             $tabContent = new \Ease\Html\Div();
         }
@@ -74,16 +71,14 @@ class Tabs extends \Ease\Container
      *
      * @return string
      */
-    function getTagID()
-    {
+    function getTagID() {
         return $this->partName;
     }
 
     /**
      * Vložení skriptu a divů do stránky
      */
-    public function finalize()
-    {
+    public function finalize() {
         if (is_null($this->activeTab)) {
             $this->activeTab = current(array_keys($this->tabs));
         }
@@ -95,12 +90,12 @@ class Tabs extends \Ease\Container
                 $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#' . $this->partName . \Ease\Brick::lettersOnly($tabName), $tabName, ['data-toggle' => 'tab'])));
             }
         }
-        $tabDiv = $this->addItem(new \Ease\Html\Div(null, ['id'=>$this->partName . 'body','class' => 'tab-content']));
+        $tabDiv = $this->addItem(new \Ease\Html\Div(null, ['id' => $this->partName . 'body', 'class' => 'tab-content']));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, ['id'=> $this->partName . \Ease\Brick::lettersOnly($tabName),'class' => 'tab-pane active']));
+                $tabDiv->addItem(new \Ease\Html\Div($tabContent, ['id' => $this->partName . \Ease\Brick::lettersOnly($tabName), 'class' => 'tab-pane active']));
             } else {
-                $tabDiv->addItem(new \Ease\Html\Div( $tabContent, ['id'=> $this->partName . \Ease\Brick::lettersOnly($tabName),'class' => 'tab-pane']));
+                $tabDiv->addItem(new \Ease\Html\Div($tabContent, ['id' => $this->partName . \Ease\Brick::lettersOnly($tabName), 'class' => 'tab-pane']));
             }
         }
         Part::twBootstrapize();

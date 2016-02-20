@@ -2,8 +2,7 @@
 
 namespace Ease\TWB;
 
-class Pagination extends \Ease\Html\UlTag
-{
+class Pagination extends \Ease\Html\UlTag {
 
     /**
      * Fragment adresy pro stránkování
@@ -18,8 +17,7 @@ class Pagination extends \Ease\Html\UlTag
      * @param int    $current aktuální stránka
      * @param string $url     Fragment adresy
      */
-    function __construct($pages, $current, $url = '?page=')
-    {
+    function __construct($pages, $current, $url = '?page=') {
         $this->url = $url;
         parent::__construct(null, ['class' => 'pagination']);
         if ($current == 0) {
@@ -58,8 +56,7 @@ class Pagination extends \Ease\Html\UlTag
      * @param int $page
      * @param string $label
      */
-    function addPage($page, $label = null, $style = null)
-    {
+    function addPage($page, $label = null, $style = null) {
         $link = $this->url . $page;
         if ($style) {
             $this->addItemSmart(new \Ease\Html\ATag($link, $label), ['class' => $style]);

@@ -2,8 +2,7 @@
 
 namespace Ease\TWB;
 
-class CheckBoxGroup extends Ease\Container
-{
+class CheckBoxGroup extends Ease\Container {
 
     /**
      *
@@ -11,13 +10,11 @@ class CheckBoxGroup extends Ease\Container
      */
     public $items = [];
 
-    function __construct($items)
-    {
+    function __construct($items) {
         $this->items = $items;
     }
 
-    function finalize()
-    {
+    function finalize() {
         foreach ($this->items as $name => $value) {
             $this->addItem(new Checkbox($name, $value, $value, $checked));
         }

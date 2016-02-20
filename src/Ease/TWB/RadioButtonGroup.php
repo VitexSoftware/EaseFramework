@@ -2,8 +2,7 @@
 
 namespace Ease\TWB;
 
-class RadioButtonGroup extends Ease\Container
-{
+class RadioButtonGroup extends Ease\Container {
 
     /**
      * Jméno
@@ -37,8 +36,7 @@ class RadioButtonGroup extends Ease\Container
      * @param string $checked
      * @param boolean $inline
      */
-    function __construct($name, $radios, $checked = null, $inline = false)
-    {
+    function __construct($name, $radios, $checked = null, $inline = false) {
         $this->name = $name;
         $this->checked = $checked;
         $this->inline = $inline;
@@ -49,8 +47,7 @@ class RadioButtonGroup extends Ease\Container
     /**
      * Seskládá pole radiobuttonů
      */
-    function finalize()
-    {
+    function finalize() {
         $class = 'radio';
         if ($this->inline) {
             $class .= '-inline';
@@ -63,7 +60,7 @@ class RadioButtonGroup extends Ease\Container
                 $checked = null;
             }
             $tagProperties = ['id' => $this->name . $pos++, 'name' => $this->name, $checked];
-            $this->addItem(new \Ease\Html\Div( new \Ease\Html\LabelTag(null, [new \Ease\Html\InputRadioTag($this->name, $value, $tagProperties), $caption]), ['class' => $class]));
+            $this->addItem(new \Ease\Html\Div(new \Ease\Html\LabelTag(null, [new \Ease\Html\InputRadioTag($this->name, $value, $tagProperties), $caption]), ['class' => $class]));
         }
     }
 

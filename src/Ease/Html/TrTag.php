@@ -8,8 +8,7 @@ namespace Ease\Html;
  * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class TrTag extends PairTag
-{
+class TrTag extends PairTag {
 
     /**
      * TR tag
@@ -17,8 +16,7 @@ class TrTag extends PairTag
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null)
-    {
+    public function __construct($content = null, $properties = null) {
         parent::__construct('tr', $properties, $content);
     }
 

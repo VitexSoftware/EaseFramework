@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class IframeTag extends PairTag
-{
+class IframeTag extends PairTag {
 
     public $tagType = 'iframe';
 
@@ -18,8 +17,7 @@ class IframeTag extends PairTag
      * @param string $src        content url
      * @param array  $properties HTML tag proberties
      */
-    public function __construct($src, $properties = null)
-    {
+    public function __construct($src, $properties = null) {
         if (is_null($properties)) {
             $properties = ['src' => $src];
         } else {

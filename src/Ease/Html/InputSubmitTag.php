@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputSubmitTag extends InputTag
-{
+class InputSubmitTag extends InputTag {
 
     /**
      * Odesílací tlačítko formuláře
@@ -17,8 +16,7 @@ class InputSubmitTag extends InputTag
      * @param string $value      vracená hodnota
      * @param array  $properties Pole vlastností tagu
      */
-    public function __construct($name, $value = null, $properties = null)
-    {
+    public function __construct($name, $value = null, $properties = null) {
         if (!$value) {
             $value = $name;
         }
@@ -36,9 +34,8 @@ class InputSubmitTag extends InputTag
      *
      * @param bool $value je ignorováno
      */
-    public function setValue($value = true)
-    {
-
+    public function setValue($value = true) {
+        
     }
 
 }

@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class SimpleHeadTag extends PairTag
-{
+class SimpleHeadTag extends PairTag {
 
     /**
      * Content type of webpage
@@ -22,8 +21,7 @@ class SimpleHeadTag extends PairTag
      * @param mixed $Contents   vkládaný obsah
      * @param array $Properties parametry tagu
      */
-    public function __construct($Contents = null, $Properties = null)
-    {
+    public function __construct($Contents = null, $Properties = null) {
         parent::__construct('head', $Properties, $Contents);
         $this->addItem('<meta http-equiv="Content-Type" content="' . self::$ContentType . '; charset=' . $this->charSet . '" />');
     }

@@ -7,16 +7,14 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class JavaScript extends Ease\html\ScriptTag
-{
+class JavaScript extends Ease\html\ScriptTag {
 
     /**
      * fragment javaskriptu ve stránce
      *
      * @param string $content text scriptu
      */
-    public function __construct($content, $properties = null)
-    {
+    public function __construct($content, $properties = null) {
         if (is_null($properties)) {
             $properties = ['type' => 'text/javascript'];
         } else {

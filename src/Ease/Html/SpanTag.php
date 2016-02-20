@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class SpanTag extends PairTag
-{
+class SpanTag extends PairTag {
 
     /**
      * <span> tag
@@ -18,8 +17,7 @@ class SpanTag extends PairTag
      * @param mixed  $content    vkládaný obsah
      * @param array  $properties parametry tagu
      */
-    public function __construct($name, $content = null, $properties = null)
-    {
+    public function __construct($name, $content = null, $properties = null) {
         if ($name) {
             $this->setTagName($name);
         }

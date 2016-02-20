@@ -8,8 +8,7 @@ namespace Ease\Html;
  * @subpackage 
  * @author     Vitex <vitex@hippy.cz>
  */
-class PairTag extends Tag
-{
+class PairTag extends Tag {
 
     /**
      * Character to close tag
@@ -20,8 +19,7 @@ class PairTag extends Tag
     /**
      * Render tag and its contents
      */
-    public function draw()
-    {
+    public function draw() {
         $this->tagBegin();
         $this->drawAllContents();
         $this->tagEnclousure();
@@ -30,16 +28,14 @@ class PairTag extends Tag
     /**
      * Zobrazí počátek párového tagu
      */
-    public function tagBegin()
-    {
+    public function tagBegin() {
         parent::draw();
     }
 
     /**
      * Zobrazí konec párového tagu
      */
-    public function tagEnclousure()
-    {
+    public function tagEnclousure() {
         echo '</' . $this->tagType . '>';
     }
 

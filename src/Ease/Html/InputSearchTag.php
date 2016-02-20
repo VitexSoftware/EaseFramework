@@ -7,8 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputSearchTag extends InputTag
-{
+class InputSearchTag extends InputTag {
 
     /**
      * URL zdroje dat pro hinter
@@ -23,8 +22,7 @@ class InputSearchTag extends InputTag
      * @param string $value      předvolená hodnota
      * @param array  $properties dodatečné vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
-    {
+    public function __construct($name, $value = null, $properties = null) {
         $properties['type'] = 'search';
         if ($value) {
             $properties['value'] = $value;
@@ -44,16 +42,14 @@ class InputSearchTag extends InputTag
      *
      * @param string $DataSourceURL url zdroje dat našeptávače ve formátu JSON
      */
-    public function setDataSource($DataSourceURL)
-    {
+    public function setDataSource($DataSourceURL) {
         $this->dataSourceURL = $DataSourceURL;
     }
 
     /**
      * Vloží do stránky scripty pro hinter
      */
-    public function finalize()
-    {
+    public function finalize() {
         if (!is_null($this->dataSourceURL)) {
             EaseJQueryUIPart::jQueryze($this);
             $this->addCSS('.ui-autocomplete-loading { background: white url(\'Ease/css/images/ui-anim_basic_16x16.gif\') right center no-repeat; }');

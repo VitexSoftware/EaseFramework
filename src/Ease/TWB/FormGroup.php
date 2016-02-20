@@ -11,11 +11,9 @@ namespace Ease\TWB;
  * @param string      $helptext    Nápvěda pod prvkem
  * @param string $addTagClass CSS třída kterou má být oskiován vložený prvek
  */
-class FormGroup extends \Ease\Html\Div
-{
+class FormGroup extends \Ease\Html\Div {
 
-    public function __construct($label = null, $content = null, $placeholder = null, $helptext = null, $addTagClass = 'form-control')
-    {
+    public function __construct($label = null, $content = null, $placeholder = null, $helptext = null, $addTagClass = 'form-control') {
         $formKey = \Ease\Brick::lettersOnly($label);
         $properties['class'] = 'form-group';
         parent::__construct(null, $properties);
