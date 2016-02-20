@@ -6,3 +6,8 @@ tools:
     php_code_sniffer:
         config:
             standard: "PSR2"
+
+checks:
+    php:
+        code_rating: true
+        duplication: true

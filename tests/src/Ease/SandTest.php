@@ -335,9 +335,9 @@ class SandTest extends AtomTest {
      * @todo   Implement testHumanFilesize().
      */
     public function testHumanFilesize() {
-        $this->assertEquals('', $this->object->humanFilesize('1234545'));
-        $this->assertEquals('', $this->object->humanFilesize('12345453453'));
-        $this->assertEquals('', $this->object->humanFilesize('1234545345332235'));
+        $this->assertEquals('1.18 MB', $this->object->humanFilesize('1234545'));
+        $this->assertEquals('11.5 GB', $this->object->humanFilesize('12345453453'));
+        $this->assertEquals('1.1 PB', $this->object->humanFilesize('1234545345332235'));
     }
 
     /**
