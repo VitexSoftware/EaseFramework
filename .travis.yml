@@ -1,5 +1,11 @@
 language: php
 
+addons:
+  postgresql: "9.4"
+
+services:
+  - postgresql
+
 php:
   - 5.5
   - 5.6
@@ -11,10 +17,13 @@ sudo: false
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source
-
+  - psql -c "CREATE USER easetest WITH PASSWORD 'easetest'" -U postgres
+  - psql -c 'CREATE DATABASE easetest OWNER easetest;' -U postgres
+  
 script:
   - mkdir -p build/logs
   - ./vendor/bin/parallel-lint src tests
+  - ./vendor/bin/phinx migrate -e testing -c tests/phinx.yml
   - ./vendor/bin/phpunit --coverage-text  --bootstrap tests/Bootstrap.php
   - ./vendor/bin/phpcs src --standard=psr2 -sp
 
