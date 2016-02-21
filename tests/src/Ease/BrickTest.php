@@ -22,7 +22,6 @@ class BrickTest extends SandTest
     protected function setUp()
     {
         $this->object = new Brick();
-        $this->object->takemyTable('test');
     }
 
     /**
@@ -31,7 +30,9 @@ class BrickTest extends SandTest
      */
     protected function tearDown()
     {
-
+        if (is_object($this->object->dblink)) {
+            $this->object->dblink->close();
+        }
     }
 
     /**
@@ -79,6 +80,7 @@ class BrickTest extends SandTest
      */
     public function testGetColumnsFromSQL()
     {
+        $this->object->takemyTable('test');
         $this->assertNull($this->object->getColumnsFromSQL(null));
         $this->assertEquals([0 => ['id' => '3']], $this->object->getColumnsFromSQL('id', 3));
 
@@ -101,7 +103,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -113,7 +115,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -125,7 +127,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -137,7 +139,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -149,7 +151,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -161,7 +163,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -173,7 +175,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -185,7 +187,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -197,7 +199,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -209,7 +211,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -221,7 +223,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -233,7 +235,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -245,7 +247,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -257,7 +259,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -269,7 +271,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -281,7 +283,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -293,7 +295,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -305,7 +307,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -317,7 +319,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -329,7 +331,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -341,7 +343,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -353,7 +355,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -365,7 +367,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -377,7 +379,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -389,7 +391,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 
@@ -401,7 +403,7 @@ class BrickTest extends SandTest
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+                'This test has not been implemented yet.'
         );
     }
 

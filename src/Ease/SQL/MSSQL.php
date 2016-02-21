@@ -240,7 +240,7 @@ class MSSQL extends SQL
 
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function')) {
-                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n"; 
+                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
                     }
                     echo "\n$QueryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
                 } else {
@@ -295,15 +295,15 @@ class MSSQL extends SQL
     /**
      * Vrátí výsledek SQL dotazu jako pole
      *
-     * @param string          $QueryRaw         SQL příkaz
+     * @param string          $queryRaw         SQL příkaz
      * @param string||boolean $KeyColumnToIndex sloupeček pro indexaci
      *
      * @return array
      */
-    public function queryToArray($QueryRaw, $KeyColumnToIndex = false)
+    public function queryToArray($queryRaw, $KeyColumnToIndex = false)
     {
         $this->resultArray = null;
-        $this->Result = $this->exeQuery($QueryRaw);
+        $this->Result = $this->exeQuery($queryRaw);
         if (!$this->Result) {
             return null;
         }
@@ -345,7 +345,7 @@ class MSSQL extends SQL
         if (!$TableName) {
             $TableName = $this->TableName;
         }
-        $TableRowsCount = @$this->queryToArray('SELECT count(*) AS NumRows FROM [' . $this->easeAddSlashes($TableName) . ']');
+        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM [' . $this->easeAddSlashes($TableName) . ']');
 
         return $TableRowsCount[0]['NumRows'];
     }
@@ -412,10 +412,9 @@ class MSSQL extends SQL
             switch (gettype($value)) {
             case "boolean":
                 if ($value) {
-                    $Values.=" 'True',"; 
-                }
-                else {
-                    $Values.=" 'False',"; 
+                    $Values.=" 'True',";
+                } else {
+                    $Values.=" 'False',";
                 }
                 break;
             case "null":
@@ -471,7 +470,7 @@ class MSSQL extends SQL
         $updates = '';
         foreach ($data as $Column => $value) {
             if ($Column == $this->KeyColumn) {
-                continue; 
+                continue;
             }
             switch (gettype($value)) {
             case 'boolean':
@@ -497,7 +496,7 @@ class MSSQL extends SQL
                 //                        $value = $ANSIDate;
 
                 if (strtolower($value) != 'getdate()') {
-                    $value = " '$value' "; 
+                    $value = " '$value' ";
                 }
                 break;
             }
@@ -523,7 +522,7 @@ class MSSQL extends SQL
         $Updates = '';
         foreach ($data as $Column => $value) {
             if (($Column == $this->KeyColumn) && (count($data) != 1)) {
-                continue; 
+                continue;
             }
             if ($value[0] == '!') {
                 $operator = ' != ';
@@ -543,13 +542,11 @@ class MSSQL extends SQL
                 }   // 	if (is_null($val)) {
             } elseif (!is_string($value)) {
                 if (is_float($value)) {
-                    $value = ' ' . str_replace(',', '.', $value); 
-                } 
-            }
-            else {
-                $value = " $value"; 
-            }
-            else {
+                    $value = ' ' . str_replace(',', '.', $value);
+                } else {
+                    $value = " $value";
+                }
+            } else {
                 $value = " '$value'";
                 $operator = ' LIKE ';
             }
@@ -572,14 +569,13 @@ class MSSQL extends SQL
     public function tableExist($TableName = null)
     {
         if (!parent::TableExist($TableName)) {
-            return null; 
+            return null;
         }
         $this->exeQuery("SELECT name FROM sysobjects WHERE name = '" . $TableName . "' AND OBJECTPROPERTY(id, 'IsUserTable') = 1");
         if ($this->NumRows) {
-            return true; 
-        }
-        else {
-            return false; 
+            return true;
+        } else {
+            return false;
         }
     }
 

@@ -15,7 +15,7 @@ class Brick extends Sand
     /**
      * Objekt pro práci s SQL
      *
-     * @var EaseDbMySqli
+     * @var SQL\PDO
      */
     public $dblink = null;
 
@@ -154,21 +154,21 @@ class Brick extends Sand
     {
         if ($addIcons) {
             switch ($type) {
-            case 'mail':                    // Obalka
-                $message = ' ✉ ' . $message;
-                break;
-            case 'warning':                    // Vykřičník v trojůhelníku
-                $message = ' ⚠ ' . $message;
-                break;
-            case 'error':                      // Lebka
-                $message = ' ☠ ' . $message;
-                break;
-            case 'success':                    // Kytička
-                $message = ' ❁ ' . $message;
-                break;
-            default:                           // i v kroužku
-                $message = ' ⓘ ' . $message;
-                break;
+                case 'mail':                    // Obalka
+                    $message = ' ✉ ' . $message;
+                    break;
+                case 'warning':                    // Vykřičník v trojůhelníku
+                    $message = ' ⚠ ' . $message;
+                    break;
+                case 'error':                      // Lebka
+                    $message = ' ☠ ' . $message;
+                    break;
+                case 'success':                    // Kytička
+                    $message = ' ❁ ' . $message;
+                    break;
+                default:                           // i v kroužku
+                    $message = ' ⓘ ' . $message;
+                    break;
             }
         }
         if ($addToLog) {

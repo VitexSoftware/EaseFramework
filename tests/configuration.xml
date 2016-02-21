@@ -13,6 +13,7 @@
     stopOnRisky="false"
     testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
     verbose="true"
+    debug="true"
 >
 
     <filter>
