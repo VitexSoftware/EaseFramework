@@ -16,7 +16,7 @@ if (!isset($_SESSION)) {
 require __DIR__ . '/../vendor/autoload.php';
 
 
-require_once('PHP/Token/Stream/Autoload.php');
+//require_once('PHP/Token/Stream/Autoload.php');
 
 \Ease\Shared::user(new Ease\Anonym);
 \Ease\Shared::webPage(new Ease\WebPage);
