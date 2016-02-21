@@ -14,7 +14,7 @@ before_script:
 
 script:
   - mkdir -p build/logs
-  - ./vendor/bin/parallel-lint src test
+  - ./vendor/bin/parallel-lint src tests
   - ./vendor/bin/phpunit --coverage-text
   - ./vendor/bin/phpcs src --standard=psr2 -sp
 
