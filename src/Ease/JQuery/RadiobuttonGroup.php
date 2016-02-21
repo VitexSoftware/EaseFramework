@@ -8,14 +8,16 @@ namespace Ease\JQuery;
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @link http://jqueryui.com/demos/button/#radio
  */
-class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup {
+class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup
+{
 
     /**
      * Doplní popisek prvku
      *
      * @param string $label
      */
-    public function addLabel($label = null) {
+    public function addLabel($label = null)
+    {
         $ForID = $this->lastItem->getTagID();
         if (is_null($label)) {
             $label = $ForID;
@@ -26,7 +28,8 @@ class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup {
     /**
      * Doplní podporu pro jQueryUI
      */
-    public function finalize() {
+    public function finalize()
+    {
         UIPart::jQueryze($this);
         $enclosure = new Ease\Html\Div($this->pageParts, ['id' => $this->Name . 'Group']);
         unset($this->pageParts);

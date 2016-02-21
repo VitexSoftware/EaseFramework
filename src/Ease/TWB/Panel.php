@@ -6,7 +6,8 @@
 
 namespace Ease\TWB;
 
-class Panel extends \Ease\Html\Div {
+class Panel extends \Ease\Html\Div
+{
 
     /**
      * Hlavička panelu
@@ -46,7 +47,8 @@ class Panel extends \Ease\Html\Div {
      * @param mixes        $body    tělo panelu
      * @param mixed        $footer  patička panelu. FALSE = nezobrazit vůbec
      */
-    function __construct($heading = null, $type = 'default', $body = null, $footer = null) {
+    function __construct($heading = null, $type = 'default', $body = null, $footer = null)
+    {
         $this->type = $type;
         $this->addToFooter = $footer;
         parent::__construct(null, ['class' => 'panel panel-' . $this->type]);
@@ -64,7 +66,8 @@ class Panel extends \Ease\Html\Div {
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem, $pageItemName = null) {
+    function &addItem($pageItem, $pageItemName = null)
+    {
         $added = $this->body->addItem($pageItem, $pageItemName);
         return $added;
     }
@@ -72,7 +75,8 @@ class Panel extends \Ease\Html\Div {
     /**
      * Vloží obsah do patičky
      */
-    function finalize() {
+    function finalize()
+    {
         if (!count($this->body->pageParts)) {
             unset($this->pageParts['body']);
         }
@@ -87,7 +91,8 @@ class Panel extends \Ease\Html\Div {
      * @param mixed $content obsah pro vložení to patičky
      * @return \Ease\Html\DivTag
      */
-    public function footer($content = null) {
+    public function footer($content = null)
+    {
         if (is_object($this->footer)) {
             if ($content) {
                 $this->footer->addItem($content);

@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class ParamTag extends Tag {
+class ParamTag extends Tag
+{
 
     /**
      * Paramm tag
@@ -15,7 +16,8 @@ class ParamTag extends Tag {
      * @param string $name  jméno parametru
      * @param string $value hodnota parametru
      */
-    public function __construct($name, $value) {
+    public function __construct($name, $value)
+    {
         parent::__construct('param', ['name' => $name, 'value' => $value]);
     }
 

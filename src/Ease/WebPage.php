@@ -16,7 +16,8 @@ namespace Ease;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class WebPage extends Page {
+class WebPage extends Page
+{
 
     /**
      * Položky předávané do vkládaného objektu
@@ -77,7 +78,8 @@ class WebPage extends Page {
      *
      * @param User|Anonym $userObject objekt uživatele
      */
-    public function __construct($pageTitle = NULL, & $userObject = null) {
+    public function __construct($pageTitle = NULL, & $userObject = null)
+    {
         Shared::webPage($this);
         if (!is_null($pageTitle)) {
             $this->pageTitle = $pageTitle;
@@ -104,7 +106,8 @@ class WebPage extends Page {
      *
      * @return string
      */
-    public function setTagID($tagID = null) {
+    public function setTagID($tagID = null)
+    {
         return $this->body->setTagID($tagID);
     }
 
@@ -116,7 +119,8 @@ class WebPage extends Page {
      *
      * @return Page poiner to object well included
      */
-    function & addItem($item, $pageItemName = null) {
+    function & addItem($item, $pageItemName = null)
+    {
         $added = $this->body->addItem($item, $pageItemName);
         return $added;
     }
@@ -130,7 +134,8 @@ class WebPage extends Page {
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false) {
+    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
+    {
         if ($fwPrefix) {
             return $this->addToScriptsStack(
                             '#' . $this->jsPrefix . $javaScriptFile, $position
@@ -149,7 +154,8 @@ class WebPage extends Page {
      *
      * @return string
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true) {
+    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
+    {
         if ($inDocumentReady) {
             return $this->addToScriptsStack('$' . $javaScript, $position);
         }
@@ -165,7 +171,8 @@ class WebPage extends Page {
      *
      * @return int
      */
-    public function addToScriptsStack($code, $position = null) {
+    public function addToScriptsStack($code, $position = null)
+    {
         $javaScripts = &$this->easeShared->javaScripts;
         if (is_null($position)) {
             if (is_array($javaScripts)) {
@@ -218,7 +225,8 @@ class WebPage extends Page {
      *
      * @return boolean
      */
-    public function addCSS($css) {
+    public function addCSS($css)
+    {
         if (is_array($css)) {
             $css = key($css) . '{' . current($css) . '}';
         }
@@ -236,7 +244,8 @@ class WebPage extends Page {
      *
      * @return boolean
      */
-    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen') {
+    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
+    {
         if ($fwPrefix) {
             $this->easeShared->cascadeStyles[$this->cssPrefix . $cssFile] = $this->cssPrefix . $cssFile;
         } else {
@@ -253,7 +262,8 @@ class WebPage extends Page {
      *
      * @return string
      */
-    public function getStatusMessagesAsHtml($what = null) {
+    public function getStatusMessagesAsHtml($what = null)
+    {
         /**
          * Session Singleton Problem hack
          */
@@ -301,14 +311,16 @@ class WebPage extends Page {
      * @deprecated since version 190
      * @param string $skinName název skinu
      */
-    public function setSkin($skinName) {
+    public function setSkin($skinName)
+    {
         $this->SkinName = $skinName;
     }
 
     /**
      * Provede vykreslení obsahu objektu
      */
-    public function draw() {
+    public function draw()
+    {
         $this->finalizeRegistred();
         $this->drawAllContents();
     }
@@ -316,7 +328,8 @@ class WebPage extends Page {
     /**
      * Provede finalizaci všech registrovaných objektů
      */
-    public function finalizeRegistred() {
+    public function finalizeRegistred()
+    {
         $shared = \Ease\Shared::instanced();
         do {
             foreach ($shared->allItems as $PartID => $part) {
@@ -333,7 +346,8 @@ class WebPage extends Page {
      *
      * @param string $pageTitle titulek
      */
-    public function setPageTitle($pageTitle) {
+    public function setPageTitle($pageTitle)
+    {
         $this->pageTitle = $pageTitle;
     }
 

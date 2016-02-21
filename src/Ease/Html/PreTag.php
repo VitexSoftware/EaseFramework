@@ -5,7 +5,8 @@ namespace Ease\Html;
 /**
  * Preformátovaný text
  */
-class PreTag extends PairTag {
+class PreTag extends PairTag
+{
 
     /**
      * Preformátovaný text
@@ -13,7 +14,8 @@ class PreTag extends PairTag {
      * @param string|mixed $content
      * @param array        $tagProperties
      */
-    public function __construct($content = null, $tagProperties = null) {
+    public function __construct($content = null, $tagProperties = null)
+    {
         parent::__construct('pre', $tagProperties, $content);
     }
 

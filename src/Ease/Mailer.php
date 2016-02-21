@@ -10,7 +10,7 @@
 
 namespace Ease;
 
-//We Use System/Pear ones: 
+//We Use System/Pear ones:
 require_once 'Mail.php';
 require_once 'Mail/mime.php';
 
@@ -19,7 +19,8 @@ require_once 'Mail/mime.php';
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Mailer extends Page {
+class Mailer extends Page
+{
 
     /**
      * Objekt pro odesílání pošty
@@ -90,7 +91,8 @@ class Mailer extends Page {
      * @param string $mailSubject  předmět
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
-    public function __construct($emailAddress, $mailSubject, $emailContents = null) {
+    public function __construct($emailAddress, $mailSubject, $emailContents = null)
+    {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
         }
@@ -129,7 +131,8 @@ class Mailer extends Page {
      *
      * @return string
      */
-    public function getMailHeader($headername) {
+    public function getMailHeader($headername)
+    {
         if (isset($this->mailHeaders[$headername])) {
             return $this->mailHeaders[$headername];
         }
@@ -142,7 +145,8 @@ class Mailer extends Page {
      *
      * @return boolean true pokud byly hlavičky nastaveny
      */
-    public function setMailHeaders(array $mailHeaders) {
+    public function setMailHeaders(array $mailHeaders)
+    {
         if (is_array($this->mailHeaders)) {
             $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
         } else {
@@ -172,7 +176,8 @@ class Mailer extends Page {
      *
      * @return mixed ukazatel na vložený obsah
      */
-    function &addItem($item, $pageItemName = null) {
+    function &addItem($item, $pageItemName = null)
+    {
         $mailBody = '';
         if (is_object($item)) {
             if (is_object($this->htmlDocument)) {
@@ -197,14 +202,16 @@ class Mailer extends Page {
      * @param string $filename cesta/název souboru k přiložení
      * @param string $mimeType MIME typ přílohy
      */
-    public function addFile($filename, $mimeType = 'text/plain') {
+    public function addFile($filename, $mimeType = 'text/plain')
+    {
         $this->mimer->addAttachment($filename, $mimeType);
     }
 
     /**
      * Sestavení těla mailu
      */
-    public function finalize() {
+    public function finalize()
+    {
         if (method_exists($this->htmlDocument, 'GetRendered')) {
             $this->htmlBodyRendered = $this->htmlDocument->getRendered();
         } else {
@@ -227,14 +234,16 @@ class Mailer extends Page {
      *
      * @return null
      */
-    public function draw() {
+    public function draw()
+    {
         return null;
     }
 
     /**
      * Odešle mail
      */
-    public function send() {
+    public function send()
+    {
         if (!$this->finalized) {
             $this->finalize();
         }
@@ -261,7 +270,8 @@ class Mailer extends Page {
      *
      * @param bool $notify požadovaný stav notifikace
      */
-    public function setUserNotification($notify) {
+    public function setUserNotification($notify)
+    {
         $this->notify = (bool) $notify;
     }
 

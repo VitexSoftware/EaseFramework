@@ -2,7 +2,7 @@
 
 /**
  * Twitter Bootrstap Container
- * 
+ *
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
@@ -13,40 +13,42 @@ namespace Ease\TWB;
 /**
  * Carousel for Twitter Bootstrap
  */
-class Carousel extends \Ease\Html\Div {
+class Carousel extends \Ease\Html\Div
+{
 
     /**
      * Carousel name
-     * @var string 
+     * @var string
      */
     public $name = null;
 
     /**
      * Carousel's inner div
-     * @var \Ease\Html\Div 
+     * @var \Ease\Html\Div
      */
     public $inner = null;
 
     /**
      * Carousel's inner div
-     * @var \Ease\Html\OlTag 
+     * @var \Ease\Html\OlTag
      */
     public $indicators = null;
 
     /**
      * Which slide is active ?
-     * @var int 
+     * @var int
      */
     public $active = null;
 
     /**
      * Twitter bootstrap Carousel
-     *  
+     *
      * @url http://getbootstrap.com/javascript/#carousel
      * @param string $name
      * @param array $properties ['data-ride'=>'carousel'] means autorun
      */
-    public function __construct($name = null, $properties = null) {
+    public function __construct($name = null, $properties = null)
+    {
 
         parent::__construct(null, $properties);
         $this->name = $this->setTagID($name);
@@ -57,13 +59,14 @@ class Carousel extends \Ease\Html\Div {
 
     /**
      * Carousel Slide
-     * 
+     *
      * @param mixed|ImgTag $slide body Image or something else
-     * @param string $capHeading 
+     * @param string $capHeading
      * @param string $caption
      * @param boolean $default show slide by default
      */
-    function addSlide($slide, $capHeading = '', $caption = '', $default = false) {
+    function addSlide($slide, $capHeading = '', $caption = '', $default = false)
+    {
         $item = new \Ease\Html\Div($slide, ['class' => 'item']);
         if ($default) {
             $item->addTagClass('active');
@@ -91,7 +94,8 @@ class Carousel extends \Ease\Html\Div {
     /**
      * Add Navigation buttons
      */
-    function finalize() {
+    function finalize()
+    {
         Part::twBootstrapize();
         if (is_null($this->active)) { //We need one slide active
             $this->indicators->getFirstPart()->setTagClass('active');

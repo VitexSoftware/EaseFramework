@@ -8,7 +8,8 @@ namespace Ease\Html;
  * @deprecated since version 1.0
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class ImageSubbmit extends InputTag {
+class ImageSubbmit extends InputTag
+{
 
     /**
      * Zobrazí <input type="image">
@@ -18,7 +19,8 @@ class ImageSubbmit extends InputTag {
      * @param string $value vracená hodnota
      * @param string $Hint  text tipu
      */
-    public function __construct($Image, $Label, $value = null, $Hint = null) {
+    public function __construct($Image, $Label, $value = null, $Hint = null)
+    {
         $Properties = ['type' => 'image'];
         if (!$value) {
             $value = trim(str_replace([' ', '?'], '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($Label))));

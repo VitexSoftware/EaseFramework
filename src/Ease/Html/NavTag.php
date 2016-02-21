@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag {
+class NavTag extends PairTag
+{
 
     /**
      * Tag semantiky navigaze
@@ -15,7 +16,8 @@ class NavTag extends PairTag {
      * @param mixed $content    vložené prvky
      * @param array $properties pole parametrů
      */
-    public function __construct($content = null, $properties = null) {
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('div', $properties, $content);
     }
 

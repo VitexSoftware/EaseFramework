@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class OptionTag extends PairTag {
+class OptionTag extends PairTag
+{
 
     /**
      * Hodnota
@@ -21,7 +22,8 @@ class OptionTag extends PairTag {
      * @param string|mixed $content text volby
      * @param string|int   $value   vracená hodnota
      */
-    public function __construct($content, $value = null) {
+    public function __construct($content, $value = null)
+    {
         parent::__construct('option', ['value' => $value], $content);
         $this->setObjectName($this->getObjectName() . '@' . $value);
         $this->value = & $this->tagProperties['value'];
@@ -30,7 +32,8 @@ class OptionTag extends PairTag {
     /**
      * Nastaví předvolenou položku
      */
-    public function setDefault() {
+    public function setDefault()
+    {
         return $this->setTagProperties(['selected']);
     }
 
@@ -39,16 +42,18 @@ class OptionTag extends PairTag {
      *
      * @param int|string $value vracená hodnota
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
     /**
      * Value Getter
-     * 
+     *
      * @return string
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 

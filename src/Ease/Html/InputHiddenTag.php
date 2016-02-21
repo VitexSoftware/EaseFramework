@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputHiddenTag extends InputTag {
+class InputHiddenTag extends InputTag
+{
 
     /**
      * Skrytý input
@@ -16,7 +17,8 @@ class InputHiddenTag extends InputTag {
      * @param string $value      vracená hodnota
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null) {
+    public function __construct($name, $value = null, $properties = null)
+    {
         parent::__construct($name, $value);
         $properties['type'] = 'hidden';
         $this->setTagProperties($properties);

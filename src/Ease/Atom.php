@@ -11,7 +11,8 @@
 
 namespace Ease;
 
-class Atom {
+class Atom
+{
 
     /**
      * Udržuje v sobě jméno objektu.
@@ -42,7 +43,8 @@ class Atom {
      *
      * @return string
      */
-    public function getObjectName() {
+    public function getObjectName()
+    {
         return get_class();
     }
 
@@ -52,7 +54,8 @@ class Atom {
      * @param string $message text zpravy
      * @param string $type    fronta
      */
-    public function addStatusMessage($message, $type = 'info') {
+    public function addStatusMessage($message, $type = 'info')
+    {
         $this->messageCount++;
         $this->statusMessages[$type][$this->messageCount] = $message;
     }
@@ -64,7 +67,8 @@ class Atom {
      *
      * @return int Počet zpráv přidaných do fronty
      */
-    public function addStatusMessages($statusMessages) {
+    public function addStatusMessages($statusMessages)
+    {
         if (is_array($statusMessages) && count($statusMessages)) {
             $allMessages = [];
             foreach ($statusMessages as $quee => $messages) {
@@ -87,7 +91,8 @@ class Atom {
     /**
      * Vymaže zprávy
      */
-    public function cleanMessages() {
+    public function cleanMessages()
+    {
         $this->messageCount = 0;
         $this->statusMessages = [];
     }
@@ -99,7 +104,8 @@ class Atom {
      *
      * @return array
      */
-    public function getStatusMessages($clean = false) {
+    public function getStatusMessages($clean = false)
+    {
         if ($clean) {
             $statusMessages = $this->statusMessages;
             $this->cleanMessages();
@@ -115,7 +121,8 @@ class Atom {
      *
      * @param array $statusMessages pole zpráv např. $OUser->StatusMessages
      */
-    public function takeStatusMessages($statusMessages) {
+    public function takeStatusMessages($statusMessages)
+    {
         if (is_object($statusMessages) && isset($statusMessages->statusMessages)) {
             return $this->addStatusMessages($statusMessages->statusMessages);
         } else {
@@ -130,7 +137,8 @@ class Atom {
      *
      * @return string
      */
-    public static function sysFilename($path) {
+    public static function sysFilename($path)
+    {
         $path = str_replace('//', '/', $path);
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
             $path = str_replace('/', '\\', $path);
@@ -142,11 +150,12 @@ class Atom {
     }
 
     /**
-     * Default Drav method 
-     * 
+     * Default Drav method
+     *
      * @return string
      */
-    public function draw() {
+    public function draw()
+    {
         if (method_exists($this, '__toString')) {
             echo $this->__toString();
         }

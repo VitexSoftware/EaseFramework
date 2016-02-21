@@ -5,7 +5,8 @@ namespace Ease\Html;
 /**
  * Obsah definice
  */
-class DdTag extends PairTag {
+class DdTag extends PairTag
+{
 
     /**
      * Obsah definice
@@ -13,7 +14,8 @@ class DdTag extends PairTag {
      * @param string|mixed $content
      * @param array        $tagProperties
      */
-    public function __construct($content = null, $tagProperties = null) {
+    public function __construct($content = null, $tagProperties = null)
+    {
         parent::__construct('dd', $tagProperties, $content);
     }
 

@@ -6,7 +6,8 @@
 
 namespace Ease\TWB;
 
-class Form extends \Ease\Html\Form {
+class Form extends \Ease\Html\Form
+{
 
     /**
      * Formulář Bootstrapu
@@ -18,7 +19,8 @@ class Form extends \Ease\Html\Form {
      * @param array  $tagProperties vlastnosti tagu například:
      *                              array('enctype' => 'multipart/form-data')
      */
-    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null) {
+    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
+    {
         if (!isset($tagProperties['class'])) {
             $tagProperties['class'] = 'form-horizontal';
         } else {
@@ -38,7 +40,8 @@ class Form extends \Ease\Html\Form {
      * @param string $placeholder předvysvětlující text
      * @param string $helptext    Dodatečná nápověda
      */
-    public function addInput($input, $caption = null, $placeholder = null, $helptext = null) {
+    public function addInput($input, $caption = null, $placeholder = null, $helptext = null)
+    {
         return $this->addItem(new FormGroup($caption, $input, $placeholder, $helptext));
     }
 
@@ -50,7 +53,8 @@ class Form extends \Ease\Html\Form {
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem, $pageItemName = null) {
+    function &addItem($pageItem, $pageItemName = null)
+    {
         if (is_object($pageItem) && method_exists($pageItem, 'setTagClass')) {
             if (strtolower($pageItem->tagType) == 'select') {
                 $pageItem->setTagClass(trim(str_replace('form_control', '', $pageItem->getTagClass() . ' form-control')));

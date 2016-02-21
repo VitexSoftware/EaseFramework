@@ -17,7 +17,8 @@ namespace Ease;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class SysLogger extends Atom {
+class SysLogger extends Atom
+{
 
     /**
      * Předvolená metoda logování
@@ -92,7 +93,8 @@ class SysLogger extends Atom {
      *
      * @param string $
      */
-    public function __construct($logName = null) {
+    public function __construct($logName = null)
+    {
         if (!is_null($logName)) {
             $this->logger = openlog($logName, LOG_NDELAY, LOG_USER);
         }
@@ -107,7 +109,8 @@ class SysLogger extends Atom {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
             if (defined('LOG_NAME')) {
@@ -125,7 +128,8 @@ class SysLogger extends Atom {
      *
      * @param type $check
      */
-    public function setStoreMessages($check) {
+    public function setStoreMessages($check)
+    {
         $this->storeMessages = $check;
         if (is_bool($check)) {
             $this->resetStoredMessages();
@@ -135,7 +139,8 @@ class SysLogger extends Atom {
     /**
      * Resetne pole uložených zpráv
      */
-    public function resetStoredMessages() {
+    public function resetStoredMessages()
+    {
         $this->storedMessages = [];
     }
 
@@ -144,7 +149,8 @@ class SysLogger extends Atom {
      *
      * @return array
      */
-    public function getStoredMessages() {
+    public function getStoredMessages()
+    {
         return $this->storedMessages;
     }
 
@@ -157,7 +163,8 @@ class SysLogger extends Atom {
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($Caller, $message, $type = 'message') {
+    public function addToLog($Caller, $message, $type = 'message')
+    {
         $this->messageID++;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
             return;
@@ -196,7 +203,8 @@ class SysLogger extends Atom {
      * @param string $message    zpráva
      * @param mixed  $objectData data k zaznamenání
      */
-    public function error($caller, $message, $objectData = null) {
+    public function error($caller, $message, $objectData = null)
+    {
         if (!is_null($objectData)) {
             $message .= print_r($objectData, TRUE);
         }
@@ -206,7 +214,8 @@ class SysLogger extends Atom {
     /**
      * Uzavře chybové soubory
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->logger) {
             closelog();
         }
@@ -219,7 +228,8 @@ class SysLogger extends Atom {
      *
      * @return string
      */
-    public function getLogStyle($logType = 'notice') {
+    public function getLogStyle($logType = 'notice')
+    {
         if (key_exists($logType, $this->logStyles)) {
             return $this->logStyles[$logType];
         } else {

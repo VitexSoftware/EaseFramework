@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Div extends PairTag {
+class Div extends PairTag
+{
 
     /**
      * Prostý tag odstavce DIV
@@ -16,7 +17,8 @@ class Div extends PairTag {
      * @param mixed  $content    vložené prvky
      * @param array  $properties pole parametrů
      */
-    public function __construct($content = null, $properties = null) {
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('div', $properties, $content);
     }
 

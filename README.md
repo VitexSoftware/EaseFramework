@@ -49,6 +49,15 @@ $form->addItem(new EaseTWSubmitButton('OK', 'success') );
 $oPage->draw();
 ```
 
+Testing
+-------
+
+PostgreSQL:
+```sql
+CREATE USER easetest WITH PASSWORD 'easetest';
+CREATE DATABASE easetest OWNER easetest;
+```
+
 Links
 =====
 

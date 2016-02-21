@@ -10,7 +10,8 @@
 
 namespace Ease;
 
-class Logger extends Atom {
+class Logger extends Atom
+{
 
     /**
      * Předvolená metoda logování
@@ -115,7 +116,8 @@ class Logger extends Atom {
      *
      * @param string $BaseLogDir
      */
-    public function __construct($BaseLogDir = null) {
+    public function __construct($BaseLogDir = null)
+    {
         $this->easeShared = Shared::singleton();
         $this->setupLogFiles();
     }
@@ -128,7 +130,8 @@ class Logger extends Atom {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$_instance)) {
             $Class = __CLASS__;
             self::$_instance = new $Class();
@@ -140,7 +143,8 @@ class Logger extends Atom {
     /**
      * Nastaví cesty logovacích souborů
      */
-    public function setupLogFiles() {
+    public function setupLogFiles()
+    {
         if ($this->logPrefix) {
             return;
         } else {
@@ -171,7 +175,8 @@ class Logger extends Atom {
      *
      * @param type $Check
      */
-    public function setStoreMessages($Check) {
+    public function setStoreMessages($Check)
+    {
         $this->storeMessages = $Check;
         if (is_bool($Check)) {
             $this->resetStoredMessages();
@@ -181,7 +186,8 @@ class Logger extends Atom {
     /**
      * Resetne pole uložených zpráv
      */
-    public function resetStoredMessages() {
+    public function resetStoredMessages()
+    {
         $this->storedMessages = [];
     }
 
@@ -190,7 +196,8 @@ class Logger extends Atom {
      *
      * @return array
      */
-    public function getStoredMessages() {
+    public function getStoredMessages()
+    {
         return $this->storedMessages;
     }
 
@@ -203,7 +210,8 @@ class Logger extends Atom {
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message') {
+    public function addToLog($caller, $message, $type = 'message')
+    {
         $this->messageID++;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
             return;
@@ -262,7 +270,8 @@ class Logger extends Atom {
      *
      * @return bool
      */
-    public function renameLogFile($newLogFileName) {
+    public function renameLogFile($newLogFileName)
+    {
         $newLogFileName = dirname($this->logFileName) . '/' . basename($newLogFileName);
         if (rename($this->logFileName, $newLogFileName)) {
             return realpath($newLogFileName);
@@ -278,7 +287,8 @@ class Logger extends Atom {
      *
      * @return string type
      */
-    public function setRunType($runType = null) {
+    public function setRunType($runType = null)
+    {
         if (!$runType) {
             if (isset($_SERVER['HTTP_HOST'])) {
                 $this->runType = 'web';
@@ -306,7 +316,8 @@ class Logger extends Atom {
      *
      * @return boolean konečný výsledek testu
      */
-    public static function testDirectory($DirectoryPath, $IsDir = true, $IsReadable = true, $IsWritable = true, $LogToFile = false) {
+    public static function testDirectory($DirectoryPath, $IsDir = true, $IsReadable = true, $IsWritable = true, $LogToFile = false)
+    {
         $sanity = true;
         if ($IsDir) {
             if (!is_dir($DirectoryPath)) {
@@ -347,7 +358,8 @@ class Logger extends Atom {
      * @param string $message    zpráva
      * @param mixed  $objectData data k zaznamenání
      */
-    public function error($caller, $message, $objectData = null) {
+    public function error($caller, $message, $objectData = null)
+    {
         if ($this->errorLogFile) {
             $LogFileHandle = @fopen($this->errorLogFile, 'a+');
             if ($LogFileHandle) {
@@ -376,7 +388,8 @@ class Logger extends Atom {
     /**
      * Uzavře chybové soubory
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->_logFileHandle) {
             fclose($this->_logFileHandle);
         }
@@ -392,7 +405,8 @@ class Logger extends Atom {
      *
      * @return string
      */
-    public function getLogStyle($logType = 'notice') {
+    public function getLogStyle($logType = 'notice')
+    {
         if (key_exists($logType, $this->logStyles)) {
             return $this->logStyles[$logType];
         } else {

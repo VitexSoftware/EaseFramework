@@ -5,7 +5,8 @@ namespace Ease\Html;
 /**
  * Definiční list
  */
-class DlTag extends PairTag {
+class DlTag extends PairTag
+{
 
     /**
      * Definice
@@ -13,7 +14,8 @@ class DlTag extends PairTag {
      * @param mixed $content
      * @param array $tagProperties vlastnosti tagu
      */
-    public function __construct($content = null, $tagProperties = null) {
+    public function __construct($content = null, $tagProperties = null)
+    {
         parent::__construct('dl', $tagProperties, $content);
     }
 
@@ -23,7 +25,8 @@ class DlTag extends PairTag {
      * @param string|mixed $term    Subjekt
      * @param string|mixed $value   Popis subjektu
      */
-    function addDef($term, $value) {
+    function addDef($term, $value)
+    {
         $this->addItem(new DtTag($term));
         $this->addItem(new DdTag($value));
     }

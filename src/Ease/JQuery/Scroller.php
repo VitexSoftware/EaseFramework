@@ -5,7 +5,8 @@
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class Scroller extends Ease\Html\DivTag {
+class Scroller extends Ease\Html\DivTag
+{
 
     /**
      * Objekt do nejž se vkládá rolovaný
@@ -20,7 +21,8 @@ class Scroller extends Ease\Html\DivTag {
      * @param \Ease\Page|mixed $Content
      * @param array          $Properties
      */
-    public function __construct($name = null, $Content = null, $Properties = null) {
+    public function __construct($name = null, $Content = null, $Properties = null)
+    {
         $Properties['id'] = $name;
         parent::__construct($name, $Content, $Properties);
         parent::addItem(new Ease\Html\Div(null, ['class' => 'scrollingHotSpotLeft']));
@@ -32,7 +34,8 @@ class Scroller extends Ease\Html\DivTag {
     /**
      * Vloží javascripty a csska
      */
-    public function finalize() {
+    public function finalize()
+    {
         UIPart::jQueryze($this);
         \Ease\Shared::webPage()->includeCss('smoothDivScroll.css', true);
         \Ease\Shared::webPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js', null, true);
@@ -50,7 +53,8 @@ class Scroller extends Ease\Html\DivTag {
      *
      * @return object|mixed
      */
-    function &addItem($PageItem, $PageItemName = null) {
+    function &addItem($PageItem, $PageItemName = null)
+    {
         return $this->ScrollableArea->addItem($PageItem, $PageItemName);
     }
 

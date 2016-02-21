@@ -8,7 +8,8 @@ namespace Ease\JQuery;
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @link http://jqueryui.com/demos/button/
  */
-class SubmitButton extends UIPart {
+class SubmitButton extends UIPart
+{
 
     /**
      * Jméno tlačítka
@@ -38,7 +39,8 @@ class SubmitButton extends UIPart {
      * @param array|string $JQOptions  parametry pro $.button()
      * @param array        $Properties vlastnosti HTML tagu
      */
-    public function __construct($name, $value, $Title = null, $JQOptions = null, $Properties = null) {
+    public function __construct($name, $value, $Title = null, $JQOptions = null, $Properties = null)
+    {
         parent::__construct();
         $this->Name = $name;
         $this->JQOptions = $JQOptions;
@@ -49,7 +51,8 @@ class SubmitButton extends UIPart {
     /**
      * Nastaveni javascriptu
      */
-    public function onDocumentReady() {
+    public function onDocumentReady()
+    {
         return '$("input[name=' . $this->Name . ']").button( {' . Part::partPropertiesToString($this->JQOptions) . '} )';
     }
 
@@ -58,7 +61,8 @@ class SubmitButton extends UIPart {
      *
      * @param string $ClassName
      */
-    public function setTagClass($ClassName) {
+    public function setTagClass($ClassName)
+    {
         return $this->Button->setTagClass($ClassName);
     }
 
@@ -67,7 +71,8 @@ class SubmitButton extends UIPart {
      *
      * @param string $TagName
      */
-    public function setTagName($TagName) {
+    public function setTagName($TagName)
+    {
         return $this->Button->setTagName($TagName);
     }
 

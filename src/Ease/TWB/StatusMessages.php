@@ -6,12 +6,14 @@
 
 namespace Ease\TWB;
 
-class StatusMessages extends \Ease\Html\Div {
+class StatusMessages extends \Ease\Html\Div
+{
 
     /**
      * Blok stavových zpráv
      */
-    public function __construct() {
+    public function __construct()
+    {
         $properties['class'] = 'well';
         $properties['id'] = 'StatusMessages';
         $properties['title'] = _('kliknutím skryjete zprávy');
@@ -24,7 +26,8 @@ class StatusMessages extends \Ease\Html\Div {
     /**
      * Vypíše stavové zprávy
      */
-    public function draw() {
+    public function draw()
+    {
         $StatusMessages = trim($this->webPage->getStatusMessagesAsHtml());
         if ($StatusMessages) {
             parent::addItem($StatusMessages);

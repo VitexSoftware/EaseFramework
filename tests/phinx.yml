@@ -23,10 +23,10 @@ environments:
         charset: utf8
 
     testing:
-        adapter: mysql
+        adapter: pgsql
         host: localhost
         name: easetest
         user: easetest
         pass: easetest
-        port: 3306
+        port: 5432
         charset: utf8

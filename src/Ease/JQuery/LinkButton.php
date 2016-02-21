@@ -8,7 +8,8 @@ namespace Ease\JQuery;
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @link http://jqueryui.com/demos/button/
  */
-class LinkButton extends UIPart {
+class LinkButton extends UIPart
+{
 
     /**
      * Jméno tlačítka
@@ -38,7 +39,8 @@ class LinkButton extends UIPart {
      * @param array|string $jQOptions  parametry pro $.button()
      * @param array        $properties vlastnosti HTML tagu
      */
-    public function __construct($href, $contents, $jQOptions = null, $properties = null) {
+    public function __construct($href, $contents, $jQOptions = null, $properties = null)
+    {
         parent::__construct();
         if (!isset($properties['id'])) {
             $this->Name = \Ease\Brick::randomString();
@@ -56,7 +58,8 @@ class LinkButton extends UIPart {
     /**
      * Nastaveni javascriptu
      */
-    public function onDocumentReady() {
+    public function onDocumentReady()
+    {
         return '$("#' . $this->Name . '").button( {' . Part::partPropertiesToString($this->JQOptions) . '} )';
     }
 
@@ -66,7 +69,8 @@ class LinkButton extends UIPart {
      * @param  type $TagID ID tagu
      * @return type
      */
-    public function setTagID($TagID = NULL) {
+    public function setTagID($TagID = NULL)
+    {
         return $this->Button->setTagID($TagID);
     }
 
@@ -75,7 +79,8 @@ class LinkButton extends UIPart {
      *
      * @return type
      */
-    public function getTagID() {
+    public function getTagID()
+    {
         return $this->Button->getTagID();
     }
 

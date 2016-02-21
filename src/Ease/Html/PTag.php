@@ -5,10 +5,11 @@ namespace Ease\Html;
 /**
  * HTML Paragraph class tag
  *
- * @subpackage 
+ * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
-class PTag extends PairTag {
+class PTag extends PairTag
+{
 
     /**
      * Odstavec
@@ -16,7 +17,8 @@ class PTag extends PairTag {
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null) {
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('p', $properties, $content);
     }
 

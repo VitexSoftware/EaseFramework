@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputRadioTag extends InputTag {
+class InputRadioTag extends InputTag
+{
 
     /**
      * Vracená hodnota
@@ -22,7 +23,8 @@ class InputRadioTag extends InputTag {
      * @param string $value         vracená hodnota
      * @param array  $tagProperties vlastnosti tagu
      */
-    public function __construct($name, $value = null, $tagProperties = null) {
+    public function __construct($name, $value = null, $tagProperties = null)
+    {
         parent::__construct($name, $value);
         if ($tagProperties) {
             $this->setTagProperties($tagProperties);
@@ -39,7 +41,8 @@ class InputRadioTag extends InputTag {
      *
      * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $CurrentValue = $this->getTagProperty('value');
         if ($CurrentValue) {
             if ($CurrentValue == $value) {

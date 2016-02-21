@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class CheckboxTag extends InputTag {
+class CheckboxTag extends InputTag
+{
 
     /**
      * Zobrazuje HTML Checkbox
@@ -17,7 +18,8 @@ class CheckboxTag extends InputTag {
      * @param string $value      vracená hodnota checkboxu
      * @param array  $properties parametry tagu
      */
-    public function __construct($name, $checked = false, $value = null, $properties = null) {
+    public function __construct($name, $checked = false, $value = null, $properties = null)
+    {
         if ($properties) {
             $properties['type'] = 'checkbox';
         } else {
@@ -41,7 +43,8 @@ class CheckboxTag extends InputTag {
      *
      * @param boolean $value nastavuje parametr "checked" tagu
      */
-    public function setValue($value = true) {
+    public function setValue($value = true)
+    {
         if ($value) {
             $this->setTagProperties(['checked' => 'true']);
         } else {

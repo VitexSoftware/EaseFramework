@@ -2,7 +2,8 @@
 
 namespace Ease\TWB;
 
-class RadioButtonGroup extends Ease\Container {
+class RadioButtonGroup extends Ease\Container
+{
 
     /**
      * Jméno
@@ -36,7 +37,8 @@ class RadioButtonGroup extends Ease\Container {
      * @param string $checked
      * @param boolean $inline
      */
-    function __construct($name, $radios, $checked = null, $inline = false) {
+    function __construct($name, $radios, $checked = null, $inline = false)
+    {
         $this->name = $name;
         $this->checked = $checked;
         $this->inline = $inline;
@@ -47,7 +49,8 @@ class RadioButtonGroup extends Ease\Container {
     /**
      * Seskládá pole radiobuttonů
      */
-    function finalize() {
+    function finalize()
+    {
         $class = 'radio';
         if ($this->inline) {
             $class .= '-inline';

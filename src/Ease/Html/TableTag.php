@@ -5,10 +5,11 @@ namespace Ease\Html;
 /**
  * HTML table
  *
- * @subpackage 
+ * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
-class TableTag extends PairTag {
+class TableTag extends PairTag
+{
 
     /**
      * Hlavička tabulky
@@ -28,7 +29,8 @@ class TableTag extends PairTag {
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null) {
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('table', $properties, $content);
         $this->tHead = $this->addItem(new Thead());
         $this->tBody = $this->addItem(new Tbody());
@@ -37,7 +39,8 @@ class TableTag extends PairTag {
     /**
      * @param array $headerColumns položky záhlaví tabulky
      */
-    public function setHeader($headerColumns) {
+    public function setHeader($headerColumns)
+    {
         $this->tHead->emptyContents();
         $this->addRowHeaderColumns($headerColumns);
     }
@@ -50,7 +53,8 @@ class TableTag extends PairTag {
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    function &addRowColumns($columns = null, $properties = null) {
+    function &addRowColumns($columns = null, $properties = null)
+    {
         $tableRow = $this->tBody->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
@@ -72,7 +76,8 @@ class TableTag extends PairTag {
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    function &addRowHeaderColumns($columns = null, $properties = null) {
+    function &addRowHeaderColumns($columns = null, $properties = null)
+    {
         $tableRow = $this->tHead->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
@@ -92,7 +97,8 @@ class TableTag extends PairTag {
      * @param null $element je zde pouze z důvodu zpětné kompatibility
      * @return type
      */
-    function isEmpty($element = null) {
+    function isEmpty($element = null)
+    {
         return $this->tBody->isEmpty();
     }
 
@@ -101,7 +107,8 @@ class TableTag extends PairTag {
      *
      * @param array $contents
      */
-    function populate($contents) {
+    function populate($contents)
+    {
         foreach ($contents as $cRow) {
             $this->addRowColumns($cRow);
         }

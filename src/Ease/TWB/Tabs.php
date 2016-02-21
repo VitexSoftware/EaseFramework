@@ -8,7 +8,8 @@ namespace Ease\TWB;
  * @see http://getbootstrap.com/2.3.2/components.html#navs
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class Tabs extends \Ease\Container {
+class Tabs extends \Ease\Container
+{
 
     /**
      * Název
@@ -35,7 +36,8 @@ class Tabs extends \Ease\Container {
      * @param array  $tabsList
      * @param array  $partProperties
      */
-    public function __construct($partName, $tabsList = null, $tagProperties = null) {
+    public function __construct($partName, $tabsList = null, $tagProperties = null)
+    {
         $this->partName = $partName;
         parent::__construct();
         if (is_array($tabsList)) {
@@ -55,7 +57,8 @@ class Tabs extends \Ease\Container {
      *
      * @return pointer odkaz na vložený obsah
      */
-    function &addTab($tabName, $tabContent = null, $active = false) {
+    function &addTab($tabName, $tabContent = null, $active = false)
+    {
         if (is_null($tabContent)) {
             $tabContent = new \Ease\Html\Div();
         }
@@ -71,14 +74,16 @@ class Tabs extends \Ease\Container {
      *
      * @return string
      */
-    function getTagID() {
+    function getTagID()
+    {
         return $this->partName;
     }
 
     /**
      * Vložení skriptu a divů do stránky
      */
-    public function finalize() {
+    public function finalize()
+    {
         if (is_null($this->activeTab)) {
             $this->activeTab = current(array_keys($this->tabs));
         }

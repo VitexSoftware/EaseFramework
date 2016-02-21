@@ -5,10 +5,11 @@ namespace Ease\Html;
 /**
  * IMG tag class
  *
- * @subpackage 
+ * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
-class ImgTag extends Tag {
+class ImgTag extends Tag
+{
 
     /**
      * Html Obrazek
@@ -19,7 +20,8 @@ class ImgTag extends Tag {
      * @param int    $height        výška v pixelech
      * @param array  $tagProperties ostatni nastaveni tagu
      */
-    public function __construct($image, $hint = null, $width = null, $height = null, $tagProperties = null) {
+    public function __construct($image, $hint = null, $width = null, $height = null, $tagProperties = null)
+    {
         if (is_null($tagProperties)) {
             $tagProperties = [];
         }

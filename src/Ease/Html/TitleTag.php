@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class TitleTag extends PairTag {
+class TitleTag extends PairTag
+{
 
     /**
      * Title html tag
@@ -15,7 +16,8 @@ class TitleTag extends PairTag {
      * @param string $contents   text titulku
      * @param array  $properties parametry tagu
      */
-    public function __construct($contents = null, $properties = null) {
+    public function __construct($contents = null, $properties = null)
+    {
         parent::__construct('title', $properties, $contents);
     }
 

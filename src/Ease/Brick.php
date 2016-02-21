@@ -9,7 +9,8 @@ namespace Ease;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class Brick extends Sand {
+class Brick extends Sand
+{
 
     /**
      * Objekt pro práci s SQL
@@ -57,7 +58,8 @@ class Brick extends Sand {
     /**
      * [Cs]Základní objekt pracující s databází
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         if ($this->myTable) {
@@ -76,7 +78,8 @@ class Brick extends Sand {
      *
      * @return string new name
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if ($objectName) {
             return parent::setObjectName($objectName);
         } else {
@@ -98,7 +101,8 @@ class Brick extends Sand {
      *
      * @return boolean
      */
-    public function setUpUser(& $user, & $targetObject = null) {
+    public function setUpUser(& $user, & $targetObject = null)
+    {
         if (is_object($user)) {
             if (is_object($targetObject)) {
                 $targetObject->user = & $user;
@@ -117,7 +121,8 @@ class Brick extends Sand {
      *
      * @return User
      */
-    public function &getUser() {
+    public function &getUser()
+    {
         if (isset($this->user)) {
             $User = &$this->user;
         } else {
@@ -139,7 +144,8 @@ class Brick extends Sand {
      * @param boolean $addIcons prida UTF8 ikonky na zacatek zprav
      * @param boolean $addToLog zapisovat zpravu do logu ?
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true) {
+    public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true)
+    {
         if ($addIcons) {
             switch ($type) {
                 case 'mail':                    // Obalka
@@ -173,7 +179,8 @@ class Brick extends Sand {
      *
      * @return string
      */
-    public function easeAddSlashes($text) {
+    public function easeAddSlashes($text)
+    {
         if (is_object($this->dblink) && is_resource($this->dblink->sqlLink)) {
             return mysql_real_escape_string($text, $this->dblink->sqlLink);
         } else {
@@ -193,7 +200,8 @@ class Brick extends Sand {
      *
      * @return array
      */
-    public function getColumnsFromSQL($columnsList, $conditions = null, $orderBy = null, $indexBy = null, $limit = null) {
+    public function getColumnsFromSQL($columnsList, $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
+    {
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
             $this->error('getColumnsFromSQL: Missing ColumnList');
@@ -262,7 +270,8 @@ class Brick extends Sand {
      *
      * @return array Results
      */
-    public function getDataFromSQL($itemID = null) {
+    public function getDataFromSQL($itemID = null)
+    {
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
@@ -288,7 +297,8 @@ class Brick extends Sand {
      *
      * @return array Results
      */
-    public function loadFromSQL($itemID = null) {
+    public function loadFromSQL($itemID = null)
+    {
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
@@ -326,7 +336,8 @@ class Brick extends Sand {
      *
      * @return array
      */
-    public function getAllFromSQL($tableName = null, $columnsList = null, $limit = null, $orderByColumn = null, $ColumnToIndex = null) {
+    public function getAllFromSQL($tableName = null, $columnsList = null, $limit = null, $orderByColumn = null, $ColumnToIndex = null)
+    {
         if (is_null($tableName)) {
             $tableName = $this->myTable;
         }
@@ -360,7 +371,8 @@ class Brick extends Sand {
      *
      * @return int Id záznamu nebo null v případě chyby
      */
-    public function updateToSQL($data = null) {
+    public function updateToSQL($data = null)
+    {
         if (!$this->myTable) {
             return null;
         }
@@ -419,7 +431,8 @@ class Brick extends Sand {
      *
      * @return int ID záznamu nebo null v případě neůspěchu
      */
-    public function saveToSQL($data = null, $searchForID = false) {
+    public function saveToSQL($data = null, $searchForID = false)
+    {
         $result = null;
         if (is_null($data)) {
             $data = $this->getData();
@@ -470,7 +483,8 @@ class Brick extends Sand {
      *
      * @return id
      */
-    public function insertToSQL($data = null) {
+    public function insertToSQL($data = null)
+    {
         if (is_null($data)) {
             $data = $this->getData();
             $useInObject = true;
@@ -505,7 +519,8 @@ class Brick extends Sand {
      *
      * @return array ID zaznamu vlozenych nebo ulozenych
      */
-    public function save() {
+    public function save()
+    {
         return $this->saveToSQL();
     }
 
@@ -516,7 +531,8 @@ class Brick extends Sand {
      *
      * @return bool
      */
-    public function deleteFromSQL($data = null) {
+    public function deleteFromSQL($data = null)
+    {
         if (is_int($data)) {
             $data = [$this->getmyKeyColumn() => intval($data)];
         } else {
@@ -550,7 +566,8 @@ class Brick extends Sand {
      *
      * @return mixed převzatá do pole
      */
-    public function takeToData($data, $column, $mayBeNull = false, $RenameAs = null) {
+    public function takeToData($data, $column, $mayBeNull = false, $RenameAs = null)
+    {
         if (isset($data[$column])) {
             if ($RenameAs) {
                 $this->setDataValue($RenameAs, $data[$column]);
@@ -576,7 +593,8 @@ class Brick extends Sand {
      *
      * @return int počet položek
      */
-    public function getSQLList($tableName = null, $myKeyColumn = null) {
+    public function getSQLList($tableName = null, $myKeyColumn = null)
+    {
         if (!$tableName) {
             $tableName = $this->myTable;
         }
@@ -597,7 +615,8 @@ class Brick extends Sand {
      *
      * @param string $myTable
      */
-    public function takemyTable($myTable = null) {
+    public function takemyTable($myTable = null)
+    {
         if ($myTable) {
             $this->myTable = $myTable;
         }
@@ -613,7 +632,8 @@ class Brick extends Sand {
      *
      * @return string
      */
-    public function getmyKeyColumn() {
+    public function getmyKeyColumn()
+    {
         return $this->myKeyColumn;
     }
 
@@ -623,7 +643,8 @@ class Brick extends Sand {
      * @param  int $id
      * @return int vrací počet položek s daným ID
      */
-    public function MyIDExists($id) {
+    public function MyIDExists($id)
+    {
         return $this->dblink->queryToValue('SELECT COUNT(*) FROM ' . $this->myTable . ' WHERE ' . $this->getmyKeyColumn() . '=' . intval($id));
     }
 
@@ -633,7 +654,8 @@ class Brick extends Sand {
      * @param  int $id
      * @return int vrací počet položek s daným ID
      */
-    public function MSIDExists($id) {
+    public function MSIDExists($id)
+    {
         return $this->msDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->msTable . ' WHERE ' . $this->getMSKeyColumn() . '=' . intval($id));
     }
 
@@ -642,7 +664,8 @@ class Brick extends Sand {
      *
      * @return string
      */
-    public function getMyTable() {
+    public function getMyTable()
+    {
         return $this->myTable;
     }
 
@@ -653,7 +676,8 @@ class Brick extends Sand {
      *
      * @return int
      */
-    public function getMyKey($data = null) {
+    public function getMyKey($data = null)
+    {
         if (!$data) {
             $data = $this->getData();
         }
@@ -671,7 +695,8 @@ class Brick extends Sand {
      *
      * @return bool
      */
-    public function setMyKey($myKeyValue) {
+    public function setMyKey($myKeyValue)
+    {
         if (isset($this->myKeyColumn)) {
             $this->setDataValue($this->myKeyColumn, $myKeyValue);
 
@@ -686,7 +711,8 @@ class Brick extends Sand {
      *
      * @param string $myKeyColumn
      */
-    public function setmyKeyColumn($myKeyColumn) {
+    public function setmyKeyColumn($myKeyColumn)
+    {
         $this->myKeyColumn = $myKeyColumn;
     }
 
@@ -695,7 +721,8 @@ class Brick extends Sand {
      *
      * @param string $myTable
      */
-    public function setmyTable($myTable) {
+    public function setmyTable($myTable)
+    {
         $this->myTable = $myTable;
         $this->setObjectIdentity(['myTable' => $myTable]);
         unset($this->sqlStruct['my']);
@@ -708,7 +735,8 @@ class Brick extends Sand {
      *
      * @return bool
      */
-    public function mySQLTableExist($tableName = null) {
+    public function mySQLTableExist($tableName = null)
+    {
         if (!$tableName) {
             $tableName = $this->myTable;
         }
@@ -726,7 +754,8 @@ class Brick extends Sand {
      *
      * @return int
      */
-    public function getSQLItemsCount($tableName = null) {
+    public function getSQLItemsCount($tableName = null)
+    {
         if (!$tableName) {
             $tableName = $this->myTable;
         }
@@ -738,7 +767,8 @@ class Brick extends Sand {
      * Pouze malé a velké písmena
      * @return string text bez zvláštních znaků
      */
-    public static function lettersOnly($text) {
+    public static function lettersOnly($text)
+    {
         return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
     }
 
@@ -748,7 +778,8 @@ class Brick extends Sand {
      * @param string $searchTerm
      * @param array $columns
      */
-    public function searchColumns($searchTerm, $columns) {
+    public function searchColumns($searchTerm, $columns)
+    {
         $sTerm = $this->dblink->AddSlashes($searchTerm);
         $conditons = [];
         foreach ($columns as $column) {

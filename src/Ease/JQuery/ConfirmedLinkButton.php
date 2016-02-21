@@ -8,7 +8,8 @@ namespace Ease\JQuery;
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @todo dodělat #IDčka ...
  */
-class ConfirmedLinkButton extends LinkButton {
+class ConfirmedLinkButton extends LinkButton
+{
 
     /**
      *
@@ -26,7 +27,8 @@ class ConfirmedLinkButton extends LinkButton {
      * @param array|string $JQOptions  parametry pro $.button()
      * @param array        $Properties vlastnosti HTML tagu
      */
-    public function __construct($href, $contents) {
+    public function __construct($href, $contents)
+    {
         $this->id = $this->randomString();
         parent::__construct('#', $contents, null, ['id' => $this->id . '-button']);
         $confirmDialog = $this->addItem(new Dialog($this->id . '-dialog', _('potvrzení'), _('Opravdu') . ' ' . $contents . ' ?', 'ui-icon-alert'));
@@ -39,7 +41,8 @@ class ConfirmedLinkButton extends LinkButton {
     /**
      * Nastaveni javascriptu
      */
-    public function onDocumentReady() {
+    public function onDocumentReady()
+    {
         return '$("#' . $this->Name . '").button( {' . Part::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id . '-dialog" ).dialog( "open" ); } );';
     }
 

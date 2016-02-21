@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class FieldSet extends PairTag {
+class FieldSet extends PairTag
+{
 
     /**
      * Legenda rámečku
@@ -33,7 +34,8 @@ class FieldSet extends PairTag {
      * @param string|mixed $legend  popisek - text nebo Ease objekty
      * @param mixed        $content prvky vkládané do rámečku
      */
-    public function __construct($legend, $content = null) {
+    public function __construct($legend, $content = null)
+    {
         $this->setTagName($legend);
         $this->Legend = $legend;
         $this->LegendTag = $this->addItem(new PairTag('legend', null, $this->Legend));
@@ -48,14 +50,16 @@ class FieldSet extends PairTag {
      *
      * @param string $legend popisek
      */
-    public function setLegend($legend) {
+    public function setLegend($legend)
+    {
         $this->Legend = $legend;
     }
 
     /**
      * Vložení legendy
      */
-    public function finalize() {
+    public function finalize()
+    {
         if ($this->Legend) {
             if (is_object(reset($this->pageParts))) {
                 reset($this->pageParts)->pageParts = [$this->Legend];

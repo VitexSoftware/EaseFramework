@@ -2,7 +2,8 @@
 
 namespace Ease\TWB;
 
-class Col extends \Ease\Html\Div {
+class Col extends \Ease\Html\Div
+{
 
     /**
      * Bunka CSS tabulky bootstrapu
@@ -13,7 +14,8 @@ class Col extends \Ease\Html\Div {
      * @param string $target     Typ zařízení xs|sm|md|lg
      * @param array  $properties Další vlastnosti tagu
      */
-    function __construct($size, $content = null, $target = 'md', $properties = null) {
+    function __construct($size, $content = null, $target = 'md', $properties = null)
+    {
         if (is_null($properties)) {
             $properties = [];
         }

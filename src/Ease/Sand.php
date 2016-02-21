@@ -17,7 +17,8 @@ namespace Ease;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class Sand extends Atom {
+class Sand extends Atom
+{
 
     /**
      * Default Language Code
@@ -113,7 +114,8 @@ class Sand extends Atom {
     /**
      * Prapředek všech objektů
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->easeShared = Shared::singleton();
         switch ($this->logType) {
             case 'file':
@@ -140,7 +142,8 @@ class Sand extends Atom {
      *
      * @return
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true) {
+    public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true)
+    {
         return Shared::instanced()->addStatusMessage($message, $type, $addIcons, $addToLog);
     }
 
@@ -151,14 +154,16 @@ class Sand extends Atom {
      *
      * @return array
      */
-    public function getStatusMessages($clean = false) {
+    public function getStatusMessages($clean = false)
+    {
         return Shared::instanced()->getStatusMessages($clean);
     }
 
     /**
      * Vymaže zprávy
      */
-    public function cleanMessages() {
+    public function cleanMessages()
+    {
         parent::cleanMessages();
         return Shared::instanced()->cleanMessages();
     }
@@ -169,7 +174,8 @@ class Sand extends Atom {
      * @param string $propertyName název proměnné
      * @param object $object       přiřazovaný objekt
      */
-    public function attachObject($propertyName, $object) {
+    public function attachObject($propertyName, $object)
+    {
         if (is_object($object)) {
             $this->$propertyName = & $object;
         }
@@ -182,7 +188,8 @@ class Sand extends Atom {
      *
      * @return string Jméno objektu
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if ($objectName) {
             $this->objectName = $objectName;
         } else {
@@ -197,7 +204,8 @@ class Sand extends Atom {
      *
      * @return string
      */
-    public function getObjectName() {
+    public function getObjectName()
+    {
         return $this->objectName;
     }
 
@@ -206,7 +214,8 @@ class Sand extends Atom {
      *
      * @param array $newIdentity
      */
-    public function setObjectIdentity($newIdentity) {
+    public function setObjectIdentity($newIdentity)
+    {
         $changes = 0;
         $this->saveObjectIdentity();
         foreach ($this->identityColumns as $column) {
@@ -224,7 +233,8 @@ class Sand extends Atom {
      *
      * @return array pole s identitou
      */
-    public function saveObjectIdentity() {
+    public function saveObjectIdentity()
+    {
         foreach ($this->identityColumns as $column) {
             if (isset($this->$column)) {
                 $this->identity[$column] = $this->$column;
@@ -239,7 +249,8 @@ class Sand extends Atom {
      *
      * @param array $identity pole s identitou např. array('myTable'=>'user');
      */
-    public function restoreObjectIdentity($identity = null) {
+    public function restoreObjectIdentity($identity = null)
+    {
         foreach ($this->identityColumns as $column) {
             if (isset($this->identity[$column])) {
                 $this->$column = $this->identity[$column];
@@ -250,7 +261,8 @@ class Sand extends Atom {
     /**
      * Obnoví poslední použitou identitu
      */
-    public function resetObjectIdentity() {
+    public function resetObjectIdentity()
+    {
         $this->identity = $this->initialIdenty;
         $this->restoreObjectIdentity();
     }
@@ -263,7 +275,8 @@ class Sand extends Atom {
      * @param array  $destinationArray cílové pole dat
      * @param string $columName        název položky k převzetí
      */
-    public static function divDataArray(& $sourceArray, & $destinationArray, $columName) {
+    public static function divDataArray(& $sourceArray, & $destinationArray, $columName)
+    {
         if (array_key_exists($columName, $sourceArray)) {
             $destinationArray[$columName] = $sourceArray[$columName];
             unset($sourceArray[$columName]);
@@ -278,7 +291,8 @@ class Sand extends Atom {
      * Vynuluje všechny pole vlastností objektu
      *
      */
-    public function dataReset() {
+    public function dataReset()
+    {
         $this->data = [];
     }
 
@@ -290,7 +304,8 @@ class Sand extends Atom {
      *
      * @return int počet načtených položek
      */
-    public function setData($data, $reset = false) {
+    public function setData($data, $reset = false)
+    {
         if (is_null($data) || !count($data)) {
             return null;
         }
@@ -311,7 +326,8 @@ class Sand extends Atom {
      *
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
@@ -320,7 +336,8 @@ class Sand extends Atom {
      *
      * @return int
      */
-    public function getDataCount() {
+    public function getDataCount()
+    {
         return count($this->data);
     }
 
@@ -331,7 +348,8 @@ class Sand extends Atom {
      *
      * @return mixed
      */
-    public function getDataValue($columnName) {
+    public function getDataValue($columnName)
+    {
         if (isset($this->data[$columnName])) {
             return $this->data[$columnName];
         }
@@ -347,7 +365,8 @@ class Sand extends Atom {
      *
      * @return boolean Success
      */
-    public function setDataValue($columnName, $value) {
+    public function setDataValue($columnName, $value)
+    {
         $this->data[$columnName] = $value;
         return true;
     }
@@ -359,7 +378,8 @@ class Sand extends Atom {
      *
      * @return boolean success
      */
-    public function unsetDataValue($columnName) {
+    public function unsetDataValue($columnName)
+    {
         if (array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
             return true;
@@ -375,7 +395,8 @@ class Sand extends Atom {
      *
      * @return int
      */
-    public function takeData($data) {
+    public function takeData($data)
+    {
         if (is_array($this->data)) {
             $this->data = array_merge($this->data, $data);
         } else {
@@ -391,7 +412,8 @@ class Sand extends Atom {
      *
      * @return string
      */
-    public function easeAddSlashes($text) {
+    public function easeAddSlashes($text)
+    {
         return addSlashes($text);
     }
 
@@ -401,7 +423,8 @@ class Sand extends Atom {
      * @param mixed  $argument All used by print_r() function
      * @param string $comment  hint při najetí myší
      */
-    public function printPre($argument, $comment = '') {
+    public function printPre($argument, $comment = '')
+    {
         $retVal = '';
         $itemsCount = 0;
         if (is_object($argument)) {
@@ -443,7 +466,8 @@ class Sand extends Atom {
      *
      * @return string
      */
-    public static function printPreBasic($argument) {
+    public static function printPreBasic($argument)
+    {
         return print_r($argument, true);
     }
 
@@ -456,7 +480,8 @@ class Sand extends Atom {
      *
      * @return string utf8
      */
-    public static function substrUnicode($str, $string, $length = null) {
+    public static function substrUnicode($str, $string, $length = null)
+    {
         return join("", array_slice(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $string, $length));
     }
 
@@ -465,7 +490,8 @@ class Sand extends Atom {
      *
      * @param string $text
      */
-    public static function rip($text) {
+    public static function rip($text)
+    {
         $convertTable = [
             'ä' => 'a',
             'Ä' => 'A',
@@ -564,7 +590,8 @@ class Sand extends Atom {
      *
      * @return string encrypted text
      */
-    public static function easeEncrypt($textToEncrypt, $encryptKey) {
+    public static function easeEncrypt($textToEncrypt, $encryptKey)
+    {
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
         $encryptKey = md5($encryptKey);
         $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
@@ -589,7 +616,8 @@ class Sand extends Atom {
      *
      * @return string
      */
-    public static function easeDecrypt(string $textToDercypt, $encryptKey) {
+    public static function easeDecrypt(string $textToDercypt, $encryptKey)
+    {
         $encryptKey = md5($encryptKey);
         $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
         $encryptKey = substr($encryptKey, 0, mcrypt_enc_get_key_size($encryptHandle));
@@ -613,7 +641,8 @@ class Sand extends Atom {
      *
      * @return float
      */
-    public static function randomNumber($minimal = null, $maximal = null) {
+    public static function randomNumber($minimal = null, $maximal = null)
+    {
         mt_srand((double) microtime() * 1000000);
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
@@ -633,7 +662,8 @@ class Sand extends Atom {
      *
      * @return string
      */
-    public static function randomString($length = 6) {
+    public static function randomString($length = 6)
+    {
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
 
@@ -650,7 +680,8 @@ class Sand extends Atom {
      * @link	  http://www.dominicsayers.com/isemail
      * @version	  1.9 - Minor modifications to make it compatible with PHPLint
      */
-    static public function isEmail($email, $checkDNS = false) {
+    static public function isEmail($email, $checkDNS = false)
+    {
         /* Check that $email is a valid address. Read the following RFCs to understand the constraints:
           // 	(http://tools.ietf.org/html/rfc5322)
           // 	(http://tools.ietf.org/html/rfc3696)
@@ -1047,7 +1078,8 @@ class Sand extends Atom {
      * @param  array  $arr         originální pole
      * @return array  překódované pole
      */
-    public function recursiveIconv($in_charset, $out_charset, $arr) {
+    public function recursiveIconv($in_charset, $out_charset, $arr)
+    {
         if (!is_array($arr)) {
             return iconv($in_charset, $out_charset, $arr);
         }
@@ -1063,7 +1095,8 @@ class Sand extends Atom {
      * @param string $key
      * @param mixed  $userdata
      */
-    public function arrayIconv(&$val, $key, $userdata) {
+    public function arrayIconv(&$val, $key, $userdata)
+    {
         $val = iconv($userdata[0], $userdata[1], $val);
     }
 
@@ -1075,7 +1108,8 @@ class Sand extends Atom {
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($message, $type = 'message') {
+    public function addToLog($message, $type = 'message')
+    {
         if (is_object($this->logger)) {
             $this->logger->addToLog($this->getObjectName(), $message, $type);
         }
@@ -1087,7 +1121,8 @@ class Sand extends Atom {
      * @param string $message    zpráva
      * @param mixed  $objectData pole dat k zaznamenání
      */
-    public function error($message, $objectData = null) {
+    public function error($message, $objectData = null)
+    {
         if (is_object($this->logger)) {
             $this->logger->error($this->getObjectName(), $message, $objectData = null);
         }
@@ -1099,7 +1134,8 @@ class Sand extends Atom {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return 'Object: ' . $this->getObjectName();
     }
 
@@ -1108,7 +1144,8 @@ class Sand extends Atom {
      *
      * @return array
      */
-    public function __sleep() {
+    public function __sleep()
+    {
         $objectVars = array_keys(get_object_vars($this));
         if (@method_exists(parent, '__sleep')) {
             $parentObjectVars = parent::__sleep();
@@ -1125,7 +1162,8 @@ class Sand extends Atom {
      * @param  int    $filesize bytů
      * @return string
      */
-    static public function humanFilesize($filesize) {
+    static public function humanFilesize($filesize)
+    {
 
         if (is_numeric($filesize)) {
             $decr = 1024;
@@ -1146,7 +1184,8 @@ class Sand extends Atom {
     /**
      * Akce po probuzení ze serializace
      */
-    public function __wakeup() {
+    public function __wakeup()
+    {
         $this->setObjectName();
         $this->restoreObjectIdentity();
     }

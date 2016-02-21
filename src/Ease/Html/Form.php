@@ -8,7 +8,8 @@
 
 namespace Ease\Html;
 
-class Form extends PairTag {
+class Form extends PairTag
+{
 
     /**
      * Cíl formu
@@ -38,7 +39,8 @@ class Form extends PairTag {
      * @param array  $tagProperties vlastnosti tagu například:
      *                              array('enctype' => 'multipart/form-data')
      */
-    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null) {
+    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
+    {
         parent::__construct('form', ['method' => $formMethod, 'name' => $formName]);
         if ($formAction) {
             $this->setFormTarget($formAction);
@@ -58,7 +60,8 @@ class Form extends PairTag {
      *
      * @param string $formTarget cíl odeslání formuláře
      */
-    public function setFormTarget($formTarget) {
+    public function setFormTarget($formTarget)
+    {
         $this->formTarget = $formTarget;
         $this->setTagProperties(['action' => $formTarget]);
     }
@@ -69,7 +72,8 @@ class Form extends PairTag {
      * @param array $parametersToChange pole parametrů
      * @param bool  $replace            přepisovat již existující
      */
-    public function changeActionParameter($parametersToChange, $replace = true) {
+    public function changeActionParameter($parametersToChange, $replace = true)
+    {
         if (is_array($parametersToChange) && count($parametersToChange)) {
             foreach ($parametersToChange as $paramName => $paramValue) {
                 if ($paramValue == true) {
@@ -114,7 +118,8 @@ class Form extends PairTag {
      *
      * @return EaseContainer|class
      */
-    function &objectContentSearch($searchFor, $where = null) {
+    function &objectContentSearch($searchFor, $where = null)
+    {
         if (is_null($where)) {
             $where = & $this;
         }
@@ -141,7 +146,8 @@ class Form extends PairTag {
     /**
      * Doplnění perzistentních hodnot
      */
-    public function finalize() {
+    public function finalize()
+    {
         $this->setupWebPage();
         if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
             foreach ($this->webPage->requestValuesToKeep as $name => $value) {

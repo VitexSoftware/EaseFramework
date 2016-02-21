@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputFileTag extends InputTag {
+class InputFileTag extends InputTag
+{
 
     /**
      * Vstupní box pro volbu souboru
@@ -15,7 +16,8 @@ class InputFileTag extends InputTag {
      * @param string $name  jméno tagu
      * @param string $value předvolená hodnota
      */
-    public function __construct($name, $value = null) {
+    public function __construct($name, $value = null)
+    {
         parent::__construct($name, $value);
         $this->setTagProperties(['type' => 'file']);
     }

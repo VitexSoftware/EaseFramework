@@ -8,7 +8,8 @@ namespace Ease\Html;
  * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
-class Tag extends \Ease\Page {
+class Tag extends \Ease\Page
+{
 
     /**
      * Jméno tagu - je použit i jako jméno objektu
@@ -58,7 +59,8 @@ class Tag extends \Ease\Page {
      * @param array|string $tagProperties parametry tagu
      * @param mixed        $content       vkládaný obsah
      */
-    public function __construct($tagType = null, $tagProperties = null, $content = null) {
+    public function __construct($tagType = null, $tagProperties = null, $content = null)
+    {
         if (is_null($tagType)) {
             $tagType = $this->tagType;
         } else {
@@ -80,7 +82,8 @@ class Tag extends \Ease\Page {
      *
      * @return string New object name
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if ($objectName) {
             return parent::setObjectName($objectName);
         }
@@ -100,7 +103,8 @@ class Tag extends \Ease\Page {
      *
      * @param string $tagName jméno tagu do vlastnosti NAME
      */
-    public function setTagName($tagName) {
+    public function setTagName($tagName)
+    {
         $this->tagName = $tagName;
         if ($this->setName) {
             $this->tagProperties['name'] = $tagName;
@@ -113,7 +117,8 @@ class Tag extends \Ease\Page {
      *
      * @return string
      */
-    public function getTagName() {
+    public function getTagName()
+    {
         if ($this->setName) {
             if (isset($this->tagProperties['name'])) {
                 return $this->tagProperties['name'];
@@ -130,7 +135,8 @@ class Tag extends \Ease\Page {
      *
      * @param string $tagType typ tagu - např. img
      */
-    public function setTagType($tagType) {
+    public function setTagType($tagType)
+    {
         $this->tagType = $tagType;
     }
 
@@ -139,7 +145,8 @@ class Tag extends \Ease\Page {
      *
      * @return string typ tagu - např. img
      */
-    public function getTagType() {
+    public function getTagType()
+    {
         return $this->tagType;
     }
 
@@ -148,7 +155,8 @@ class Tag extends \Ease\Page {
      *
      * @param string $className jméno css třídy
      */
-    public function setTagClass($className) {
+    public function setTagClass($className)
+    {
         $this->setTagProperties(['class' => $className]);
     }
 
@@ -157,14 +165,16 @@ class Tag extends \Ease\Page {
      *
      * @param string $className jméno css třídy
      */
-    public function addTagClass($className) {
+    public function addTagClass($className)
+    {
         $this->setTagClass($this->getTagClass() . ' ' . $className);
     }
 
     /**
      * Vrací css classu tagu
      */
-    public function getTagClass() {
+    public function getTagClass()
+    {
         return $this->getTagProperty('class');
     }
 
@@ -175,7 +185,8 @@ class Tag extends \Ease\Page {
      *
      * @return string nastavené ID
      */
-    public function setTagID($tagID = null) {
+    public function setTagID($tagID = null)
+    {
         if (is_null($tagID)) {
             $this->setTagProperties(['id' => \Ease\Brick::randomString()]);
         } else {
@@ -189,7 +200,8 @@ class Tag extends \Ease\Page {
      *
      * @return string
      */
-    public function getTagID() {
+    public function getTagID()
+    {
         if (isset($this->tagProperties['id'])) {
             return $this->tagProperties['id'];
         } else {
@@ -204,7 +216,8 @@ class Tag extends \Ease\Page {
      *
      * @return string current tag property value
      */
-    public function getTagProperty($propertyName) {
+    public function getTagProperty($propertyName)
+    {
         $property = null;
         if (isset($this->tagProperties[$propertyName])) {
             $property = $this->tagProperties[$propertyName];
@@ -217,7 +230,8 @@ class Tag extends \Ease\Page {
      *
      * @param mixed $tagProperties asociativní pole parametrů tagu
      */
-    public function setTagProperties($tagProperties) {
+    public function setTagProperties($tagProperties)
+    {
         if (is_array($tagProperties)) {
             if (isset($tagProperties['id'])) {
                 $tagProperties['id'] = preg_replace('/[^A-Za-z0-9_\\-]/', '', $tagProperties['id']);
@@ -244,7 +258,8 @@ class Tag extends \Ease\Page {
      *
      * @return string
      */
-    public function tagPropertiesToString($tagProperties = null) {
+    public function tagPropertiesToString($tagProperties = null)
+    {
         if (!$tagProperties) {
             $tagProperties = $this->tagProperties;
         }
@@ -274,7 +289,8 @@ class Tag extends \Ease\Page {
      *
      * @param array|string $cssProperties asociativní pole, nebo CSS definice
      */
-    public function setTagCss($cssProperties) {
+    public function setTagCss($cssProperties)
+    {
         if (is_array($cssProperties)) {
             if (is_array($this->cssProperties)) {
                 $this->cssProperties = array_merge($this->cssProperties, $cssProperties);
@@ -296,7 +312,8 @@ class Tag extends \Ease\Page {
      *
      * @return string
      */
-    public function cssPropertiesToString($cssProperties = null) {
+    public function cssPropertiesToString($cssProperties = null)
+    {
         if (!$cssProperties) {
             $cssProperties = $this->cssProperties;
         }
@@ -314,7 +331,8 @@ class Tag extends \Ease\Page {
     /**
      * Vykreslí tag
      */
-    public function draw() {
+    public function draw()
+    {
         echo '
 <' . $this->tagType;
         echo $this->tagPropertiesToString();

@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class TdTag extends PairTag {
+class TdTag extends PairTag
+{
 
     /**
      * Buňka tabulky
@@ -15,7 +16,8 @@ class TdTag extends PairTag {
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null) {
+    public function __construct($content = null, $properties = null)
+    {
         parent::__construct('td', $properties, $content);
     }
 

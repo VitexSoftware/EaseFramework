@@ -2,7 +2,8 @@
 
 namespace Ease\TWB;
 
-class ListGroup extends \Ease\Html\UlTag {
+class ListGroup extends \Ease\Html\UlTag
+{
 
     /**
      * Vytvori ListGroup
@@ -11,7 +12,8 @@ class ListGroup extends \Ease\Html\UlTag {
      * @param mixed $ulContents položky seznamu
      * @param array $properties parametry tagu
      */
-    public function __construct($ulContents = null, $properties = null) {
+    public function __construct($ulContents = null, $properties = null)
+    {
         parent::__construct($ulContents, $properties);
         $this->addTagClass('list-group');
     }
@@ -24,7 +26,8 @@ class ListGroup extends \Ease\Html\UlTag {
      *
      * @return mixed
      */
-    function &addItemSmart($pageItem, $properties = null) {
+    function &addItemSmart($pageItem, $properties = null)
+    {
         $item = parent::addItemSmart($pageItem, $properties);
         $item->addTagClass('list-group-item');
         return $item;

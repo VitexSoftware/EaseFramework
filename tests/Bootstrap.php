@@ -8,7 +8,6 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2012 Vitex@hippy.cz (G)
  */
-
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -30,4 +29,5 @@ define('DB_SERVER', 'localhost');
 define('DB_SERVER_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');
 define('DB_SERVER_USERNAME', 'easetest');
+define('DB_PORT', 5432);
 define('DB_TYPE', 'pgsql');

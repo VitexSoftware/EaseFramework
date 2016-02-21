@@ -8,7 +8,8 @@ namespace Ease\JQuery;
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  * @todo dodělat #IDčka ...
  */
-class Dialog extends UIPart {
+class Dialog extends UIPart
+{
 
     /**
      * ID divu s dialogem
@@ -49,7 +50,8 @@ class Dialog extends UIPart {
      * @param string $Icon     jQueryUI ikona
      * @param string $Notice   doplnující informce
      */
-    public function __construct($DialogID, $Title, $Message, $Icon = 'ui-icon-circle-check', $Notice = NULL) {
+    public function __construct($DialogID, $Title, $Message, $Icon = 'ui-icon-circle-check', $Notice = NULL)
+    {
         $this->DialogID = $DialogID;
         $this->Title = $Title;
         $this->Message = $Message;
@@ -62,14 +64,16 @@ class Dialog extends UIPart {
     /**
      * Nastaveni javascriptu
      */
-    public function onDocumentReady() {
+    public function onDocumentReady()
+    {
         return '$("#' . $this->DialogID . '").dialog( {' . Part::partPropertiesToString($this->partProperties) . '} )';
     }
 
     /**
      * Seskládání HTML
      */
-    public function finalize() {
+    public function finalize()
+    {
         $DialogDiv = $this->addItem(new Ease\Html\Div(NULL, ['id' => $this->DialogID, 'title' => $this->Title]));
         $DialogMessage = $DialogDiv->addItem(new Ease\Html\PTag());
         $DialogMessage->addItem(new Ease\Html\SpanTag(NULL, NULL, ['class' => 'ui-icon ' . $this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;']));

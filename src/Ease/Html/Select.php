@@ -7,7 +7,8 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class Select extends PairTag {
+class Select extends PairTag
+{
 
     /**
      * Předvolené položka #
@@ -41,7 +42,8 @@ class Select extends PairTag {
      * @param array  $itemsIDs     id položek
      * @param array  $properties   tag properties
      */
-    public function __construct($name, $items = null, $defaultValue = null, $itemsIDs = false, $properties = null) {
+    public function __construct($name, $items = null, $defaultValue = null, $itemsIDs = false, $properties = null)
+    {
         parent::__construct('select', $properties);
         $this->defaultValue = $defaultValue;
         $this->_itemsIDs = $itemsIDs;
@@ -56,7 +58,8 @@ class Select extends PairTag {
      *
      * @param array $items položky výběru
      */
-    public function addItems($items) {
+    public function addItems($items)
+    {
         foreach ($items as $itemName => $itemValue) {
             $newItem = $this->addItem(new OptionTag($itemValue, $itemName));
             if ($this->_itemsIDs) {
@@ -74,7 +77,8 @@ class Select extends PairTag {
      * @param string $value   hodnota
      * @param string $valueID id hodnoty
      */
-    public function addValue($value, $valueID = 0) {
+    public function addValue($value, $valueID = 0)
+    {
         $this->addItems([$valueID => $value]);
     }
 
@@ -83,7 +87,8 @@ class Select extends PairTag {
      *
      * @return array
      */
-    public function loadItems() {
+    public function loadItems()
+    {
         return [];
     }
 
@@ -92,7 +97,8 @@ class Select extends PairTag {
      *
      * @param string $value nastavovaná hodnota
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         if (trim(strlen($value))) {
             foreach ($this->pageParts as $option) {
                 if ($option->getValue() == $value) {
@@ -112,7 +118,8 @@ class Select extends PairTag {
     /**
      * Vložit načtené položky
      */
-    public function finalize() {
+    public function finalize()
+    {
         if (!count($this->pageParts)) {
             //Uninitialised Select - so we load items
             $this->addItems($this->loadItems());
@@ -124,7 +131,8 @@ class Select extends PairTag {
      *
      * @param string $itemID klíč hodnoty k odstranění ze seznamu
      */
-    public function delItem($itemID) {
+    public function delItem($itemID)
+    {
         unset($this->pageParts['OptionTag@' . $itemID]);
     }
 

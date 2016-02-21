@@ -17,7 +17,8 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class MSSQL extends SQL {
+class MSSQL extends SQL
+{
 
     public $Debug = false;
     public $NumRows = 0;
@@ -80,7 +81,8 @@ class MSSQL extends SQL {
      * @param type $Mode
      */
 
-    public function __construct($Mode = 'online') {
+    public function __construct($Mode = 'online')
+    {
         if (defined('FREETDS_RECODE')) {
             $this->WinToUtfRecode = constant('FREETDS_RECODE');
         }
@@ -110,7 +112,8 @@ class MSSQL extends SQL {
      *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      */
-    public static function singleton($Mode = 'online') {
+    public static function singleton($Mode = 'online')
+    {
         if (!isset(self::$_instance)) {
             $ClassName = __CLASS__;
             self::$_instance = new $ClassName($Mode);
@@ -124,7 +127,8 @@ class MSSQL extends SQL {
      *
      * @return boolean
      */
-    public function connect() {
+    public function connect()
+    {
         if (is_null($this->SQLLink)) {
             if (++$this->instanceCounter > 1) {
                 return null;
@@ -160,7 +164,8 @@ class MSSQL extends SQL {
      * @param  type    $DBName
      * @return boolean
      */
-    public function selectDB($DBName = null) {
+    public function selectDB($DBName = null)
+    {
         if (is_null($DBName)) {
             $DBName = $this->Database;
         }
@@ -181,7 +186,8 @@ class MSSQL extends SQL {
     /**
      * Vyplní pole informací o připojení
      */
-    public function makeReport() {
+    public function makeReport()
+    {
         parent::makeReport();
         $this->Report['mode'] = $this->Mode;
     }
@@ -194,7 +200,8 @@ class MSSQL extends SQL {
      *
      * @return SqlHandle
      */
-    public function exeQuery($QueryRaw, $IgnoreErrors = false) {
+    public function exeQuery($QueryRaw, $IgnoreErrors = false)
+    {
 
         if (!$this->Connected) {
             if ($this->instanceCounter > 1) {
@@ -286,7 +293,8 @@ class MSSQL extends SQL {
      *
      * @return array
      */
-    public function queryToArray($QueryRaw, $KeyColumnToIndex = false) {
+    public function queryToArray($QueryRaw, $KeyColumnToIndex = false)
+    {
         $this->resultArray = null;
         $this->Result = $this->exeQuery($QueryRaw);
         if (!$this->Result) {
@@ -325,7 +333,8 @@ class MSSQL extends SQL {
      *
      * @return int unsigned
      */
-    public function getTableNumRows($TableName = null) {
+    public function getTableNumRows($TableName = null)
+    {
         if (!$TableName) {
             $TableName = $this->TableName;
         }
@@ -341,7 +350,8 @@ class MSSQL extends SQL {
      *
      * @return array
      */
-    public function describe($TableName = null) {
+    public function describe($TableName = null)
+    {
         if (!parent::describe($TableName)) {
             return null;
         }
@@ -379,7 +389,8 @@ class MSSQL extends SQL {
      *
      * @return string
      */
-    public function prepCols($data, $PermitKeyColumn = false) {
+    public function prepCols($data, $PermitKeyColumn = false)
+    {
         $Values = '';
         $Columns = '';
         $ANSIDate = null;
@@ -434,7 +445,8 @@ class MSSQL extends SQL {
      *
      * @return string
      */
-    public function prepUpdate($data, $CheckColumns = false, $TableName = null) {
+    public function prepUpdate($data, $CheckColumns = false, $TableName = null)
+    {
         if (!count($data)) {
             $this->error('Missing data for PrepUpdate');
 
@@ -492,7 +504,8 @@ class MSSQL extends SQL {
      *
      * @return string vzorový vstup vrátí: "`date`,`name`,`id` AS recordID"
      */
-    public function prepSelect($data) {
+    public function prepSelect($data)
+    {
         if (!is_array($data)) {
             return $data;
         }
@@ -541,7 +554,8 @@ class MSSQL extends SQL {
      *
      * @return boolen
      */
-    public function tableExist($TableName = null) {
+    public function tableExist($TableName = null)
+    {
         if (!parent::TableExist($TableName))
             return null;
         $this->exeQuery("SELECT name FROM sysobjects WHERE name = '" . $TableName . "' AND OBJECTPROPERTY(id, 'IsUserTable') = 1");
@@ -559,7 +573,8 @@ class MSSQL extends SQL {
      *
      * @return boolean Success
      */
-    public function createTable(&$TableStructure = null, $TableName = null) {
+    public function createTable(&$TableStructure = null, $TableName = null)
+    {
 
         /*
           CREATE TABLE [dbo].[synctest2](
@@ -584,7 +599,8 @@ class MSSQL extends SQL {
      *
      * @return string SQL Query
      */
-    public function sanitizeQuery($QueryRaw) {
+    public function sanitizeQuery($QueryRaw)
+    {
         $SanitizedQuery = str_replace(["\'", '\"'], ["''", '""'], parent::SanitizeQuery($QueryRaw));
 
         return $SanitizedQuery;
@@ -597,7 +613,8 @@ class MSSQL extends SQL {
      *
      * @return array
      */
-    public function listTables($Sort = false) {
+    public function listTables($Sort = false)
+    {
         $TablesList = [];
         $TablesQuery = $this->queryToArray("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type FROM INFORMATION_SCHEMA.TABLES");
         if (is_array($TablesQuery)) {
@@ -619,7 +636,8 @@ class MSSQL extends SQL {
      *
      * @return boolean
      */
-    public function close() {
+    public function close()
+    {
         if ($this->SQLLink) {
             return mssql_close($this->SQLLink);
         } else {
@@ -634,12 +652,14 @@ class MSSQL extends SQL {
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class EaseMSDbPinger extends EaseDbMSSQL {
+class EaseMSDbPinger extends EaseDbMSSQL
+{
 
     /**
      * Teste provedeme již při připojení
      */
-    public function connect() {
+    public function connect()
+    {
         if (!$this->ping()) {
             $this->writeLockFile();
         } else {
@@ -654,7 +674,8 @@ class EaseMSDbPinger extends EaseDbMSSQL {
      *
      * @return boolean
      */
-    public function writeLockFile($LockFile = null) {
+    public function writeLockFile($LockFile = null)
+    {
         if (!$LockFile) {
             $LockFile = $this->Lockfile;
         }
@@ -682,7 +703,8 @@ class EaseMSDbPinger extends EaseDbMSSQL {
      *
      * @param string $LockFile cesta k zamykacímu souboru
      */
-    public function dropLockFile($LockFile = null) {
+    public function dropLockFile($LockFile = null)
+    {
         if (!$LockFile) {
             $LockFile = $this->Lockfile;
         }
@@ -710,7 +732,8 @@ class EaseMSDbPinger extends EaseDbMSSQL {
      *
      * @return boolan
      */
-    public function ping($Succes = null) {
+    public function ping($Succes = null)
+    {
         $Socket = @fsockopen($this->Server, 1433, $errno, $LastAction);
         if (!$Socket) {
             return parent::Ping(false);

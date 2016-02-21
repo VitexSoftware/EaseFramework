@@ -7,14 +7,16 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class HrTag extends Tag {
+class HrTag extends Tag
+{
 
     /**
      * Horizontal line tag
      *
      * @param array $properties parametry tagu
      */
-    public function __construct($properties = null) {
+    public function __construct($properties = null)
+    {
         parent::__construct('hr', $properties);
     }
 
