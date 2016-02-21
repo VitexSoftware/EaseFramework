@@ -18,6 +18,6 @@ Part::twBootstrapize($oPage);
 
 $caution = 'Notice';
      
-$oPage->addItem( new Modal('caution',_('caution'),$caution,['show'=>true]) );
+$oPage->addItem(new Modal('caution', _('caution'), $caution, ['show'=>true]));
 
 $oPage->draw();

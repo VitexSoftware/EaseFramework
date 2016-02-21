@@ -14,36 +14,42 @@ class Brick extends Sand
 
     /**
      * Objekt pro práci s SQL
+     *
      * @var EaseDbMySqli
      */
     public $dblink = null;
 
     /**
      * Předvolená tabulka v SQL (součást identity)
+     *
      * @var string
      */
     public $myTable = '';
 
     /**
      * Sql Struktura databáze. Je obsažena ve dvou podpolích $SqlStruct['ms'] a $SqlStruct['my']
+     *
      * @var array
      */
     public $sqlStruct = null;
 
     /**
      * Funkční sloupečky pro MS
+     *
      * @var array
      */
     public $msDbRoles = null;
 
     /**
      * Funkční sloupečky pro My
+     *
      * @var array
      */
     public $myDbRoles = null;
 
     /**
      * Odkaz na objekt uživatele
+     *
      * @var User | EaseAnonym
      */
     public $user = null;
@@ -96,7 +102,7 @@ class Brick extends Sand
      * Přiřadí objektu odkaz na objekt uživatele
      *
      * @param object|User $user         pointer to user object
-     * @param object          $targetObject objekt kterému je uživatel
+     * @param object      $targetObject objekt kterému je uživatel přiřazován.
      *                                      přiřazován.
      *
      * @return boolean
@@ -148,21 +154,21 @@ class Brick extends Sand
     {
         if ($addIcons) {
             switch ($type) {
-                case 'mail':                    // Obalka
-                    $message = ' ✉ ' . $message;
-                    break;
-                case 'warning':                    // Vykřičník v trojůhelníku
-                    $message = ' ⚠ ' . $message;
-                    break;
-                case 'error':                      // Lebka
-                    $message = ' ☠ ' . $message;
-                    break;
-                case 'success':                    // Kytička
-                    $message = ' ❁ ' . $message;
-                    break;
-                default:                           // i v kroužku
-                    $message = ' ⓘ ' . $message;
-                    break;
+            case 'mail':                    // Obalka
+                $message = ' ✉ ' . $message;
+                break;
+            case 'warning':                    // Vykřičník v trojůhelníku
+                $message = ' ⚠ ' . $message;
+                break;
+            case 'error':                      // Lebka
+                $message = ' ☠ ' . $message;
+                break;
+            case 'success':                    // Kytička
+                $message = ' ❁ ' . $message;
+                break;
+            default:                           // i v kroužku
+                $message = ' ⓘ ' . $message;
+                break;
             }
         }
         if ($addToLog) {
@@ -196,7 +202,7 @@ class Brick extends Sand
      * @param array|string     $orderBy     třídit dle
      * @param string           $indexBy     klice vysledku naplnit hodnotou ze
      *                                      sloupečku
-     * @param int $limit maximální počet vrácených záznamů
+     * @param int              $limit       maximální počet vrácených záznamů
      *
      * @return array
      */
@@ -292,8 +298,8 @@ class Brick extends Sand
     /**
      * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu
      *
-     * @param int     $itemID     klíč záznamu
-     * @param array   $dataPrefix název datové skupiny
+     * @param int   $itemID     klíč záznamu
+     * @param array $dataPrefix název datové skupiny
      *
      * @return array Results
      */
@@ -765,6 +771,7 @@ class Brick extends Sand
 
     /**
      * Pouze malé a velké písmena
+     *
      * @return string text bez zvláštních znaků
      */
     public static function lettersOnly($text)
@@ -776,7 +783,7 @@ class Brick extends Sand
      * Prohledá zadané slupečky
      *
      * @param string $searchTerm
-     * @param array $columns
+     * @param array  $columns
      */
     public function searchColumns($searchTerm, $columns)
     {

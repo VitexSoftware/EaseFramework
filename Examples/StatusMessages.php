@@ -13,12 +13,12 @@ require_once '../vendor/autoload.php';
  */
 $oPage = new Ease\WebPage();
 
-$oPage->addStatusMessage(_('debug'),'debug');
-$oPage->addStatusMessage(_('info'),'info');
-$oPage->addStatusMessage(_('success'),'success');
-$oPage->addStatusMessage(_('warning'),'warning');
-$oPage->addStatusMessage(_('error'),'error');
+$oPage->addStatusMessage(_('debug'), 'debug');
+$oPage->addStatusMessage(_('info'), 'info');
+$oPage->addStatusMessage(_('success'), 'success');
+$oPage->addStatusMessage(_('warning'), 'warning');
+$oPage->addStatusMessage(_('error'), 'error');
 
-$oPage->addItem( $oPage->getStatusMessagesAsHtml() );
+$oPage->addItem($oPage->getStatusMessagesAsHtml());
 
 $oPage->draw();

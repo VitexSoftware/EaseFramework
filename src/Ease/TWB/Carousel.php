@@ -18,24 +18,28 @@ class Carousel extends \Ease\Html\Div
 
     /**
      * Carousel name
+     *
      * @var string
      */
     public $name = null;
 
     /**
      * Carousel's inner div
+     *
      * @var \Ease\Html\Div
      */
     public $inner = null;
 
     /**
      * Carousel's inner div
+     *
      * @var \Ease\Html\OlTag
      */
     public $indicators = null;
 
     /**
      * Which slide is active ?
+     *
      * @var int
      */
     public $active = null;
@@ -43,9 +47,9 @@ class Carousel extends \Ease\Html\Div
     /**
      * Twitter bootstrap Carousel
      *
-     * @url http://getbootstrap.com/javascript/#carousel
+     * @url   http://getbootstrap.com/javascript/#carousel
      * @param string $name
-     * @param array $properties ['data-ride'=>'carousel'] means autorun
+     * @param array  $properties ['data-ride'=>'carousel'] means autorun
      */
     public function __construct($name = null, $properties = null)
     {
@@ -60,10 +64,10 @@ class Carousel extends \Ease\Html\Div
     /**
      * Carousel Slide
      *
-     * @param mixed|ImgTag $slide body Image or something else
-     * @param string $capHeading
-     * @param string $caption
-     * @param boolean $default show slide by default
+     * @param mixed|ImgTag $slide      body Image or something else
+     * @param string       $capHeading
+     * @param string       $caption
+     * @param boolean      $default    show slide by default
      */
     function addSlide($slide, $capHeading = '', $caption = '', $default = false)
     {
@@ -102,19 +106,25 @@ class Carousel extends \Ease\Html\Div
             $this->inner->getFirstPart()->addTagClass('active');
         }
         $this->inner->addItem(
-                new \Ease\Html\ATag('#' . $this->getTagID(), [
-            new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-left', 'aria-hidden' => 'true']),
-            new \Ease\Html\Span(_('Previous'), ['class' => 'sr-only'])
-                ], ['class' => 'left carousel-control', 'data-slide' => 'prev', 'role' => 'button']));
-        $this->inner->addItem(
-                new \Ease\Html\ATag('#' . $this->getTagID(), [
-            new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-right', 'aria-hidden' => 'true']),
-            new \Ease\Html\Span(_('Next'), ['class' => 'sr-only'])
-                ], ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']));
-        if ($this->getTagProperty('data-ride') != 'carousel') {
-            $this->addJavaScript('$(\'#' . $this->name . '\').carousel();', null, true);
-        }
-//$this->includeJavaScript('js/bootstrap-carousel.js');
+            new \Ease\Html\ATag(
+                '#' . $this->getTagID(), [
+                    new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-left', 'aria-hidden' => 'true']),
+                    new \Ease\Html\Span(_('Previous'), ['class' => 'sr-only'])
+                    ], ['class' => 'left carousel-control', 'data-slide' => 'prev', 'role' => 'button']
+            )
+        );
+                $this->inner->addItem(
+                    new \Ease\Html\ATag(
+                        '#' . $this->getTagID(), [
+                        new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-right', 'aria-hidden' => 'true']),
+                        new \Ease\Html\Span(_('Next'), ['class' => 'sr-only'])
+                        ], ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']
+                    )
+                );
+                if ($this->getTagProperty('data-ride') != 'carousel') {
+                    $this->addJavaScript('$(\'#' . $this->name . '\').carousel();', null, true);
+                }
+                //$this->includeJavaScript('js/bootstrap-carousel.js');
     }
 
 }

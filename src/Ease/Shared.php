@@ -11,7 +11,7 @@
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
- * @author Vitex <vitex@hippy.cz>
+ * @author    Vitex <vitex@hippy.cz>
  */
 
 namespace Ease;
@@ -27,19 +27,21 @@ namespace Ease;
  * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
- * @author Vitex <vitex@hippy.cz>
+ * @author    Vitex <vitex@hippy.cz>
  */
 class Shared extends Atom
 {
 
     /**
      * Odkaz na objekt stránky
+     *
      * @var EaseWebPage
      */
     public $webPage = null;
 
     /**
      * JavaScripts
+     *
      * @var array
      */
     public $javaScripts = null;
@@ -52,42 +54,49 @@ class Shared extends Atom
 
     /**
      * Pole konfigurací
+     *
      * @var array
      */
     public $registry = [];
 
     /**
      * Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script
+     *
      * @var string web|cli
      */
     public $runType = null;
 
     /**
      * Odkaz na instanci objektu uživatele
+     *
      * @var User|Anonym
      */
     public $User = null;
 
     /**
      * Odkaz na objekt databáze
+     *
      * @var SQL\PDO
      */
     public $myDbLink = null;
 
     /**
      * Saves obejct instace (singleton...)
+     *
      * @var Shared
      */
     private static $_instance = null;
 
     /**
      * Pole odkazů na všechny vložené objekty
+     *
      * @var array pole odkazů
      */
     public $allItems = [];
 
     /**
      * Název položky session s objektem uživatele
+     *
      * @var string
      */
     public static $userSessionName = 'User';
@@ -110,7 +119,7 @@ class Shared extends Atom
      *
      * @param string $class název třídy jenž má být zinstancována
      *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
+     * @link   http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      * @return EaseWebPage
      */
     public static function singleton($class = null)
@@ -224,7 +233,7 @@ class Shared extends Atom
             $shared->webPage = & $oPage;
         }
         if (!is_object($shared->webPage)) {
-            require_once 'WebPage.php';
+            include_once 'WebPage.php';
             Shared::webPage(EaseWebPage::singleton());
         }
 
@@ -239,7 +248,7 @@ class Shared extends Atom
      *
      * @return User
      */
-    public static function & user($user = NULL, $userSessionName = NULL)
+    public static function & user($user = null, $userSessionName = null)
     {
         if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
             return $_SESSION[self::$userSessionName];
@@ -263,6 +272,7 @@ class Shared extends Atom
 
     /**
      * Běží php v příkazovém řádku ?
+     *
      * @return boolean
      */
     public static function isCli()

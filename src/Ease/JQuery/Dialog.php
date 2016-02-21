@@ -6,40 +6,45 @@ namespace Ease\JQuery;
  * Dialog
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- * @todo dodělat #IDčka ...
+ * @todo   dodělat #IDčka ...
  */
 class Dialog extends UIPart
 {
 
     /**
      * ID divu s dialogem
+     *
      * @var string
      */
-    public $DialogID = NULL;
+    public $DialogID = null;
 
     /**
      * Titulek okna
+     *
      * @var string
      */
     public $Title = '';
 
     /**
      * Zpráva zobrazená v dialogu
+     *
      * @var type
      */
     public $Message = '';
 
     /**
      * Ikona zprávy
+     *
      * @var type
      */
     public $Icon = '';
 
     /**
      * Doplnující informace
+     *
      * @var type
      */
-    public $Notice = NULL;
+    public $Notice = null;
 
     /**
      * jQuery dialog
@@ -50,7 +55,7 @@ class Dialog extends UIPart
      * @param string $Icon     jQueryUI ikona
      * @param string $Notice   doplnující informce
      */
-    public function __construct($DialogID, $Title, $Message, $Icon = 'ui-icon-circle-check', $Notice = NULL)
+    public function __construct($DialogID, $Title, $Message, $Icon = 'ui-icon-circle-check', $Notice = null)
     {
         $this->DialogID = $DialogID;
         $this->Title = $Title;
@@ -74,9 +79,9 @@ class Dialog extends UIPart
      */
     public function finalize()
     {
-        $DialogDiv = $this->addItem(new Ease\Html\Div(NULL, ['id' => $this->DialogID, 'title' => $this->Title]));
+        $DialogDiv = $this->addItem(new Ease\Html\Div(null, ['id' => $this->DialogID, 'title' => $this->Title]));
         $DialogMessage = $DialogDiv->addItem(new Ease\Html\PTag());
-        $DialogMessage->addItem(new Ease\Html\SpanTag(NULL, NULL, ['class' => 'ui-icon ' . $this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;']));
+        $DialogMessage->addItem(new Ease\Html\SpanTag(null, null, ['class' => 'ui-icon ' . $this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;']));
         $DialogMessage->addItem($this->Message);
         if (!is_null($this->Notice)) {
             $DialogDiv->addItem(new Ease\Html\PTag($this->Notice));

@@ -6,7 +6,7 @@ namespace Ease\JQuery;
  * Tlačítko s potvrzením
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- * @todo dodělat #IDčka ...
+ * @todo   dodělat #IDčka ...
  */
 class ConfirmedLinkButton extends LinkButton
 {

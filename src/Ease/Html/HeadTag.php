@@ -12,12 +12,14 @@ class HeadTag extends PairTag
 
     /**
      * Javascripts to render in page
+     *
      * @var array
      */
     public $javaScripts = null;
 
     /**
      * Css definitions
+     *
      * @var strig
      */
     public $cascadeStyles = null;
@@ -83,8 +85,12 @@ class HeadTag extends PairTag
                     $cascadeStyles[] = $Style;
                 }
             }
-            $this->addItem('<style>' . implode('
-', $cascadeStyles) . '</style>');
+            $this->addItem(
+                '<style>' . implode(
+                    '
+', $cascadeStyles
+                ) . '</style>'
+            );
         }
         if (isset($this->easeShared->javaScripts) && count($this->easeShared->javaScripts)) {
             ksort($this->easeShared->javaScripts, SORT_NUMERIC);
@@ -93,22 +99,30 @@ class HeadTag extends PairTag
                 $ScriptType = $Script[0];
                 $ScriptBody = substr($Script, 1);
                 switch ($ScriptType) {
-                    case '#':
-                        $this->addItem('
-' . '<script src="' . $ScriptBody . '"></script>');
-                        //                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
-                        break;
-                    case '@':
-                        $this->addItem(self::jsEnclosure($ScriptBody));
-                        break;
-                    case '$':
-                        $ODRStack[] = $ScriptBody;
-                        break;
+                case '#':
+                    $this->addItem(
+                        '
+' . '<script src="' . $ScriptBody . '"></script>'
+                    );
+                    //                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
+                    break;
+                case '@':
+                    $this->addItem(self::jsEnclosure($ScriptBody));
+                    break;
+                case '$':
+                    $ODRStack[] = $ScriptBody;
+                    break;
                 }
             }
             if (count($ODRStack)) {
-                $this->addItem(self::jsEnclosure('$(document).ready(function () { ' . implode('
-', $ODRStack) . ' });'));
+                $this->addItem(
+                    self::jsEnclosure(
+                        '$(document).ready(function () { ' . implode(
+                            '
+', $ODRStack
+                        ) . ' });'
+                    )
+                );
             }
         }
         parent::draw();

@@ -12,18 +12,21 @@ class Part extends \Ease\Page
 
     /**
      * Partname/Tag ID
+     *
      * @var string
      */
     public $partName = 'JQ';
 
     /**
      * Use minimized version of scripts ?
+     *
      * @var boolean
      */
     public static $useMinimizedJS = false;
 
     /**
      * Array of Part properties
+     *
      * @var array
      */
     public $partProperties = [];
@@ -177,8 +180,10 @@ class Part extends \Ease\Page
                     $partsArray[] = $partPropertyValue;
                 }
             }
-            $partPropertiesString = implode(',
-', $partsArray);
+            $partPropertiesString = implode(
+                ',
+', $partsArray
+            );
             return $partPropertiesString;
         } else {
             return $partProperties;

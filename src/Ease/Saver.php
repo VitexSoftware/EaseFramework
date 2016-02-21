@@ -20,6 +20,7 @@ class Saver extends Brick
 
     /**
      * Pracujeme s tabulkou mains
+     *
      * @var string
      */
     public $myTable = true;
@@ -160,7 +161,7 @@ class Saver extends Brick
      * jQuery Kod barevného označení výsledku případného uložení
      *
      * @param Container|mixed $enclosedElement element, který se má ukládat
-     * @param string              $Infotext        volitelný zobrazovaný text
+     * @param string          $Infotext        volitelný zobrazovaný text
      *
      * @return string
      */
@@ -169,7 +170,8 @@ class Saver extends Brick
         if (is_null($Infotext)) {
             $Infotext = _('Položku se nepodařilo uložit. Prosím zkuste jinou hodnotu.');
         }
-        EaseShared::webPage()->addItem('<div id="dialog-message' . $enclosedElement->GetTagID() . '" title="' . _('Neuloženo') . '">
+        EaseShared::webPage()->addItem(
+            '<div id="dialog-message' . $enclosedElement->GetTagID() . '" title="' . _('Neuloženo') . '">
     <p>
         <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
         ' . $Infotext . '

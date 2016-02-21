@@ -22,18 +22,21 @@ class SysLogger extends Atom
 
     /**
      * Předvolená metoda logování
+     *
      * @var string
      */
     public $logType = 'syslog';
 
     /**
      * úroveň logování
+     *
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
 
     /**
      * Hodnoty pro obarvování logu
+     *
      * @var array
      */
     public $logStyles = [
@@ -49,30 +52,35 @@ class SysLogger extends Atom
 
     /**
      * Odkaz na vlastnící objekt
+     *
      * @var Sand ||
      */
     public $parentObject = null;
 
     /**
      * Ukládat Zprávy do pole;
+     *
      * @var boolean
      */
     private $storeMessages = false;
 
     /**
      * Pole uložených zpráv
+     *
      * @var array
      */
     private $storedMessages = [];
 
     /**
      * ID naposledy ulozene zpravy
+     *
      * @var int unsigned
      */
     private $messageID = 0;
 
     /**
      * Obecné konfigurace frameworku
+     *
      * @var Shared
      */
     public $easeShared = null;
@@ -84,6 +92,7 @@ class SysLogger extends Atom
 
     /**
      * Handle to logger
+     *
      * @var resource
      */
     public $logger = null;
@@ -98,7 +107,7 @@ class SysLogger extends Atom
         if (!is_null($logName)) {
             $this->logger = openlog($logName, LOG_NDELAY, LOG_USER);
         }
-//        $this->easeShared = Shared::singleton();
+        //        $this->easeShared = Shared::singleton();
     }
 
     /**
@@ -184,12 +193,12 @@ class SysLogger extends Atom
         }
 
         switch ($type) {
-            case 'error':
-                syslog(LOG_ERR, $logLine);
-                break;
-            default:
-                syslog(LOG_INFO, $logLine);
-                break;
+        case 'error':
+            syslog(LOG_ERR, $logLine);
+            break;
+        default:
+            syslog(LOG_INFO, $logLine);
+            break;
         }
 
 
@@ -206,7 +215,7 @@ class SysLogger extends Atom
     public function error($caller, $message, $objectData = null)
     {
         if (!is_null($objectData)) {
-            $message .= print_r($objectData, TRUE);
+            $message .= print_r($objectData, true);
         }
         $this->addToLog($caller, $message, 'error');
     }

@@ -20,9 +20,9 @@ class InputTag extends Tag
     /**
      * Obecný input TAG
      *
-     * @param string             $name       jméno tagu
-     * @param string|EaseObject  $value      vracená hodnota
-     * @param array              $properties vlastnosti tagu
+     * @param string            $name       jméno tagu
+     * @param string|EaseObject $value      vracená hodnota
+     * @param array             $properties vlastnosti tagu
      */
     public function __construct($name, $value = null, $properties = null)
     {

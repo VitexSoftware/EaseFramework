@@ -14,12 +14,14 @@ class CheckboxGroup extends EaseInputContainer
 
     /**
      * Pocet vlozenych polozek
+     *
      * @var int
      */
     private $_subitemCount = 0;
 
     /**
      * Pole hodnot k nastavení
+     *
      * @var array
      */
     public $values = [];
@@ -48,7 +50,7 @@ class CheckboxGroup extends EaseInputContainer
      * Přejmenuje vložené checkboxy pro použití ve formuláři
      *
      * @param CheckboxTag $pageItem     vkládaný objekt CheckBoxu
-     * @param string              $pageItemName Pod tímto jménem je objekt vkládán do stromu
+     * @param string      $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return CheckboxTag
      */
@@ -56,6 +58,7 @@ class CheckboxGroup extends EaseInputContainer
     {
         /**
          * Allready Added Item
+         *
          * @var CheckboxTag
          */
         $itemInpage = parent::addItem($pageItem);

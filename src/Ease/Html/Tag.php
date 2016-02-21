@@ -13,36 +13,42 @@ class Tag extends \Ease\Page
 
     /**
      * Jméno tagu - je použit i jako jméno objektu
+     *
      * @var string
      */
     public $tagName = null;
 
     /**
      * Typ tagu - např A či STRONG
+     *
      * @var string
      */
     public $tagType = null;
 
     /**
      * Pole vlastností tagu
+     *
      * @var array
      */
     public $tagProperties = null;
 
     /**
      * pole ze kterého se rendruje obsah STYLE tagu
+     *
      * @var array
      */
     public $cssProperties = null;
 
     /**
      * Nelogovat události HTML objektů
+     *
      * @var string
      */
     public $logType = 'none';
 
     /**
      * Koncové lomítko pro xhtml
+     *
      * @var string
      */
     public $trail = ' /';
@@ -123,7 +129,7 @@ class Tag extends \Ease\Page
             if (isset($this->tagProperties['name'])) {
                 return $this->tagProperties['name'];
             } else {
-                return NULL;
+                return null;
             }
         } else {
             return $this->tagName;

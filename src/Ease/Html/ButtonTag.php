@@ -11,8 +11,8 @@ class ButtonTag extends PairTag
     /**
      * Html element pro tlačítko
      *
-     * @param string $content         obsah tlačítka
-     * @param array  $tagProperties   vlastnosti tagu
+     * @param string $content       obsah tlačítka
+     * @param array  $tagProperties vlastnosti tagu
      */
     function __construct($content, $tagProperties = null)
     {

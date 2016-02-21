@@ -21,54 +21,63 @@ class WebPage extends Page
 
     /**
      * Položky předávané do vkládaného objektu
+     *
      * @var type
      */
     public $raiseItems = ['SetupWebPage' => 'webPage'];
 
     /**
      * Pole Javasriptu k vykresleni
+     *
      * @var array
      */
     public $javaScripts = null;
 
     /**
      * Pole CSS k vykreslení
+     *
      * @var array
      */
     public $cascadeStyles = null;
 
     /**
      * Nadpis stránky
+     *
      * @var string
      */
     public $pageTitle = null;
 
     /**
      * head stránky
+     *
      * @var Html\HeadTag
      */
     public $head = null;
 
     /**
      * Objekt samotného těla stránky
+     *
      * @var Html\BodyTag
      */
     public $body = null;
 
     /**
      * Nepřipojovat se DB
+     *
      * @var string|bool
      */
     public $myTable = false;
 
     /**
      * Výchozí umístění javascriptů v Debianu
+     *
      * @var string
      */
     public $jsPrefix = '/javascript/';
 
     /**
      * Default CSS locaton on debian
+     *
      * @var string
      */
     public $cssPrefix = '/javascript/';
@@ -78,7 +87,7 @@ class WebPage extends Page
      *
      * @param User|Anonym $userObject objekt uživatele
      */
-    public function __construct($pageTitle = NULL, & $userObject = null)
+    public function __construct($pageTitle = null, & $userObject = null)
     {
         Shared::webPage($this);
         if (!is_null($pageTitle)) {
@@ -138,7 +147,7 @@ class WebPage extends Page
     {
         if ($fwPrefix) {
             return $this->addToScriptsStack(
-                            '#' . $this->jsPrefix . $javaScriptFile, $position
+                '#' . $this->jsPrefix . $javaScriptFile, $position
             );
         } else {
             return $this->addToScriptsStack('#' . $javaScriptFile, $position);
@@ -309,7 +318,7 @@ class WebPage extends Page
      * Nastavi skin
      *
      * @deprecated since version 190
-     * @param string $skinName název skinu
+     * @param      string $skinName název skinu
      */
     public function setSkin($skinName)
     {

@@ -35,7 +35,7 @@ class Form extends \Ease\Html\Form
     /**
      * Vloží prvek do formuláře
      *
-     * @param mixed $input        Vstupní prvek
+     * @param mixed  $input       Vstupní prvek
      * @param string $caption     Popisek
      * @param string $placeholder předvysvětlující text
      * @param string $helptext    Dodatečná nápověda

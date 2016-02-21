@@ -13,8 +13,8 @@ class Span extends PairTag
     /**
      * <span> tag
      *
-     * @param mixed  $content    vkládaný obsah
-     * @param array  $properties parametry tagu
+     * @param mixed $content    vkládaný obsah
+     * @param array $properties parametry tagu
      */
     public function __construct($content = null, $properties = null)
     {

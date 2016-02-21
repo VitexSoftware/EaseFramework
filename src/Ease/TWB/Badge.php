@@ -13,8 +13,8 @@ class Badge extends \Ease\Html\SpanTag
      *
      * @link http://getbootstrap.com/components/#badges
      *
-     * @param mixed  $content
-     * @param array  $properties
+     * @param mixed $content
+     * @param array $properties
      */
     function __construct($content = null, $properties = null)
     {

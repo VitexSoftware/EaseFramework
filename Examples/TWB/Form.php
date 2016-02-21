@@ -22,7 +22,7 @@ if ($Text) {
 }
 
 $form = new TWB\Form('example');
-$form->addInput(new Html\InputTextTag('text'),_('Text'),_('Default text'),_('Text hint'));
+$form->addInput(new Html\InputTextTag('text'), _('Text'), _('Default text'), _('Text hint'));
 $form->addItem(new TWB\SubmitButton('ok', 'success'));
 
 $oPage->addItem($form);

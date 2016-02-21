@@ -22,8 +22,8 @@ class DlTag extends PairTag
     /**
      * Vloží novou definici
      *
-     * @param string|mixed $term    Subjekt
-     * @param string|mixed $value   Popis subjektu
+     * @param string|mixed $term  Subjekt
+     * @param string|mixed $value Popis subjektu
      */
     function addDef($term, $value)
     {

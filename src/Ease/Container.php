@@ -16,36 +16,42 @@ class Container extends Sand
 
     /**
      * Pole objektů a fragmentů k vykreslení
+     *
      * @var array
      */
     public $pageParts = [];
 
     /**
      * Byla jiz stranka vykreslena
+     *
      * @var bool
      */
     public $drawStatus = false;
 
     /**
      * Znaková sada stránky
+     *
      * @var string
      */
     public $charSet = 'utf-8';
 
     /**
      * Prošel už objekt finalizací ?
+     *
      * @var boolean
      */
     private $finalized = false;
 
     /**
      * Které objekty převzít od přebírajícího objektu
+     *
      * @var array
      */
     public $raiseItems = [];
 
     /**
      * Odkaz na webstránku
+     *
      * @var EasePage
      */
     public $webPage = null;
@@ -117,10 +123,9 @@ class Container extends Sand
                 $context->pageParts[$pageItemName] = $pageItem;
                 $context->pageParts[$pageItemName]->parentObject = & $context;
 
-                if (
-                        isset($context->pageParts[$pageItemName]->raiseItems) &&
-                        is_array($context->pageParts[$pageItemName]->raiseItems) &&
-                        count($context->pageParts[$pageItemName]->raiseItems)
+                if (isset($context->pageParts[$pageItemName]->raiseItems) 
+                    && is_array($context->pageParts[$pageItemName]->raiseItems) 
+                    && count($context->pageParts[$pageItemName]->raiseItems)
                 ) {
                     $context->raise($context->pageParts[$pageItemName]);
                 }
@@ -306,8 +311,8 @@ class Container extends Sand
     /**
      * Metoda volaná až po přidání elementu metodou addItem()
      */
-//    function AfterAdd() {
-//    }
+    //    function AfterAdd() {
+    //    }
 
     /**
      * Převezme JavaScripty
@@ -357,14 +362,15 @@ class Container extends Sand
      */
     public function drawAllContents()
     {
-        if (count($this->pageParts))
+        if (count($this->pageParts)) {
             foreach ($this->pageParts as $part) {
                 if (is_object($part) && method_exists($part, 'draw')) {
                     $part->draw();
                 } else {
                     echo $part;
                 }
-            }
+            } 
+        }
         $this->drawStatus = true;
     }
 
@@ -447,7 +453,7 @@ class Container extends Sand
      * Projde všechny vložené objekty a pokud se jejich jména shodují s klíči
      * dat, nastaví se jim hodnota.
      *
-     * @param array               $data asociativní pole dat
+     * @param array           $data asociativní pole dat
      * @param Container|mixed $form formulář k naplnění
      */
     public static function fillMeUp(&$data, &$form)
@@ -475,7 +481,7 @@ class Container extends Sand
     /**
      * Je element prázdný ?
      *
-     * @param Container $element Ease Html Element
+     * @param  Container $element Ease Html Element
      * @return bool prázdnost
      */
     public function isEmpty($element = null)

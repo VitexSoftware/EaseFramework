@@ -36,6 +36,7 @@ class UIPart extends Part
 
     /**
      * Vrací název aktuálně používaného jQueryUI skinu
+     *
      * @return type
      */
     public static function getSkinName()

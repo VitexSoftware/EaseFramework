@@ -22,7 +22,6 @@ class Part extends \Ease\JQuery\Part
 
     /**
      * Opatří objekt vším potřebným pro funkci bootstrapu
-     *
      */
     public static function twBootstrapize()
     {
@@ -41,8 +40,8 @@ class Part extends \Ease\JQuery\Part
      * Vrací ikonu
      *
      * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
-     * @param string $code Kód ikony z přehledu
-     * @param array $properties Vlastnosti Tagu
+     * @param string $code       Kód ikony z přehledu
+     * @param array  $properties Vlastnosti Tagu
      */
     public static function GlyphIcon($code, $properties = null)
     {

@@ -4,9 +4,9 @@
  * Abstraktní databázová třída
  *
  * @deprecated since version 200
- * @package EaseFrameWork
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2014 Vitex@vitexsoftware.cz (G)
+ * @package    EaseFrameWork
+ * @author     Vitex <vitex@hippy.cz>
+ * @copyright  2009-2014 Vitex@vitexsoftware.cz (G)
  */
 
 namespace Ease\SQL;
@@ -21,144 +21,168 @@ abstract class SQL extends \Ease\Sand
 
     /**
      * SQL operation result handle
+     *
      * @var resource
      */
     public $result = null;
 
     /**
      * SQL Handle
+     *
      * @var resource
      */
     public $sqlLink = null;
 
     /**
      * IP serveru
+     *
      * @var string
      */
     public $server = null;
 
     /**
      * DB Login
+     *
      * @var string
      */
     public $username = null;
 
     /**
      * DB heslo
+     *
      * @var string
      */
     public $password = null;
 
     /**
      * Database to connect by default
+     *
      * @var string
      */
     public $database = null;
 
     /**
      * Database port
+     *
      * @var string
      */
     public $port = null;
 
     /**
      * Status připojení
+     *
      * @var bool
      */
     public $status = null;
 
     /**
      * Hodnota posledního voloženeho AutoIncrement sloupečku
+     *
      * @var int unsigned
      */
     public $lastIsnertID = null;
 
     /**
      * Poslední vykonaná SQL Query
+     *
      * @var string
      */
     public $lastQuery = '';
 
     /**
      * Počet ovlivněných nebo vrácených řádek při $this->LastQuery
+     *
      * @var string
      */
     public $numRows = 0;
 
     /**
      * Pole obsahující informace o základních paramatrech SQL přiopojení
+     *
      * @var array
      */
     public $report = ['LastMessage' => 'Please extend'];
 
     /**
      * Klíčový sloupeček pro SQL operace
+     *
      * @var string
      */
     public $keyColumn = '';
 
     /**
      * Název práve zpracovávané tabulky
+     *
      * @var string
      */
     public $tableName = '';
 
     /**
      * Pole obsahující strukturu SQL tabulky
+     *
      * @var array
      */
     public $tableStructure = [];
 
     /**
      * Poslední Chybová zpráva obdržená od SQL serveru
+     *
      * @var string
      */
     public $errorText = null;
 
     /**
      * Kod SQL chyby
+     *
      * @var int
      */
     public $errorNumber = null;
 
     /**
      * Pole obsahující výsledky posledního SQL příkazu
+     *
      * @var array
      */
     public $resultArray = [];
 
     /**
      * Pomocná proměnná pro datové operace
+     *
      * @var array
      */
     public $data = null;
 
     /**
      * Poslední zpráva obdžená od SQL serveru
+     *
      * @var string
      */
     public $lastMessage = null;
 
     /**
      * Prodlevy v sekundách pro znovupřipojení k databázi
+     *
      * @var array
      */
     public $reconectTimeouts = ['web' => 1, 'cgi' => 10];
 
     /**
      * Nastavení vlastností přípojení
+     *
      * @var array
      */
     public $connectionSettings = [];
 
     /**
      * Indikátor nastavení připojení - byly vykonány SET příkazy
+     *
      * @var boolean
      */
     protected $connectAllreadyUP = false;
 
     /**
      * Type of used database
+     *
      * @var string mysql|pgsql|..
      */
     public $dbType;
@@ -202,7 +226,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Přepene databázi
      *
-     * @param  type    $dbName
+     * @param  type $dbName
      * @return boolean
      */
     public function selectDB($dbName = null)
@@ -295,8 +319,8 @@ abstract class SQL extends \Ease\Sand
     /**
      * Otestuje všechny náležitosti pro vytvoření tabulky
      *
-     * @param  array   $tableStructure
-     * @param  string  $tableName
+     * @param  array  $tableStructure
+     * @param  string $tableName
      * @return boolean
      */
     public function createTableQuery(&$tableStructure, $tableName = null)
@@ -336,17 +360,17 @@ abstract class SQL extends \Ease\Sand
                 if (@ereg("(.*)\((.*)\)", $columnProperties['type'], $Regs)) {
                     list(, $Type, $Size) = $Regs;
                     switch ($Type) {
-                        case 'varchar':
-                        case 'string':
-                            if (array_key_exists($column, $data) && $Size) {
-                                if (strlen($data[$column]) > $Size) {
-                                    $this->addToLog('Column ' . $this->tableName . '.' . $column . ' content truncated: ' . substr($data[$column], $Size - strlen($data[$column])), 'warning');
-                                    $data[$column] = substr($data[$column], 0, $Size - 1) . '_';
-                                }
+                    case 'varchar':
+                    case 'string':
+                        if (array_key_exists($column, $data) && $Size) {
+                            if (strlen($data[$column]) > $Size) {
+                                $this->addToLog('Column ' . $this->tableName . '.' . $column . ' content truncated: ' . substr($data[$column], $Size - strlen($data[$column])), 'warning');
+                                $data[$column] = substr($data[$column], 0, $Size - 1) . '_';
                             }
-                            break;
-                        default:
-                            break;
+                        }
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -441,7 +465,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Vrací strukturu SQL tabulky jako pole
      *
-     * @param  string       $tableName
+     * @param  string $tableName
      * @return null|boolean
      */
     public function describe($tableName = null)
@@ -461,7 +485,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Ověří existenci tabulky
      *
-     * @param  string       $tableName
+     * @param  string $tableName
      * @return null|boolean
      */
     public function tableExist($tableName = null)
@@ -589,7 +613,7 @@ abstract class SQL extends \Ease\Sand
      */
     public static function & getPearObject()
     {
-        require_once 'DB.php';
+        include_once 'DB.php';
         $DbHelper = new DB;
 
         $dsn = [

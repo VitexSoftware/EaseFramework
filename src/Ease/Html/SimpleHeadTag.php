@@ -12,6 +12,7 @@ class SimpleHeadTag extends PairTag
 
     /**
      * Content type of webpage
+     *
      * @var string
      */
     public static $ContentType = 'text/html';

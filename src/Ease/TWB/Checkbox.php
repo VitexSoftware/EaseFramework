@@ -11,7 +11,8 @@ class Checkbox extends \Ease\Html\Div
 
     /**
      * Odkaz na checkbox
-     * @var  \Ease\Html\CheckboxTag
+     *
+     * @var \Ease\Html\CheckboxTag
      */
     public $checkbox = null;
 

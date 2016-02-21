@@ -12,6 +12,7 @@ class InputSearchTag extends InputTag
 
     /**
      * URL zdroje dat pro hinter
+     *
      * @var string
      */
     public $dataSourceURL = null;
@@ -57,7 +58,8 @@ class InputSearchTag extends InputTag
         if (!is_null($this->dataSourceURL)) {
             EaseJQueryUIPart::jQueryze($this);
             $this->addCSS('.ui-autocomplete-loading { background: white url(\'Ease/css/images/ui-anim_basic_16x16.gif\') right center no-repeat; }');
-            $this->addJavaScript('
+            $this->addJavaScript(
+                '
     $( "#' . $this->getTagID() . '" ).bind( "keydown", function (event) {
             if ( event.keyCode === $.ui.keyCode.TAB &&
                             $( this ).data( "autocomplete" ).menu.active ) {
@@ -82,7 +84,8 @@ class InputSearchTag extends InputTag
 
 
 
-            ', null, true);
+            ', null, true
+            );
         }
     }
 

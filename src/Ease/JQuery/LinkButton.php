@@ -6,28 +6,31 @@ namespace Ease\JQuery;
  * Hypertextový odkaz v designu jQueryUI tlačítka
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- * @link http://jqueryui.com/demos/button/
+ * @link   http://jqueryui.com/demos/button/
  */
 class LinkButton extends UIPart
 {
 
     /**
      * Jméno tlačítka
+     *
      * @var string
      */
     private $name = null;
 
     /**
      * Paramatry pro jQuery .button()
+     *
      * @var array
      */
     public $JQOptions = null;
 
     /**
      * Odkaz tlačítka
+     *
      * @var Ease\Html\ATag
      */
-    public $Button = NULL;
+    public $Button = null;
 
     /**
      * Link se vzhledem tlačítka
@@ -69,7 +72,7 @@ class LinkButton extends UIPart
      * @param  type $TagID ID tagu
      * @return type
      */
-    public function setTagID($TagID = NULL)
+    public function setTagID($TagID = null)
     {
         return $this->Button->setTagID($TagID);
     }

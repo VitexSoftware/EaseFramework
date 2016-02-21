@@ -6,19 +6,21 @@ namespace Ease\JQuery;
  * Slider
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- * @see http://docs.jquery.com/UI/Slider
+ * @see    http://docs.jquery.com/UI/Slider
  */
 class Slider extends UIPart
 {
 
     /**
      * Class used to create form input
+     *
      * @var type
      */
     public $inputClass = 'Ease\Html\InputHiddenTag';
 
     /**
      * Additional JS code to solve show slider values
+     *
      * @var type
      */
     public $SliderAdd = '';
@@ -163,8 +165,10 @@ class Slider extends UIPart
         if (!isset($this->partProperties['value'])) {
             $this->partProperties['value'] = null;
         }
-        $this->setPartProperties(['change' => 'function (event, ui) {
-            $("#' . $this->partName . '-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ']);
+        $this->setPartProperties(
+            ['change' => 'function (event, ui) {
+            $("#' . $this->partName . '-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ']
+        );
         \Ease\Shared::webPage()->addJavaScript(';', null, true);
         return parent::finalize();
     }

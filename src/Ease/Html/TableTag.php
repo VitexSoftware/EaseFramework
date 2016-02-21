@@ -13,12 +13,14 @@ class TableTag extends PairTag
 
     /**
      * Hlavička tabulky
+     *
      * @var Thead
      */
     public $tHead = null;
 
     /**
      * Tělo tabulky
+     *
      * @var Tbody
      */
     public $tbody = null;
@@ -94,7 +96,7 @@ class TableTag extends PairTag
     /**
      * Je tabulka prázdná ?
      *
-     * @param null $element je zde pouze z důvodu zpětné kompatibility
+     * @param  null $element je zde pouze z důvodu zpětné kompatibility
      * @return type
      */
     function isEmpty($element = null)

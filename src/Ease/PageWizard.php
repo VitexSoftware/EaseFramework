@@ -26,18 +26,21 @@ class PageWizard extends Container
 
     /**
      * Pole kroků průvodce
+     *
      * @var array
      */
     public $steps = [];
 
     /**
      * Aktuálního krok
+     *
      * @var type
      */
     public $currentStepName = null;
 
     /**
      * ID aktuálního kroku
+     *
      * @var type
      */
     public $currentStepID = null;
@@ -50,18 +53,21 @@ class PageWizard extends Container
 
     /**
      * Počítadlo kroků
+     *
      * @var type
      */
     public $stepCount = 0;
 
     /**
      * Značka pro předchozí
+     *
      * @var string
      */
     public static $prevSign = '❰❮❬';
 
     /**
      * Značka pro následující
+     *
      * @var string
      */
     public static $nextSign = '❭❯❱';
@@ -224,6 +230,7 @@ class PageWizard extends Container
 
     /**
      * Vrací div s navigací
+     *
      * @return Html\DivTag
      */
     public function getNavigation()
@@ -268,7 +275,6 @@ class PageWizard extends Container
 
     /**
      * Vloží do sebe seznam kroků s odkazy
-     *
      */
     public function addStepList()
     {
@@ -317,7 +323,7 @@ class PageWizard extends Container
      *
      * @return string
      */
-    public function getStepName($StepID = NULL)
+    public function getStepName($StepID = null)
     {
         if (is_null($StepID)) {
             return $this->currentStepName;

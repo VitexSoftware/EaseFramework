@@ -26,10 +26,10 @@ $listB->addItemSmart(_('Ol Two'));
 $listB->addItemSmart(_('Ol Three'));
 
 $row = new TWB\Row();
-$row->addColumn(4,$listA);
-$row->addColumn(4,$listB);
+$row->addColumn(4, $listA);
+$row->addColumn(4, $listB);
 
-$oPage->addItem( new TWB\Container( $row ) );
+$oPage->addItem(new TWB\Container($row));
 
 $oPage->draw();
 

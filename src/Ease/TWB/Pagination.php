@@ -7,6 +7,7 @@ class Pagination extends \Ease\Html\UlTag
 
     /**
      * Fragment adresy pro stránkování
+     *
      * @var string
      */
     public $url = '?page=';
@@ -55,7 +56,7 @@ class Pagination extends \Ease\Html\UlTag
     /**
      * Přidá krok strankování
      *
-     * @param int $page
+     * @param int    $page
      * @param string $label
      */
     function addPage($page, $label = null, $style = null)

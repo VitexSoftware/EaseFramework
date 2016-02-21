@@ -12,12 +12,14 @@ class Select extends PairTag
 
     /**
      * Předvolené položka #
+     *
      * @var int
      */
     public $defaultValue = null;
 
     /**
      * Automaticky nastavovat název elemnetu
+     *
      * @var boolean
      */
     public $setName = true;
@@ -29,6 +31,7 @@ class Select extends PairTag
 
     /**
      * Mají se vloženým položkám nastavovat ID ?
+     *
      * @var boolean
      */
     private $_itemsIDs = false;

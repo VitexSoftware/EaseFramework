@@ -10,6 +10,7 @@ class Scroller extends Ease\Html\DivTag
 
     /**
      * Objekt do nejž se vkládá rolovaný
+     *
      * @var type
      */
     public $ScrollableArea = null;
@@ -17,9 +18,9 @@ class Scroller extends Ease\Html\DivTag
     /**
      * Rolovatelná oblast
      *
-     * @param string         $name
+     * @param string           $name
      * @param \Ease\Page|mixed $Content
-     * @param array          $Properties
+     * @param array            $Properties
      */
     public function __construct($name = null, $Content = null, $Properties = null)
     {
@@ -39,11 +40,13 @@ class Scroller extends Ease\Html\DivTag
         UIPart::jQueryze($this);
         \Ease\Shared::webPage()->includeCss('smoothDivScroll.css', true);
         \Ease\Shared::webPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js', null, true);
-        \Ease\Shared::webPage()->addJavaScript('
+        \Ease\Shared::webPage()->addJavaScript(
+            '
         $(function () {
             $("div#' . $this->getTagID() . '").smoothDivScroll({});
         });
-        ');
+        '
+        );
     }
 
     /**

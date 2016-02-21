@@ -15,42 +15,49 @@ class Logger extends Atom
 
     /**
      * Předvolená metoda logování
+     *
      * @var string
      */
     public $logType = 'file';
 
     /**
      * Adresář do kterého se zapisují logy
+     *
      * @var string dirpath
      */
     public $logPrefix = null;
 
     /**
      * Soubor s do kterého se zapisuje log
+     *
      * @var string
      */
     public $logFileName = 'Ease.log';
 
     /**
      * úroveň logování
+     *
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
 
     /**
      * Soubor do kterého se zapisuje report
+     *
      * @var string filepath
      */
     public $reportFile = 'EaseReport.log';
 
     /**
      * Soubor do kterého se lougují pouze zprávy typu Error
+     *
      * @var string  filepath
      */
     public $errorLogFile = 'EaseErrors.log';
 
     /**
      * Hodnoty pro obarvování logu
+     *
      * @var array
      */
     public $logStyles = [
@@ -66,42 +73,49 @@ class Logger extends Atom
 
     /**
      * Odkaz na vlastnící objekt
+     *
      * @var EaseSand ||
      */
     public $parentObject = null;
 
     /**
      * Filedescriptor Logu
+     *
      * @var resource
      */
     private $_logFileHandle = null;
 
     /**
      * Filedescriptor chybového Logu
+     *
      * @var resource
      */
     private $_errorLogFileHandle = null;
 
     /**
      * Ukládat Zprávy do pole;
+     *
      * @var boolean
      */
     private $storeMessages = false;
 
     /**
      * Pole uložených zpráv
+     *
      * @var array
      */
     private $storedMessages = [];
 
     /**
      * ID naposledy ulozene zpravy
+     *
      * @var int unsigned
      */
     private $messageID = 0;
 
     /**
      * Obecné konfigurace frameworku
+     *
      * @var Shared
      */
     public $easeShared = null;

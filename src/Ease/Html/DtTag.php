@@ -11,7 +11,7 @@ class DtTag extends PairTag
     /**
      * Pojem definice
      *
-     * @param string|mixed $content        název pojmu / klíčové slovo
+     * @param string|mixed $content       název pojmu / klíčové slovo
      * @param array        $tagProperties
      */
     public function __construct($content = null, $tagProperties = null)

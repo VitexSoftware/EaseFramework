@@ -12,6 +12,7 @@ class InputRadioTag extends InputTag
 
     /**
      * Vracená hodnota
+     *
      * @var string
      */
     public $value = null;

@@ -7,6 +7,7 @@ class Tbody extends PairTag
 
     /**
      * <tbody>
+     *
      * @param mixed $content
      * @param array $properties
      */

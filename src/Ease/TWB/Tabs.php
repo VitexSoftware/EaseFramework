@@ -5,7 +5,7 @@ namespace Ease\TWB;
 /**
  * Create TWBootstrap tabs
  *
- * @see http://getbootstrap.com/2.3.2/components.html#navs
+ * @see    http://getbootstrap.com/2.3.2/components.html#navs
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class Tabs extends \Ease\Container
@@ -13,18 +13,21 @@ class Tabs extends \Ease\Container
 
     /**
      * Název
+     *
      * @var string
      */
     public $partName = 'TWBTabs';
 
     /**
      * Array of tab names=>contents
+     *
      * @var array
      */
     public $tabs = [];
 
     /**
      * Jméno aktivního tabu
+     *
      * @var string
      */
     private $activeTab = null;
@@ -104,9 +107,11 @@ class Tabs extends \Ease\Container
             }
         }
         Part::twBootstrapize();
-        \Ease\Shared::webPage()->addJavaScript('
+        \Ease\Shared::webPage()->addJavaScript(
+            '
         $(\'#' . $this->partName . ' a[href="#' . \Ease\Brick::lettersOnly($this->activeTab) . '"]\').tab(\'show\');
-', NULL, true);
+', null, true
+        );
     }
 
 }

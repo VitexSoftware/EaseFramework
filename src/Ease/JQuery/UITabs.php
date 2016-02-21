@@ -5,7 +5,7 @@ namespace Ease\JQuery;
 /**
  * Create jQueryUI tabs
  *
- * @see http://jqueryui.com/demos/tabs/
+ * @see    http://jqueryui.com/demos/tabs/
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class UITabs extends UIPart
@@ -13,6 +13,7 @@ class UITabs extends UIPart
 
     /**
      * Array of tab names=>contents
+     *
      * @var array
      */
     public $Tabs = [];

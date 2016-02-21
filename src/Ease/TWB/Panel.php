@@ -11,30 +11,35 @@ class Panel extends \Ease\Html\Div
 
     /**
      * Hlavička panelu
+     *
      * @var \Ease\Html\Div
      */
     public $heading = null;
 
     /**
      * Tělo panelu
+     *
      * @var \Ease\Html\Div
      */
     public $body = null;
 
     /**
      * Patička panelu
+     *
      * @var \Ease\Html\Div
      */
     public $footer = null;
 
     /**
      * Typ Panelu
+     *
      * @var string    succes|wanring|info|danger
      */
     public $type = 'default';
 
     /**
      * Obsah k přidání do patičky panelu
+     *
      * @var mixed
      */
     public $addToFooter = null;
@@ -88,7 +93,7 @@ class Panel extends \Ease\Html\Div
     /**
      * Vrací patičku panelu
      *
-     * @param mixed $content obsah pro vložení to patičky
+     * @param  mixed $content obsah pro vložení to patičky
      * @return \Ease\Html\DivTag
      */
     public function footer($content = null)

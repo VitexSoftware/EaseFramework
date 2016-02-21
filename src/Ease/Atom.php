@@ -16,24 +16,28 @@ class Atom
 
     /**
      * Udržuje v sobě jméno objektu.
+     *
      * @var string
      */
     public $objectName = 'EaseSand';
 
     /**
      * Flag debugovacího režimu
+     *
      * @var bool
      */
     public $debug = false;
 
     /**
      * Pole informaci urcenych k logovani inebo zobrazovanych uzivateli
+     *
      * @var array
      */
     public $statusMessages = [];
 
     /**
      * Pocet uchovavanych zprav
+     *
      * @var int
      */
     public $messageCount = 0;

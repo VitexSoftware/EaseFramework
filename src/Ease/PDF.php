@@ -22,24 +22,28 @@ class PDF extends \TCPDF
 
     /**
      * Objekt pro vykreslování
+     *
      * @var EasePage object
      */
     public $OPage = null;
 
     /**
      * Pole vkládaného obsahu
+     *
      * @var array
      */
     public $pageParts = null;
 
     /**
      * Pole předávaných vlastností
+     *
      * @var array
      */
     public $raiseItems = ['SetUpUser' => 'User', 'webPage'];
 
     /**
      * Soubor do kterého je rendrováno výsledné PDF voláním WriteToFile
+     *
      * @var string
      */
     public $OutFile = null;

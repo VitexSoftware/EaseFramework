@@ -23,107 +23,125 @@ class User extends Anonym
 
     /**
      * Pracujem s tabulkou user
+     *
      * @var string
      */
     public $myTable = 'user';
 
     /**
      * Klíčový sloupeček tabulky
+     *
      * @var string
      */
     public $myKeyColumn = 'id';
 
     /**
      * Sloupecek obsahujici datum vložení záznamu uživatele do shopu
+     *
      * @var string
      */
     public $myCreateColumn = null;
 
     /**
      * Sloupecek obsahujici datum poslení modifikace záznamu uživatele do shopu
+     *
      * @var string
      */
     public $myLastModifiedColumn = null;
 
     /**
      * Pole práv uživatele
+     *
      * @var array
      */
     public $permissions = null;
 
     /**
      * Nactena prava uzivatele
+     *
      * @var array
      */
     public $permissionsInactive = null;  //Prava na ktera jiz uzivatel z duvodu nizkeho levelu nedosahne
     /**
      * Objekt nadřazeného uživatele
+     *
      * @var int unsigned
      */
     public $parent = null;
 
     /**
      * ID prave nacteneho uzivatele
+     *
      * @var int unsigned
      */
     public $userID = null;
 
     /**
      * Přihlašovací jméno uživatele
+     *
      * @var string
      */
     public $userLogin = null;
 
     /**
      * Seznam ID podrizenych uzivatelu
+     *
      * @var array
      */
     public $slaveUsers = null;
 
     /**
      * Level uživatele
+     *
      * @var int unsigned
      */
     public $userLevel = null;
 
     /**
      * Registr vlastnosti uzivatele
+     *
      * @var array
      */
     public $valuesToKeep = [];
 
     /**
      * Pole uživatelských nastavení
+     *
      * @var array
      */
     public $settings = [];
 
     /**
      * Sloupeček s loginem
+     *
      * @var string
      */
     public $loginColumn = 'login';
 
     /**
      * Sloupeček s heslem
+     *
      * @var string
      */
     public $passwordColumn = 'password';
 
     /**
      * Sloupecek pro docasne zablokovani uctu
+     *
      * @var type
      */
     public $disableColumn = null;
 
     /**
      * Column for user mail
+     *
      * @var string
      */
     public $mailColumn = 'email';
 
     /**
      * Sloupeček obsahující serializované rozšířené informace
+     *
      * @var string
      */
     public $settingsColumn = null;
@@ -581,9 +599,9 @@ class User extends Anonym
      * @source http://gravatar.com/site/implement/images/php/
      */
     public static function getGravatar(
-    $email, $size = 80, $default = 'mm', $maxRating = 'g'
-    )
-    {
+        $email, $size = 80, $default = 'mm', $maxRating = 'g'
+    ) {
+    
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";

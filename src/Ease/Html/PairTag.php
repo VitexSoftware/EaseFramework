@@ -13,6 +13,7 @@ class PairTag extends Tag
 
     /**
      * Character to close tag
+     *
      * @var type
      */
     public $trail = '';

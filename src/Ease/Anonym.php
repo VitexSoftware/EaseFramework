@@ -17,30 +17,35 @@ class Anonym extends Brick
 
     /**
      * Druh uživatele
+     *
      * @var string
      */
     public $type = 'anonymous';
 
     /**
      * Anonymní uživatel má vždy ID null
+     *
      * @var null
      */
     public $userID = null;
 
     /**
      * Jazyk anonyma
+     *
      * @var string
      */
     public $language = 'cs';
 
     /**
      * Registr vlastnosti uzivatele
+     *
      * @var array
      */
     public $valuesToKeep = [];
 
     /**
      * Indikátor přihlášení
+     *
      * @var boolean
      */
     public $logged = false;

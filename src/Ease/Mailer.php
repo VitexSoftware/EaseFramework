@@ -24,6 +24,7 @@ class Mailer extends Page
 
     /**
      * Objekt pro odesílání pošty
+     *
      * @var
      */
     public $mailer = null;
@@ -37,12 +38,14 @@ class Mailer extends Page
 
     /**
      * Již vzrendrované HTML
+     *
      * @var string
      */
     public $htmlBodyRendered = null;
 
     /**
      * Adresa odesilatele zprávy
+     *
      * @var string
      */
     public $emailAddress = 'postmaster@localhost';
@@ -50,36 +53,42 @@ class Mailer extends Page
 
     /**
      * Emailová adresa odesilatele
+     *
      * @var string
      */
     public $fromEmailAddress = null;
 
     /**
      * Zobrazovat uživateli informaci o odeslání zprávy ?
+     *
      * @var boolean
      */
     public $notify = true;
 
     /**
      * Byla již zpráva odeslána ?
+     *
      * @var boolean
      */
     public $sendResult = false;
 
     /**
      * Objekt stránky pro rendrování do mailu
+     *
      * @var Html\HtmlTag
      */
     public $htmlDocument = null;
 
     /**
      * Ukazatel na BODY html dokumentu
+     *
      * @var Html\BodyTag
      */
     public $htmlBody = null;
 
     /**
      * Parametry odchozí pošty
+     *
      * @var array
      */
     public $parameters = [];
@@ -88,7 +97,7 @@ class Mailer extends Page
      * Ease Mail - sestaví a odešle
      *
      * @param string $emailAddress  adresa
-     * @param string $mailSubject  předmět
+     * @param string $mailSubject   předmět
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
     public function __construct($emailAddress, $mailSubject, $emailContents = null)
@@ -102,7 +111,7 @@ class Mailer extends Page
         }
 
         $this->setMailHeaders(
-                [
+            [
                     'To' => $emailAddress,
                     'From' => $this->fromEmailAddress,
                     'Reply-To' => $this->fromEmailAddress,

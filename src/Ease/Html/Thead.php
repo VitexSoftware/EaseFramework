@@ -7,6 +7,7 @@ class Thead extends PairTag
 
     /**
      * <thead>
+     *
      * @param mixed $content
      * @param array $properties
      */

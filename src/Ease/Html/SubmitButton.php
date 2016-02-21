@@ -12,6 +12,7 @@ class SubmitButton extends InputTag
 
     /**
      * Popisek odesílacího tlačítka
+     *
      * @var string
      */
     public $label = null;

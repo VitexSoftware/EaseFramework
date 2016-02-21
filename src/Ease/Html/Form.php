@@ -13,18 +13,21 @@ class Form extends PairTag
 
     /**
      * Cíl formu
+     *
      * @var string URL cíle formuláře
      */
     public $formTarget = null;
 
     /**
      * Metoda odesílání
+     *
      * @var string GET|POST
      */
     public $formMethod = null;
 
     /**
      * Nastavovat formuláři jméno ?
+     *
      * @var type
      */
     public $setName = false;

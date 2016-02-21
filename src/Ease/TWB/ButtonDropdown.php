@@ -7,6 +7,7 @@ class ButtonDropdown extends \Ease\Html\Div
 
     /**
      * Rozbalovací nabídka
+     *
      * @var \Ease\Html\UlTag
      */
     public $dropdown = null;
@@ -46,7 +47,7 @@ class ButtonDropdown extends \Ease\Html\Div
     /**
      * Vloží položku do menu tlačítka
      *
-     * @param type $pageItem
+     * @param  type $pageItem
      * @return \Ease\Html\LiTag
      */
     function addMenuItem($pageItem)

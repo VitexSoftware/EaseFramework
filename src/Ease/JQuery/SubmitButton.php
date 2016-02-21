@@ -6,25 +6,28 @@ namespace Ease\JQuery;
  * Odesílací tlačítko
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- * @link http://jqueryui.com/demos/button/
+ * @link   http://jqueryui.com/demos/button/
  */
 class SubmitButton extends UIPart
 {
 
     /**
      * Jméno tlačítka
+     *
      * @var string
      */
     public $name = null;
 
     /**
      * Paramatry pro jQuery .button()
+     *
      * @var array
      */
     public $JQOptions = null;
 
     /**
      * Odkaz na objekt tlačítka
+     *
      * @var Ease\Html\InputSubmitTag
      */
     public $Button = null;
@@ -32,7 +35,7 @@ class SubmitButton extends UIPart
     /**
      * Odesílací tlačítko
      *
-     * @see http://jqueryui.com/demos/button/
+     * @see   http://jqueryui.com/demos/button/
      * @param string       $name
      * @param string       $value
      * @param string       $Title

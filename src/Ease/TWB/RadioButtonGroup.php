@@ -7,24 +7,28 @@ class RadioButtonGroup extends Ease\Container
 
     /**
      * Jméno
+     *
      * @var string
      */
     public $name = null;
 
     /**
      * Typ
+     *
      * @var bool
      */
     public $inline = false;
 
     /**
      * Položky k zobrazení
+     *
      * @var array
      */
     public $radios = [];
 
     /**
      * Předvolená hodnota
+     *
      * @var string
      */
     public $checked = null;
@@ -32,9 +36,9 @@ class RadioButtonGroup extends Ease\Container
     /**
      * Zobrazí pole radiobuttonů
      *
-     * @param string $name
-     * @param array  $radios pole Hodnota=>Popisek
-     * @param string $checked
+     * @param string  $name
+     * @param array   $radios  pole Hodnota=>Popisek
+     * @param string  $checked
      * @param boolean $inline
      */
     function __construct($name, $radios, $checked = null, $inline = false)

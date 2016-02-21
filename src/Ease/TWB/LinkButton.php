@@ -5,9 +5,9 @@ namespace Ease\TWB;
 /**
  * Odkazové tlačítko twbootstrabu
  *
- * @author     Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright  2012 Vitex@vitexsoftware.cz (G)
- * @link       http://twitter.github.com/bootstrap/base-css.html#buttons Buttons
+ * @author    Vítězslav Dvořák <vitex@hippy.cz>
+ * @copyright 2012 Vitex@vitexsoftware.cz (G)
+ * @link      http://twitter.github.com/bootstrap/base-css.html#buttons Buttons
  */
 class LinkButton extends \Ease\Html\ATag
 {

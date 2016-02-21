@@ -11,18 +11,21 @@ class Navbar extends \Ease\Html\Div
 
     /**
      * Vnitřek menu
+     *
      * @var \Ease\Html\Div
      */
     public $menuInnerContent = null;
 
     /**
      * Položky menu
+     *
      * @var \Ease\Html\UlTag
      */
     private $nav;
 
     /**
      * Položky menu přidávané vpravo
+     *
      * @var \Ease\Html\UlTag
      */
     private $navRight;
@@ -87,7 +90,7 @@ class Navbar extends \Ease\Html\Div
      * Přidá položku menu
      *
      * @param \Ease\Html\ATag $pageItem Položka menu
-     * @param string       $pull     'right' strká položku v menu do prava
+     * @param string          $pull     'right' strká položku v menu do prava
      *
      * @return EaseWebPage
      */
@@ -130,9 +133,9 @@ class Navbar extends \Ease\Html\Div
     /**
      * Vloží rozbalovací menu
      *
-     * @param  string         $label popisek menu
-     * @param  array|string   $items položky menu
-     * @param  string         $pull  směr zarovnání
+     * @param  string       $label popisek menu
+     * @param  array|string $items položky menu
+     * @param  string       $pull  směr zarovnání
      * @return \Ease\Html\ULTag
      */
     function &addDropDownMenu($label, $items, $pull = 'left')

@@ -22,11 +22,11 @@ class Row extends \Ease\Html\Div
     /**
      * Vloží do řádku políčko
      *
-     * @link http://getbootstrap.com/css/#grid
-     * @param int    $size       Velikost políčka 1 - 12
-     * @param mixed  $content    Obsah políčka
-     * @param string $target     Typ zařízení xs|sm|md|lg
-     * @param array  $properties Další vlastnosti tagu
+     * @link   http://getbootstrap.com/css/#grid
+     * @param  int    $size       Velikost políčka 1 - 12
+     * @param  mixed  $content    Obsah políčka
+     * @param  string $target     Typ zařízení xs|sm|md|lg
+     * @param  array  $properties Další vlastnosti tagu
      * @return Col Column contains $content
      */
     public function &addColumn($size, $content = null, $target = 'md', $properties = null)

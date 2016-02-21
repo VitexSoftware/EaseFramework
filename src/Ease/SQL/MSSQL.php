@@ -6,10 +6,10 @@ namespace Ease\SQL;
  * Podpora MSSQL databáze
  *
  * @deprecated since version 2.0
- * @category  Sql
- * @package   EaseFrameWork
- * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2011 Vitex@hippy.cz (G)
+ * @category   Sql
+ * @package    EaseFrameWork
+ * @author     Vítězslav Dvořák <vitex@hippy.cz>
+ * @copyright  2009-2011 Vitex@hippy.cz (G)
  */
 
 /**
@@ -31,24 +31,28 @@ class MSSQL extends SQL
 
     /**
      * Hack pro svéhlavé FreeTDS na windows co ignoruje konfiguraci
+     *
      * @var boolean
      */
     public $WinToUtfRecode = false;
 
     /**
      * Kolikrát se pokusit připojit před offline
+     *
      * @var type
      */
     public $ConnectAttempts = 10;
 
     /**
      * Indikator skutečného připojení k MSSQL
+     *
      * @var boolean
      */
     public $Connected = false;
 
     /**
      * Nastavení vlastností přípojení
+     *
      * @var array
      */
     public $ConnectionSettings = [
@@ -65,12 +69,14 @@ class MSSQL extends SQL
 
     /**
      * Kolikáty pokus o připojení ?
+     *
      * @var int
      */
     public $instanceCounter = 0;
 
     /**
      * MSSQL mode
+     *
      * @var string online|offline
      */
     public $Mode = 'online'; // 'online' | 'offline'
@@ -161,7 +167,7 @@ class MSSQL extends SQL
     /**
      * Přepene databázi
      *
-     * @param  type    $DBName
+     * @param  type $DBName
      * @return boolean
      */
     public function selectDB($DBName = null)
@@ -233,8 +239,9 @@ class MSSQL extends SQL
                 $this->errorText = $this->LastMessage . ":\n" . $this->LastQuery;
 
                 if (EaseShared::isCli()) {
-                    if (function_exists('xdebug_call_function'))
-                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
+                    if (function_exists('xdebug_call_function')) {
+                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n"; 
+                    }
                     echo "\n$QueryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
                 } else {
                     echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
@@ -252,29 +259,29 @@ class MSSQL extends SQL
             //ob_end_clean();
 
             switch ($SQLAction) {
-                case 'select':
-                case 'show':
-                    $this->NumRows = @mssql_num_rows($this->Result);
-                    break;
-                case 'insert':
-                    $this->lastInsertID = (int) current(mssql_fetch_row($this->Result));
+            case 'select':
+            case 'show':
+                $this->NumRows = @mssql_num_rows($this->Result);
+                break;
+            case 'insert':
+                $this->lastInsertID = (int) current(mssql_fetch_row($this->Result));
 
-                    if (!$this->lastInsertID) {
-                        /*
-                          $lidquery_raw  = 'SELECT SCOPE_IDENTITY() AS lastInsertID';
-                          if ($lidresult = mssql_query($lidquery_raw,$this->SQLLink))
-                          $this->lastInsertID = current(mssql_fetch_row($lidresult));
-                          if (!$this->lastInsertID) */
-                        $this->error('Vkládání nevrátilo InsertID :' . $this->utf8($this->LastMessage . ":\n" . $this->LastQuery));
-                    }
+                if (!$this->lastInsertID) {
+                    /*
+                      $lidquery_raw  = 'SELECT SCOPE_IDENTITY() AS lastInsertID';
+                      if ($lidresult = mssql_query($lidquery_raw,$this->SQLLink))
+                      $this->lastInsertID = current(mssql_fetch_row($lidresult));
+                      if (!$this->lastInsertID) */
+                    $this->error('Vkládání nevrátilo InsertID :' . $this->utf8($this->LastMessage . ":\n" . $this->LastQuery));
+                }
 
-                case 'update':
-                case 'replace':
-                case 'delete':
-                    $this->NumRows = mssql_rows_affected($this->SQLLink);
-                    break;
-                default:
-                    $this->NumRows = null;
+            case 'update':
+            case 'replace':
+            case 'delete':
+                $this->NumRows = mssql_rows_affected($this->SQLLink);
+                break;
+            default:
+                $this->NumRows = null;
             }
         } else { //Offline MOD
             if ($this->debug) {
@@ -403,30 +410,32 @@ class MSSQL extends SQL
             //				$deklarace[]='DECLARE @'.$col.' './*funkce_pro_mssql_typ($tabulka.$col)*/.';';
 
             switch (gettype($value)) {
-                case "boolean":
-                    if ($value)
-                        $Values.=" 'True',";
-                    else
-                        $Values.=" 'False',";
-                    break;
-                case "null":
-                    $Values.=" null,";
-                    break;
-                case "integer":
-                case "double":
-                    $Values.=' ' . str_replace(',', '.', $value) . ',';
-                    break;
-                default:
-//                    $ANSIDate = $this->LocaleDateToANSIDate($value);
-                    $ANSIDate = $value;
-                    if ($ANSIDate) {
-                        $value = $ANSIDate;
-                    }
-                    if (strtolower($value) == 'getdate()') {
-                        $Values.=" GetDate(),";
-                    } else {
-                        $Values.=" '" . addslashes($value) . "',";
-                    }
+            case "boolean":
+                if ($value) {
+                    $Values.=" 'True',"; 
+                }
+                else {
+                    $Values.=" 'False',"; 
+                }
+                break;
+            case "null":
+                $Values.=" null,";
+                break;
+            case "integer":
+            case "double":
+                $Values.=' ' . str_replace(',', '.', $value) . ',';
+                break;
+            default:
+                //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
+                $ANSIDate = $value;
+                if ($ANSIDate) {
+                    $value = $ANSIDate;
+                }
+                if (strtolower($value) == 'getdate()') {
+                    $Values.=" GetDate(),";
+                } else {
+                    $Values.=" '" . addslashes($value) . "',";
+                }
             }
             $Columns.=" [$Column],";
         }
@@ -461,34 +470,36 @@ class MSSQL extends SQL
 
         $updates = '';
         foreach ($data as $Column => $value) {
-            if ($Column == $this->KeyColumn)
-                continue;
+            if ($Column == $this->KeyColumn) {
+                continue; 
+            }
             switch (gettype($value)) {
-                case 'boolean':
-                    if ($value) {
-                        $value = ' 1 ';
-                    } else {
-                        $value = ' 0 ';
-                    }
-                    break;
-                case 'null':
-                case 'null':
-                    $value = ' null ';
-                    break;
+            case 'boolean':
+                if ($value) {
+                    $value = ' 1 ';
+                } else {
+                    $value = ' 0 ';
+                }
+                break;
+            case 'null':
+            case 'null':
+                $value = ' null ';
+                break;
 
-                case 'integer':
-                case 'double':
-                    $value = ' ' . str_replace(',', '.', $value);
-                    break;
-                case 'string':
-                default:
-//                    $ANSIDate = $this->LocaleDateToANSIDate($value);
-//                    if ($ANSIDate)
-//                        $value = $ANSIDate;
+            case 'integer':
+            case 'double':
+                $value = ' ' . str_replace(',', '.', $value);
+                break;
+            case 'string':
+            default:
+                //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
+                //                    if ($ANSIDate)
+                //                        $value = $ANSIDate;
 
-                    if (strtolower($value) != 'getdate()')
-                        $value = " '$value' ";
-                    break;
+                if (strtolower($value) != 'getdate()') {
+                    $value = " '$value' "; 
+                }
+                break;
             }
             $updates.=" [$Column] = $value,";
         }
@@ -511,8 +522,9 @@ class MSSQL extends SQL
         }
         $Updates = '';
         foreach ($data as $Column => $value) {
-            if (($Column == $this->KeyColumn) && (count($data) != 1))
-                continue;
+            if (($Column == $this->KeyColumn) && (count($data) != 1)) {
+                continue; 
+            }
             if ($value[0] == '!') {
                 $operator = ' != ';
                 $value = substr($value, 1);
@@ -529,11 +541,14 @@ class MSSQL extends SQL
                 } else {
                     $value = " 0";
                 }   // 	if (is_null($val)) {
-            } elseif (!is_string($value))
-                if (is_float($value))
-                    $value = ' ' . str_replace(',', '.', $value);
-                else
-                    $value = " $value";
+            } elseif (!is_string($value)) {
+                if (is_float($value)) {
+                    $value = ' ' . str_replace(',', '.', $value); 
+                } 
+            }
+            else {
+                $value = " $value"; 
+            }
             else {
                 $value = " '$value'";
                 $operator = ' LIKE ';
@@ -556,13 +571,16 @@ class MSSQL extends SQL
      */
     public function tableExist($TableName = null)
     {
-        if (!parent::TableExist($TableName))
-            return null;
+        if (!parent::TableExist($TableName)) {
+            return null; 
+        }
         $this->exeQuery("SELECT name FROM sysobjects WHERE name = '" . $TableName . "' AND OBJECTPROPERTY(id, 'IsUserTable') = 1");
-        if ($this->NumRows)
-            return true;
-        else
-            return false;
+        if ($this->NumRows) {
+            return true; 
+        }
+        else {
+            return false; 
+        }
     }
 
     /**

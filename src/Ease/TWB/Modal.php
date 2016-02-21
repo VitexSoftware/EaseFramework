@@ -7,36 +7,42 @@ class Modal extends \Ease\Html\Div
 
     /**
      * Spodek dialogu s tlačítky
+     *
      * @var \Ease\Html\Div
      */
     public $footer;
 
     /**
      * Vlastnosti dialogu
+     *
      * @var array
      */
     private $properties;
 
     /**
      * Jméno dialogu
+     *
      * @var string
      */
     public $name;
 
     /**
      * Titulek dialogu
+     *
      * @var string
      */
     public $title;
 
     /**
      * Tělo dialogu
+     *
      * @var \Ease\Html\Div
      */
     public $body;
 
     /**
      * Hlavička dialogu
+     *
      * @var \Ease\Html\Div
      */
     public $header;
@@ -75,17 +81,21 @@ class Modal extends \Ease\Html\Div
         $modalContent->addItem($this->body);
         $modalContent->addItem($this->footer);
         if (is_array($this->properties)) {
-            \Ease\Shared::webPage()->addJavaScript(' $(function ()
+            \Ease\Shared::webPage()->addJavaScript(
+                ' $(function ()
 {
     $("#' . $this->name . '").modal( {' . Part::partPropertiesToString($this->properties) . '});
 });
-', null, true);
+', null, true
+            );
         } else {
-            \Ease\Shared::webPage()->addJavaScript(' $(function ()
+            \Ease\Shared::webPage()->addJavaScript(
+                ' $(function ()
 {
     $("#' . $this->name . '").modal( ' . $this->properties . ');
 });
-', null, true);
+', null, true
+            );
         }
     }
 

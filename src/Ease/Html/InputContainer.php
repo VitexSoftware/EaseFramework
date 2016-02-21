@@ -6,31 +6,35 @@ namespace Ease\Html;
  * Skupina vstupních prvků
  *
  * @deprecated since version 1.0
- * @author Vítězslav Dvořák <vitex@hippy.cz>
+ * @author     Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputContainer extends Ease\Container
 {
 
     /**
      * Name of Radios
+     *
      * @var string
      */
     public $name = 'container';
 
     /**
      * Stored values
+     *
      * @var array
      */
     public $items = [];
 
     /**
      * Default value
+     *
      * @var mixed
      */
     public $checked = null;
 
     /**
      * ClassName
+     *
      * @var InputTag or childs
      */
     public $itemClass = 'InputTextTag';

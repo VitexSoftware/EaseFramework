@@ -38,8 +38,8 @@ class UlTag extends PairTag
     /**
      * Every item id added in LiTag envelope
      *
-     * @param mixed  $pageItem     obsah vkládaný jako položka výčtu
-     * @param string $properties   Vlastnosti LI tagu
+     * @param mixed  $pageItem   obsah vkládaný jako položka výčtu
+     * @param string $properties Vlastnosti LI tagu
      *
      * @return mixed
      */

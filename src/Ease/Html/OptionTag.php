@@ -12,6 +12,7 @@ class OptionTag extends PairTag
 
     /**
      * Hodnota
+     *
      * @var string
      */
     public $value = null;

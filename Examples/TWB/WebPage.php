@@ -22,6 +22,7 @@ class EaseExAppWebPage extends TWB\WebPage
 
     /**
      * Applicaton Menu
+     *
      * @var EaseBiMenu
      */
     public $navBar = null;
@@ -29,14 +30,14 @@ class EaseExAppWebPage extends TWB\WebPage
     /**
      * Stránka aplikace
      *
-     * @param string   $pageTitle
+     * @param string    $pageTitle
      * @param Ease\User $userObject
      */
     public function __construct($pageTitle = null, &$userObject = null)
     {
         parent::__construct($pageTitle, $userObject);
         $this->navBar = $this->addItem(
-                new EaseExAppMenu('menu', 'ExApp', array('class' => 'navbar-fixed-top'))
+            new EaseExAppMenu('menu', 'ExApp', array('class' => 'navbar-fixed-top'))
         );
         $this->addItem(new EaseExAppStatusMessages());
         $this->container = $this->addItem(
@@ -98,13 +99,15 @@ class EaseExAppMenu extends TWB\Navbar
         $this->addMenuItem(new Html\ATag('http://v.s.cz/ease.php', _('Homepage')));
         $this->addMenuItem(new Html\ATag('http://l.q.cz/', _('LinkQuick')));
 
-        $this->addDropDownMenu(_('Systém'), array(
+        $this->addDropDownMenu(
+            _('Systém'), array(
             'settings.php' => '<i class="icon-list"></i>&nbsp;' . _('Nastavení'),
             'shutdown.php' => '<i class="icon-list"></i>&nbsp;' . _('Vypnout zařízení')
                 )
         );
 
-        $this->addDropDownMenu(_('Informace'), array(
+        $this->addDropDownMenu(
+            _('Informace'), array(
             'log.php' => '<i class="icon-list"></i>&nbsp;' . _('System log'),
             'http://h.v.s.cz/' => '<i class="icon-list"></i>&nbsp;' . _('Hosting')
                 )

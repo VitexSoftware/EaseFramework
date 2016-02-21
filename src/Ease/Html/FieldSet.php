@@ -12,18 +12,21 @@ class FieldSet extends PairTag
 
     /**
      * Legenda rámečku
+     *
      * @var mixed
      */
     public $Legend = null;
 
     /**
      * Objekt s tagem Legendy
+     *
      * @var PairTag
      */
     public $LegendTag = null;
 
     /**
      * Obsah rámu
+     *
      * @var mixed
      */
     public $Content = null;

@@ -6,7 +6,7 @@ namespace Ease\JQuery;
  * A set of radio buttons transformed into a button set.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- * @link http://jqueryui.com/demos/button/#radio
+ * @link   http://jqueryui.com/demos/button/#radio
  */
 class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup
 {

@@ -8,7 +8,7 @@ class Col extends \Ease\Html\Div
     /**
      * Bunka CSS tabulky bootstrapu
      *
-     * @link http://getbootstrap.com/css/#grid
+     * @link  http://getbootstrap.com/css/#grid
      * @param int    $size       Velikost políčka 1 - 12
      * @param mixed  $content    Obsah políčka
      * @param string $target     Typ zařízení xs|sm|md|lg

@@ -12,9 +12,10 @@ class LabelTag extends PairTag
 
     /**
      * Odkaz na obsah
+     *
      * @var mixed
      */
-    public $Contents = NULL;
+    public $Contents = null;
 
     /**
      * zobrazí tag pro návěští

@@ -16,6 +16,7 @@ class WebPage extends \Ease\WebPage
 
     /**
      * Boostrap URL Strart path with ./ to use local one
+     *
      * @var string relative path/url
      */
     public $mainStyle = 'twitter-bootstrap/css/bootstrap.css';
@@ -31,7 +32,7 @@ class WebPage extends \Ease\WebPage
         parent::__construct($pageTitle);
         $this->includeCss($this->mainStyle, ($this->mainStyle[0] != '.'));
         $this->head->addItem(
-                '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );
     }
 
@@ -47,7 +48,7 @@ class WebPage extends \Ease\WebPage
         /**
          * Session Singleton Problem hack
          */
-//$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
+        //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
 
         if (!count($this->easeShared->statusMessages)) {
             return '';

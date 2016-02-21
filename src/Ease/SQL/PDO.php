@@ -20,12 +20,14 @@ class PDO extends SQL
 
     /**
      * DBO class instance
+     *
      * @var DBO
      */
     public $sqlLink = null;
 
     /**
      * SQLLink result
+     *
      * @var PDOStatement
      */
     public $result = null;
@@ -36,12 +38,14 @@ class PDO extends SQL
 
     /**
      * KeyColumn used for postgresql insert id
+     *
      * @var string
      */
     public $keyColumn = null;
 
     /**
      * Table used for postgresql insert id
+     *
      * @var string
      */
     public $myTable = null;
@@ -51,12 +55,14 @@ class PDO extends SQL
 
     /**
      * Povolit Explain každého dotazu do logu ?
+     *
      * @var bool
      */
     public $explainMode = false;
 
     /**
      * Nastavení vlastností přípojení
+     *
      * @var array
      */
     public $connectionSettings = [];
@@ -68,6 +74,7 @@ class PDO extends SQL
 
     /**
      * Database Type
+     *
      * @var type
      */
     public $dbType = null;
@@ -98,7 +105,7 @@ class PDO extends SQL
         if (!is_null($column)) {
             $this->keyColumn = $column;
         }
-//        $this->sqlLink->setKeyColumn($this->myKeyColumn);
+        //        $this->sqlLink->setKeyColumn($this->myKeyColumn);
     }
 
     /**
@@ -111,7 +118,7 @@ class PDO extends SQL
         if ($tablename) {
             $this->myTable = $tablename;
         }
-//        $this->sqlLink->setTableName($this->myTable);
+        //        $this->sqlLink->setTableName($this->myTable);
     }
 
     /**
@@ -132,19 +139,19 @@ class PDO extends SQL
     public function connect()
     {
         switch ($this->dbType) {
-            case 'mysql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port . ';charset=utf8', $this->username, $this->password, [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
-                break;
-            case 'pgsql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port, $this->username, $this->password);
-                if (is_object($this->sqlLink)) {
-                    $this->sqlLink->query("SET NAMES 'UTF-8'");
-                }
-                break;
+        case 'mysql':
+            $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port . ';charset=utf8', $this->username, $this->password, [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
+            break;
+        case 'pgsql':
+            $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port, $this->username, $this->password);
+            if (is_object($this->sqlLink)) {
+                $this->sqlLink->query("SET NAMES 'UTF-8'");
+            }
+            break;
 
-            default:
-                //TODO: Implement Other DB's
-                break;
+        default:
+            //TODO: Implement Other DB's
+            break;
         }
 
         if (is_object($this->sqlLink)) {
@@ -155,7 +162,7 @@ class PDO extends SQL
         }
         if ($this->errorNumber != '00000') {
             $this->addStatusMessage('Connect: error #' . $this->errorNumer . ' ' . $this->errorText, 'error');
-            return FALSE;
+            return false;
         } else {
             return parent::connect();
         }
@@ -202,72 +209,72 @@ class PDO extends SQL
         $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
 
         switch ($sqlAction) {
-            case 'select':
-            case 'show':
+        case 'select':
+        case 'show':
 
-                $this->result = $this->sqlLink->query($queryRaw);
-                $this->errorNumber = $this->sqlLink->errorCode();
-                $errorText = $this->sqlLink->errorInfo();
-                if ($this->errorNumber) {
-                    $this->errorText = $errorText[2];
-                }
-                if (!$this->result && !$ignoreErrors) {
-                    if (\Ease\Shared::isCli()) {
-                        if (function_exists('xdebug_call_function')) {
-                            echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
-                        }
-                        echo "\n$queryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
-                    } else {
-                        echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
-                        if (function_exists('xdebug_print_function_stack')) {
-                            xdebug_print_function_stack("Volano tridou <b>" . xdebug_call_class() . '</b> v souboru <b>' . xdebug_call_file() . ":" . xdebug_call_line() . "</b> funkci <b>" . xdebug_call_function() . '</b>');
-                        }
-                        echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#" . $this->errorNumber . ":<strong>" . $this->errorText . '</strong></pre></br>';
+            $this->result = $this->sqlLink->query($queryRaw);
+            $this->errorNumber = $this->sqlLink->errorCode();
+            $errorText = $this->sqlLink->errorInfo();
+            if ($this->errorNumber) {
+                $this->errorText = $errorText[2];
+            }
+            if (!$this->result && !$ignoreErrors) {
+                if (\Ease\Shared::isCli()) {
+                    if (function_exists('xdebug_call_function')) {
+                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
                     }
-                    $this->logError();
-                    $this->error('ExeQuery: #' . $this->errorNumber . ': ' . $this->errorText . "\n" . $queryRaw);
+                    echo "\n$queryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
+                } else {
+                    echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
+                    if (function_exists('xdebug_print_function_stack')) {
+                        xdebug_print_function_stack("Volano tridou <b>" . xdebug_call_class() . '</b> v souboru <b>' . xdebug_call_file() . ":" . xdebug_call_line() . "</b> funkci <b>" . xdebug_call_function() . '</b>');
+                    }
+                    echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#" . $this->errorNumber . ":<strong>" . $this->errorText . '</strong></pre></br>';
                 }
+                $this->logError();
+                $this->error('ExeQuery: #' . $this->errorNumber . ': ' . $this->errorText . "\n" . $queryRaw);
+            }
 
 
-                if ($this->errorNumber == '00000') {
-                    $this->numRows = $this->result->rowCount();
-                }
-                break;
-            case 'insert':
-            case 'replace':
-            case 'delete':
-                $stmt = $this->sqlLink->prepare($queryRaw);
-                $stmt->execute();
-                $this->errorNumber = $this->sqlLink->errorCode();
-                $this->errorText = $this->sqlLink->errorInfo();
+            if ($this->errorNumber == '00000') {
+                $this->numRows = $this->result->rowCount();
+            }
+            break;
+        case 'insert':
+        case 'replace':
+        case 'delete':
+            $stmt = $this->sqlLink->prepare($queryRaw);
+            $stmt->execute();
+            $this->errorNumber = $this->sqlLink->errorCode();
+            $this->errorText = $this->sqlLink->errorInfo();
 
-                if (isset($this->errorText[2])) {
-                    $this->error($this->errorText[2], $queryRaw);
-                }
+            if (isset($this->errorText[2])) {
+                $this->error($this->errorText[2], $queryRaw);
+            }
 
-                if ($this->errorText[0] == '0000') {
-                    $this->lastInsertID = $this->getlastInsertID();
-                    $this->numRows = $stmt->rowCount();
-                }
-                break;
-            case 'update':
-                $stmt = $this->sqlLink->prepare($queryRaw);
-                $stmt->execute();
-                $this->errorNumber = $this->sqlLink->errorCode();
-                $errorText = $this->sqlLink->errorInfo();
-                if ($this->errorNumber) {
-                    $this->errorText = $errorText[2];
-                }
+            if ($this->errorText[0] == '0000') {
+                $this->lastInsertID = $this->getlastInsertID();
                 $this->numRows = $stmt->rowCount();
-                if (is_null($this->result)) {
-                    $this->result = true;
-                }
-                break;
-            case 'alter':
-                $this->numRows = $stmt->rowCount();
-                break;
-            default:
-                $this->numRows = null;
+            }
+            break;
+        case 'update':
+            $stmt = $this->sqlLink->prepare($queryRaw);
+            $stmt->execute();
+            $this->errorNumber = $this->sqlLink->errorCode();
+            $errorText = $this->sqlLink->errorInfo();
+            if ($this->errorNumber) {
+                $this->errorText = $errorText[2];
+            }
+            $this->numRows = $stmt->rowCount();
+            if (is_null($this->result)) {
+                $this->result = true;
+            }
+            break;
+        case 'alter':
+            $this->numRows = $stmt->rowCount();
+            break;
+        default:
+            $this->numRows = null;
         }
 
         return $this->result;
@@ -281,16 +288,16 @@ class PDO extends SQL
     public function getlastInsertID($column = null)
     {
         switch ($this->dbType) {
-            case 'pgsql':
-                if (is_null($column)) {
-                    $column = $this->myTable . '_' . $this->myKeyColumn . '_seq';
-                } else {
-                    $column = $this->myTable . '_' . $column . '_seq';
-                }
-                break;
+        case 'pgsql':
+            if (is_null($column)) {
+                $column = $this->myTable . '_' . $this->myKeyColumn . '_seq';
+            } else {
+                $column = $this->myTable . '_' . $column . '_seq';
+            }
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
 
         return $this->sqlLink->lastInsertId($column);
@@ -350,7 +357,6 @@ class PDO extends SQL
      * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
      *
      * @return sqlresult
-     *
      */
     public function arrayToUpdate($data, $KeyID = null)
     {
@@ -374,12 +380,12 @@ class PDO extends SQL
     function arrayToQuery($data, $key = true)
     {
         switch ($this->dbType) {
-            case 'pgsql':
-                $fragment = $this->arrayToValuesQuery($data, $key);
-                break;
-            default:
-                $fragment = $this->arrayToSetQuery($data, $key);
-                break;
+        case 'pgsql':
+            $fragment = $this->arrayToValuesQuery($data, $key);
+            break;
+        default:
+            $fragment = $this->arrayToSetQuery($data, $key);
+            break;
         }
         return $fragment;
     }
@@ -396,12 +402,12 @@ class PDO extends SQL
     function arrayToInsertQuery($data, $key = true)
     {
         switch ($this->dbType) {
-            case 'mysql':
-                $fragment = ' SET ' . $this->arrayToSetQuery($data, $key);
-                break;
-            default:
-                $fragment = $this->arrayToValuesQuery($data, $key);
-                break;
+        case 'mysql':
+            $fragment = ' SET ' . $this->arrayToSetQuery($data, $key);
+            break;
+        default:
+            $fragment = $this->arrayToValuesQuery($data, $key);
+            break;
         }
         return $fragment;
     }
@@ -428,34 +434,34 @@ class PDO extends SQL
                 continue;
             }
             switch (gettype($value)) {
-                case 'integer':
-                    $value = " $value ";
-                    break;
-                case 'float':
-                case 'double':
-                    $value = ' ' . str_replace(',', '.', $value) . ' ';
-                    break;
-                case 'boolean':
-                    if ($value) {
-                        $value = ' 1 ';
+            case 'integer':
+                $value = " $value ";
+                break;
+            case 'float':
+            case 'double':
+                $value = ' ' . str_replace(',', '.', $value) . ' ';
+                break;
+            case 'boolean':
+                if ($value) {
+                    $value = ' 1 ';
+                } else {
+                    $value = ' 0 ';
+                }
+                break;
+            case 'null':
+                $value = ' null ';
+                break;
+            case 'string':
+                if ($value != 'NOW()') {
+                    if (!strstr($value, "\'")) {
+                        $value = " '" . str_replace("'", "\'", $value) . "' ";
                     } else {
-                        $value = ' 0 ';
+                        $value = " '$value' ";
                     }
-                    break;
-                case 'NULL':
-                    $value = ' null ';
-                    break;
-                case 'string':
-                    if ($value != 'NOW()') {
-                        if (!strstr($value, "\'")) {
-                            $value = " '" . str_replace("'", "\'", $value) . "' ";
-                        } else {
-                            $value = " '$value' ";
-                        }
-                    }
-                    break;
-                default:
-                    $value = " '$value' ";
+                }
+                break;
+            default:
+                $value = " '$value' ";
             }
 
             $values[$column] = "$value";
@@ -491,34 +497,34 @@ class PDO extends SQL
                 continue;
             }
             switch (gettype($value)) {
-                case 'integer':
-                    $value = " $value ";
-                    break;
-                case 'float':
-                case 'double':
-                    $value = ' ' . str_replace(',', '.', $value) . ' ';
-                    break;
-                case 'boolean':
-                    if ($value) {
-                        $value = ' 1 ';
+            case 'integer':
+                $value = " $value ";
+                break;
+            case 'float':
+            case 'double':
+                $value = ' ' . str_replace(',', '.', $value) . ' ';
+                break;
+            case 'boolean':
+                if ($value) {
+                    $value = ' 1 ';
+                } else {
+                    $value = ' 0 ';
+                }
+                break;
+            case 'null':
+                $value = ' null ';
+                break;
+            case 'string':
+                if ($value != 'NOW()') {
+                    if (!strstr($value, "\'")) {
+                        $value = " '" . str_replace("'", "\'", $value) . "' ";
                     } else {
-                        $value = ' 0 ';
+                        $value = " '$value' ";
                     }
-                    break;
-                case 'NULL':
-                    $value = ' null ';
-                    break;
-                case 'string':
-                    if ($value != 'NOW()') {
-                        if (!strstr($value, "\'")) {
-                            $value = " '" . str_replace("'", "\'", $value) . "' ";
-                        } else {
-                            $value = " '$value' ";
-                        }
-                    }
-                    break;
-                default:
-                    $value = " '$value' ";
+                }
+                break;
+            default:
+                $value = " '$value' ";
             }
 
             $updates .= ' ' . $this->getColumnComma() . $column . $this->getColumnComma() . " = $value,";
@@ -561,7 +567,7 @@ class PDO extends SQL
                     $operator = ' != ';
                     $value = substr($value, 1);
                 } else {
-                    if (($value == '!NULL') || (strtoupper($value) == 'IS NOT NULL')) {
+                    if (($value == '!null') || (strtoupper($value) == 'IS NOT null')) {
                         $value = 'null';
                         $operator = 'IS NOT';
                     } else {
@@ -736,16 +742,16 @@ class PDO extends SQL
         foreach ($tableStructure as $columnName => $columnProperties) {
 
             switch ($columnProperties['type']) {
-                case 'bit':
-                    $columnProperties['type'] = 'tinyint';
-                    break;
-                case 'money':
-                case 'decimal(10,4)(19)':
-                    $columnProperties['type'] = 'decimal(10,4)';
-                    break;
+            case 'bit':
+                $columnProperties['type'] = 'tinyint';
+                break;
+            case 'money':
+            case 'decimal(10,4)(19)':
+                $columnProperties['type'] = 'decimal(10,4)';
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
 
             $rawItem = "  `" . $columnName . "` " . $columnProperties['type'];
@@ -760,9 +766,9 @@ class PDO extends SQL
 
             if (array_key_exists('null', $columnProperties)) {
                 if ($columnProperties['null'] == true) {
-                    $rawItem .= " NULL ";
+                    $rawItem .= " null ";
                 } else {
-                    $rawItem .= " NOT NULL ";
+                    $rawItem .= " NOT null ";
                 }
             }
             if (array_key_exists('ai', $columnProperties)) {
@@ -783,9 +789,9 @@ class PDO extends SQL
             }
             if (array_key_exists('null', $columnProperties)) {
                 if ($columnProperties['null'] == true) {
-                    $queryRawItems .= ' NULL ';
+                    $queryRawItems .= ' null ';
                 } else {
-                    $queryRawItems .= ' NOT NULL ';
+                    $queryRawItems .= ' NOT null ';
                 }
             }
             /*
@@ -849,27 +855,27 @@ class PDO extends SQL
                 }
                 if (!array_key_exists($dataColumn, $tableColumns[$easeBrick->myTable])) {
                     switch (gettype($dataValue)) {
-                        case 'boolean':
-                            $columnType = 'TINYINT( 1 )';
-                            break;
-                        case 'string':
-                            if (strlen($dataValue) > 255) {
-                                $columnType = 'TEXT';
-                            } else {
-                                $columnType = 'VARCHAR(' . strlen($dataValue) . ')';
-                            }
-                            break;
-                        case 'integer':
-                            $columnType = 'INT( ' . strlen($dataValue) . ' )';
-                            break;
-                        case 'double':
-                        case 'float':
-                            list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
-                            $columnType = 'FLOAT( ' . strlen($m) . ',' . strlen($d) . ' )';
-                            break;
+                    case 'boolean':
+                        $columnType = 'TINYINT( 1 )';
+                        break;
+                    case 'string':
+                        if (strlen($dataValue) > 255) {
+                            $columnType = 'TEXT';
+                        } else {
+                            $columnType = 'VARCHAR(' . strlen($dataValue) . ')';
+                        }
+                        break;
+                    case 'integer':
+                        $columnType = 'INT( ' . strlen($dataValue) . ' )';
+                        break;
+                    case 'double':
+                    case 'float':
+                        list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
+                        $columnType = 'FLOAT( ' . strlen($m) . ',' . strlen($d) . ' )';
+                        break;
 
-                        default:
-                            continue;
+                    default:
+                        continue;
                             break;
                     }
                     $AddColumnQuery = 'ALTER TABLE `' . $easeBrick->myTable . '` ADD `' . $dataColumn . '` ' . $columnType . ' null DEFAULT null';
@@ -896,15 +902,15 @@ class PDO extends SQL
     function getColumnComma()
     {
         switch ($this->dbType) {
-            case 'pgsql':
-                $coma = '"';
-                break;
-            case 'mysql':
-                $coma = '`';
-                break;
-            default:
-                $coma = parent::getColumnComma();
-                break;
+        case 'pgsql':
+            $coma = '"';
+            break;
+        case 'mysql':
+            $coma = '`';
+            break;
+        default:
+            $coma = parent::getColumnComma();
+            break;
         }
         return $coma;
     }
