@@ -7,9 +7,10 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
  */
-require_once 'tcpdf/tcpdf.php';
 
 namespace Ease;
+
+require_once 'tcpdf/tcpdf.php';
 
 /**
  * Umožnuje generovat PDF dokumenty z EaseFrameWorku
