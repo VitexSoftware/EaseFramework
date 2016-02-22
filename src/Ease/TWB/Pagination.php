@@ -68,5 +68,4 @@ class Pagination extends \Ease\Html\UlTag
             $this->addItemSmart(new \Ease\Html\ATag($link, $label));
         }
     }
-
 }

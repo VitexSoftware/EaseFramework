@@ -18,5 +18,4 @@ class AddressTag extends PairTag
     {
         parent::__construct('address', $tagProperties, $content);
     }
-
 }

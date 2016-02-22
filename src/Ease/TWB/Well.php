@@ -18,5 +18,4 @@ class Well extends \Ease\Html\Div
         parent::__construct($content, $properties);
         $this->addTagClass('well');
     }
-
 }

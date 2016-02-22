@@ -427,5 +427,4 @@ class Logger extends Atom
             return '';
         }
     }
-
 }

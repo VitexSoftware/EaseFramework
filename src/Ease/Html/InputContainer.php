@@ -116,5 +116,4 @@ class InputContainer extends Ease\Container
         }
         $this->addItem('<label for="' . $forID . '">' . $label . '</label>');
     }
-
 }

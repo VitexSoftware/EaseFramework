@@ -155,5 +155,4 @@ class Anonym extends Brick
 
         return true;
     }
-
 }

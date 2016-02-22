@@ -63,5 +63,4 @@ class Form extends \Ease\Html\Form
         $added = parent::addItem($pageItem, $pageItemName);
         return $added;
     }
-
 }

@@ -22,5 +22,4 @@ class Container extends \Ease\Html\Div
     {
         parent::__construct($content, ['class' => 'container']);
     }
-
 }

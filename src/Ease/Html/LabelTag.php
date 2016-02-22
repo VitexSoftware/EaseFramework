@@ -45,5 +45,4 @@ class LabelTag extends PairTag
         }
         return parent::setObjectName(get_class($this) . '@' . $this->getTagProperty('for'));
     }
-
 }

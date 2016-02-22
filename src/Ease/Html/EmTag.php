@@ -20,5 +20,4 @@ class EmTag extends PairTag
     {
         parent::__construct('em', $properties, $content);
     }
-
 }

@@ -26,5 +26,4 @@ class RadioButton extends \Ease\Html\Div
         }
         parent::__construct(null, new \Ease\Html\LabelTag($for, [new \Ease\Html\InputRadioTag($name, $value, $properties), $caption]));
     }
-
 }

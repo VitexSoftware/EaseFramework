@@ -84,9 +84,10 @@ class InputSearchTag extends InputTag
 
 
 
-            ', null, true
+            ',
+                null,
+                true
             );
         }
     }
-
 }

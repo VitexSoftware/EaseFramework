@@ -17,10 +17,11 @@ class ScriptTag extends PairTag
     public function __construct($content = null, $tagProperties = null)
     {
         parent::__construct(
-            'script', $tagProperties, '// <![CDATA[
+            'script',
+            $tagProperties,
+            '// <![CDATA[
 ' . $content . '
 // ]]>'
         );
     }
-
 }

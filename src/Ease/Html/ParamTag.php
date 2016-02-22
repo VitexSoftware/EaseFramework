@@ -20,5 +20,4 @@ class ParamTag extends Tag
     {
         parent::__construct('param', ['name' => $name, 'value' => $value]);
     }
-
 }

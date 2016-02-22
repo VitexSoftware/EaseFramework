@@ -88,7 +88,8 @@ class HeadTag extends PairTag
             $this->addItem(
                 '<style>' . implode(
                     '
-', $cascadeStyles
+',
+                    $cascadeStyles
                 ) . '</style>'
             );
         }
@@ -99,19 +100,19 @@ class HeadTag extends PairTag
                 $ScriptType = $Script[0];
                 $ScriptBody = substr($Script, 1);
                 switch ($ScriptType) {
-                case '#':
-                    $this->addItem(
-                        '
+                    case '#':
+                        $this->addItem(
+                            '
 ' . '<script src="' . $ScriptBody . '"></script>'
-                    );
-                    //                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
-                    break;
-                case '@':
-                    $this->addItem(self::jsEnclosure($ScriptBody));
-                    break;
-                case '$':
-                    $ODRStack[] = $ScriptBody;
-                    break;
+                        );
+                        //                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
+                        break;
+                    case '@':
+                        $this->addItem(self::jsEnclosure($ScriptBody));
+                        break;
+                    case '$':
+                        $ODRStack[] = $ScriptBody;
+                        break;
                 }
             }
             if (count($ODRStack)) {
@@ -119,7 +120,8 @@ class HeadTag extends PairTag
                     self::jsEnclosure(
                         '$(document).ready(function () { ' . implode(
                             '
-', $ODRStack
+',
+                            $ODRStack
                         ) . ' });'
                     )
                 );
@@ -127,5 +129,4 @@ class HeadTag extends PairTag
         }
         parent::draw();
     }
-
 }

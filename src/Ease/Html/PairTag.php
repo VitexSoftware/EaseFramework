@@ -43,5 +43,4 @@ class PairTag extends Tag
     {
         echo '</' . $this->tagType . '>';
     }
-
 }

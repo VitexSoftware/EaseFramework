@@ -68,7 +68,7 @@ class Page extends Container
      * @link   http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      * @return EaseWebPage
      */
-    public static function singleton($user = null) 
+    public static function singleton($user = null)
     {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
@@ -84,7 +84,7 @@ class Page extends Container
      * @param object|Page|Container $easeObject objekt do kterého
      *                                                  přiřazujeme WebStránku
      */
-    public static function assignWebPage(&$easeObject) 
+    public static function assignWebPage(&$easeObject)
     {
         if (isset($easeObject->easeShared->webPage)) {
             $easeObject->webPage = &$easeObject->easeShared->webPage;
@@ -106,7 +106,7 @@ class Page extends Container
      *
      * @return int
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true) 
+    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
     {
         self::assignWebPage($this);
 
@@ -122,7 +122,7 @@ class Page extends Container
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false) 
+    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
     {
         self::assignWebPage($this);
 
@@ -136,7 +136,7 @@ class Page extends Container
      *
      * @return boolean
      */
-    public function addCSS($css) 
+    public function addCSS($css)
     {
         self::assignWebPage($this);
 
@@ -152,7 +152,7 @@ class Page extends Container
      *
      * @return int
      */
-    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen') 
+    public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
     {
         self::assignWebPage($this);
 
@@ -164,7 +164,7 @@ class Page extends Container
      *
      * @param string $url adresa přesměrování
      */
-    public static function redirect($url) 
+    public static function redirect($url)
     {
         $messages = Shared::instanced()->statusMessages;
         if (count($messages)) {
@@ -178,7 +178,7 @@ class Page extends Container
      *
      * @return string
      */
-    public static function getUri() 
+    public static function getUri()
     {
         return $_SERVER['REQUEST_URI'];
     }
@@ -190,11 +190,14 @@ class Page extends Container
      *
      * @return string the current URL
      */
-    public static function phpSelf($dropqs = true) 
+    public static function phpSelf($dropqs = true)
     {
         $url = sprintf(
-            '%s://%s%s', empty($_SERVER['HTTPS']) ?
-                        (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http', $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
+            '%s://%s%s',
+            empty($_SERVER['HTTPS']) ?
+                        (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
+            $_SERVER['SERVER_NAME'],
+            $_SERVER['REQUEST_URI']
         );
 
         $parts = parse_url($url);
@@ -224,7 +227,7 @@ class Page extends Container
      *
      * @param string $loginPage adresa přihlašovací stránky
      */
-    public function onlyForLogged($loginPage = 'login.php') 
+    public function onlyForLogged($loginPage = 'login.php')
     {
         $user = Shared::user();
         if (!method_exists($user, 'isLogged') || !$user->isLogged()) {
@@ -239,7 +242,7 @@ class Page extends Container
      *
      * @return array
      */
-    public function getRequestValues() 
+    public function getRequestValues()
     {
         global $_REQUEST;
         $requestValuesToKeep = [];
@@ -259,7 +262,7 @@ class Page extends Container
      *
      * @return boolean
      */
-    public static function isPosted() 
+    public static function isPosted()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             return true;
@@ -276,37 +279,37 @@ class Page extends Container
      *
      * @return mixed
      */
-    public static function sanitizeAsType($value, $sanitizeAs) 
+    public static function sanitizeAsType($value, $sanitizeAs)
     {
         switch ($sanitizeAs) {
-        case 'string':
-            return (string) $value;
+            case 'string':
+                return (string) $value;
                 break;
-        case 'int':
-            return (int) $value;
+            case 'int':
+                return (int) $value;
                 break;
-        case 'float':
-            return (float) $value;
+            case 'float':
+                return (float) $value;
                 break;
-        case 'bool':
-        case 'boolean':
-            if (($value == 'true') || ($value == 1)) {
-                return true;
+            case 'bool':
+            case 'boolean':
+                if (($value == 'true') || ($value == 1)) {
+                    return true;
+                }
+                break;
+            if (($value == 'false') || ($value == 0)) {
+                return fals;
             }
-            break;
-        if (($value == 'false') || ($value == 0)) {
-            return fals;
-        }
                 break;
 
                 return null;
-        case 'null':
-        case 'null':
-            if (strtoupper($value) == 'null') {
-                return null;
-            }
-        default:
-            return $value;
+            case 'null':
+            case 'null':
+                if (strtoupper($value) == 'null') {
+                    return null;
+                }
+            default:
+                return $value;
                 break;
         }
     }
@@ -319,7 +322,7 @@ class Page extends Container
      *
      * @return mixed
      */
-    public function getRequestValue($field, $sanitizeAs = null) 
+    public function getRequestValue($field, $sanitizeAs = null)
     {
         global $_REQUEST;
         $this->setupWebPage();
@@ -351,7 +354,7 @@ class Page extends Container
      *
      * @return string
      */
-    public static function getGetValue($field, $sanitizeAs = null) 
+    public static function getGetValue($field, $sanitizeAs = null)
     {
         if (isset($_GET[$field])) {
             if ($sanitizeAs) {
@@ -372,7 +375,7 @@ class Page extends Container
      *
      * @return string
      */
-    public static function getPostValue($field, $sanitizeAs = null) 
+    public static function getPostValue($field, $sanitizeAs = null)
     {
         if (isset($_POST[$field])) {
             if ($sanitizeAs) {
@@ -391,7 +394,7 @@ class Page extends Container
      * @category requestValue
      * @return   boolean
      */
-    public static function isFormPosted() 
+    public static function isFormPosted()
     {
         return (isset($_POST) && count($_POST));
     }
@@ -404,7 +407,7 @@ class Page extends Container
      * @param string $varName  název klíče
      * @param mixed  $varValue hodnota klíče
      */
-    public function keepRequestValue($varName, $varValue = true) 
+    public function keepRequestValue($varName, $varValue = true)
     {
         Shared::webPage()->requestValuesToKeep[$varName] = $varValue;
     }
@@ -416,7 +419,7 @@ class Page extends Container
      *
      * @param array $varNames asociativní pole hodnot
      */
-    public function keepRequestValues($varNames) 
+    public function keepRequestValues($varNames)
     {
         if (is_array($varNames)) {
             foreach ($varNames as $varName => $varValue) {
@@ -454,7 +457,7 @@ class Page extends Container
      *
      * @param string $varName jméno proměnné
      */
-    public function unKeepRequestValue($varName) 
+    public function unKeepRequestValue($varName)
     {
         unset(Shared::webPage()->requestValuesToKeep[$varName]);
     }
@@ -464,7 +467,7 @@ class Page extends Container
      *
      * @category requestValue
      */
-    public function unKeepRequestValues() 
+    public function unKeepRequestValues()
     {
         Shared::webPage()->requestValuesToKeep = [];
     }
@@ -476,7 +479,7 @@ class Page extends Container
      *
      * @return string
      */
-    public function getLinkParametersToKeep() 
+    public function getLinkParametersToKeep()
     {
         $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
 
@@ -498,7 +501,7 @@ class Page extends Container
      *
      * @param EaseWebPage|true $webPage Objekt stránky, true - force assign
      */
-    public function setupWebPage(& $webPage = null) 
+    public function setupWebPage(& $webPage = null)
     {
         if (is_null($webPage)) {
             $webPage = & $this;
@@ -514,7 +517,7 @@ class Page extends Container
      *
      * @param string $outputFormat výstupní formát, např Mail nebo Print
      */
-    public function setOutputFormat($outputFormat) 
+    public function setOutputFormat($outputFormat)
     {
         $this->outputFormat = $outputFormat;
         foreach ($this->pageParts as $part) {
@@ -525,7 +528,7 @@ class Page extends Container
     /**
      * Vrací formát výstupu
      */
-    public function getOutputFormat() 
+    public function getOutputFormat()
     {
         return $this->outputFormat;
     }
@@ -538,7 +541,7 @@ class Page extends Container
      *
      * @return int počet převzatých hlášek
      */
-    public function takeStatusMessages($msgSource, $denyQues = null) 
+    public function takeStatusMessages($msgSource, $denyQues = null)
     {
         if (is_array($msgSource) && count($msgSource)) {
             $allMessages = [];
@@ -584,7 +587,7 @@ class Page extends Container
      * @param array  $params
      * @param string $baseUrl
      */
-    public static function arrayToUrlParams($params, $baseUrl = '') 
+    public static function arrayToUrlParams($params, $baseUrl = '')
     {
         if (strstr($baseUrl, '?')) {
             return $baseUrl . '&' . http_build_query($params);
@@ -592,5 +595,4 @@ class Page extends Container
             return $baseUrl . '?' . http_build_query($params);
         }
     }
-
 }

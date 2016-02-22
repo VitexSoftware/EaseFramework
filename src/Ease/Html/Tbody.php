@@ -15,5 +15,4 @@ class Tbody extends PairTag
     {
         parent::__construct('tbody', $properties, $content);
     }
-
 }

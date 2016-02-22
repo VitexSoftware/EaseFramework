@@ -44,5 +44,4 @@ class DataGrid extends Html\TableTag
             }
         }
     }
-
 }

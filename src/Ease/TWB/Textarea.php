@@ -26,5 +26,4 @@ class Textarea extends \Ease\Html\TextareaTag
         }
         parent::__construct($name, $content, $properties);
     }
-
 }

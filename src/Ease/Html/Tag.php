@@ -345,5 +345,4 @@ class Tag extends \Ease\Page
         echo $this->trail;
         echo '>';
     }
-
 }

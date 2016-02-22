@@ -25,5 +25,4 @@ class SpanTag extends PairTag
         }
         parent::__construct('span', $properties, $content);
     }
-
 }

@@ -164,5 +164,4 @@ class Atom
             echo $this->__toString();
         }
     }
-
 }

@@ -119,5 +119,4 @@ class CheckboxGroup extends EaseInputContainer
             }
         }
     }
-
 }

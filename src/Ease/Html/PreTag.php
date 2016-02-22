@@ -18,5 +18,4 @@ class PreTag extends PairTag
     {
         parent::__construct('pre', $tagProperties, $content);
     }
-
 }

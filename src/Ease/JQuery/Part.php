@@ -182,12 +182,12 @@ class Part extends \Ease\Page
             }
             $partPropertiesString = implode(
                 ',
-', $partsArray
+',
+                $partsArray
             );
             return $partPropertiesString;
         } else {
             return $partProperties;
         }
     }
-
 }

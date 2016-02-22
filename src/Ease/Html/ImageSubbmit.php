@@ -34,5 +34,4 @@ class ImageSubbmit extends InputTag
         $this->setTagProperties($Properties);
         parent::__construct($value, $Label);
     }
-
 }

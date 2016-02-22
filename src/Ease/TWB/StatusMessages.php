@@ -36,5 +36,4 @@ class StatusMessages extends \Ease\Html\Div
             $this->suicide();
         }
     }
-
 }

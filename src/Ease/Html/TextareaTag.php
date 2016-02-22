@@ -46,5 +46,4 @@ class TextareaTag extends PairTag
         $this->pageParts = [];
         $this->addItem($value);
     }
-
 }

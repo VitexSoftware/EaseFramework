@@ -138,5 +138,4 @@ class Select extends PairTag
     {
         unset($this->pageParts['OptionTag@' . $itemID]);
     }
-
 }

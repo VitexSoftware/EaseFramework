@@ -51,5 +51,4 @@ class CheckboxTag extends InputTag
             unset($this->tagProperties['checked']);
         }
     }
-
 }

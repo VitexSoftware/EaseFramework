@@ -28,5 +28,4 @@ class IframeTag extends PairTag
         $this->setTagProperties($properties);
         parent::__construct();
     }
-
 }

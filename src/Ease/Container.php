@@ -123,8 +123,8 @@ class Container extends Sand
                 $context->pageParts[$pageItemName] = $pageItem;
                 $context->pageParts[$pageItemName]->parentObject = & $context;
 
-                if (isset($context->pageParts[$pageItemName]->raiseItems) 
-                    && is_array($context->pageParts[$pageItemName]->raiseItems) 
+                if (isset($context->pageParts[$pageItemName]->raiseItems)
+                    && is_array($context->pageParts[$pageItemName]->raiseItems)
                     && count($context->pageParts[$pageItemName]->raiseItems)
                 ) {
                     $context->raise($context->pageParts[$pageItemName]);
@@ -369,7 +369,7 @@ class Container extends Sand
                 } else {
                     echo $part;
                 }
-            } 
+            }
         }
         $this->drawStatus = true;
     }
@@ -525,5 +525,4 @@ class Container extends Sand
 
         return $objectOut;
     }
-
 }

@@ -22,5 +22,4 @@ class CheckBoxGroup extends Ease\Container
             $this->addItem(new Checkbox($name, $value, $value, $checked));
         }
     }
-
 }

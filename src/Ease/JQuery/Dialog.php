@@ -88,5 +88,4 @@ class Dialog extends UIPart
         }
         parent::finalize();
     }
-
 }

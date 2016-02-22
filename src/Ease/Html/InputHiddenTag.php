@@ -23,5 +23,4 @@ class InputHiddenTag extends InputTag
         $properties['type'] = 'hidden';
         $this->setTagProperties($properties);
     }
-
 }

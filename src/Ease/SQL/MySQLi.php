@@ -155,7 +155,7 @@ class MySQLi extends SQL
             if (!$this->result && !$ignoreErrors) {
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function')) {
-                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n"; 
+                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
                     }
                     echo "\n$queryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
                 } else {
@@ -176,24 +176,24 @@ class MySQLi extends SQL
         } while ($this->errorNumber == 2006); // 'MySQL server has gone away'
 
         switch ($sqlAction) {
-        case 'select':
-        case 'show':
-            if (!$this->errorText) {
-                $this->numRows = $this->result->num_rows;
-            }
-            break;
-        case 'insert':
-            if (!$this->errorText) {
-                $this->lastInsertID = $this->sqlLink->insert_id;
-            }
-        case 'update':
-        case 'replace':
-        case 'delete':
-        case 'alter':
-            $this->numRows = $this->sqlLink->affected_rows;
-            break;
-        default:
-            $this->numRows = null;
+            case 'select':
+            case 'show':
+                if (!$this->errorText) {
+                    $this->numRows = $this->result->num_rows;
+                }
+                break;
+            case 'insert':
+                if (!$this->errorText) {
+                    $this->lastInsertID = $this->sqlLink->insert_id;
+                }
+            case 'update':
+            case 'replace':
+            case 'delete':
+            case 'alter':
+                $this->numRows = $this->sqlLink->affected_rows;
+                break;
+            default:
+                $this->numRows = null;
         }
         if ($this->explainMode) {
             $explainQuery = $this->sqlLink->query('EXPLAIN ' . $queryRaw);
@@ -291,34 +291,34 @@ class MySQLi extends SQL
                 continue;
             }
             switch (gettype($value)) {
-            case 'integer':
-                $value = " $value ";
-                break;
-            case 'float':
-            case 'double':
-                $value = ' ' . str_replace(',', '.', $value) . ' ';
-                break;
-            case 'boolean':
-                if ($value) {
-                    $value = ' 1 ';
-                } else {
-                    $value = ' 0 ';
-                }
-                break;
-            case 'null':
-                $value = ' null ';
-                break;
-            case 'string':
-                if ($value != 'NOW()') {
-                    if (!strstr($value, "\'")) {
-                        $value = " '" . str_replace("'", "\'", $value) . "' ";
+                case 'integer':
+                    $value = " $value ";
+                    break;
+                case 'float':
+                case 'double':
+                    $value = ' ' . str_replace(',', '.', $value) . ' ';
+                    break;
+                case 'boolean':
+                    if ($value) {
+                        $value = ' 1 ';
                     } else {
-                        $value = " '$value' ";
+                        $value = ' 0 ';
                     }
-                }
-                break;
-            default:
-                $value = " '$value' ";
+                    break;
+                case 'null':
+                    $value = ' null ';
+                    break;
+                case 'string':
+                    if ($value != 'NOW()') {
+                        if (!strstr($value, "\'")) {
+                            $value = " '" . str_replace("'", "\'", $value) . "' ";
+                        } else {
+                            $value = " '$value' ";
+                        }
+                    }
+                    break;
+                default:
+                    $value = " '$value' ";
             }
 
             $updates.=" `$column` = $value,";
@@ -534,18 +534,17 @@ class MySQLi extends SQL
 
         $queryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
         foreach ($tableStructure as $columnName => $columnProperties) {
-
             switch ($columnProperties['type']) {
-            case 'bit':
-                $columnProperties['type'] = 'tinyint';
-                break;
-            case 'money':
-            case 'decimal(10,4)(19)':
-                $columnProperties['type'] = 'decimal(10,4)';
-                break;
+                case 'bit':
+                    $columnProperties['type'] = 'tinyint';
+                    break;
+                case 'money':
+                case 'decimal(10,4)(19)':
+                    $columnProperties['type'] = 'decimal(10,4)';
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
 
             $rawItem = "  `" . $columnName . "` " . $columnProperties['type'];
@@ -649,27 +648,27 @@ class MySQLi extends SQL
                 }
                 if (!array_key_exists($dataColumn, $tableColumns[$easeBrick->myTable])) {
                     switch (gettype($dataValue)) {
-                    case 'boolean':
-                        $columnType = 'TINYINT( 1 )';
-                        break;
-                    case 'string':
-                        if (strlen($dataValue) > 255) {
-                            $columnType = 'TEXT';
-                        } else {
-                            $columnType = 'VARCHAR(' . strlen($dataValue) . ')';
-                        }
-                        break;
-                    case 'integer':
-                        $columnType = 'INT( ' . strlen($dataValue) . ' )';
-                        break;
-                    case 'double':
-                    case 'float':
-                        list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
-                        $columnType = 'FLOAT( ' . strlen($m) . ',' . strlen($d) . ' )';
-                        break;
+                        case 'boolean':
+                            $columnType = 'TINYINT( 1 )';
+                            break;
+                        case 'string':
+                            if (strlen($dataValue) > 255) {
+                                $columnType = 'TEXT';
+                            } else {
+                                $columnType = 'VARCHAR(' . strlen($dataValue) . ')';
+                            }
+                            break;
+                        case 'integer':
+                            $columnType = 'INT( ' . strlen($dataValue) . ' )';
+                            break;
+                        case 'double':
+                        case 'float':
+                            list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
+                            $columnType = 'FLOAT( ' . strlen($m) . ',' . strlen($d) . ' )';
+                            break;
 
-                    default:
-                        continue;
+                        default:
+                            continue;
                             break;
                     }
                     $AddColumnQuery = 'ALTER TABLE `' . $easeBrick->myTable . '` ADD `' . $dataColumn . '` ' . $columnType . ' null DEFAULT null';
@@ -711,5 +710,4 @@ class MySQLi extends SQL
     {
         return null;
     }
-
 }

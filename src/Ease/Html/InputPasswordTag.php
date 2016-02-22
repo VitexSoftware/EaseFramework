@@ -21,5 +21,4 @@ class InputPasswordTag extends InputTextTag
         parent::__construct($name, $value);
         $this->setTagProperties(['type' => 'password']);
     }
-
 }

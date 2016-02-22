@@ -24,5 +24,4 @@ class JavaScript extends Ease\html\ScriptTag
         }
         parent::__construct($content, $properties);
     }
-
 }

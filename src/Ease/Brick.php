@@ -794,5 +794,4 @@ class Brick extends Sand
         }
         return $this->dblink->queryToArray('SELECT * FROM ' . $this->myTable . ' WHERE ' . implode(' OR ', $conditons));
     }
-
 }

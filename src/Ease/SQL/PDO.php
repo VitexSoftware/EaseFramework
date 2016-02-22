@@ -211,7 +211,6 @@ class PDO extends SQL
         switch ($sqlAction) {
             case 'select':
             case 'show':
-
                 $this->result = $this->sqlLink->query($queryRaw);
                 $this->errorNumber = $this->sqlLink->errorCode();
                 $errorText = $this->sqlLink->errorInfo();
@@ -740,7 +739,6 @@ class PDO extends SQL
 
         $queryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
         foreach ($tableStructure as $columnName => $columnProperties) {
-
             switch ($columnProperties['type']) {
                 case 'bit':
                     $columnProperties['type'] = 'tinyint';
@@ -957,5 +955,4 @@ class PDO extends SQL
         unset($this->result);
         return parent::__sleep();
     }
-
 }

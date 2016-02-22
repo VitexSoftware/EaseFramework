@@ -31,5 +31,4 @@ class InputTextTag extends InputTag
         $this->setTagProperties($properties);
         parent::__construct($name, $value);
     }
-
 }

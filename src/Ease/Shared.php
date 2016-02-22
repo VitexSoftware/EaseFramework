@@ -290,5 +290,4 @@ class Shared extends Atom
         $easeShared = Shared::singleton();
         $easeShared->allItems[] = $itemPointer;
     }
-
 }

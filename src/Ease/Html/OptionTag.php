@@ -57,5 +57,4 @@ class OptionTag extends PairTag
     {
         return $this->value;
     }
-
 }

@@ -20,5 +20,4 @@ class TdTag extends PairTag
     {
         parent::__construct('td', $properties, $content);
     }
-
 }

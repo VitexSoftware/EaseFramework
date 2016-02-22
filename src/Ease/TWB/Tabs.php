@@ -110,8 +110,9 @@ class Tabs extends \Ease\Container
         \Ease\Shared::webPage()->addJavaScript(
             '
         $(\'#' . $this->partName . ' a[href="#' . \Ease\Brick::lettersOnly($this->activeTab) . '"]\').tab(\'show\');
-', null, true
+',
+            null,
+            true
         );
     }
-
 }

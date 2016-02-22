@@ -61,5 +61,4 @@ class InputTag extends Tag
     {
         return $this->getTagProperty('value');
     }
-
 }

@@ -22,5 +22,4 @@ class Col extends \Ease\Html\Div
         $properties['class'] = 'col-' . $target . '-' . $size;
         parent::__construct($content, $properties);
     }
-
 }

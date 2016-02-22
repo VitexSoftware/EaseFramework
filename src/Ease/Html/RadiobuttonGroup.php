@@ -15,5 +15,4 @@ class RadiobuttonGroup extends EaseInputContainer
      * @var string
      */
     public $itemClass = 'InputRadioTag';
-
 }

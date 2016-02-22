@@ -21,5 +21,4 @@ class TrTag extends PairTag
     {
         parent::__construct('tr', $properties, $content);
     }
-
 }

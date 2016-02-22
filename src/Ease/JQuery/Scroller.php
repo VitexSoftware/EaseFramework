@@ -60,5 +60,4 @@ class Scroller extends Ease\Html\DivTag
     {
         return $this->ScrollableArea->addItem($PageItem, $PageItemName);
     }
-
 }

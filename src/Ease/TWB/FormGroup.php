@@ -30,5 +30,4 @@ class FormGroup extends \Ease\Html\Div
             $this->addItem(new \Ease\Html\PTag($helptext, ['class' => 'help-block']));
         }
     }
-
 }

@@ -20,5 +20,4 @@ class TitleTag extends PairTag
     {
         parent::__construct('title', $properties, $contents);
     }
-
 }

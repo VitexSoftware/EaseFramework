@@ -78,5 +78,4 @@ class SubmitButton extends UIPart
     {
         return $this->Button->setTagName($TagName);
     }
-
 }

@@ -15,5 +15,4 @@ class Thead extends PairTag
     {
         parent::__construct('thead', $properties, $content);
     }
-
 }

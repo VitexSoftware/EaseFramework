@@ -40,5 +40,4 @@ class InputSubmitTag extends InputTag
     {
 
     }
-
 }

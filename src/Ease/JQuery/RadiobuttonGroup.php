@@ -36,5 +36,4 @@ class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup
         $this->addItem($enclosure);
         $this->addJavaScript('$(function () { $( "#' . $enclosure->getTagID() . '" ).buttonset(); } );', null, true);
     }
-
 }

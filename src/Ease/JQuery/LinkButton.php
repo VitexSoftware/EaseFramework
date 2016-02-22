@@ -86,5 +86,4 @@ class LinkButton extends UIPart
     {
         return $this->Button->getTagID();
     }
-
 }

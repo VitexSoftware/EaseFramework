@@ -83,5 +83,4 @@ class UITabs extends UIPart
         }
         self::jQueryze($this);
     }
-
 }

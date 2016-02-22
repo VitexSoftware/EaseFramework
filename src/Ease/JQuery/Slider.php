@@ -172,5 +172,4 @@ class Slider extends UIPart
         \Ease\Shared::webPage()->addJavaScript(';', null, true);
         return parent::finalize();
     }
-
 }

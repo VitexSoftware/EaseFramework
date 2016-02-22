@@ -193,12 +193,12 @@ class SysLogger extends Atom
         }
 
         switch ($type) {
-        case 'error':
-            syslog(LOG_ERR, $logLine);
-            break;
-        default:
-            syslog(LOG_INFO, $logLine);
-            break;
+            case 'error':
+                syslog(LOG_ERR, $logLine);
+                break;
+            default:
+                syslog(LOG_INFO, $logLine);
+                break;
         }
 
 
@@ -245,5 +245,4 @@ class SysLogger extends Atom
             return '';
         }
     }
-
 }

@@ -20,5 +20,4 @@ class LiTag extends PairTag
     {
         parent::__construct('li', $properties, $ulContents);
     }
-
 }

@@ -132,14 +132,14 @@ class Sand extends Atom
     {
         $this->easeShared = Shared::singleton();
         switch ($this->logType) {
-        case 'file':
-            $this->logger = Logger::singleton();
-            break;
-        case 'syslog':
-            $this->logger = SysLogger::singleton();
-            break;
-        default:
-            break;
+            case 'file':
+                $this->logger = Logger::singleton();
+                break;
+            case 'syslog':
+                $this->logger = SysLogger::singleton();
+                break;
+            default:
+                break;
         }
 
         $this->setObjectName();
@@ -693,7 +693,7 @@ class Sand extends Atom
      * @link      http://www.dominicsayers.com/isemail
      * @version   1.9 - Minor modifications to make it compatible with PHPLint
      */
-    static public function isEmail($email, $checkDNS = false)
+    public static function isEmail($email, $checkDNS = false)
     {
         /* Check that $email is a valid address. Read the following RFCs to understand the constraints:
           // 	(http://tools.ietf.org/html/rfc5322)
@@ -744,60 +744,60 @@ class Sand extends Atom
                 $escapeThisChar = !$escapeThisChar; // Escape the next character?
             } else {
                 switch ($char) {
-                case '(':
-                    if ($escapeThisChar) {
-                        $replaceChar = true;
-                    } else {
-                        if ($inQuote) {
+                    case '(':
+                        if ($escapeThisChar) {
                             $replaceChar = true;
                         } else {
-                            if ($braceDepth++ > 0) {
-                                $replaceChar = true; // Increment brace depth
+                            if ($inQuote) {
+                                $replaceChar = true;
+                            } else {
+                                if ($braceDepth++ > 0) {
+                                    $replaceChar = true; // Increment brace depth
+                                }
                             }
                         }
-                    }
 
-                    break;
-                case ')':
-                    if ($escapeThisChar) {
-                        $replaceChar = true;
-                    } else {
-                        if ($inQuote) {
+                        break;
+                    case ')':
+                        if ($escapeThisChar) {
                             $replaceChar = true;
                         } else {
-                            if (--$braceDepth > 0) {
-                                $replaceChar = true; // Decrement brace depth
-                            }
-                            if ($braceDepth < 0) {
-                                $braceDepth = 0;
+                            if ($inQuote) {
+                                $replaceChar = true;
+                            } else {
+                                if (--$braceDepth > 0) {
+                                    $replaceChar = true; // Decrement brace depth
+                                }
+                                if ($braceDepth < 0) {
+                                    $braceDepth = 0;
+                                }
                             }
                         }
-                    }
 
-                    break;
-                case '"':
-                    if ($escapeThisChar) {
-                        $replaceChar = true;
-                    } else {
-                        if ($braceDepth === 0) {
-                            $inQuote = !$inQuote; // Are we inside a quoted string?
-                        } else {
+                        break;
+                    case '"':
+                        if ($escapeThisChar) {
                             $replaceChar = true;
+                        } else {
+                            if ($braceDepth === 0) {
+                                $inQuote = !$inQuote; // Are we inside a quoted string?
+                            } else {
+                                $replaceChar = true;
+                            }
                         }
-                    }
 
-                    break;
-                case '.': // Dots don't help us either
-                    if ($escapeThisChar) {
-                        $replaceChar = true;
-                    } else {
-                        if ($braceDepth > 0) {
-                            $replaceChar = true; 
+                        break;
+                    case '.': // Dots don't help us either
+                        if ($escapeThisChar) {
+                            $replaceChar = true;
+                        } else {
+                            if ($braceDepth > 0) {
+                                $replaceChar = true;
+                            }
                         }
-                    }
 
-                    break;
-                default:
+                        break;
+                    default:
                 }
 
                 $escapeThisChar = false;
@@ -1177,7 +1177,7 @@ class Sand extends Atom
      * @param  int $filesize bytů
      * @return string
      */
-    static public function humanFilesize($filesize)
+    public static function humanFilesize($filesize)
     {
 
         if (is_numeric($filesize)) {
@@ -1204,5 +1204,4 @@ class Sand extends Atom
         $this->setObjectName();
         $this->restoreObjectIdentity();
     }
-
 }

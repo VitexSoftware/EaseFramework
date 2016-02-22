@@ -35,5 +35,4 @@ class BodyTag extends PairTag
     {
         parent::setObjectName('body');
     }
-
 }

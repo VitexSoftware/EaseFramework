@@ -360,17 +360,17 @@ abstract class SQL extends \Ease\Sand
                 if (@ereg("(.*)\((.*)\)", $columnProperties['type'], $Regs)) {
                     list(, $Type, $Size) = $Regs;
                     switch ($Type) {
-                    case 'varchar':
-                    case 'string':
-                        if (array_key_exists($column, $data) && $Size) {
-                            if (strlen($data[$column]) > $Size) {
-                                $this->addToLog('Column ' . $this->tableName . '.' . $column . ' content truncated: ' . substr($data[$column], $Size - strlen($data[$column])), 'warning');
-                                $data[$column] = substr($data[$column], 0, $Size - 1) . '_';
+                        case 'varchar':
+                        case 'string':
+                            if (array_key_exists($column, $data) && $Size) {
+                                if (strlen($data[$column]) > $Size) {
+                                    $this->addToLog('Column ' . $this->tableName . '.' . $column . ' content truncated: ' . substr($data[$column], $Size - strlen($data[$column])), 'warning');
+                                    $data[$column] = substr($data[$column], 0, $Size - 1) . '_';
+                                }
                             }
-                        }
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -643,5 +643,4 @@ abstract class SQL extends \Ease\Sand
     {
         return '';
     }
-
 }

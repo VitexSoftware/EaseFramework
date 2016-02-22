@@ -18,5 +18,4 @@ class GlyphIcon extends \Ease\Html\SpanTag
     {
         parent::__construct(null, null, ['class' => 'glyphicon glyphicon-' . $code]);
     }
-
 }

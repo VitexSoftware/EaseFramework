@@ -86,7 +86,9 @@ class Modal extends \Ease\Html\Div
 {
     $("#' . $this->name . '").modal( {' . Part::partPropertiesToString($this->properties) . '});
 });
-', null, true
+',
+                null,
+                true
             );
         } else {
             \Ease\Shared::webPage()->addJavaScript(
@@ -94,9 +96,10 @@ class Modal extends \Ease\Html\Div
 {
     $("#' . $this->name . '").modal( ' . $this->properties . ');
 });
-', null, true
+',
+                null,
+                true
             );
         }
     }
-
 }

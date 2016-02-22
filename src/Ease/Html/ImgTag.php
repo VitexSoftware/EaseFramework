@@ -37,5 +37,4 @@ class ImgTag extends Tag
         }
         parent::__construct('img', $tagProperties);
     }
-
 }

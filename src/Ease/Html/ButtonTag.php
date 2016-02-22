@@ -18,5 +18,4 @@ class ButtonTag extends PairTag
     {
         parent::__construct('button', $tagProperties, $content);
     }
-
 }

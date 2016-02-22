@@ -259,29 +259,29 @@ class MSSQL extends SQL
             //ob_end_clean();
 
             switch ($SQLAction) {
-            case 'select':
-            case 'show':
-                $this->NumRows = @mssql_num_rows($this->Result);
-                break;
-            case 'insert':
-                $this->lastInsertID = (int) current(mssql_fetch_row($this->Result));
+                case 'select':
+                case 'show':
+                    $this->NumRows = @mssql_num_rows($this->Result);
+                    break;
+                case 'insert':
+                    $this->lastInsertID = (int) current(mssql_fetch_row($this->Result));
 
-                if (!$this->lastInsertID) {
-                    /*
-                      $lidquery_raw  = 'SELECT SCOPE_IDENTITY() AS lastInsertID';
-                      if ($lidresult = mssql_query($lidquery_raw,$this->SQLLink))
-                      $this->lastInsertID = current(mssql_fetch_row($lidresult));
-                      if (!$this->lastInsertID) */
-                    $this->error('Vkládání nevrátilo InsertID :' . $this->utf8($this->LastMessage . ":\n" . $this->LastQuery));
-                }
+                    if (!$this->lastInsertID) {
+                        /*
+                          $lidquery_raw  = 'SELECT SCOPE_IDENTITY() AS lastInsertID';
+                          if ($lidresult = mssql_query($lidquery_raw,$this->SQLLink))
+                          $this->lastInsertID = current(mssql_fetch_row($lidresult));
+                          if (!$this->lastInsertID) */
+                        $this->error('Vkládání nevrátilo InsertID :' . $this->utf8($this->LastMessage . ":\n" . $this->LastQuery));
+                    }
 
-            case 'update':
-            case 'replace':
-            case 'delete':
-                $this->NumRows = mssql_rows_affected($this->SQLLink);
-                break;
-            default:
-                $this->NumRows = null;
+                case 'update':
+                case 'replace':
+                case 'delete':
+                    $this->NumRows = mssql_rows_affected($this->SQLLink);
+                    break;
+                default:
+                    $this->NumRows = null;
             }
         } else { //Offline MOD
             if ($this->debug) {
@@ -410,31 +410,31 @@ class MSSQL extends SQL
             //				$deklarace[]='DECLARE @'.$col.' './*funkce_pro_mssql_typ($tabulka.$col)*/.';';
 
             switch (gettype($value)) {
-            case "boolean":
-                if ($value) {
-                    $Values.=" 'True',";
-                } else {
-                    $Values.=" 'False',";
-                }
-                break;
-            case "null":
-                $Values.=" null,";
-                break;
-            case "integer":
-            case "double":
-                $Values.=' ' . str_replace(',', '.', $value) . ',';
-                break;
-            default:
-                //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
-                $ANSIDate = $value;
-                if ($ANSIDate) {
-                    $value = $ANSIDate;
-                }
-                if (strtolower($value) == 'getdate()') {
-                    $Values.=" GetDate(),";
-                } else {
-                    $Values.=" '" . addslashes($value) . "',";
-                }
+                case "boolean":
+                    if ($value) {
+                        $Values.=" 'True',";
+                    } else {
+                        $Values.=" 'False',";
+                    }
+                    break;
+                case "null":
+                    $Values.=" null,";
+                    break;
+                case "integer":
+                case "double":
+                    $Values.=' ' . str_replace(',', '.', $value) . ',';
+                    break;
+                default:
+                    //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
+                    $ANSIDate = $value;
+                    if ($ANSIDate) {
+                        $value = $ANSIDate;
+                    }
+                    if (strtolower($value) == 'getdate()') {
+                        $Values.=" GetDate(),";
+                    } else {
+                        $Values.=" '" . addslashes($value) . "',";
+                    }
             }
             $Columns.=" [$Column],";
         }
@@ -473,32 +473,32 @@ class MSSQL extends SQL
                 continue;
             }
             switch (gettype($value)) {
-            case 'boolean':
-                if ($value) {
-                    $value = ' 1 ';
-                } else {
-                    $value = ' 0 ';
-                }
-                break;
-            case 'null':
-            case 'null':
-                $value = ' null ';
-                break;
+                case 'boolean':
+                    if ($value) {
+                        $value = ' 1 ';
+                    } else {
+                        $value = ' 0 ';
+                    }
+                    break;
+                case 'null':
+                case 'null':
+                    $value = ' null ';
+                    break;
 
-            case 'integer':
-            case 'double':
-                $value = ' ' . str_replace(',', '.', $value);
-                break;
-            case 'string':
-            default:
-                //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
-                //                    if ($ANSIDate)
-                //                        $value = $ANSIDate;
+                case 'integer':
+                case 'double':
+                    $value = ' ' . str_replace(',', '.', $value);
+                    break;
+                case 'string':
+                default:
+                    //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
+                    //                    if ($ANSIDate)
+                    //                        $value = $ANSIDate;
 
-                if (strtolower($value) != 'getdate()') {
-                    $value = " '$value' ";
-                }
-                break;
+                    if (strtolower($value) != 'getdate()') {
+                        $value = " '$value' ";
+                    }
+                    break;
             }
             $updates.=" [$Column] = $value,";
         }
@@ -658,7 +658,6 @@ class MSSQL extends SQL
             return null;
         }
     }
-
 }
 
 /**
@@ -757,5 +756,4 @@ class EaseMSDbPinger extends EaseDbMSSQL
 
         return parent::Ping(true);
     }
-
 }

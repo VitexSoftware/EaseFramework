@@ -599,7 +599,10 @@ class User extends Anonym
      * @source http://gravatar.com/site/implement/images/php/
      */
     public static function getGravatar(
-        $email, $size = 80, $default = 'mm', $maxRating = 'g'
+        $email,
+        $size = 80,
+        $default = 'mm',
+        $maxRating = 'g'
     ) {
     
         $url = 'http://www.gravatar.com/avatar/';
@@ -630,5 +633,4 @@ class User extends Anonym
             return parent::setObjectName($objectName);
         }
     }
-
 }

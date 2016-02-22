@@ -18,5 +18,4 @@ class DtTag extends PairTag
     {
         parent::__construct('dt', $tagProperties, $content);
     }
-
 }

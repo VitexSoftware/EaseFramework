@@ -29,5 +29,4 @@ class InputNumberTag extends InputTag
         $this->setTagProperties($properties);
         parent::__construct($name, $value);
     }
-
 }

@@ -169,5 +169,4 @@ class Navbar extends \Ease\Html\Div
         }
         return $dropDown;
     }
-
 }

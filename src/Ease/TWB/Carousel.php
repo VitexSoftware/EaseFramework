@@ -107,18 +107,22 @@ class Carousel extends \Ease\Html\Div
         }
         $this->inner->addItem(
             new \Ease\Html\ATag(
-                '#' . $this->getTagID(), [
+                '#' . $this->getTagID(),
+                [
                     new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-left', 'aria-hidden' => 'true']),
                     new \Ease\Html\Span(_('Previous'), ['class' => 'sr-only'])
-                    ], ['class' => 'left carousel-control', 'data-slide' => 'prev', 'role' => 'button']
+                    ],
+                ['class' => 'left carousel-control', 'data-slide' => 'prev', 'role' => 'button']
             )
         );
                 $this->inner->addItem(
                     new \Ease\Html\ATag(
-                        '#' . $this->getTagID(), [
+                        '#' . $this->getTagID(),
+                        [
                         new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-right', 'aria-hidden' => 'true']),
                         new \Ease\Html\Span(_('Next'), ['class' => 'sr-only'])
-                        ], ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']
+                        ],
+                        ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']
                     )
                 );
                 if ($this->getTagProperty('data-ride') != 'carousel') {
@@ -126,5 +130,4 @@ class Carousel extends \Ease\Html\Div
                 }
                 //$this->includeJavaScript('js/bootstrap-carousel.js');
     }
-
 }

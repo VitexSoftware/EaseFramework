@@ -28,5 +28,4 @@ class SimpleHeadTag extends PairTag
         parent::__construct('head', $Properties, $Contents);
         $this->addItem('<meta http-equiv="Content-Type" content="' . self::$ContentType . '; charset=' . $this->charSet . '" />');
     }
-
 }

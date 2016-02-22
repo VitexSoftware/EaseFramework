@@ -72,5 +72,4 @@ class FieldSet extends PairTag
             }
         }
     }
-
 }

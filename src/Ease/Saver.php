@@ -182,5 +182,4 @@ class Saver extends Brick
 
         return '.success(function (data, textStatus) { $(\'#' . $enclosedElement->GetTagID() . '\').css(\'border\',\'green 2px solid\').css(\'margin\',\'2px\'); }).error(  function () { $(\'#' . $enclosedElement->GetTagID() . '\').val(\'' . $enclosedElement->getValue() . '\'); $( \'#dialog-message' . $enclosedElement->GetTagID() . '\' ).dialog(\'open\') } );  $(\'#' . $enclosedElement->GetTagID() . '\').css(\'border\',\'red 2px solid\').css(\'margin\',\'2px\'); ';
     }
-
 }

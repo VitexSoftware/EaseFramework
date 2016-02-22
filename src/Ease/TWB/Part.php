@@ -56,5 +56,4 @@ class Part extends \Ease\JQuery\Part
         }
         return new \Ease\Html\Span(null, $properties);
     }
-
 }

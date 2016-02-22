@@ -31,5 +31,4 @@ class HtmlTag extends PairTag
     {
         parent::setObjectName('html');
     }
-
 }

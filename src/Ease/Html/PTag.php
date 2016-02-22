@@ -21,5 +21,4 @@ class PTag extends PairTag
     {
         parent::__construct('p', $properties, $content);
     }
-
 }

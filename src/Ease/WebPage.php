@@ -147,7 +147,8 @@ class WebPage extends Page
     {
         if ($fwPrefix) {
             return $this->addToScriptsStack(
-                '#' . $this->jsPrefix . $javaScriptFile, $position
+                '#' . $this->jsPrefix . $javaScriptFile,
+                $position
             );
         } else {
             return $this->addToScriptsStack('#' . $javaScriptFile, $position);
@@ -359,5 +360,4 @@ class WebPage extends Page
     {
         $this->pageTitle = $pageTitle;
     }
-
 }

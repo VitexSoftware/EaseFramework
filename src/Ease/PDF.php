@@ -134,5 +134,4 @@ class PDF extends \TCPDF
             return null;
         }
     }
-
 }

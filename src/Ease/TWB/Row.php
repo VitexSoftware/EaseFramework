@@ -34,5 +34,4 @@ class Row extends \Ease\Html\Div
         $added = $this->addItem(new Col($size, $content, $target, $properties));
         return $added;
     }
-
 }

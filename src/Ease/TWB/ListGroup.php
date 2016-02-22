@@ -32,5 +32,4 @@ class ListGroup extends \Ease\Html\UlTag
         $item->addTagClass('list-group-item');
         return $item;
     }
-
 }

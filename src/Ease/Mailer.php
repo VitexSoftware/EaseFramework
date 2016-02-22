@@ -283,5 +283,4 @@ class Mailer extends Page
     {
         $this->notify = (bool) $notify;
     }
-
 }

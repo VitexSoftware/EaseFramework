@@ -30,5 +30,4 @@ class DlTag extends PairTag
         $this->addItem(new DtTag($term));
         $this->addItem(new DdTag($value));
     }
-
 }

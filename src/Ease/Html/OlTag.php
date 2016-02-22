@@ -21,5 +21,4 @@ class OlTag extends UlTag
         parent::__construct($ulContents, $properties);
         $this->setTagType('ol');
     }
-
 }

@@ -405,5 +405,4 @@ class PageWizard extends Container
     {
         return end($this->steps);
     }
-
 }

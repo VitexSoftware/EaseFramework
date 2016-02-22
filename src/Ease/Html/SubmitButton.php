@@ -58,5 +58,4 @@ class SubmitButton extends InputTag
             parent::SetValue($value);
         }
     }
-
 }

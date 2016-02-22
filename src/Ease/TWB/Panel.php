@@ -107,5 +107,4 @@ class Panel extends \Ease\Html\Div
         }
         return $this->footer;
     }
-
 }

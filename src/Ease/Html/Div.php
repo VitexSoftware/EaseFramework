@@ -21,5 +21,4 @@ class Div extends PairTag
     {
         parent::__construct('div', $properties, $content);
     }
-
 }

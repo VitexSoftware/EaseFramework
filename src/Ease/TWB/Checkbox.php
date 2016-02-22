@@ -34,5 +34,4 @@ class Checkbox extends \Ease\Html\Div
         }
         parent::__construct($name, $label, $properties);
     }
-
 }

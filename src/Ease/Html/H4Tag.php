@@ -20,5 +20,4 @@ class H4Tag extends PairTag
     {
         parent::__construct('h4', $properties, $content);
     }
-
 }

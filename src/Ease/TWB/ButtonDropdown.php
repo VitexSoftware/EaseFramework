@@ -64,5 +64,4 @@ class ButtonDropdown extends \Ease\Html\Div
     {
         return new \Ease\Html\LiTag(null, ['class' => 'divider']);
     }
-
 }

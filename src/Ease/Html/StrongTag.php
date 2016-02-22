@@ -20,5 +20,4 @@ class StrongTag extends PairTag
     {
         parent::__construct('strong', $properties, $content);
     }
-
 }

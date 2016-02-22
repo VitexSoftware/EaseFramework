@@ -45,5 +45,4 @@ class ConfirmedLinkButton extends LinkButton
     {
         return '$("#' . $this->Name . '").button( {' . Part::partPropertiesToString($this->JQOptions) . '} ).click( function () { $( "#' . $this->id . '-dialog" ).dialog( "open" ); } );';
     }
-
 }

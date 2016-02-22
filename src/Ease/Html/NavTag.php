@@ -20,5 +20,4 @@ class NavTag extends PairTag
     {
         parent::__construct('div', $properties, $content);
     }
-
 }

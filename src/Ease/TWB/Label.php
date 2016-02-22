@@ -27,5 +27,4 @@ class Label extends \Ease\Html\SpanTag
         }
         parent::__construct(null, $content, $properties);
     }
-
 }

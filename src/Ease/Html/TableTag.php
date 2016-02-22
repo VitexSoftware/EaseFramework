@@ -115,5 +115,4 @@ class TableTag extends PairTag
             $this->addRowColumns($cRow);
         }
     }
-
 }

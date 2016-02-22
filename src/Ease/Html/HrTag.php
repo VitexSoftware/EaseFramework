@@ -19,5 +19,4 @@ class HrTag extends Tag
     {
         parent::__construct('hr', $properties);
     }
-
 }
