@@ -1,6 +1,7 @@
 <?php
 
 namespace Ease\Example;
+use Ease\Html\ATag;
 
 class AppMenu extends \Ease\TWB\Navbar
 {
@@ -15,14 +16,14 @@ class AppMenu extends \Ease\TWB\Navbar
     public function __construct($name = null, $brand = null, $properties = null)
     {
         parent::__construct($name, $brand, $properties);
-        $this->addMenuItem(new Html\ATag('http://v.s.cz/ease.php', _('Homepage')));
-        $this->addMenuItem(new Html\ATag('http://l.q.cz/', _('LinkQuick')));
+        $this->addMenuItem(new ATag('http://v.s.cz/ease.php', _('Homepage')));
+        $this->addMenuItem(new ATag('http://l.q.cz/', _('LinkQuick')));
 
         $this->addDropDownMenu(
             _('Systém'),
             array(
             'settings.php' => '<i class="icon-list"></i>&nbsp;' . _('Settings'),
-            'shutdown.php' => '<i class="icon-list"></i>&nbsp;' . _('Vypnout zařízení'),
+            'shutdown.php' => '<i class="icon-list"></i>&nbsp;' . _('Shutdown'),
                 )
         );
 

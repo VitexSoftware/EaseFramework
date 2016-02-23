@@ -7,7 +7,6 @@ namespace Test\Ease;
  */
 class SandTest extends AtomTest
 {
-
     /**
      * @var Sand
      */
@@ -48,7 +47,8 @@ class SandTest extends AtomTest
     {
         $this->object->addStatusMessage('Message2');
         $messages = $this->object->getStatusMessages();
-        $this->assertEquals($messages, ['info' => [1 => 'Message1', 2 => 'Message2']]);
+        $this->assertEquals($messages,
+            ['info' => [1 => 'Message1', 2 => 'Message2']]);
     }
 
     /**
@@ -80,7 +80,8 @@ class SandTest extends AtomTest
         $this->object->setObjectName('Testing');
         $this->assertEquals('Testing', $this->object->getObjectName());
         $this->object->setObjectName();
-        $this->assertEquals(get_class($this->object), $this->object->getObjectName());
+        $this->assertEquals(get_class($this->object),
+            $this->object->getObjectName());
     }
 
     /**
@@ -130,7 +131,7 @@ class SandTest extends AtomTest
      */
     public function testDivDataArray()
     {
-        $sourceArray = [1 => 'a', 2 => 'b'];
+        $sourceArray      = [1 => 'a', 2 => 'b'];
         $destinationArray = [];
         $this->object->divDataArray($sourceArray, $destinationArray, 2);
         $this->assertEquals([2 => 'b'], $destinationArray);
@@ -157,10 +158,12 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::getData
+     * @depends testSetData
      */
     public function testGetData()
     {
         $data = ['a' => 1, 'b' => 2];
+        $this->object->setData($data);
         $this->assertEquals($data, $this->object->getData());
     }
 
@@ -169,6 +172,8 @@ class SandTest extends AtomTest
      */
     public function testGetDataCount()
     {
+        $data = ['a' => 1, 'b' => 2];
+        $this->object->setData($data);
         $this->assertEquals(2, $this->object->getDataCount());
     }
 
@@ -177,6 +182,8 @@ class SandTest extends AtomTest
      */
     public function testGetDataValue()
     {
+        $data = ['a' => 1, 'b' => 2];
+        $this->object->setData($data);
         $this->assertEquals(2, $this->object->getDataValue('b'));
     }
 
@@ -195,6 +202,8 @@ class SandTest extends AtomTest
      */
     public function testUnsetDataValue()
     {
+        $data = ['a' => 1, 'b' => 2];
+        $this->object->setData($data);
         $this->object->unsetDataValue('a');
         $this->assertNull($this->object->getDataValue('a'));
     }
@@ -264,7 +273,7 @@ class SandTest extends AtomTest
     public function testEaseEncrypt()
     {
         $enc = $this->object->easeEncrypt('secret', 'key');
-        $this->assertEquals(0xb70b2e5f88837b808206dfc335a5, $enc);
+        $this->assertEquals($this->object->easeDecrypt($enc,'key'), 'secret');
     }
 
     /**
@@ -272,8 +281,8 @@ class SandTest extends AtomTest
      */
     public function testEaseDecrypt()
     {
-        $dec = $this->object->easeDecrypt(0xb70b2e5f88837b808206dfc335a5, 'key');
-        $this->assertEquals('secret', $dec);
+        $enc = $this->object->easeEncrypt('secret', 'key');
+        $this->assertEquals($this->object->easeDecrypt($enc, 'key'), 'secret');
     }
 
     /**
@@ -375,8 +384,19 @@ class SandTest extends AtomTest
     public function testHumanFilesize()
     {
         $this->assertEquals('1.18 MB', $this->object->humanFilesize('1234545'));
-        $this->assertEquals('11.5 GB', $this->object->humanFilesize('12345453453'));
-        $this->assertEquals('1.1 PB', $this->object->humanFilesize('1234545345332235'));
+        $this->assertEquals('11.5 GB',
+            $this->object->humanFilesize('12345453453'));
+        $this->assertEquals('1.1 PB',
+            $this->object->humanFilesize('1234545345332235'));
+    }
+
+    /**
+     * @covers Ease\Sand::draw
+     */
+    public function testDraw()
+    {
+        $this->assertEquals('Object: '.get_class($this->object),
+            $this->object->draw());
     }
 
     /**
@@ -387,5 +407,4 @@ class SandTest extends AtomTest
     {
         $this->object->__wakeup();
     }
-
 }

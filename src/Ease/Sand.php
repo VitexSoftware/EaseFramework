@@ -629,14 +629,14 @@ class Sand extends Atom
      *
      * @return string
      */
-    public static function easeDecrypt(string $textToDercypt, $encryptKey)
+    public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
         $encryptKey = md5($encryptKey);
         $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
         $encryptKey = substr($encryptKey, 0, mcrypt_enc_get_key_size($encryptHandle));
-        $InitialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = substr($textToDecrypt, 0, $InitialVectorSize);
-        $textToDecrypt = substr($textToDecrypt, $InitialVectorSize);
+        $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
+        $initialVector = substr($textToDecrypt, 0, $initialVectorSize);
+        $textToDecrypt = substr($textToDecrypt, $initialVectorSize);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
             $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
             mcrypt_generic_deinit($encryptHandle);

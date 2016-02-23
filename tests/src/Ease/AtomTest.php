@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Základní objekty systému
  *
@@ -22,7 +21,6 @@ namespace Test\Ease;
  */
 class AtomTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Atom
      */
@@ -32,7 +30,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Atom;
     }
@@ -41,7 +39,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
         
     }
@@ -49,7 +47,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::getObjectName
      */
-    public function testgetObjectName() 
+    public function testgetObjectName()
     {
         $this->assertNotEmpty($this->object->getObjectName());
     }
@@ -57,7 +55,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::addStatusMessage
      */
-    public function testaddStatusMessage() 
+    public function testaddStatusMessage()
     {
         $this->object->cleanMessages();
         $this->object->addStatusMessage(_('Status message add test'), 'info');
@@ -67,27 +65,30 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::addStatusMessages
      */
-    public function testaddstatusMessages() 
+    public function testaddstatusMessages()
     {
-        $this->object->addstatusMessages(array('info' => array('test msg 1'), 'debug' => array('test msg 2')));
-        $this->assertArrayHasKey('info', $this->object->statusMessages);
+        $this->object->addStatusMessage('Ok');
+        $this->object->addstatusMessages(array('info' => array('test msg 1'), 'debug' => array(
+                'test msg 2')));
+        $this->assertArrayHasKey('info', $this->object->getStatusMessages());
         $this->assertNull($this->object->addStatusMessages(false));
     }
 
     /**
      * @covers Ease\Atom::cleanMessages
      */
-    public function testcleanMessages() 
+    public function testcleanMessages()
     {
         $this->object->addStatusMessage('Clean Test');
         $this->object->CleanMessages();
-        $this->assertEmpty($this->object->statusMessages, _('Stavové zprávy jsou mazány'));
+        $this->assertEmpty($this->object->statusMessages,
+            _('Stavové zprávy jsou mazány'));
     }
 
     /**
      * @covers Ease\Atom::getStatusMessages
      */
-    public function testgetstatusMessages() 
+    public function testgetstatusMessages()
     {
         $this->object->cleanMessages();
         $this->object->addStatusMessage('Message', 'warning');
@@ -104,7 +105,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::takeStatusMessages
      */
-    public function testtakestatusMessages() 
+    public function testtakestatusMessages()
     {
         $msgSrc = new \Ease\Atom();
         $this->object->cleanMessages();
@@ -118,15 +119,17 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::sysFilename
      */
-    public function testsysFilename() 
+    public function testsysFilename()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
             $this->assertContains(
-                '\\\\', $this->object->sysFilename('/'), _('Windows Files conversion')
+                '\\\\', $this->object->sysFilename('/'),
+                _('Windows Files conversion')
             );
         } else {
             $this->assertContains(
-                '/', $this->object->sysFilename('\\\\'), _('Unix File Conversion')
+                '/', $this->object->sysFilename('\\\\'),
+                _('Unix File Conversion')
             );
         }
     }
@@ -134,9 +137,8 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::draw
      */
-    public function testDraw() 
+    public function testDraw()
     {
         $this->assertEquals('', $this->object->draw());
     }
-
 }

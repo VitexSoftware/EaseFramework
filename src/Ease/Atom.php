@@ -161,7 +161,7 @@ class Atom
     public function draw()
     {
         if (method_exists($this, '__toString')) {
-            echo $this->__toString();
+            return $this->__toString();
         }
     }
 }
