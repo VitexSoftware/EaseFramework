@@ -245,4 +245,22 @@ class SysLogger extends Atom
             return '';
         }
     }
+
+    /**
+     * Flush Messages
+     *
+     * @param string $caller
+     */
+    function flush($caller = null)
+    {
+        if (count($this->statusMessages)) {
+            foreach ($this->statusMessages as $type => $messages) {
+                foreach ($messages as $message) {
+                    $this->addToLog($caller, $message, $type);
+                }
+            }
+            $this->cleanMessages();
+        }
+    }
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum
  *
@@ -19,7 +18,6 @@ namespace Ease;
  */
 class Sand extends Atom
 {
-
     /**
      * Default Language Code
      *
@@ -156,9 +154,11 @@ class Sand extends Atom
      *
      * @return
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true)
+    public function addStatusMessage($message, $type = 'info', $addIcons = true,
+                                     $addToLog = true)
     {
-        return Shared::instanced()->addStatusMessage($message, $type, $addIcons, $addToLog);
+        return Shared::instanced()->addStatusMessage($message, $type, $addIcons,
+                $addToLog);
     }
 
     /**
@@ -289,7 +289,8 @@ class Sand extends Atom
      * @param array  $destinationArray cílové pole dat
      * @param string $columName        název položky k převzetí
      */
-    public static function divDataArray(& $sourceArray, & $destinationArray, $columName)
+    public static function divDataArray(& $sourceArray, & $destinationArray,
+                                        $columName)
     {
         if (array_key_exists($columName, $sourceArray)) {
             $destinationArray[$columName] = $sourceArray[$columName];
@@ -319,19 +320,19 @@ class Sand extends Atom
      */
     public function setData($data, $reset = false)
     {
-        if (is_null($data) || !count($data)) {
-            return null;
+        $ret = null;
+        if (!is_null($data) && count($data)) {
+            if ($reset) {
+                $this->dataReset();
+            }
+            if (is_array($this->data)) {
+                $this->data = array_merge($this->data, $data);
+            } else {
+                $this->data = $data;
+            }
+            $ret = count($data);
         }
-        if ($reset) {
-            $this->dataReset();
-        }
-        if (is_array($this->data)) {
-            $this->data = array_merge($this->data, $data);
-        } else {
-            $this->data = $data;
-        }
-
-        return count($data);
+        return $ret;
     }
 
     /**
@@ -438,13 +439,13 @@ class Sand extends Atom
      */
     public function printPre($argument, $comment = '')
     {
-        $retVal = '';
+        $retVal     = '';
         $itemsCount = 0;
         if (is_object($argument)) {
             $itemsCount = count($argument);
-            $comment = gettype($argument) . ': ' . get_class($argument) . ': ' . $comment;
+            $comment    = gettype($argument).': '.get_class($argument).': '.$comment;
         } else {
-            $comment = gettype($argument) . ': ' . $comment;
+            $comment = gettype($argument).': '.$comment;
 
             if (is_array($argument)) {
                 $itemsCount = count($argument);
@@ -456,7 +457,7 @@ class Sand extends Atom
         }
 
         if ($this->easeShared->runType == 'web') {
-            $retVal .= '<pre class="debug" style="overflow: scroll; border: solid 1px green;  color: white; background-color: black;" title="' . $comment . '">';
+            $retVal .= '<pre class="debug" style="overflow: scroll; border: solid 1px green;  color: white; background-color: black;" title="'.$comment.'">';
         } else {
             $retVal .= "\n########### $comment ###########\n";
         }
@@ -495,7 +496,9 @@ class Sand extends Atom
      */
     public static function substrUnicode($str, $string, $length = null)
     {
-        return join("", array_slice(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $string, $length));
+        return join("",
+            array_slice(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY),
+                $string, $length));
     }
 
     /**
@@ -606,16 +609,17 @@ class Sand extends Atom
     public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
-        $encryptKey = md5($encryptKey);
-        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey = substr($encryptKey, 0, mcrypt_enc_get_key_size($encryptHandle));
+        $encryptKey        = md5($encryptKey);
+        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey        = substr($encryptKey, 0,
+            mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
+        $initialVector     = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
             $encryptedText = mcrypt_generic($encryptHandle, $textToEncrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
-            $encryptedText = $initialVector . $encryptedText;
+            $encryptedText = $initialVector.$encryptedText;
 
             return $encryptedText;
         }
@@ -631,19 +635,20 @@ class Sand extends Atom
      */
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
-        $encryptKey = md5($encryptKey);
-        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey = substr($encryptKey, 0, mcrypt_enc_get_key_size($encryptHandle));
+        $decryptedText     = null;
+        $encryptKey        = md5($encryptKey);
+        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey        = substr($encryptKey, 0,
+            mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = substr($textToDecrypt, 0, $initialVectorSize);
-        $textToDecrypt = substr($textToDecrypt, $initialVectorSize);
+        $initialVector     = substr($textToDecrypt, 0, $initialVectorSize);
+        $textToDecrypt     = substr($textToDecrypt, $initialVectorSize);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
             $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
-
-            return $decryptedText;
         }
+        return $decryptedText;
     }
 
     /**
@@ -656,16 +661,18 @@ class Sand extends Atom
      */
     public static function randomNumber($minimal = null, $maximal = null)
     {
+        $rand = null;
         mt_srand((double) microtime() * 1000000);
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
-                return $minimal;
+               $rand = false;
             } else {
-                return mt_rand($minimal, $maximal);
+                $rand = mt_rand($minimal, $maximal);
             }
         } else {
-            return mt_rand();
+            $rand = mt_rand();
         }
+        return $rand;
     }
 
     /**
@@ -677,7 +684,8 @@ class Sand extends Atom
      */
     public static function randomString($length = 6)
     {
-        return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+        return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+            0, $length);
     }
 
     /**
@@ -713,11 +721,11 @@ class Sand extends Atom
         $emailLength = strlen($email);
         if ($emailLength > 256) {
             return false; // Too long
-        }            /*
-              // Contemporary email addresses consist of a "local part" separated from
-              // a "domain part" (a fully-qualified domain name) by an at-sign ("@").
-              // 	(http://tools.ietf.org/html/rfc3696#section-3)
-             */
+        } /*
+          // Contemporary email addresses consist of a "local part" separated from
+          // a "domain part" (a fully-qualified domain name) by an at-sign ("@").
+          // 	(http://tools.ietf.org/html/rfc3696#section-3)
+         */
         $atIndex = strrpos($email, '@');
 
         if ($atIndex === false) {
@@ -732,12 +740,12 @@ class Sand extends Atom
         // Sanitize comments
         // - remove nested comments, quotes and dots in comments
         // - remove parentheses and dots from quoted strings
-        $braceDepth = 0;
-        $inQuote = false;
+        $braceDepth     = 0;
+        $inQuote        = false;
         $escapeThisChar = false;
 
         for ($i = 0; $i < $emailLength; ++$i) {
-            $char = $email[$i];
+            $char        = $email[$i];
             $replaceChar = false;
 
             if ($char === '\\') {
@@ -807,9 +815,9 @@ class Sand extends Atom
             }
         }
 
-        $localPart = substr($email, 0, $atIndex);
-        $domain = substr($email, $atIndex + 1);
-        $FWS = "(?:(?:(?:[ \\t]*(?:\\r\\n))?[ \\t]+)|(?:[ \\t]+(?:(?:\\r\\n)[ \\t]+)*))"; // Folding white space
+        $localPart  = substr($email, 0, $atIndex);
+        $domain     = substr($email, $atIndex + 1);
+        $FWS        = "(?:(?:(?:[ \\t]*(?:\\r\\n))?[ \\t]+)|(?:[ \\t]+(?:(?:\\r\\n)[ \\t]+)*))"; // Folding white space
         // Let's check the local part for RFC compliance...
         //
         // local-part      =       dot-atom / quoted-string / obs-local-part
@@ -818,7 +826,8 @@ class Sand extends Atom
         //
         // Problem: need to distinguish between "first.last" and "first"."last"
         // (i.e. one element or two). And I suck at regexes.
-        $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m', $localPart);
+        $dotArray   = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
+            $localPart);
         $partLength = 0;
 
         foreach ($dotArray as $element) {
@@ -831,10 +840,12 @@ class Sand extends Atom
             if ($element[0] === '(') {
                 $indexBrace = strpos($element, ')');
                 if ($indexBrace !== false) {
-                    if (preg_match('/(?<!\\\\)[\\(\\)]/', substr($element, 1, $indexBrace - 1)) > 0) {
+                    if (preg_match('/(?<!\\\\)[\\(\\)]/',
+                            substr($element, 1, $indexBrace - 1)) > 0) {
                         return false; // Illegal characters in comment
                     }
-                    $element = substr($element, $indexBrace + 1, $elementLength - $indexBrace - 1);
+                    $element       = substr($element, $indexBrace + 1,
+                        $elementLength - $indexBrace - 1);
                     $elementLength = strlen($element);
                 }
             }
@@ -843,10 +854,12 @@ class Sand extends Atom
                 if ($element[$elementLength - 1] === ')') {
                     $indexBrace = strrpos($element, '(');
                     if ($indexBrace !== false) {
-                        if (preg_match('/(?<!\\\\)(?:[\\(\\)])/', substr($element, $indexBrace + 1, $elementLength - $indexBrace - 2)) > 0) {
+                        if (preg_match('/(?<!\\\\)(?:[\\(\\)])/',
+                                substr($element, $indexBrace + 1,
+                                    $elementLength - $indexBrace - 2)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element = substr($element, 0, $indexBrace);
+                        $element       = substr($element, 0, $indexBrace);
                         $elementLength = strlen($element);
                     }
                 }
@@ -870,7 +883,8 @@ class Sand extends Atom
                 // My regex skillz aren't up to distinguishing between \" \\" \\\" \\\\" etc.
                 // So remove all \\ from the string first...
                 $element = preg_replace('/\\\\\\\\/', ' ', $element);
-                if (preg_match('/(?<!\\\\|^)["\\r\\n\\x00](?!$)|\\\\"$|""/', $element) > 0) {
+                if (preg_match('/(?<!\\\\|^)["\\r\\n\\x00](?!$)|\\\\"$|""/',
+                        $element) > 0) {
                     return false;
                 } // ", CR, LF and NUL must be escaped, "" is too short
             } else {
@@ -892,7 +906,8 @@ class Sand extends Atom
                 // 	(http://tools.ietf.org/html/rfc3696#section-3)
                 //
                 // Any excluded characters? i.e. 0x00-0x20, (, ), <, >, [, ], :, ;, @, \, comma, period, "
-                if (preg_match('/[\\x00-\\x20\\(\\)<>\\[\\]:;@\\\\,\\."]/', $element) > 0) {
+                if (preg_match('/[\\x00-\\x20\\(\\)<>\\[\\]:;@\\\\,\\."]/',
+                        $element) > 0) {
                     return false;
                 } // These characters must be in a quoted string
             }
@@ -909,10 +924,11 @@ class Sand extends Atom
         if (preg_match('/^\\[(.)+]$/', $domain) === 1) {
             // It's an address-literal
             $addressLiteral = substr($domain, 1, strlen($domain) - 2);
-            $matchesIP = [];
+            $matchesIP      = [];
 
             // Extract IPv4 part from the end of the address-literal (if there is one)
-            if (preg_match('/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.) {3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/', $addressLiteral, $matchesIP) > 0) {
+            if (preg_match('/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.) {3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
+                    $addressLiteral, $matchesIP) > 0) {
                 $index = strrpos($addressLiteral, $matchesIP[0]);
 
                 if ($index === 0) {
@@ -927,7 +943,8 @@ class Sand extends Atom
                         return false;
                     } // RFC5321 section 4.1.3
 
-                    $IPv6 = substr($addressLiteral, 5, ($index === 7) ? 2 : $index - 6);
+                    $IPv6     = substr($addressLiteral, 5,
+                        ($index === 7) ? 2 : $index - 6);
                     $groupMax = 6;
                 }
             } else {
@@ -935,12 +952,13 @@ class Sand extends Atom
                 if (substr($addressLiteral, 0, 5) !== 'IPv6:') {
                     return false;
                 } // RFC5321 section 4.1.3
-                $IPv6 = substr($addressLiteral, 5);
+                $IPv6     = substr($addressLiteral, 5);
                 $groupMax = 8;
             }
 
-            $groupCount = preg_match_all('/^[0-9a-fA-F]{0,4}|\\:[0-9a-fA-F]{0,4}|(.)/', $IPv6, $matchesIP);
-            $index = strpos($IPv6, '::');
+            $groupCount = preg_match_all('/^[0-9a-fA-F]{0,4}|\\:[0-9a-fA-F]{0,4}|(.)/',
+                $IPv6, $matchesIP);
+            $index      = strpos($IPv6, '::');
 
             if ($index === false) {
                 // We need exactly the right number of groups
@@ -951,7 +969,8 @@ class Sand extends Atom
                 if ($index !== strrpos($IPv6, '::')) {
                     return false;
                 } // More than one '::'
-                $groupMax = ($index === 0 || $index === ( strlen($IPv6) - 2)) ? $groupMax : $groupMax - 1;
+                $groupMax = ($index === 0 || $index === ( strlen($IPv6) - 2)) ? $groupMax
+                        : $groupMax - 1;
                 if ($groupCount > $groupMax) {
                     return false;
                 } // Too many IPv6 groups in address
@@ -989,7 +1008,8 @@ class Sand extends Atom
             //
             // RFC5321 precludes the use of a trailing dot in a domain name for SMTP purposes
             // 	(http://tools.ietf.org/html/rfc5321#section-4.1.2)
-            $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m', $domain);
+            $dotArray   = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
+                $domain);
             $partLength = 0;
 
             if (count($dotArray) === 1) {
@@ -1006,10 +1026,12 @@ class Sand extends Atom
                 if ($element[0] === '(') {
                     $indexBrace = strpos($element, ')');
                     if ($indexBrace !== false) {
-                        if (preg_match('/(?<!\\\\)[\\(\\)]/', substr($element, 1, $indexBrace - 1)) > 0) {
+                        if (preg_match('/(?<!\\\\)[\\(\\)]/',
+                                substr($element, 1, $indexBrace - 1)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element = substr($element, $indexBrace + 1, $elementLength - $indexBrace - 1);
+                        $element       = substr($element, $indexBrace + 1,
+                            $elementLength - $indexBrace - 1);
                         $elementLength = strlen($element);
                     }
                 }
@@ -1017,10 +1039,12 @@ class Sand extends Atom
                 if ($element[$elementLength - 1] === ')') {
                     $indexBrace = strrpos($element, '(');
                     if ($indexBrace !== false) {
-                        if (preg_match('/(?<!\\\\)(?:[\\(\\)])/', substr($element, $indexBrace + 1, $elementLength - $indexBrace - 2)) > 0) {
+                        if (preg_match('/(?<!\\\\)(?:[\\(\\)])/',
+                                substr($element, $indexBrace + 1,
+                                    $elementLength - $indexBrace - 2)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element = substr($element, 0, $indexBrace);
+                        $element       = substr($element, 0, $indexBrace);
                         $elementLength = strlen($element);
                     }
                 }
@@ -1059,7 +1083,8 @@ class Sand extends Atom
                 // 	(http://tools.ietf.org/html/rfc3696#section-2)
                 //
                 // Any excluded characters? i.e. 0x00-0x20, (, ), <, >, [, ], :, ;, @, \, comma, period, "
-                if (preg_match('/[\\x00-\\x20\\(\\)<>\\[\\]:;@\\\\,\\."]|^-|-$/', $element) > 0) {
+                if (preg_match('/[\\x00-\\x20\\(\\)<>\\[\\]:;@\\\\,\\."]|^-|-$/',
+                        $element) > 0) {
                     return false;
                 }
             }
@@ -1098,7 +1123,8 @@ class Sand extends Atom
             return iconv($in_charset, $out_charset, $arr);
         }
         $ret = $arr;
-        array_walk_recursive($ret, [$this, "arrayIconv"], [$in_charset, $out_charset]);
+        array_walk_recursive($ret, [$this, "arrayIconv"],
+            [$in_charset, $out_charset]);
 
         return $ret;
     }
@@ -1139,7 +1165,8 @@ class Sand extends Atom
     public function error($message, $objectData = null)
     {
         if (is_object($this->logger)) {
-            $this->logger->error($this->getObjectName(), $message, $objectData = null);
+            $this->logger->error($this->getObjectName(), $message,
+                $objectData = null);
         }
         $this->addStatusMessage($message, 'error');
     }
@@ -1151,7 +1178,7 @@ class Sand extends Atom
      */
     public function __toString()
     {
-        return 'Object: ' . $this->getObjectName();
+        return 'Object: '.$this->getObjectName();
     }
 
     /**
@@ -1181,8 +1208,8 @@ class Sand extends Atom
     {
 
         if (is_numeric($filesize)) {
-            $decr = 1024;
-            $step = 0;
+            $decr   = 1024;
+            $step   = 0;
             $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
             while (($filesize / $decr) > 0.9) {
@@ -1190,7 +1217,7 @@ class Sand extends Atom
                 $step++;
             }
 
-            return round($filesize, 2) . ' ' . $prefix[$step];
+            return round($filesize, 2).' '.$prefix[$step];
         } else {
             return 'NaN';
         }

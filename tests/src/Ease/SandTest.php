@@ -135,6 +135,8 @@ class SandTest extends AtomTest
         $destinationArray = [];
         $this->object->divDataArray($sourceArray, $destinationArray, 2);
         $this->assertEquals([2 => 'b'], $destinationArray);
+        $this->assertFalse($this->object->divDataArray($sourceArray,
+                $destinationArray, 'none'));
     }
 
     /**
@@ -151,9 +153,14 @@ class SandTest extends AtomTest
      */
     public function testSetData()
     {
+        $this->assertNull($this->object->setData(null));
+
         $data = ['a' => 1, 'b' => 2];
-        $this->object->setData($data);
+        $this->object->setData($data, true);
         $this->assertEquals($data, $this->object->getData());
+        $this->object->data = null;
+        $this->assertEquals(1,$this->object->setData(1));
+
     }
 
     /**
@@ -185,6 +192,8 @@ class SandTest extends AtomTest
         $data = ['a' => 1, 'b' => 2];
         $this->object->setData($data);
         $this->assertEquals(2, $this->object->getDataValue('b'));
+        $this->assertNull($this->object->getDataValue('c'));
+
     }
 
     /**
@@ -204,8 +213,9 @@ class SandTest extends AtomTest
     {
         $data = ['a' => 1, 'b' => 2];
         $this->object->setData($data);
-        $this->object->unsetDataValue('a');
+        $this->assertTrue($this->object->unsetDataValue('a'));
         $this->assertNull($this->object->getDataValue('a'));
+        $this->assertFalse($this->object->unsetDataValue('c'));
     }
 
     /**
@@ -273,7 +283,7 @@ class SandTest extends AtomTest
     public function testEaseEncrypt()
     {
         $enc = $this->object->easeEncrypt('secret', 'key');
-        $this->assertEquals($this->object->easeDecrypt($enc,'key'), 'secret');
+        $this->assertEquals($this->object->easeDecrypt($enc, 'key'), 'secret');
     }
 
     /**
@@ -293,6 +303,11 @@ class SandTest extends AtomTest
         $a = $this->object->randomNumber();
         $b = $this->object->randomNumber();
         $this->assertFalse($a == $b);
+
+        $this->assertGreaterThan(9, $this->object->randomNumber(10,20));
+        $this->assertLessThan(21, $this->object->randomNumber(10,20));
+        $this->assertFalse($this->object->randomNumber(30,20));
+
     }
 
     /**
@@ -388,6 +403,7 @@ class SandTest extends AtomTest
             $this->object->humanFilesize('12345453453'));
         $this->assertEquals('1.1 PB',
             $this->object->humanFilesize('1234545345332235'));
+        $this->assertEquals('NaN',$this->object->humanFilesize(false));
     }
 
     /**
