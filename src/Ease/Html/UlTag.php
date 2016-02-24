@@ -43,7 +43,7 @@ class UlTag extends PairTag
      *
      * @return mixed
      */
-    function &addItemSmart($pageItem, $properties = null)
+    public function  &addItemSmart($pageItem, $properties = null)
     {
         if (is_array($pageItem)) {
             foreach ($pageItem as $item) {

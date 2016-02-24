@@ -16,7 +16,7 @@ class OlTag extends UlTag
      * @param mixed $ulContents položky seznamu
      * @param array $properties parametry tagu
      */
-    function __construct($ulContents = null, $properties = null)
+    public function  __construct($ulContents = null, $properties = null)
     {
         parent::__construct($ulContents, $properties);
         $this->setTagType('ol');

@@ -45,7 +45,7 @@ class UITabs extends UIPart
      *
      * @return pointer odkaz na vložený obsah
      */
-    function &addTab($TabName, $TabContent = '')
+    public function  &addTab($TabName, $TabContent = '')
     {
         $this->Tabs[$TabName] = $TabContent;
         return $this->Tabs[$TabName];

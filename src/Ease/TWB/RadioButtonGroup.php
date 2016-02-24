@@ -41,7 +41,7 @@ class RadioButtonGroup extends Ease\Container
      * @param string  $checked
      * @param boolean $inline
      */
-    function __construct($name, $radios, $checked = null, $inline = false)
+    public function  __construct($name, $radios, $checked = null, $inline = false)
     {
         $this->name = $name;
         $this->checked = $checked;
@@ -53,7 +53,7 @@ class RadioButtonGroup extends Ease\Container
     /**
      * Seskládá pole radiobuttonů
      */
-    function finalize()
+    public function  finalize()
     {
         $class = 'radio';
         if ($this->inline) {

@@ -162,7 +162,7 @@ class Container extends Sand
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function addItem($pageItem, $pageItemName = null)
+    public function  addItem($pageItem, $pageItemName = null)
     {
         return self::addItemCustom($pageItem, $this, $pageItemName);
     }
@@ -175,7 +175,7 @@ class Container extends Sand
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addAsFirst($pageItem, $pageItemName = null)
+    public function  &addAsFirst($pageItem, $pageItemName = null)
     {
         if (is_null($pageItemName)) {
             $pageItemName = '1st';
@@ -228,7 +228,7 @@ class Container extends Sand
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addNextTo($pageItem)
+    public function  &addNextTo($pageItem)
     {
         $itemPointer = null;
         $itemPointer = $this->parentObject->addItem($pageItem);
@@ -241,7 +241,7 @@ class Container extends Sand
      *
      * @return EaseBrick|mixed
      */
-    function & lastItem()
+    public function  & lastItem()
     {
         $lastPart = end($this->pageParts);
 
@@ -255,7 +255,7 @@ class Container extends Sand
      *
      * @return bool success
      */
-    function &addToLastItem($pageItem)
+    public function  &addToLastItem($pageItem)
     {
         if (!method_exists($this->lastItem, 'addItem')) {
             return false;
@@ -271,7 +271,7 @@ class Container extends Sand
      *
      * @return null
      */
-    function &getFirstPart($pageItem = null)
+    public function  &getFirstPart($pageItem = null)
     {
         if (!$pageItem) {
             $pageItem = & $this;

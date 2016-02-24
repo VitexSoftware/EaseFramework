@@ -19,7 +19,7 @@ class Pagination extends \Ease\Html\UlTag
      * @param int    $current aktuální stránka
      * @param string $url     Fragment adresy
      */
-    function __construct($pages, $current, $url = '?page=')
+    public function  __construct($pages, $current, $url = '?page=')
     {
         $this->url = $url;
         parent::__construct(null, ['class' => 'pagination']);
@@ -59,7 +59,7 @@ class Pagination extends \Ease\Html\UlTag
      * @param int    $page
      * @param string $label
      */
-    function addPage($page, $label = null, $style = null)
+    public function  addPage($page, $label = null, $style = null)
     {
         $link = $this->url . $page;
         if ($style) {

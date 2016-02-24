@@ -54,7 +54,7 @@ class Modal extends \Ease\Html\Div
      * @param mixed  $content
      * @param array  $properties
      */
-    function __construct($name, $title, $content = null, $properties = [])
+    public function  __construct($name, $title, $content = null, $properties = [])
     {
         parent::__construct(null, ['class' => 'modal fade', 'id' => $name, 'tabindex' => '-1', 'role' => 'dialog', 'aria-labelledby' => $title . 'ID', 'aria-hidden' => 'true']);
         $this->properties = $properties;
@@ -71,7 +71,7 @@ class Modal extends \Ease\Html\Div
     /**
      * Finalize modal
      */
-    function finalize()
+    public function  finalize()
     {
         Part::twBootstrapize();
         $modalDialog = $this->addItem(new \Ease\Html\Div(null, ['class' => 'modal-dialog', 'role' => 'document']));

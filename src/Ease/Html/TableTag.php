@@ -55,7 +55,7 @@ class TableTag extends PairTag
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    function &addRowColumns($columns = null, $properties = null)
+    public function  &addRowColumns($columns = null, $properties = null)
     {
         $tableRow = $this->tBody->addItem(new TrTag());
         if (is_array($columns)) {
@@ -78,7 +78,7 @@ class TableTag extends PairTag
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    function &addRowHeaderColumns($columns = null, $properties = null)
+    public function  &addRowHeaderColumns($columns = null, $properties = null)
     {
         $tableRow = $this->tHead->addItem(new TrTag());
         if (is_array($columns)) {
@@ -99,7 +99,7 @@ class TableTag extends PairTag
      * @param  null $element je zde pouze z důvodu zpětné kompatibility
      * @return type
      */
-    function isEmpty($element = null)
+    public function  isEmpty($element = null)
     {
         return $this->tBody->isEmpty();
     }
@@ -109,7 +109,7 @@ class TableTag extends PairTag
      *
      * @param array $contents
      */
-    function populate($contents)
+    public function  populate($contents)
     {
         foreach ($contents as $cRow) {
             $this->addRowColumns($cRow);

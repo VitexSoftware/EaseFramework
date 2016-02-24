@@ -121,7 +121,7 @@ class Form extends PairTag
      *
      * @return EaseContainer|class
      */
-    function &objectContentSearch($searchFor, $where = null)
+    public function  &objectContentSearch($searchFor, $where = null)
     {
         if (is_null($where)) {
             $where = & $this;

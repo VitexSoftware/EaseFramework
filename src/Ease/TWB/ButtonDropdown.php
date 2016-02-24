@@ -27,7 +27,7 @@ class ButtonDropdown extends \Ease\Html\Div
      * @param array  $items      položky menu
      * @param array  $properties Parametry tagu
      */
-    function __construct($label = null, $type = 'default', $size = null, $items = null, $properties = null)
+    public function  __construct($label = null, $type = 'default', $size = null, $items = null, $properties = null)
     {
         parent::__construct(null, $properties);
         $this->setTagClass('btn-group');
@@ -50,7 +50,7 @@ class ButtonDropdown extends \Ease\Html\Div
      * @param  type $pageItem
      * @return \Ease\Html\LiTag
      */
-    function addMenuItem($pageItem)
+    public function  addMenuItem($pageItem)
     {
         return $this->dropdown->addItemSmart($pageItem);
     }

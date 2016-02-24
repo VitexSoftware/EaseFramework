@@ -56,7 +56,7 @@ class Scroller extends Ease\Html\DivTag
      *
      * @return object|mixed
      */
-    function &addItem($PageItem, $PageItemName = null)
+    public function  &addItem($PageItem, $PageItemName = null)
     {
         return $this->ScrollableArea->addItem($PageItem, $PageItemName);
     }

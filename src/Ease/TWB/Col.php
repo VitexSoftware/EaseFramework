@@ -14,7 +14,7 @@ class Col extends \Ease\Html\Div
      * @param string $target     Typ zařízení xs|sm|md|lg
      * @param array  $properties Další vlastnosti tagu
      */
-    function __construct($size, $content = null, $target = 'md', $properties = null)
+    public function  __construct($size, $content = null, $target = 'md', $properties = null)
     {
         if (is_null($properties)) {
             $properties = [];

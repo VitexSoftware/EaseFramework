@@ -251,7 +251,7 @@ class SysLogger extends Atom
      *
      * @param string $caller
      */
-    function flush($caller = null)
+    public function  flush($caller = null)
     {
         if (count($this->statusMessages)) {
             foreach ($this->statusMessages as $type => $messages) {

@@ -14,7 +14,7 @@ class ButtonTag extends PairTag
      * @param string $content       obsah tlačítka
      * @param array  $tagProperties vlastnosti tagu
      */
-    function __construct($content, $tagProperties = null)
+    public function  __construct($content, $tagProperties = null)
     {
         parent::__construct('button', $tagProperties, $content);
     }

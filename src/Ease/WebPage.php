@@ -128,7 +128,7 @@ class WebPage extends Page
      *
      * @return Page poiner to object well included
      */
-    function & addItem($item, $pageItemName = null)
+    public function  & addItem($item, $pageItemName = null)
     {
         $added = $this->body->addItem($item, $pageItemName);
         return $added;

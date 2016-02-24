@@ -185,7 +185,7 @@ class Mailer extends Page
      *
      * @return mixed ukazatel na vložený obsah
      */
-    function &addItem($item, $pageItemName = null)
+    public function  &addItem($item, $pageItemName = null)
     {
         $mailBody = '';
         if (is_object($item)) {

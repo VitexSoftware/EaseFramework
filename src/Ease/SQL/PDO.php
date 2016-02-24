@@ -376,7 +376,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    function arrayToQuery($data, $key = true)
+    public function  arrayToQuery($data, $key = true)
     {
         switch ($this->dbType) {
             case 'pgsql':
@@ -398,7 +398,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    function arrayToInsertQuery($data, $key = true)
+    public function  arrayToInsertQuery($data, $key = true)
     {
         switch ($this->dbType) {
             case 'mysql':
@@ -897,7 +897,7 @@ class PDO extends SQL
      *
      * @return string
      */
-    function getColumnComma()
+    public function  getColumnComma()
     {
         switch ($this->dbType) {
             case 'pgsql':
@@ -918,7 +918,7 @@ class PDO extends SQL
      *
      * @param \Ease\Brick $object or its child
      */
-    function useObject($object)
+    public function  useObject($object)
     {
         $this->setKeyColumn($object->getmyKeyColumn());
         $this->setTableName($object->getMyTable());

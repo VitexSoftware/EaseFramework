@@ -54,7 +54,7 @@ class CheckboxGroup extends EaseInputContainer
      *
      * @return CheckboxTag
      */
-    function &addItem($pageItem, $pageItemName = null)
+    public function  &addItem($pageItem, $pageItemName = null)
     {
         /**
          * Allready Added Item

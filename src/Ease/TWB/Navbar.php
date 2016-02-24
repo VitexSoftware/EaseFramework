@@ -80,7 +80,7 @@ class Navbar extends \Ease\Html\Div
      *
      * @return EasePage poiner to object well included
      */
-    function &addItem($Item, $PageItemName = null)
+    public function  &addItem($Item, $PageItemName = null)
     {
         $added = $this->menuInnerContent->addItem($Item, $PageItemName);
         return $added;
@@ -94,7 +94,7 @@ class Navbar extends \Ease\Html\Div
      *
      * @return EaseWebPage
      */
-    function &addMenuItem($pageItem, $pull = 'left')
+    public function  &addMenuItem($pageItem, $pull = 'left')
     {
         if ($pull == 'left') {
             $menuItem = $this->nav->addItemSmart($pageItem);
@@ -119,7 +119,15 @@ class Navbar extends \Ease\Html\Div
         return $menuItem;
     }
 
-    function &addDropDownSubmenu($name, $items)
+    /**
+     * Add Dropdown Submenu
+     *
+     * @param string $name
+     * @param array $items
+     * 
+     * @return \Ease\Html\UlTag
+     */
+    public function  &addDropDownSubmenu($name, $items)
     {
         $dropdown = $this->addItem(new \Ease\Html\UlTag(null, ['class' => 'dropdown-menu', 'role' => 'menu']));
         if (count($items)) {
@@ -138,7 +146,7 @@ class Navbar extends \Ease\Html\Div
      * @param  string       $pull  směr zarovnání
      * @return \Ease\Html\ULTag
      */
-    function &addDropDownMenu($label, $items, $pull = 'left')
+    public function  &addDropDownMenu($label, $items, $pull = 'left')
     {
         Part::twBootstrapize();
         \Ease\Shared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();', null, true);

@@ -639,7 +639,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @return string
      */
-    function getColumnComma()
+    public function  getColumnComma()
     {
         return '';
     }

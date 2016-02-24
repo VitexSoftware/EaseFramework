@@ -20,7 +20,7 @@ class DataGrid extends Html\TableTag
      * @param mixed $content
      * @param array $properties
      */
-    function __construct($content = null, $properties = null)
+    public function  __construct($content = null, $properties = null)
     {
         parent::__construct(null, $properties);
         if (is_array($content)) {

@@ -18,7 +18,7 @@ class Label extends \Ease\Html\SpanTag
      * @param mixed  $content
      * @param array  $properties
      */
-    function __construct($type = 'default', $content = null, $properties = null)
+    public function  __construct($type = 'default', $content = null, $properties = null)
     {
         if (isset($properties['class'])) {
             $properties['class'] .= ' label label-' . $type;

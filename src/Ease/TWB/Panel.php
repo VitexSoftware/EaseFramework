@@ -52,7 +52,7 @@ class Panel extends \Ease\Html\Div
      * @param mixes        $body    tělo panelu
      * @param mixed        $footer  patička panelu. FALSE = nezobrazit vůbec
      */
-    function __construct($heading = null, $type = 'default', $body = null, $footer = null)
+    public function  __construct($heading = null, $type = 'default', $body = null, $footer = null)
     {
         $this->type = $type;
         $this->addToFooter = $footer;
@@ -71,7 +71,7 @@ class Panel extends \Ease\Html\Div
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem, $pageItemName = null)
+    public function  &addItem($pageItem, $pageItemName = null)
     {
         $added = $this->body->addItem($pageItem, $pageItemName);
         return $added;
@@ -80,7 +80,7 @@ class Panel extends \Ease\Html\Div
     /**
      * Vloží obsah do patičky
      */
-    function finalize()
+    public function  finalize()
     {
         if (!count($this->body->pageParts)) {
             unset($this->pageParts['body']);

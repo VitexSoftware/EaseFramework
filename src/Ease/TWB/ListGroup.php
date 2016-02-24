@@ -26,7 +26,7 @@ class ListGroup extends \Ease\Html\UlTag
      *
      * @return mixed
      */
-    function &addItemSmart($pageItem, $properties = null)
+    public function  &addItemSmart($pageItem, $properties = null)
     {
         $item = parent::addItemSmart($pageItem, $properties);
         $item->addTagClass('list-group-item');

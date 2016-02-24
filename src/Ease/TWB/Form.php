@@ -53,7 +53,7 @@ class Form extends \Ease\Html\Form
      *
      * @return pointer Odkaz na vložený objekt
      */
-    function &addItem($pageItem, $pageItemName = null)
+    public function  &addItem($pageItem, $pageItemName = null)
     {
         if (is_object($pageItem) && method_exists($pageItem, 'setTagClass')) {
             if (strtolower($pageItem->tagType) == 'select') {

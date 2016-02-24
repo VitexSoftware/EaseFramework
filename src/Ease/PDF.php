@@ -23,9 +23,9 @@ class PDF extends \TCPDF
     /**
      * Objekt pro vykreslování
      *
-     * @var EasePage object
+     * @var \Ease\Page object
      */
-    public $OPage = null;
+    public $pdfPage = null;
 
     /**
      * Pole vkládaného obsahu
@@ -60,8 +60,8 @@ class PDF extends \TCPDF
      */
     public function __construct($Format = PDF_PAGE_FORMAT)
     {
-        $this->OPage = new EasePage();
-        $this->pageParts = & $this->OPage->pageParts;
+        $this->pdfPage = new EasePage();
+        $this->pageParts = & $this->pdfPage->pageParts;
         parent::__construct(PDF_PAGE_ORIENTATION, PDF_UNIT, $Format, true, 'UTF-8', false);
         $this->setup();
     }
@@ -83,15 +83,15 @@ class PDF extends \TCPDF
 
     public function error($Message, $data = null)
     {
-        $this->OPage->error($Message, $data);
+        $this->pdfPage->error($Message, $data);
         parent::Error($Message);
     }
 
-    function &addItem($Item)
+    public function  &addItem($Item)
     {
-        $AddedItem = $this->OPage->addItem($Item);
+        $addedItem = $this->pdfPage->addItem($Item);
 
-        return $AddedItem;
+        return $addedItem;
     }
 
     public function draw()
@@ -105,26 +105,26 @@ class PDF extends \TCPDF
             return null;
         }
         $this->AddPage();
-        $this->writeHTML($this->OPage->getRendered());
+        $this->writeHTML($this->pdfPage->getRendered());
         $this->Finalized = true;
 
         return true;
     }
 
-    public function sendToBrowser($OutFile = null)
+    public function sendToBrowser($outFile = null)
     {
-        if (!$OutFile) {
-            $OutFile = $this->OutFile;
+        if (!$outFile) {
+            $outFile = $this->outFile;
         }
         $this->finalize();
 
-        return $this->Output(basename($OutFile), 'I');
+        return $this->Output(basename($outFile), 'I');
     }
 
     public function writeToFile($OutFile)
     {
         if (!$OutFile) {
-            $OutFile = $this->OutFile;
+            $OutFile = $this->outFile;
         }
         $this->finalize();
         $this->Output($OutFile, 'F');

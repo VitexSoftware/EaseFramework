@@ -25,7 +25,7 @@ class DlTag extends PairTag
      * @param string|mixed $term  Subjekt
      * @param string|mixed $value Popis subjektu
      */
-    function addDef($term, $value)
+    public function  addDef($term, $value)
     {
         $this->addItem(new DtTag($term));
         $this->addItem(new DdTag($value));

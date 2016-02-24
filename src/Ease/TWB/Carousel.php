@@ -69,7 +69,7 @@ class Carousel extends \Ease\Html\Div
      * @param string       $caption
      * @param boolean      $default    show slide by default
      */
-    function addSlide($slide, $capHeading = '', $caption = '', $default = false)
+    public function  addSlide($slide, $capHeading = '', $caption = '', $default = false)
     {
         $item = new \Ease\Html\Div($slide, ['class' => 'item']);
         if ($default) {
@@ -98,7 +98,7 @@ class Carousel extends \Ease\Html\Div
     /**
      * Add Navigation buttons
      */
-    function finalize()
+    public function  finalize()
     {
         Part::twBootstrapize();
         if (is_null($this->active)) { //We need one slide active

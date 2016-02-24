@@ -60,7 +60,7 @@ class Tabs extends \Ease\Container
      *
      * @return pointer odkaz na vložený obsah
      */
-    function &addTab($tabName, $tabContent = null, $active = false)
+    public function  &addTab($tabName, $tabContent = null, $active = false)
     {
         if (is_null($tabContent)) {
             $tabContent = new \Ease\Html\Div();
@@ -77,7 +77,7 @@ class Tabs extends \Ease\Container
      *
      * @return string
      */
-    function getTagID()
+    public function  getTagID()
     {
         return $this->partName;
     }
