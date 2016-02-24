@@ -1,32 +1,29 @@
 <?php
 /**
- * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum
+ * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2014 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum
+ * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 class Sand extends Atom
 {
     /**
-     * Default Language Code
+     * Default Language Code.
      *
      * @var string
      */
     public $langCode = null;
 
     /**
-     * Common object data holder
+     * Common object data holder.
      *
      * @var array
      */
@@ -34,7 +31,7 @@ class Sand extends Atom
 
     /**
      * Obsahuje všechna pole souhrně považovaná za identitu. Toto pole je plněno
-     * v metodě SaveObjectIdentity {volá se automaticky v EaseSand::__construct()}
+     * v metodě SaveObjectIdentity {volá se automaticky v EaseSand::__construct()}.
      *
      * @var array
      */
@@ -48,7 +45,7 @@ class Sand extends Atom
     public $initialIdenty = [];
 
     /**
-     * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu
+     * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu.
      *
      * @var array
      */
@@ -58,45 +55,45 @@ class Sand extends Atom
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
         'myCreateColumn', 'MSCreateColumn',
-        'myLastModifiedColumn', 'MSLastModifiedColumn'];
+        'myLastModifiedColumn', 'MSLastModifiedColumn', ];
 
     /**
-     * Klíčový sloupeček v používané MySQL tabulce
+     * Klíčový sloupeček v používané MySQL tabulce.
      *
      * @var string
      */
     public $myKeyColumn = 'id';
 
     /**
-     * Synchronizační sloupeček. napr products_ids
+     * Synchronizační sloupeček. napr products_ids.
      *
      * @var string
      */
     public $myIDSColumn = null;
 
     /**
-     * Synchronizační sloupeček. napr IDS
+     * Synchronizační sloupeček. napr IDS.
      *
      * @var string
      */
     public $msIDSColumn = null;
 
     /**
-     * Sloupeček obsahující datum vložení záznamu do shopu
+     * Sloupeček obsahující datum vložení záznamu do shopu.
      *
      * @var string
      */
     public $myCreateColumn = null;
 
     /**
-     * Slopecek obsahujici datum poslení modifikace záznamu do shopu
+     * Slopecek obsahujici datum poslení modifikace záznamu do shopu.
      *
      * @var string
      */
     public $myLastModifiedColumn = null;
 
     /**
-     * Objekt pro logování
+     * Objekt pro logování.
      *
      * @var Logger
      */
@@ -110,21 +107,21 @@ class Sand extends Atom
     public $logType = 'Logger';
 
     /**
-     * Odkaz na vlastnící objekt
+     * Odkaz na vlastnící objekt.
      *
      * @var Sand|mixed object
      */
     public $parentObject = null;
 
     /**
-     * Sdílený objekt frameworku
+     * Sdílený objekt frameworku.
      *
      * @var Shared
      */
     public $easeShared = null;
 
     /**
-     * Prapředek všech objektů
+     * Prapředek všech objektů.
      */
     public function __construct()
     {
@@ -145,12 +142,12 @@ class Sand extends Atom
     }
 
     /**
-     * Přidá zprávu do sdíleného zásobníku pro zobrazení uživateli
+     * Přidá zprávu do sdíleného zásobníku pro zobrazení uživateli.
      *
-     * @param string  $message  Text zprávy
-     * @param string  $type     Fronta zpráv (warning|info|error|success)
-     * @param boolean $addIcons přidá UTF8 ikonky na začátek zpráv
-     * @param boolean $addToLog zapisovat zpravu do logu ?
+     * @param string $message  Text zprávy
+     * @param string $type     Fronta zpráv (warning|info|error|success)
+     * @param bool   $addIcons přidá UTF8 ikonky na začátek zpráv
+     * @param bool   $addToLog zapisovat zpravu do logu ?
      *
      * @return
      */
@@ -162,9 +159,9 @@ class Sand extends Atom
     }
 
     /**
-     * Předá zprávy
+     * Předá zprávy.
      *
-     * @param boolean $clean smazat originalni data ?
+     * @param bool $clean smazat originalni data ?
      *
      * @return array
      */
@@ -174,16 +171,17 @@ class Sand extends Atom
     }
 
     /**
-     * Vymaže zprávy
+     * Vymaže zprávy.
      */
     public function cleanMessages()
     {
         parent::cleanMessages();
+
         return Shared::instanced()->cleanMessages();
     }
 
     /**
-     * Připojí ke stávajícímu objektu přiřazený objekt
+     * Připojí ke stávajícímu objektu přiřazený objekt.
      *
      * @param string $propertyName název proměnné
      * @param object $object       přiřazovaný objekt
@@ -191,12 +189,12 @@ class Sand extends Atom
     public function attachObject($propertyName, $object)
     {
         if (is_object($object)) {
-            $this->$propertyName = & $object;
+            $this->$propertyName = &$object;
         }
     }
 
     /**
-     * Nastaví jméno objektu
+     * Nastaví jméno objektu.
      *
      * @param string $objectName
      *
@@ -214,7 +212,7 @@ class Sand extends Atom
     }
 
     /**
-     * Vrací jméno objektu
+     * Vrací jméno objektu.
      *
      * @return string
      */
@@ -224,7 +222,7 @@ class Sand extends Atom
     }
 
     /**
-     * Nastaví novou identitu objektu
+     * Nastaví novou identitu objektu.
      *
      * @param array $newIdentity
      */
@@ -235,7 +233,7 @@ class Sand extends Atom
         foreach ($this->identityColumns as $column) {
             if (isset($newIdentity[$column])) {
                 $this->$column = $newIdentity[$column];
-                $changes++;
+                ++$changes;
             }
         }
 
@@ -243,7 +241,7 @@ class Sand extends Atom
     }
 
     /**
-     * Uloží identitu objektu do pole $this->Identity
+     * Uloží identitu objektu do pole $this->Identity.
      *
      * @return array pole s identitou
      */
@@ -259,7 +257,7 @@ class Sand extends Atom
     }
 
     /**
-     * Obnoví uloženou identitu objektu
+     * Obnoví uloženou identitu objektu.
      *
      * @param array $identity pole s identitou např. array('myTable'=>'user');
      */
@@ -273,7 +271,7 @@ class Sand extends Atom
     }
 
     /**
-     * Obnoví poslední použitou identitu
+     * Obnoví poslední použitou identitu.
      */
     public function resetObjectIdentity()
     {
@@ -283,13 +281,13 @@ class Sand extends Atom
 
     /**
      * Z datového pole $SourceArray přemístí políčko $ColumName do pole
-     * $DestinationArray
+     * $DestinationArray.
      *
      * @param array  $sourceArray      zdrojové pole dat
      * @param array  $destinationArray cílové pole dat
      * @param string $columName        název položky k převzetí
      */
-    public static function divDataArray(& $sourceArray, & $destinationArray,
+    public static function divDataArray(&$sourceArray, &$destinationArray,
                                         $columName)
     {
         if (array_key_exists($columName, $sourceArray)) {
@@ -303,7 +301,7 @@ class Sand extends Atom
     }
 
     /**
-     * Vynuluje všechny pole vlastností objektu
+     * Vynuluje všechny pole vlastností objektu.
      */
     public function dataReset()
     {
@@ -311,7 +309,7 @@ class Sand extends Atom
     }
 
     /**
-     * Načte $data do polí objektu
+     * Načte $data do polí objektu.
      *
      * @param array $data  asociativní pole dat
      * @param bool  $reset vyprazdnit pole před naplněním ?
@@ -332,11 +330,12 @@ class Sand extends Atom
             }
             $ret = count($data);
         }
+
         return $ret;
     }
 
     /**
-     * Vrací celé pole dat objektu
+     * Vrací celé pole dat objektu.
      *
      * @return array
      */
@@ -346,7 +345,7 @@ class Sand extends Atom
     }
 
     /**
-     * Vrací počet položek dat objektu
+     * Vrací počet položek dat objektu.
      *
      * @return int
      */
@@ -356,7 +355,7 @@ class Sand extends Atom
     }
 
     /**
-     * Vrací hodnotu z pole dat pro MySQL
+     * Vrací hodnotu z pole dat pro MySQL.
      *
      * @param string $columnName název hodnoty/sloupečku
      *
@@ -368,34 +367,36 @@ class Sand extends Atom
             return $this->data[$columnName];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Nastaví hodnotu poli objektu
+     * Nastaví hodnotu poli objektu.
      *
      * @param string $columnName název datové kolonky
      * @param mixed  $value      hodnota dat
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function setDataValue($columnName, $value)
     {
         $this->data[$columnName] = $value;
+
         return true;
     }
 
     /**
-     * Odstrani polozku z pole dat pro MySQL
+     * Odstrani polozku z pole dat pro MySQL.
      *
      * @param string $columnName název klíče k vymazání
      *
-     * @return boolean success
+     * @return bool success
      */
     public function unsetDataValue($columnName)
     {
         if (array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
+
             return true;
         }
 
@@ -403,7 +404,7 @@ class Sand extends Atom
     }
 
     /**
-     * Převezme data do aktuálního pole dat
+     * Převezme data do aktuálního pole dat.
      *
      * @param array $data asociativní pole dat
      *
@@ -416,11 +417,12 @@ class Sand extends Atom
         } else {
             $this->data = $data;
         }
+
         return count($data);
     }
 
     /**
-     * Funkce pro defaultní slashování v celém frameworku
+     * Funkce pro defaultní slashování v celém frameworku.
      *
      * @param string $text
      *
@@ -432,18 +434,18 @@ class Sand extends Atom
     }
 
     /**
-     * Zobrazí obsah pole nebo objektu
+     * Zobrazí obsah pole nebo objektu.
      *
      * @param mixed  $argument All used by print_r() function
      * @param string $comment  hint při najetí myší
      */
     public function printPre($argument, $comment = '')
     {
-        $retVal     = '';
+        $retVal = '';
         $itemsCount = 0;
         if (is_object($argument)) {
             $itemsCount = count($argument);
-            $comment    = gettype($argument).': '.get_class($argument).': '.$comment;
+            $comment = gettype($argument).': '.get_class($argument).': '.$comment;
         } else {
             $comment = gettype($argument).': '.$comment;
 
@@ -474,7 +476,7 @@ class Sand extends Atom
     }
 
     /**
-     * Vrací print_pre($Argument) jako řetězec
+     * Vrací print_pre($Argument) jako řetězec.
      *
      * @param mixed $argument
      *
@@ -486,7 +488,7 @@ class Sand extends Atom
     }
 
     /**
-     * Vrací utf8 podřetězec
+     * Vrací utf8 podřetězec.
      *
      * @param string $str    utf8
      * @param int    $string offset
@@ -496,13 +498,13 @@ class Sand extends Atom
      */
     public static function substrUnicode($str, $string, $length = null)
     {
-        return join("",
-            array_slice(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY),
+        return implode('',
+            array_slice(preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY),
                 $string, $length));
     }
 
     /**
-     * Odstraní z textu diakritiku
+     * Odstraní z textu diakritiku.
      *
      * @param string $text
      */
@@ -592,14 +594,14 @@ class Sand extends Atom
             'ž' => 'z',
             'Ž' => 'Z',
             'ź' => 'z',
-            'Ź' => 'Z'
+            'Ź' => 'Z',
         ];
 
         return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
     }
 
     /**
-     * Šifrování
+     * Šifrování.
      *
      * @param string $textToEncrypt plaintext
      * @param string $encryptKey    klíč
@@ -609,13 +611,13 @@ class Sand extends Atom
     public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
-        $encryptKey        = md5($encryptKey);
-        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey        = substr($encryptKey, 0,
+        $encryptKey = md5($encryptKey);
+        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey = substr($encryptKey, 0,
             mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector     = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
-        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
+        $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
+        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
             $encryptedText = mcrypt_generic($encryptHandle, $textToEncrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
@@ -626,7 +628,7 @@ class Sand extends Atom
     }
 
     /**
-     * Dešifrování
+     * Dešifrování.
      *
      * @param string $textToDecrypt šifrovaný text
      * @param string $encryptKey    šifrovací klíč
@@ -635,24 +637,25 @@ class Sand extends Atom
      */
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
-        $decryptedText     = null;
-        $encryptKey        = md5($encryptKey);
-        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey        = substr($encryptKey, 0,
+        $decryptedText = null;
+        $encryptKey = md5($encryptKey);
+        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey = substr($encryptKey, 0,
             mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector     = substr($textToDecrypt, 0, $initialVectorSize);
-        $textToDecrypt     = substr($textToDecrypt, $initialVectorSize);
-        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != - 1) {
+        $initialVector = substr($textToDecrypt, 0, $initialVectorSize);
+        $textToDecrypt = substr($textToDecrypt, $initialVectorSize);
+        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
             $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
         }
+
         return $decryptedText;
     }
 
     /**
-     * Generování náhodného čísla
+     * Generování náhodného čísla.
      *
      * @param int $minimal
      * @param int $maximal
@@ -665,18 +668,19 @@ class Sand extends Atom
         mt_srand((double) microtime() * 1000000);
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
-               $rand = false;
+                $rand = false;
             } else {
                 $rand = mt_rand($minimal, $maximal);
             }
         } else {
             $rand = mt_rand();
         }
+
         return $rand;
     }
 
     /**
-     * Vrací náhodný řetězec dané délky
+     * Vrací náhodný řetězec dané délky.
      *
      * @param int $length
      *
@@ -684,21 +688,22 @@ class Sand extends Atom
      */
     public static function randomString($length = 6)
     {
-        return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+        return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             0, $length);
     }
 
     /**
-     * Oveření mailu
+     * Oveření mailu.
      *
      * @param string $email    mailová adresa
      * @param bool   $checkDNS testovat DNS ?
      *
-     * @package   isemail
      * @author    Dominic Sayers <dominic_sayers@hotmail.com>
      * @copyright 2009 Dominic Sayers
      * @license   http://www.opensource.org/licenses/cpal_1.0 Common Public Attribution License Version 1.0 (CPAL) license
+     *
      * @link      http://www.dominicsayers.com/isemail
+     *
      * @version   1.9 - Minor modifications to make it compatible with PHPLint
      */
     public static function isEmail($email, $checkDNS = false)
@@ -740,12 +745,12 @@ class Sand extends Atom
         // Sanitize comments
         // - remove nested comments, quotes and dots in comments
         // - remove parentheses and dots from quoted strings
-        $braceDepth     = 0;
-        $inQuote        = false;
+        $braceDepth = 0;
+        $inQuote = false;
         $escapeThisChar = false;
 
         for ($i = 0; $i < $emailLength; ++$i) {
-            $char        = $email[$i];
+            $char = $email[$i];
             $replaceChar = false;
 
             if ($char === '\\') {
@@ -815,9 +820,9 @@ class Sand extends Atom
             }
         }
 
-        $localPart  = substr($email, 0, $atIndex);
-        $domain     = substr($email, $atIndex + 1);
-        $FWS        = "(?:(?:(?:[ \\t]*(?:\\r\\n))?[ \\t]+)|(?:[ \\t]+(?:(?:\\r\\n)[ \\t]+)*))"; // Folding white space
+        $localPart = substr($email, 0, $atIndex);
+        $domain = substr($email, $atIndex + 1);
+        $FWS = '(?:(?:(?:[ \\t]*(?:\\r\\n))?[ \\t]+)|(?:[ \\t]+(?:(?:\\r\\n)[ \\t]+)*))'; // Folding white space
         // Let's check the local part for RFC compliance...
         //
         // local-part      =       dot-atom / quoted-string / obs-local-part
@@ -826,7 +831,7 @@ class Sand extends Atom
         //
         // Problem: need to distinguish between "first.last" and "first"."last"
         // (i.e. one element or two). And I suck at regexes.
-        $dotArray   = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
+        $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
             $localPart);
         $partLength = 0;
 
@@ -844,7 +849,7 @@ class Sand extends Atom
                             substr($element, 1, $indexBrace - 1)) > 0) {
                         return false; // Illegal characters in comment
                     }
-                    $element       = substr($element, $indexBrace + 1,
+                    $element = substr($element, $indexBrace + 1,
                         $elementLength - $indexBrace - 1);
                     $elementLength = strlen($element);
                 }
@@ -859,7 +864,7 @@ class Sand extends Atom
                                     $elementLength - $indexBrace - 2)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element       = substr($element, 0, $indexBrace);
+                        $element = substr($element, 0, $indexBrace);
                         $elementLength = strlen($element);
                     }
                 }
@@ -869,7 +874,7 @@ class Sand extends Atom
 
             // What's left counts towards the maximum length for this part
             if ($partLength > 0) {
-                $partLength++;
+                ++$partLength;
             } // for the dot
             $partLength += strlen($element);
 
@@ -924,7 +929,7 @@ class Sand extends Atom
         if (preg_match('/^\\[(.)+]$/', $domain) === 1) {
             // It's an address-literal
             $addressLiteral = substr($domain, 1, strlen($domain) - 2);
-            $matchesIP      = [];
+            $matchesIP = [];
 
             // Extract IPv4 part from the end of the address-literal (if there is one)
             if (preg_match('/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.) {3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
@@ -943,7 +948,7 @@ class Sand extends Atom
                         return false;
                     } // RFC5321 section 4.1.3
 
-                    $IPv6     = substr($addressLiteral, 5,
+                    $IPv6 = substr($addressLiteral, 5,
                         ($index === 7) ? 2 : $index - 6);
                     $groupMax = 6;
                 }
@@ -952,13 +957,13 @@ class Sand extends Atom
                 if (substr($addressLiteral, 0, 5) !== 'IPv6:') {
                     return false;
                 } // RFC5321 section 4.1.3
-                $IPv6     = substr($addressLiteral, 5);
+                $IPv6 = substr($addressLiteral, 5);
                 $groupMax = 8;
             }
 
             $groupCount = preg_match_all('/^[0-9a-fA-F]{0,4}|\\:[0-9a-fA-F]{0,4}|(.)/',
                 $IPv6, $matchesIP);
-            $index      = strpos($IPv6, '::');
+            $index = strpos($IPv6, '::');
 
             if ($index === false) {
                 // We need exactly the right number of groups
@@ -969,7 +974,7 @@ class Sand extends Atom
                 if ($index !== strrpos($IPv6, '::')) {
                     return false;
                 } // More than one '::'
-                $groupMax = ($index === 0 || $index === ( strlen($IPv6) - 2)) ? $groupMax
+                $groupMax = ($index === 0 || $index === (strlen($IPv6) - 2)) ? $groupMax
                         : $groupMax - 1;
                 if ($groupCount > $groupMax) {
                     return false;
@@ -1008,7 +1013,7 @@ class Sand extends Atom
             //
             // RFC5321 precludes the use of a trailing dot in a domain name for SMTP purposes
             // 	(http://tools.ietf.org/html/rfc5321#section-4.1.2)
-            $dotArray   = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
+            $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
                 $domain);
             $partLength = 0;
 
@@ -1030,7 +1035,7 @@ class Sand extends Atom
                                 substr($element, 1, $indexBrace - 1)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element       = substr($element, $indexBrace + 1,
+                        $element = substr($element, $indexBrace + 1,
                             $elementLength - $indexBrace - 1);
                         $elementLength = strlen($element);
                     }
@@ -1044,7 +1049,7 @@ class Sand extends Atom
                                     $elementLength - $indexBrace - 2)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element       = substr($element, 0, $indexBrace);
+                        $element = substr($element, 0, $indexBrace);
                         $elementLength = strlen($element);
                     }
                 }
@@ -1054,7 +1059,7 @@ class Sand extends Atom
 
                 // What's left counts towards the maximum length for this part
                 if ($partLength > 0) {
-                    $partLength++;
+                    ++$partLength;
                 } // for the dot
                 $partLength += strlen($element);
 
@@ -1098,7 +1103,7 @@ class Sand extends Atom
             } // TLD can't be all-numeric
             // Check DNS?
             if ($checkDNS && function_exists('checkdnsrr')) {
-                if (!(checkdnsrr($domain, 'A') || checkdnsrr($domain, 'MX') )) {
+                if (!(checkdnsrr($domain, 'A') || checkdnsrr($domain, 'MX'))) {
                     return false; // Domain doesn't actually exist
                 }
             }
@@ -1110,12 +1115,13 @@ class Sand extends Atom
     }
 
     /**
-     * Rekurzivně překóduje pole
+     * Rekurzivně překóduje pole.
      *
-     * @param  string $in_charset
-     * @param  string $out_charset
-     * @param  array  $arr         originální pole
-     * @return array  překódované pole
+     * @param string $in_charset
+     * @param string $out_charset
+     * @param array  $arr         originální pole
+     *
+     * @return array překódované pole
      */
     public function recursiveIconv($in_charset, $out_charset, $arr)
     {
@@ -1123,14 +1129,14 @@ class Sand extends Atom
             return iconv($in_charset, $out_charset, $arr);
         }
         $ret = $arr;
-        array_walk_recursive($ret, [$this, "arrayIconv"],
+        array_walk_recursive($ret, [$this, 'arrayIconv'],
             [$in_charset, $out_charset]);
 
         return $ret;
     }
 
     /**
-     * Pomocná funkce pro překódování vícerozměrného pole
+     * Pomocná funkce pro překódování vícerozměrného pole.
      *
      * @param mixed  $val
      * @param string $key
@@ -1142,7 +1148,7 @@ class Sand extends Atom
     }
 
     /**
-     * Zapíše zprávu do logu
+     * Zapíše zprávu do logu.
      *
      * @param string $message zpráva
      * @param string $type    typ zprávy (info|warning|success|error|*)
@@ -1157,7 +1163,7 @@ class Sand extends Atom
     }
 
     /**
-     * Oznamuje chybovou událost
+     * Oznamuje chybovou událost.
      *
      * @param string $message    zpráva
      * @param mixed  $objectData pole dat k zaznamenání
@@ -1172,7 +1178,7 @@ class Sand extends Atom
     }
 
     /**
-     * Magická funkce pro všechny potomky
+     * Magická funkce pro všechny potomky.
      *
      * @return string
      */
@@ -1182,7 +1188,7 @@ class Sand extends Atom
     }
 
     /**
-     * Pro serializaci připraví vše
+     * Pro serializaci připraví vše.
      *
      * @return array
      */
@@ -1199,22 +1205,22 @@ class Sand extends Atom
     }
 
     /**
-     * Zobrazí velikost souboru v srozumitelném tvaru
+     * Zobrazí velikost souboru v srozumitelném tvaru.
      *
-     * @param  int $filesize bytů
+     * @param int $filesize bytů
+     *
      * @return string
      */
     public static function humanFilesize($filesize)
     {
-
         if (is_numeric($filesize)) {
-            $decr   = 1024;
-            $step   = 0;
+            $decr = 1024;
+            $step = 0;
             $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
             while (($filesize / $decr) > 0.9) {
                 $filesize = $filesize / $decr;
-                $step++;
+                ++$step;
             }
 
             return round($filesize, 2).' '.$prefix[$step];
@@ -1224,7 +1230,7 @@ class Sand extends Atom
     }
 
     /**
-     * Akce po probuzení ze serializace
+     * Akce po probuzení ze serializace.
      */
     public function __wakeup()
     {

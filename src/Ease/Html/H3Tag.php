@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML H3 tag
+ * HTML H3 tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class H3Tag extends PairTag
 {
-
     /**
-     * Simple H3 tag
+     * Simple H3 tag.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu

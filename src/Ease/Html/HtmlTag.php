@@ -3,17 +3,16 @@
 namespace Ease\Html;
 
 /**
- * HTML top tag class
+ * HTML top tag class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class HtmlTag extends PairTag
 {
-
     public $LangCode = 'cs-CZ';
 
     /**
-     * HTML
+     * HTML.
      *
      * @param mixed $Content vložený obsah - tělo stránky
      */
@@ -23,7 +22,7 @@ class HtmlTag extends PairTag
     }
 
     /**
-     * Nastaví jméno objektu na "html"
+     * Nastaví jméno objektu na "html".
      *
      * @param string $ObjectName jméno objektu
      */

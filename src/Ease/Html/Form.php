@@ -1,25 +1,23 @@
 <?php
 
 /**
- * Html formulář se schopností rekurzivne naplnit hodnotami vložené prvky
+ * Html formulář se schopností rekurzivne naplnit hodnotami vložené prvky.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-
 namespace Ease\Html;
 
 class Form extends PairTag
 {
-
     /**
-     * Cíl formu
+     * Cíl formu.
      *
      * @var string URL cíle formuláře
      */
     public $formTarget = null;
 
     /**
-     * Metoda odesílání
+     * Metoda odesílání.
      *
      * @var string GET|POST
      */
@@ -33,7 +31,7 @@ class Form extends PairTag
     public $setName = false;
 
     /**
-     * Zobrazí html formulář
+     * Zobrazí html formulář.
      *
      * @param string $formName      jméno formuláře
      * @param string $formAction    cíl formulář např login.php
@@ -59,7 +57,7 @@ class Form extends PairTag
     }
 
     /**
-     * Nastaví cíl odeslání
+     * Nastaví cíl odeslání.
      *
      * @param string $formTarget cíl odeslání formuláře
      */
@@ -70,7 +68,7 @@ class Form extends PairTag
     }
 
     /**
-     * Změní jeden nebo více parametrů v ACTION url formuláře
+     * Změní jeden nebo více parametrů v ACTION url formuláře.
      *
      * @param array $parametersToChange pole parametrů
      * @param bool  $replace            přepisovat již existující
@@ -106,7 +104,7 @@ class Form extends PairTag
             }
             $glueSign = '?';
             foreach ($newTargPartVals as $newTargetPartsValName => $newTargetPartsValue) {
-                $formTargetComputed .= $glueSign . urlencode($newTargetPartsValName) . '=' . urlencode($newTargetPartsValue);
+                $formTargetComputed .= $glueSign.urlencode($newTargetPartsValName).'='.urlencode($newTargetPartsValue);
                 $glueSign = '&';
             }
             $this->setFormTarget($formTargetComputed);
@@ -114,17 +112,17 @@ class Form extends PairTag
     }
 
     /**
-     * Pokusí se najít ve vložených objektech tag zadaného jména
+     * Pokusí se najít ve vložených objektech tag zadaného jména.
      *
      * @param string        $searchFor jméno hledaného elementu
      * @param EaseContainer $where     objekt v němž je hledáno
      *
      * @return EaseContainer|class
      */
-    public function  &objectContentSearch($searchFor, $where = null)
+    public function &objectContentSearch($searchFor, $where = null)
     {
         if (is_null($where)) {
-            $where = & $this;
+            $where = &$this;
         }
         $itemFound = null;
         if (isset($where->pageParts) && is_array($where->pageParts) && count($where->pageParts)) {
@@ -143,11 +141,12 @@ class Form extends PairTag
                 }
             }
         }
+
         return $itemFound;
     }
 
     /**
-     * Doplnění perzistentních hodnot
+     * Doplnění perzistentních hodnot.
      */
     public function finalize()
     {

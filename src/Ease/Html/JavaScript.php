@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- *  fragment skriptu ve stránce
+ *  fragment skriptu ve stránce.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class JavaScript extends Ease\html\ScriptTag
 {
-
     /**
-     * fragment javaskriptu ve stránce
+     * fragment javaskriptu ve stránce.
      *
      * @param string $content text scriptu
      */

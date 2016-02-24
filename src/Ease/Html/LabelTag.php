@@ -3,22 +3,21 @@
 namespace Ease\Html;
 
 /**
- * Tag Label pro LabeledInput
+ * Tag Label pro LabeledInput.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class LabelTag extends PairTag
 {
-
     /**
-     * Odkaz na obsah
+     * Odkaz na obsah.
      *
      * @var mixed
      */
     public $Contents = null;
 
     /**
-     * zobrazí tag pro návěští
+     * zobrazí tag pro návěští.
      *
      * @param string $for        vztažný element
      * @param mixed  $contents   obsah opatřovaný popiskem
@@ -32,7 +31,7 @@ class LabelTag extends PairTag
     }
 
     /**
-     * Nastaví jméno objektu
+     * Nastaví jméno objektu.
      *
      * @param string $objectName nastavované jméno
      *
@@ -43,6 +42,7 @@ class LabelTag extends PairTag
         if ($objectName) {
             return parent::setObjectName($objectName);
         }
-        return parent::setObjectName(get_class($this) . '@' . $this->getTagProperty('for'));
+
+        return parent::setObjectName(get_class($this).'@'.$this->getTagProperty('for'));
     }
 }

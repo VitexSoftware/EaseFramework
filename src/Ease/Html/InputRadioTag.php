@@ -3,22 +3,21 @@
 namespace Ease\Html;
 
 /**
- * Radio button
+ * Radio button.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputRadioTag extends InputTag
 {
-
     /**
-     * Vracená hodnota
+     * Vracená hodnota.
      *
      * @var string
      */
     public $value = null;
 
     /**
-     * Radio button
+     * Radio button.
      *
      * @param string $name          jméno tagu
      * @param string $value         vracená hodnota

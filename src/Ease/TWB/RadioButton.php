@@ -1,23 +1,21 @@
 <?php
 
 /**
- * RadioButton Twitter Bootstrapu
+ * RadioButton Twitter Bootstrapu.
  */
-
 namespace Ease\TWB;
 
 class RadioButton extends \Ease\Html\Div
 {
-
     /**
-     *  RadioButton Twitter Bootstrapu
+     *  RadioButton Twitter Bootstrapu.
      *
      * @param string     $name
      * @param string|int $value
      * @param mixed      $caption
      * @param array      $properties
      */
-    public function  __construct($name = null, $value = null, $caption = null, $properties = null)
+    public function __construct($name = null, $value = null, $caption = null, $properties = null)
     {
         if (isset($properties['id'])) {
             $for = $properties['id'];

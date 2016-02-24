@@ -3,16 +3,14 @@
 namespace Ease\Html;
 
 /**
- * IMG tag class
+ * IMG tag class.
  *
- * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
 class ImgTag extends Tag
 {
-
     /**
-     * Html Obrazek
+     * Html Obrazek.
      *
      * @param string $image         url obrázku
      * @param string $hint          hint při nájezu myší

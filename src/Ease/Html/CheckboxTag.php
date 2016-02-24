@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Zobrazí tag pro chcekbox
+ * Zobrazí tag pro chcekbox.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class CheckboxTag extends InputTag
 {
-
     /**
-     * Zobrazuje HTML Checkbox
+     * Zobrazuje HTML Checkbox.
      *
      * @param string $name       jméno tagu
      * @param bool   $checked    stav checkboxu
@@ -39,9 +38,9 @@ class CheckboxTag extends InputTag
     }
 
     /**
-     * Nastaví zaškrtnutí
+     * Nastaví zaškrtnutí.
      *
-     * @param boolean $value nastavuje parametr "checked" tagu
+     * @param bool $value nastavuje parametr "checked" tagu
      */
     public function setValue($value = true)
     {

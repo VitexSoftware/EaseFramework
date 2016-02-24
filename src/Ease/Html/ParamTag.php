@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HtmlParam tag
+ * HtmlParam tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class ParamTag extends Tag
 {
-
     /**
-     * Paramm tag
+     * Paramm tag.
      *
      * @param string $name  jméno parametru
      * @param string $value hodnota parametru

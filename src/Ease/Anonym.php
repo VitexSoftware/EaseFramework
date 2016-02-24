@@ -1,57 +1,54 @@
 <?php
 
 /**
- * Objekt Anonymního uživatele
+ * Objekt Anonymního uživatele.
  *
  * PHP Version 5
  *
- * @package   EaseFrameWork
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class Anonym extends Brick
 {
-
     /**
-     * Druh uživatele
+     * Druh uživatele.
      *
      * @var string
      */
     public $type = 'anonymous';
 
     /**
-     * Anonymní uživatel má vždy ID null
+     * Anonymní uživatel má vždy ID null.
      *
      * @var null
      */
     public $userID = null;
 
     /**
-     * Jazyk anonyma
+     * Jazyk anonyma.
      *
      * @var string
      */
     public $language = 'cs';
 
     /**
-     * Registr vlastnosti uzivatele
+     * Registr vlastnosti uzivatele.
      *
      * @var array
      */
     public $valuesToKeep = [];
 
     /**
-     * Indikátor přihlášení
+     * Indikátor přihlášení.
      *
-     * @var boolean
+     * @var bool
      */
     public $logged = false;
 
     /**
-     * Nastavení jména objektu uživatele
+     * Nastavení jména objektu uživatele.
      *
      * @param string $objectName vynucené jméno objektu
      *
@@ -61,19 +58,19 @@ class Anonym extends Brick
     {
         if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
-                $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
+                $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';
             } else {
                 $identity = $_SERVER['REMOTE_ADDR'];
             }
 
-            return parent::setObjectName(get_class($this) . '@' . $identity);
+            return parent::setObjectName(get_class($this).'@'.$identity);
         } else {
             return parent::setObjectName($objectName);
         }
     }
 
     /**
-     * Anonym má level
+     * Anonym má level.
      *
      * @return int
      */
@@ -83,25 +80,23 @@ class Anonym extends Brick
     }
 
     /**
-     * Anonym nema ID
+     * Anonym nema ID.
      */
     public function getUserID()
     {
-        return null;
+        return;
     }
 
     /**
-     * Anonym nemá login
-     *
-     * @return null
+     * Anonym nemá login.
      */
     public function getUserLogin()
     {
-        return null;
+        return;
     }
 
     /**
-     * Anonym nemůže být přihlášený
+     * Anonym nemůže být přihlášený.
      *
      * @return bool FALSE
      */
@@ -111,41 +106,35 @@ class Anonym extends Brick
     }
 
     /**
-     * Anonym nemá nastavení
+     * Anonym nemá nastavení.
      *
      * @param string $settingName jméno klíče nastavení
-     *
-     * @return null
      */
     public function getSettingValue($settingName = null)
     {
-        return null;
+        return;
     }
 
     /**
-     * Anonym nemá mail
-     *
-     * @return null
+     * Anonym nemá mail.
      */
     public function getUserEmail()
     {
-        return null;
+        return;
     }
 
     /**
-     * Maketa oprávnění
+     * Maketa oprávnění.
      *
      * @param string $permKeyword klíčové slovo oprávnění
-     *
-     * @return null
      */
     public function getPermission($permKeyword = null)
     {
-        return null;
+        return;
     }
 
     /**
-     * Pouze maketa
+     * Pouze maketa.
      *
      * @return bool
      */

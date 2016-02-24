@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Třídy pro odesílání Mailu ✉
+ * Třídy pro odesílání Mailu ✉.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 //We Use System/Pear ones:
@@ -15,15 +13,14 @@ require_once 'Mail.php';
 require_once 'Mail/mime.php';
 
 /**
- * Sestaví a odešle mail
+ * Sestaví a odešle mail.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class Mailer extends Page
 {
-
     /**
-     * Objekt pro odesílání pošty
+     * Objekt pro odesílání pošty.
      *
      * @var
      */
@@ -37,14 +34,14 @@ class Mailer extends Page
     public $finalized = false;
 
     /**
-     * Již vzrendrované HTML
+     * Již vzrendrované HTML.
      *
      * @var string
      */
     public $htmlBodyRendered = null;
 
     /**
-     * Adresa odesilatele zprávy
+     * Adresa odesilatele zprávy.
      *
      * @var string
      */
@@ -52,7 +49,7 @@ class Mailer extends Page
     public $emailSubject = null;
 
     /**
-     * Emailová adresa odesilatele
+     * Emailová adresa odesilatele.
      *
      * @var string
      */
@@ -61,40 +58,40 @@ class Mailer extends Page
     /**
      * Zobrazovat uživateli informaci o odeslání zprávy ?
      *
-     * @var boolean
+     * @var bool
      */
     public $notify = true;
 
     /**
      * Byla již zpráva odeslána ?
      *
-     * @var boolean
+     * @var bool
      */
     public $sendResult = false;
 
     /**
-     * Objekt stránky pro rendrování do mailu
+     * Objekt stránky pro rendrování do mailu.
      *
      * @var Html\HtmlTag
      */
     public $htmlDocument = null;
 
     /**
-     * Ukazatel na BODY html dokumentu
+     * Ukazatel na BODY html dokumentu.
      *
      * @var Html\BodyTag
      */
     public $htmlBody = null;
 
     /**
-     * Parametry odchozí pošty
+     * Parametry odchozí pošty.
      *
      * @var array
      */
     public $parameters = [];
 
     /**
-     * Ease Mail - sestaví a odešle
+     * Ease Mail - sestaví a odešle.
      *
      * @param string $emailAddress  adresa
      * @param string $mailSubject   předmět
@@ -107,7 +104,7 @@ class Mailer extends Page
         }
 
         if (is_array($emailAddress)) {
-            $emailAddress = current($emailAddress) . ' <' . key($emailAddress) . '>';
+            $emailAddress = current($emailAddress).' <'.key($emailAddress).'>';
         }
 
         $this->setMailHeaders(
@@ -117,7 +114,7 @@ class Mailer extends Page
                     'Reply-To' => $this->fromEmailAddress,
                     'Subject' => $mailSubject,
                     'Content-Type' => 'text/plain; charset=utf-8',
-                    'Content-Transfer-Encoding' => '8bit'
+                    'Content-Transfer-Encoding' => '8bit',
                 ]
         );
 
@@ -134,7 +131,7 @@ class Mailer extends Page
     }
 
     /**
-     * Vrací obsah poštovní hlavičky
+     * Vrací obsah poštovní hlavičky.
      *
      * @param string $headername název hlavičky
      *
@@ -148,11 +145,11 @@ class Mailer extends Page
     }
 
     /**
-     * Nastaví hlavičky mailu
+     * Nastaví hlavičky mailu.
      *
      * @param mixed $mailHeaders asociativní pole hlaviček
      *
-     * @return boolean true pokud byly hlavičky nastaveny
+     * @return bool true pokud byly hlavičky nastaveny
      */
     public function setMailHeaders(array $mailHeaders)
     {
@@ -170,7 +167,7 @@ class Mailer extends Page
         if (isset($this->mailHeaders['Subject'])) {
             if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
                 $this->emailSubject = $this->mailHeaders['Subject'];
-                $this->mailHeaders['Subject'] = '=?UTF-8?B?' . base64_encode($this->mailHeaders['Subject']) . '?=';
+                $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
             }
         }
         $this->finalized = false;
@@ -179,13 +176,13 @@ class Mailer extends Page
     }
 
     /**
-     * Přidá položku do těla mailu
+     * Přidá položku do těla mailu.
      *
      * @param mixed $item EaseObjekt nebo cokoliv s metodou draw();
      *
      * @return mixed ukazatel na vložený obsah
      */
-    public function  &addItem($item, $pageItemName = null)
+    public function &addItem($item, $pageItemName = null)
     {
         $mailBody = '';
         if (is_object($item)) {
@@ -206,7 +203,7 @@ class Mailer extends Page
     }
 
     /**
-     * Připojí k mailu přílohu ze souboru
+     * Připojí k mailu přílohu ze souboru.
      *
      * @param string $filename cesta/název souboru k přiložení
      * @param string $mimeType MIME typ přílohy
@@ -217,7 +214,7 @@ class Mailer extends Page
     }
 
     /**
-     * Sestavení těla mailu
+     * Sestavení těla mailu.
      */
     public function finalize()
     {
@@ -232,24 +229,22 @@ class Mailer extends Page
             $this->setMailHeaders(['From' => $this->fromEmailAddress]);
         }
 
-        $this->setMailHeaders(['Date' => date("r")]);
+        $this->setMailHeaders(['Date' => date('r')]);
         $this->mailBody = $this->mimer->get();
         $this->mailHeadersDone = $this->mimer->headers($this->mailHeaders);
         $this->finalized = true;
     }
 
     /**
-     * Mail vložený do stránky se nevykresluje
-     *
-     * @return null
+     * Mail vložený do stránky se nevykresluje.
      */
     public function draw()
     {
-        return null;
+        return;
     }
 
     /**
-     * Odešle mail
+     * Odešle mail.
      */
     public function send()
     {
@@ -259,9 +254,9 @@ class Mailer extends Page
 
         $oMail = new \Mail();
         if (count($this->parameters)) {
-            $this->mailer = & $oMail->factory('smtp', $this->parameters);
+            $this->mailer = &$oMail->factory('smtp', $this->parameters);
         } else {
-            $this->mailer = & $oMail->factory('mail');
+            $this->mailer = &$oMail->factory('mail');
         }
         $this->sendResult = $this->mailer->send($this->emailAddress, $this->mailHeadersDone, $this->mailBody);
         if ($this->sendResult) {
@@ -271,11 +266,12 @@ class Mailer extends Page
         } else {
             $this->addStatusMessage(sprintf(_('Zpráva %s, pro %s nebyla odeslána z důvodu %s'), $this->emailSubject, $this->emailAddress, $this->sendResult->message), 'warning');
         }
+
         return $this->sendResult;
     }
 
     /**
-     * Nastaví návěští uživatelské notifikace
+     * Nastaví návěští uživatelské notifikace.
      *
      * @param bool $notify požadovaný stav notifikace
      */

@@ -1,62 +1,60 @@
 <?php
 
 /**
- * Panel Twitter Bootstrapu
+ * Panel Twitter Bootstrapu.
  */
-
 namespace Ease\TWB;
 
 class Panel extends \Ease\Html\Div
 {
-
     /**
-     * Hlavička panelu
+     * Hlavička panelu.
      *
      * @var \Ease\Html\Div
      */
     public $heading = null;
 
     /**
-     * Tělo panelu
+     * Tělo panelu.
      *
      * @var \Ease\Html\Div
      */
     public $body = null;
 
     /**
-     * Patička panelu
+     * Patička panelu.
      *
      * @var \Ease\Html\Div
      */
     public $footer = null;
 
     /**
-     * Typ Panelu
+     * Typ Panelu.
      *
-     * @var string    succes|wanring|info|danger
+     * @var string succes|wanring|info|danger
      */
     public $type = 'default';
 
     /**
-     * Obsah k přidání do patičky panelu
+     * Obsah k přidání do patičky panelu.
      *
      * @var mixed
      */
     public $addToFooter = null;
 
     /**
-     * Panel Twitter Bootstrapu
+     * Panel Twitter Bootstrapu.
      *
      * @param string|mixed $heading
      * @param string       $type    succes|wanring|info|danger
      * @param mixes        $body    tělo panelu
      * @param mixed        $footer  patička panelu. FALSE = nezobrazit vůbec
      */
-    public function  __construct($heading = null, $type = 'default', $body = null, $footer = null)
+    public function __construct($heading = null, $type = 'default', $body = null, $footer = null)
     {
         $this->type = $type;
         $this->addToFooter = $footer;
-        parent::__construct(null, ['class' => 'panel panel-' . $this->type]);
+        parent::__construct(null, ['class' => 'panel panel-'.$this->type]);
         if (!is_null($heading)) {
             $this->heading = parent::addItem(new \Ease\Html\Div($heading, ['class' => 'panel-heading']), 'head');
         }
@@ -64,23 +62,24 @@ class Panel extends \Ease\Html\Div
     }
 
     /**
-     * Vloží další element do objektu
+     * Vloží další element do objektu.
      *
      * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return pointer Odkaz na vložený objekt
      */
-    public function  &addItem($pageItem, $pageItemName = null)
+    public function &addItem($pageItem, $pageItemName = null)
     {
         $added = $this->body->addItem($pageItem, $pageItemName);
+
         return $added;
     }
 
     /**
-     * Vloží obsah do patičky
+     * Vloží obsah do patičky.
      */
-    public function  finalize()
+    public function finalize()
     {
         if (!count($this->body->pageParts)) {
             unset($this->pageParts['body']);
@@ -91,9 +90,10 @@ class Panel extends \Ease\Html\Div
     }
 
     /**
-     * Vrací patičku panelu
+     * Vrací patičku panelu.
      *
-     * @param  mixed $content obsah pro vložení to patičky
+     * @param mixed $content obsah pro vložení to patičky
+     *
      * @return \Ease\Html\DivTag
      */
     public function footer($content = null)
@@ -103,8 +103,9 @@ class Panel extends \Ease\Html\Div
                 $this->footer->addItem($content);
             }
         } else {
-            $this->footer = parent::addItem(new \Ease\Html\Div($content, ['class' => 'panel-footer panel-' . $this->type]), 'footer');
+            $this->footer = parent::addItem(new \Ease\Html\Div($content, ['class' => 'panel-footer panel-'.$this->type]), 'footer');
         }
+
         return $this->footer;
     }
 }

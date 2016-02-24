@@ -1,16 +1,14 @@
 <?php
 
 /**
- * Twitter Bootrstap Row
+ * Twitter Bootrstap Row.
  */
-
 namespace Ease\TWB;
 
 class Row extends \Ease\Html\Div
 {
-
     /**
-     * Twitter Bootrstap Row
+     * Twitter Bootrstap Row.
      *
      * @param mixed $content Prvotní obsah
      */
@@ -20,18 +18,21 @@ class Row extends \Ease\Html\Div
     }
 
     /**
-     * Vloží do řádku políčko
+     * Vloží do řádku políčko.
      *
      * @link   http://getbootstrap.com/css/#grid
-     * @param  int    $size       Velikost políčka 1 - 12
-     * @param  mixed  $content    Obsah políčka
-     * @param  string $target     Typ zařízení xs|sm|md|lg
-     * @param  array  $properties Další vlastnosti tagu
+     *
+     * @param int    $size       Velikost políčka 1 - 12
+     * @param mixed  $content    Obsah políčka
+     * @param string $target     Typ zařízení xs|sm|md|lg
+     * @param array  $properties Další vlastnosti tagu
+     *
      * @return Col Column contains $content
      */
     public function &addColumn($size, $content = null, $target = 'md', $properties = null)
     {
         $added = $this->addItem(new Col($size, $content, $target, $properties));
+
         return $added;
     }
 }

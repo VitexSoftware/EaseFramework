@@ -1,32 +1,29 @@
 <?php
 
 /**
- * Provede uložení obecných dat
+ * Provede uložení obecných dat.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Provede uložení obecných dat
+ * Provede uložení obecných dat.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class Saver extends Brick
 {
-
     /**
-     * Pracujeme s tabulkou mains
+     * Pracujeme s tabulkou mains.
      *
      * @var string
      */
     public $myTable = true;
 
     /**
-     * Pokud tabulka do které se má ukládat, neexistuje, vytvoří se
+     * Pokud tabulka do které se má ukládat, neexistuje, vytvoří se.
      */
     public function __construct()
     {
@@ -37,7 +34,7 @@ class Saver extends Brick
     }
 
     /**
-     * Vytvoří prázdnou tabulku s klíčovým sloupcem
+     * Vytvoří prázdnou tabulku s klíčovým sloupcem.
      */
     public function createmyTable()
     {
@@ -48,7 +45,7 @@ class Saver extends Brick
     }
 
     /**
-     * Přiřadí objektu uživatele a nastaví DB
+     * Přiřadí objektu uživatele a nastaví DB.
      *
      * @param Easeuser|EaseUser $User
      * @param object|mixed      $TargetObject
@@ -64,7 +61,7 @@ class Saver extends Brick
 
     /**
      * Pokusí se vložit  data, pokud se to nepovede, pokusí se vytvořit
-     * chybějící sloupečky a vrátí vysledek dalšího uložení
+     * chybějící sloupečky a vrátí vysledek dalšího uložení.
      *
      * @param array $data
      *
@@ -87,7 +84,7 @@ class Saver extends Brick
     }
 
     /**
-     * Vytvoří v databázi sloupeček pro uložení hodnoty widgetu
+     * Vytvoří v databázi sloupeček pro uložení hodnoty widgetu.
      *
      * @param array $data sloupečky k vytvoření
      *
@@ -113,10 +110,10 @@ class Saver extends Brick
 
     /**
      * Načte ze shopu data k aktuálnímu $ItemID
-     * Pokud tabulka neexistuje, vytvoří ji
+     * Pokud tabulka neexistuje, vytvoří ji.
      *
-     * @param int     $itemID     klíč záznamu k načtení
-     * @param boolean $multiplete nevarovat v případě více výsledků
+     * @param int  $itemID     klíč záznamu k načtení
+     * @param bool $multiplete nevarovat v případě více výsledků
      *
      * @return array Results
      */
@@ -138,7 +135,7 @@ class Saver extends Brick
     }
 
     /**
-     * Pokusí se updatnout záznam. Neexistuje, tak vloží nový záznam
+     * Pokusí se updatnout záznam. Neexistuje, tak vloží nový záznam.
      *
      * @param array $data
      *
@@ -158,7 +155,7 @@ class Saver extends Brick
     }
 
     /**
-     * jQuery Kod barevného označení výsledku případného uložení
+     * jQuery Kod barevného označení výsledku případného uložení.
      *
      * @param Container|mixed $enclosedElement element, který se má ukládat
      * @param string          $Infotext        volitelný zobrazovaný text
@@ -171,15 +168,15 @@ class Saver extends Brick
             $Infotext = _('Položku se nepodařilo uložit. Prosím zkuste jinou hodnotu.');
         }
         EaseShared::webPage()->addItem(
-            '<div id="dialog-message' . $enclosedElement->GetTagID() . '" title="' . _('Neuloženo') . '">
+            '<div id="dialog-message'.$enclosedElement->GetTagID().'" title="'._('Neuloženo').'">
     <p>
         <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
-        ' . $Infotext . '
+        '.$Infotext.'
     </p>
 </div>'
         );
-        EaseShared::webPage()->addJavaScript('$( \'#dialog-message' . $enclosedElement->GetTagID() . '\' ).dialog({ autoOpen: false, modal: true, buttons: { Ok: function () { $( this ).dialog( \'close\' );	} } });', null, true);
+        EaseShared::webPage()->addJavaScript('$( \'#dialog-message'.$enclosedElement->GetTagID().'\' ).dialog({ autoOpen: false, modal: true, buttons: { Ok: function () { $( this ).dialog( \'close\' );	} } });', null, true);
 
-        return '.success(function (data, textStatus) { $(\'#' . $enclosedElement->GetTagID() . '\').css(\'border\',\'green 2px solid\').css(\'margin\',\'2px\'); }).error(  function () { $(\'#' . $enclosedElement->GetTagID() . '\').val(\'' . $enclosedElement->getValue() . '\'); $( \'#dialog-message' . $enclosedElement->GetTagID() . '\' ).dialog(\'open\') } );  $(\'#' . $enclosedElement->GetTagID() . '\').css(\'border\',\'red 2px solid\').css(\'margin\',\'2px\'); ';
+        return '.success(function (data, textStatus) { $(\'#'.$enclosedElement->GetTagID().'\').css(\'border\',\'green 2px solid\').css(\'margin\',\'2px\'); }).error(  function () { $(\'#'.$enclosedElement->GetTagID().'\').val(\''.$enclosedElement->getValue().'\'); $( \'#dialog-message'.$enclosedElement->GetTagID().'\' ).dialog(\'open\') } );  $(\'#'.$enclosedElement->GetTagID().'\').css(\'border\',\'red 2px solid\').css(\'margin\',\'2px\'); ';
     }
 }

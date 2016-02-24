@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML em tag
+ * HTML em tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class EmTag extends PairTag
 {
-
     /**
-     * Tag kurzívu
+     * Tag kurzívu.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu

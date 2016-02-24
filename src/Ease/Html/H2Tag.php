@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML H2 tag
+ * HTML H2 tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class H2Tag extends PairTag
 {
-
     /**
-     * Nadpis druhé velikosti
+     * Nadpis druhé velikosti.
      *
      * @param mixed  $content    text nadpisu
      * @param string $properties parametry tagu

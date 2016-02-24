@@ -3,13 +3,12 @@
 namespace Ease\Html;
 
 /**
- * Pojem definice
+ * Pojem definice.
  */
 class DtTag extends PairTag
 {
-
     /**
-     * Pojem definice
+     * Pojem definice.
      *
      * @param string|mixed $content       název pojmu / klíčové slovo
      * @param array        $tagProperties

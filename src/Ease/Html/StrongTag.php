@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML major heading tag
+ * HTML major heading tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class StrongTag extends PairTag
 {
-
     /**
-     * Tag pro tučné písmo
+     * Tag pro tučné písmo.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu

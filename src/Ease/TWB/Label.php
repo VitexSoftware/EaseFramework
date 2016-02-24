@@ -1,16 +1,14 @@
 <?php
 
 /**
- * Návěstí bootstrapu
+ * Návěstí bootstrapu.
  */
-
 namespace Ease\TWB;
 
 class Label extends \Ease\Html\SpanTag
 {
-
     /**
-     * Návěstí bootstrapu
+     * Návěstí bootstrapu.
      *
      * @link http://getbootstrap.com/components/#labels
      *
@@ -18,12 +16,12 @@ class Label extends \Ease\Html\SpanTag
      * @param mixed  $content
      * @param array  $properties
      */
-    public function  __construct($type = 'default', $content = null, $properties = null)
+    public function __construct($type = 'default', $content = null, $properties = null)
     {
         if (isset($properties['class'])) {
-            $properties['class'] .= ' label label-' . $type;
+            $properties['class'] .= ' label label-'.$type;
         } else {
-            $properties['class'] = ' label label-' . $type;
+            $properties['class'] = ' label label-'.$type;
         }
         parent::__construct(null, $content, $properties);
     }

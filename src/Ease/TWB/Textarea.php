@@ -3,15 +3,14 @@
 namespace Ease\TWB;
 
 /**
- * Textarea pro Twitter Bootstap
+ * Textarea pro Twitter Bootstap.
  *
  * @author vitex
  */
 class Textarea extends \Ease\Html\TextareaTag
 {
-
     /**
-     * Textarea
+     * Textarea.
      *
      * @param string $name       jméno tagu
      * @param string $content    obsah textarey

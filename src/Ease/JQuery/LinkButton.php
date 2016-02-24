@@ -3,37 +3,37 @@
 namespace Ease\JQuery;
 
 /**
- * Hypertextový odkaz v designu jQueryUI tlačítka
+ * Hypertextový odkaz v designu jQueryUI tlačítka.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
+ *
  * @link   http://jqueryui.com/demos/button/
  */
 class LinkButton extends UIPart
 {
-
     /**
-     * Jméno tlačítka
+     * Jméno tlačítka.
      *
      * @var string
      */
     private $name = null;
 
     /**
-     * Paramatry pro jQuery .button()
+     * Paramatry pro jQuery .button().
      *
      * @var array
      */
     public $JQOptions = null;
 
     /**
-     * Odkaz tlačítka
+     * Odkaz tlačítka.
      *
      * @var Ease\Html\ATag
      */
     public $Button = null;
 
     /**
-     * Link se vzhledem tlačítka
+     * Link se vzhledem tlačítka.
      *
      * @see http://jqueryui.com/demos/button/
      *
@@ -59,17 +59,18 @@ class LinkButton extends UIPart
     }
 
     /**
-     * Nastaveni javascriptu
+     * Nastaveni javascriptu.
      */
     public function onDocumentReady()
     {
-        return '$("#' . $this->Name . '").button( {' . Part::partPropertiesToString($this->JQOptions) . '} )';
+        return '$("#'.$this->Name.'").button( {'.Part::partPropertiesToString($this->JQOptions).'} )';
     }
 
     /**
-     * Nastaví ID linku tlačítka
+     * Nastaví ID linku tlačítka.
      *
-     * @param  type $TagID ID tagu
+     * @param type $TagID ID tagu
+     *
      * @return type
      */
     public function setTagID($TagID = null)
@@ -78,7 +79,7 @@ class LinkButton extends UIPart
     }
 
     /**
-     * Vrací ID linku tlačítka
+     * Vrací ID linku tlačítka.
      *
      * @return type
      */

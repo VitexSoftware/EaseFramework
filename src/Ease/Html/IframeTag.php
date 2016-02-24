@@ -3,17 +3,16 @@
 namespace Ease\Html;
 
 /**
- * iFrame element
+ * iFrame element.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class IframeTag extends PairTag
 {
-
     public $tagType = 'iframe';
 
     /**
-     * iFrame element
+     * iFrame element.
      *
      * @param string $src        content url
      * @param array  $properties HTML tag proberties

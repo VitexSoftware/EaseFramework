@@ -3,30 +3,30 @@
 namespace Ease\JQuery;
 
 /**
- * Slider
+ * Slider.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
+ *
  * @see    http://docs.jquery.com/UI/Slider
  */
 class Slider extends UIPart
 {
-
     /**
-     * Class used to create form input
+     * Class used to create form input.
      *
      * @var type
      */
     public $inputClass = 'Ease\Html\InputHiddenTag';
 
     /**
-     * Additional JS code to solve show slider values
+     * Additional JS code to solve show slider values.
      *
      * @var type
      */
     public $SliderAdd = '';
 
     /**
-     * Jquery Slider
+     * Jquery Slider.
      *
      * @param string $name
      * @param int    $value can be array for multislider
@@ -42,7 +42,7 @@ class Slider extends UIPart
 
     /**
      * Nastavuje jméno objektu
-     * Je li znnámý, doplní jméno objektu jménem inputu
+     * Je li znnámý, doplní jméno objektu jménem inputu.
      *
      * @param string $ObjectName vynucené jméno objektu
      *
@@ -54,7 +54,7 @@ class Slider extends UIPart
             return parent::setObjectName($ObjectName);
         } else {
             if ($this->partName) {
-                return parent::setObjectName(get_class($this) . '@' . $this->partName);
+                return parent::setObjectName(get_class($this).'@'.$this->partName);
             } else {
                 return parent::setObjectName();
             }
@@ -62,7 +62,7 @@ class Slider extends UIPart
     }
 
     /**
-     * Setup input field/s value/s
+     * Setup input field/s value/s.
      *
      * @param string $value
      */
@@ -76,7 +76,7 @@ class Slider extends UIPart
     }
 
     /**
-     * Nastaví více hodnot
+     * Nastaví více hodnot.
      *
      * @param darray $data hodnoty k přednastavení
      */
@@ -86,7 +86,7 @@ class Slider extends UIPart
             $newValues = [];
             foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
                 if (isset($data[$ID])) {
-                    $this->pageParts[$this->inputClass . '@' . $ID]->setValue($data[$ID]);
+                    $this->pageParts[$this->inputClass.'@'.$ID]->setValue($data[$ID]);
                     $newValues[$ID] = $data[$ID];
                 }
             }
@@ -97,7 +97,7 @@ class Slider extends UIPart
     }
 
     /**
-     * Return assigned form input Tag name
+     * Return assigned form input Tag name.
      *
      * @return string
      */
@@ -107,27 +107,28 @@ class Slider extends UIPart
     }
 
     /**
-     * Javascriptvový kod slideru
+     * Javascriptvový kod slideru.
      *
      * @return string
      */
     public function onDocumentReady()
     {
-        $javaScript = '$("#' . $this->partName . '-slider").slider( { ' . $this->getPartPropertiesToString() . ' } );';
+        $javaScript = '$("#'.$this->partName.'-slider").slider( { '.$this->getPartPropertiesToString().' } );';
         if (isset($this->partProperties['values'])) {
             foreach (array_keys($this->partProperties['values']) as $offset => $ID) {
                 $javaScript .= '
-' . '$( "#' . $ID . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "values", ' . $offset . ' ) );';
+'.'$( "#'.$ID.'" ).val( $( "#'.$this->partName.'-slider" ).slider( "values", '.$offset.' ) );';
             }
         } else {
             $javaScript .= '
-' . '$( "#' . $this->partName . '" ).val( $( "#' . $this->partName . '-slider" ).slider( "value" ) );';
+'.'$( "#'.$this->partName.'" ).val( $( "#'.$this->partName.'-slider" ).slider( "value" ) );';
         }
+
         return $javaScript;
     }
 
     /**
-     * Naplnění hodnotami
+     * Naplnění hodnotami.
      */
     public function afterAdd()
     {
@@ -145,31 +146,32 @@ class Slider extends UIPart
     }
 
     /**
-     * Vložení skriptů do schránky
+     * Vložení skriptů do schránky.
      */
     public function finalize()
     {
-        \Ease\Shared::webPage()->addCSS(' #' . $this->partName . ' { margin: 10px; }');
-        $this->addItem(new Ease\Html\Div(null, ['id' => $this->partName . '-slider']));
+        \Ease\Shared::webPage()->addCSS(' #'.$this->partName.' { margin: 10px; }');
+        $this->addItem(new Ease\Html\Div(null, ['id' => $this->partName.'-slider']));
         if (isset($this->partProperties['values'])) {
             if (is_array($this->partProperties['values'])) {
                 $JavaScript = '';
                 foreach (array_keys($this->partProperties['values']) as $Offset => $ID) {
-                    $JavaScript .= ' $( "#' . $ID . '" ).val( ui.values[' . $Offset . '] );';
+                    $JavaScript .= ' $( "#'.$ID.'" ).val( ui.values['.$Offset.'] );';
                 }
-                $this->setPartProperties(['slide' => 'function (event, ui) { ' . $JavaScript . $this->SliderAdd . ' }']);
+                $this->setPartProperties(['slide' => 'function (event, ui) { '.$JavaScript.$this->SliderAdd.' }']);
             }
         } else {
-            $this->setPartProperties(['slide' => 'function (event, ui) { $( "#' . $this->partName . '" ).val( ui.value ); ' . $this->SliderAdd . ' }']);
+            $this->setPartProperties(['slide' => 'function (event, ui) { $( "#'.$this->partName.'" ).val( ui.value ); '.$this->SliderAdd.' }']);
         }
         if (!isset($this->partProperties['value'])) {
             $this->partProperties['value'] = null;
         }
         $this->setPartProperties(
             ['change' => 'function (event, ui) {
-            $("#' . $this->partName . '-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#' . $this->partName . '-slider a").html( ' . $this->partProperties['value'] . ' ).css("text-align", "center"); }  ']
+            $("#'.$this->partName.'-slider a").html( ui.value ); }', 'create' => 'function (event, ui) { $("#'.$this->partName.'-slider a").html( '.$this->partProperties['value'].' ).css("text-align", "center"); }  ']
         );
         \Ease\Shared::webPage()->addJavaScript(';', null, true);
+
         return parent::finalize();
     }
 }

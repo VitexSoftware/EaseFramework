@@ -3,23 +3,21 @@
 namespace Ease\Html;
 
 /**
- * Obecný párový HTML tag
+ * Obecný párový HTML tag.
  *
- * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
 class PairTag extends Tag
 {
-
     /**
-     * Character to close tag
+     * Character to close tag.
      *
      * @var type
      */
     public $trail = '';
 
     /**
-     * Render tag and its contents
+     * Render tag and its contents.
      */
     public function draw()
     {
@@ -29,7 +27,7 @@ class PairTag extends Tag
     }
 
     /**
-     * Zobrazí počátek párového tagu
+     * Zobrazí počátek párového tagu.
      */
     public function tagBegin()
     {
@@ -37,10 +35,10 @@ class PairTag extends Tag
     }
 
     /**
-     * Zobrazí konec párového tagu
+     * Zobrazí konec párového tagu.
      */
     public function tagEnclousure()
     {
-        echo '</' . $this->tagType . '>';
+        echo '</'.$this->tagType.'>';
     }
 }

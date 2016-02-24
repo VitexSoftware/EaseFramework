@@ -3,16 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML Paragraph class tag
+ * HTML Paragraph class tag.
  *
- * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
 class PTag extends PairTag
 {
-
     /**
-     * Odstavec
+     * Odstavec.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu

@@ -3,13 +3,12 @@
 namespace Ease\Html;
 
 /**
- * Definiční list
+ * Definiční list.
  */
 class DlTag extends PairTag
 {
-
     /**
-     * Definice
+     * Definice.
      *
      * @param mixed $content
      * @param array $tagProperties vlastnosti tagu
@@ -20,12 +19,12 @@ class DlTag extends PairTag
     }
 
     /**
-     * Vloží novou definici
+     * Vloží novou definici.
      *
      * @param string|mixed $term  Subjekt
      * @param string|mixed $value Popis subjektu
      */
-    public function  addDef($term, $value)
+    public function addDef($term, $value)
     {
         $this->addItem(new DtTag($term));
         $this->addItem(new DdTag($value));

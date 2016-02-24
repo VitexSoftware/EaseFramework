@@ -8,12 +8,10 @@
  * uživatel, databáze, webstránka nebo logy.
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
-
 namespace Ease;
 
 /**
@@ -24,23 +22,21 @@ namespace Ease;
  * uživatel, databáze, webstránka nebo logy.
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
 class Shared extends Atom
 {
-
     /**
-     * Odkaz na objekt stránky
+     * Odkaz na objekt stránky.
      *
      * @var EaseWebPage
      */
     public $webPage = null;
 
     /**
-     * JavaScripts
+     * JavaScripts.
      *
      * @var array
      */
@@ -48,61 +44,61 @@ class Shared extends Atom
 
     /**
      * Pole kaskádových stylů
-     * $var array
+     * $var array.
      */
     public $cascadeStyles = null;
 
     /**
-     * Pole konfigurací
+     * Pole konfigurací.
      *
      * @var array
      */
     public $registry = [];
 
     /**
-     * Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script
+     * Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script.
      *
      * @var string web|cli
      */
     public $runType = null;
 
     /**
-     * Odkaz na instanci objektu uživatele
+     * Odkaz na instanci objektu uživatele.
      *
      * @var User|Anonym
      */
     public $User = null;
 
     /**
-     * Odkaz na objekt databáze
+     * Odkaz na objekt databáze.
      *
      * @var SQL\PDO
      */
     public $myDbLink = null;
 
     /**
-     * Saves obejct instace (singleton...)
+     * Saves obejct instace (singleton...).
      *
      * @var Shared
      */
     private static $_instance = null;
 
     /**
-     * Pole odkazů na všechny vložené objekty
+     * Pole odkazů na všechny vložené objekty.
      *
      * @var array pole odkazů
      */
     public $allItems = [];
 
     /**
-     * Název položky session s objektem uživatele
+     * Název položky session s objektem uživatele.
      *
      * @var string
      */
     public static $userSessionName = 'User';
 
     /**
-     * Inicializace sdílené třídy
+     * Inicializace sdílené třídy.
      */
     public function __construct()
     {
@@ -120,6 +116,7 @@ class Shared extends Atom
      * @param string $class název třídy jenž má být zinstancována
      *
      * @link   http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
+     *
      * @return EaseWebPage
      */
     public static function singleton($class = null)
@@ -135,19 +132,19 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací se
+     * Vrací se.
      *
      * @return Shared
      */
-    public static function & instanced()
+    public static function &instanced()
     {
-        $easeShared = Shared::singleton();
+        $easeShared = self::singleton();
 
         return $easeShared;
     }
 
     /**
-     * Nastavuje hodnotu konfiguračního klíče
+     * Nastavuje hodnotu konfiguračního klíče.
      *
      * @param string $configName  klíč
      * @param mixed  $configValue hodnota klíče
@@ -158,7 +155,7 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací konfigurační hodnotu pod klíčem
+     * Vrací konfigurační hodnotu pod klíčem.
      *
      * @param string $configName klíč
      *
@@ -170,11 +167,11 @@ class Shared extends Atom
             return $this->registry[$configName];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)
+     * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web).
      *
      * @param string $runType force type
      *
@@ -189,15 +186,15 @@ class Shared extends Atom
                 $this->runType = 'web';
             }
         }
-        if (($runType != 'web') || ( $runType != 'cli')) {
-            return null;
+        if (($runType != 'web') || ($runType != 'cli')) {
+            return;
         } else {
             return $this->runType;
         }
     }
 
     /**
-     * Returns database object instance
+     * Returns database object instance.
      *
      * @return SQL\PDO
      */
@@ -207,7 +204,7 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací instanci objektu logování
+     * Vrací instanci objektu logování.
      *
      * @return Logger
      */
@@ -221,34 +218,35 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací nebo registruje instanci webové stránky
+     * Vrací nebo registruje instanci webové stránky.
      *
-     * @param  EaseWebPage $oPage objekt webstránky k zaregistrování
+     * @param EaseWebPage $oPage objekt webstránky k zaregistrování
+     *
      * @return EaseWebPage
      */
-    static function &webPage($oPage = null)
+    public static function &webPage($oPage = null)
     {
-        $shared = Shared::instanced();
+        $shared = self::instanced();
         if (is_object($oPage)) {
-            $shared->webPage = & $oPage;
+            $shared->webPage = &$oPage;
         }
         if (!is_object($shared->webPage)) {
             include_once 'WebPage.php';
-            Shared::webPage(EaseWebPage::singleton());
+            self::webPage(EaseWebPage::singleton());
         }
 
         return $shared->webPage;
     }
 
     /**
-     * Vrací, případně i založí objekt uživatele
+     * Vrací, případně i založí objekt uživatele.
      *
      * @param User|Anonym|string $user objekt nového uživatele nebo
-     *                                         název třídy
+     *                                 název třídy
      *
      * @return User
      */
-    public static function & user($user = null, $userSessionName = null)
+    public static function &user($user = null, $userSessionName = null)
     {
         if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
             return $_SESSION[self::$userSessionName];
@@ -261,7 +259,7 @@ class Shared extends Atom
             $_SESSION[self::$userSessionName] = clone $user;
         } else {
             if (class_exists($user)) {
-                $_SESSION[self::$userSessionName] = new $user;
+                $_SESSION[self::$userSessionName] = new $user();
             } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[self::$userSessionName])) {
                 $_SESSION[self::$userSessionName] = new Anonym();
             }
@@ -273,21 +271,21 @@ class Shared extends Atom
     /**
      * Běží php v příkazovém řádku ?
      *
-     * @return boolean
+     * @return bool
      */
     public static function isCli()
     {
-        return (PHP_SAPI == 'cli' && empty($_SERVER['REMOTE_ADDR']));
+        return PHP_SAPI == 'cli' && empty($_SERVER['REMOTE_ADDR']);
     }
 
     /**
-     * Zaregistruje položku k finalizaci
+     * Zaregistruje položku k finalizaci.
      *
      * @param mixed $itemPointer
      */
     public static function registerItem(&$itemPointer)
     {
-        $easeShared = Shared::singleton();
+        $easeShared = self::singleton();
         $easeShared->allItems[] = $itemPointer;
     }
 }

@@ -5,7 +5,6 @@ namespace Ease\TWB;
 class CheckBoxGroup extends Ease\Container
 {
     /**
-     *
      * @param array $items
      */
     public $items = [];

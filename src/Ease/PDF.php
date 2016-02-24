@@ -1,67 +1,64 @@
 <?php
 
 /**
- * TCPDF compatibility layer
+ * TCPDF compatibility layer.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@vitexsoftware.cz (G)
  */
-
 namespace Ease;
 
 require_once 'tcpdf/tcpdf.php';
 
 /**
- * Umožnuje generovat PDF dokumenty z EaseFrameWorku
+ * Umožnuje generovat PDF dokumenty z EaseFrameWorku.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class PDF extends \TCPDF
 {
-
     /**
-     * Objekt pro vykreslování
+     * Objekt pro vykreslování.
      *
      * @var \Ease\Page object
      */
     public $pdfPage = null;
 
     /**
-     * Pole vkládaného obsahu
+     * Pole vkládaného obsahu.
      *
      * @var array
      */
     public $pageParts = null;
 
     /**
-     * Pole předávaných vlastností
+     * Pole předávaných vlastností.
      *
      * @var array
      */
     public $raiseItems = ['SetUpUser' => 'User', 'webPage'];
 
     /**
-     * Soubor do kterého je rendrováno výsledné PDF voláním WriteToFile
+     * Soubor do kterého je rendrováno výsledné PDF voláním WriteToFile.
      *
      * @var string
      */
     public $OutFile = null;
 
     /**
-     * Semafor finalizace
+     * Semafor finalizace.
      */
     public $Finalized = false;
 
     /**
-     * PDF objekt
+     * PDF objekt.
      *
      * @param string $Format formát pdf strany
      */
     public function __construct($Format = PDF_PAGE_FORMAT)
     {
         $this->pdfPage = new EasePage();
-        $this->pageParts = & $this->pdfPage->pageParts;
+        $this->pageParts = &$this->pdfPage->pageParts;
         parent::__construct(PDF_PAGE_ORIENTATION, PDF_UNIT, $Format, true, 'UTF-8', false);
         $this->setup();
     }
@@ -87,7 +84,7 @@ class PDF extends \TCPDF
         parent::Error($Message);
     }
 
-    public function  &addItem($Item)
+    public function &addItem($Item)
     {
         $addedItem = $this->pdfPage->addItem($Item);
 
@@ -102,7 +99,7 @@ class PDF extends \TCPDF
     public function finalize()
     {
         if ($this->Finalized) {
-            return null;
+            return;
         }
         $this->AddPage();
         $this->writeHTML($this->pdfPage->getRendered());
@@ -131,7 +128,7 @@ class PDF extends \TCPDF
         if (is_file($OutFile)) {
             return $OutFile;
         } else {
-            return null;
+            return;
         }
     }
 }

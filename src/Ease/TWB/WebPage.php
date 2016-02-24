@@ -3,26 +3,24 @@
 namespace Ease\TWB;
 
 /**
- * Stránka TwitterBootstrap
+ * Stránka TwitterBootstrap.
  *
- * @package    EaseFrameWork
- * @subpackage \Ease\Html\
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2012 Vitex@vitexsoftware.cz (G)
+ *
  * @link       http://twitter.github.com/bootstrap/index.html
  */
 class WebPage extends \Ease\WebPage
 {
-
     /**
-     * Boostrap URL Strart path with ./ to use local one
+     * Boostrap URL Strart path with ./ to use local one.
      *
      * @var string relative path/url
      */
     public $mainStyle = 'twitter-bootstrap/css/bootstrap.css';
 
     /**
-     * Stránka s podporou pro twitter bootstrap
+     * Stránka s podporou pro twitter bootstrap.
      *
      * @param string   $pageTitle
      * @param EaseUser $userObject
@@ -37,7 +35,7 @@ class WebPage extends \Ease\WebPage
     }
 
     /**
-     * Vrací zprávy uživatele
+     * Vrací zprávy uživatele.
      *
      * @param string $what info|warning|error|success
      *
@@ -45,7 +43,7 @@ class WebPage extends \Ease\WebPage
      */
     public function getStatusMessagesAsHtml($what = null)
     {
-        /**
+        /*
          * Session Singleton Problem hack
          */
         //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
@@ -80,9 +78,9 @@ class WebPage extends \Ease\WebPage
                 if ($messageType == 'error') {
                     $messageType = 'danger';
                 }
-                $htmlFargment .= '<div class="alert alert-' . $messageType . '" >' . $message . '</div>' . "\n";
+                $htmlFargment .= '<div class="alert alert-'.$messageType.'" >'.$message.'</div>'."\n";
             } else {
-                $htmlFargment .= '<div class="alert">' . $message . '</div>' . "\n";
+                $htmlFargment .= '<div class="alert">'.$message.'</div>'."\n";
             }
         }
 

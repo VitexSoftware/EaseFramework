@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Odesílací tlačítko formuláře
+ * Odesílací tlačítko formuláře.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputSubmitTag extends InputTag
 {
-
     /**
-     * Odesílací tlačítko formuláře
+     * Odesílací tlačítko formuláře.
      *
      * @param string $name       jméno tagu
      * @param string $value      vracená hodnota
@@ -32,12 +31,11 @@ class InputSubmitTag extends InputTag
     }
 
     /**
-     * Maketa kuli popisku
+     * Maketa kuli popisku.
      *
      * @param bool $value je ignorováno
      */
     public function setValue($value = true)
     {
-
     }
 }

@@ -3,18 +3,17 @@
 namespace Ease\Html;
 
 /**
- * Html element pro adresu
+ * Html element pro adresu.
  */
 class AddressTag extends PairTag
 {
-
     /**
-     * Html element pro adresu
+     * Html element pro adresu.
      *
      * @param string $content       text adresy
      * @param array  $TagProperites vlastnosti tagu
      */
-    public function  __construct($content = null, $tagProperties = null)
+    public function __construct($content = null, $tagProperties = null)
     {
         parent::__construct('address', $tagProperties, $content);
     }

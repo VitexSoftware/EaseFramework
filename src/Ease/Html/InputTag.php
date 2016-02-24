@@ -3,13 +3,12 @@
 namespace Ease\Html;
 
 /**
- * Obecný input TAG
+ * Obecný input TAG.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputTag extends Tag
 {
-
     /**
      * Nastavovat automaticky jméno tagu ?
      *
@@ -18,7 +17,7 @@ class InputTag extends Tag
     public $setName = true;
 
     /**
-     * Obecný input TAG
+     * Obecný input TAG.
      *
      * @param string            $name       jméno tagu
      * @param string|EaseObject $value      vracená hodnota
@@ -41,7 +40,7 @@ class InputTag extends Tag
     }
 
     /**
-     * Nastaví hodnotu vstupního políčka
+     * Nastaví hodnotu vstupního políčka.
      *
      * @param string $value vracená hodnota
      *
@@ -53,7 +52,7 @@ class InputTag extends Tag
     }
 
     /**
-     * Vrací hodnotu vstupního políčka
+     * Vrací hodnotu vstupního políčka.
      *
      * @return string $value
      */

@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Vstupní pole čísla
+ * Vstupní pole čísla.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputNumberTag extends InputTag
 {
-
     /**
-     * Vstupní pole čísla
+     * Vstupní pole čísla.
      *
      * @param string $name       jméno
      * @param string $value      předvolená hodnota

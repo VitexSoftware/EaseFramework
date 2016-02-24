@@ -3,91 +3,87 @@
 /**
  * Třídy pro vykreslení obecne stránky shopu.
  *
- * @package    EaseFrameWork
- * @subpackage Ease\Html\
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Trida obecne html stranky
+ * Trida obecne html stranky.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class WebPage extends Page
 {
-
     /**
-     * Položky předávané do vkládaného objektu
+     * Položky předávané do vkládaného objektu.
      *
      * @var type
      */
     public $raiseItems = ['SetupWebPage' => 'webPage'];
 
     /**
-     * Pole Javasriptu k vykresleni
+     * Pole Javasriptu k vykresleni.
      *
      * @var array
      */
     public $javaScripts = null;
 
     /**
-     * Pole CSS k vykreslení
+     * Pole CSS k vykreslení.
      *
      * @var array
      */
     public $cascadeStyles = null;
 
     /**
-     * Nadpis stránky
+     * Nadpis stránky.
      *
      * @var string
      */
     public $pageTitle = null;
 
     /**
-     * head stránky
+     * head stránky.
      *
      * @var Html\HeadTag
      */
     public $head = null;
 
     /**
-     * Objekt samotného těla stránky
+     * Objekt samotného těla stránky.
      *
      * @var Html\BodyTag
      */
     public $body = null;
 
     /**
-     * Nepřipojovat se DB
+     * Nepřipojovat se DB.
      *
      * @var string|bool
      */
     public $myTable = false;
 
     /**
-     * Výchozí umístění javascriptů v Debianu
+     * Výchozí umístění javascriptů v Debianu.
      *
      * @var string
      */
     public $jsPrefix = '/javascript/';
 
     /**
-     * Default CSS locaton on debian
+     * Default CSS locaton on debian.
      *
      * @var string
      */
     public $cssPrefix = '/javascript/';
 
     /**
-     * Základní objekt pro stránku shopu
+     * Základní objekt pro stránku shopu.
      *
      * @param User|Anonym $userObject objekt uživatele
      */
-    public function __construct($pageTitle = null, & $userObject = null)
+    public function __construct($pageTitle = null, &$userObject = null)
     {
         Shared::webPage($this);
         if (!is_null($pageTitle)) {
@@ -100,18 +96,18 @@ class WebPage extends Page
         $this->pageParts['html']->setupWebPage($this);
         $this->pageParts['html']->addItem(new Html\HeadTag());
         $this->pageParts['html']->addItem(new Html\BodyTag());
-        $this->head = & $this->pageParts['html']->pageParts['head'];
+        $this->head = &$this->pageParts['html']->pageParts['head'];
         $this->head->raise($this);
 
-        $this->body = & $this->pageParts['html']->pageParts['body'];
+        $this->body = &$this->pageParts['html']->pageParts['body'];
         $this->body->raise($this);
 
-        $this->javaScripts = & $this->head->javaScripts;
-        $this->cascadeStyles = & $this->head->cascadeStyles;
+        $this->javaScripts = &$this->head->javaScripts;
+        $this->cascadeStyles = &$this->head->cascadeStyles;
     }
 
     /**
-     * Nastaví ID stránky
+     * Nastaví ID stránky.
      *
      * @return string
      */
@@ -121,25 +117,26 @@ class WebPage extends Page
     }
 
     /**
-     * Přidá položku do těla stránky
+     * Přidá položku do těla stránky.
      *
      * @param mixed  $item         vkládaná položka
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return Page poiner to object well included
      */
-    public function  & addItem($item, $pageItemName = null)
+    public function &addItem($item, $pageItemName = null)
     {
         $added = $this->body->addItem($item, $pageItemName);
+
         return $added;
     }
 
     /**
-     * Includuje Javascript do stránky
+     * Includuje Javascript do stránky.
      *
-     * @param string  $javaScriptFile soubor s javascriptem
-     * @param string  $position       končná pozice: '+','-','0','--',...
-     * @param boolean $fwPrefix       Add Framework prefix ?
+     * @param string $javaScriptFile soubor s javascriptem
+     * @param string $position       končná pozice: '+','-','0','--',...
+     * @param bool   $fwPrefix       Add Framework prefix ?
      *
      * @return string
      */
@@ -147,34 +144,34 @@ class WebPage extends Page
     {
         if ($fwPrefix) {
             return $this->addToScriptsStack(
-                '#' . $this->jsPrefix . $javaScriptFile,
+                '#'.$this->jsPrefix.$javaScriptFile,
                 $position
             );
         } else {
-            return $this->addToScriptsStack('#' . $javaScriptFile, $position);
+            return $this->addToScriptsStack('#'.$javaScriptFile, $position);
         }
     }
 
     /**
-     * Vloží javascript do stránky
+     * Vloží javascript do stránky.
      *
-     * @param string  $javaScript      JS code
-     * @param string  $position        končná pozice: '+','-','0','--',...
-     * @param boolean $inDocumentReady vložit do DocumentReady bloku ?
+     * @param string $javaScript      JS code
+     * @param string $position        končná pozice: '+','-','0','--',...
+     * @param bool   $inDocumentReady vložit do DocumentReady bloku ?
      *
      * @return string
      */
     public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
     {
         if ($inDocumentReady) {
-            return $this->addToScriptsStack('$' . $javaScript, $position);
+            return $this->addToScriptsStack('$'.$javaScript, $position);
         }
 
-        return $this->addToScriptsStack('@' . $javaScript, $position);
+        return $this->addToScriptsStack('@'.$javaScript, $position);
     }
 
     /**
-     * Vloží javascript do zasobniku skriptu stránky
+     * Vloží javascript do zasobniku skriptu stránky.
      *
      * @param string $code     JS code
      * @param string $position končná pozice: '+','-','0','--',...
@@ -229,16 +226,16 @@ class WebPage extends Page
     }
 
     /**
-     * Add another CSS definition to stack
+     * Add another CSS definition to stack.
      *
      * @param string $css definice CSS pravidla
      *
-     * @return boolean
+     * @return bool
      */
     public function addCSS($css)
     {
         if (is_array($css)) {
-            $css = key($css) . '{' . current($css) . '}';
+            $css = key($css).'{'.current($css).'}';
         }
         $this->easeShared->cascadeStyles[md5($css)] = $css;
 
@@ -246,18 +243,18 @@ class WebPage extends Page
     }
 
     /**
-     * Vloží do stránky odkaz na CSS definici
+     * Vloží do stránky odkaz na CSS definici.
      *
-     * @param string  $cssFile  url CSS souboru
-     * @param boolean $fwPrefix Přidat cestu frameworku ? (obvykle /Ease/)
-     * @param string  $media    screen|printer|braile a podobně
+     * @param string $cssFile  url CSS souboru
+     * @param bool   $fwPrefix Přidat cestu frameworku ? (obvykle /Ease/)
+     * @param string $media    screen|printer|braile a podobně
      *
-     * @return boolean
+     * @return bool
      */
     public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
     {
         if ($fwPrefix) {
-            $this->easeShared->cascadeStyles[$this->cssPrefix . $cssFile] = $this->cssPrefix . $cssFile;
+            $this->easeShared->cascadeStyles[$this->cssPrefix.$cssFile] = $this->cssPrefix.$cssFile;
         } else {
             $this->easeShared->cascadeStyles[$cssFile] = $cssFile;
         }
@@ -266,7 +263,7 @@ class WebPage extends Page
     }
 
     /**
-     * Vrací zprávy uživatele
+     * Vrací zprávy uživatele.
      *
      * @param string $what info|warning|error|success
      *
@@ -274,7 +271,7 @@ class WebPage extends Page
      */
     public function getStatusMessagesAsHtml($what = null)
     {
-        /**
+        /*
          * Session Singleton Problem hack
          */
         //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
@@ -306,9 +303,9 @@ class WebPage extends Page
                 if (!isset($this->logger->logStyles[$messageType])) {
                     $messageType = 'notice';
                 }
-                $htmlFargment .= '<div class="MessageForUser" style="' . $this->logger->logStyles[$messageType] . '" >' . $message . '</div>' . "\n";
+                $htmlFargment .= '<div class="MessageForUser" style="'.$this->logger->logStyles[$messageType].'" >'.$message.'</div>'."\n";
             } else {
-                $htmlFargment .= '<div class="MessageForUser">' . $message . '</div>' . "\n";
+                $htmlFargment .= '<div class="MessageForUser">'.$message.'</div>'."\n";
             }
         }
 
@@ -316,10 +313,11 @@ class WebPage extends Page
     }
 
     /**
-     * Nastavi skin
+     * Nastavi skin.
      *
      * @deprecated since version 190
-     * @param      string $skinName název skinu
+     *
+     * @param string $skinName název skinu
      */
     public function setSkin($skinName)
     {
@@ -327,7 +325,7 @@ class WebPage extends Page
     }
 
     /**
-     * Provede vykreslení obsahu objektu
+     * Provede vykreslení obsahu objektu.
      */
     public function draw()
     {
@@ -336,7 +334,7 @@ class WebPage extends Page
     }
 
     /**
-     * Provede finalizaci všech registrovaných objektů
+     * Provede finalizaci všech registrovaných objektů.
      */
     public function finalizeRegistred()
     {
@@ -352,7 +350,7 @@ class WebPage extends Page
     }
 
     /**
-     * Nastaví titul webové stánky
+     * Nastaví titul webové stánky.
      *
      * @param string $pageTitle titulek
      */

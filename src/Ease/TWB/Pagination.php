@@ -4,22 +4,21 @@ namespace Ease\TWB;
 
 class Pagination extends \Ease\Html\UlTag
 {
-
     /**
-     * Fragment adresy pro stránkování
+     * Fragment adresy pro stránkování.
      *
      * @var string
      */
     public $url = '?page=';
 
     /**
-     * Stránkování Twitter Bootrstap
+     * Stránkování Twitter Bootrstap.
      *
      * @param int    $pages   celkový počet stránek
      * @param int    $current aktuální stránka
      * @param string $url     Fragment adresy
      */
-    public function  __construct($pages, $current, $url = '?page=')
+    public function __construct($pages, $current, $url = '?page=')
     {
         $this->url = $url;
         parent::__construct(null, ['class' => 'pagination']);
@@ -33,7 +32,7 @@ class Pagination extends \Ease\Html\UlTag
         } else {
             $this->addPage($current - 1, Part::glyphIcon('chevron-left'));
         }
-        for ($page = 0; $page <= $pages - 1; $page++) {
+        for ($page = 0; $page <= $pages - 1; ++$page) {
             //Stavajici
             if ($current == $page) {
                 $this->addPage($page, $page + 1, 'active');
@@ -54,14 +53,14 @@ class Pagination extends \Ease\Html\UlTag
     }
 
     /**
-     * Přidá krok strankování
+     * Přidá krok strankování.
      *
      * @param int    $page
      * @param string $label
      */
-    public function  addPage($page, $label = null, $style = null)
+    public function addPage($page, $label = null, $style = null)
     {
-        $link = $this->url . $page;
+        $link = $this->url.$page;
         if ($style) {
             $this->addItemSmart(new \Ease\Html\ATag($link, $label), ['class' => $style]);
         } else {

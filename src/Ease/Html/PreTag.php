@@ -3,13 +3,12 @@
 namespace Ease\Html;
 
 /**
- * Preformátovaný text
+ * Preformátovaný text.
  */
 class PreTag extends PairTag
 {
-
     /**
-     * Preformátovaný text
+     * Preformátovaný text.
      *
      * @param string|mixed $content
      * @param array        $tagProperties

@@ -3,36 +3,35 @@
 namespace Ease\Html;
 
 /**
- * Html Fieldset
+ * Html Fieldset.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class FieldSet extends PairTag
 {
-
     /**
-     * Legenda rámečku
+     * Legenda rámečku.
      *
      * @var mixed
      */
     public $Legend = null;
 
     /**
-     * Objekt s tagem Legendy
+     * Objekt s tagem Legendy.
      *
      * @var PairTag
      */
     public $LegendTag = null;
 
     /**
-     * Obsah rámu
+     * Obsah rámu.
      *
      * @var mixed
      */
     public $Content = null;
 
     /**
-     * Zobrazí rámeček
+     * Zobrazí rámeček.
      *
      * @param string|mixed $legend  popisek - text nebo Ease objekty
      * @param mixed        $content prvky vkládané do rámečku
@@ -49,7 +48,7 @@ class FieldSet extends PairTag
     }
 
     /**
-     * Nastavení legendy
+     * Nastavení legendy.
      *
      * @param string $legend popisek
      */
@@ -59,7 +58,7 @@ class FieldSet extends PairTag
     }
 
     /**
-     * Vložení legendy
+     * Vložení legendy.
      */
     public function finalize()
     {

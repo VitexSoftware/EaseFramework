@@ -3,16 +3,16 @@
 namespace Ease\Html;
 
 /**
- * Odeslání formuláře obrázkem
+ * Odeslání formuláře obrázkem.
  *
  * @deprecated since version 1.0
+ *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  */
 class ImageSubbmit extends InputTag
 {
-
     /**
-     * Zobrazí <input type="image">
+     * Zobrazí <input type="image">.
      *
      * @param string $Image url obrázku
      * @param string $Label popisek obrázku

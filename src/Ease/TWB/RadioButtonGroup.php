@@ -4,44 +4,43 @@ namespace Ease\TWB;
 
 class RadioButtonGroup extends Ease\Container
 {
-
     /**
-     * Jméno
+     * Jméno.
      *
      * @var string
      */
     public $name = null;
 
     /**
-     * Typ
+     * Typ.
      *
      * @var bool
      */
     public $inline = false;
 
     /**
-     * Položky k zobrazení
+     * Položky k zobrazení.
      *
      * @var array
      */
     public $radios = [];
 
     /**
-     * Předvolená hodnota
+     * Předvolená hodnota.
      *
      * @var string
      */
     public $checked = null;
 
     /**
-     * Zobrazí pole radiobuttonů
+     * Zobrazí pole radiobuttonů.
      *
-     * @param string  $name
-     * @param array   $radios  pole Hodnota=>Popisek
-     * @param string  $checked
-     * @param boolean $inline
+     * @param string $name
+     * @param array  $radios  pole Hodnota=>Popisek
+     * @param string $checked
+     * @param bool   $inline
      */
-    public function  __construct($name, $radios, $checked = null, $inline = false)
+    public function __construct($name, $radios, $checked = null, $inline = false)
     {
         $this->name = $name;
         $this->checked = $checked;
@@ -51,9 +50,9 @@ class RadioButtonGroup extends Ease\Container
     }
 
     /**
-     * Seskládá pole radiobuttonů
+     * Seskládá pole radiobuttonů.
      */
-    public function  finalize()
+    public function finalize()
     {
         $class = 'radio';
         if ($this->inline) {
@@ -66,7 +65,7 @@ class RadioButtonGroup extends Ease\Container
             } else {
                 $checked = null;
             }
-            $tagProperties = ['id' => $this->name . $pos++, 'name' => $this->name, $checked];
+            $tagProperties = ['id' => $this->name.$pos++, 'name' => $this->name, $checked];
             $this->addItem(new \Ease\Html\Div(new \Ease\Html\LabelTag(null, [new \Ease\Html\InputRadioTag($this->name, $value, $tagProperties), $caption]), ['class' => $class]));
         }
     }

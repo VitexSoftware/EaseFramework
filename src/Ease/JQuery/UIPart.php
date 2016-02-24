@@ -3,21 +3,20 @@
 namespace Ease\JQuery;
 
 /**
- * jQuery UI common class
+ * jQuery UI common class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class UIPart extends Part
 {
-
     public function __construct()
     {
         parent::__construct();
-        UIPart::jQueryze();
+        self::jQueryze();
     }
 
     /**
-     * Opatří objekt vším potřebným pro funkci jQueryUI
+     * Opatří objekt vším potřebným pro funkci jQueryUI.
      *
      * @param \Ease\Page|mixed $EaseObject objekt k opatření jQuery závislostmi
      */
@@ -28,14 +27,14 @@ class UIPart extends Part
         $webPage->includeJavaScript('jquery-ui/jquery-ui.js', 1, true);
         $jQueryUISkin = \Ease\Shared::instanced()->getConfigValue('jQueryUISkin');
         if ($jQueryUISkin) {
-            $webPage->includeCss('jquery-ui-themes/' . self::getSkinName() . '/jquery-ui.css', true);
+            $webPage->includeCss('jquery-ui-themes/'.self::getSkinName().'/jquery-ui.css', true);
         } else {
             $webPage->includeCss('jquery-ui/css/smoothness/jquery-ui.css', true);
         }
     }
 
     /**
-     * Vrací název aktuálně používaného jQueryUI skinu
+     * Vrací název aktuálně používaného jQueryUI skinu.
      *
      * @return type
      */
@@ -49,6 +48,7 @@ class UIPart extends Part
                 return \Ease\Shared::webPage()->jQueryUISkin;
             }
         }
-        return null;
+
+        return;
     }
 }

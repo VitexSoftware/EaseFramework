@@ -3,23 +3,23 @@
 namespace Ease\SQL;
 
 /**
- * Podpora MSSQL databáze
+ * Podpora MSSQL databáze.
  *
  * @deprecated since version 2.0
+ *
  * @category   Sql
- * @package    EaseFrameWork
+ *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2011 Vitex@hippy.cz (G)
  */
 
 /**
- * Basic Database Layer
+ * Basic Database Layer.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class MSSQL extends SQL
 {
-
     public $Debug = false;
     public $NumRows = 0;
     public $lastInsertID = 0;
@@ -30,28 +30,28 @@ class MSSQL extends SQL
     public $Lockfile = 'mssql-offline';
 
     /**
-     * Hack pro svéhlavé FreeTDS na windows co ignoruje konfiguraci
+     * Hack pro svéhlavé FreeTDS na windows co ignoruje konfiguraci.
      *
-     * @var boolean
+     * @var bool
      */
     public $WinToUtfRecode = false;
 
     /**
-     * Kolikrát se pokusit připojit před offline
+     * Kolikrát se pokusit připojit před offline.
      *
      * @var type
      */
     public $ConnectAttempts = 10;
 
     /**
-     * Indikator skutečného připojení k MSSQL
+     * Indikator skutečného připojení k MSSQL.
      *
-     * @var boolean
+     * @var bool
      */
     public $Connected = false;
 
     /**
-     * Nastavení vlastností přípojení
+     * Nastavení vlastností přípojení.
      *
      * @var array
      */
@@ -60,10 +60,10 @@ class MSSQL extends SQL
         'QUOTED_IDENTIFIER' => 'ON',
         'CONCAT_NULL_YIELDS_NULL' => 'ON',
         'ANSI_WARNINGS' => 'ON',
-        'ANSI_PADDING' => 'ON'];
+        'ANSI_PADDING' => 'ON', ];
 
     /**
-     * Saves obejct instace (singleton...)
+     * Saves obejct instace (singleton...).
      */
     private static $_instance = null;
 
@@ -75,18 +75,17 @@ class MSSQL extends SQL
     public $instanceCounter = 0;
 
     /**
-     * MSSQL mode
+     * MSSQL mode.
      *
      * @var string online|offline
      */
     public $Mode = 'online'; // 'online' | 'offline'
 
     /**
-     * Database layer
+     * Database layer.
      *
      * @param type $Mode
      */
-
     public function __construct($Mode = 'online')
     {
         if (defined('FREETDS_RECODE')) {
@@ -129,15 +128,15 @@ class MSSQL extends SQL
     }
 
     /**
-     * Připojí se k MSSQL
+     * Připojí se k MSSQL.
      *
-     * @return boolean
+     * @return bool
      */
     public function connect()
     {
         if (is_null($this->SQLLink)) {
             if (++$this->instanceCounter > 1) {
-                return null;
+                return;
             }
         }
         if (!function_exists('mssql_connect')) {
@@ -146,7 +145,7 @@ class MSSQL extends SQL
             $this->LastMessage = 'MSSQL is not compiled in';
             $this->makeReport();
 
-            return null;
+            return;
         }
         $this->SQLLink = mssql_connect($this->Server, $this->username, $this->Password);
         if ($this->SQLLink) {
@@ -158,17 +157,18 @@ class MSSQL extends SQL
             return $this->Status;
         } else {
             $this->LastMessage = mssql_get_last_message();
-            $this->addStatusMessage('connect: ' . $this->LastMessage, 'warning');
+            $this->addStatusMessage('connect: '.$this->LastMessage, 'warning');
 
             return false;
         }
     }
 
     /**
-     * Přepene databázi
+     * Přepene databázi.
      *
-     * @param  type $DBName
-     * @return boolean
+     * @param type $DBName
+     *
+     * @return bool
      */
     public function selectDB($DBName = null)
     {
@@ -186,11 +186,11 @@ class MSSQL extends SQL
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Vyplní pole informací o připojení
+     * Vyplní pole informací o připojení.
      */
     public function makeReport()
     {
@@ -199,19 +199,18 @@ class MSSQL extends SQL
     }
 
     /**
-     * Vykona MSSQL prikaz
+     * Vykona MSSQL prikaz.
      *
-     * @param string  $QueryRaw     sql příkaz
-     * @param boolean $IgnoreErrors ignorovat chyby ?
+     * @param string $QueryRaw     sql příkaz
+     * @param bool   $IgnoreErrors ignorovat chyby ?
      *
      * @return SqlHandle
      */
     public function exeQuery($QueryRaw, $IgnoreErrors = false)
     {
-
         if (!$this->Connected) {
             if ($this->instanceCounter > 1) {
-                return null;
+                return;
             }
             $this->connect();
             die('buga!');
@@ -226,7 +225,7 @@ class MSSQL extends SQL
         $QueryRaw = $this->sanitizeQuery($QueryRaw);
 
         if ($SQLAction == 'insert') {
-            $QueryRaw.=" SELECT @@IDENTITY as InsertId";
+            $QueryRaw .= ' SELECT @@IDENTITY as InsertId';
         }
 
         $this->LastQuery = $QueryRaw;
@@ -236,22 +235,22 @@ class MSSQL extends SQL
             $this->Result = mssql_query($QueryRaw, $this->SQLLink);
             $this->LastMessage = mssql_get_last_message();
             if (($this->LastMessage == 'The statement has been terminated.') || !$this->Result) {
-                $this->errorText = $this->LastMessage . ":\n" . $this->LastQuery;
+                $this->errorText = $this->LastMessage.":\n".$this->LastQuery;
 
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function')) {
-                        echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
+                        echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
                     }
-                    echo "\n$QueryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
+                    echo "\n$QueryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
                 } else {
-                    echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
+                    echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
                     if (function_exists('xdebug_print_function_stack')) {
-                        xdebug_print_function_stack("Volano tridou " . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkci " . xdebug_call_function() . '');
+                        xdebug_print_function_stack('Volano tridou '.xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkci '.xdebug_call_function().'');
                     }
-                    echo "<br clear=all>$QueryRaw\n\n<br clear=\"all\">#" . $this->errorNumber . ":<strong>" . $this->errorText . '</strong></pre></br>';
+                    echo "<br clear=all>$QueryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
                 }
                 $this->logError();
-                $this->error('ExeQuery: #' . $this->errorNumber . ': ' . $this->errorText . "\n" . $QueryRaw);
+                $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$QueryRaw);
 
                 //ob_end_clean();
                 return false;
@@ -272,7 +271,7 @@ class MSSQL extends SQL
                           if ($lidresult = mssql_query($lidquery_raw,$this->SQLLink))
                           $this->lastInsertID = current(mssql_fetch_row($lidresult));
                           if (!$this->lastInsertID) */
-                        $this->error('Vkládání nevrátilo InsertID :' . $this->utf8($this->LastMessage . ":\n" . $this->LastQuery));
+                        $this->error('Vkládání nevrátilo InsertID :'.$this->utf8($this->LastMessage.":\n".$this->LastQuery));
                     }
 
                 case 'update':
@@ -285,7 +284,7 @@ class MSSQL extends SQL
             }
         } else { //Offline MOD
             if ($this->debug) {
-                $this->addToLog('Offline Query:' . $this->Utf8($this->LastQuery), 'warning');
+                $this->addToLog('Offline Query:'.$this->Utf8($this->LastQuery), 'warning');
             }
         }
 
@@ -293,10 +292,10 @@ class MSSQL extends SQL
     }
 
     /**
-     * Vrátí výsledek SQL dotazu jako pole
+     * Vrátí výsledek SQL dotazu jako pole.
      *
-     * @param string          $queryRaw         SQL příkaz
-     * @param string||boolean $KeyColumnToIndex sloupeček pro indexaci
+     * @param string       $queryRaw         SQL příkaz
+     * @param string||bool $KeyColumnToIndex sloupeček pro indexaci
      *
      * @return array
      */
@@ -305,7 +304,7 @@ class MSSQL extends SQL
         $this->resultArray = null;
         $this->Result = $this->exeQuery($queryRaw);
         if (!$this->Result) {
-            return null;
+            return;
         }
         if (is_string($KeyColumnToIndex)) {
             while ($DataRow = mssql_fetch_assoc($this->Result)) {
@@ -329,12 +328,12 @@ class MSSQL extends SQL
 
             return $this->resultArray;
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Vrací počet položek v tabulce
+     * Vrací počet položek v tabulce.
      *
      * @param string $TableName
      *
@@ -345,13 +344,13 @@ class MSSQL extends SQL
         if (!$TableName) {
             $TableName = $this->TableName;
         }
-        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM [' . $this->easeAddSlashes($TableName) . ']');
+        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM ['.$this->easeAddSlashes($TableName).']');
 
         return $TableRowsCount[0]['NumRows'];
     }
 
     /**
-     * Vrátí strukturu SQL tabulky
+     * Vrátí strukturu SQL tabulky.
      *
      * @param string $TableName jméno tabulky
      *
@@ -360,7 +359,7 @@ class MSSQL extends SQL
     public function describe($TableName = null)
     {
         if (!parent::describe($TableName)) {
-            return null;
+            return;
         }
 
         $QueryRaw = "SELECT COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,IS_NULLABLE,NUMERIC_PRECISION,DOMAIN_NAME FROM INFORMATION_SCHEMA.Columns WHERE TABLE_NAME = '$TableName'";
@@ -389,10 +388,10 @@ class MSSQL extends SQL
     }
 
     /**
-     * Prepare columns to query fragment
+     * Prepare columns to query fragment.
      *
-     * @param array   $data            asociativní pole
-     * @param boolean $PermitKeyColumn nepřeskočit klíčový sloupeček ?
+     * @param array $data            asociativní pole
+     * @param bool  $PermitKeyColumn nepřeskočit klíčový sloupeček ?
      *
      * @return string
      */
@@ -410,19 +409,19 @@ class MSSQL extends SQL
             //				$deklarace[]='DECLARE @'.$col.' './*funkce_pro_mssql_typ($tabulka.$col)*/.';';
 
             switch (gettype($value)) {
-                case "boolean":
+                case 'boolean':
                     if ($value) {
-                        $Values.=" 'True',";
+                        $Values .= " 'True',";
                     } else {
-                        $Values.=" 'False',";
+                        $Values .= " 'False',";
                     }
                     break;
-                case "null":
-                    $Values.=" null,";
+                case 'null':
+                    $Values .= ' null,';
                     break;
-                case "integer":
-                case "double":
-                    $Values.=' ' . str_replace(',', '.', $value) . ',';
+                case 'integer':
+                case 'double':
+                    $Values .= ' '.str_replace(',', '.', $value).',';
                     break;
                 default:
                     //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
@@ -431,12 +430,12 @@ class MSSQL extends SQL
                         $value = $ANSIDate;
                     }
                     if (strtolower($value) == 'getdate()') {
-                        $Values.=" GetDate(),";
+                        $Values .= ' GetDate(),';
                     } else {
-                        $Values.=" '" . addslashes($value) . "',";
+                        $Values .= " '".addslashes($value)."',";
                     }
             }
-            $Columns.=" [$Column],";
+            $Columns .= " [$Column],";
         }
         $Columns = substr($Columns, 0, -1);
         $Values = substr($Values, 0, -1);
@@ -445,7 +444,7 @@ class MSSQL extends SQL
     }
 
     /**
-     * Give Update query fragment
+     * Give Update query fragment.
      *
      * @param array  $data         asociativní pole dat
      * @param array  $CheckColumns kontrolovat délky řetězců na překročení místa
@@ -458,7 +457,7 @@ class MSSQL extends SQL
         if (!count($data)) {
             $this->error('Missing data for PrepUpdate');
 
-            return null;
+            return;
         }
         if (!$TableName) {
             $TableName = $this->TableName;
@@ -487,7 +486,7 @@ class MSSQL extends SQL
 
                 case 'integer':
                 case 'double':
-                    $value = ' ' . str_replace(',', '.', $value);
+                    $value = ' '.str_replace(',', '.', $value);
                     break;
                 case 'string':
                 default:
@@ -500,14 +499,14 @@ class MSSQL extends SQL
                     }
                     break;
             }
-            $updates.=" [$Column] = $value,";
+            $updates .= " [$Column] = $value,";
         }
 
         return substr($updates, 0, -1);
     }
 
     /**
-     * Vrací framgment SQL dotazu pro SELECT
+     * Vrací framgment SQL dotazu pro SELECT.
      *
      * @param array $data pole ze kterého se vytvoří fragment SQL dotazu
      *                    array('date'=>'','name'=>'','id AS recordID'=>10)
@@ -534,15 +533,15 @@ class MSSQL extends SQL
 
             if (is_bool($value)) {
                 if ($value === null) {
-                    $value = " null,";
+                    $value = ' null,';
                 } elseif ($value) {
-                    $value = " 1";
+                    $value = ' 1';
                 } else {
-                    $value = " 0";
+                    $value = ' 0';
                 }   // 	if (is_null($val)) {
             } elseif (!is_string($value)) {
                 if (is_float($value)) {
-                    $value = ' ' . str_replace(',', '.', $value);
+                    $value = ' '.str_replace(',', '.', $value);
                 } else {
                     $value = " $value";
                 }
@@ -553,14 +552,14 @@ class MSSQL extends SQL
 
             // 				echo "<pre>$col:\n"; var_dump($val); echo '</pre>';
 
-            $Updates.=" [$Column] $operator $value AND";
+            $Updates .= " [$Column] $operator $value AND";
         }
 
         return substr($Updates, 0, -3);
     }
 
     /**
-     * Table presence test
+     * Table presence test.
      *
      * @param string $TableName
      *
@@ -569,9 +568,9 @@ class MSSQL extends SQL
     public function tableExist($TableName = null)
     {
         if (!parent::TableExist($TableName)) {
-            return null;
+            return;
         }
-        $this->exeQuery("SELECT name FROM sysobjects WHERE name = '" . $TableName . "' AND OBJECTPROPERTY(id, 'IsUserTable') = 1");
+        $this->exeQuery("SELECT name FROM sysobjects WHERE name = '".$TableName."' AND OBJECTPROPERTY(id, 'IsUserTable') = 1");
         if ($this->NumRows) {
             return true;
         } else {
@@ -580,12 +579,12 @@ class MSSQL extends SQL
     }
 
     /**
-     * Vytvoří tabulku podle struktůry
+     * Vytvoří tabulku podle struktůry.
      *
      * @param array  $TableStructure struktura tabulky
      * @param string $TableName      jméno tabulky
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function createTable(&$TableStructure = null, $TableName = null)
     {
@@ -607,7 +606,7 @@ class MSSQL extends SQL
     }
 
     /**
-     * Odstraní z SQL dotazu "nebezpecne" znaky
+     * Odstraní z SQL dotazu "nebezpecne" znaky.
      *
      * @param string $QueryRaw SQL Query
      *
@@ -621,9 +620,9 @@ class MSSQL extends SQL
     }
 
     /**
-     * Vrací seznam tabulek v aktuálné použité databázi
+     * Vrací seznam tabulek v aktuálné použité databázi.
      *
-     * @param boolean $Sort vysledek ještě setřídit
+     * @param bool $Sort vysledek ještě setřídit
      *
      * @return array
      */
@@ -642,34 +641,33 @@ class MSSQL extends SQL
             return $TablesList;
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Close SQL connecton
+     * Close SQL connecton.
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
         if ($this->SQLLink) {
             return mssql_close($this->SQLLink);
         } else {
-            return null;
+            return;
         }
     }
 }
 
 /**
- * Testuje dostupnost MSSQL serveru
+ * Testuje dostupnost MSSQL serveru.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class EaseMSDbPinger extends EaseDbMSSQL
 {
-
     /**
-     * Teste provedeme již při připojení
+     * Teste provedeme již při připojení.
      */
     public function connect()
     {
@@ -681,11 +679,11 @@ class EaseMSDbPinger extends EaseDbMSSQL
     }
 
     /**
-     * Vytvoří zamykací soubor
+     * Vytvoří zamykací soubor.
      *
      * @param string $LockFile použij jiný název zamykacího souboru
      *
-     * @return boolean
+     * @return bool
      */
     public function writeLockFile($LockFile = null)
     {
@@ -705,14 +703,14 @@ class EaseMSDbPinger extends EaseDbMSSQL
 
             return true;
         } else {
-            $this->error('WriteLockFile: Lockfile ' . realpath($this->Lockfile) . ' could not be written', $this->TestDirectory(dirname($this->Lockfile)));
+            $this->error('WriteLockFile: Lockfile '.realpath($this->Lockfile).' could not be written', $this->TestDirectory(dirname($this->Lockfile)));
 
             return false;
         }
     }
 
     /**
-     * Odstraní zamykací soubor
+     * Odstraní zamykací soubor.
      *
      * @param string $LockFile cesta k zamykacímu souboru
      */
@@ -722,26 +720,26 @@ class EaseMSDbPinger extends EaseDbMSSQL
             $LockFile = $this->Lockfile;
         }
         if (!file_exists($LockFile)) {
-            $this->addToLog('MSSQL Lockfile ' . $LockFile . ' doesn\'t exist', 'warning');
+            $this->addToLog('MSSQL Lockfile '.$LockFile.' doesn\'t exist', 'warning');
 
             return true;
         }
 
         unlink($LockFile);
         if (file_exists($LockFile)) {
-            $this->error('DropLockFile: Lockfile ' . realpath($this->Lockfile) . ' alive', $this->TestDirectory(dirname($this->Lockfile)));
+            $this->error('DropLockFile: Lockfile '.realpath($this->Lockfile).' alive', $this->TestDirectory(dirname($this->Lockfile)));
 
             return false;
         }
-        $this->addToLog('DropLockFile: ' . realpath($this->Lockfile), 'succes');
+        $this->addToLog('DropLockFile: '.realpath($this->Lockfile), 'succes');
 
         return true;
     }
 
     /**
-     * Pokusí se po připojení socketem k SQLserveru
+     * Pokusí se po připojení socketem k SQLserveru.
      *
-     * @param boolean $Succes vynucení výsledku
+     * @param bool $Succes vynucení výsledku
      *
      * @return boolan
      */

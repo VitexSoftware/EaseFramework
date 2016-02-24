@@ -3,15 +3,14 @@
 namespace Ease\JQuery;
 
 /**
- * jQuery common class
+ * jQuery common class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class Part extends \Ease\Page
 {
-
     /**
-     * Partname/Tag ID
+     * Partname/Tag ID.
      *
      * @var string
      */
@@ -20,12 +19,12 @@ class Part extends \Ease\Page
     /**
      * Use minimized version of scripts ?
      *
-     * @var boolean
+     * @var bool
      */
     public static $useMinimizedJS = false;
 
     /**
-     * Array of Part properties
+     * Array of Part properties.
      *
      * @var array
      */
@@ -34,11 +33,11 @@ class Part extends \Ease\Page
     public function __construct()
     {
         parent::__construct();
-        Part::jQueryze();
+        self::jQueryze();
     }
 
     /**
-     * Set part name - mainly div id
+     * Set part name - mainly div id.
      *
      * @param string $partName jméno vložené části
      */
@@ -48,7 +47,7 @@ class Part extends \Ease\Page
     }
 
     /**
-     * Returns OnDocumentReady() JS code
+     * Returns OnDocumentReady() JS code.
      *
      * @return string
      */
@@ -58,7 +57,7 @@ class Part extends \Ease\Page
     }
 
     /**
-     * Add Js/Css into page
+     * Add Js/Css into page.
      */
     public function finalize()
     {
@@ -69,7 +68,7 @@ class Part extends \Ease\Page
     }
 
     /**
-     * Opatří objekt vším potřebným pro funkci jQuery
+     * Opatří objekt vším potřebným pro funkci jQuery.
      */
     public static function jQueryze()
     {
@@ -77,7 +76,7 @@ class Part extends \Ease\Page
     }
 
     /**
-     * Nastaví paramatry tagu
+     * Nastaví paramatry tagu.
      *
      * @param mixed $partProperties vlastnosti jQuery widgetu
      */
@@ -91,12 +90,12 @@ class Part extends \Ease\Page
             }
         } else {
             $propBuff = $partProperties;
-            $this->partProperties = ' ' . $propBuff;
+            $this->partProperties = ' '.$propBuff;
         }
     }
 
     /**
-     * Vyrendruje aktuální parametry části jako parametry pro jQuery
+     * Vyrendruje aktuální parametry části jako parametry pro jQuery.
      *
      * @param array|string $partProperties pole vlastností
      *
@@ -107,6 +106,7 @@ class Part extends \Ease\Page
         if (!$partProperties) {
             $partProperties = $this->partProperties;
         }
+
         return self::partPropertiesToString($partProperties);
     }
 
@@ -116,7 +116,7 @@ class Part extends \Ease\Page
     }
 
     /**
-     * vyrendruje pole parametrů jako řetězec v syntaxi javascriptu
+     * vyrendruje pole parametrů jako řetězec v syntaxi javascriptu.
      *
      * @param array|string $partProperties vlastnosti jQuery widgetu
      *
@@ -130,36 +130,36 @@ class Part extends \Ease\Page
             foreach ($partProperties as $partPropertyName => $partPropertyValue) {
                 if (!is_null($partPropertyName)) {
                     if (is_numeric($partPropertyName)) {
-                        if (!strstr($partPropertiesString, ' ' . $partPropertyValue . ' ')) {
-                            $partsArray[] = ' ' . $partPropertyValue . ' ';
+                        if (!strstr($partPropertiesString, ' '.$partPropertyValue.' ')) {
+                            $partsArray[] = ' '.$partPropertyValue.' ';
                         }
                     } else {
                         if (is_array($partPropertyValue)) {
                             if (self::is_assoc($partPropertyValue)) {
                                 if ($partPropertyName) {
-                                    $partsArray[] = $partPropertyName . ': { ' . self::partPropertiesToString($partPropertyValue) . ' } ';
+                                    $partsArray[] = $partPropertyName.': { '.self::partPropertiesToString($partPropertyValue).' } ';
                                 } else {
                                     $partsArray[] = self::partPropertiesToString($partPropertyValue);
                                 }
                             } else {
                                 foreach ($partPropertyValue as $key => $value) {
                                     if (is_string($value)) {
-                                        $partPropertyValue[$key] = '"' . $value . '"';
+                                        $partPropertyValue[$key] = '"'.$value.'"';
                                     }
                                 }
                                 if (is_array($partPropertyValue)) {
                                     foreach ($partPropertyValue as $pId => $piece) {
                                         if (is_array($piece)) {
-                                            $partPropertyValue[$pId] = ' { ' . self::partPropertiesToString($piece) . ' } ';
+                                            $partPropertyValue[$pId] = ' { '.self::partPropertiesToString($piece).' } ';
                                         }
                                     }
-                                    $partsArray[] = $partPropertyName . ': [' . implode(',', $partPropertyValue) . '] ';
+                                    $partsArray[] = $partPropertyName.': ['.implode(',', $partPropertyValue).'] ';
                                 } else {
-                                    $partsArray[] = $partPropertyName . ':' . $partPropertyValue;
+                                    $partsArray[] = $partPropertyName.':'.$partPropertyValue;
                                 }
                             }
                         } elseif (is_int($partPropertyValue)) {
-                            $partsArray[] = $partPropertyName . ': ' . $partPropertyValue . ' ';
+                            $partsArray[] = $partPropertyName.': '.$partPropertyValue.' ';
                         } else {
                             if (!is_null($partPropertyValue) && (strlen($partPropertyValue) || $partPropertyValue === false)) {
                                 if (!@substr_compare($partPropertyValue, 'function', 0, 8) || $partPropertyValue[0] == '{' || $partPropertyValue === true) {
@@ -169,9 +169,9 @@ class Part extends \Ease\Page
                                     if ($partPropertyValue === false) {
                                         $partPropertyValue = 'false';
                                     }
-                                    $partsArray[] = $partPropertyName . ': ' . $partPropertyValue . ' ';
+                                    $partsArray[] = $partPropertyName.': '.$partPropertyValue.' ';
                                 } else {
-                                    $partsArray[] = $partPropertyName . ': "' . $partPropertyValue . '" ';
+                                    $partsArray[] = $partPropertyName.': "'.$partPropertyValue.'" ';
                                 }
                             }
                         }
@@ -185,6 +185,7 @@ class Part extends \Ease\Page
 ',
                 $partsArray
             );
+
             return $partPropertiesString;
         } else {
             return $partProperties;

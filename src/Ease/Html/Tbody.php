@@ -4,9 +4,8 @@ namespace Ease\Html;
 
 class Tbody extends PairTag
 {
-
     /**
-     * <tbody>
+     * <tbody>.
      *
      * @param mixed $content
      * @param array $properties

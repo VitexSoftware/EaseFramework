@@ -1,26 +1,22 @@
 <?php
 
 /**
- * Zobrazení tabulky dat
+ * Zobrazení tabulky dat.
  *
- * @package    EaseFrameWork
- * @subpackage Ease\Html\
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class DataGrid extends Html\TableTag
 {
-
     /**
-     * Datagrid
+     * Datagrid.
      *
      * @param mixed $content
      * @param array $properties
      */
-    public function  __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = null)
     {
         parent::__construct(null, $properties);
         if (is_array($content)) {
@@ -29,7 +25,7 @@ class DataGrid extends Html\TableTag
     }
 
     /**
-     * Naplní tabulku daty
+     * Naplní tabulku daty.
      *
      * @param array $allData
      */

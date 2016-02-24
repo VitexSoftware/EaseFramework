@@ -1,18 +1,16 @@
 <?php
 
 /**
- * Twitter Bootstrap common class
+ * Twitter Bootstrap common class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-
 namespace Ease\TWB;
 
 class Part extends \Ease\JQuery\Part
 {
-
     /**
-     * Vložení náležitostí pro twitter bootstrap
+     * Vložení náležitostí pro twitter bootstrap.
      */
     public function __construct()
     {
@@ -21,7 +19,7 @@ class Part extends \Ease\JQuery\Part
     }
 
     /**
-     * Opatří objekt vším potřebným pro funkci bootstrapu
+     * Opatří objekt vším potřebným pro funkci bootstrapu.
      */
     public static function twBootstrapize()
     {
@@ -37,23 +35,25 @@ class Part extends \Ease\JQuery\Part
     }
 
     /**
-     * Vrací ikonu
+     * Vrací ikonu.
      *
      * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
+     *
      * @param string $code       Kód ikony z přehledu
      * @param array  $properties Vlastnosti Tagu
      */
     public static function GlyphIcon($code, $properties = null)
     {
         if (is_null($properties)) {
-            $properties = ['class' => 'glyphicon glyphicon-' . $code];
+            $properties = ['class' => 'glyphicon glyphicon-'.$code];
         } else {
             if (isset($properties['class'])) {
-                $properties['class'] = 'glyphicon glyphicon-' . $code . ' ' . $properties['class'];
+                $properties['class'] = 'glyphicon glyphicon-'.$code.' '.$properties['class'];
             } else {
-                $properties['class'] = 'glyphicon glyphicon-' . $code;
+                $properties['class'] = 'glyphicon glyphicon-'.$code;
             }
         }
+
         return new \Ease\Html\Span(null, $properties);
     }
 }

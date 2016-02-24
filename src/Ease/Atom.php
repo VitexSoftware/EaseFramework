@@ -4,16 +4,13 @@
  * Základní pojící element všech objektů v EaseFrameWorku. Jeho hlavní schopnost je:
  * Pojímat do sebe zprávy.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class Atom
 {
-
     /**
      * Udržuje v sobě jméno objektu.
      *
@@ -22,28 +19,28 @@ class Atom
     public $objectName = 'EaseSand';
 
     /**
-     * Flag debugovacího režimu
+     * Flag debugovacího režimu.
      *
      * @var bool
      */
     public $debug = false;
 
     /**
-     * Pole informaci urcenych k logovani inebo zobrazovanych uzivateli
+     * Pole informaci urcenych k logovani inebo zobrazovanych uzivateli.
      *
      * @var array
      */
     public $statusMessages = [];
 
     /**
-     * Pocet uchovavanych zprav
+     * Pocet uchovavanych zprav.
      *
      * @var int
      */
     public $messageCount = 0;
 
     /**
-     * Vrací jméno objektu
+     * Vrací jméno objektu.
      *
      * @return string
      */
@@ -53,19 +50,19 @@ class Atom
     }
 
     /**
-     * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu
+     * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu.
      *
      * @param string $message text zpravy
      * @param string $type    fronta
      */
     public function addStatusMessage($message, $type = 'info')
     {
-        $this->messageCount++;
+        ++$this->messageCount;
         $this->statusMessages[$type][$this->messageCount] = $message;
     }
 
     /**
-     * Přidá zprávy z pole uživateli do zásobníku
+     * Přidá zprávy z pole uživateli do zásobníku.
      *
      * @param array $statusMessages pole zpráv
      *
@@ -89,11 +86,11 @@ class Atom
             return count($statusMessages);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Vymaže zprávy
+     * Vymaže zprávy.
      */
     public function cleanMessages()
     {
@@ -102,9 +99,9 @@ class Atom
     }
 
     /**
-     * Předá zprávy
+     * Předá zprávy.
      *
-     * @param boolean $clean smazat originalni data ?
+     * @param bool $clean smazat originalni data ?
      *
      * @return array
      */
@@ -121,7 +118,7 @@ class Atom
     }
 
     /**
-     * Prevezme si zpravy z vnějšího zdroje
+     * Prevezme si zpravy z vnějšího zdroje.
      *
      * @param array $statusMessages pole zpráv např. $OUser->StatusMessages
      */
@@ -135,7 +132,7 @@ class Atom
     }
 
     /**
-     * Returns PATH modified for current operating system
+     * Returns PATH modified for current operating system.
      *
      * @param string $path
      *
@@ -154,7 +151,7 @@ class Atom
     }
 
     /**
-     * Default Drav method
+     * Default Drav method.
      *
      * @return string
      */

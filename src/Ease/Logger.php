@@ -1,62 +1,59 @@
 <?php
 
 /**
- * Třída pro logování
+ * Třída pro logování.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class Logger extends Atom
 {
-
     /**
-     * Předvolená metoda logování
+     * Předvolená metoda logování.
      *
      * @var string
      */
     public $logType = 'file';
 
     /**
-     * Adresář do kterého se zapisují logy
+     * Adresář do kterého se zapisují logy.
      *
      * @var string dirpath
      */
     public $logPrefix = null;
 
     /**
-     * Soubor s do kterého se zapisuje log
+     * Soubor s do kterého se zapisuje log.
      *
      * @var string
      */
     public $logFileName = 'Ease.log';
 
     /**
-     * úroveň logování
+     * úroveň logování.
      *
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
 
     /**
-     * Soubor do kterého se zapisuje report
+     * Soubor do kterého se zapisuje report.
      *
      * @var string filepath
      */
     public $reportFile = 'EaseReport.log';
 
     /**
-     * Soubor do kterého se lougují pouze zprávy typu Error
+     * Soubor do kterého se lougují pouze zprávy typu Error.
      *
-     * @var string  filepath
+     * @var string filepath
      */
     public $errorLogFile = 'EaseErrors.log';
 
     /**
-     * Hodnoty pro obarvování logu
+     * Hodnoty pro obarvování logu.
      *
      * @var array
      */
@@ -68,65 +65,65 @@ class Logger extends Atom
         'error' => 'color: red;',
         'debug' => 'font-style: italic;',
         'report' => 'font-wight: bold;',
-        'info' => 'color: blue;'
+        'info' => 'color: blue;',
     ];
 
     /**
-     * Odkaz na vlastnící objekt
+     * Odkaz na vlastnící objekt.
      *
      * @var EaseSand ||
      */
     public $parentObject = null;
 
     /**
-     * Filedescriptor Logu
+     * Filedescriptor Logu.
      *
      * @var resource
      */
     private $_logFileHandle = null;
 
     /**
-     * Filedescriptor chybového Logu
+     * Filedescriptor chybového Logu.
      *
      * @var resource
      */
     private $_errorLogFileHandle = null;
 
     /**
-     * Ukládat Zprávy do pole;
+     * Ukládat Zprávy do pole;.
      *
-     * @var boolean
+     * @var bool
      */
     private $storeMessages = false;
 
     /**
-     * Pole uložených zpráv
+     * Pole uložených zpráv.
      *
      * @var array
      */
     private $storedMessages = [];
 
     /**
-     * ID naposledy ulozene zpravy
+     * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
      */
     private $messageID = 0;
 
     /**
-     * Obecné konfigurace frameworku
+     * Obecné konfigurace frameworku.
      *
      * @var Shared
      */
     public $easeShared = null;
 
     /**
-     * Saves obejct instace (singleton...)
+     * Saves obejct instace (singleton...).
      */
     private static $_instance = null;
 
     /**
-     * Logovací třída
+     * Logovací třída.
      *
      * @param string $BaseLogDir
      */
@@ -155,7 +152,7 @@ class Logger extends Atom
     }
 
     /**
-     * Nastaví cesty logovacích souborů
+     * Nastaví cesty logovacích souborů.
      */
     public function setupLogFiles()
     {
@@ -165,9 +162,9 @@ class Logger extends Atom
             if (defined('LOG_DIRECTORY')) {
                 $this->logPrefix = Brick::sysFilename(constant('LOG_DIRECTORY'));
                 if ($this->TestDirectory($this->logPrefix)) {
-                    $this->logFileName = $this->logPrefix . $this->logFileName;
-                    $this->reportFile = $this->logPrefix . $this->reportFile;
-                    $this->errorLogFile = $this->logPrefix . $this->errorLogFile;
+                    $this->logFileName = $this->logPrefix.$this->logFileName;
+                    $this->reportFile = $this->logPrefix.$this->reportFile;
+                    $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
                 } else {
                     $this->logPrefix = null;
                     $this->logFileName = null;
@@ -185,7 +182,7 @@ class Logger extends Atom
     }
 
     /**
-     * Povolí nebo zakáže ukládání zpráv
+     * Povolí nebo zakáže ukládání zpráv.
      *
      * @param type $Check
      */
@@ -198,7 +195,7 @@ class Logger extends Atom
     }
 
     /**
-     * Resetne pole uložených zpráv
+     * Resetne pole uložených zpráv.
      */
     public function resetStoredMessages()
     {
@@ -206,7 +203,7 @@ class Logger extends Atom
     }
 
     /**
-     * Vrací pole uložených zpráv
+     * Vrací pole uložených zpráv.
      *
      * @return array
      */
@@ -216,7 +213,7 @@ class Logger extends Atom
     }
 
     /**
-     * Zapise zapravu do logu
+     * Zapise zapravu do logu.
      *
      * @param string $caller  název volajícího objektu
      * @param string $message zpráva
@@ -226,11 +223,11 @@ class Logger extends Atom
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-        $this->messageID++;
+        ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
             return;
         }
-        if (($this->logLevel != 'debug') && ( $type == 'debug')) {
+        if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
         if ($this->storeMessages) {
@@ -239,7 +236,7 @@ class Logger extends Atom
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $LogLine = date(DATE_ATOM) . ' (' . $caller . ') ' . str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type) . ' ' . $message . "\n";
+        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -247,7 +244,7 @@ class Logger extends Atom
             if ($this->runType == 'cgi') {
                 echo $LogLine;
             } else {
-                echo '<div style="' . $this->logStyles[$type] . '">' . $LogLine . "</div>\n";
+                echo '<div style="'.$this->logStyles[$type].'">'.$LogLine."</div>\n";
                 flush();
             }
         }
@@ -278,7 +275,7 @@ class Logger extends Atom
     }
 
     /**
-     * Přejmenuje soubor s logem
+     * Přejmenuje soubor s logem.
      *
      * @param string $newLogFileName new log filename
      *
@@ -286,7 +283,7 @@ class Logger extends Atom
      */
     public function renameLogFile($newLogFileName)
     {
-        $newLogFileName = dirname($this->logFileName) . '/' . basename($newLogFileName);
+        $newLogFileName = dirname($this->logFileName).'/'.basename($newLogFileName);
         if (rename($this->logFileName, $newLogFileName)) {
             return realpath($newLogFileName);
         } else {
@@ -295,7 +292,7 @@ class Logger extends Atom
     }
 
     /**
-     * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web)
+     * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web).
      *
      * @param string $runType force type
      *
@@ -312,50 +309,50 @@ class Logger extends Atom
 
             return $this->runType;
         }
-        if (($runType != 'web') || ( $runType != 'cgi')) {
-            return null;
+        if (($runType != 'web') || ($runType != 'cgi')) {
+            return;
         } else {
             return $this->runType;
         }
     }
 
     /**
-     * Zkontroluje stav adresáře a upozorní na případné nesnáze
+     * Zkontroluje stav adresáře a upozorní na případné nesnáze.
      *
-     * @param string  $DirectoryPath cesta k adresáři
-     * @param boolean $IsDir         detekovat existenci adresáře
-     * @param boolean $IsReadable    testovat čitelnost
-     * @param boolean $IsWritable    testovat zapisovatelnost
-     * @param boolean $LogToFile     povolí logování do souboru
+     * @param string $DirectoryPath cesta k adresáři
+     * @param bool   $IsDir         detekovat existenci adresáře
+     * @param bool   $IsReadable    testovat čitelnost
+     * @param bool   $IsWritable    testovat zapisovatelnost
+     * @param bool   $LogToFile     povolí logování do souboru
      *
-     * @return boolean konečný výsledek testu
+     * @return bool konečný výsledek testu
      */
     public static function testDirectory($DirectoryPath, $IsDir = true, $IsReadable = true, $IsWritable = true, $LogToFile = false)
     {
         $sanity = true;
         if ($IsDir) {
             if (!is_dir($DirectoryPath)) {
-                echo ($DirectoryPath . _(' není složka. Jsem v adresáři:') . ' ' . getcwd());
+                echo $DirectoryPath._(' není složka. Jsem v adresáři:').' '.getcwd();
                 if ($LogToFile) {
-                    $this->addToLog('TestDirectory', $DirectoryPath . _(' není složka. Jsem v adresáři:') . ' ' . getcwd());
+                    $this->addToLog('TestDirectory', $DirectoryPath._(' není složka. Jsem v adresáři:').' '.getcwd());
                 }
                 $sanity = false;
             }
         }
         if ($IsReadable) {
             if (!is_readable($DirectoryPath)) {
-                echo ($DirectoryPath . _(' není čitelná složka. Jsem v adresáři:') . ' ' . getcwd());
+                echo $DirectoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd();
                 if ($LogToFile) {
-                    $this->addToLog('TestDirectory', $DirectoryPath . _(' není čitelná složka. Jsem v adresáři:') . ' ' . getcwd());
+                    $this->addToLog('TestDirectory', $DirectoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd());
                 }
                 $sanity = false;
             }
         }
         if ($IsWritable) {
             if (!is_writable($DirectoryPath)) {
-                echo ($DirectoryPath . _(' není zapisovatelná složka. Jsem v adresáři:') . ' ' . getcwd());
+                echo $DirectoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd();
                 if ($LogToFile) {
-                    $this->addToLog('TestDirectory', $DirectoryPath . _(' není zapisovatelná složka. Jsem v adresáři:') . ' ' . getcwd());
+                    $this->addToLog('TestDirectory', $DirectoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd());
                 }
 
                 $sanity = false;
@@ -366,7 +363,7 @@ class Logger extends Atom
     }
 
     /**
-     * Oznamuje chybovou událost
+     * Oznamuje chybovou událost.
      *
      * @param string $caller     název volající funkce, nebo objektu
      * @param string $message    zpráva
@@ -378,29 +375,29 @@ class Logger extends Atom
             $LogFileHandle = @fopen($this->errorLogFile, 'a+');
             if ($LogFileHandle) {
                 if ($this->easeShared->runType == 'web') {
-                    fputs($LogFileHandle, Brick::printPreBasic($_SERVER) . "\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
-                    fputs($LogFileHandle, Brick::printPreBasic($_ENV) . "\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_POST) && count($_POST)) {
-                    fputs($LogFileHandle, Brick::printPreBasic($_POST) . "\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_GET) && count($_GET)) {
-                    fputs($LogFileHandle, Brick::printPreBasic($_GET) . "\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if ($objectData) {
-                    fputs($LogFileHandle, Brick::printPreBasic($objectData) . "\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
+                    fputs($LogFileHandle, Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
                 }
                 fclose($LogFileHandle);
             } else {
-                $this->addToLog('Error: Couldn\'t open the ' . realpath($this->errorLogFile) . ' error log file', 'error');
+                $this->addToLog('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file', 'error');
             }
         }
         $this->addToLog($caller, $message, 'error');
     }
 
     /**
-     * Uzavře chybové soubory
+     * Uzavře chybové soubory.
      */
     public function __destruct()
     {
@@ -413,7 +410,7 @@ class Logger extends Atom
     }
 
     /**
-     * Vrací styl logování
+     * Vrací styl logování.
      *
      * @param string $logType typ logu warning|info|success|error|notice|*
      *

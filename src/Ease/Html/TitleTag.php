@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML title class
+ * HTML title class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class TitleTag extends PairTag
 {
-
     /**
-     * Title html tag
+     * Title html tag.
      *
      * @param string $contents   text titulku
      * @param array  $properties parametry tagu

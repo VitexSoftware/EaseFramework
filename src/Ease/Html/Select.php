@@ -3,24 +3,23 @@
 namespace Ease\Html;
 
 /**
- * Html Select
+ * Html Select.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class Select extends PairTag
 {
-
     /**
-     * Předvolené položka #
+     * Předvolené položka #.
      *
      * @var int
      */
     public $defaultValue = null;
 
     /**
-     * Automaticky nastavovat název elemnetu
+     * Automaticky nastavovat název elemnetu.
      *
-     * @var boolean
+     * @var bool
      */
     public $setName = true;
 
@@ -32,12 +31,12 @@ class Select extends PairTag
     /**
      * Mají se vloženým položkám nastavovat ID ?
      *
-     * @var boolean
+     * @var bool
      */
     private $_itemsIDs = false;
 
     /**
-     * Html select box
+     * Html select box.
      *
      * @param string $name         jmeno
      * @param array  $items        polozky
@@ -57,7 +56,7 @@ class Select extends PairTag
     }
 
     /**
-     * Hromadné vložení položek
+     * Hromadné vložení položek.
      *
      * @param array $items položky výběru
      */
@@ -66,7 +65,7 @@ class Select extends PairTag
         foreach ($items as $itemName => $itemValue) {
             $newItem = $this->addItem(new OptionTag($itemValue, $itemName));
             if ($this->_itemsIDs) {
-                $newItem->setTagID($this->getTagName() . $itemName);
+                $newItem->setTagID($this->getTagName().$itemName);
             }
             if ($this->defaultValue == $itemName) {
                 $this->lastItem->setDefault();
@@ -75,7 +74,7 @@ class Select extends PairTag
     }
 
     /**
-     * Vloží hodnotu
+     * Vloží hodnotu.
      *
      * @param string $value   hodnota
      * @param string $valueID id hodnoty
@@ -86,7 +85,7 @@ class Select extends PairTag
     }
 
     /**
-     * Maketa načtení položek
+     * Maketa načtení položek.
      *
      * @return array
      */
@@ -96,7 +95,7 @@ class Select extends PairTag
     }
 
     /**
-     * Nastavení hodnoty
+     * Nastavení hodnoty.
      *
      * @param string $value nastavovaná hodnota
      */
@@ -112,14 +111,14 @@ class Select extends PairTag
             }
         } else {
             if (isset($this->pageParts) && count($this->pageParts)) {
-                $firstItem = & reset($this->pageParts);
+                $firstItem = &reset($this->pageParts);
                 $firstItem->setDefault();
             }
         }
     }
 
     /**
-     * Vložit načtené položky
+     * Vložit načtené položky.
      */
     public function finalize()
     {
@@ -130,12 +129,12 @@ class Select extends PairTag
     }
 
     /**
-     * Odstarní položku z nabídky
+     * Odstarní položku z nabídky.
      *
      * @param string $itemID klíč hodnoty k odstranění ze seznamu
      */
     public function delItem($itemID)
     {
-        unset($this->pageParts['OptionTag@' . $itemID]);
+        unset($this->pageParts['OptionTag@'.$itemID]);
     }
 }

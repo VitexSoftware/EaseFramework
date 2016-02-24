@@ -3,13 +3,12 @@
 namespace Ease\Html;
 
 /**
- * Skript ve stránce
+ * Skript ve stránce.
  */
 class ScriptTag extends PairTag
 {
-
     /**
-     * Skript
+     * Skript.
      *
      * @param string|mixed $content
      * @param array        $tagProperties
@@ -20,7 +19,7 @@ class ScriptTag extends PairTag
             'script',
             $tagProperties,
             '// <![CDATA[
-' . $content . '
+'.$content.'
 // ]]>'
         );
     }

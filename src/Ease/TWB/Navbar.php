@@ -1,37 +1,35 @@
 <?php
 
 /**
- *  NavBar
+ *  NavBar.
  */
-
 namespace Ease\TWB;
 
 class Navbar extends \Ease\Html\Div
 {
-
     /**
-     * Vnitřek menu
+     * Vnitřek menu.
      *
      * @var \Ease\Html\Div
      */
     public $menuInnerContent = null;
 
     /**
-     * Položky menu
+     * Položky menu.
      *
      * @var \Ease\Html\UlTag
      */
     private $nav;
 
     /**
-     * Položky menu přidávané vpravo
+     * Položky menu přidávané vpravo.
      *
      * @var \Ease\Html\UlTag
      */
     private $navRight;
 
     /**
-     * Menu aplikace
+     * Menu aplikace.
      *
      * @param string $name
      * @param string $brand
@@ -43,7 +41,7 @@ class Navbar extends \Ease\Html\Div
             $properties = ['class' => 'navbar navbar-default'];
         } else {
             if (isset($properties)) {
-                $properties['class'] = 'navbar navbar-default ' . $properties['class'];
+                $properties['class'] = 'navbar navbar-default '.$properties['class'];
             } else {
                 $properties['class'] = 'navbar navbar-default';
             }
@@ -53,7 +51,7 @@ class Navbar extends \Ease\Html\Div
         $this->menuInnerContent = parent::addItem(new \Ease\Html\Div(null, ['class' => 'navbar-inner']));
         parent::__construct(null, $properties);
         $this->addItem(self::NavBarHeader($name, $brand));
-        $navCollapse = $this->addItem(new \Ease\Html\Div(null, ['class' => 'collapse navbar-collapse navbar-' . $name . '-collapse']));
+        $navCollapse = $this->addItem(new \Ease\Html\Div(null, ['class' => 'collapse navbar-collapse navbar-'.$name.'-collapse']));
         $this->nav = $navCollapse->addItem(new \Ease\Html\UlTag(null, ['class' => 'nav navbar-nav']));
         $this->tagType = 'nav';
         $pullRigt = new \Ease\Html\Div(null, ['class' => 'pull-right']);
@@ -64,37 +62,39 @@ class Navbar extends \Ease\Html\Div
 
     public static function NavBarHeader($handle, $brand)
     {
-        $navstyle = '.navbar-' . $handle . '-collapse';
+        $navstyle = '.navbar-'.$handle.'-collapse';
         $nbhc['button'] = new \Ease\Html\ButtonTag([new \Ease\Html\SpanTag(null, _('přepnutí navigace'), ['class' => 'sr-only']), new \Ease\Html\SpanTag(null, null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null, null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null, null, ['class' => 'icon-bar'])], ['type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse', 'data-target' => $navstyle]);
         if ($brand) {
             $nbhc['brand'] = new \Ease\Html\ATag('./', $brand, ['class' => 'navbar-brand']);
         }
+
         return new \Ease\Html\Div($nbhc, ['class' => 'navbar-header']);
     }
 
     /**
-     * Přidá položku do navigační lišty
+     * Přidá položku do navigační lišty.
      *
      * @param mixed  $Item         vkládaná položka
      * @param string $PageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return EasePage poiner to object well included
      */
-    public function  &addItem($Item, $PageItemName = null)
+    public function &addItem($Item, $PageItemName = null)
     {
         $added = $this->menuInnerContent->addItem($Item, $PageItemName);
+
         return $added;
     }
 
     /**
-     * Přidá položku menu
+     * Přidá položku menu.
      *
      * @param \Ease\Html\ATag $pageItem Položka menu
      * @param string          $pull     'right' strká položku v menu do prava
      *
      * @return EaseWebPage
      */
-    public function  &addMenuItem($pageItem, $pull = 'left')
+    public function &addMenuItem($pageItem, $pull = 'left')
     {
         if ($pull == 'left') {
             $menuItem = $this->nav->addItemSmart($pageItem);
@@ -116,18 +116,19 @@ class Navbar extends \Ease\Html\Div
                 }
             }
         }
+
         return $menuItem;
     }
 
     /**
-     * Add Dropdown Submenu
+     * Add Dropdown Submenu.
      *
      * @param string $name
-     * @param array $items
+     * @param array  $items
      * 
      * @return \Ease\Html\UlTag
      */
-    public function  &addDropDownSubmenu($name, $items)
+    public function &addDropDownSubmenu($name, $items)
     {
         $dropdown = $this->addItem(new \Ease\Html\UlTag(null, ['class' => 'dropdown-menu', 'role' => 'menu']));
         if (count($items)) {
@@ -135,23 +136,25 @@ class Navbar extends \Ease\Html\Div
                 $this->addMenuItem($item);
             }
         }
+
         return $dropdown;
     }
 
     /**
-     * Vloží rozbalovací menu
+     * Vloží rozbalovací menu.
      *
-     * @param  string       $label popisek menu
-     * @param  array|string $items položky menu
-     * @param  string       $pull  směr zarovnání
+     * @param string       $label popisek menu
+     * @param array|string $items položky menu
+     * @param string       $pull  směr zarovnání
+     *
      * @return \Ease\Html\ULTag
      */
-    public function  &addDropDownMenu($label, $items, $pull = 'left')
+    public function &addDropDownMenu($label, $items, $pull = 'left')
     {
         Part::twBootstrapize();
         \Ease\Shared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();', null, true);
         $dropDown = new \Ease\Html\LiTag(null, ['class' => 'dropdown', 'id' => $label]);
-        $dropDown->addItem(new \Ease\Html\ATag('#' . $label . '', $label . '<b class="caret"></b>', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']));
+        $dropDown->addItem(new \Ease\Html\ATag('#'.$label.'', $label.'<b class="caret"></b>', ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']));
         $dropDownMenu = $dropDown->addItem(new \Ease\Html\UlTag(null, ['class' => 'dropdown-menu']));
         if (is_array($items)) {
             foreach ($items as $target => $label) {
@@ -175,6 +178,7 @@ class Navbar extends \Ease\Html\Div
         } else {
             $this->navRight->addItemSmart($dropDown);
         }
+
         return $dropDown;
     }
 }

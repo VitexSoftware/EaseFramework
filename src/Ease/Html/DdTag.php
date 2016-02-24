@@ -3,13 +3,12 @@
 namespace Ease\Html;
 
 /**
- * Obsah definice
+ * Obsah definice.
  */
 class DdTag extends PairTag
 {
-
     /**
-     * Obsah definice
+     * Obsah definice.
      *
      * @param string|mixed $content
      * @param array        $tagProperties

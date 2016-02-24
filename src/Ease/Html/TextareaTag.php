@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Textové pole
+ * Textové pole.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class TextareaTag extends PairTag
 {
-
     /**
-     * Odkaz na obsah
+     * Odkaz na obsah.
      */
     public $content = null;
 
@@ -21,7 +20,7 @@ class TextareaTag extends PairTag
     public $setName = true;
 
     /**
-     * Textarea
+     * Textarea.
      *
      * @param string $name       jméno tagu
      * @param string $content    obsah textarey
@@ -37,7 +36,7 @@ class TextareaTag extends PairTag
     }
 
     /**
-     * Nastaví obsah
+     * Nastaví obsah.
      *
      * @param string $value hodnota
      */

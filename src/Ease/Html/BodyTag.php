@@ -3,17 +3,15 @@
 namespace Ease\Html;
 
 /**
- * Třída pro tělo HTML stránky
+ * Třída pro tělo HTML stránky.
  *
- * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
 class BodyTag extends PairTag
 {
-
     /**
      * Tělo stránky je v aplikaci vždy dostupně jako
-     * $this->easeShared->webPage->body
+     * $this->easeShared->webPage->body.
      *
      * @param string $TagID   id tagu
      * @param mixed  $Content vkládané prvky
@@ -27,7 +25,7 @@ class BodyTag extends PairTag
     }
 
     /**
-     * Nastaví jméno objektu na "body"
+     * Nastaví jméno objektu na "body".
      *
      * @param string $ObjectName jméno objektu
      */

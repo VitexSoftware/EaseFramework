@@ -1,22 +1,21 @@
 <?php
 
 /**
- * Posunovatelný blok
+ * Posunovatelný blok.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class Scroller extends Ease\Html\DivTag
 {
-
     /**
-     * Objekt do nejž se vkládá rolovaný
+     * Objekt do nejž se vkládá rolovaný.
      *
      * @var type
      */
     public $ScrollableArea = null;
 
     /**
-     * Rolovatelná oblast
+     * Rolovatelná oblast.
      *
      * @param string           $name
      * @param \Ease\Page|mixed $Content
@@ -33,7 +32,7 @@ class Scroller extends Ease\Html\DivTag
     }
 
     /**
-     * Vloží javascripty a csska
+     * Vloží javascripty a csska.
      */
     public function finalize()
     {
@@ -43,20 +42,20 @@ class Scroller extends Ease\Html\DivTag
         \Ease\Shared::webPage()->addJavaScript(
             '
         $(function () {
-            $("div#' . $this->getTagID() . '").smoothDivScroll({});
+            $("div#'.$this->getTagID().'").smoothDivScroll({});
         });
         '
         );
     }
 
     /**
-     * Vkládá položky do skrolovatelné oblasti
+     * Vkládá položky do skrolovatelné oblasti.
      *
      * @param mixed $PageItem
      *
      * @return object|mixed
      */
-    public function  &addItem($PageItem, $PageItemName = null)
+    public function &addItem($PageItem, $PageItemName = null)
     {
         return $this->ScrollableArea->addItem($PageItem, $PageItemName);
     }

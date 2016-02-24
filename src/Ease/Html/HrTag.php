@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Horizontal line tag
+ * Horizontal line tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class HrTag extends Tag
 {
-
     /**
-     * Horizontal line tag
+     * Horizontal line tag.
      *
      * @param array $properties parametry tagu
      */

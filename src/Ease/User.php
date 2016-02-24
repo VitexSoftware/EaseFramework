@@ -1,156 +1,152 @@
 <?php
 
 /**
- * Objekty uživatelů
+ * Objekty uživatelů.
  *
  * PHP Version 5
  *
- * @package   EaseFrameWork
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Třída uživatele
+ * Třída uživatele.
  *
- * @package EaseFrameWork
  * @author  Vítězslav Dvořák <vitex@hippy.cz>
  */
 class User extends Anonym
 {
-
     /**
-     * Pracujem s tabulkou user
+     * Pracujem s tabulkou user.
      *
      * @var string
      */
     public $myTable = 'user';
 
     /**
-     * Klíčový sloupeček tabulky
+     * Klíčový sloupeček tabulky.
      *
      * @var string
      */
     public $myKeyColumn = 'id';
 
     /**
-     * Sloupecek obsahujici datum vložení záznamu uživatele do shopu
+     * Sloupecek obsahujici datum vložení záznamu uživatele do shopu.
      *
      * @var string
      */
     public $myCreateColumn = null;
 
     /**
-     * Sloupecek obsahujici datum poslení modifikace záznamu uživatele do shopu
+     * Sloupecek obsahujici datum poslení modifikace záznamu uživatele do shopu.
      *
      * @var string
      */
     public $myLastModifiedColumn = null;
 
     /**
-     * Pole práv uživatele
+     * Pole práv uživatele.
      *
      * @var array
      */
     public $permissions = null;
 
     /**
-     * Nactena prava uzivatele
+     * Nactena prava uzivatele.
      *
      * @var array
      */
     public $permissionsInactive = null;  //Prava na ktera jiz uzivatel z duvodu nizkeho levelu nedosahne
     /**
-     * Objekt nadřazeného uživatele
+     * Objekt nadřazeného uživatele.
      *
      * @var int unsigned
      */
     public $parent = null;
 
     /**
-     * ID prave nacteneho uzivatele
+     * ID prave nacteneho uzivatele.
      *
      * @var int unsigned
      */
     public $userID = null;
 
     /**
-     * Přihlašovací jméno uživatele
+     * Přihlašovací jméno uživatele.
      *
      * @var string
      */
     public $userLogin = null;
 
     /**
-     * Seznam ID podrizenych uzivatelu
+     * Seznam ID podrizenych uzivatelu.
      *
      * @var array
      */
     public $slaveUsers = null;
 
     /**
-     * Level uživatele
+     * Level uživatele.
      *
      * @var int unsigned
      */
     public $userLevel = null;
 
     /**
-     * Registr vlastnosti uzivatele
+     * Registr vlastnosti uzivatele.
      *
      * @var array
      */
     public $valuesToKeep = [];
 
     /**
-     * Pole uživatelských nastavení
+     * Pole uživatelských nastavení.
      *
      * @var array
      */
     public $settings = [];
 
     /**
-     * Sloupeček s loginem
+     * Sloupeček s loginem.
      *
      * @var string
      */
     public $loginColumn = 'login';
 
     /**
-     * Sloupeček s heslem
+     * Sloupeček s heslem.
      *
      * @var string
      */
     public $passwordColumn = 'password';
 
     /**
-     * Sloupecek pro docasne zablokovani uctu
+     * Sloupecek pro docasne zablokovani uctu.
      *
      * @var type
      */
     public $disableColumn = null;
 
     /**
-     * Column for user mail
+     * Column for user mail.
      *
      * @var string
      */
     public $mailColumn = 'email';
 
     /**
-     * Sloupeček obsahující serializované rozšířené informace
+     * Sloupeček obsahující serializované rozšířené informace.
      *
      * @var string
      */
     public $settingsColumn = null;
 
     /**
-     * Objekt uživatele aplikace
+     * Objekt uživatele aplikace.
      *
      * @param int|string $userID ID nebo Login uživatele jenž se má načíst při
-     *        inicializaci třídy
+     *                           inicializaci třídy
      */
     public function __construct($userID = null)
     {
@@ -170,7 +166,7 @@ class User extends Anonym
     }
 
     /**
-     * Give you user name
+     * Give you user name.
      *
      * @return string
      */
@@ -180,7 +176,7 @@ class User extends Anonym
     }
 
     /**
-     * Retrun user's mail address
+     * Retrun user's mail address.
      *
      * @return string
      */
@@ -190,15 +186,15 @@ class User extends Anonym
     }
 
     /**
-     * Vykreslí GrAvatara uživatele
+     * Vykreslí GrAvatara uživatele.
      */
     public function draw()
     {
-        echo '<img class="avatar" src="' . $this->getIcon() . '">';
+        echo '<img class="avatar" src="'.$this->getIcon().'">';
     }
 
     /**
-     * Vrací odkaz na url ikony
+     * Vrací odkaz na url ikony.
      *
      * @return string url ikony
      */
@@ -208,12 +204,12 @@ class User extends Anonym
         if ($email) {
             return self::getGravatar($email, 800, 'mm', 'g', true, ['title' => $this->getUserName(), 'class' => 'gravatar_icon']);
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Pokusí se o přihlášení
+     * Pokusí se o přihlášení.
      *
      * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
      *
@@ -222,19 +218,19 @@ class User extends Anonym
     public function tryToLogin($formData)
     {
         if (!count($formData)) {
-            return null;
+            return;
         }
         $login = $this->easeAddSlashes($formData[$this->loginColumn]);
         $password = $this->easeAddSlashes($formData[$this->passwordColumn]);
         if (!$login) {
             $this->addStatusMessage(_('chybí login'), 'error');
 
-            return null;
+            return;
         }
         if (!$password) {
             $this->addStatusMessage(_('chybí heslo'), 'error');
 
-            return null;
+            return;
         }
         $this->setObjectIdentity(['myKeyColumn' => $this->loginColumn]);
         if ($this->loadFromSQL($login)) {
@@ -245,6 +241,7 @@ class User extends Anonym
                     return $this->loginSuccess();
                 } else {
                     $this->userID = null;
+
                     return false;
                 }
             } else {
@@ -258,6 +255,7 @@ class User extends Anonym
             }
         } else {
             $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $login, 'error'));
+
             return false;
         }
     }
@@ -265,7 +263,7 @@ class User extends Anonym
     /**
      * Je učet povolen ?
      *
-     * @return boolean
+     * @return bool
      */
     public function isAccountEnabled()
     {
@@ -283,7 +281,7 @@ class User extends Anonym
 
     /**
      * Akce provedené po úspěšném přihlášení
-     * pokud tam jeste neexistuje zaznam, vytvori se novy
+     * pokud tam jeste neexistuje zaznam, vytvori se novy.
      */
     public function loginSuccess()
     {
@@ -296,11 +294,11 @@ class User extends Anonym
     }
 
     /**
-     * Načte nastavení uživatele
+     * Načte nastavení uživatele.
      *
      * @param array $settings Serializované pole nastavení
      *
-     * @return boolean uspěch
+     * @return bool uspěch
      */
     public function loadSettings($settings = null)
     {
@@ -317,18 +315,19 @@ class User extends Anonym
     }
 
     /**
-     * Uloží nastavení uživatele
+     * Uloží nastavení uživatele.
      *
      * @return int
      */
     public function saveSettings()
     {
         $this->setDataValue($this->settingsColumn, $this->myDbLink->addSlashes(serialize($this->getSettings())));
+
         return $this->saveToSQL();
     }
 
     /**
-     * Vrací všechna nastavení uživatele
+     * Vrací všechna nastavení uživatele.
      *
      * @return array
      */
@@ -338,7 +337,7 @@ class User extends Anonym
     }
 
     /**
-     * Ověření hesla
+     * Ověření hesla.
      *
      * @param string $plainPassword     heslo v nešifrované podobě
      * @param string $encryptedPassword šifrovné heslo
@@ -352,7 +351,7 @@ class User extends Anonym
             if (sizeof($passwordStack) != 2) {
                 return false;
             }
-            if (md5($passwordStack[1] . $plainPassword) == $passwordStack[0]) {
+            if (md5($passwordStack[1].$plainPassword) == $passwordStack[0]) {
                 return true;
             }
         }
@@ -361,7 +360,7 @@ class User extends Anonym
     }
 
     /**
-     * Zašifruje heslo
+     * Zašifruje heslo.
      *
      * @param string $plainTextPassword nešifrované heslo (plaintext)
      *
@@ -370,17 +369,17 @@ class User extends Anonym
     public function encryptPassword($plainTextPassword)
     {
         $encryptedPassword = '';
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $encryptedPassword .= $this->randomNumber();
         }
         $passwordSalt = substr(md5($encryptedPassword), 0, 2);
-        $encryptedPassword = md5($passwordSalt . $plainTextPassword) . ':' . $passwordSalt;
+        $encryptedPassword = md5($passwordSalt.$plainTextPassword).':'.$passwordSalt;
 
         return $encryptedPassword;
     }
 
     /**
-     * Změní uživateli uložené heslo
+     * Změní uživateli uložené heslo.
      *
      * @param string $newPassword nové heslo
      * @param int    $userID      id uživatele
@@ -393,11 +392,11 @@ class User extends Anonym
             $userID = $this->getUserID();
         }
         if (!$userID) {
-            return null;
+            return;
         }
         $hash = $this->encryptPassword($newPassword);
-        $this->myDbLink->exeQuery('UPDATE ' . $this->myTable . ' SET ' . $this->passwordColumn . '=\'' . $hash . '\' WHERE ' . $this->myKeyColumn . '=' . $userID);
-        $this->addToLog('PasswordChange: ' . $this->getDataValue($this->loginColumn) . '@' . $userID . '#' . $this->getDataValue($this->myIDSColumn) . ' ' . $hash);
+        $this->myDbLink->exeQuery('UPDATE '.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\' WHERE '.$this->myKeyColumn.'='.$userID);
+        $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
         if ($userID == $this->getUserID()) {
             $this->setDataValue($this->passwordColumn, $hash);
         }
@@ -406,7 +405,7 @@ class User extends Anonym
     }
 
     /**
-     * Nastaví level uživatele
+     * Nastaví level uživatele.
      *
      * @param int $userLevel uživatelská uroven
      *
@@ -418,7 +417,7 @@ class User extends Anonym
     }
 
     /**
-     * Vraci ID přihlášeného uživatele
+     * Vraci ID přihlášeného uživatele.
      *
      * @return int ID uživatele
      */
@@ -432,7 +431,7 @@ class User extends Anonym
     }
 
     /**
-     * Vrací login uživatele
+     * Vrací login uživatele.
      *
      * @return string
      */
@@ -446,7 +445,7 @@ class User extends Anonym
     }
 
     /**
-     * Nastavuje login uživatele
+     * Nastavuje login uživatele.
      *
      * @return string
      */
@@ -461,7 +460,7 @@ class User extends Anonym
     }
 
     /**
-     * Vrací hodnotu uživatelského oprávnění
+     * Vrací hodnotu uživatelského oprávnění.
      *
      * @param string $permKeyword klíčové slovo oprávnění
      *
@@ -472,12 +471,12 @@ class User extends Anonym
         if (isset($this->permissions[$permKeyword])) {
             return $this->permissions[$permKeyword];
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Provede odhlášení uživatele
+     * Provede odhlášení uživatele.
      */
     public function logout()
     {
@@ -488,7 +487,7 @@ class User extends Anonym
     }
 
     /**
-     * Vrací hodnotu nastavení
+     * Vrací hodnotu nastavení.
      *
      * @param string $settingName jméno nastavení
      *
@@ -499,12 +498,12 @@ class User extends Anonym
         if (isset($this->settings[$settingName])) {
             return $this->settings[$settingName];
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Nastavuje nastavení
+     * Nastavuje nastavení.
      *
      * @param array $settings asociativní pole nastavení
      */
@@ -514,7 +513,7 @@ class User extends Anonym
     }
 
     /**
-     * Nastaví položku nastavení
+     * Nastaví položku nastavení.
      *
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
@@ -525,17 +524,17 @@ class User extends Anonym
     }
 
     /**
-     * Načte oprávnění
+     * Načte oprávnění.
      *
      * @return mixed
      */
     public function loadPermissions()
     {
-        return null;
+        return;
     }
 
     /**
-     * Vrací jméno objektu uživatele
+     * Vrací jméno objektu uživatele.
      *
      * @return string
      */
@@ -546,7 +545,7 @@ class User extends Anonym
 
     /**
      * Uloží pole dat a serializovaná nastavení do SQL.
-     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
+     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn.
      *
      * @param array $data        asociativní pole dat
      * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
@@ -567,11 +566,11 @@ class User extends Anonym
 
     /**
      * Načte z SQL data k aktuálnímu $ItemID a případně aplikuje
-     * nastavení
+     * nastavení.
      *
-     * @param int     $itemID     id záznamu k načtení
-     * @param boolean $multiplete nevarovat v případě vícenásobného
-     *                            výsledku
+     * @param int  $itemID     id záznamu k načtení
+     * @param bool $multiplete nevarovat v případě vícenásobného
+     *                         výsledku
      *
      * @return array Results
      */
@@ -594,7 +593,7 @@ class User extends Anonym
      * @param string $default   [ 404 | mm | identicon | monsterid | wavatar ]
      * @param string $maxRating Maximum rating (inclusive) [ g | pg | r | x ]
      *
-     * @return String containing either just a URL or a complete image tag
+     * @return string containing either just a URL or a complete image tag
      *
      * @source http://gravatar.com/site/implement/images/php/
      */
@@ -604,7 +603,6 @@ class User extends Anonym
         $default = 'mm',
         $maxRating = 'g'
     ) {
-    
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";
@@ -613,7 +611,7 @@ class User extends Anonym
     }
 
     /**
-     * Nastavení jména objektu uživatele
+     * Nastavení jména objektu uživatele.
      *
      * @param string $objectName vynucené jméno objektu
      *
@@ -623,12 +621,12 @@ class User extends Anonym
     {
         if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
-                $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
+                $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';
             } else {
                 $identity = $_SERVER['REMOTE_ADDR'];
             }
 
-            return parent::setObjectName(get_class($this) . ':' . $this->getUserName() . '@' . $identity);
+            return parent::setObjectName(get_class($this).':'.$this->getUserName().'@'.$identity);
         } else {
             return parent::setObjectName($objectName);
         }

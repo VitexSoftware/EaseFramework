@@ -3,30 +3,28 @@
 namespace Ease\Html;
 
 /**
- * HTML table
+ * HTML table.
  *
- * @subpackage
  * @author     Vitex <vitex@hippy.cz>
  */
 class TableTag extends PairTag
 {
-
     /**
-     * Hlavička tabulky
+     * Hlavička tabulky.
      *
      * @var Thead
      */
     public $tHead = null;
 
     /**
-     * Tělo tabulky
+     * Tělo tabulky.
      *
      * @var Tbody
      */
     public $tbody = null;
 
     /**
-     * Html Tabulka
+     * Html Tabulka.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
@@ -48,14 +46,14 @@ class TableTag extends PairTag
     }
 
     /**
-     * Vloží do tabulky obsah pole jako buňky
+     * Vloží do tabulky obsah pole jako buňky.
      *
      * @param array $columns    pole obsahů buňek
      * @param array $properties pole vlastností dané všem buňkám
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    public function  &addRowColumns($columns = null, $properties = null)
+    public function &addRowColumns($columns = null, $properties = null)
     {
         $tableRow = $this->tBody->addItem(new TrTag());
         if (is_array($columns)) {
@@ -67,18 +65,19 @@ class TableTag extends PairTag
                 }
             }
         }
+
         return $tableRow;
     }
 
     /**
-     * Vloží do tabulky obsah pole jako buňky
+     * Vloží do tabulky obsah pole jako buňky.
      *
      * @param array $columns    pole obsahů buňek
      * @param array $properties pole vlastností dané všem buňkám
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    public function  &addRowHeaderColumns($columns = null, $properties = null)
+    public function &addRowHeaderColumns($columns = null, $properties = null)
     {
         $tableRow = $this->tHead->addItem(new TrTag());
         if (is_array($columns)) {
@@ -90,26 +89,28 @@ class TableTag extends PairTag
                 }
             }
         }
+
         return $tableRow;
     }
 
     /**
      * Je tabulka prázdná ?
      *
-     * @param  null $element je zde pouze z důvodu zpětné kompatibility
+     * @param null $element je zde pouze z důvodu zpětné kompatibility
+     *
      * @return type
      */
-    public function  isEmpty($element = null)
+    public function isEmpty($element = null)
     {
         return $this->tBody->isEmpty();
     }
 
     /**
-     * Naplní tabulku daty
+     * Naplní tabulku daty.
      *
      * @param array $contents
      */
-    public function  populate($contents)
+    public function populate($contents)
     {
         foreach ($contents as $cRow) {
             $this->addRowColumns($cRow);

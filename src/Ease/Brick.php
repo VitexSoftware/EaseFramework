@@ -3,66 +3,64 @@
 namespace Ease;
 
 /**
- * Základní objekt pracující s databázemi
+ * Základní objekt pracující s databázemi.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 class Brick extends Sand
 {
-
     /**
-     * Objekt pro práci s SQL
+     * Objekt pro práci s SQL.
      *
      * @var SQL\PDO
      */
     public $dblink = null;
 
     /**
-     * Předvolená tabulka v SQL (součást identity)
+     * Předvolená tabulka v SQL (součást identity).
      *
      * @var string
      */
     public $myTable = '';
 
     /**
-     * Sql Struktura databáze. Je obsažena ve dvou podpolích $SqlStruct['ms'] a $SqlStruct['my']
+     * Sql Struktura databáze. Je obsažena ve dvou podpolích $SqlStruct['ms'] a $SqlStruct['my'].
      *
      * @var array
      */
     public $sqlStruct = null;
 
     /**
-     * Funkční sloupečky pro MS
+     * Funkční sloupečky pro MS.
      *
      * @var array
      */
     public $msDbRoles = null;
 
     /**
-     * Funkční sloupečky pro My
+     * Funkční sloupečky pro My.
      *
      * @var array
      */
     public $myDbRoles = null;
 
     /**
-     * Odkaz na objekt uživatele
+     * Odkaz na objekt uživatele.
      *
      * @var User | EaseAnonym
      */
     public $user = null;
 
     /**
-     * Multiplete DATA indicator
+     * Multiplete DATA indicator.
      *
      * @var int
      */
     protected $multipleteResult;
 
     /**
-     * [Cs]Základní objekt pracující s databází
+     * [Cs]Základní objekt pracující s databází.
      */
     public function __construct()
     {
@@ -78,7 +76,7 @@ class Brick extends Sand
     /**
      * Nastavuje jméno objektu
      * Je li znnámý, doplní jméno objektu hodnotu klíče např EaseUser#vitex
-     * nebo EaseProductInCart#4542
+     * nebo EaseProductInCart#4542.
      *
      * @param string $objectName
      *
@@ -91,7 +89,7 @@ class Brick extends Sand
         } else {
             $key = $this->getMyKey($this->data);
             if ($key) {
-                return parent::setObjectName(get_class($this) . '@' . $key);
+                return parent::setObjectName(get_class($this).'@'.$key);
             } else {
                 return parent::setObjectName();
             }
@@ -99,21 +97,21 @@ class Brick extends Sand
     }
 
     /**
-     * Přiřadí objektu odkaz na objekt uživatele
+     * Přiřadí objektu odkaz na objekt uživatele.
      *
      * @param object|User $user         pointer to user object
      * @param object      $targetObject objekt kterému je uživatel přiřazován.
-     *                                      přiřazován.
+     *                                  přiřazován.
      *
-     * @return boolean
+     * @return bool
      */
-    public function setUpUser(& $user, & $targetObject = null)
+    public function setUpUser(&$user, &$targetObject = null)
     {
         if (is_object($user)) {
             if (is_object($targetObject)) {
-                $targetObject->user = & $user;
+                $targetObject->user = &$user;
             } else {
-                $this->user = & $user;
+                $this->user = &$user;
             }
 
             return true;
@@ -123,7 +121,7 @@ class Brick extends Sand
     }
 
     /**
-     * Vraci objekt uzivatele
+     * Vraci objekt uzivatele.
      *
      * @return User
      */
@@ -143,31 +141,31 @@ class Brick extends Sand
     }
 
     /**
-     * Přidá zprávu do zásobníku pro zobrazení uživateli
+     * Přidá zprávu do zásobníku pro zobrazení uživateli.
      *
-     * @param string  $message  zprava
-     * @param string  $type     Fronta zprav (warning|info|error|success)
-     * @param boolean $addIcons prida UTF8 ikonky na zacatek zprav
-     * @param boolean $addToLog zapisovat zpravu do logu ?
+     * @param string $message  zprava
+     * @param string $type     Fronta zprav (warning|info|error|success)
+     * @param bool   $addIcons prida UTF8 ikonky na zacatek zprav
+     * @param bool   $addToLog zapisovat zpravu do logu ?
      */
     public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true)
     {
         if ($addIcons) {
             switch ($type) {
                 case 'mail':                    // Obalka
-                    $message = ' ✉ ' . $message;
+                    $message = ' ✉ '.$message;
                     break;
                 case 'warning':                    // Vykřičník v trojůhelníku
-                    $message = ' ⚠ ' . $message;
+                    $message = ' ⚠ '.$message;
                     break;
                 case 'error':                      // Lebka
-                    $message = ' ☠ ' . $message;
+                    $message = ' ☠ '.$message;
                     break;
                 case 'success':                    // Kytička
-                    $message = ' ❁ ' . $message;
+                    $message = ' ❁ '.$message;
                     break;
                 default:                           // i v kroužku
-                    $message = ' ⓘ ' . $message;
+                    $message = ' ⓘ '.$message;
                     break;
             }
         }
@@ -179,7 +177,7 @@ class Brick extends Sand
     }
 
     /**
-     * Funkce pro defaultní slashování v celém projektu
+     * Funkce pro defaultní slashování v celém projektu.
      *
      * @param string $text text k olomítkování
      *
@@ -195,7 +193,7 @@ class Brick extends Sand
     }
 
     /**
-     * Vrací z databáze sloupečky podle podmínek
+     * Vrací z databáze sloupečky podle podmínek.
      *
      * @param array            $columnsList seznam položek
      * @param array|int|string $conditions  pole podmínek nebo ID záznamu
@@ -212,7 +210,7 @@ class Brick extends Sand
         if (($columnsList != '*') && !count($columnsList)) {
             $this->error('getColumnsFromSQL: Missing ColumnList');
 
-            return null;
+            return;
         }
 
         if (is_int($conditions)) {
@@ -224,12 +222,12 @@ class Brick extends Sand
             if (!count($conditions)) {
                 $this->error('getColumnsFromSQL: Missing Conditions');
 
-                return null;
+                return;
             }
-            $where = ' WHERE ' . $this->dblink->prepSelect($conditions);
+            $where = ' WHERE '.$this->dblink->prepSelect($conditions);
         } else {
             if (!is_null($conditions)) {
-                $where = ' WHERE ' . $conditions;
+                $where = ' WHERE '.$conditions;
             }
         }
 
@@ -242,35 +240,37 @@ class Brick extends Sand
                 foreach ($orderBy as $oid => $oname) {
                     $orderBy[$oid] = "`$oname`";
                 }
-                $orderByCond = ' ORDER BY ' . implode(',', $orderBy);
+                $orderByCond = ' ORDER BY '.implode(',', $orderBy);
             } else {
-                $orderByCond = ' ORDER BY ' . $orderBy;
+                $orderByCond = ' ORDER BY '.$orderBy;
             }
         } else {
             $orderByCond = '';
         }
 
         if ($limit) {
-            $limitCond = ' LIMIT ' . $limit;
+            $limitCond = ' LIMIT '.$limit;
         } else {
             $limitCond = '';
         }
 
         if (is_array($columnsList)) {
             foreach ($columnsList as $id => $column) {
-                $columnsList[$id] = $cc . $column . $cc;
+                $columnsList[$id] = $cc.$column.$cc;
             }
-            return $this->dblink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $cc . $this->myTable . $cc . ' ' . $where . $orderByCond . $limitCond, $indexBy);
+
+            return $this->dblink->queryToArray('SELECT '.implode(',', $columnsList).' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond, $indexBy);
         } else {
             if (!strstr($columnsList, '*')) {
-                $columnsList = $cc . $columnsList . $cc;
+                $columnsList = $cc.$columnsList.$cc;
             }
-            return $this->dblink->queryToArray('SELECT ' . $columnsList . ' FROM ' . $cc . $this->myTable . $cc . ' ' . $where . $orderByCond . $limitCond, $indexBy);
+
+            return $this->dblink->queryToArray('SELECT '.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond, $indexBy);
         }
     }
 
     /**
-     * Načte z SQL data k aktuálnímu $ItemID
+     * Načte z SQL data k aktuálnímu $ItemID.
      *
      * @param int $itemID klíč záznamu
      *
@@ -282,7 +282,7 @@ class Brick extends Sand
             $itemID = $this->getMyKey();
         }
         if (is_string($itemID)) {
-            $itemID = "'" . $this->easeAddSlashes($itemID) . "'";
+            $itemID = "'".$this->easeAddSlashes($itemID)."'";
         } else {
             $itemID = $this->easeAddSlashes($itemID);
         }
@@ -290,13 +290,13 @@ class Brick extends Sand
             $this->error('loadFromSQL: Unknown Key', $this->data);
         }
         $cc = $this->dblink->getColumnComma();
-        $queryRaw = 'SELECT * FROM ' . $cc . $this->myTable . $cc . ' WHERE ' . $cc . $this->getmyKeyColumn() . $cc . ' = ' . $itemID;
+        $queryRaw = 'SELECT * FROM '.$cc.$this->myTable.$cc.' WHERE '.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
     }
 
     /**
-     * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu
+     * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu.
      *
      * @param int   $itemID     klíč záznamu
      * @param array $dataPrefix název datové skupiny
@@ -322,17 +322,18 @@ class Brick extends Sand
             if (isset($SQLResult[0])) {
                 $this->takeData($SQLResult[0]);
             } else {
-                return null;
+                return;
             }
         }
         if (count($this->data)) {
             return count($this->data);
         }
-        return null;
+
+        return;
     }
 
     /**
-     * Vrátí z SQL všechny záznamy
+     * Vrátí z SQL všechny záznamy.
      *
      * @param string $tableName     jméno tabulky
      * @param array  $columnsList   získat pouze vyjmenované sloupečky
@@ -348,15 +349,15 @@ class Brick extends Sand
             $tableName = $this->myTable;
         }
         if ($limit) {
-            $limitCond = ' LIMIT ' . $limit;
+            $limitCond = ' LIMIT '.$limit;
         } else {
             $limitCond = '';
         }
         if ($orderByColumn) {
             if (is_array($orderByColumn)) {
-                $orderByCond = ' ORDER BY ' . implode(',', $orderByColumn);
+                $orderByCond = ' ORDER BY '.implode(',', $orderByColumn);
             } else {
-                $orderByCond = ' ORDER BY ' . $orderByColumn;
+                $orderByCond = ' ORDER BY '.$orderByColumn;
             }
         } else {
             $orderByCond = '';
@@ -364,14 +365,15 @@ class Brick extends Sand
 
         if (!$columnsList) {
             $cc = $this->dblink->getColumnComma();
-            return $this->dblink->queryToArray("SELECT * FROM " . $cc . $tableName . $cc . " " . $limitCond . $orderByCond, $ColumnToIndex);
+
+            return $this->dblink->queryToArray('SELECT * FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond, $ColumnToIndex);
         } else {
-            return $this->dblink->queryToArray('SELECT ' . implode(',', $columnsList) . ' FROM ' . $tableName . $limitCond . $orderByCond, $ColumnToIndex);
+            return $this->dblink->queryToArray('SELECT '.implode(',', $columnsList).' FROM '.$tableName.$limitCond.$orderByCond, $ColumnToIndex);
         }
     }
 
     /**
-     * Provede update záznamu do SQL
+     * Provede update záznamu do SQL.
      *
      * @param array $data
      *
@@ -380,7 +382,7 @@ class Brick extends Sand
     public function updateToSQL($data = null)
     {
         if (!$this->myTable) {
-            return null;
+            return;
         }
 
         if (is_null($data)) {
@@ -393,15 +395,15 @@ class Brick extends Sand
         if (!count($data)) {
             $this->error(_('UpdateToSQL: Missing data'));
 
-            return null;
+            return;
         }
 
         if (!isset($data[$this->myKeyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->error(get_class($this) . ':UpdateToSQL: Unknown myKeyColumn:' . $this->myKeyColumn, $data);
+                $this->error(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn, $data);
 
-                return null;
+                return;
             }
         } else {
             $key = $data[$this->myKeyColumn];
@@ -413,7 +415,7 @@ class Brick extends Sand
         }
 
         $cc = $this->dblink->getColumnComma();
-        $queryRaw = "UPDATE " . $cc . $this->myTable . $cc . " SET " . $this->dblink->arrayToSetQuery($data) . "  WHERE " . $cc . $this->myKeyColumn . $cc . " = '" . $this->dblink->EaseAddSlashes($key) . "'";
+        $queryRaw = 'UPDATE '.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).'  WHERE '.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->EaseAddSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 if (array_key_exists($defDatPref, $this->data)) {
@@ -426,11 +428,11 @@ class Brick extends Sand
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Uloží pole dat do SQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn
+     * Uloží pole dat do SQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn.
      *
      * @param array $data        asociativní pole dat
      * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
@@ -483,7 +485,7 @@ class Brick extends Sand
     }
 
     /**
-     * Vloží záznam do SQL databáze
+     * Vloží záznam do SQL databáze.
      *
      * @param array $data
      *
@@ -499,15 +501,15 @@ class Brick extends Sand
         }
 
         if (!count($data)) {
-            $this->error('NO data for Insert to SQL: ' . $this->myTable);
+            $this->error('NO data for Insert to SQL: '.$this->myTable);
 
-            return null;
+            return;
         }
 
         if ($this->myCreateColumn && !isset($data[$this->myCreateColumn])) {
             $data[$this->myCreateColumn] = 'NOW()';
         }
-        $queryRaw = 'INSERT INTO ' . $this->dblink->getColumnComma() . $this->myTable . $this->dblink->getColumnComma() . ' ' . $this->dblink->arrayToInsertQuery($data, false);
+        $queryRaw = 'INSERT INTO '.$this->dblink->getColumnComma().$this->myTable.$this->dblink->getColumnComma().' '.$this->dblink->arrayToInsertQuery($data, false);
         $this->dblink->useObject($this);
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
@@ -517,11 +519,11 @@ class Brick extends Sand
             return $this->dblink->lastInsertID;
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Ulozi data objektu
+     * Ulozi data objektu.
      *
      * @return array ID zaznamu vlozenych nebo ulozenych
      */
@@ -531,7 +533,7 @@ class Brick extends Sand
     }
 
     /**
-     * Smaže záznam z SQL
+     * Smaže záznam z SQL.
      *
      * @param array|int $data
      *
@@ -549,7 +551,7 @@ class Brick extends Sand
 
         if (count($data)) {
             $cc = $this->dblink->getColumnComma();
-            $this->dblink->exeQuery('DELETE FROM ' . $cc . $this->myTable . $cc . ' WHERE ' . $this->dblink->prepSelect($data));
+            $this->dblink->exeQuery('DELETE FROM '.$cc.$this->myTable.$cc.' WHERE '.$this->dblink->prepSelect($data));
             if ($this->dblink->getNumRows()) {
                 return true;
             } else {
@@ -563,7 +565,7 @@ class Brick extends Sand
     }
 
     /**
-     * Přiřadí data z políčka do pole dat
+     * Přiřadí data z políčka do pole dat.
      *
      * @param array  $data      asociativní pole dat
      * @param string $column    název položky k převzetí
@@ -586,13 +588,13 @@ class Brick extends Sand
             if ($mayBeNull) {
                 $this->setDataValue($column, null);
 
-                return null;
+                return;
             }
         }
     }
 
     /**
-     * Načte IDčeka z tabulky
+     * Načte IDčeka z tabulky.
      *
      * @param string $tableName   jméno tabulky
      * @param string $myKeyColumn klíčovací sloupeček
@@ -608,7 +610,7 @@ class Brick extends Sand
             $myKeyColumn = $this->myKeyColumn;
         }
         $cc = $this->dblink->getColumnComma();
-        $listQuery = "SELECT $cc" . $myKeyColumn . "$cc FROM $tableName ";
+        $listQuery = "SELECT $cc".$myKeyColumn."$cc FROM $tableName ";
 
         $this->dblink->queryToArray($listQuery);
         $this->DataIdList = $this->dblink->resultArray;
@@ -617,7 +619,7 @@ class Brick extends Sand
     }
 
     /**
-     * Provede přiřazení SQL tabulky objektu
+     * Provede přiřazení SQL tabulky objektu.
      *
      * @param string $myTable
      */
@@ -634,7 +636,7 @@ class Brick extends Sand
     }
 
     /**
-     * Vrací název klíčového sloupce pro SQL
+     * Vrací název klíčového sloupce pro SQL.
      *
      * @return string
      */
@@ -644,29 +646,31 @@ class Brick extends Sand
     }
 
     /**
-     * Existuje záznam daného ID v databázi
+     * Existuje záznam daného ID v databázi.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return int vrací počet položek s daným ID
      */
     public function MyIDExists($id)
     {
-        return $this->dblink->queryToValue('SELECT COUNT(*) FROM ' . $this->myTable . ' WHERE ' . $this->getmyKeyColumn() . '=' . intval($id));
+        return $this->dblink->queryToValue('SELECT COUNT(*) FROM '.$this->myTable.' WHERE '.$this->getmyKeyColumn().'='.intval($id));
     }
 
     /**
-     * Existuje záznam daného ID v databázi
+     * Existuje záznam daného ID v databázi.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return int vrací počet položek s daným ID
      */
     public function MSIDExists($id)
     {
-        return $this->msDbLink->queryToValue('SELECT COUNT(*) FROM ' . $this->msTable . ' WHERE ' . $this->getMSKeyColumn() . '=' . intval($id));
+        return $this->msDbLink->queryToValue('SELECT COUNT(*) FROM '.$this->msTable.' WHERE '.$this->getMSKeyColumn().'='.intval($id));
     }
 
     /**
-     * Vrací název aktuálně použivané SQL tabulky
+     * Vrací název aktuálně použivané SQL tabulky.
      *
      * @return string
      */
@@ -676,7 +680,7 @@ class Brick extends Sand
     }
 
     /**
-     * Vrací hodnotu klíčového políčka pro SQL
+     * Vrací hodnotu klíčového políčka pro SQL.
      *
      * @param array $data data z nichž se vrací hodnota klíče
      *
@@ -691,11 +695,11 @@ class Brick extends Sand
             return $data[$this->myKeyColumn];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Nastavuje hodnotu klíčového políčka pro SQL
+     * Nastavuje hodnotu klíčového políčka pro SQL.
      *
      * @param int|string $myKeyValue
      *
@@ -713,7 +717,7 @@ class Brick extends Sand
     }
 
     /**
-     * Nastaví jméno klíčového sloupečku v shopu
+     * Nastaví jméno klíčového sloupečku v shopu.
      *
      * @param string $myKeyColumn
      */
@@ -723,7 +727,7 @@ class Brick extends Sand
     }
 
     /**
-     * Nastaví aktuální pracovní tabulku pro SQL
+     * Nastaví aktuální pracovní tabulku pro SQL.
      *
      * @param string $myTable
      */
@@ -735,7 +739,7 @@ class Brick extends Sand
     }
 
     /**
-     * Test na existenci tabulky v SQL databázi
+     * Test na existenci tabulky v SQL databázi.
      *
      * @param string $tableName
      *
@@ -754,7 +758,7 @@ class Brick extends Sand
     }
 
     /**
-     * Vrátí počet položek tabulky v SQL
+     * Vrátí počet položek tabulky v SQL.
      *
      * @param string $tableName pokud není zadáno, použije se $this->myTable
      *
@@ -766,11 +770,11 @@ class Brick extends Sand
             $tableName = $this->myTable;
         }
 
-        return $this->dblink->queryToValue('SELECT COUNT(' . $this->myKeyColumn . ') FROM ' . $tableName);
+        return $this->dblink->queryToValue('SELECT COUNT('.$this->myKeyColumn.') FROM '.$tableName);
     }
 
     /**
-     * Pouze malé a velké písmena
+     * Pouze malé a velké písmena.
      *
      * @return string text bez zvláštních znaků
      */
@@ -780,7 +784,7 @@ class Brick extends Sand
     }
 
     /**
-     * Prohledá zadané slupečky
+     * Prohledá zadané slupečky.
      *
      * @param string $searchTerm
      * @param array  $columns
@@ -790,8 +794,9 @@ class Brick extends Sand
         $sTerm = $this->dblink->AddSlashes($searchTerm);
         $conditons = [];
         foreach ($columns as $column) {
-            $conditons[] = '`' . $column . '` LIKE \'%' . $sTerm . '%\'';
+            $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
         }
-        return $this->dblink->queryToArray('SELECT * FROM ' . $this->myTable . ' WHERE ' . implode(' OR ', $conditons));
+
+        return $this->dblink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '.implode(' OR ', $conditons));
     }
 }

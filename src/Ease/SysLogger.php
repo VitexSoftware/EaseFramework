@@ -1,41 +1,37 @@
 <?php
 
 /**
- * Třída pro logování
+ * Třída pro logování.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2015 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Třída pro logování
+ * Třída pro logování.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 class SysLogger extends Atom
 {
-
     /**
-     * Předvolená metoda logování
+     * Předvolená metoda logování.
      *
      * @var string
      */
     public $logType = 'syslog';
 
     /**
-     * úroveň logování
+     * úroveň logování.
      *
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
 
     /**
-     * Hodnoty pro obarvování logu
+     * Hodnoty pro obarvování logu.
      *
      * @var array
      */
@@ -47,58 +43,58 @@ class SysLogger extends Atom
         'error' => 'color: red;',
         'debug' => 'font-style: italic;',
         'report' => 'font-wight: bold;',
-        'info' => 'color: blue;'
+        'info' => 'color: blue;',
     ];
 
     /**
-     * Odkaz na vlastnící objekt
+     * Odkaz na vlastnící objekt.
      *
      * @var Sand ||
      */
     public $parentObject = null;
 
     /**
-     * Ukládat Zprávy do pole;
+     * Ukládat Zprávy do pole;.
      *
-     * @var boolean
+     * @var bool
      */
     private $storeMessages = false;
 
     /**
-     * Pole uložených zpráv
+     * Pole uložených zpráv.
      *
      * @var array
      */
     private $storedMessages = [];
 
     /**
-     * ID naposledy ulozene zpravy
+     * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
      */
     private $messageID = 0;
 
     /**
-     * Obecné konfigurace frameworku
+     * Obecné konfigurace frameworku.
      *
      * @var Shared
      */
     public $easeShared = null;
 
     /**
-     * Saves obejct instace (singleton...)
+     * Saves obejct instace (singleton...).
      */
     private static $_instance = null;
 
     /**
-     * Handle to logger
+     * Handle to logger.
      *
      * @var resource
      */
     public $logger = null;
 
     /**
-     * Logovací třída
+     * Logovací třída.
      *
      * @param string $
      */
@@ -133,7 +129,7 @@ class SysLogger extends Atom
     }
 
     /**
-     * Povolí nebo zakáže ukládání zpráv
+     * Povolí nebo zakáže ukládání zpráv.
      *
      * @param type $check
      */
@@ -146,7 +142,7 @@ class SysLogger extends Atom
     }
 
     /**
-     * Resetne pole uložených zpráv
+     * Resetne pole uložených zpráv.
      */
     public function resetStoredMessages()
     {
@@ -154,7 +150,7 @@ class SysLogger extends Atom
     }
 
     /**
-     * Vrací pole uložených zpráv
+     * Vrací pole uložených zpráv.
      *
      * @return array
      */
@@ -164,7 +160,7 @@ class SysLogger extends Atom
     }
 
     /**
-     * Zapise zapravu do logu
+     * Zapise zapravu do logu.
      *
      * @param string $Caller  název volajícího objektu
      * @param string $message zpráva
@@ -174,11 +170,11 @@ class SysLogger extends Atom
      */
     public function addToLog($Caller, $message, $type = 'message')
     {
-        $this->messageID++;
+        ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
             return;
         }
-        if (($this->logLevel != 'debug') && ( $type == 'debug')) {
+        if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
         if ($this->storeMessages) {
@@ -187,7 +183,7 @@ class SysLogger extends Atom
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = ' ~' . $Caller . '~ ' . str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type) . ' ' . $message . "\n";
+        $logLine = ' ~'.$Caller.'~ '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -201,12 +197,11 @@ class SysLogger extends Atom
                 break;
         }
 
-
         return true;
     }
 
     /**
-     * Oznamuje chybovou událost
+     * Oznamuje chybovou událost.
      *
      * @param string $caller     název volající funkce, nebo objektu
      * @param string $message    zpráva
@@ -221,7 +216,7 @@ class SysLogger extends Atom
     }
 
     /**
-     * Uzavře chybové soubory
+     * Uzavře chybové soubory.
      */
     public function __destruct()
     {
@@ -231,7 +226,7 @@ class SysLogger extends Atom
     }
 
     /**
-     * Vrací styl logování
+     * Vrací styl logování.
      *
      * @param string $logType typ logu warning|info|success|error|notice|*
      *
@@ -247,11 +242,11 @@ class SysLogger extends Atom
     }
 
     /**
-     * Flush Messages
+     * Flush Messages.
      *
      * @param string $caller
      */
-    public function  flush($caller = null)
+    public function flush($caller = null)
     {
         if (count($this->statusMessages)) {
             foreach ($this->statusMessages as $type => $messages) {
@@ -262,5 +257,4 @@ class SysLogger extends Atom
             $this->cleanMessages();
         }
     }
-
 }

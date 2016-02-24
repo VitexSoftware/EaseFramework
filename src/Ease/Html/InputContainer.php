@@ -3,44 +3,44 @@
 namespace Ease\Html;
 
 /**
- * Skupina vstupních prvků
+ * Skupina vstupních prvků.
  *
  * @deprecated since version 1.0
+ *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputContainer extends Ease\Container
 {
-
     /**
-     * Name of Radios
+     * Name of Radios.
      *
      * @var string
      */
     public $name = 'container';
 
     /**
-     * Stored values
+     * Stored values.
      *
      * @var array
      */
     public $items = [];
 
     /**
-     * Default value
+     * Default value.
      *
      * @var mixed
      */
     public $checked = null;
 
     /**
-     * ClassName
+     * ClassName.
      *
      * @var InputTag or childs
      */
     public $itemClass = 'InputTextTag';
 
     /**
-     * Skupina inputů
+     * Skupina inputů.
      *
      * @param string $name          výchozí jméno tagů
      * @param array  $items         pole položek
@@ -54,7 +54,7 @@ class InputContainer extends Ease\Container
     }
 
     /**
-     * Nastaví hodnotu vstupního políčka
+     * Nastaví hodnotu vstupního políčka.
      *
      * @param string $value hodnota
      */
@@ -64,7 +64,7 @@ class InputContainer extends Ease\Container
     }
 
     /**
-     * Vrací hodnotu vstupního políčka
+     * Vrací hodnotu vstupního políčka.
      *
      * @param bool $value hodnota je ignorována
      *
@@ -76,7 +76,7 @@ class InputContainer extends Ease\Container
     }
 
     /**
-     * Return assigned form input Tag name
+     * Return assigned form input Tag name.
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class InputContainer extends Ease\Container
     }
 
     /**
-     * Vloží podprvky
+     * Vloží podprvky.
      */
     public function finalize()
     {
@@ -97,14 +97,14 @@ class InputContainer extends Ease\Container
             } else {
                 $this->addItem(new $this->itemClass($this->name, $value));
             }
-            $this->lastItem->setTagID($this->name . $itemID++);
+            $this->lastItem->setTagID($this->name.$itemID++);
             $this->addLabel($caption);
         }
         $this->finalized = true;
     }
 
     /**
-     * Doplní popisek prvku
+     * Doplní popisek prvku.
      *
      * @param string $label text popisku
      */
@@ -114,6 +114,6 @@ class InputContainer extends Ease\Container
         if (is_null($label)) {
             $label = $forID;
         }
-        $this->addItem('<label for="' . $forID . '">' . $label . '</label>');
+        $this->addItem('<label for="'.$forID.'">'.$label.'</label>');
     }
 }

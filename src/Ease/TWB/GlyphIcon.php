@@ -7,15 +7,15 @@ namespace Ease\TWB;
  */
 class GlyphIcon extends \Ease\Html\SpanTag
 {
-
     /**
-     * Vloží ikonu
+     * Vloží ikonu.
      *
      * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
+     *
      * @param string $code Kód ikony z přehledu
      */
     public function __construct($code)
     {
-        parent::__construct(null, null, ['class' => 'glyphicon glyphicon-' . $code]);
+        parent::__construct(null, null, ['class' => 'glyphicon glyphicon-'.$code]);
     }
 }

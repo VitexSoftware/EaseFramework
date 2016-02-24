@@ -3,13 +3,12 @@
 namespace Ease\TWB;
 
 /**
- * Twitter Bootrstap Well
+ * Twitter Bootrstap Well.
  */
 class Well extends \Ease\Html\Div
 {
-
     /**
-     * Twitter Bootrstap Well
+     * Twitter Bootrstap Well.
      *
      * @param mixed $content
      */

@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML Table cell class
+ * HTML Table cell class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class TdTag extends PairTag
 {
-
     /**
-     * Buňka tabulky
+     * Buňka tabulky.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu

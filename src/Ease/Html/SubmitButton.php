@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Odesílací tlačítko
+ * Odesílací tlačítko.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class SubmitButton extends InputTag
 {
-
     /**
-     * Popisek odesílacího tlačítka
+     * Popisek odesílacího tlačítka.
      *
      * @var string
      */
@@ -19,7 +18,7 @@ class SubmitButton extends InputTag
 
     /**
      * Odesílací tlačítko
-     * <input type="submit" name="$label" value="$value" title="$Hint">
+     * <input type="submit" name="$label" value="$value" title="$Hint">.
      *
      * @param string $label    nápis na tlačítku
      * @param string $value    odesílaná hodnota
@@ -46,10 +45,10 @@ class SubmitButton extends InputTag
     }
 
     /**
-     * Nastaví hodnotu
+     * Nastaví hodnotu.
      *
-     * @param string  $value     vracená hodnota tagu
-     * @param boolean $Automatic Hack pro zachování labelů při plnění formuláře
+     * @param string $value     vracená hodnota tagu
+     * @param bool   $Automatic Hack pro zachování labelů při plnění formuláře
      */
     public function setValue($value, $Automatic = false)
     {

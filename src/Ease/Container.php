@@ -1,35 +1,31 @@
 <?php
 
 /**
- * Objekt schopný do sebe pojmou jiné objekty
+ * Objekt schopný do sebe pojmou jiné objekty.
  *
- * @package    EaseFrameWork
- * @subpackage Ease\Html\
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class Container extends Sand
 {
-
     /**
-     * Pole objektů a fragmentů k vykreslení
+     * Pole objektů a fragmentů k vykreslení.
      *
      * @var array
      */
     public $pageParts = [];
 
     /**
-     * Byla jiz stranka vykreslena
+     * Byla jiz stranka vykreslena.
      *
      * @var bool
      */
     public $drawStatus = false;
 
     /**
-     * Znaková sada stránky
+     * Znaková sada stránky.
      *
      * @var string
      */
@@ -38,26 +34,26 @@ class Container extends Sand
     /**
      * Prošel už objekt finalizací ?
      *
-     * @var boolean
+     * @var bool
      */
     private $finalized = false;
 
     /**
-     * Které objekty převzít od přebírajícího objektu
+     * Které objekty převzít od přebírajícího objektu.
      *
      * @var array
      */
     public $raiseItems = [];
 
     /**
-     * Odkaz na webstránku
+     * Odkaz na webstránku.
      *
      * @var EasePage
      */
     public $webPage = null;
 
     /**
-     * Kontejner, který může obsahovat vložené objekty, které se vykreslí
+     * Kontejner, který může obsahovat vložené objekty, které se vykreslí.
      *
      * @param mixed $initialContent hodnota nebo EaseObjekt s metodou draw()
      */
@@ -73,12 +69,12 @@ class Container extends Sand
     /**
      * Projde $this->raiseItems (metoda_potomka=>proměnná_rodiče) a pokud v
      * objektu najde metodu potomka, zavolá jí s parametrem
-     * $this->proměnná_rodiče
+     * $this->proměnná_rodiče.
      *
      * @param object $childObject  vkládaný objekt
      * @param array  $itemsToRaise pole položek k "protlačení"
      */
-    public function raise(& $childObject, $itemsToRaise = null)
+    public function raise(&$childObject, $itemsToRaise = null)
     {
         if (!$itemsToRaise) {
             $itemsToRaise = $childObject->raiseItems;
@@ -91,14 +87,14 @@ class Container extends Sand
                 }
             } else {
                 if (isset($this->$property)) {
-                    $childObject->$property = & $this->$property;
+                    $childObject->$property = &$this->$property;
                 }
             }
         }
     }
 
     /**
-     * Vloží další element do objektu
+     * Vloží další element do objektu.
      *
      * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
      * @param mixed  $context      Objekt do nějž jsou prvky/položky vkládány
@@ -106,7 +102,7 @@ class Container extends Sand
      *
      * @return pointer Odkaz na vložený objekt
      */
-    static function &addItemCustom($pageItem, $context, $pageItemName = null)
+    public static function &addItemCustom($pageItem, $context, $pageItemName = null)
     {
         $itemPointer = null;
         if (is_object($pageItem)) {
@@ -117,11 +113,11 @@ class Container extends Sand
                 }
 
                 while (isset($context->pageParts[$pageItemName])) {
-                    $pageItemName = $pageItemName . $duplicity++;
+                    $pageItemName = $pageItemName.$duplicity++;
                 }
 
                 $context->pageParts[$pageItemName] = $pageItem;
-                $context->pageParts[$pageItemName]->parentObject = & $context;
+                $context->pageParts[$pageItemName]->parentObject = &$context;
 
                 if (isset($context->pageParts[$pageItemName]->raiseItems)
                     && is_array($context->pageParts[$pageItemName]->raiseItems)
@@ -132,15 +128,15 @@ class Container extends Sand
                 if (method_exists($context->pageParts[$pageItemName], 'AfterAdd')) {
                     $context->pageParts[$pageItemName]->afterAdd();
                 }
-                $context->lastItem = & $context->pageParts[$pageItemName];
-                $itemPointer = & $context->pageParts[$pageItemName];
+                $context->lastItem = &$context->pageParts[$pageItemName];
+                $itemPointer = &$context->pageParts[$pageItemName];
             } else {
                 $context->error('Page Item object without draw() method', $pageItem);
             }
         } else {
             if (is_array($pageItem)) {
                 $addedItemPointer = $context->addItems($pageItem);
-                $itemPointer = & $addedItemPointer;
+                $itemPointer = &$addedItemPointer;
             } else {
                 if (!is_null($pageItem)) {
                     $context->pageParts[] = $pageItem;
@@ -155,27 +151,27 @@ class Container extends Sand
     }
 
     /**
-     * Vloží další element do aktuálního objektu
+     * Vloží další element do aktuálního objektu.
      *
      * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return pointer Odkaz na vložený objekt
      */
-    public function  addItem($pageItem, $pageItemName = null)
+    public function addItem($pageItem, $pageItemName = null)
     {
         return self::addItemCustom($pageItem, $this, $pageItemName);
     }
 
     /**
-     * Vloží jako první element do objektu
+     * Vloží jako první element do objektu.
      *
      * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
      *
      * @return pointer Odkaz na vložený objekt
      */
-    public function  &addAsFirst($pageItem, $pageItemName = null)
+    public function &addAsFirst($pageItem, $pageItemName = null)
     {
         if (is_null($pageItemName)) {
             $pageItemName = '1st';
@@ -189,7 +185,7 @@ class Container extends Sand
     }
 
     /**
-     * Umožní již vloženému objektu se odstranit ze stromu k vykreslení
+     * Umožní již vloženému objektu se odstranit ze stromu k vykreslení.
      */
     public function suicide()
     {
@@ -203,7 +199,7 @@ class Container extends Sand
     }
 
     /**
-     * Vrací počet vložených položek
+     * Vrací počet vložených položek.
      *
      * @param Container $object hodnota nebo EaseObjekt s polem ->pageParts
      *
@@ -218,17 +214,17 @@ class Container extends Sand
             return count($object->pageParts);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Vloží další element za stávající
+     * Vloží další element za stávající.
      *
      * @param mixed $pageItem hodnota nebo EaseObjekt s metodou draw()
      *
      * @return pointer Odkaz na vložený objekt
      */
-    public function  &addNextTo($pageItem)
+    public function &addNextTo($pageItem)
     {
         $itemPointer = null;
         $itemPointer = $this->parentObject->addItem($pageItem);
@@ -237,11 +233,11 @@ class Container extends Sand
     }
 
     /**
-     * Vrací odkaz na poslední vloženou položku
+     * Vrací odkaz na poslední vloženou položku.
      *
      * @return EaseBrick|mixed
      */
-    public function  & lastItem()
+    public function &lastItem()
     {
         $lastPart = end($this->pageParts);
 
@@ -249,13 +245,13 @@ class Container extends Sand
     }
 
     /**
-     * Přidá položku do poslední vložené položky
+     * Přidá položku do poslední vložené položky.
      *
      * @param object $pageItem hodnota nebo EaseObjekt s metodou draw()
      *
      * @return bool success
      */
-    public function  &addToLastItem($pageItem)
+    public function &addToLastItem($pageItem)
     {
         if (!method_exists($this->lastItem, 'addItem')) {
             return false;
@@ -265,16 +261,14 @@ class Container extends Sand
     }
 
     /**
-     * Vrací první vloženou položku
+     * Vrací první vloženou položku.
      *
      * @param Container|mixed $pageItem kontext
-     *
-     * @return null
      */
-    public function  &getFirstPart($pageItem = null)
+    public function &getFirstPart($pageItem = null)
     {
         if (!$pageItem) {
-            $pageItem = & $this;
+            $pageItem = &$this;
         }
         if (count($pageItem->pageParts)) {
             $firstPart = reset($pageItem->pageParts);
@@ -286,7 +280,7 @@ class Container extends Sand
     }
 
     /**
-     * Vloží pole elementů
+     * Vloží pole elementů.
      *
      * @param array $itemsArray pole hodnot nebo EaseObjektů s metodou draw()
      */
@@ -301,7 +295,7 @@ class Container extends Sand
     }
 
     /**
-     * Vyprázní obsah objektu
+     * Vyprázní obsah objektu.
      */
     public function emptyContents()
     {
@@ -309,18 +303,18 @@ class Container extends Sand
     }
 
     /**
-     * Metoda volaná až po přidání elementu metodou addItem()
+     * Metoda volaná až po přidání elementu metodou addItem().
      */
     //    function AfterAdd() {
     //    }
 
     /**
-     * Převezme JavaScripty
+     * Převezme JavaScripty.
      *
      * @param EasePage|array $scripts pole skriptiptů nebo EaseObjekt s
      *                                vloženými skripty v poli ->javaScripts
      */
-    public function takeJavascripts(& $scripts)
+    public function takeJavascripts(&$scripts)
     {
         if (is_object($scripts)) {
             $scriptsToProcess = $scripts->javaScripts;
@@ -339,16 +333,16 @@ class Container extends Sand
     }
 
     /**
-     * Převezme kaskádove styly
+     * Převezme kaskádove styly.
      *
      * @param EasePage|array $styles pole definic stylů nebo objekt s nimi
      */
     public function takeCascadeStyles($styles)
     {
         if (is_object($styles)) {
-            $stylesToProcess = & $styles->webPage->head->cascadeStyles;
+            $stylesToProcess = &$styles->webPage->head->cascadeStyles;
         } else {
-            $stylesToProcess = & $styles;
+            $stylesToProcess = &$styles;
         }
         if (count($stylesToProcess)) {
             foreach ($stylesToProcess as $Style) {
@@ -358,7 +352,7 @@ class Container extends Sand
     }
 
     /**
-     * Projde rekurzivně všechny vložené objekty a zavolá jeich draw()
+     * Projde rekurzivně všechny vložené objekty a zavolá jeich draw().
      */
     public function drawAllContents()
     {
@@ -375,7 +369,7 @@ class Container extends Sand
     }
 
     /**
-     * Vrací rendrovaný obsah objektů
+     * Vrací rendrovaný obsah objektů.
      *
      * @return string
      */
@@ -391,7 +385,7 @@ class Container extends Sand
     }
 
     /**
-     * Zobrazí schéma hierarchie vložených objektů
+     * Zobrazí schéma hierarchie vložených objektů.
      *
      * @param int $level aktuální uroven zanoření
      */
@@ -401,13 +395,13 @@ class Container extends Sand
             if (is_object($partContents) && method_exists($partContents, 'ShowContents')) {
                 $partContents->showContents($level + 1);
             } else {
-                echo str_repeat('&nbsp;.&nbsp;', $level) . $partName . '<br>';
+                echo str_repeat('&nbsp;.&nbsp;', $level).$partName.'<br>';
             }
         }
     }
 
     /**
-     * Vykresli se, pokud již tak nebylo učiněno
+     * Vykresli se, pokud již tak nebylo učiněno.
      */
     public function drawIfNotDrawn()
     {
@@ -417,9 +411,9 @@ class Container extends Sand
     }
 
     /**
-     * Vrací stav návěští finalizace části
+     * Vrací stav návěští finalizace části.
      *
-     * @return boolean
+     * @return bool
      */
     public function isFinalized()
     {
@@ -427,9 +421,9 @@ class Container extends Sand
     }
 
     /**
-     * Nastaví návěstí finalizace části
+     * Nastaví návěstí finalizace části.
      *
-     * @param boolean $flag příznak finalizace
+     * @param bool $flag příznak finalizace
      */
     public function setFinalized($flag = true)
     {
@@ -437,7 +431,7 @@ class Container extends Sand
     }
 
     /**
-     * Naplní vložené objekty daty
+     * Naplní vložené objekty daty.
      *
      * @param type $data asociativní pole dat
      */
@@ -481,7 +475,8 @@ class Container extends Sand
     /**
      * Je element prázdný ?
      *
-     * @param  Container $element Ease Html Element
+     * @param Container $element Ease Html Element
+     *
      * @return bool prázdnost
      */
     public function isEmpty($element = null)
@@ -489,11 +484,12 @@ class Container extends Sand
         if (is_null($element)) {
             $element = $this;
         }
+
         return !count($element->pageParts);
     }
 
     /**
-     * Vykreslí objekt z jeho položek
+     * Vykreslí objekt z jeho položek.
      */
     public function draw()
     {
@@ -511,7 +507,7 @@ class Container extends Sand
     }
 
     /**
-     * Vyrendruje objekt
+     * Vyrendruje objekt.
      *
      * @return string
      */

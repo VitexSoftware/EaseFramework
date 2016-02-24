@@ -1,37 +1,34 @@
 <?php
 
 /**
- * Twitter Bootrstap Container
+ * Twitter Bootrstap Container.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-
 namespace Ease\TWB;
 
 /**
- * Carousel for Twitter Bootstrap
+ * Carousel for Twitter Bootstrap.
  */
 class Carousel extends \Ease\Html\Div
 {
-
     /**
-     * Carousel name
+     * Carousel name.
      *
      * @var string
      */
     public $name = null;
 
     /**
-     * Carousel's inner div
+     * Carousel's inner div.
      *
      * @var \Ease\Html\Div
      */
     public $inner = null;
 
     /**
-     * Carousel's inner div
+     * Carousel's inner div.
      *
      * @var \Ease\Html\OlTag
      */
@@ -45,15 +42,15 @@ class Carousel extends \Ease\Html\Div
     public $active = null;
 
     /**
-     * Twitter bootstrap Carousel
+     * Twitter bootstrap Carousel.
      *
      * @url   http://getbootstrap.com/javascript/#carousel
+     *
      * @param string $name
      * @param array  $properties ['data-ride'=>'carousel'] means autorun
      */
     public function __construct($name = null, $properties = null)
     {
-
         parent::__construct(null, $properties);
         $this->name = $this->setTagID($name);
         $this->setTagClass('carousel slide');
@@ -62,14 +59,14 @@ class Carousel extends \Ease\Html\Div
     }
 
     /**
-     * Carousel Slide
+     * Carousel Slide.
      *
      * @param mixed|ImgTag $slide      body Image or something else
      * @param string       $capHeading
      * @param string       $caption
-     * @param boolean      $default    show slide by default
+     * @param bool         $default    show slide by default
      */
-    public function  addSlide($slide, $capHeading = '', $caption = '', $default = false)
+    public function addSlide($slide, $capHeading = '', $caption = '', $default = false)
     {
         $item = new \Ease\Html\Div($slide, ['class' => 'item']);
         if ($default) {
@@ -86,7 +83,7 @@ class Carousel extends \Ease\Html\Div
             }
         }
         $to = $this->indicators->getItemsCount();
-        $indicator = new \Ease\Html\LiTag(null, ['data-target' => '#' . $this->name, 'data-slide-to' => $to]);
+        $indicator = new \Ease\Html\LiTag(null, ['data-target' => '#'.$this->name, 'data-slide-to' => $to]);
         if ($default) {
             $indicator->addTagClass('active');
             $this->active = $to;
@@ -96,9 +93,9 @@ class Carousel extends \Ease\Html\Div
     }
 
     /**
-     * Add Navigation buttons
+     * Add Navigation buttons.
      */
-    public function  finalize()
+    public function finalize()
     {
         Part::twBootstrapize();
         if (is_null($this->active)) { //We need one slide active
@@ -107,27 +104,27 @@ class Carousel extends \Ease\Html\Div
         }
         $this->inner->addItem(
             new \Ease\Html\ATag(
-                '#' . $this->getTagID(),
+                '#'.$this->getTagID(),
                 [
                     new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-left', 'aria-hidden' => 'true']),
-                    new \Ease\Html\Span(_('Previous'), ['class' => 'sr-only'])
+                    new \Ease\Html\Span(_('Previous'), ['class' => 'sr-only']),
                     ],
                 ['class' => 'left carousel-control', 'data-slide' => 'prev', 'role' => 'button']
             )
         );
-                $this->inner->addItem(
+        $this->inner->addItem(
                     new \Ease\Html\ATag(
-                        '#' . $this->getTagID(),
+                        '#'.$this->getTagID(),
                         [
                         new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-right', 'aria-hidden' => 'true']),
-                        new \Ease\Html\Span(_('Next'), ['class' => 'sr-only'])
+                        new \Ease\Html\Span(_('Next'), ['class' => 'sr-only']),
                         ],
                         ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']
                     )
                 );
-                if ($this->getTagProperty('data-ride') != 'carousel') {
-                    $this->addJavaScript('$(\'#' . $this->name . '\').carousel();', null, true);
-                }
+        if ($this->getTagProperty('data-ride') != 'carousel') {
+            $this->addJavaScript('$(\'#'.$this->name.'\').carousel();', null, true);
+        }
                 //$this->includeJavaScript('js/bootstrap-carousel.js');
     }
 }

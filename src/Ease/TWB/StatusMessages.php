@@ -1,16 +1,14 @@
 <?php
 
 /**
- * Vypisuje stavové hlášky
+ * Vypisuje stavové hlášky.
  */
-
 namespace Ease\TWB;
 
 class StatusMessages extends \Ease\Html\Div
 {
-
     /**
-     * Blok stavových zpráv
+     * Blok stavových zpráv.
      */
     public function __construct()
     {
@@ -24,7 +22,7 @@ class StatusMessages extends \Ease\Html\Div
     }
 
     /**
-     * Vypíše stavové zprávy
+     * Vypíše stavové zprávy.
      */
     public function draw()
     {

@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Vstup pro zadání hesla
+ * Vstup pro zadání hesla.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputPasswordTag extends InputTextTag
 {
-
     /**
-     * Input pro heslo
+     * Input pro heslo.
      *
      * @param string $name  jméno tagu
      * @param string $value předvolené heslo

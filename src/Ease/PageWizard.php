@@ -1,85 +1,80 @@
 <?php
 
 /**
- * Modul průvodce pro framework
+ * Modul průvodce pro framework.
  *
  * PHP Version 5
  *
  * @category   WebUi
- * @package    EaseFrameWork
- * @subpackage Ease\Html\
+ *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Průvodce
+ * Průvodce.
  *
  * @category WebUi
- * @package  EaseFrameWork
+ *
  * @author   Vitex <vitex@hippy.cz>
  */
 class PageWizard extends Container
 {
-
     /**
-     * Pole kroků průvodce
+     * Pole kroků průvodce.
      *
      * @var array
      */
     public $steps = [];
 
     /**
-     * Aktuálního krok
+     * Aktuálního krok.
      *
      * @var type
      */
     public $currentStepName = null;
 
     /**
-     * ID aktuálního kroku
+     * ID aktuálního kroku.
      *
      * @var type
      */
     public $currentStepID = null;
 
     /**
-     *
      * @var type
      */
     public $stepRequested = null;
 
     /**
-     * Počítadlo kroků
+     * Počítadlo kroků.
      *
      * @var type
      */
     public $stepCount = 0;
 
     /**
-     * Značka pro předchozí
+     * Značka pro předchozí.
      *
      * @var string
      */
     public static $prevSign = '❰❮❬';
 
     /**
-     * Značka pro následující
+     * Značka pro následující.
      *
      * @var string
      */
     public static $nextSign = '❭❯❱';
 
     /**
-     *
      * @var type
      */
     public static $StepListDivider = ' <span class="divider">➠</span> ';
 
     /**
-     * Objekt pro zobrazení sekvence stránek ve "wizard" stylu
+     * Objekt pro zobrazení sekvence stránek ve "wizard" stylu.
      *
      * @param array $Steps       pole kroků: array(1=>'Název',2=>'Pozice',3=>'Ikona')
      * @param int   $CurrentStep aktuální přednastavený krok
@@ -98,11 +93,9 @@ class PageWizard extends Container
     }
 
     /**
-     * Nastaví aktuální krok
+     * Nastaví aktuální krok.
      *
      * @param int $stepID ID aktuálního kroku
-     *
-     * @return null
      */
     public function setCurrentByID($stepID)
     {
@@ -117,26 +110,24 @@ class PageWizard extends Container
     }
 
     /**
-     * Redirect na dalsi krok
-     *
-     * @return null
+     * Redirect na dalsi krok.
      */
     public function jumpToNextStep()
     {
-        $Params = ['StepRequested=' . $this->GetNextStepID()];
+        $Params = ['StepRequested='.$this->GetNextStepID()];
         $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
             foreach ($requestValuesToKeep as $RequestName => $Request) {
                 if (true !== $Request) {
-                    $Params[$RequestName] = $RequestName . '=' . $Request;
+                    $Params[$RequestName] = $RequestName.'='.$Request;
                 }
             }
         }
-        WebPage::redirect('?' . implode('&', $Params));
+        WebPage::redirect('?'.implode('&', $Params));
     }
 
     /**
-     * Tlačítko s linkem na další krok
+     * Tlačítko s linkem na další krok.
      *
      * @param string $Caption volitelný popisek
      *
@@ -144,26 +135,25 @@ class PageWizard extends Container
      */
     public function buttonToNextStep($Caption = null)
     {
-
         if (is_null($Caption)) {
-            $Caption = $this->getStepName($this->getNextStepID()) . ' ' . self::$nextSign;
+            $Caption = $this->getStepName($this->getNextStepID()).' '.self::$nextSign;
         }
 
-        $Params = ['StepRequested=' . $this->GetNextStepID()];
+        $Params = ['StepRequested='.$this->GetNextStepID()];
         $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
         if (count($requestValuesToKeep)) {
             foreach ($requestValuesToKeep as $RequestName => $Request) {
                 if (true !== $Request) {
-                    $Params[$RequestName] = $RequestName . '=' . $Request;
+                    $Params[$RequestName] = $RequestName.'='.$Request;
                 }
             }
         }
 
-        return new TWB\LinkButton('?' . implode('&', $Params), $Caption);
+        return new TWB\LinkButton('?'.implode('&', $Params), $Caption);
     }
 
     /**
-     * Nastaví požadovaný krok
+     * Nastaví požadovaný krok.
      *
      * @param int $stepID ID kroku
      *
@@ -180,27 +170,27 @@ class PageWizard extends Container
 
             return $stepID;
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Přidá krok wizarda
+     * Přidá krok wizarda.
      *
      * @param string $Step název kroku
      *
-     * @return boolean success
+     * @return bool success
      */
     public function addStep($Step)
     {
-        $this->stepCount++;
+        ++$this->stepCount;
         $this->steps[$this->stepCount] = $Step;
 
         return true;
     }
 
     /**
-     * Vloží více kroků
+     * Vloží více kroků.
      *
      * @param array $Steps pole kroků: array(1=>'Název',2=>'Pozice',3=>'Ikona')
      *
@@ -211,7 +201,7 @@ class PageWizard extends Container
         $success = 0;
         foreach ($Steps as $Step) {
             if ($this->AddStep($Step)) {
-                $success++;
+                ++$success;
             }
         }
 
@@ -219,9 +209,7 @@ class PageWizard extends Container
     }
 
     /**
-     * vykreslí odkazy na další kroky
-     *
-     * @return null
+     * vykreslí odkazy na další kroky.
      */
     public function addNavigation()
     {
@@ -229,7 +217,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Vrací div s navigací
+     * Vrací div s navigací.
      *
      * @return Html\DivTag
      */
@@ -238,18 +226,18 @@ class PageWizard extends Container
         $navigation = new Html\ULTag();
         $PrevStep = $this->GetPrevStepID();
         if ($PrevStep) {
-            $navigation->addItem(new Html\ATag('?StepRequested=' . $PrevStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), self::$prevSign . ' ' . $this->steps[$PrevStep]));
+            $navigation->addItem(new Html\ATag('?StepRequested='.$PrevStep.'&'.$this->easeShared->webPage->getLinkParametersToKeep(), self::$prevSign.' '.$this->steps[$PrevStep]));
         }
         $NextStep = $this->GetNextStepID();
         if ($NextStep) {
-            $navigation->addItem(new Html\ATag('?StepRequested=' . $NextStep . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep] . ' ' . self::$nextSign));
+            $navigation->addItem(new Html\ATag('?StepRequested='.$NextStep.'&'.$this->easeShared->webPage->getLinkParametersToKeep(), $this->steps[$NextStep].' '.self::$nextSign));
         }
 
         return new Html\Div($navigation, ['class' => 'pagination']);
     }
 
     /**
-     * Vrací seznam kroků s odkazy
+     * Vrací seznam kroků s odkazy.
      *
      * @return Html\DivTag
      */
@@ -258,12 +246,12 @@ class PageWizard extends Container
         $stepList = new Html\UlTag(null, ['class' => 'breadcrumb']);
         $StepsDone = 0;
         foreach ($this->steps as $StepID => $StepName) {
-            $StepsDone++;
+            ++$StepsDone;
             if ($StepID == $this->currentStepID) {
                 $Current = $stepList->addItem($StepName);
                 $Current->setTagClass('active');
             } else {
-                $stepList->addItem(new Html\ATag('?StepRequested=' . $StepID . '&' . $this->easeShared->webPage->getLinkParametersToKeep(), $StepName));
+                $stepList->addItem(new Html\ATag('?StepRequested='.$StepID.'&'.$this->easeShared->webPage->getLinkParametersToKeep(), $StepName));
             }
             if ($StepsDone != $this->stepCount) {
                 $stepList->addItem(self::$StepListDivider);
@@ -274,7 +262,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Vloží do sebe seznam kroků s odkazy
+     * Vloží do sebe seznam kroků s odkazy.
      */
     public function addStepList()
     {
@@ -282,7 +270,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Nastaví požadovaný krok podle názvu
+     * Nastaví požadovaný krok podle názvu.
      *
      * @param string $Step název kroku
      *
@@ -300,7 +288,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Nastaví aktuální krok podle ID
+     * Nastaví aktuální krok podle ID.
      *
      * @param int $stepID ID kroku
      *
@@ -317,9 +305,9 @@ class PageWizard extends Container
     }
 
     /**
-     * Vrací název kroku
+     * Vrací název kroku.
      *
-     * @var int $StepID ID kroku
+     * @var int ID kroku
      *
      * @return string
      */
@@ -333,7 +321,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Vrací ID aktuálního kroku
+     * Vrací ID aktuálního kroku.
      *
      * @return int
      */
@@ -343,7 +331,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Vrací první krok
+     * Vrací první krok.
      *
      * @return array
      */
@@ -353,21 +341,19 @@ class PageWizard extends Container
     }
 
     /**
-     * Vrací následující ID kroku
-     *
-     * @return null
+     * Vrací následující ID kroku.
      */
     public function getNextStepID()
     {
         if (isset($this->steps[$this->currentStepID + 1])) {
             return $this->currentStepID + 1;
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Posune průvodce o jeden krok dále
+     * Posune průvodce o jeden krok dále.
      */
     public function forward()
     {
@@ -375,7 +361,7 @@ class PageWizard extends Container
     }
 
     /**
-     * Posune průvodce o jeden krok zpět
+     * Posune průvodce o jeden krok zpět.
      */
     public function backward()
     {
@@ -383,21 +369,19 @@ class PageWizard extends Container
     }
 
     /**
-     * Vrací předcházející ID kroku
-     *
-     * @return null
+     * Vrací předcházející ID kroku.
      */
     public function getPrevStepID()
     {
         if (isset($this->steps[$this->currentStepID - 1])) {
             return $this->currentStepID - 1;
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Vrací poslední krok
+     * Vrací poslední krok.
      *
      * @return string
      */

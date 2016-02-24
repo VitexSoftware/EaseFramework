@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML5 Nav tag
+ * HTML5 Nav tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class NavTag extends PairTag
 {
-
     /**
-     * Tag semantiky navigaze
+     * Tag semantiky navigaze.
      *
      * @param mixed $content    vložené prvky
      * @param array $properties pole parametrů

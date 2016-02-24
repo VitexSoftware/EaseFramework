@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Zobrazí input text tag
+ * Zobrazí input text tag.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputTextTag extends InputTag
 {
-
     /**
-     * Zobrazí input text tag
+     * Zobrazí input text tag.
      *
      * @param string $name       jméno
      * @param string $value      předvolená hodnota

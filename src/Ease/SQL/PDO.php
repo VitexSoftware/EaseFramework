@@ -1,32 +1,29 @@
 <?php
 
 /**
- * Obsluha SQL PDO
+ * Obsluha SQL PDO.
  *
- * @package   EaseFrameWork
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2015 Vitex@hippy.cz (G)
  */
-
 namespace Ease\SQL;
 
 /**
- * Třída pro práci s PDO
+ * Třída pro práci s PDO.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class PDO extends SQL
 {
-
     /**
-     * DBO class instance
+     * DBO class instance.
      *
      * @var DBO
      */
     public $sqlLink = null;
 
     /**
-     * SQLLink result
+     * SQLLink result.
      *
      * @var PDOStatement
      */
@@ -37,14 +34,14 @@ class PDO extends SQL
     public $debug = false;
 
     /**
-     * KeyColumn used for postgresql insert id
+     * KeyColumn used for postgresql insert id.
      *
      * @var string
      */
     public $keyColumn = null;
 
     /**
-     * Table used for postgresql insert id
+     * Table used for postgresql insert id.
      *
      * @var string
      */
@@ -61,19 +58,19 @@ class PDO extends SQL
     public $explainMode = false;
 
     /**
-     * Nastavení vlastností přípojení
+     * Nastavení vlastností přípojení.
      *
      * @var array
      */
     public $connectionSettings = [];
 
     /**
-     * Saves obejct instace (singleton...)
+     * Saves obejct instace (singleton...).
      */
     private static $instance = null;
 
     /**
-     * Database Type
+     * Database Type.
      *
      * @var type
      */
@@ -96,7 +93,7 @@ class PDO extends SQL
     }
 
     /**
-     * Set KeyColumn used for PGSQL indertid
+     * Set KeyColumn used for PGSQL indertid.
      *
      * @param string $column
      */
@@ -109,7 +106,7 @@ class PDO extends SQL
     }
 
     /**
-     * Set Table used for PGSQL indertid
+     * Set Table used for PGSQL indertid.
      *
      * @param string $tablename
      */
@@ -122,7 +119,7 @@ class PDO extends SQL
     }
 
     /**
-     * Escapes special characters in a string for use in an SQL statement
+     * Escapes special characters in a string for use in an SQL statement.
      *
      * @param string $text
      *
@@ -134,16 +131,16 @@ class PDO extends SQL
     }
 
     /**
-     * Připojí se k mysql databázi
+     * Připojí se k mysql databázi.
      */
     public function connect()
     {
         switch ($this->dbType) {
             case 'mysql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port . ';charset=utf8', $this->username, $this->password, [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
+                $this->sqlLink = new \PDO($this->dbType.':dbname='.$this->database.';host='.$this->server.';port='.$this->port.';charset=utf8', $this->username, $this->password, [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
                 break;
             case 'pgsql':
-                $this->sqlLink = new \PDO($this->dbType . ':dbname=' . $this->database . ';host=' . $this->server . ';port=' . $this->port, $this->username, $this->password);
+                $this->sqlLink = new \PDO($this->dbType.':dbname='.$this->database.';host='.$this->server.';port='.$this->port, $this->username, $this->password);
                 if (is_object($this->sqlLink)) {
                     $this->sqlLink->query("SET NAMES 'UTF-8'");
                 }
@@ -161,7 +158,8 @@ class PDO extends SQL
             return false;
         }
         if ($this->errorNumber != '00000') {
-            $this->addStatusMessage('Connect: error #' . $this->errorNumer . ' ' . $this->errorText, 'error');
+            $this->addStatusMessage('Connect: error #'.$this->errorNumer.' '.$this->errorText, 'error');
+
             return false;
         } else {
             return parent::connect();
@@ -169,11 +167,11 @@ class PDO extends SQL
     }
 
     /**
-     * Změní aktuálně použitou databázi
+     * Změní aktuálně použitou databázi.
      *
      * @param string $dbName
      *
-     * @return boolean
+     * @return bool
      */
     public function selectDB($dbName = null)
     {
@@ -184,7 +182,7 @@ class PDO extends SQL
         } else {
             $this->errorText = $this->sqlLink->error;
             $this->errorNumber = $this->sqlLink->errno;
-            $this->addStatusMessage('Connect: error #' . $this->errorNumber . ' ' . $this->errorText, 'error');
+            $this->addStatusMessage('Connect: error #'.$this->errorNumber.' '.$this->errorText, 'error');
             $this->logError();
         }
 
@@ -192,10 +190,10 @@ class PDO extends SQL
     }
 
     /**
-     * Vykoná QueryRaw a vrátí výsledek
+     * Vykoná QueryRaw a vrátí výsledek.
      *
-     * @param string  $queryRaw
-     * @param boolean $ignoreErrors
+     * @param string $queryRaw
+     * @param bool   $ignoreErrors
      *
      * @return SQLhandle
      */
@@ -220,20 +218,19 @@ class PDO extends SQL
                 if (!$this->result && !$ignoreErrors) {
                     if (\Ease\Shared::isCli()) {
                         if (function_exists('xdebug_call_function')) {
-                            echo "\nVolano tridou <b>" . xdebug_call_class() . ' v souboru ' . xdebug_call_file() . ":" . xdebug_call_line() . " funkcí " . xdebug_call_function() . "\n";
+                            echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
                         }
-                        echo "\n$queryRaw\n\n#" . $this->errorNumber . ":" . $this->errorText;
+                        echo "\n$queryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
                     } else {
-                        echo "<br clear=all><pre class=\"error\" style=\"border: red 1px dahed; \">";
+                        echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
                         if (function_exists('xdebug_print_function_stack')) {
-                            xdebug_print_function_stack("Volano tridou <b>" . xdebug_call_class() . '</b> v souboru <b>' . xdebug_call_file() . ":" . xdebug_call_line() . "</b> funkci <b>" . xdebug_call_function() . '</b>');
+                            xdebug_print_function_stack('Volano tridou <b>'.xdebug_call_class().'</b> v souboru <b>'.xdebug_call_file().':'.xdebug_call_line().'</b> funkci <b>'.xdebug_call_function().'</b>');
                         }
-                        echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#" . $this->errorNumber . ":<strong>" . $this->errorText . '</strong></pre></br>';
+                        echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
                     }
                     $this->logError();
-                    $this->error('ExeQuery: #' . $this->errorNumber . ': ' . $this->errorText . "\n" . $queryRaw);
+                    $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
                 }
-
 
                 if ($this->errorNumber == '00000') {
                     $this->numRows = $this->result->rowCount();
@@ -280,7 +277,7 @@ class PDO extends SQL
     }
 
     /**
-     * Poslední genrované ID
+     * Poslední genrované ID.
      *
      * @return int ID
      */
@@ -289,9 +286,9 @@ class PDO extends SQL
         switch ($this->dbType) {
             case 'pgsql':
                 if (is_null($column)) {
-                    $column = $this->myTable . '_' . $this->myKeyColumn . '_seq';
+                    $column = $this->myTable.'_'.$this->myKeyColumn.'_seq';
                 } else {
-                    $column = $this->myTable . '_' . $column . '_seq';
+                    $column = $this->myTable.'_'.$column.'_seq';
                 }
                 break;
 
@@ -303,7 +300,7 @@ class PDO extends SQL
     }
 
     /**
-     * vraci vysledek SQL dotazu $QueryRaw jako pole (uchovavane take jako $this->Resultarray)
+     * vraci vysledek SQL dotazu $QueryRaw jako pole (uchovavane take jako $this->Resultarray).
      *
      * @param string $queryRaw
      * @param string $keyColumnToIndex umožní vrátit pole výsledků číslovaných podle $DataRow[$KeyColumnToIndex];
@@ -330,14 +327,15 @@ class PDO extends SQL
                 }
             }
         } else {
-            return null;
+            return;
         }
         $this->result->closeCursor();
+
         return $resultArray;
     }
 
     /**
-     * vloží obsah pole $data do předvolené tabulky $this->myTable
+     * vloží obsah pole $data do předvolené tabulky $this->myTable.
      *
      * @param string $data
      *
@@ -345,12 +343,12 @@ class PDO extends SQL
      */
     public function arrayToInsert($data)
     {
-        return $this->exeQuery('INSERT INTO ' . $this->getColumnComma() . $this->TableName . $this->getColumnComma() . ' SET ' . $this->arrayToQuery($data));
+        return $this->exeQuery('INSERT INTO '.$this->getColumnComma().$this->TableName.$this->getColumnComma().' SET '.$this->arrayToQuery($data));
     }
 
     /**
      * upravi obsah zaznamu v predvolene tabulce $this->myTable, kde klicovy sloupec
-     * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data
+     * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data.
      *
      * @param array $data  asociativní pole dat
      * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
@@ -364,19 +362,19 @@ class PDO extends SQL
         }
         unset($data[$this->keyColumn]);
 
-        return $this->exeQuery('UPDATE ' . $this->TableName . ' SET ' . $this->arrayToQuery($data) . ' WHERE ' . $this->keyColumn . '=' . $IDCol);
+        return $this->exeQuery('UPDATE '.$this->TableName.' SET '.$this->arrayToQuery($data).' WHERE '.$this->keyColumn.'='.$IDCol);
     }
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false)
+     * $this->myKeyColumn je preskocen pokud neni $key false).
      *
-     * @param array   $data
-     * @param boolean $key
+     * @param array $data
+     * @param bool  $key
      *
      * @return string
      */
-    public function  arrayToQuery($data, $key = true)
+    public function arrayToQuery($data, $key = true)
     {
         switch ($this->dbType) {
             case 'pgsql':
@@ -386,37 +384,39 @@ class PDO extends SQL
                 $fragment = $this->arrayToSetQuery($data, $key);
                 break;
         }
+
         return $fragment;
     }
 
     /**
      * z pole $data vytvori fragment SQL dotazu pro INSERT (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false)
+     * $this->myKeyColumn je preskocen pokud neni $key false).
      *
-     * @param array   $data
-     * @param boolean $key
+     * @param array $data
+     * @param bool  $key
      *
      * @return string
      */
-    public function  arrayToInsertQuery($data, $key = true)
+    public function arrayToInsertQuery($data, $key = true)
     {
         switch ($this->dbType) {
             case 'mysql':
-                $fragment = ' SET ' . $this->arrayToSetQuery($data, $key);
+                $fragment = ' SET '.$this->arrayToSetQuery($data, $key);
                 break;
             default:
                 $fragment = $this->arrayToValuesQuery($data, $key);
                 break;
         }
+
         return $fragment;
     }
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false)
+     * $this->myKeyColumn je preskocen pokud neni $key false).
      *
-     * @param array   $data
-     * @param boolean $key
+     * @param array $data
+     * @param bool  $key
      *
      * @return string
      */
@@ -438,7 +438,7 @@ class PDO extends SQL
                     break;
                 case 'float':
                 case 'double':
-                    $value = ' ' . str_replace(',', '.', $value) . ' ';
+                    $value = ' '.str_replace(',', '.', $value).' ';
                     break;
                 case 'boolean':
                     if ($value) {
@@ -453,7 +453,7 @@ class PDO extends SQL
                 case 'string':
                     if ($value != 'NOW()') {
                         if (!strstr($value, "\'")) {
-                            $value = " '" . str_replace("'", "\'", $value) . "' ";
+                            $value = " '".str_replace("'", "\'", $value)."' ";
                         } else {
                             $value = " '$value' ";
                         }
@@ -469,19 +469,19 @@ class PDO extends SQL
         $keys = [];
         $cc = $this->getColumnComma();
         foreach (array_keys($values) as $columnKey) {
-            $keys[] = $cc . $columnKey . $cc;
+            $keys[] = $cc.$columnKey.$cc;
         }
-        $query .= '(' . implode(',', $keys) . ') VALUES (' . implode(',', $values) . ') ';
+        $query .= '('.implode(',', $keys).') VALUES ('.implode(',', $values).') ';
 
         return $query;
     }
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false)
+     * $this->myKeyColumn je preskocen pokud neni $key false).
      *
-     * @param array   $data
-     * @param boolean $key
+     * @param array $data
+     * @param bool  $key
      *
      * @return string
      */
@@ -501,7 +501,7 @@ class PDO extends SQL
                     break;
                 case 'float':
                 case 'double':
-                    $value = ' ' . str_replace(',', '.', $value) . ' ';
+                    $value = ' '.str_replace(',', '.', $value).' ';
                     break;
                 case 'boolean':
                     if ($value) {
@@ -516,7 +516,7 @@ class PDO extends SQL
                 case 'string':
                     if ($value != 'NOW()') {
                         if (!strstr($value, "\'")) {
-                            $value = " '" . str_replace("'", "\'", $value) . "' ";
+                            $value = " '".str_replace("'", "\'", $value)."' ";
                         } else {
                             $value = " '$value' ";
                         }
@@ -526,14 +526,14 @@ class PDO extends SQL
                     $value = " '$value' ";
             }
 
-            $updates .= ' ' . $this->getColumnComma() . $column . $this->getColumnComma() . " = $value,";
+            $updates .= ' '.$this->getColumnComma().$column.$this->getColumnComma()." = $value,";
         }
 
         return substr($updates, 0, -1);
     }
 
     /**
-     * Generuje fragment MySQL dotazu z pole data
+     * Generuje fragment MySQL dotazu z pole data.
      *
      * @param array  $data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
      * @param string $ldiv typ generovane podminky AND/OR
@@ -554,7 +554,7 @@ class PDO extends SQL
                 continue;
             }
             if (is_string($value) && (($value == '!=""') || ($value == "!=''"))) {
-                $conditions[] = ' ' . $this->getColumnComa() . $column . $this->getColumnComma() . " !='' ";
+                $conditions[] = ' '.$this->getColumnComa().$column.$this->getColumnComma()." !='' ";
                 continue;
             }
 
@@ -577,11 +577,11 @@ class PDO extends SQL
                 }
                 if (is_bool($value)) {
                     if ($value === null) {
-                        $value .= " null,";
+                        $value .= ' null,';
                     } elseif ($value) {
-                        $value = " 1";
+                        $value = ' 1';
                     } else {
-                        $value = " 0";
+                        $value = ' 0';
                     }
                 } elseif (!is_string($value)) {
                     $value = " $value";
@@ -590,7 +590,7 @@ class PDO extends SQL
                         $value = " 'NOW()'";
                     } else {
                         if ($value != 'null') {
-                            $value = " '" . addslashes($value) . "'";
+                            $value = " '".addslashes($value)."'";
                         }
                     }
                     if ($operator == ' != ') {
@@ -603,14 +603,14 @@ class PDO extends SQL
                 }
             }
 
-            $conditions[] = " " . $this->getColumnComma() . $column . $this->getColumnComma() . "$operator $value ";
+            $conditions[] = ' '.$this->getColumnComma().$column.$this->getColumnComma()."$operator $value ";
         }
 
-        return trim(implode($ldiv, $conditions) . ' ' . implode(' ', $conditionsII));
+        return trim(implode($ldiv, $conditions).' '.implode(' ', $conditionsII));
     }
 
     /**
-     * Vrací strukturu tabulky jako pole
+     * Vrací strukturu tabulky jako pole.
      *
      * @param string $tableName
      *
@@ -619,16 +619,17 @@ class PDO extends SQL
     public function describe($tableName = null)
     {
         if (!parent::describe($tableName)) {
-            return null;
+            return;
         }
         foreach ($this->queryToArray("DESCRIBE $tableName") as $column) {
             $this->TableStructure[$tableName][$column['Field']] = $column;
         }
+
         return $this->TableStructure;
     }
 
     /**
-     * Vrací 1 pokud tabulka v databázi existuje
+     * Vrací 1 pokud tabulka v databázi existuje.
      *
      * @param string $tableName
      *
@@ -637,9 +638,9 @@ class PDO extends SQL
     public function tableExist($tableName = null)
     {
         if (!parent::tableExist($tableName)) {
-            return null;
+            return;
         }
-        $this->exeQuery("SHOW TABLES LIKE '" . $tableName . "'");
+        $this->exeQuery("SHOW TABLES LIKE '".$tableName."'");
         if ($this->numRows) {
             return true;
         } else {
@@ -648,7 +649,7 @@ class PDO extends SQL
     }
 
     /**
-     * Vrací počet řádek v tabulce
+     * Vrací počet řádek v tabulce.
      *
      * @param string $tableName
      *
@@ -659,21 +660,21 @@ class PDO extends SQL
         if (!$tableName) {
             $tableName = $this->TableName;
         }
-        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM ' . $this->getColumnComma() . $this->easeAddSlashes($tableName) . $this->getColumnComma());
+        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM '.$this->getColumnComma().$this->easeAddSlashes($tableName).$this->getColumnComma());
 
         return $TableRowsCount[0]['NumRows'];
     }
 
     /**
-     * Vytvoří tabulku podle struktůry
+     * Vytvoří tabulku podle struktůry.
      *
      * @param array  $tableStructure struktura SQL
      * @param string $tableName      název tabulky
      */
-    public function createTable(& $tableStructure = null, $tableName = null)
+    public function createTable(&$tableStructure = null, $tableName = null)
     {
         if (!parent::createTable($tableStructure, $tableName)) {
-            return null;
+            return;
         }
         if ($this->exeQuery($this->createTableQuery($tableStructure, $tableName))) {
             return true;
@@ -683,15 +684,15 @@ class PDO extends SQL
     }
 
     /**
-     * Vyprázdní tabulku
+     * Vyprázdní tabulku.
      *
      * @param string $tableName
      *
-     * @return boolean success
+     * @return bool success
      */
     public function truncateTable($tableName)
     {
-        $this->exeQuery('TRUNCATE ' . $tableName);
+        $this->exeQuery('TRUNCATE '.$tableName);
         if (!$this->getTableNumRows($tableName)) {
             return true;
         } else {
@@ -700,7 +701,7 @@ class PDO extends SQL
     }
 
     /**
-     * Vytvoří index na tabulkou
+     * Vytvoří index na tabulkou.
      *
      * @param string $columnName
      * @param bool   $primary    create Index as Primary Key
@@ -721,7 +722,7 @@ class PDO extends SQL
     }
 
     /**
-     * Vytvoří tabulku podle struktůry
+     * Vytvoří tabulku podle struktůry.
      *
      * @param array  $tableStructure struktura tabulky
      * @param string $tableName      název tabulky
@@ -732,7 +733,7 @@ class PDO extends SQL
             $tableName = $this->TableName;
         }
         if (!parent::createTableQuery($tableStructure, $tableName)) {
-            return null;
+            return;
         }
         $queryRawItems = [];
         $Indexes = [];
@@ -752,34 +753,34 @@ class PDO extends SQL
                     break;
             }
 
-            $rawItem = "  `" . $columnName . "` " . $columnProperties['type'];
+            $rawItem = '  `'.$columnName.'` '.$columnProperties['type'];
 
             if (isset($columnProperties['size'])) {
-                $rawItem .= '(' . $columnProperties['size'] . ') ';
+                $rawItem .= '('.$columnProperties['size'].') ';
             }
 
             if (array_key_exists('unsigned', $columnProperties) || isset($columnProperties['unsigned'])) {
-                $rawItem .= " UNSIGNED ";
+                $rawItem .= ' UNSIGNED ';
             }
 
             if (array_key_exists('null', $columnProperties)) {
                 if ($columnProperties['null'] == true) {
-                    $rawItem .= " null ";
+                    $rawItem .= ' null ';
                 } else {
-                    $rawItem .= " NOT null ";
+                    $rawItem .= ' NOT null ';
                 }
             }
             if (array_key_exists('ai', $columnProperties)) {
-                $rawItem .= " AUTO_INCREMENT ";
+                $rawItem .= ' AUTO_INCREMENT ';
             }
 
             $queryRawItems[] = $rawItem;
 
             if (array_key_exists('key', $columnProperties) || isset($columnProperties['key'])) {
-                if (( isset($columnProperties['key']) && ($columnProperties['key'] == 'primary')) || ( isset($columnProperties['Key']) && ($columnProperties['Key'] === 'primary') )) {
-                    $Indexes[] = 'PRIMARY KEY  (`' . $columnName . '`)';
+                if ((isset($columnProperties['key']) && ($columnProperties['key'] == 'primary')) || (isset($columnProperties['Key']) && ($columnProperties['Key'] === 'primary'))) {
+                    $Indexes[] = 'PRIMARY KEY  (`'.$columnName.'`)';
                 } else {
-                    $Indexes[] = 'KEY  (`' . $columnName . '`)';
+                    $Indexes[] = 'KEY  (`'.$columnName.'`)';
                 }
             }
             if (array_key_exists('ai', $columnProperties)) {
@@ -805,14 +806,14 @@ class PDO extends SQL
               ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
              */
         }
-        $queryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=" . $this->charset . ' COLLATE=' . $this->collate . ';';
-        $queryRaw = $queryRawBegin . implode(",\n", array_merge($queryRawItems, $Indexes)) . $queryRawEnd;
+        $queryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=".$this->charset.' COLLATE='.$this->collate.';';
+        $queryRaw = $queryRawBegin.implode(",\n", array_merge($queryRawItems, $Indexes)).$queryRawEnd;
 
         return $queryRaw;
     }
 
     /**
-     * Vrací seznam tabulek v aktuálné použité databázi
+     * Vrací seznam tabulek v aktuálné použité databázi.
      *
      * @param bool $sort setřídit vrácené výsledky ?
      *
@@ -827,18 +828,19 @@ class PDO extends SQL
         if ($sort) {
             asort($tablesList, SORT_LOCALE_STRING);
         }
+
         return $tablesList;
     }
 
     /**
-     * Vytvoří podle dat v objektu chybějící sloupečky v DB
+     * Vytvoří podle dat v objektu chybějící sloupečky v DB.
      *
      * @param EaseBrick|mixed $easeBrick objekt pomocí kterého se získá struktura
      * @param array           $data      struktura sloupců k vytvoření
      *
      * @return int pocet operaci
      */
-    public static function createMissingColumns(& $easeBrick, $data = null)
+    public static function createMissingColumns(&$easeBrick, $data = null)
     {
         $result = 0;
         $badQuery = $easeBrick->easeShared->dblink->getLastQuery();
@@ -860,29 +862,29 @@ class PDO extends SQL
                             if (strlen($dataValue) > 255) {
                                 $columnType = 'TEXT';
                             } else {
-                                $columnType = 'VARCHAR(' . strlen($dataValue) . ')';
+                                $columnType = 'VARCHAR('.strlen($dataValue).')';
                             }
                             break;
                         case 'integer':
-                            $columnType = 'INT( ' . strlen($dataValue) . ' )';
+                            $columnType = 'INT( '.strlen($dataValue).' )';
                             break;
                         case 'double':
                         case 'float':
                             list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
-                            $columnType = 'FLOAT( ' . strlen($m) . ',' . strlen($d) . ' )';
+                            $columnType = 'FLOAT( '.strlen($m).','.strlen($d).' )';
                             break;
 
                         default:
                             continue;
                             break;
                     }
-                    $AddColumnQuery = 'ALTER TABLE `' . $easeBrick->myTable . '` ADD `' . $dataColumn . '` ' . $columnType . ' null DEFAULT null';
+                    $AddColumnQuery = 'ALTER TABLE `'.$easeBrick->myTable.'` ADD `'.$dataColumn.'` '.$columnType.' null DEFAULT null';
                     if (!$easeBrick->dblink->exeQuery($AddColumnQuery)) {
                         $easeBrick->addStatusMessage($AddColumnQuery, 'error');
-                        $result--;
+                        --$result;
                     } else {
                         $easeBrick->addStatusMessage($AddColumnQuery, 'success');
-                        $result++;
+                        ++$result;
                     }
                 }
             }
@@ -893,11 +895,11 @@ class PDO extends SQL
     }
 
     /**
-     * Vrací uvozovky pro označení sloupečků
+     * Vrací uvozovky pro označení sloupečků.
      *
      * @return string
      */
-    public function  getColumnComma()
+    public function getColumnComma()
     {
         switch ($this->dbType) {
             case 'pgsql':
@@ -910,22 +912,23 @@ class PDO extends SQL
                 $coma = parent::getColumnComma();
                 break;
         }
+
         return $coma;
     }
 
     /**
-     * Set Up PDO for curent usage
+     * Set Up PDO for curent usage.
      *
      * @param \Ease\Brick $object or its child
      */
-    public function  useObject($object)
+    public function useObject($object)
     {
         $this->setKeyColumn($object->getmyKeyColumn());
         $this->setTableName($object->getMyTable());
     }
 
     /**
-     * Ukončí připojení k databázi
+     * Ukončí připojení k databázi.
      *
      * @return type
      */
@@ -935,17 +938,15 @@ class PDO extends SQL
     }
 
     /**
-     * Virtuální funkce
-     *
-     * @return null
+     * Virtuální funkce.
      */
     public function __destruct()
     {
-        return null;
+        return;
     }
 
     /**
-     * You cannot serialize or unserialize PDO instance
+     * You cannot serialize or unserialize PDO instance.
      *
      * @return array fields to serialize
      */
@@ -953,6 +954,7 @@ class PDO extends SQL
     {
         unset($this->sqlLink);
         unset($this->result);
+
         return parent::__sleep();
     }
 }

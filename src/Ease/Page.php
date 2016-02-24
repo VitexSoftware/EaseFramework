@@ -1,59 +1,55 @@
 <?php
 
 /**
- * Objekty pro vykreslení stránky
+ * Objekty pro vykreslení stránky.
  *
- * @package    EaseFrameWork
- * @subpackage Ease\Html\
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
- * Objekt určený k "pojmutí" obsahu - sám nemá žádnou viditelnou část
+ * Objekt určený k "pojmutí" obsahu - sám nemá žádnou viditelnou část.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class Page extends Container
 {
-
     /**
-     * Saves obejct instace (singleton...)
+     * Saves obejct instace (singleton...).
      */
     private static $_instance = null;
 
     /**
-     * Odkaz na základní objekt stránky
+     * Odkaz na základní objekt stránky.
      *
      * @var EaseWebPage
      */
     public $webPage = null;
 
     /**
-     * Které objekty převzít od přebírajícího objektu
+     * Které objekty převzít od přebírajícího objektu.
      *
      * @var array
      */
     public $raiseItems = ['SetUpUser' => 'User', 'webPage', 'OutputFormat'];
 
     /**
-     * Odkaz na naposledy přidaný element
+     * Odkaz na naposledy přidaný element.
      *
      * @var object
      */
     public $lastItem = null;
 
     /**
-     * Seznam názvů proměnných které se mají stabilně udržovat
+     * Seznam názvů proměnných které se mají stabilně udržovat.
      *
      * @var array
      */
     public $requestValuesToKeep = null;
 
     /**
-     * Specifikuje preferovaný účel zobrazení například mail
+     * Specifikuje preferovaný účel zobrazení například mail.
      *
      * @var string
      */
@@ -66,6 +62,7 @@ class Page extends Container
      * @param EaseUser $user objekt uživatele k přiřazení
      *
      * @link   http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
+     *
      * @return EaseWebPage
      */
     public static function singleton($user = null)
@@ -79,10 +76,10 @@ class Page extends Container
     }
 
     /**
-     * Přiřadí objekt stránky do webPage
+     * Přiřadí objekt stránky do webPage.
      *
      * @param object|Page|Container $easeObject objekt do kterého
-     *                                                  přiřazujeme WebStránku
+     *                                          přiřazujeme WebStránku
      */
     public static function assignWebPage(&$easeObject)
     {
@@ -98,11 +95,11 @@ class Page extends Container
     }
 
     /**
-     * Vloží javascript do stránky
+     * Vloží javascript do stránky.
      *
-     * @param string  $javaScript      JS code
-     * @param string  $position        končná pozice: '+','-','0','--',...
-     * @param boolean $inDocumentReady vložit do DocumentReady bloku ?
+     * @param string $javaScript      JS code
+     * @param string $position        končná pozice: '+','-','0','--',...
+     * @param bool   $inDocumentReady vložit do DocumentReady bloku ?
      *
      * @return int
      */
@@ -114,11 +111,11 @@ class Page extends Container
     }
 
     /**
-     * Includuje Javascript do stránky
+     * Includuje Javascript do stránky.
      *
-     * @param string  $javaScriptFile soubor s javascriptem
-     * @param string  $position       končná pozice: '+','-','0','--',...
-     * @param boolean $fwPrefix       Přidat prefix frameworku (obvykle /Ease/)?
+     * @param string $javaScriptFile soubor s javascriptem
+     * @param string $position       končná pozice: '+','-','0','--',...
+     * @param bool   $fwPrefix       Přidat prefix frameworku (obvykle /Ease/)?
      *
      * @return string
      */
@@ -130,11 +127,11 @@ class Page extends Container
     }
 
     /**
-     * Add another CSS definition to stack
+     * Add another CSS definition to stack.
      *
      * @param string $css css definice
      *
-     * @return boolean
+     * @return bool
      */
     public function addCSS($css)
     {
@@ -144,11 +141,11 @@ class Page extends Container
     }
 
     /**
-     * Include an CSS file call into page
+     * Include an CSS file call into page.
      *
-     * @param string  $cssFile  cesta k souboru vkládanému do stránky
-     * @param boolean $fwPrefix přidat prefix frameworku (obvykle /Ease/) ?
-     * @param string  $media    médium screen|print|braile apod ...
+     * @param string $cssFile  cesta k souboru vkládanému do stránky
+     * @param bool   $fwPrefix přidat prefix frameworku (obvykle /Ease/) ?
+     * @param string $media    médium screen|print|braile apod ...
      *
      * @return int
      */
@@ -160,7 +157,7 @@ class Page extends Container
     }
 
     /**
-     * Provede http přesměrování
+     * Provede http přesměrování.
      *
      * @param string $url adresa přesměrování
      */
@@ -170,11 +167,11 @@ class Page extends Container
         if (count($messages)) {
             $_SESSION['EaseMessages'] = $messages;
         }
-        header('Location: ' . $url);
+        header('Location: '.$url);
     }
 
     /**
-     * Vrací požadovanou adresu
+     * Vrací požadovanou adresu.
      *
      * @return string
      */
@@ -184,7 +181,7 @@ class Page extends Container
     }
 
     /**
-     * Returns the current URL. This is instead of PHP_SELF which is unsafe
+     * Returns the current URL. This is instead of PHP_SELF which is unsafe.
      *
      * @param bool $dropqs whether to drop the querystring or not. Default true
      *
@@ -223,7 +220,7 @@ class Page extends Container
     }
 
     /**
-     * Nepřihlášeného uživatele přesměruje na přihlašovací stránku
+     * Nepřihlášeného uživatele přesměruje na přihlašovací stránku.
      *
      * @param string $loginPage adresa přihlašovací stránky
      */
@@ -238,7 +235,7 @@ class Page extends Container
     }
 
     /**
-     * Vrací pole $_REQUEST
+     * Vrací pole $_REQUEST.
      *
      * @return array
      */
@@ -260,7 +257,7 @@ class Page extends Container
     /**
      * Is page called by Form Post ?
      *
-     * @return boolean
+     * @return bool
      */
     public static function isPosted()
     {
@@ -272,7 +269,7 @@ class Page extends Container
     }
 
     /**
-     * Ošetří proměnou podle jejího očekávaného typu
+     * Ošetří proměnou podle jejího očekávaného typu.
      *
      * @param mixed  $value      hodnota
      * @param string $sanitizeAs typ hodnoty int|string|float|null
@@ -302,11 +299,11 @@ class Page extends Container
             }
                 break;
 
-                return null;
+                return;
             case 'null':
             case 'null':
                 if (strtoupper($value) == 'null') {
-                    return null;
+                    return;
                 }
             default:
                 return $value;
@@ -315,7 +312,7 @@ class Page extends Container
     }
 
     /**
-     * Vrací hodnotu klíče prametru volání stránky
+     * Vrací hodnotu klíče prametru volání stránky.
      *
      * @param string $field      klíč POST nebo GET
      * @param string $sanitizeAs ošetřit vrácenou hodnotu jako float|int|string
@@ -331,7 +328,7 @@ class Page extends Container
                 $this->webPage->requestValuesToKeep[$field] = $_REQUEST[$field];
             }
             if ($sanitizeAs) {
-                return Page::sanitizeAsType($_REQUEST[$field], $sanitizeAs);
+                return self::sanitizeAsType($_REQUEST[$field], $sanitizeAs);
             } else {
                 return $_REQUEST[$field];
             }
@@ -342,12 +339,12 @@ class Page extends Container
                 }
             }
 
-            return null;
+            return;
         }
     }
 
     /**
-     * Vrací hodnotu klíče pramatru volání stránky
+     * Vrací hodnotu klíče pramatru volání stránky.
      *
      * @param string $field      klíč GET
      * @param string $sanitizeAs ošetřit vrácenou hodnotu jako float|int|string
@@ -358,17 +355,17 @@ class Page extends Container
     {
         if (isset($_GET[$field])) {
             if ($sanitizeAs) {
-                return Page::sanitizeAsType($_GET[$field], $sanitizeAs);
+                return self::sanitizeAsType($_GET[$field], $sanitizeAs);
             } else {
                 return $_GET[$field];
             }
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Vrací hodnotu klíče pramatru volání stránky
+     * Vrací hodnotu klíče pramatru volání stránky.
      *
      * @param string $field      klíč POST
      * @param string $sanitizeAs ošetřit vrácenou hodnotu jako float|int|string
@@ -379,12 +376,12 @@ class Page extends Container
     {
         if (isset($_POST[$field])) {
             if ($sanitizeAs) {
-                return Page::sanitizeAsType($_POST[$field], $sanitizeAs);
+                return self::sanitizeAsType($_POST[$field], $sanitizeAs);
             } else {
                 return $_POST[$field];
             }
         } else {
-            return null;
+            return;
         }
     }
 
@@ -392,15 +389,16 @@ class Page extends Container
      * Byla stránka zobrazena po odeslání formuláře metodou POST ?
      *
      * @category requestValue
-     * @return   boolean
+     *
+     * @return bool
      */
     public static function isFormPosted()
     {
-        return (isset($_POST) && count($_POST));
+        return isset($_POST) && count($_POST);
     }
 
     /**
-     * Začne uchovávat hodnotu proměnné
+     * Začne uchovávat hodnotu proměnné.
      *
      * @category requestValue
      *
@@ -413,7 +411,7 @@ class Page extends Container
     }
 
     /**
-     * Začne uchovávat hodnotu proměnných vyjmenovaných v poli
+     * Začne uchovávat hodnotu proměnných vyjmenovaných v poli.
      *
      * @category requestValue
      *
@@ -451,7 +449,7 @@ class Page extends Container
     }
 
     /**
-     * Zruší zachovávání hodnoty proměnné
+     * Zruší zachovávání hodnoty proměnné.
      *
      * @category requestValue
      *
@@ -463,7 +461,7 @@ class Page extends Container
     }
 
     /**
-     * Zruší zachovávání hodnot proměnných
+     * Zruší zachovávání hodnot proměnných.
      *
      * @category requestValue
      */
@@ -473,7 +471,7 @@ class Page extends Container
     }
 
     /**
-     * Vrací fragment udrživaných hodnot pro link
+     * Vrací fragment udrživaných hodnot pro link.
      *
      * @category requestValue
      *
@@ -489,7 +487,7 @@ class Page extends Container
         $ArgsToKeep = [];
         foreach ($requestValuesToKeep as $name => $value) {
             if (is_string($value) && strlen($value)) {
-                $ArgsToKeep[$name] = $name . '=' . $value;
+                $ArgsToKeep[$name] = $name.'='.$value;
             }
         }
 
@@ -497,14 +495,14 @@ class Page extends Container
     }
 
     /**
-     * Zapamatuje si odkaz na základní stránku webu
+     * Zapamatuje si odkaz na základní stránku webu.
      *
      * @param EaseWebPage|true $webPage Objekt stránky, true - force assign
      */
-    public function setupWebPage(& $webPage = null)
+    public function setupWebPage(&$webPage = null)
     {
         if (is_null($webPage)) {
-            $webPage = & $this;
+            $webPage = &$this;
         }
 
         if (!isset($this->webPage) || !is_object($this->webPage)) {
@@ -513,7 +511,7 @@ class Page extends Container
     }
 
     /**
-     * Nastaví formát výstupu
+     * Nastaví formát výstupu.
      *
      * @param string $outputFormat výstupní formát, např Mail nebo Print
      */
@@ -526,7 +524,7 @@ class Page extends Container
     }
 
     /**
-     * Vrací formát výstupu
+     * Vrací formát výstupu.
      */
     public function getOutputFormat()
     {
@@ -534,7 +532,7 @@ class Page extends Container
     }
 
     /**
-     * Převezme hlášky z pole nebo objektu
+     * Převezme hlášky z pole nebo objektu.
      *
      * @param mixed $msgSource zdroj zpráv - pole nebo EaseObjekt
      * @param array $denyQues  neprevezme tyto typy
@@ -582,7 +580,7 @@ class Page extends Container
     }
 
     /**
-     * Vrací pole jako parametry URL
+     * Vrací pole jako parametry URL.
      *
      * @param array  $params
      * @param string $baseUrl
@@ -590,9 +588,9 @@ class Page extends Container
     public static function arrayToUrlParams($params, $baseUrl = '')
     {
         if (strstr($baseUrl, '?')) {
-            return $baseUrl . '&' . http_build_query($params);
+            return $baseUrl.'&'.http_build_query($params);
         } else {
-            return $baseUrl . '?' . http_build_query($params);
+            return $baseUrl.'?'.http_build_query($params);
         }
     }
 }

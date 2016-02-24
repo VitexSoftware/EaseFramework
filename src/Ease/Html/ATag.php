@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * HTML hyperling class
+ * HTML hyperling class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 class ATag extends PairTag
 {
-
     /**
-     * zobrazí HTML odkaz
+     * zobrazí HTML odkaz.
      *
      * @param string $href       url odkazu
      * @param mixed  $contents   vkládaný obsah
@@ -29,7 +28,7 @@ class ATag extends PairTag
     }
 
     /**
-     * Ošetření perzistentních hodnot
+     * Ošetření perzistentních hodnot.
      */
     public function afterAdd()
     {
@@ -38,12 +37,12 @@ class ATag extends PairTag
                 if ($KeepValue == true) {
                     continue;
                 }
-                $Keep = urlencode($KeepName) . '=' . urlencode($KeepValue);
-                if (!strstr($this->tagProperties['href'], urlencode($KeepName) . '=')) {
+                $Keep = urlencode($KeepName).'='.urlencode($KeepValue);
+                if (!strstr($this->tagProperties['href'], urlencode($KeepName).'=')) {
                     if (strstr($this->tagProperties['href'], '?')) {
-                        $this->tagProperties['href'] .= '&' . $Keep;
+                        $this->tagProperties['href'] .= '&'.$Keep;
                     } else {
-                        $this->tagProperties['href'] .= '?' . $Keep;
+                        $this->tagProperties['href'] .= '?'.$Keep;
                     }
                 }
             }

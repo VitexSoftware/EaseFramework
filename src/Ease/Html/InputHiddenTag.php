@@ -3,15 +3,14 @@
 namespace Ease\Html;
 
 /**
- * Skrytý input
+ * Skrytý input.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class InputHiddenTag extends InputTag
 {
-
     /**
-     * Skrytý input
+     * Skrytý input.
      *
      * @param string $name       jméno tagu
      * @param string $value      vracená hodnota

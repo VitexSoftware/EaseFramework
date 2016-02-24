@@ -1,194 +1,192 @@
 <?php
 
 /**
- * Abstraktní databázová třída
+ * Abstraktní databázová třída.
  *
  * @deprecated since version 200
- * @package    EaseFrameWork
+ *
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@vitexsoftware.cz (G)
  */
-
 namespace Ease\SQL;
 
 /**
- * Virtuálni třída pro práci s databází
+ * Virtuálni třída pro práci s databází.
  *
  * @author Vitex <vitex@hippy.cz>
  */
 abstract class SQL extends \Ease\Sand
 {
-
     /**
-     * SQL operation result handle
+     * SQL operation result handle.
      *
      * @var resource
      */
     public $result = null;
 
     /**
-     * SQL Handle
+     * SQL Handle.
      *
      * @var resource
      */
     public $sqlLink = null;
 
     /**
-     * IP serveru
+     * IP serveru.
      *
      * @var string
      */
     public $server = null;
 
     /**
-     * DB Login
+     * DB Login.
      *
      * @var string
      */
     public $username = null;
 
     /**
-     * DB heslo
+     * DB heslo.
      *
      * @var string
      */
     public $password = null;
 
     /**
-     * Database to connect by default
+     * Database to connect by default.
      *
      * @var string
      */
     public $database = null;
 
     /**
-     * Database port
+     * Database port.
      *
      * @var string
      */
     public $port = null;
 
     /**
-     * Status připojení
+     * Status připojení.
      *
      * @var bool
      */
     public $status = null;
 
     /**
-     * Hodnota posledního voloženeho AutoIncrement sloupečku
+     * Hodnota posledního voloženeho AutoIncrement sloupečku.
      *
      * @var int unsigned
      */
     public $lastIsnertID = null;
 
     /**
-     * Poslední vykonaná SQL Query
+     * Poslední vykonaná SQL Query.
      *
      * @var string
      */
     public $lastQuery = '';
 
     /**
-     * Počet ovlivněných nebo vrácených řádek při $this->LastQuery
+     * Počet ovlivněných nebo vrácených řádek při $this->LastQuery.
      *
      * @var string
      */
     public $numRows = 0;
 
     /**
-     * Pole obsahující informace o základních paramatrech SQL přiopojení
+     * Pole obsahující informace o základních paramatrech SQL přiopojení.
      *
      * @var array
      */
     public $report = ['LastMessage' => 'Please extend'];
 
     /**
-     * Klíčový sloupeček pro SQL operace
+     * Klíčový sloupeček pro SQL operace.
      *
      * @var string
      */
     public $keyColumn = '';
 
     /**
-     * Název práve zpracovávané tabulky
+     * Název práve zpracovávané tabulky.
      *
      * @var string
      */
     public $tableName = '';
 
     /**
-     * Pole obsahující strukturu SQL tabulky
+     * Pole obsahující strukturu SQL tabulky.
      *
      * @var array
      */
     public $tableStructure = [];
 
     /**
-     * Poslední Chybová zpráva obdržená od SQL serveru
+     * Poslední Chybová zpráva obdržená od SQL serveru.
      *
      * @var string
      */
     public $errorText = null;
 
     /**
-     * Kod SQL chyby
+     * Kod SQL chyby.
      *
      * @var int
      */
     public $errorNumber = null;
 
     /**
-     * Pole obsahující výsledky posledního SQL příkazu
+     * Pole obsahující výsledky posledního SQL příkazu.
      *
      * @var array
      */
     public $resultArray = [];
 
     /**
-     * Pomocná proměnná pro datové operace
+     * Pomocná proměnná pro datové operace.
      *
      * @var array
      */
     public $data = null;
 
     /**
-     * Poslední zpráva obdžená od SQL serveru
+     * Poslední zpráva obdžená od SQL serveru.
      *
      * @var string
      */
     public $lastMessage = null;
 
     /**
-     * Prodlevy v sekundách pro znovupřipojení k databázi
+     * Prodlevy v sekundách pro znovupřipojení k databázi.
      *
      * @var array
      */
     public $reconectTimeouts = ['web' => 1, 'cgi' => 10];
 
     /**
-     * Nastavení vlastností přípojení
+     * Nastavení vlastností přípojení.
      *
      * @var array
      */
     public $connectionSettings = [];
 
     /**
-     * Indikátor nastavení připojení - byly vykonány SET příkazy
+     * Indikátor nastavení připojení - byly vykonány SET příkazy.
      *
-     * @var boolean
+     * @var bool
      */
     protected $connectAllreadyUP = false;
 
     /**
-     * Type of used database
+     * Type of used database.
      *
      * @var string mysql|pgsql|..
      */
     public $dbType;
 
     /**
-     * Obecný objekt databáze
+     * Obecný objekt databáze.
      */
     public function __construct()
     {
@@ -215,7 +213,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Připojení k databázi
+     * Připojení k databázi.
      */
     public function connect()
     {
@@ -224,10 +222,11 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Přepene databázi
+     * Přepene databázi.
      *
-     * @param  type $dbName
-     * @return boolean
+     * @param type $dbName
+     *
+     * @return bool
      */
     public function selectDB($dbName = null)
     {
@@ -235,11 +234,11 @@ abstract class SQL extends \Ease\Sand
             $this->database = $dbName;
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Id vrácené po INSERTu
+     * Id vrácené po INSERTu.
      *
      * @return int
      */
@@ -249,9 +248,9 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Otestuje moznost pripojeni k sql serveru
+     * Otestuje moznost pripojeni k sql serveru.
      *
-     * @param boolean $succes vynucený výsledek
+     * @param bool $succes vynucený výsledek
      *
      * @return $Success
      */
@@ -261,7 +260,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Po deserializaci se znovu připojí
+     * Po deserializaci se znovu připojí.
      */
     public function __wakeup()
     {
@@ -270,7 +269,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Odstraní z SQL dotazu "nebezpečné" znaky
+     * Odstraní z SQL dotazu "nebezpečné" znaky.
      *
      * @param string $queryRaw SQL Query
      *
@@ -293,7 +292,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Nastaví připojení
+     * Nastaví připojení.
      *
      * @deprecated since version 210
      */
@@ -317,11 +316,12 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Otestuje všechny náležitosti pro vytvoření tabulky
+     * Otestuje všechny náležitosti pro vytvoření tabulky.
      *
-     * @param  array  $tableStructure
-     * @param  string $tableName
-     * @return boolean
+     * @param array  $tableStructure
+     * @param string $tableName
+     *
+     * @return bool
      */
     public function createTableQuery(&$tableStructure, $tableName = null)
     {
@@ -346,7 +346,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Opraví délky políček u nichž je překročena délka
+     * Opraví délky políček u nichž je překročena délka.
      *
      * @param array $data asociativní pole dat
      *
@@ -364,8 +364,8 @@ abstract class SQL extends \Ease\Sand
                         case 'string':
                             if (array_key_exists($column, $data) && $Size) {
                                 if (strlen($data[$column]) > $Size) {
-                                    $this->addToLog('Column ' . $this->tableName . '.' . $column . ' content truncated: ' . substr($data[$column], $Size - strlen($data[$column])), 'warning');
-                                    $data[$column] = substr($data[$column], 0, $Size - 1) . '_';
+                                    $this->addToLog('Column '.$this->tableName.'.'.$column.' content truncated: '.substr($data[$column], $Size - strlen($data[$column])), 'warning');
+                                    $data[$column] = substr($data[$column], 0, $Size - 1).'_';
                                 }
                             }
                             break;
@@ -380,12 +380,12 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Zkontroluje předpoklady pro vytvoření tabulky ze struktury
+     * Zkontroluje předpoklady pro vytvoření tabulky ze struktury.
      *
      * @param array  $tableStructure struktura tabulky
      * @param string $tableName      název tabulky
      *
-     * @return boolean Success
+     * @return bool Success
      */
     public function createTable(&$tableStructure = null, $tableName = null)
     {
@@ -425,7 +425,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Poslední vykonaný dotaz
+     * Poslední vykonaný dotaz.
      *
      * @return int počet řádků
      */
@@ -435,7 +435,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Poslední genrované ID
+     * Poslední genrované ID.
      *
      * @return int ID
      */
@@ -445,7 +445,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Vrací chybovou zprávu SQL
+     * Vrací chybovou zprávu SQL.
      *
      * @return string
      */
@@ -453,20 +453,21 @@ abstract class SQL extends \Ease\Sand
     {
         if ($this->errorText) {
             if (isset($this->errorNumber)) {
-                return '#' . $this->errorNumber . ': ' . $this->errorText;
+                return '#'.$this->errorNumber.': '.$this->errorText;
             } else {
                 return $this->errorText;
             }
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Vrací strukturu SQL tabulky jako pole
+     * Vrací strukturu SQL tabulky jako pole.
      *
-     * @param  string $tableName
-     * @return null|boolean
+     * @param string $tableName
+     *
+     * @return null|bool
      */
     public function describe($tableName = null)
     {
@@ -474,19 +475,20 @@ abstract class SQL extends \Ease\Sand
             $tableName = $this->tableName;
         }
         if (!$this->tableExist($tableName)) {
-            $this->addToLog('Try to describe nonexistent table: ' . $tableName, 'waring');
+            $this->addToLog('Try to describe nonexistent table: '.$tableName, 'waring');
 
-            return null;
+            return;
         }
 
         return true;
     }
 
     /**
-     * Ověří existenci tabulky
+     * Ověří existenci tabulky.
      *
-     * @param  string $tableName
-     * @return null|boolean
+     * @param string $tableName
+     *
+     * @return null|bool
      */
     public function tableExist($tableName = null)
     {
@@ -496,14 +498,14 @@ abstract class SQL extends \Ease\Sand
         if (!$tableName) {
             $this->error('TableExist: $TableName not known');
 
-            return null;
+            return;
         }
 
         return true;
     }
 
     /**
-     * Zaznamená SQL Chybu
+     * Zaznamená SQL Chybu.
      *
      * @param string $title volitelný popisek, většinou název volající funkce
      */
@@ -514,14 +516,14 @@ abstract class SQL extends \Ease\Sand
             $title = $caller['function'];
         }
         if (isset($this->easeShared->User) && is_object($this->easeShared->User)) {
-            return $this->easeShared->User->addStatusMessage($title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
+            return $this->easeShared->User->addStatusMessage($title.': #'.$this->errorNumber.' '.$this->errorText, 'error');
         } else {
-            return $this->addToLog($title . ': #' . $this->errorNumber . ' ' . $this->errorText, 'error');
+            return $this->addToLog($title.': #'.$this->errorNumber.' '.$this->errorText, 'error');
         }
     }
 
     /**
-     * Znovu se připojí k databázi
+     * Znovu se připojí k databázi.
      */
     public function reconnect()
     {
@@ -531,9 +533,9 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Při serializaci vynuluje poslední Query
+     * Při serializaci vynuluje poslední Query.
      *
-     * @return boolean
+     * @return bool
      */
     public function __sleep()
     {
@@ -543,7 +545,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Zavře databázové spojení
+     * Zavře databázové spojení.
      */
     public function __destruct()
     {
@@ -553,7 +555,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Vrací výsledek dotazu jako dvourozměrné pole
+     * Vrací výsledek dotazu jako dvourozměrné pole.
      *
      * @param string $queryRaw SQL příkaz
      *
@@ -575,7 +577,7 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Vrací první položku výsledku dotazu
+     * Vrací první položku výsledku dotazu.
      *
      * @param string $queryRaw SQL příkaz vracející jednu hodnotu
      *
@@ -587,12 +589,12 @@ abstract class SQL extends \Ease\Sand
         if (count($result)) {
             return current(current($result));
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * Vrací počet výsledku dotazu
+     * Vrací počet výsledku dotazu.
      *
      * @param string $queryRaw SQL příkaz vracející jednu hodnotu
      *
@@ -604,42 +606,43 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Vrací databázový objekt Pear::DB
+     * Vrací databázový objekt Pear::DB.
      *
      * @link http://pear.php.net/manual/en/package.database.mdb2.php
+     *
      * @todo SET,mdb2
      *
      * @return DB|null objekt databáze
      */
-    public static function & getPearObject()
+    public static function &getPearObject()
     {
         include_once 'DB.php';
-        $DbHelper = new DB;
+        $DbHelper = new DB();
 
         $dsn = [
             'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
             'username' => DB_SERVER_USERNAME,
             'password' => DB_SERVER_PASSWORD,
-            'hostspec' => DB_SERVER
+            'hostspec' => DB_SERVER,
         ];
 
-        $db = & $DbHelper->connect($dsn);
+        $db = &$DbHelper->connect($dsn);
 
         if (PEAR::isError($db)) {
-            return null;
+            return;
         }
 
-        $db->query('USE ' . DB_DATABASE);
+        $db->query('USE '.DB_DATABASE);
 
         return $db;
     }
 
     /**
-     * Vrací uvozovky pro označení sloupečků
+     * Vrací uvozovky pro označení sloupečků.
      *
      * @return string
      */
-    public function  getColumnComma()
+    public function getColumnComma()
     {
         return '';
     }
