@@ -162,13 +162,13 @@ class SysLogger extends Atom
     /**
      * Zapise zapravu do logu.
      *
-     * @param string $Caller  název volajícího objektu
+     * @param string $caller  název volajícího objektu
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($Caller, $message, $type = 'message')
+    public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
@@ -183,7 +183,7 @@ class SysLogger extends Atom
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = ' ~'.$Caller.'~ '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
+        $logLine = ' ~'.$caller.'~ '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
