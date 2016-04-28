@@ -206,6 +206,10 @@ class Brick extends Sand
      */
     public function getColumnsFromSQL($columnsList, $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
     {
+        if (is_null($this->dblink)) {
+            $this->takemyTable();
+        }
+
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
             $this->error('getColumnsFromSQL: Missing ColumnList');

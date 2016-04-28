@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Obsluha MySQL.
  *
@@ -8,6 +7,7 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease\SQL;
 
 /**
@@ -22,21 +22,21 @@ class MySQLi extends SQL
      *
      * @var mysqli
      */
-    public $sqlLink = null; // MS SQL link identifier
+    public $sqlLink   = null; // MS SQL link identifier
     /**
      * SQLLink result.
      *
      * @var mysqli_result
      */
-    public $result = null;
-    public $status = false; //Pripojeno ?
+    public $result    = null;
+    public $status    = false; //Pripojeno ?
     public $lastQuery = '';
-    public $numRows = 0;
-    public $debug = false;
+    public $numRows   = 0;
+    public $debug     = false;
     public $keyColumn = '';
-    public $data = null;
-    public $charset = 'utf8';
-    public $collate = 'utf8_czech_ci';
+    public $data      = null;
+    public $charset   = 'utf8';
+    public $collate   = 'utf8_czech_ci';
 
     /**
      * Povolit Explain každého dotazu do logu ?
@@ -68,7 +68,7 @@ class MySQLi extends SQL
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            $class = __CLASS__;
+            $class          = __CLASS__;
             self::$instance = new $class();
         }
 
@@ -92,9 +92,11 @@ class MySQLi extends SQL
      */
     public function connect()
     {
-        $this->sqlLink = new \mysqli($this->server, $this->username, $this->password);
+        $this->sqlLink = new \mysqli($this->server, $this->username,
+            $this->password);
         if ($this->sqlLink->connect_errno) {
-            $this->addStatusMessage('Connect: error #'.$this->sqlLink->connect_errno.' '.$this->sqlLink->connect_error, 'error');
+            $this->addStatusMessage('Connect: error #'.$this->sqlLink->connect_errno.' '.$this->sqlLink->connect_error,
+                'error');
 
             return false;
         } else {
@@ -121,9 +123,10 @@ class MySQLi extends SQL
         if ($change) {
             $this->Database = $dbName;
         } else {
-            $this->errorText = $this->sqlLink->error;
+            $this->errorText   = $this->sqlLink->error;
             $this->errorNumber = $this->sqlLink->errno;
-            $this->addStatusMessage('Connect: error #'.$this->errorNumber.' '.$this->errorText, 'error');
+            $this->addStatusMessage('Connect: error #'.$this->errorNumber.' '.$this->errorText,
+                'error');
             $this->logError();
         }
 
@@ -140,16 +143,16 @@ class MySQLi extends SQL
      */
     public function exeQuery($queryRaw, $ignoreErrors = false)
     {
-        $queryRaw = $this->sanitizeQuery($queryRaw);
-        $this->lastQuery = $queryRaw;
+        $queryRaw           = $this->sanitizeQuery($queryRaw);
+        $this->lastQuery    = $queryRaw;
         $this->lastInsertID = null;
-        $this->errorText = null;
-        $this->errorNumber = null;
-        $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
+        $this->errorText    = null;
+        $this->errorNumber  = null;
+        $sqlAction          = trim(strtolower(current(explode(' ', $queryRaw))));
         do {
-            $this->result = $this->sqlLink->query($queryRaw);
+            $this->result      = $this->sqlLink->query($queryRaw);
             $this->errorNumber = $this->sqlLink->errno;
-            $this->errorText = $this->sqlLink->error;
+            $this->errorText   = $this->sqlLink->error;
             if (!$this->result && !$ignoreErrors) {
                 if (EaseShared::isCli()) {
                     if (function_exists('xdebug_call_function')) {
@@ -197,7 +200,8 @@ class MySQLi extends SQL
             $explainQuery = $this->sqlLink->query('EXPLAIN '.$queryRaw);
             if ($explainQuery) {
                 $explainedQuery = $explainQuery->fetch_assoc();
-                $this->addToLog('Explain: '.$queryRaw."\n".$this->printPreBasic($explainedQuery), 'explain');
+                $this->addToLog('Explain: '.$queryRaw."\n".$this->printPreBasic($explainedQuery),
+                    'explain');
             }
         }
 
@@ -335,8 +339,8 @@ class MySQLi extends SQL
      */
     public function prepSelect($data, $ldiv = 'AND')
     {
-        $operator = null;
-        $conditions = [];
+        $operator     = null;
+        $conditions   = [];
         $conditionsII = [];
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
@@ -352,15 +356,15 @@ class MySQLi extends SQL
             }
 
             if (is_null($value)) {
-                $value = 'null';
+                $value    = 'null';
                 $operator = ' IS ';
             } else {
                 if (strlen($value) && ($value[0] == '!')) {
                     $operator = ' != ';
-                    $value = substr($value, 1);
+                    $value    = substr($value, 1);
                 } else {
                     if (($value == '!null') || (strtoupper($value) == 'IS NOT null')) {
-                        $value = 'null';
+                        $value    = 'null';
                         $operator = 'IS NOT';
                     } else {
                         if (is_null($operator)) {
@@ -529,7 +533,7 @@ class MySQLi extends SQL
             return;
         }
         $queryRawItems = [];
-        $Indexes = [];
+        $Indexes       = [];
 
         $queryRawBegin = "CREATE TABLE IF NOT EXISTS `$tableName` (\n";
         foreach ($tableStructure as $columnName => $columnProperties) {
@@ -570,7 +574,9 @@ class MySQLi extends SQL
             $queryRawItems[] = $rawItem;
 
             if (array_key_exists('key', $columnProperties) || isset($columnProperties['key'])) {
-                if ((isset($columnProperties['key']) && ($columnProperties['key'] == 'primary')) || (isset($columnProperties['Key']) && ($columnProperties['Key'] === 'primary'))) {
+                if ((isset($columnProperties['key']) && ($columnProperties['key']
+                    == 'primary')) || (isset($columnProperties['Key']) && ($columnProperties['Key']
+                    === 'primary'))) {
                     $Indexes[] = 'PRIMARY KEY  (`'.$columnName.'`)';
                 } else {
                     $Indexes[] = 'KEY  (`'.$columnName.'`)';
@@ -600,7 +606,8 @@ class MySQLi extends SQL
              */
         }
         $queryRawEnd = "\n) ENGINE=MyISAM  DEFAULT CHARSET=".$this->charset.' COLLATE='.$this->collate.';';
-        $queryRaw = $queryRawBegin.implode(",\n", array_merge($queryRawItems, $Indexes)).$queryRawEnd;
+        $queryRaw    = $queryRawBegin.implode(",\n",
+                array_merge($queryRawItems, $Indexes)).$queryRawEnd;
 
         return $queryRaw;
     }
@@ -635,9 +642,9 @@ class MySQLi extends SQL
      */
     public static function createMissingColumns(&$easeBrick, $data = null)
     {
-        $result = 0;
-        $badQuery = $easeBrick->easeShared->myDbLink->getLastQuery();
-        $tableColumns = $easeBrick->easeShared->myDbLink->describe($easeBrick->myTable);
+        $result       = 0;
+        $badQuery     = $easeBrick->easeShared->dbLink->getLastQuery();
+        $tableColumns = $easeBrick->easeShared->dbLink->describe($easeBrick->myTable);
         if (count($tableColumns)) {
             if (is_null($data)) {
                 $data = $easeBrick->getData();
@@ -646,7 +653,8 @@ class MySQLi extends SQL
                 if (!strlen($dataColumn)) {
                     continue;
                 }
-                if (!array_key_exists($dataColumn, $tableColumns[$easeBrick->myTable])) {
+                if (!array_key_exists($dataColumn,
+                        $tableColumns[$easeBrick->myTable])) {
                     switch (gettype($dataValue)) {
                         case 'boolean':
                             $columnType = 'TINYINT( 1 )';
@@ -663,7 +671,8 @@ class MySQLi extends SQL
                             break;
                         case 'double':
                         case 'float':
-                            list($m, $d) = explode(',', str_replace('.', ',', $dataValue));
+                            list($m, $d) = explode(',',
+                                str_replace('.', ',', $dataValue));
                             $columnType = 'FLOAT( '.strlen($m).','.strlen($d).' )';
                             break;
 
@@ -672,7 +681,7 @@ class MySQLi extends SQL
                             break;
                     }
                     $AddColumnQuery = 'ALTER TABLE `'.$easeBrick->myTable.'` ADD `'.$dataColumn.'` '.$columnType.' null DEFAULT null';
-                    if (!$easeBrick->myDbLink->exeQuery($AddColumnQuery)) {
+                    if (!$easeBrick->dbLink->exeQuery($AddColumnQuery)) {
                         $easeBrick->addStatusMessage($AddColumnQuery, 'error');
                         --$result;
                     } else {
@@ -682,7 +691,7 @@ class MySQLi extends SQL
                 }
             }
         }
-        $easeBrick->myDbLink->lastQuery = $badQuery;
+        $easeBrick->dbLink->lastQuery = $badQuery;
 
         return $result;
     }

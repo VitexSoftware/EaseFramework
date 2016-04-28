@@ -74,7 +74,7 @@ class Shared extends Atom
      *
      * @var SQL\PDO
      */
-    public $myDbLink = null;
+    public $dbLink = null;
 
     /**
      * Saves obejct instace (singleton...).

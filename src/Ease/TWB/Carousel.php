@@ -113,15 +113,15 @@ class Carousel extends \Ease\Html\Div
             )
         );
         $this->inner->addItem(
-                    new \Ease\Html\ATag(
-                        '#'.$this->getTagID(),
-                        [
+            new \Ease\Html\ATag(
+                '#'.$this->getTagID(),
+                [
                         new \Ease\Html\Span(null, ['class' => 'glyphicon glyphicon-chevron-right', 'aria-hidden' => 'true']),
                         new \Ease\Html\Span(_('Next'), ['class' => 'sr-only']),
                         ],
-                        ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']
-                    )
-                );
+                ['class' => 'right carousel-control', 'data-slide' => 'next', 'role' => 'button']
+            )
+        );
         if ($this->getTagProperty('data-ride') != 'carousel') {
             $this->addJavaScript('$(\'#'.$this->name.'\').carousel();', null, true);
         }

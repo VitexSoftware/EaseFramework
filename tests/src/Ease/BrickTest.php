@@ -385,7 +385,6 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::lettersOnly
-     * @todo   Implement testLettersOnly().
      */
     public function testLettersOnly()
     {
