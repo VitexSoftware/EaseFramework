@@ -5,6 +5,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2014 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -55,7 +56,7 @@ class Sand extends Atom
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
         'myCreateColumn', 'MSCreateColumn',
-        'myLastModifiedColumn', 'MSLastModifiedColumn', ];
+        'myLastModifiedColumn', 'MSLastModifiedColumn',];
 
     /**
      * Klíčový sloupeček v používané MySQL tabulce.
@@ -441,11 +442,11 @@ class Sand extends Atom
      */
     public function printPre($argument, $comment = '')
     {
-        $retVal = '';
+        $retVal     = '';
         $itemsCount = 0;
         if (is_object($argument)) {
             $itemsCount = count($argument);
-            $comment = gettype($argument).': '.get_class($argument).': '.$comment;
+            $comment    = gettype($argument).': '.get_class($argument).': '.$comment;
         } else {
             $comment = gettype($argument).': '.$comment;
 
@@ -611,12 +612,12 @@ class Sand extends Atom
     public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
-        $encryptKey = md5($encryptKey);
-        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey = substr($encryptKey, 0,
+        $encryptKey        = md5($encryptKey);
+        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey        = substr($encryptKey, 0,
             mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
+        $initialVector     = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
             $encryptedText = mcrypt_generic($encryptHandle, $textToEncrypt);
             mcrypt_generic_deinit($encryptHandle);
@@ -637,14 +638,14 @@ class Sand extends Atom
      */
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
-        $decryptedText = null;
-        $encryptKey = md5($encryptKey);
-        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey = substr($encryptKey, 0,
+        $decryptedText     = null;
+        $encryptKey        = md5($encryptKey);
+        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey        = substr($encryptKey, 0,
             mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = substr($textToDecrypt, 0, $initialVectorSize);
-        $textToDecrypt = substr($textToDecrypt, $initialVectorSize);
+        $initialVector     = substr($textToDecrypt, 0, $initialVectorSize);
+        $textToDecrypt     = substr($textToDecrypt, $initialVectorSize);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
             $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
             mcrypt_generic_deinit($encryptHandle);
@@ -745,12 +746,12 @@ class Sand extends Atom
         // Sanitize comments
         // - remove nested comments, quotes and dots in comments
         // - remove parentheses and dots from quoted strings
-        $braceDepth = 0;
-        $inQuote = false;
+        $braceDepth     = 0;
+        $inQuote        = false;
         $escapeThisChar = false;
 
         for ($i = 0; $i < $emailLength; ++$i) {
-            $char = $email[$i];
+            $char        = $email[$i];
             $replaceChar = false;
 
             if ($char === '\\') {
@@ -820,9 +821,9 @@ class Sand extends Atom
             }
         }
 
-        $localPart = substr($email, 0, $atIndex);
-        $domain = substr($email, $atIndex + 1);
-        $FWS = '(?:(?:(?:[ \\t]*(?:\\r\\n))?[ \\t]+)|(?:[ \\t]+(?:(?:\\r\\n)[ \\t]+)*))'; // Folding white space
+        $localPart  = substr($email, 0, $atIndex);
+        $domain     = substr($email, $atIndex + 1);
+        $FWS        = '(?:(?:(?:[ \\t]*(?:\\r\\n))?[ \\t]+)|(?:[ \\t]+(?:(?:\\r\\n)[ \\t]+)*))'; // Folding white space
         // Let's check the local part for RFC compliance...
         //
         // local-part      =       dot-atom / quoted-string / obs-local-part
@@ -831,7 +832,7 @@ class Sand extends Atom
         //
         // Problem: need to distinguish between "first.last" and "first"."last"
         // (i.e. one element or two). And I suck at regexes.
-        $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
+        $dotArray   = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
             $localPart);
         $partLength = 0;
 
@@ -849,7 +850,7 @@ class Sand extends Atom
                             substr($element, 1, $indexBrace - 1)) > 0) {
                         return false; // Illegal characters in comment
                     }
-                    $element = substr($element, $indexBrace + 1,
+                    $element       = substr($element, $indexBrace + 1,
                         $elementLength - $indexBrace - 1);
                     $elementLength = strlen($element);
                 }
@@ -864,7 +865,7 @@ class Sand extends Atom
                                     $elementLength - $indexBrace - 2)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element = substr($element, 0, $indexBrace);
+                        $element       = substr($element, 0, $indexBrace);
                         $elementLength = strlen($element);
                     }
                 }
@@ -929,7 +930,7 @@ class Sand extends Atom
         if (preg_match('/^\\[(.)+]$/', $domain) === 1) {
             // It's an address-literal
             $addressLiteral = substr($domain, 1, strlen($domain) - 2);
-            $matchesIP = [];
+            $matchesIP      = [];
 
             // Extract IPv4 part from the end of the address-literal (if there is one)
             if (preg_match('/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.) {3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
@@ -948,7 +949,7 @@ class Sand extends Atom
                         return false;
                     } // RFC5321 section 4.1.3
 
-                    $IPv6 = substr($addressLiteral, 5,
+                    $IPv6     = substr($addressLiteral, 5,
                         ($index === 7) ? 2 : $index - 6);
                     $groupMax = 6;
                 }
@@ -957,13 +958,13 @@ class Sand extends Atom
                 if (substr($addressLiteral, 0, 5) !== 'IPv6:') {
                     return false;
                 } // RFC5321 section 4.1.3
-                $IPv6 = substr($addressLiteral, 5);
+                $IPv6     = substr($addressLiteral, 5);
                 $groupMax = 8;
             }
 
             $groupCount = preg_match_all('/^[0-9a-fA-F]{0,4}|\\:[0-9a-fA-F]{0,4}|(.)/',
                 $IPv6, $matchesIP);
-            $index = strpos($IPv6, '::');
+            $index      = strpos($IPv6, '::');
 
             if ($index === false) {
                 // We need exactly the right number of groups
@@ -1013,7 +1014,7 @@ class Sand extends Atom
             //
             // RFC5321 precludes the use of a trailing dot in a domain name for SMTP purposes
             // 	(http://tools.ietf.org/html/rfc5321#section-4.1.2)
-            $dotArray = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
+            $dotArray   = /* . (array[int]string) . */ preg_split('/\\.(?=(?:[^\\"]*\\"[^\\"]*\\")*(?![^\\"]*\\"))/m',
                 $domain);
             $partLength = 0;
 
@@ -1035,7 +1036,7 @@ class Sand extends Atom
                                 substr($element, 1, $indexBrace - 1)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element = substr($element, $indexBrace + 1,
+                        $element       = substr($element, $indexBrace + 1,
                             $elementLength - $indexBrace - 1);
                         $elementLength = strlen($element);
                     }
@@ -1049,7 +1050,7 @@ class Sand extends Atom
                                     $elementLength - $indexBrace - 2)) > 0) {
                             return false; // Illegal characters in comment
                         }
-                        $element = substr($element, 0, $indexBrace);
+                        $element       = substr($element, 0, $indexBrace);
                         $elementLength = strlen($element);
                     }
                 }
@@ -1138,13 +1139,14 @@ class Sand extends Atom
     /**
      * Pomocná funkce pro překódování vícerozměrného pole.
      *
+     * @see recursiveIconv
      * @param mixed  $val
      * @param string $key
-     * @param mixed  $userdata
+     * @param mixed  $encodings
      */
-    public function arrayIconv(&$val, $key, $userdata)
+    public function arrayIconv(&$val, $key, $encodings)
     {
-        $val = iconv($userdata[0], $userdata[1], $val);
+        $val = iconv($encodings[0], $encodings[1], $val);
     }
 
     /**
@@ -1214,8 +1216,8 @@ class Sand extends Atom
     public static function humanFilesize($filesize)
     {
         if (is_numeric($filesize)) {
-            $decr = 1024;
-            $step = 0;
+            $decr   = 1024;
+            $step   = 0;
             $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
             while (($filesize / $decr) > 0.9) {

@@ -117,7 +117,7 @@ class Shared extends Atom
      *
      * @link   http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      *
-     * @return EaseWebPage
+     * @return \Ease\Shared
      */
     public static function singleton($class = null)
     {

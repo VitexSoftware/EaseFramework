@@ -25,27 +25,6 @@ class Brick extends Sand
     public $myTable = '';
 
     /**
-     * Sql Struktura databáze. Je obsažena ve dvou podpolích $SqlStruct['ms'] a $SqlStruct['my'].
-     *
-     * @var array
-     */
-    public $sqlStruct = null;
-
-    /**
-     * Funkční sloupečky pro MS.
-     *
-     * @var array
-     */
-    public $msDbRoles = null;
-
-    /**
-     * Funkční sloupečky pro My.
-     *
-     * @var array
-     */
-    public $myDbRoles = null;
-
-    /**
      * Odkaz na objekt uživatele.
      *
      * @var User | EaseAnonym
@@ -84,16 +63,18 @@ class Brick extends Sand
      */
     public function setObjectName($objectName = null)
     {
+        $result = null;
         if ($objectName) {
-            return parent::setObjectName($objectName);
+            $result = parent::setObjectName($objectName);
         } else {
             $key = $this->getMyKey($this->data);
             if ($key) {
-                return parent::setObjectName(get_class($this).'@'.$key);
+                $result = parent::setObjectName(get_class($this).'@'.$key);
             } else {
-                return parent::setObjectName();
+                $result = parent::setObjectName();
             }
         }
+        return $result;
     }
 
     /**
@@ -107,6 +88,7 @@ class Brick extends Sand
      */
     public function setUpUser(&$user, &$targetObject = null)
     {
+        $result = null;
         if (is_object($user)) {
             if (is_object($targetObject)) {
                 $targetObject->user = &$user;
@@ -114,10 +96,11 @@ class Brick extends Sand
                 $this->user = &$user;
             }
 
-            return true;
+            $result = true;
         } else {
-            return false;
+            $result = false;
         }
+        return $result;
     }
 
     /**
@@ -128,16 +111,16 @@ class Brick extends Sand
     public function &getUser()
     {
         if (isset($this->user)) {
-            $User = &$this->user;
+            $user = &$this->user;
         } else {
-            if (isset($this->easeShared->User)) {
-                $User = &$this->easeShared->User;
+            if (isset($this->easeShared->user)) {
+                $user = &$this->easeShared->user;
             } else {
-                $User = null;
+                $user = null;
             }
         }
 
-        return $User;
+        return $user;
     }
 
     /**
@@ -148,11 +131,12 @@ class Brick extends Sand
      * @param bool   $addIcons prida UTF8 ikonky na zacatek zprav
      * @param bool   $addToLog zapisovat zpravu do logu ?
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true, $addToLog = true)
+    public function addStatusMessage($message, $type = 'info', $addIcons = true,
+                                     $addToLog = true)
     {
         if ($addIcons) {
             switch ($type) {
-                case 'mail':                    // Obalka
+                case 'mail':                       // Envelope
                     $message = ' ✉ '.$message;
                     break;
                 case 'warning':                    // Vykřičník v trojůhelníku
@@ -204,7 +188,9 @@ class Brick extends Sand
      *
      * @return array
      */
-    public function getColumnsFromSQL($columnsList, $conditions = null, $orderBy = null, $indexBy = null, $limit = null)
+    public function getColumnsFromSQL($columnsList, $conditions = null,
+                                      $orderBy = null, $indexBy = null,
+                                      $limit = null)
     {
         if (is_null($this->dblink)) {
             $this->takemyTable();
@@ -263,13 +249,16 @@ class Brick extends Sand
                 $columnsList[$id] = $cc.$column.$cc;
             }
 
-            return $this->dblink->queryToArray('SELECT '.implode(',', $columnsList).' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond, $indexBy);
+            return $this->dblink->queryToArray('SELECT '.implode(',',
+                        $columnsList).' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
+                    $indexBy);
         } else {
             if (!strstr($columnsList, '*')) {
                 $columnsList = $cc.$columnsList.$cc;
             }
 
-            return $this->dblink->queryToArray('SELECT '.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond, $indexBy);
+            return $this->dblink->queryToArray('SELECT '.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
+                    $indexBy);
         }
     }
 
@@ -293,7 +282,7 @@ class Brick extends Sand
         if (is_null($itemID)) {
             $this->error('loadFromSQL: Unknown Key', $this->data);
         }
-        $cc = $this->dblink->getColumnComma();
+        $cc       = $this->dblink->getColumnComma();
         $queryRaw = 'SELECT * FROM '.$cc.$this->myTable.$cc.' WHERE '.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
@@ -312,7 +301,7 @@ class Brick extends Sand
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
-        $SQLResult = $this->getDataFromSQL($itemID);
+        $SQLResult              = $this->getDataFromSQL($itemID);
         $this->multipleteResult = (count($SQLResult) > 1);
 
         if ($this->multipleteResult) {
@@ -347,7 +336,9 @@ class Brick extends Sand
      *
      * @return array
      */
-    public function getAllFromSQL($tableName = null, $columnsList = null, $limit = null, $orderByColumn = null, $ColumnToIndex = null)
+    public function getAllFromSQL($tableName = null, $columnsList = null,
+                                  $limit = null, $orderByColumn = null,
+                                  $ColumnToIndex = null)
     {
         if (is_null($tableName)) {
             $tableName = $this->myTable;
@@ -370,9 +361,12 @@ class Brick extends Sand
         if (!$columnsList) {
             $cc = $this->dblink->getColumnComma();
 
-            return $this->dblink->queryToArray('SELECT * FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond, $ColumnToIndex);
+            return $this->dblink->queryToArray('SELECT * FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
+                    $ColumnToIndex);
         } else {
-            return $this->dblink->queryToArray('SELECT '.implode(',', $columnsList).' FROM '.$tableName.$limitCond.$orderByCond, $ColumnToIndex);
+            return $this->dblink->queryToArray('SELECT '.implode(',',
+                        $columnsList).' FROM '.$tableName.$limitCond.$orderByCond,
+                    $ColumnToIndex);
         }
     }
 
@@ -390,7 +384,7 @@ class Brick extends Sand
         }
 
         if (is_null($data)) {
-            $data = $this->getData();
+            $data        = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -405,7 +399,8 @@ class Brick extends Sand
         if (!isset($data[$this->myKeyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->error(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn, $data);
+                $this->error(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn,
+                    $data);
 
                 return;
             }
@@ -418,7 +413,7 @@ class Brick extends Sand
             $data[$this->myLastModifiedColumn] = 'NOW()';
         }
 
-        $cc = $this->dblink->getColumnComma();
+        $cc       = $this->dblink->getColumnComma();
         $queryRaw = 'UPDATE '.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).'  WHERE '.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->EaseAddSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
@@ -455,9 +450,11 @@ class Brick extends Sand
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
-                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(), [$this->getmyKeyColumn() => $this->getMyKey($data)]);
+                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(),
+                        [$this->getmyKeyColumn() => $this->getMyKey($data)]);
                 } else {
-                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(), $data);
+                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(),
+                        $data);
                     if (count($rowsFound)) {
                         if (is_numeric($rowsFound[0][$this->getmyKeyColumn()])) {
                             $data[$this->getmyKeyColumn()] = (int) $rowsFound[0][$this->getmyKeyColumn()];
@@ -473,7 +470,8 @@ class Brick extends Sand
                     $result = $this->insertToSQL($data);
                 }
             } else {
-                if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn]) && strlen($data[$this->myKeyColumn])) {
+                if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn])
+                    && strlen($data[$this->myKeyColumn])) {
                     $result = $this->updateToSQL($data);
                 } else {
                     $result = $this->insertToSQL($data);
@@ -498,7 +496,7 @@ class Brick extends Sand
     public function insertToSQL($data = null)
     {
         if (is_null($data)) {
-            $data = $this->getData();
+            $data        = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -513,7 +511,8 @@ class Brick extends Sand
         if ($this->myCreateColumn && !isset($data[$this->myCreateColumn])) {
             $data[$this->myCreateColumn] = 'NOW()';
         }
-        $queryRaw = 'INSERT INTO '.$this->dblink->getColumnComma().$this->myTable.$this->dblink->getColumnComma().' '.$this->dblink->arrayToInsertQuery($data, false);
+        $queryRaw = 'INSERT INTO '.$this->dblink->getColumnComma().$this->myTable.$this->dblink->getColumnComma().' '.$this->dblink->arrayToInsertQuery($data,
+                false);
         $this->dblink->useObject($this);
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
@@ -578,7 +577,8 @@ class Brick extends Sand
      *
      * @return mixed převzatá do pole
      */
-    public function takeToData($data, $column, $mayBeNull = false, $RenameAs = null)
+    public function takeToData($data, $column, $mayBeNull = false,
+                               $RenameAs = null)
     {
         if (isset($data[$column])) {
             if ($RenameAs) {
@@ -613,7 +613,7 @@ class Brick extends Sand
         if (!$myKeyColumn) {
             $myKeyColumn = $this->myKeyColumn;
         }
-        $cc = $this->dblink->getColumnComma();
+        $cc        = $this->dblink->getColumnComma();
         $listQuery = "SELECT $cc".$myKeyColumn."$cc FROM $tableName ";
 
         $this->dblink->queryToArray($listQuery);
@@ -659,18 +659,6 @@ class Brick extends Sand
     public function MyIDExists($id)
     {
         return $this->dblink->queryToValue('SELECT COUNT(*) FROM '.$this->myTable.' WHERE '.$this->getmyKeyColumn().'='.intval($id));
-    }
-
-    /**
-     * Existuje záznam daného ID v databázi.
-     *
-     * @param int $id
-     *
-     * @return int vrací počet položek s daným ID
-     */
-    public function MSIDExists($id)
-    {
-        return $this->msDbLink->queryToValue('SELECT COUNT(*) FROM '.$this->msTable.' WHERE '.$this->getMSKeyColumn().'='.intval($id));
     }
 
     /**
@@ -795,12 +783,13 @@ class Brick extends Sand
      */
     public function searchColumns($searchTerm, $columns)
     {
-        $sTerm = $this->dblink->AddSlashes($searchTerm);
+        $sTerm     = $this->dblink->AddSlashes($searchTerm);
         $conditons = [];
         foreach ($columns as $column) {
             $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
         }
 
-        return $this->dblink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '.implode(' OR ', $conditons));
+        return $this->dblink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '.implode(' OR ',
+                    $conditons));
     }
 }
