@@ -40,7 +40,7 @@ class BrickTest extends SandTest
     public function testgetStatusMessages()
     {
         $this->object->cleanMessages();
-        $this->object->addStatusMessage('Message', 'email');
+        $this->object->addStatusMessage('Message', 'mail');
         $this->object->addStatusMessage('Message', 'warning');
         $this->object->addStatusMessage('Message', 'debug');
         $this->object->addStatusMessage('Message', 'error');

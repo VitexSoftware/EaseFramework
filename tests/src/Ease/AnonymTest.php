@@ -9,7 +9,6 @@ use Ease\Anonym;
  */
 class AnonymTest extends BrickTest
 {
-
     /**
      * @var Anonym
      */
@@ -35,62 +34,44 @@ class AnonymTest extends BrickTest
 
     /**
      * @covers Ease\Anonym::setObjectName
-     * @todo   Implement testSetObjectName().
      */
     public function testSetObjectName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals(get_class($this->object),
+            $this->object->setObjectName());
+        $this->assertEquals('Test', $this->object->setObjectName('Test'));
     }
 
     /**
      * @covers Ease\Anonym::getUserLevel
-     * @todo   Implement testGetUserLevel().
      */
     public function testGetUserLevel()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals(-1, $this->object->getUserLevel());
     }
 
     /**
      * @covers Ease\Anonym::getUserID
-     * @todo   Implement testGetUserID().
      */
     public function testGetUserID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getUserID());
     }
 
     /**
      * @covers Ease\Anonym::getUserLogin
-     * @todo   Implement testGetUserLogin().
      */
     public function testGetUserLogin()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getUserLogin());
     }
 
     /**
      * @covers Ease\Anonym::isLogged
-     * @todo   Implement testIsLogged().
      */
     public function testIsLogged()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertFalse($this->object->isLogged());
     }
 
     /**
@@ -140,5 +121,4 @@ class AnonymTest extends BrickTest
             'This test has not been implemented yet.'
         );
     }
-
 }
