@@ -231,8 +231,7 @@ class Shared extends Atom
             $shared->webPage = &$oPage;
         }
         if (!is_object($shared->webPage)) {
-            include_once 'WebPage.php';
-            self::webPage(EaseWebPage::singleton());
+            self::webPage(WebPage::singleton());
         }
 
         return $shared->webPage;
