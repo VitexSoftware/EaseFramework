@@ -125,7 +125,7 @@ class Navbar extends \Ease\Html\Div
      *
      * @param string $name
      * @param array  $items
-     * 
+     *
      * @return \Ease\Html\UlTag
      */
     public function &addDropDownSubmenu($name, $items)

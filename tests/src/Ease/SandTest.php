@@ -155,12 +155,11 @@ class SandTest extends AtomTest
     {
         $this->assertNull($this->object->setData(null));
 
-        $data = ['a' => 1, 'b' => 2];
+        $data               = ['a' => 1, 'b' => 2];
         $this->object->setData($data, true);
         $this->assertEquals($data, $this->object->getData());
         $this->object->data = null;
-        $this->assertEquals(1,$this->object->setData(1));
-
+        $this->assertEquals(1, $this->object->setData(1));
     }
 
     /**
@@ -193,7 +192,6 @@ class SandTest extends AtomTest
         $this->object->setData($data);
         $this->assertEquals(2, $this->object->getDataValue('b'));
         $this->assertNull($this->object->getDataValue('c'));
-
     }
 
     /**
@@ -304,10 +302,9 @@ class SandTest extends AtomTest
         $b = $this->object->randomNumber();
         $this->assertFalse($a == $b);
 
-        $this->assertGreaterThan(9, $this->object->randomNumber(10,20));
-        $this->assertLessThan(21, $this->object->randomNumber(10,20));
-        $this->assertFalse($this->object->randomNumber(30,20));
-
+        $this->assertGreaterThan(9, $this->object->randomNumber(10, 20));
+        $this->assertLessThan(21, $this->object->randomNumber(10, 20));
+        $this->assertFalse($this->object->randomNumber(30, 20));
     }
 
     /**
@@ -334,26 +331,13 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::recursiveIconv
-     * @todo   Implement testRecursiveIconv().
      */
     public function testRecursiveIconv()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Sand::arrayIconv
-     * @todo   Implement testArrayIconv().
-     */
-    public function testArrayIconv()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $original = ["\x80", "\x95"];
+        $exepted  = ["\xe2\x82\xac", "\xe2\x80\xa2"];
+        $this->assertEquals($exepted,
+            $this->object->recursiveIconv('cp1252', 'utf-8', $original));
     }
 
     /**
@@ -403,7 +387,7 @@ class SandTest extends AtomTest
             $this->object->humanFilesize('12345453453'));
         $this->assertEquals('1.1 PB',
             $this->object->humanFilesize('1234545345332235'));
-        $this->assertEquals('NaN',$this->object->humanFilesize(false));
+        $this->assertEquals('NaN', $this->object->humanFilesize(false));
     }
 
     /**

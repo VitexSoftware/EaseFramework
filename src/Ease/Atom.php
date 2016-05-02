@@ -151,7 +151,7 @@ class Atom
     }
 
     /**
-     * Default Drav method.
+     * Default Draw method.
      *
      * @return string
      */

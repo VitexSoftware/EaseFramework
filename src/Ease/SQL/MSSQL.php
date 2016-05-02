@@ -20,14 +20,14 @@ namespace Ease\SQL;
  */
 class MSSQL extends SQL
 {
-    public $Debug = false;
-    public $NumRows = 0;
+    public $Debug        = false;
+    public $NumRows      = 0;
     public $lastInsertID = 0;
-    public $LastQuery = '';
-    public $Result = null;
-    public $ResultArray = null;
-    public $myDbLink = null;
-    public $Lockfile = 'mssql-offline';
+    public $LastQuery    = '';
+    public $Result       = null;
+    public $ResultArray  = null;
+    public $dbLink       = null;
+    public $Lockfile     = 'mssql-offline';
 
     /**
      * Hack pro svéhlavé FreeTDS na windows co ignoruje konfiguraci.
@@ -60,7 +60,7 @@ class MSSQL extends SQL
         'QUOTED_IDENTIFIER' => 'ON',
         'CONCAT_NULL_YIELDS_NULL' => 'ON',
         'ANSI_WARNINGS' => 'ON',
-        'ANSI_PADDING' => 'ON', ];
+        'ANSI_PADDING' => 'ON',];
 
     /**
      * Saves obejct instace (singleton...).
@@ -86,6 +86,7 @@ class MSSQL extends SQL
      *
      * @param type $Mode
      */
+
     public function __construct($Mode = 'online')
     {
         if (defined('FREETDS_RECODE')) {
@@ -120,7 +121,7 @@ class MSSQL extends SQL
     public static function singleton($Mode = 'online')
     {
         if (!isset(self::$_instance)) {
-            $ClassName = __CLASS__;
+            $ClassName       = __CLASS__;
             self::$_instance = new $ClassName($Mode);
         }
 
@@ -141,13 +142,14 @@ class MSSQL extends SQL
         }
         if (!function_exists('mssql_connect')) {
             $this->error('ConnectReal: MSSQL is not compiled in');
-            $this->Status = 'error';
+            $this->Status      = 'error';
             $this->LastMessage = 'MSSQL is not compiled in';
             $this->makeReport();
 
             return;
         }
-        $this->SQLLink = mssql_connect($this->Server, $this->username, $this->Password);
+        $this->SQLLink = mssql_connect($this->Server, $this->username,
+            $this->Password);
         if ($this->SQLLink) {
             $this->Connected = true;
             mssql_min_error_severity(2);
@@ -218,8 +220,8 @@ class MSSQL extends SQL
 
         $SQLAction = trim(strtolower(current(explode(' ', $QueryRaw))));
 
-        $this->Result = null;
-        $this->LastMessage = null;
+        $this->Result       = null;
+        $this->LastMessage  = null;
         $this->lastInsertID = null;
 
         $QueryRaw = $this->sanitizeQuery($QueryRaw);
@@ -232,7 +234,7 @@ class MSSQL extends SQL
 
         if ($this->Mode == 'online') {
             //ob_start();
-            $this->Result = mssql_query($QueryRaw, $this->SQLLink);
+            $this->Result      = mssql_query($QueryRaw, $this->SQLLink);
             $this->LastMessage = mssql_get_last_message();
             if (($this->LastMessage == 'The statement has been terminated.') || !$this->Result) {
                 $this->errorText = $this->LastMessage.":\n".$this->LastQuery;
@@ -260,7 +262,7 @@ class MSSQL extends SQL
             switch ($SQLAction) {
                 case 'select':
                 case 'show':
-                    $this->NumRows = @mssql_num_rows($this->Result);
+                    $this->NumRows      = @mssql_num_rows($this->Result);
                     break;
                 case 'insert':
                     $this->lastInsertID = (int) current(mssql_fetch_row($this->Result));
@@ -284,7 +286,8 @@ class MSSQL extends SQL
             }
         } else { //Offline MOD
             if ($this->debug) {
-                $this->addToLog('Offline Query:'.$this->Utf8($this->LastQuery), 'warning');
+                $this->addToLog('Offline Query:'.$this->Utf8($this->LastQuery),
+                    'warning');
             }
         }
 
@@ -302,7 +305,7 @@ class MSSQL extends SQL
     public function queryToArray($queryRaw, $KeyColumnToIndex = false)
     {
         $this->resultArray = null;
-        $this->Result = $this->exeQuery($queryRaw);
+        $this->Result      = $this->exeQuery($queryRaw);
         if (!$this->Result) {
             return;
         }
@@ -323,7 +326,8 @@ class MSSQL extends SQL
         }
         if (count($this->resultArray)) {
             if ($this->WinToUtfRecode) {
-                $this->resultArray = $this->recursiveIconv('windows-1250', 'utf-8', $this->resultArray);
+                $this->resultArray = $this->recursiveIconv('windows-1250',
+                    'utf-8', $this->resultArray);
             }
 
             return $this->resultArray;
@@ -362,7 +366,7 @@ class MSSQL extends SQL
             return;
         }
 
-        $QueryRaw = "SELECT COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,IS_NULLABLE,NUMERIC_PRECISION,DOMAIN_NAME FROM INFORMATION_SCHEMA.Columns WHERE TABLE_NAME = '$TableName'";
+        $QueryRaw    = "SELECT COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,IS_NULLABLE,NUMERIC_PRECISION,DOMAIN_NAME FROM INFORMATION_SCHEMA.Columns WHERE TABLE_NAME = '$TableName'";
         $StructQuery = $this->exeQuery($QueryRaw);
         $TableStruct = mssql_num_rows($StructQuery);
         if ($TableStruct) {
@@ -397,8 +401,8 @@ class MSSQL extends SQL
      */
     public function prepCols($data, $PermitKeyColumn = false)
     {
-        $Values = '';
-        $Columns = '';
+        $Values   = '';
+        $Columns  = '';
         $ANSIDate = null;
         foreach ($data as $Column => $value) {
             if (!$PermitKeyColumn) {
@@ -417,11 +421,11 @@ class MSSQL extends SQL
                     }
                     break;
                 case 'null':
-                    $Values .= ' null,';
+                    $Values   .= ' null,';
                     break;
                 case 'integer':
                 case 'double':
-                    $Values .= ' '.str_replace(',', '.', $value).',';
+                    $Values   .= ' '.str_replace(',', '.', $value).',';
                     break;
                 default:
                     //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
@@ -438,7 +442,7 @@ class MSSQL extends SQL
             $Columns .= " [$Column],";
         }
         $Columns = substr($Columns, 0, -1);
-        $Values = substr($Values, 0, -1);
+        $Values  = substr($Values, 0, -1);
 
         return [$Columns, $Values];
     }
@@ -525,7 +529,7 @@ class MSSQL extends SQL
             }
             if ($value[0] == '!') {
                 $operator = ' != ';
-                $value = substr($value, 1);
+                $value    = substr($value, 1);
             } else {
                 $operator = ' = ';
             }
@@ -546,7 +550,7 @@ class MSSQL extends SQL
                     $value = " $value";
                 }
             } else {
-                $value = " '$value'";
+                $value    = " '$value'";
                 $operator = ' LIKE ';
             }
 
@@ -614,7 +618,8 @@ class MSSQL extends SQL
      */
     public function sanitizeQuery($QueryRaw)
     {
-        $SanitizedQuery = str_replace(["\'", '\"'], ["''", '""'], parent::SanitizeQuery($QueryRaw));
+        $SanitizedQuery = str_replace(["\'", '\"'], ["''", '""'],
+            parent::SanitizeQuery($QueryRaw));
 
         return $SanitizedQuery;
     }
@@ -628,7 +633,7 @@ class MSSQL extends SQL
      */
     public function listTables($Sort = false)
     {
-        $TablesList = [];
+        $TablesList  = [];
         $TablesQuery = $this->queryToArray("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type FROM INFORMATION_SCHEMA.TABLES");
         if (is_array($TablesQuery)) {
             foreach ($TablesQuery as $TableName) {
@@ -666,6 +671,7 @@ class MSSQL extends SQL
  */
 class EaseMSDbPinger extends EaseDbMSSQL
 {
+
     /**
      * Teste provedeme již při připojení.
      */
@@ -703,7 +709,8 @@ class EaseMSDbPinger extends EaseDbMSSQL
 
             return true;
         } else {
-            $this->error('WriteLockFile: Lockfile '.realpath($this->Lockfile).' could not be written', $this->TestDirectory(dirname($this->Lockfile)));
+            $this->error('WriteLockFile: Lockfile '.realpath($this->Lockfile).' could not be written',
+                $this->TestDirectory(dirname($this->Lockfile)));
 
             return false;
         }
@@ -720,14 +727,16 @@ class EaseMSDbPinger extends EaseDbMSSQL
             $LockFile = $this->Lockfile;
         }
         if (!file_exists($LockFile)) {
-            $this->addToLog('MSSQL Lockfile '.$LockFile.' doesn\'t exist', 'warning');
+            $this->addToLog('MSSQL Lockfile '.$LockFile.' doesn\'t exist',
+                'warning');
 
             return true;
         }
 
         unlink($LockFile);
         if (file_exists($LockFile)) {
-            $this->error('DropLockFile: Lockfile '.realpath($this->Lockfile).' alive', $this->TestDirectory(dirname($this->Lockfile)));
+            $this->error('DropLockFile: Lockfile '.realpath($this->Lockfile).' alive',
+                $this->TestDirectory(dirname($this->Lockfile)));
 
             return false;
         }

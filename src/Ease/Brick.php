@@ -25,27 +25,6 @@ class Brick extends Sand
     public $myTable = '';
 
     /**
-     * Sql Struktura databáze. Je obsažena ve dvou podpolích $SqlStruct['ms'] a $SqlStruct['my'].
-     *
-     * @var array
-     */
-    public $sqlStruct = null;
-
-    /**
-     * Funkční sloupečky pro MS.
-     *
-     * @var array
-     */
-    public $msDbRoles = null;
-
-    /**
-     * Funkční sloupečky pro My.
-     *
-     * @var array
-     */
-    public $myDbRoles = null;
-
-    /**
      * Odkaz na objekt uživatele.
      *
      * @var User | EaseAnonym
@@ -213,6 +192,10 @@ class Brick extends Sand
                                       $orderBy = null, $indexBy = null,
                                       $limit = null)
     {
+        if (is_null($this->dblink)) {
+            $this->takemyTable();
+        }
+
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
             $this->error('getColumnsFromSQL: Missing ColumnList');
@@ -676,18 +659,6 @@ class Brick extends Sand
     public function MyIDExists($id)
     {
         return $this->dblink->queryToValue('SELECT COUNT(*) FROM '.$this->myTable.' WHERE '.$this->getmyKeyColumn().'='.intval($id));
-    }
-
-    /**
-     * Existuje záznam daného ID v databázi.
-     *
-     * @param int $id
-     *
-     * @return int vrací počet položek s daným ID
-     */
-    public function MSIDExists($id)
-    {
-        return $this->msDbLink->queryToValue('SELECT COUNT(*) FROM '.$this->msTable.' WHERE '.$this->getMSKeyColumn().'='.intval($id));
     }
 
     /**

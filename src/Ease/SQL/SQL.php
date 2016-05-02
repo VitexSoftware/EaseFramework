@@ -646,4 +646,14 @@ abstract class SQL extends \Ease\Sand
     {
         return '';
     }
+
+    /**
+     * Return conect status.
+     * 
+     * @return boolean
+     */
+    public function isConnected()
+    {
+        return $this->status;
+    }
 }
