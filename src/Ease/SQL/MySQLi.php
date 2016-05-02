@@ -154,7 +154,7 @@ class MySQLi extends SQL
             $this->errorNumber = $this->sqlLink->errno;
             $this->errorText   = $this->sqlLink->error;
             if (!$this->result && !$ignoreErrors) {
-                if (EaseShared::isCli()) {
+                if (\Ease\Shared::isCli()) {
                     if (function_exists('xdebug_call_function')) {
                         echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
                     }
