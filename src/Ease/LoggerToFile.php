@@ -8,7 +8,7 @@
  */
 namespace Ease;
 
-class Logger extends Atom
+class LoggerToFile extends Atom
 {
     /**
      * Předvolená metoda logování.

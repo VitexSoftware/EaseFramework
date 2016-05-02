@@ -105,7 +105,7 @@ class Sand extends Atom
      *
      * @var Logger
      */
-    public $logType = 'Logger';
+    public $logType = null;
 
     /**
      * Odkaz na vlastnící objekt.
@@ -127,14 +127,19 @@ class Sand extends Atom
     public function __construct()
     {
         $this->easeShared = Shared::singleton();
+        if (!$this->logType && defined('LOG_TYPE')) {
+            $this->logType = constant('LOG_TYPE');
+        }
         switch ($this->logType) {
             case 'file':
-                $this->logger = Logger::singleton();
+                $this->logger = LoggerToFile::singleton();
                 break;
             case 'syslog':
-                $this->logger = SysLogger::singleton();
+                $this->logger = LoggerToSyslog::singleton();
                 break;
+            case 'memory':
             default:
+                $this->logger = LoggerToMemory::singleton();
                 break;
         }
 
@@ -242,7 +247,7 @@ class Sand extends Atom
     }
 
     /**
-     * Uloží identitu objektu do pole $this->Identity.
+     * Uloží identitu objektu do pole $this->identity.
      *
      * @return array pole s identitou
      */

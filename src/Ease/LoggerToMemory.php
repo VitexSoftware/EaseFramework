@@ -4,24 +4,32 @@
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2015 Vitex@hippy.cz (G)
+ * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
 namespace Ease;
 
-/**
- * Třída pro logování.
- *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
- */
-class SysLogger extends Atom
+class Logger extends Atom
 {
     /**
      * Předvolená metoda logování.
      *
      * @var string
      */
-    public $logType = 'syslog';
+    public $logType = 'file';
+
+    /**
+     * Adresář do kterého se zapisují logy.
+     *
+     * @var string dirpath
+     */
+    public $logPrefix = null;
+
+    /**
+     * Soubor s do kterého se zapisuje log.
+     *
+     * @var string
+     */
+    public $logFileName = 'Ease.log';
 
     /**
      * úroveň logování.
@@ -29,6 +37,20 @@ class SysLogger extends Atom
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
+
+    /**
+     * Soubor do kterého se zapisuje report.
+     *
+     * @var string filepath
+     */
+    public $reportFile = 'EaseReport.log';
+
+    /**
+     * Soubor do kterého se lougují pouze zprávy typu Error.
+     *
+     * @var string filepath
+     */
+    public $errorLogFile = 'EaseErrors.log';
 
     /**
      * Hodnoty pro obarvování logu.
@@ -49,9 +71,23 @@ class SysLogger extends Atom
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var Sand ||
+     * @var EaseSand ||
      */
     public $parentObject = null;
+
+    /**
+     * Filedescriptor Logu.
+     *
+     * @var resource
+     */
+    private $_logFileHandle = null;
+
+    /**
+     * Filedescriptor chybového Logu.
+     *
+     * @var resource
+     */
+    private $_errorLogFileHandle = null;
 
     /**
      * Ukládat Zprávy do pole;.
@@ -87,23 +123,12 @@ class SysLogger extends Atom
     private static $_instance = null;
 
     /**
-     * Handle to logger.
-     *
-     * @var resource
+     * Keep log in memory Class.
      */
-    public $logger = null;
-
-    /**
-     * Logovací třída.
-     *
-     * @param string $
-     */
-    public function __construct($logName = null)
+    public function __construct()
     {
-        if (!is_null($logName)) {
-            $this->logger = openlog($logName, LOG_NDELAY, LOG_USER);
-        }
-        //        $this->easeShared = Shared::singleton();
+        $this->easeShared = Shared::singleton();
+        $this->setupLogFiles();
     }
 
     /**
@@ -117,12 +142,8 @@ class SysLogger extends Atom
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $class = __CLASS__;
-            if (defined('LOG_NAME')) {
-                self::$_instance = new $class(constant('LOG_NAME'));
-            } else {
-                self::$_instance = new $class('EaseFramework');
-            }
+            $Class = __CLASS__;
+            self::$_instance = new $Class();
         }
 
         return self::$_instance;
@@ -183,20 +204,18 @@ class SysLogger extends Atom
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = ' ~'.$caller.'~ '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
+        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
-
-        switch ($type) {
-            case 'error':
-                syslog(LOG_ERR, $logLine);
-                break;
-            default:
-                syslog(LOG_INFO, $logLine);
-                break;
+        if ($this->logType == 'console' || $this->logType == 'both') {
+            if ($this->runType == 'cgi') {
+                echo $LogLine;
+            } else {
+                echo '<div style="'.$this->logStyles[$type].'">'.$LogLine."</div>\n";
+                flush();
+            }
         }
-
         return true;
     }
 
@@ -209,20 +228,7 @@ class SysLogger extends Atom
      */
     public function error($caller, $message, $objectData = null)
     {
-        if (!is_null($objectData)) {
-            $message .= print_r($objectData, true);
-        }
         $this->addToLog($caller, $message, 'error');
-    }
-
-    /**
-     * Uzavře chybové soubory.
-     */
-    public function __destruct()
-    {
-        if ($this->logger) {
-            closelog();
-        }
     }
 
     /**
@@ -238,23 +244,6 @@ class SysLogger extends Atom
             return $this->logStyles[$logType];
         } else {
             return '';
-        }
-    }
-
-    /**
-     * Flush Messages.
-     *
-     * @param string $caller
-     */
-    public function flush($caller = null)
-    {
-        if (count($this->statusMessages)) {
-            foreach ($this->statusMessages as $type => $messages) {
-                foreach ($messages as $message) {
-                    $this->addToLog($caller, $message, $type);
-                }
-            }
-            $this->cleanMessages();
         }
     }
 }
