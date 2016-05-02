@@ -1,16 +1,17 @@
 <?php
 
 namespace Ease\Example;
+
 use Ease\Html\ATag;
 
 class AppMenu extends \Ease\TWB\Navbar
 {
 
     /**
-     * Menu aplikace.
+     * Application Menu.
      *
      * @param string           $name
-     * @param EaseImage|string $Content
+     * @param string|\Ease\Html\ImgTag           $brand  Boostrap Menu Brand
      * @param array            $properties
      */
     public function __construct($name = null, $brand = null, $properties = null)
@@ -22,17 +23,17 @@ class AppMenu extends \Ease\TWB\Navbar
         $this->addDropDownMenu(
             _('Systém'),
             array(
-            'settings.php' => '<i class="icon-list"></i>&nbsp;' . _('Settings'),
-            'shutdown.php' => '<i class="icon-list"></i>&nbsp;' . _('Shutdown'),
-                )
+            'settings.php' => '<i class="icon-list"></i>&nbsp;'._('Settings'),
+            'shutdown.php' => '<i class="icon-list"></i>&nbsp;'._('Shutdown'),
+            )
         );
 
         $this->addDropDownMenu(
             _('Informace'),
             array(
-            'log.php' => '<i class="icon-list"></i>&nbsp;' . _('System log'),
-            'http://h.v.s.cz/' => '<i class="icon-list"></i>&nbsp;' . _('Hosting'),
-                )
+            'log.php' => '<i class="icon-list"></i>&nbsp;'._('System log'),
+            'http://h.v.s.cz/' => '<i class="icon-list"></i>&nbsp;'._('Hosting'),
+            )
         );
     }
 }
