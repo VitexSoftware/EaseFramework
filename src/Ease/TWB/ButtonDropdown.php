@@ -25,7 +25,8 @@ class ButtonDropdown extends \Ease\Html\Div
      * @param array  $items      položky menu
      * @param array  $properties Parametry tagu
      */
-    public function __construct($label = null, $type = 'default', $size = null, $items = null, $properties = null)
+    public function __construct($label = null, $type = 'default', $size = null,
+                                $items = null, $properties = null)
     {
         parent::__construct(null, $properties);
         $this->setTagClass('btn-group');
@@ -33,8 +34,10 @@ class ButtonDropdown extends \Ease\Html\Div
         if ($size) {
             $btnClass .= 'btn-'.$size;
         }
-        $this->button = $this->addItem(new \Ease\Html\ButtonTag([$label.' <span class="caret"></span>'], ['class' => $btnClass.' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown']));
-        $this->dropdown = $this->addItem(new \Ease\Html\UlTag(null, ['class' => 'dropdown-menu', 'role' => 'menu']));
+        $this->button   = $this->addItem(new \Ease\Html\ButtonTag([$label.' <span class="caret"></span>'],
+            ['class' => $btnClass.' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown']));
+        $this->dropdown = $this->addItem(new \Ease\Html\UlTag(null,
+            ['class' => 'dropdown-menu', 'role' => 'menu']));
         if (count($items)) {
             foreach ($items as $item) {
                 $this->addMenuItem($item);

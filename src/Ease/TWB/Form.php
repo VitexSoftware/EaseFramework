@@ -1,12 +1,13 @@
 <?php
-
 /**
  * Formulář Bootstrapu.
  */
+
 namespace Ease\TWB;
 
 class Form extends \Ease\Html\Form
 {
+
     /**
      * Formulář Bootstrapu.
      *
@@ -17,7 +18,9 @@ class Form extends \Ease\Html\Form
      * @param array  $tagProperties vlastnosti tagu například:
      *                              array('enctype' => 'multipart/form-data')
      */
-    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
+    public function __construct($formName, $formAction = null,
+                                $formMethod = 'post', $formContents = null,
+                                $tagProperties = null)
     {
         if (!isset($tagProperties['class'])) {
             $tagProperties['class'] = 'form-horizontal';
@@ -27,7 +30,8 @@ class Form extends \Ease\Html\Form
             }
         }
         $tagProperties['role'] = 'form';
-        parent::__construct($formName, $formAction, $formMethod, $formContents, $tagProperties);
+        parent::__construct($formName, $formAction, $formMethod, $formContents,
+            $tagProperties);
     }
 
     /**
@@ -38,9 +42,11 @@ class Form extends \Ease\Html\Form
      * @param string $placeholder předvysvětlující text
      * @param string $helptext    Dodatečná nápověda
      */
-    public function addInput($input, $caption = null, $placeholder = null, $helptext = null)
+    public function addInput($input, $caption = null, $placeholder = null,
+                             $helptext = null)
     {
-        return $this->addItem(new FormGroup($caption, $input, $placeholder, $helptext));
+        return $this->addItem(new FormGroup($caption, $input, $placeholder,
+                $helptext));
     }
 
     /**
@@ -55,7 +61,8 @@ class Form extends \Ease\Html\Form
     {
         if (is_object($pageItem) && method_exists($pageItem, 'setTagClass')) {
             if (strtolower($pageItem->tagType) == 'select') {
-                $pageItem->setTagClass(trim(str_replace('form_control', '', $pageItem->getTagClass().' form-control')));
+                $pageItem->setTagClass(trim(str_replace('form_control', '',
+                            $pageItem->getTagClass().' form-control')));
             }
         }
         $added = parent::addItem($pageItem, $pageItemName);

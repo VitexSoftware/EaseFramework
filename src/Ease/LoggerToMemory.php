@@ -1,14 +1,14 @@
 <?php
-
 /**
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
-class Logger extends Atom
+class LoggerToMemory extends Atom
 {
     /**
      * Předvolená metoda logování.
@@ -25,32 +25,11 @@ class Logger extends Atom
     public $logPrefix = null;
 
     /**
-     * Soubor s do kterého se zapisuje log.
-     *
-     * @var string
-     */
-    public $logFileName = 'Ease.log';
-
-    /**
      * úroveň logování.
      *
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
-
-    /**
-     * Soubor do kterého se zapisuje report.
-     *
-     * @var string filepath
-     */
-    public $reportFile = 'EaseReport.log';
-
-    /**
-     * Soubor do kterého se lougují pouze zprávy typu Error.
-     *
-     * @var string filepath
-     */
-    public $errorLogFile = 'EaseErrors.log';
 
     /**
      * Hodnoty pro obarvování logu.
@@ -74,20 +53,6 @@ class Logger extends Atom
      * @var EaseSand ||
      */
     public $parentObject = null;
-
-    /**
-     * Filedescriptor Logu.
-     *
-     * @var resource
-     */
-    private $_logFileHandle = null;
-
-    /**
-     * Filedescriptor chybového Logu.
-     *
-     * @var resource
-     */
-    private $_errorLogFileHandle = null;
 
     /**
      * Ukládat Zprávy do pole;.
@@ -128,7 +93,6 @@ class Logger extends Atom
     public function __construct()
     {
         $this->easeShared = Shared::singleton();
-        $this->setupLogFiles();
     }
 
     /**
@@ -142,8 +106,8 @@ class Logger extends Atom
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $Class = __CLASS__;
-            self::$_instance = new $Class();
+            $class           = __CLASS__;
+            self::$_instance = new $class();
         }
 
         return self::$_instance;
@@ -204,7 +168,9 @@ class Logger extends Atom
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
+        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
+                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'],
+                ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }

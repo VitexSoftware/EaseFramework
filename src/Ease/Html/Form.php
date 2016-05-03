@@ -46,7 +46,9 @@ class Form extends PairTag
         if ($formAction) {
             $this->setFormTarget($formAction);
         } else {
-            $this->setFormTarget($_SERVER['REQUEST_URI']);
+            if (isset($_SERVER['REQUEST_URI'])) {
+                $this->setFormTarget($_SERVER['REQUEST_URI']);
+            }
         }
         if (isset($formContents)) {
             $this->addItem($formContents);
