@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Abstraktní databázová třída.
  *
@@ -8,6 +7,7 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@vitexsoftware.cz (G)
  */
+
 namespace Ease\SQL;
 
 /**
@@ -285,10 +285,10 @@ abstract class SQL extends \Ease\Sand
     public function makeReport()
     {
         $this->report['LastMessage'] = $this->lastMessage;
-        $this->report['ErrorText'] = $this->errorText;
-        $this->report['Database'] = $this->database;
-        $this->report['Username'] = $this->username;
-        $this->report['Server'] = $this->server;
+        $this->report['ErrorText']   = $this->errorText;
+        $this->report['Database']    = $this->database;
+        $this->report['Username']    = $this->username;
+        $this->report['Server']      = $this->server;
     }
 
     /**
@@ -299,7 +299,8 @@ abstract class SQL extends \Ease\Sand
     public function setUp()
     {
         if (!$this->connectAllreadyUP) {
-            if (isset($this->connectionSettings) && is_array($this->connectionSettings) && count($this->connectionSettings)) {
+            if (isset($this->connectionSettings) && is_array($this->connectionSettings)
+                && count($this->connectionSettings)) {
                 foreach ($this->connectionSettings as $setName => $SetValue) {
                     if (strlen($setName)) {
                         $this->exeQuery("SET $setName $SetValue");
@@ -364,8 +365,11 @@ abstract class SQL extends \Ease\Sand
                         case 'string':
                             if (array_key_exists($column, $data) && $Size) {
                                 if (strlen($data[$column]) > $Size) {
-                                    $this->addToLog('Column '.$this->tableName.'.'.$column.' content truncated: '.substr($data[$column], $Size - strlen($data[$column])), 'warning');
-                                    $data[$column] = substr($data[$column], 0, $Size - 1).'_';
+                                    $this->addToLog('Column '.$this->tableName.'.'.$column.' content truncated: '.substr($data[$column],
+                                            $Size - strlen($data[$column])),
+                                        'warning');
+                                    $data[$column] = substr($data[$column], 0,
+                                            $Size - 1).'_';
                                 }
                             }
                             break;
@@ -463,27 +467,6 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Vrací strukturu SQL tabulky jako pole.
-     *
-     * @param string $tableName
-     *
-     * @return null|bool
-     */
-    public function describe($tableName = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->tableName;
-        }
-        if (!$this->tableExist($tableName)) {
-            $this->addToLog('Try to describe nonexistent table: '.$tableName, 'waring');
-
-            return;
-        }
-
-        return true;
-    }
-
-    /**
      * Ověří existenci tabulky.
      *
      * @param string $tableName
@@ -516,9 +499,11 @@ abstract class SQL extends \Ease\Sand
             $title = $caller['function'];
         }
         if (isset($this->easeShared->User) && is_object($this->easeShared->User)) {
-            return $this->easeShared->User->addStatusMessage($title.': #'.$this->errorNumber.' '.$this->errorText, 'error');
+            return $this->easeShared->User->addStatusMessage($title.': #'.$this->errorNumber.' '.$this->errorText,
+                    'error');
         } else {
-            return $this->addToLog($title.': #'.$this->errorNumber.' '.$this->errorText, 'error');
+            return $this->addToLog($title.': #'.$this->errorNumber.' '.$this->errorText,
+                    'error');
         }
     }
 

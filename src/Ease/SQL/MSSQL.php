@@ -353,43 +353,7 @@ class MSSQL extends SQL
         return $TableRowsCount[0]['NumRows'];
     }
 
-    /**
-     * Vrátí strukturu SQL tabulky.
-     *
-     * @param string $TableName jméno tabulky
-     *
-     * @return array
-     */
-    public function describe($TableName = null)
-    {
-        if (!parent::describe($TableName)) {
-            return;
-        }
-
-        $QueryRaw    = "SELECT COLUMN_NAME,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,IS_NULLABLE,NUMERIC_PRECISION,DOMAIN_NAME FROM INFORMATION_SCHEMA.Columns WHERE TABLE_NAME = '$TableName'";
-        $StructQuery = $this->exeQuery($QueryRaw);
-        $TableStruct = mssql_num_rows($StructQuery);
-        if ($TableStruct) {
-            while ($col = mssql_fetch_assoc($StructQuery)) {
-                if ($col['COLUMN_NAME'] == $this->KeyColumn) {
-                    $TableStructure[$col['COLUMN_NAME']]['key'] = 'primary';
-                }
-                if ($col['DOMAIN_NAME'] == 'COUNTER') {
-                    $TableStructure[$col['COLUMN_NAME']]['key'] = 'primary';
-                }
-                if (($col['CHARACTER_MAXIMUM_LENGTH']) && ($col['DATA_TYPE'] != 'text')) {
-                    $TableStructure[$col['COLUMN_NAME']]['size'] = $col['CHARACTER_MAXIMUM_LENGTH'];
-                } else {
-                    if (isset($col['NUMERIC_PRECISION'])) {
-                        $TableStructure[$col['COLUMN_NAME']]['size'] = $col['NUMERIC_PRECISION'];
-                    }
-                }
-                $TableStructure[$col['COLUMN_NAME']]['type'] = $col['DATA_TYPE'];
-            }
-        }
-
-        return $TableStructure;
-    }
+ 
 
     /**
      * Prepare columns to query fragment.
@@ -401,8 +365,8 @@ class MSSQL extends SQL
      */
     public function prepCols($data, $PermitKeyColumn = false)
     {
-        $Values   = '';
-        $Columns  = '';
+        $values   = '';
+        $columns  = '';
         $ANSIDate = null;
         foreach ($data as $Column => $value) {
             if (!$PermitKeyColumn) {
@@ -415,17 +379,17 @@ class MSSQL extends SQL
             switch (gettype($value)) {
                 case 'boolean':
                     if ($value) {
-                        $Values .= " 'True',";
+                        $values .= " 'True',";
                     } else {
-                        $Values .= " 'False',";
+                        $values .= " 'False',";
                     }
                     break;
                 case 'null':
-                    $Values   .= ' null,';
+                    $values .= ' null,';
                     break;
                 case 'integer':
                 case 'double':
-                    $Values   .= ' '.str_replace(',', '.', $value).',';
+                    $values .= ' '.str_replace(',', '.', $value).',';
                     break;
                 default:
                     //                    $ANSIDate = $this->LocaleDateToANSIDate($value);
@@ -434,17 +398,17 @@ class MSSQL extends SQL
                         $value = $ANSIDate;
                     }
                     if (strtolower($value) == 'getdate()') {
-                        $Values .= ' GetDate(),';
+                        $values .= ' GetDate(),';
                     } else {
-                        $Values .= " '".addslashes($value)."',";
+                        $values .= " '".addslashes($value)."',";
                     }
             }
-            $Columns .= " [$Column],";
+            $columns .= " [$Column],";
         }
-        $Columns = substr($Columns, 0, -1);
-        $Values  = substr($Values, 0, -1);
+        $columns = substr($columns, 0, -1);
+        $values  = substr($values, 0, -1);
 
-        return [$Columns, $Values];
+        return [$columns, $values];
     }
 
     /**
@@ -522,9 +486,9 @@ class MSSQL extends SQL
         if (!is_array($data)) {
             return $data;
         }
-        $Updates = '';
-        foreach ($data as $Column => $value) {
-            if (($Column == $this->KeyColumn) && (count($data) != 1)) {
+        $updates = '';
+        foreach ($data as $column => $value) {
+            if (($column == $this->KeyColumn) && (count($data) != 1)) {
                 continue;
             }
             if ($value[0] == '!') {
@@ -556,10 +520,10 @@ class MSSQL extends SQL
 
             // 				echo "<pre>$col:\n"; var_dump($val); echo '</pre>';
 
-            $Updates .= " [$Column] $operator $value AND";
+            $updates .= " [$column] $operator $value AND";
         }
 
-        return substr($Updates, 0, -3);
+        return substr($updates, 0, -3);
     }
 
     /**
@@ -583,43 +547,16 @@ class MSSQL extends SQL
     }
 
     /**
-     * Vytvoří tabulku podle struktůry.
-     *
-     * @param array  $TableStructure struktura tabulky
-     * @param string $TableName      jméno tabulky
-     *
-     * @return bool Success
-     */
-    public function createTable(&$TableStructure = null, $TableName = null)
-    {
-
-        /*
-          CREATE TABLE [dbo].[synctest2](
-          [ID] [int] IDENTITY(1,1) NOT null,
-          [IDS] [nchar](10) null,
-          [VALUE] [nchar](10) null,
-          [CREATED] [datetime] null,
-          [MODIFIED] [smalldatetime] null,
-          [VPrID] [int] null,
-          CONSTRAINT [PK_synctest2] PRIMARY KEY CLUSTERED
-          (
-          [ID] ASC
-          )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-          ) ON [PRIMARY]
-         */
-    }
-
-    /**
      * Odstraní z SQL dotazu "nebezpecne" znaky.
      *
-     * @param string $QueryRaw SQL Query
+     * @param string $queryRaw SQL Query
      *
      * @return string SQL Query
      */
-    public function sanitizeQuery($QueryRaw)
+    public function sanitizeQuery($queryRaw)
     {
         $SanitizedQuery = str_replace(["\'", '\"'], ["''", '""'],
-            parent::SanitizeQuery($QueryRaw));
+            parent::SanitizeQuery($queryRaw));
 
         return $SanitizedQuery;
     }
@@ -627,11 +564,11 @@ class MSSQL extends SQL
     /**
      * Vrací seznam tabulek v aktuálné použité databázi.
      *
-     * @param bool $Sort vysledek ještě setřídit
+     * @param bool $sort vysledek ještě setřídit
      *
      * @return array
      */
-    public function listTables($Sort = false)
+    public function listTables($sort = false)
     {
         $TablesList  = [];
         $TablesQuery = $this->queryToArray("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type FROM INFORMATION_SCHEMA.TABLES");
@@ -639,7 +576,7 @@ class MSSQL extends SQL
             foreach ($TablesQuery as $TableName) {
                 $TablesList[$TableName['TABLE_NAME']] = $TableName['TABLE_NAME'];
             }
-            if ($Sort) {
+            if ($sort) {
                 asort($TablesList, SORT_LOCALE_STRING);
             }
 
@@ -661,106 +598,5 @@ class MSSQL extends SQL
         } else {
             return;
         }
-    }
-}
-
-/**
- * Testuje dostupnost MSSQL serveru.
- *
- * @author Vitex <vitex@hippy.cz>
- */
-class EaseMSDbPinger extends EaseDbMSSQL
-{
-
-    /**
-     * Teste provedeme již při připojení.
-     */
-    public function connect()
-    {
-        if (!$this->ping()) {
-            $this->writeLockFile();
-        } else {
-            $this->dropLockFile();
-        }
-    }
-
-    /**
-     * Vytvoří zamykací soubor.
-     *
-     * @param string $LockFile použij jiný název zamykacího souboru
-     *
-     * @return bool
-     */
-    public function writeLockFile($LockFile = null)
-    {
-        if (!$LockFile) {
-            $LockFile = $this->Lockfile;
-        }
-        if (file_exists($LockFile)) {
-            $this->addToLog('WriteLockFile: Allready exists');
-
-            return;
-        }
-        $LockFileHandle = fopen($LockFile, 'w+');
-        if ($LockFileHandle) {
-            $this->addToLog('WriteLockFile: LockFile written');
-            fclose($LockFileHandle);
-            $this->Mode = 'offline';
-
-            return true;
-        } else {
-            $this->error('WriteLockFile: Lockfile '.realpath($this->Lockfile).' could not be written',
-                $this->TestDirectory(dirname($this->Lockfile)));
-
-            return false;
-        }
-    }
-
-    /**
-     * Odstraní zamykací soubor.
-     *
-     * @param string $LockFile cesta k zamykacímu souboru
-     */
-    public function dropLockFile($LockFile = null)
-    {
-        if (!$LockFile) {
-            $LockFile = $this->Lockfile;
-        }
-        if (!file_exists($LockFile)) {
-            $this->addToLog('MSSQL Lockfile '.$LockFile.' doesn\'t exist',
-                'warning');
-
-            return true;
-        }
-
-        unlink($LockFile);
-        if (file_exists($LockFile)) {
-            $this->error('DropLockFile: Lockfile '.realpath($this->Lockfile).' alive',
-                $this->TestDirectory(dirname($this->Lockfile)));
-
-            return false;
-        }
-        $this->addToLog('DropLockFile: '.realpath($this->Lockfile), 'succes');
-
-        return true;
-    }
-
-    /**
-     * Pokusí se po připojení socketem k SQLserveru.
-     *
-     * @param bool $Succes vynucení výsledku
-     *
-     * @return boolan
-     */
-    public function ping($Succes = null)
-    {
-        $Socket = @fsockopen($this->Server, 1433, $errno, $LastAction);
-        if (!$Socket) {
-            return parent::Ping(false);
-        } else {
-            fclose($Socket);
-        }
-
-        return parent::Ping(true);
     }
 }
