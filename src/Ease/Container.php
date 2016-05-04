@@ -151,12 +151,12 @@ class Container extends Sand
     }
 
     /**
-     * Vloží další element do aktuálního objektu.
+     * Include next element into current object
      *
-     * @param mixed  $pageItem     hodnota nebo EaseObjekt s metodou draw()
-     * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu
+     * @param mixed  $pageItem     value or EaseClass with draw() method.
+     * @param string $pageItemName Custom 'storing' name.
      *
-     * @return pointer Odkaz na vložený objekt
+     * @return mixed Pointer to included object
      */
     public function addItem($pageItem, $pageItemName = null)
     {

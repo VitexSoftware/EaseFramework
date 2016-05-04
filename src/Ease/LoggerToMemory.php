@@ -168,7 +168,7 @@ class LoggerToMemory extends Atom
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
+        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
                 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
@@ -176,9 +176,9 @@ class LoggerToMemory extends Atom
         }
         if ($this->logType == 'console' || $this->logType == 'both') {
             if ($this->runType == 'cgi') {
-                echo $LogLine;
+                echo $logLine;
             } else {
-                echo '<div style="'.$this->logStyles[$type].'">'.$LogLine."</div>\n";
+                echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";
                 flush();
             }
         }

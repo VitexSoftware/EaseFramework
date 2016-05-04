@@ -5,7 +5,7 @@ namespace Ease\TWB;
 /**
  * @deprecated since version 1.0
  */
-class GlyphIcon extends \Ease\Html\SpanTag
+class GlyphIcon extends \Ease\Html\Span
 {
 
     /**
@@ -17,7 +17,6 @@ class GlyphIcon extends \Ease\Html\SpanTag
      */
     public function __construct($code)
     {
-        parent::__construct(null, null,
-            ['class' => 'glyphicon glyphicon-'.$code]);
+        parent::__construct(null, ['class' => 'glyphicon glyphicon-'.$code]);
     }
 }
