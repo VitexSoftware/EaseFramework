@@ -212,4 +212,12 @@ class LoggerToMemory extends Atom
             return '';
         }
     }
+
+    /**
+     * Do Nothing
+     */
+    public function flush()
+    {
+        //Hotfix
+    }
 }
