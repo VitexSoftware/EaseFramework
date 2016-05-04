@@ -170,7 +170,7 @@ class MSSQL extends SQL
      *
      * @param type $DBName
      *
-     * @return bool
+     * @return boolean|null
      */
     public function selectDB($DBName = null)
     {
@@ -361,7 +361,7 @@ class MSSQL extends SQL
      * @param array $data            asociativní pole
      * @param bool  $PermitKeyColumn nepřeskočit klíčový sloupeček ?
      *
-     * @return string
+     * @return string[]
      */
     public function prepCols($data, $PermitKeyColumn = false)
     {
@@ -531,7 +531,7 @@ class MSSQL extends SQL
      *
      * @param string $TableName
      *
-     * @return boolen
+     * @return null|boolean
      */
     public function tableExist($TableName = null)
     {
@@ -589,7 +589,7 @@ class MSSQL extends SQL
     /**
      * Close SQL connecton.
      *
-     * @return bool
+     * @return boolean|null
      */
     public function close()
     {
