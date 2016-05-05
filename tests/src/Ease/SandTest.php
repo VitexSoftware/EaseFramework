@@ -30,6 +30,17 @@ class SandTest extends AtomTest
 
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct();
+    }
+
     /**
      * @covers Ease\Sand::addStatusMessage
      */
@@ -53,14 +64,11 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::cleanMessages
-     * @todo   Implement testCleanMessages().
      */
     public function testCleanMessages()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->cleanMessages();
+        $this->assertEmpty($this->object->getStatusMessages());
     }
 
     /**
