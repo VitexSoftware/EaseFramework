@@ -173,7 +173,13 @@ class Sand extends Atom
      */
     public function getStatusMessages($clean = false)
     {
-        return Shared::instanced()->getStatusMessages($clean);
+        $shared   = Shared::instanced();
+        $messages = array_merge($this->statusMessages,
+            $this->logger->statusMessages, $shared->getStatusMessages());
+        if ($clean) {
+            $this->cleanMessages();
+        }
+        return $messages;
     }
 
     /**
@@ -182,7 +188,7 @@ class Sand extends Atom
     public function cleanMessages()
     {
         parent::cleanMessages();
-
+        $this->logger->cleanMessages();
         return Shared::instanced()->cleanMessages();
     }
 
