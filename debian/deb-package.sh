@@ -8,7 +8,6 @@ ls -la
 
 VERSION=`cat version | perl -ne 'chomp; print join(".", splice(@{[split/\./,$_]}, 0, -1), map {++$_} pop @{[split/\./,$_]}), "\n";'`
 
-
 CHANGES=`git log -n 1 | tail -n+5`
 dch -b -v $VERSION --package ease-framework 
 

@@ -23,6 +23,22 @@ For Debian please use repo:
     aptitude update
     aptitude install ease-framework
 
+In this case please add this to your app composer.json:
+
+    "require": {
+        "vitexsoftware/ease-framework": "1.0"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/usr/share/php/Ease",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
+
+
 
 Docker:
 -------

@@ -1,0 +1,28 @@
+{
+    "name": "vitexsoftware/ease-debian-example",
+    "description": "Example how to use Ease framework installed as debian package",
+    "type": "project",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz"
+        }
+    ],
+    "minimum-stability": "dev",
+    "config": {
+	"vendor-dir": "/var/tmp/composer/"
+    },
+    "require": {
+        "vitexsoftware/ease-framework": "1.0"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/usr/share/php/Ease",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
+}
