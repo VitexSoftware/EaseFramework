@@ -1,7 +1,7 @@
 {
     "name": "vitexsoftware/ease-framework",
     "description": "An PHP Framework for Ease of writing Applications",
-    "version": "0.244",
+    "version": "1.0",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -15,24 +15,24 @@
             "Ease\\Html\\": "src/Ease/Html",
             "Ease\\JQuery\\": "src/Ease/JQuery",
             "Ease\\SQL\\": "src/Ease/SQL",
-            "Ease\\TWB\\": "src/Ease/TWB",
-            "Test\\Ease\\": "tests/src/Ease/",
-            "Test\\Ease\\Html\\": "tests/src/Ease/Html",
-            "Test\\Ease\\JQuery\\": "tests/src/Ease/JQuery",
-            "Test\\Ease\\SQL\\": "tests/src/Ease/SQL",
-            "Test\\Ease\\TWB\\": "tests/src/Ease/TWB"
+            "Ease\\TWB\\": "src/Ease/TWB"
         }
 
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\Ease\\": "tests/src/Ease"
+            "Test\\Ease\\": "tests/src/Ease",
+            "Test\\Ease\\Html\\": "tests/src/Ease/Html",
+            "Test\\Ease\\JQuery\\": "tests/src/Ease/JQuery",
+            "Test\\Ease\\SQL\\": "tests/src/Ease/SQL",
+            "Test\\Ease\\TWB\\": "tests/src/Ease/TWB"
         }
     },
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "robmorgan/phinx": "* dev-master",
