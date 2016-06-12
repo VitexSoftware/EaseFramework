@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Objekty uživatelů.
  *
@@ -8,6 +7,7 @@
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -63,7 +63,7 @@ class User extends Anonym
      *
      * @var int unsigned
      */
-    public $parent = null;
+    public $parent              = null;
 
     /**
      * ID prave nacteneho uzivatele.
@@ -202,7 +202,8 @@ class User extends Anonym
     {
         $email = $this->getUserEmail();
         if ($email) {
-            return self::getGravatar($email, 800, 'mm', 'g', true, ['title' => $this->getUserName(), 'class' => 'gravatar_icon']);
+            return self::getGravatar($email, 800, 'mm', 'g', true,
+                    ['title' => $this->getUserName(), 'class' => 'gravatar_icon']);
         } else {
             return;
         }
@@ -220,7 +221,7 @@ class User extends Anonym
         if (!count($formData)) {
             return;
         }
-        $login = $this->easeAddSlashes($formData[$this->loginColumn]);
+        $login    = $this->easeAddSlashes($formData[$this->loginColumn]);
         $password = $this->easeAddSlashes($formData[$this->passwordColumn]);
         if (!$login) {
             $this->addStatusMessage(_('chybí login'), 'error');
@@ -236,7 +237,8 @@ class User extends Anonym
         if ($this->loadFromSQL($login)) {
             $this->setObjectName();
             $this->resetObjectIdentity(['ObjectName']);
-            if ($this->passwordValidation($password, $this->getDataValue($this->passwordColumn))) {
+            if ($this->passwordValidation($password,
+                    $this->getDataValue($this->passwordColumn))) {
                 if ($this->isAccountEnabled()) {
                     return $this->loginSuccess();
                 } else {
@@ -254,7 +256,8 @@ class User extends Anonym
                 return false;
             }
         } else {
-            $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $login, 'error'));
+            $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $login,
+                    'error'));
 
             return false;
         }
@@ -271,7 +274,8 @@ class User extends Anonym
             return true;
         }
         if ($this->getDataValue($this->disableColumn)) {
-            $this->addStatusMessage(_('přihlášení zakázáno administrátorem'), 'warning');
+            $this->addStatusMessage(_('přihlášení zakázáno administrátorem'),
+                'warning');
 
             return false;
         }
@@ -285,10 +289,11 @@ class User extends Anonym
      */
     public function loginSuccess()
     {
-        $this->userID = (int) $this->getMyKey();
+        $this->userID    = (int) $this->getMyKey();
         $this->userLogin = $this->getDataValue($this->loginColumn);
-        $this->logged = true;
-        $this->addStatusMessage(sprintf(_('Přihlášení %s proběhlo bez problémů'), $this->userLogin), 'success');
+        $this->logged    = true;
+        $this->addStatusMessage(sprintf(_('Přihlášení %s proběhlo bez problémů'),
+                $this->userLogin), 'success');
 
         return true;
     }
@@ -321,7 +326,8 @@ class User extends Anonym
      */
     public function saveSettings()
     {
-        $this->setDataValue($this->settingsColumn, $this->dbLink->addSlashes(serialize($this->getSettings())));
+        $this->setDataValue($this->settingsColumn,
+            $this->dbLink->addSlashes(serialize($this->getSettings())));
 
         return $this->saveToSQL();
     }
@@ -372,7 +378,7 @@ class User extends Anonym
         for ($i = 0; $i < 10; ++$i) {
             $encryptedPassword .= $this->randomNumber();
         }
-        $passwordSalt = substr(md5($encryptedPassword), 0, 2);
+        $passwordSalt      = substr(md5($encryptedPassword), 0, 2);
         $encryptedPassword = md5($passwordSalt.$plainTextPassword).':'.$passwordSalt;
 
         return $encryptedPassword;
@@ -395,7 +401,7 @@ class User extends Anonym
             return;
         }
         $hash = $this->encryptPassword($newPassword);
-        $this->dbLink->exeQuery('UPDATE '.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\' WHERE '.$this->myKeyColumn.'='.$userID);
+        $this->dblink->exeQuery('UPDATE '.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\' WHERE '.$this->myKeyColumn.'='.$userID);
         $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
         if ($userID == $this->getUserID()) {
             $this->setDataValue($this->passwordColumn, $hash);
@@ -598,11 +604,9 @@ class User extends Anonym
      * @source http://gravatar.com/site/implement/images/php/
      */
     public static function getGravatar(
-        $email,
-        $size = 80,
-        $default = 'mm',
-        $maxRating = 'g'
-    ) {
+    $email, $size = 80, $default = 'mm', $maxRating = 'g'
+    )
+    {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";

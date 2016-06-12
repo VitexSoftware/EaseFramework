@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Objekt schopný do sebe pojmou jiné objekty.
  *
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class Container extends Sand
@@ -102,7 +102,8 @@ class Container extends Sand
      *
      * @return pointer Odkaz na vložený objekt
      */
-    public static function &addItemCustom($pageItem, $context, $pageItemName = null)
+    public static function &addItemCustom($pageItem, $context,
+                                          $pageItemName = null)
     {
         $itemPointer = null;
         if (is_object($pageItem)) {
@@ -116,11 +117,10 @@ class Container extends Sand
                     $pageItemName = $pageItemName.$duplicity++;
                 }
 
-                $context->pageParts[$pageItemName] = $pageItem;
+                $context->pageParts[$pageItemName]               = $pageItem;
                 $context->pageParts[$pageItemName]->parentObject = &$context;
 
-                if (isset($context->pageParts[$pageItemName]->raiseItems)
-                    && is_array($context->pageParts[$pageItemName]->raiseItems)
+                if (isset($context->pageParts[$pageItemName]->raiseItems) && is_array($context->pageParts[$pageItemName]->raiseItems)
                     && count($context->pageParts[$pageItemName]->raiseItems)
                 ) {
                     $context->raise($context->pageParts[$pageItemName]);
@@ -129,19 +129,20 @@ class Container extends Sand
                     $context->pageParts[$pageItemName]->afterAdd();
                 }
                 $context->lastItem = &$context->pageParts[$pageItemName];
-                $itemPointer = &$context->pageParts[$pageItemName];
+                $itemPointer       = &$context->pageParts[$pageItemName];
             } else {
-                $context->error('Page Item object without draw() method', $pageItem);
+                $context->error('Page Item object without draw() method',
+                    $pageItem);
             }
         } else {
             if (is_array($pageItem)) {
                 $addedItemPointer = $context->addItems($pageItem);
-                $itemPointer = &$addedItemPointer;
+                $itemPointer      = &$addedItemPointer;
             } else {
                 if (!is_null($pageItem)) {
                     $context->pageParts[] = $pageItem;
-                    $EndPointer = end($context->pageParts);
-                    $itemPointer = &$EndPointer;
+                    $EndPointer           = end($context->pageParts);
+                    $itemPointer          = &$EndPointer;
                 }
             }
         }
@@ -176,9 +177,9 @@ class Container extends Sand
         if (is_null($pageItemName)) {
             $pageItemName = '1st';
         }
-        $swap = $this->pageParts;
+        $swap            = $this->pageParts;
         $this->emptyContents();
-        $itemPointer = $this->addItem($pageItem, $pageItemName);
+        $itemPointer     = $this->addItem($pageItem, $pageItemName);
         $this->pageParts = array_merge($this->pageParts, $swap);
 
         return $itemPointer;
@@ -301,7 +302,6 @@ class Container extends Sand
     {
         $this->pageParts = null;
     }
-
     /**
      * Metoda volaná až po přidání elementu metodou addItem().
      */
@@ -392,7 +392,8 @@ class Container extends Sand
     public function showContents($level = 0)
     {
         foreach ($this->pageParts as $partName => $partContents) {
-            if (is_object($partContents) && method_exists($partContents, 'ShowContents')) {
+            if (is_object($partContents) && method_exists($partContents,
+                    'ShowContents')) {
                 $partContents->showContents($level + 1);
             } else {
                 echo str_repeat('&nbsp;.&nbsp;', $level).$partName.'<br>';
@@ -458,7 +459,8 @@ class Container extends Sand
                     self::fillMeUp($data, $part);
                 }
                 if (is_object($part)) {
-                    if (method_exists($part, 'setValue') && method_exists($part, 'getTagName')) {
+                    if (method_exists($part, 'setValue') && method_exists($part,
+                            'getTagName')) {
                         $tagName = $part->getTagName();
                         if (isset($data[$tagName])) {
                             $part->setValue($data[$tagName], true);

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Všeobecně sdílený objekt frameworku.
  * Tento objekt je automaticky přez svůj singleton instancován do každého Ease*
@@ -12,6 +11,7 @@
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
+
 namespace Ease;
 
 /**
@@ -284,7 +284,7 @@ class Shared extends Atom
      */
     public static function registerItem(&$itemPointer)
     {
-        $easeShared = self::singleton();
+        $easeShared             = self::singleton();
         $easeShared->allItems[] = $itemPointer;
     }
 }

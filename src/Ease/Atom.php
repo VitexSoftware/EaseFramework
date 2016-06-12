@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Základní pojící element všech objektů v EaseFrameWorku. Jeho hlavní schopnost je:
  * Pojímat do sebe zprávy.
@@ -7,6 +6,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class Atom
@@ -94,7 +94,7 @@ class Atom
      */
     public function cleanMessages()
     {
-        $this->messageCount = 0;
+        $this->messageCount   = 0;
         $this->statusMessages = [];
     }
 

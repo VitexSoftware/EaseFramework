@@ -13,23 +13,23 @@ class BodyTag extends PairTag
      * Tělo stránky je v aplikaci vždy dostupně jako
      * $this->easeShared->webPage->body.
      *
-     * @param string $TagID   id tagu
-     * @param mixed  $Content vkládané prvky
+     * @param string $tagID   id tagu
+     * @param mixed  $content vkládané prvky
      */
-    public function __construct($TagID = null, $Content = null)
+    public function __construct($tagID = null, $content = null)
     {
-        parent::__construct('body', null, $Content);
-        if (!is_null($TagID)) {
-            $this->setTagID($TagID);
+        parent::__construct('body', null, $content);
+        if (!is_null($tagID)) {
+            $this->setTagID($tagID);
         }
     }
 
     /**
      * Nastaví jméno objektu na "body".
      *
-     * @param string $ObjectName jméno objektu
+     * @param string $objectName jméno objektu
      */
-    public function setObjectName($ObjectName = null)
+    public function setObjectName($objectName = null)
     {
         parent::setObjectName('body');
     }
