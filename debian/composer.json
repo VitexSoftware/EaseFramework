@@ -1,0 +1,31 @@
+{
+    "name": "vitexsoftware/ease-framework",
+    "description": "An PHP Framework for Ease of writing Applications",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "Vítězslav Dvořák",
+            "email": "info@vitexsoftware.cz",
+            "homepage": "http://v.s.cz/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ease\\": ".",
+            "Ease\\Html\\": "Html",
+            "Ease\\JQuery\\": "JQuery",
+            "Ease\\SQL\\": "SQL",
+            "Ease\\TWB\\": "TWB"
+        }
+
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6.0",
+        "ext-curl": "*",
+        "ext-pdo": "*"
+    },
+    "type": "library",
+    "homepage": "http://v.s.cz/ease.php",
+    "license": "GPL-2.0+"
+}

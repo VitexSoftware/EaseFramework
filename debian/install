@@ -4,4 +4,4 @@ src/Ease/JQuery/*.php            /usr/share/php/Ease/JQuery
 src/Ease/SQL/*.php               /usr/share/php/Ease/SQL
 src/Ease/TWB/*.php               /usr/share/php/Ease/TWB
 
-share/js/*.js                /usr/share/javascript
+debian/composer.json		 /usr/share/php/Ease
