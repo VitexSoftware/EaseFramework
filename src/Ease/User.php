@@ -395,7 +395,7 @@ class User extends Anonym
             return;
         }
         $hash = $this->encryptPassword($newPassword);
-        $this->dbLink->exeQuery('UPDATE '.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\' WHERE '.$this->myKeyColumn.'='.$userID);
+        $this->dblink->exeQuery('UPDATE '.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\' WHERE '.$this->myKeyColumn.'='.$userID);
         $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
         if ($userID == $this->getUserID()) {
             $this->setDataValue($this->passwordColumn, $hash);
