@@ -29,7 +29,7 @@ class MySQLiTest extends SQLTest
      */
     protected function tearDown()
     {
-        
+
     }
 
     /**

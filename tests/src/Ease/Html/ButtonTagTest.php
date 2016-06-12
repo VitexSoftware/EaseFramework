@@ -29,6 +29,6 @@ class ButtonTagTest extends PairTagTest
      */
     protected function tearDown()
     {
-        
+
     }
 }

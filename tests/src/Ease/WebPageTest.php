@@ -9,7 +9,6 @@ use Ease\WebPage;
  */
 class WebPageTest extends PageTest
 {
-
     /**
      * @var WebPage
      */
@@ -176,5 +175,4 @@ class WebPageTest extends PageTest
             'This test has not been implemented yet.'
         );
     }
-
 }
