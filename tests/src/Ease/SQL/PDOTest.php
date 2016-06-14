@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\SQL;
+
 use Ease\SQL\PDO;
 
 /**
@@ -8,7 +9,6 @@ use Ease\SQL\PDO;
  */
 class PDOTest extends SQLTest
 {
-
     /**
      * @var PDO
      */
@@ -18,7 +18,7 @@ class PDOTest extends SQLTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new PDO;
     }
@@ -27,7 +27,7 @@ class PDOTest extends SQLTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
         
     }
@@ -36,7 +36,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::singleton
      * @todo   Implement testSingleton().
      */
-    public function testSingleton() 
+    public function testSingleton()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -48,7 +48,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::setKeyColumn
      * @todo   Implement testSetKeyColumn().
      */
-    public function testSetKeyColumn() 
+    public function testSetKeyColumn()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -60,7 +60,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::setTableName
      * @todo   Implement testSetTableName().
      */
-    public function testSetTableName() 
+    public function testSetTableName()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -72,7 +72,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::addSlashes
      * @todo   Implement testAddSlashes().
      */
-    public function testAddSlashes() 
+    public function testAddSlashes()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -84,7 +84,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::connect
      * @todo   Implement testConnect().
      */
-    public function testConnect() 
+    public function testConnect()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -96,7 +96,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::selectDB
      * @todo   Implement testSelectDB().
      */
-    public function testSelectDB() 
+    public function testSelectDB()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -108,7 +108,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::exeQuery
      * @todo   Implement testExeQuery().
      */
-    public function testExeQuery() 
+    public function testExeQuery()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -120,7 +120,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::getlastInsertID
      * @todo   Implement testGetlastInsertID().
      */
-    public function testGetlastInsertID() 
+    public function testGetlastInsertID()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -132,7 +132,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::queryToArray
      * @todo   Implement testQueryToArray().
      */
-    public function testQueryToArray() 
+    public function testQueryToArray()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -144,7 +144,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::arrayToInsert
      * @todo   Implement testArrayToInsert().
      */
-    public function testArrayToInsert() 
+    public function testArrayToInsert()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -156,7 +156,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::arrayToUpdate
      * @todo   Implement testArrayToUpdate().
      */
-    public function testArrayToUpdate() 
+    public function testArrayToUpdate()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -168,7 +168,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::arrayToQuery
      * @todo   Implement testArrayToQuery().
      */
-    public function testArrayToQuery() 
+    public function testArrayToQuery()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -180,7 +180,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::arrayToInsertQuery
      * @todo   Implement testArrayToInsertQuery().
      */
-    public function testArrayToInsertQuery() 
+    public function testArrayToInsertQuery()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -192,7 +192,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::arrayToValuesQuery
      * @todo   Implement testArrayToValuesQuery().
      */
-    public function testArrayToValuesQuery() 
+    public function testArrayToValuesQuery()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -204,7 +204,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::arrayToSetQuery
      * @todo   Implement testArrayToSetQuery().
      */
-    public function testArrayToSetQuery() 
+    public function testArrayToSetQuery()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -216,31 +216,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::prepSelect
      * @todo   Implement testPrepSelect().
      */
-    public function testPrepSelect() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::describe
-     * @todo   Implement testDescribe().
-     */
-    public function testDescribe() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::tableExist
-     * @todo   Implement testTableExist().
-     */
-    public function testTableExist() 
+    public function testPrepSelect()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -252,79 +228,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::getTableNumRows
      * @todo   Implement testGetTableNumRows().
      */
-    public function testGetTableNumRows() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::createTable
-     * @todo   Implement testCreateTable().
-     */
-    public function testCreateTable() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::truncateTable
-     * @todo   Implement testTruncateTable().
-     */
-    public function testTruncateTable() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::addTableKey
-     * @todo   Implement testAddTableKey().
-     */
-    public function testAddTableKey() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::createTableQuery
-     * @todo   Implement testCreateTableQuery().
-     */
-    public function testCreateTableQuery() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::listTables
-     * @todo   Implement testListTables().
-     */
-    public function testListTables() 
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\PDO::createMissingColumns
-     * @todo   Implement testCreateMissingColumns().
-     */
-    public function testCreateMissingColumns() 
+    public function testGetTableNumRows()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -336,7 +240,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::getColumnComma
      * @todo   Implement testGetColumnComma().
      */
-    public function testGetColumnComma() 
+    public function testGetColumnComma()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -348,7 +252,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::close
      * @todo   Implement testClose().
      */
-    public function testClose() 
+    public function testClose()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -360,7 +264,7 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::__destruct
      * @todo   Implement test__destruct().
      */
-    public function test__destruct() 
+    public function test__destruct()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -372,12 +276,11 @@ class PDOTest extends SQLTest
      * @covers Ease\SQL\PDO::__sleep
      * @todo   Implement test__sleep().
      */
-    public function test__sleep() 
+    public function test__sleep()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }
