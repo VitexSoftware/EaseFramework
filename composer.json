@@ -17,7 +17,6 @@
             "Ease\\SQL\\": "src/Ease/SQL",
             "Ease\\TWB\\": "src/Ease/TWB"
         }
-
     },
     "autoload-dev": {
         "psr-4": {
