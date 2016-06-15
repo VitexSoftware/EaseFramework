@@ -57,7 +57,7 @@ class SandTest extends AtomTest
     public function testGetStatusMessages()
     {
         $this->object->addStatusMessage('Message2');
-        $messages = $this->object->getStatusMessages();
+        $messages = $this->object->getStatusMessages(true);
         $this->assertEquals($messages,
             ['info' => [1 => 'Message1', 2 => 'Message2']]);
     }
@@ -232,6 +232,9 @@ class SandTest extends AtomTest
         $data = ['d' => 4, 'e' => 5];
         $this->object->takeData($data);
         $this->assertEquals(5, $this->object->getDataValue('e'));
+        $data = ['f' => 6, 'g' => 7];
+        $this->object->takeData($data);
+        $this->assertEquals(4, $this->object->getDataValue('d'));
     }
 
     /**
@@ -240,39 +243,6 @@ class SandTest extends AtomTest
     public function testEaseAddSlashes()
     {
         $this->assertEquals("\'", $this->object->easeAddSlashes("'"));
-    }
-
-    /**
-     * @covers Ease\Sand::printPre
-     * @todo   Implement testPrintPre().
-     */
-    public function testPrintPre()
-    {
-        $this->object->printPre(['a' => 1]);
-    }
-
-    /**
-     * @covers Ease\Sand::printPreBasic
-     * @todo   Implement testPrintPreBasic().
-     */
-    public function testPrintPreBasic()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Sand::substrUnicode
-     * @todo   Implement testSubstrUnicode().
-     */
-    public function testSubstrUnicode()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 
     /**
@@ -326,18 +296,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::isEmail
-     */
-    public function testIsEmail()
-    {
-        $this->assertTrue($this->object->isEmail('vitex@hippy.cz'));
-        $this->assertFalse($this->object->isEmail('lala'));
-        $this->assertFalse($this->object->isEmail('@cz'));
-        $this->assertFalse($this->object->isEmail('wrong@ mail'));
-        $this->assertFalse($this->object->isEmail('nonexist@mail'));
-    }
-
-    /**
      * @covers Ease\Sand::recursiveIconv
      */
     public function testRecursiveIconv()
@@ -346,6 +304,20 @@ class SandTest extends AtomTest
         $exepted  = ["\xe2\x82\xac", "\xe2\x80\xa2"];
         $this->assertEquals($exepted,
             $this->object->recursiveIconv('cp1252', 'utf-8', $original));
+
+        $this->assertEquals($exepted[0],
+            $this->object->recursiveIconv('cp1252', 'utf-8', $original[0]));
+    }
+
+    /**
+     * @covers Ease\Sand::arrayIconv
+     */
+    public function testArrayIconv()
+    {
+        $original = "\x80";
+        $exepted  = "\xe2\x82\xac";
+        $this->object->arrayIconv($original, 0, ['cp1252', 'utf-8']);
+        $this->assertEquals($exepted, $original);
     }
 
     /**
@@ -397,7 +369,6 @@ class SandTest extends AtomTest
             $this->object->humanFilesize('1234545345332235'));
         $this->assertEquals('NaN', $this->object->humanFilesize(false));
     }
-
 
     /**
      * @covers Ease\Sand::reindexArrayBy
