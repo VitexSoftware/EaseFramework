@@ -9,12 +9,12 @@
 namespace Ease;
 
 /**
- * Třída pro logování.
+ * Log to syslog.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class LoggerToSyslog extends Atom
+class LoggerToSyslog extends LoggerToMemory
 {
     /**
      * Předvolená metoda logování.
@@ -29,22 +29,6 @@ class LoggerToSyslog extends Atom
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
-
-    /**
-     * Hodnoty pro obarvování logu.
-     *
-     * @var array
-     */
-    public $logStyles = [
-        'notice' => 'color: black;',
-        'success' => 'color: #2C5F23;',
-        'message' => 'color: #2C5F23;',
-        'warning' => 'color: #AB250E;',
-        'error' => 'color: red;',
-        'debug' => 'font-style: italic;',
-        'report' => 'font-wight: bold;',
-        'info' => 'color: blue;',
-    ];
 
     /**
      * Odkaz na vlastnící objekt.

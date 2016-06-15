@@ -15,7 +15,7 @@ class LoggerToMemory extends Atom
      *
      * @var string
      */
-    public $logType = 'file';
+    public $logType = 'memory';
 
     /**
      * Adresář do kterého se zapisují logy.

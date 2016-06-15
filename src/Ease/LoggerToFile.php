@@ -4,11 +4,11 @@
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 namespace Ease;
 
-class LoggerToFile extends Atom
+class LoggerToFile extends LoggerToMemory
 {
     /**
      * Předvolená metoda logování.
@@ -51,22 +51,6 @@ class LoggerToFile extends Atom
      * @var string filepath
      */
     public $errorLogFile = 'EaseErrors.log';
-
-    /**
-     * Hodnoty pro obarvování logu.
-     *
-     * @var array
-     */
-    public $logStyles = [
-        'notice' => 'color: black;',
-        'success' => 'color: #2C5F23;',
-        'message' => 'color: #2C5F23;',
-        'warning' => 'color: #AB250E;',
-        'error' => 'color: red;',
-        'debug' => 'font-style: italic;',
-        'report' => 'font-wight: bold;',
-        'info' => 'color: blue;',
-    ];
 
     /**
      * Odkaz na vlastnící objekt.
