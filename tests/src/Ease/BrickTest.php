@@ -400,4 +400,25 @@ class BrickTest extends SandTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Brick::reindexArrayBy
+     */
+    public function testReindexArrayBy()
+    {
+        $a = [
+            ['id' => '2', 'name' => 'b'],
+            ['id' => '1', 'name' => 'a'],
+            ['id' => '3', 'name' => 'c']
+        ];
+        $b = [
+            '1' => ['id' => '1', 'name' => 'a'],
+            '2' => ['id' => '2', 'name' => 'b'],
+            '3' => ['id' => '3', 'name' => 'c']
+        ];
+
+        parent::testReindexArrayBy();
+        $this->object->setmyKeyColumn('id');
+        $this->assertEquals($b, $this->object->reindexArrayBy($a));
+    }
 }

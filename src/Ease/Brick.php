@@ -783,7 +783,7 @@ class Brick extends Sand
      */
     public function searchColumns($searchTerm, $columns)
     {
-        $sTerm     = $this->dblink->AddSlashes($searchTerm);
+        $sTerm     = $this->dblink->addSlashes($searchTerm);
         $conditons = [];
         foreach ($columns as $column) {
             $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
@@ -791,5 +791,22 @@ class Brick extends Sand
 
         return $this->dblink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '.implode(' OR ',
                     $conditons));
+    }
+
+    /**
+     * Reindex Array by given key
+     *
+     * @param array  $data array to reindex
+     * @param string $indexBy one of columns in array
+     * @return array
+     */
+    public function reindexArrayBy($data, $indexBy = null)
+    {
+
+        if (is_null($indexBy)) {
+            $indexBy = $this->getmyKeyColumn();
+        }
+
+        return parent::reindexArrayBy($data, $indexBy);
     }
 }

@@ -1243,6 +1243,24 @@ class Sand extends Atom
     }
 
     /**
+     * Reindex Array by given key
+     *
+     * @param array  $data array to reindex
+     * @param string $indexBy one of columns in array
+     * @return array
+     */
+    public function reindexArrayBy($data, $indexBy = null)
+    {
+        $reindexedData = [];
+
+        foreach ($data as $dataID => $data) {
+            $reindexedData[$data[$indexBy]] = $data;
+        }
+
+        return $reindexedData;
+    }
+
+    /**
      * Akce po probuzení ze serializace.
      */
     public function __wakeup()

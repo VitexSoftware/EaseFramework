@@ -398,6 +398,26 @@ class SandTest extends AtomTest
         $this->assertEquals('NaN', $this->object->humanFilesize(false));
     }
 
+
+    /**
+     * @covers Ease\Sand::reindexArrayBy
+     */
+    public function testReindexArrayBy()
+    {
+        $a = [
+            ['id' => '2', 'name' => 'b'],
+            ['id' => '1', 'name' => 'a'],
+            ['id' => '3', 'name' => 'c']
+        ];
+        $c = [
+            'a' => ['id' => '1', 'name' => 'a'],
+            'b' => ['id' => '2', 'name' => 'b'],
+            'c' => ['id' => '3', 'name' => 'c']
+        ];
+
+        $this->assertEquals($c, $this->object->reindexArrayBy($a, 'name'));
+    }
+
     /**
      * @covers Ease\Sand::draw
      */
