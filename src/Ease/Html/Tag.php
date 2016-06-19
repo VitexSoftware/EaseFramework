@@ -63,7 +63,8 @@ class Tag extends \Ease\Page
      * @param array|string $tagProperties parametry tagu
      * @param mixed        $content       vkládaný obsah
      */
-    public function __construct($tagType = null, $tagProperties = null, $content = null)
+    public function __construct($tagType = null, $tagProperties = null,
+                                $content = null)
     {
         if (is_null($tagType)) {
             $tagType = $this->tagType;
@@ -103,7 +104,7 @@ class Tag extends \Ease\Page
     }
 
     /**
-     * Nastaví jméno tagu.
+     * Nastaví jméno tagu. Unused ...
      *
      * @param string $tagName jméno tagu do vlastnosti NAME
      */
@@ -123,15 +124,15 @@ class Tag extends \Ease\Page
      */
     public function getTagName()
     {
-        if ($this->setName) {
+        $tagName = null;
+        if ($this->setName == true) {
             if (isset($this->tagProperties['name'])) {
-                return $this->tagProperties['name'];
-            } else {
-                return;
+                $tagName = $this->tagProperties['name'];
             }
         } else {
-            return $this->tagName;
+            $tagName = $this->tagName;
         }
+        return $tagName;
     }
 
     /**
@@ -207,11 +208,7 @@ class Tag extends \Ease\Page
      */
     public function getTagID()
     {
-        if (isset($this->tagProperties['id'])) {
-            return $this->tagProperties['id'];
-        } else {
-            return;
-        }
+        return $this->getTagProperty('id');
     }
 
     /**
@@ -240,10 +237,12 @@ class Tag extends \Ease\Page
     {
         if (is_array($tagProperties)) {
             if (isset($tagProperties['id'])) {
-                $tagProperties['id'] = preg_replace('/[^A-Za-z0-9_\\-]/', '', $tagProperties['id']);
+                $tagProperties['id'] = preg_replace('/[^A-Za-z0-9_\\-]/', '',
+                    $tagProperties['id']);
             }
             if (is_array($this->tagProperties)) {
-                $this->tagProperties = array_merge($this->tagProperties, $tagProperties);
+                $this->tagProperties = array_merge($this->tagProperties,
+                    $tagProperties);
             } else {
                 $this->tagProperties = $tagProperties;
             }
@@ -251,7 +250,7 @@ class Tag extends \Ease\Page
                 $this->setTagName($tagProperties['name']);
             }
         } else {
-            $propBuff = $tagProperties;
+            $propBuff            = $tagProperties;
             //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $tagProperties;
             $this->tagProperties = ' '.$propBuff;
         }
@@ -274,7 +273,8 @@ class Tag extends \Ease\Page
             foreach ($tagProperties as $TagPropertyName => $TagPropertyValue) {
                 if ($TagPropertyName) {
                     if (is_numeric($TagPropertyName)) {
-                        if (!strstr($TagPropertiesString, ' '.$TagPropertyValue.' ')) {
+                        if (!strstr($TagPropertiesString,
+                                ' '.$TagPropertyValue.' ')) {
                             $TagPropertiesString .= ' '.$TagPropertyValue.' ';
                         }
                     } else {
@@ -300,12 +300,13 @@ class Tag extends \Ease\Page
     {
         if (is_array($cssProperties)) {
             if (is_array($this->cssProperties)) {
-                $this->cssProperties = array_merge($this->cssProperties, $cssProperties);
+                $this->cssProperties = array_merge($this->cssProperties,
+                    $cssProperties);
             } else {
                 $this->cssProperties = $cssProperties;
             }
         } else {
-            $propBuff = $cssProperties;
+            $propBuff            = $cssProperties;
             //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $cssProperties;
             $this->cssProperties = ' '.$propBuff;
         }

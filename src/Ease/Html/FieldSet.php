@@ -14,14 +14,14 @@ class FieldSet extends PairTag
      *
      * @var mixed
      */
-    public $Legend = null;
+    public $legend = null;
 
     /**
      * Objekt s tagem Legendy.
      *
      * @var PairTag
      */
-    public $LegendTag = null;
+    public $legendTag = null;
 
     /**
      * Obsah rámu.
@@ -39,8 +39,8 @@ class FieldSet extends PairTag
     public function __construct($legend, $content = null)
     {
         $this->setTagName($legend);
-        $this->Legend = $legend;
-        $this->LegendTag = $this->addItem(new PairTag('legend', null, $this->Legend));
+        $this->legend = $legend;
+        $this->legendTag = $this->addItem(new PairTag('legend', null, $this->legend));
         if ($content) {
             $this->addItem($content);
         }
@@ -54,7 +54,7 @@ class FieldSet extends PairTag
      */
     public function setLegend($legend)
     {
-        $this->Legend = $legend;
+        $this->legend = $legend;
     }
 
     /**
@@ -62,12 +62,12 @@ class FieldSet extends PairTag
      */
     public function finalize()
     {
-        if ($this->Legend) {
+        if ($this->legend) {
             if (is_object(reset($this->pageParts))) {
-                reset($this->pageParts)->pageParts = [$this->Legend];
+                reset($this->pageParts)->pageParts = [$this->legend];
             } else {
-                array_unshift($this->pageParts, $this->LegendTag);
-                reset($this->pageParts)->pageParts = [$this->Legend];
+                array_unshift($this->pageParts, $this->legendTag);
+                reset($this->pageParts)->pageParts = [$this->legend];
             }
         }
     }

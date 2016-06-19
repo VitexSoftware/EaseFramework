@@ -9,7 +9,6 @@ use Test\Ease\PageTest;
  */
 class TagTest extends PageTest
 {
-
     /**
      * @var Tag
      */
@@ -35,194 +34,168 @@ class TagTest extends PageTest
 
     /**
      * @covers Ease\Html\Tag::setObjectName
-     * @todo   Implement testSetObjectName().
      */
     public function testSetObjectName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals(get_class($this->object),
+            $this->object->setObjectName());
+        $this->object->setTagType('type');
+        $this->assertEquals(get_class($this->object).'@type',
+            $this->object->setObjectName());
+        $this->object->setTagName('name');
+        $this->assertEquals(get_class($this->object).'@name',
+            $this->object->setObjectName());
     }
 
     /**
      * @covers Ease\Html\Tag::setTagName
-     * @todo   Implement testSetTagName().
      */
     public function testSetTagName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagProperty('name'));
     }
 
     /**
      * @covers Ease\Html\Tag::getTagName
-     * @todo   Implement testGetTagName().
      */
     public function testGetTagName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
     }
 
     /**
      * @covers Ease\Html\Tag::setTagType
-     * @todo   Implement testSetTagType().
      */
     public function testSetTagType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagType('Test');
+        $this->assertEquals('Test', $this->object->getTagType('name'));
     }
 
     /**
      * @covers Ease\Html\Tag::getTagType
-     * @todo   Implement testGetTagType().
      */
     public function testGetTagType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagType('Test');
+        $this->assertEquals('Test', $this->object->getTagType('name'));
     }
 
     /**
      * @covers Ease\Html\Tag::setTagClass
-     * @todo   Implement testSetTagClass().
      */
     public function testSetTagClass()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagClass('Test');
+        $this->assertEquals('Test', $this->object->getTagProperty('class'));
     }
 
     /**
      * @covers Ease\Html\Tag::addTagClass
-     * @todo   Implement testAddTagClass().
      */
     public function testAddTagClass()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagClass('Test');
+        $this->object->addTagClass('Test2');
+        $this->assertEquals('Test Test2', $this->object->getTagProperty('class'));
     }
 
     /**
      * @covers Ease\Html\Tag::getTagClass
-     * @todo   Implement testGetTagClass().
      */
     public function testGetTagClass()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagClass('Test');
+        $this->assertEquals('Test', $this->object->getTagProperty('class'));
     }
 
     /**
      * @covers Ease\Html\Tag::setTagID
-     * @todo   Implement testSetTagID().
      */
     public function testSetTagID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagID('Test');
+        $this->assertEquals('Test', $this->object->getTagProperty('id'));
     }
 
     /**
      * @covers Ease\Html\Tag::getTagID
-     * @todo   Implement testGetTagID().
      */
     public function testGetTagID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagProperties(['id' => 'Test']);
+        $this->assertEquals('Test', $this->object->getTagID());
     }
 
     /**
      * @covers Ease\Html\Tag::getTagProperty
-     * @todo   Implement testGetTagProperty().
      */
     public function testGetTagProperty()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagProperties(['test' => 'Test']);
+        $this->assertEquals('Test', $this->object->getTagProperty('test'));
     }
 
     /**
      * @covers Ease\Html\Tag::setTagProperties
-     * @todo   Implement testSetTagProperties().
      */
     public function testSetTagProperties()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
+        $this->assertEquals('Test', $this->object->getTagID());
+        $this->assertEquals('unit', $this->object->getTagName());
     }
 
     /**
      * @covers Ease\Html\Tag::tagPropertiesToString
-     * @todo   Implement testTagPropertiesToString().
      */
     public function testTagPropertiesToString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
+        $this->assertEquals(' id="Test" name="unit" ',
+            $this->object->tagPropertiesToString());
+        $this->assertEquals(' id="Test2" name="unit2" ',
+            $this->object->tagPropertiesToString(['id' => 'Test2', 'name' => 'unit2']));
     }
 
     /**
      * @covers Ease\Html\Tag::setTagCss
-     * @todo   Implement testSetTagCss().
      */
     public function testSetTagCss()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagCss('color: blue;');
+        $this->assertEquals(' color: blue;',
+            $this->object->cssPropertiesToString());
+        $this->object->setTagCss(['color' => 'blue', 'margin' => '5px']);
+        $this->assertEquals(' color:blue;margin:5px;',
+            $this->object->cssPropertiesToString());
     }
 
     /**
      * @covers Ease\Html\Tag::cssPropertiesToString
-     * @todo   Implement testCssPropertiesToString().
      */
     public function testCssPropertiesToString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagCss(['color' => 'blue', 'margin' => '5px']);
+        $this->assertEquals(' color:blue;margin:5px;',
+            $this->object->cssPropertiesToString());
     }
 
     /**
      * @covers Ease\Html\Tag::draw
-     * @todo   Implement testDraw().
      */
     public function testDraw()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagType('test');
+        ob_start();
+        $this->object->draw();
+        $drawed = ob_get_contents();
+        ob_end_clean();
+        $this->assertEquals("\n<test />", $drawed);
     }
-
 }
