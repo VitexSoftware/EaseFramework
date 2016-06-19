@@ -34,14 +34,33 @@ class ATagTest extends PairTagTest
 
     /**
      * @covers Ease\Html\ATag::afterAdd
-     * @todo   Implement testAfterAdd().
      */
     public function testAfterAdd() 
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $keeps                                       = ['test' => 'testing', 'test2' => true];
+        \Ease\Shared::webPage()->requestValuesToKeep = $keeps;
+        $this->object->afterAdd();
+        $this->assertEquals('http://v.s.cz/?test=testing',
+            $this->object->getTagProperty('href'));
     }
 
+    /**
+     * @covers Ease\Html\ATag::tagPropertiesToString
+     */
+    public function testTagPropertiesToString()
+    {
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
+        $this->assertEquals(' href="http://v.s.cz/" id="Test" name="unit" ',
+            $this->object->tagPropertiesToString());
+        $this->assertEquals(' id="Test2" name="unit2" ',
+            $this->object->tagPropertiesToString(['id' => 'Test2', 'name' => 'unit2']));
+    }
+
+    /**
+     * @covers Ease\Html\ATag::draw
+     */
+    public function testDraw()
+    {
+        parent::testDraw("\n<a href=\"http://v.s.cz/\" >Vitex Software</a>");
+    }
 }

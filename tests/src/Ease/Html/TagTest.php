@@ -32,16 +32,35 @@ class TagTest extends PageTest
 
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('Tag', ['name' => 'Tag', 'id' => 'testing']);
+    }
+
     /**
      * @covers Ease\Html\Tag::setObjectName
      */
     public function testSetObjectName()
     {
+
+        $type = $this->object->getTagType();
+        if (!$type) {
         $this->assertEquals(get_class($this->object),
+                $this->object->setObjectName());
+            $type = 'type';
+        }
+        $this->object->setTagType($type);
+        $this->assertEquals(get_class($this->object).'@'.$type,
             $this->object->setObjectName());
-        $this->object->setTagType('type');
-        $this->assertEquals(get_class($this->object).'@type',
-            $this->object->setObjectName());
+
         $this->object->setTagName('name');
         $this->assertEquals(get_class($this->object).'@name',
             $this->object->setObjectName());
@@ -111,7 +130,7 @@ class TagTest extends PageTest
     public function testGetTagClass()
     {
         $this->object->setTagClass('Test');
-        $this->assertEquals('Test', $this->object->getTagProperty('class'));
+        $this->assertEquals('Test', $this->object->getTagClass());
     }
 
     /**
@@ -121,6 +140,8 @@ class TagTest extends PageTest
     {
         $this->object->setTagID('Test');
         $this->assertEquals('Test', $this->object->getTagProperty('id'));
+        $this->object->setTagID();
+        $this->assertNotEmpty($this->object->getTagProperty('id'));
     }
 
     /**
@@ -191,11 +212,15 @@ class TagTest extends PageTest
      */
     public function testDraw()
     {
-        $this->object->setTagType('test');
+        $tagType = $this->object->getTagType();
+        if (!strlen($tagType)) {
+            $tagType = 'test';
+            $this->object->setTagType($tagType);
+        }
         ob_start();
         $this->object->draw();
         $drawed = ob_get_contents();
         ob_end_clean();
-        $this->assertEquals("\n<test />", $drawed);
+        $this->assertEquals("\n<$tagType />", $drawed);
     }
 }

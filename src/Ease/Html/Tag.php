@@ -61,10 +61,8 @@ class Tag extends \Ease\Page
      *
      * @param string       $tagType       typ tagu
      * @param array|string $tagProperties parametry tagu
-     * @param mixed        $content       vkládaný obsah
      */
-    public function __construct($tagType = null, $tagProperties = null,
-                                $content = null)
+    public function __construct($tagType = null, $tagProperties = null)
     {
         if (is_null($tagType)) {
             $tagType = $this->tagType;
@@ -74,9 +72,6 @@ class Tag extends \Ease\Page
         parent::__construct();
         if ($tagProperties) {
             $this->setTagProperties($tagProperties);
-        }
-        if ($content) {
-            $this->addItem($content);
         }
     }
 

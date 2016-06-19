@@ -30,6 +30,17 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
 
     }
 
+        public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct(3, 2);
+    }
+
     /**
      * @covers Ease\TWB\Pagination::addPage
      * @todo   Implement testAddPage().

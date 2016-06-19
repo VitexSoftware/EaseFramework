@@ -20,7 +20,7 @@ class CheckboxTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\CheckboxTag;
+        $this->object = new \Ease\Html\CheckboxTag();
     }
 
     /**

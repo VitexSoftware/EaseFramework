@@ -12,9 +12,25 @@ class PairTag extends Tag
     /**
      * Character to close tag.
      *
-     * @var type
+     * @var string
      */
     public $trail = '';
+
+    /**
+     * Common pair tag
+     *
+     * @param string       $tagType       typ tagu
+     * @param array|string $tagProperties parametry tagu
+     * @param mixed $content Content to insert into tag
+     */
+    public function __construct($tagType = null, $tagProperties = null,
+                                $content = null)
+    {
+        parent::__construct($tagType, $tagProperties);
+        if ($content) {
+            $this->addItem($content);
+        }
+    }
 
     /**
      * Render tag and its contents.
@@ -27,7 +43,7 @@ class PairTag extends Tag
     }
 
     /**
-     * Zobrazí počátek párového tagu.
+     * Show pair tag begin
      */
     public function tagBegin()
     {
@@ -35,7 +51,7 @@ class PairTag extends Tag
     }
 
     /**
-     * Zobrazí konec párového tagu.
+     * Show pair tag ending.
      */
     public function tagEnclousure()
     {

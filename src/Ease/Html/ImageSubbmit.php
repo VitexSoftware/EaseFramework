@@ -15,15 +15,16 @@ class ImageSubbmit extends InputTag
      * Zobrazí <input type="image">.
      *
      * @param string $Image url obrázku
-     * @param string $Label popisek obrázku
+     * @param string $label popisek obrázku
      * @param string $value vracená hodnota
      * @param string $Hint  text tipu
      */
-    public function __construct($Image, $Label, $value = null, $Hint = null)
+    public function __construct($Image, $label, $value = null, $Hint = null)
     {
         $Properties = ['type' => 'image'];
         if (!$value) {
-            $value = trim(str_replace([' ', '?'], '', @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($Label))));
+            $value = trim(str_replace([' ', '?'], '',
+                    @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($label))));
         } else {
             $Properties['value'] = $value;
         }
@@ -32,6 +33,6 @@ class ImageSubbmit extends InputTag
         }
         $Properties['src'] = $Image;
         $this->setTagProperties($Properties);
-        parent::__construct($value, $Label);
+        parent::__construct($value, $label);
     }
 }

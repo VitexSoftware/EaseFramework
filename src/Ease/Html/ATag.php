@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class ATag extends PairTag
 {
+
     /**
      * zobrazí HTML odkaz.
      *
@@ -32,17 +33,19 @@ class ATag extends PairTag
      */
     public function afterAdd()
     {
-        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
-            foreach ($this->webPage->requestValuesToKeep as $KeepName => $KeepValue) {
-                if ($KeepValue == true) {
+        $valuesToKeep = \Ease\Shared::webPage()->requestValuesToKeep;
+        if (isset($valuesToKeep) && is_array($valuesToKeep) && count($valuesToKeep)) {
+            foreach ($valuesToKeep as $keepName => $keepValue) {
+                if ($keepValue === true) {
                     continue;
                 }
-                $Keep = urlencode($KeepName).'='.urlencode($KeepValue);
-                if (!strstr($this->tagProperties['href'], urlencode($KeepName).'=')) {
+                $keep = urlencode($keepName).'='.urlencode($keepValue);
+                if (!strstr($this->tagProperties['href'],
+                        urlencode($keepName).'=')) {
                     if (strstr($this->tagProperties['href'], '?')) {
-                        $this->tagProperties['href'] .= '&'.$Keep;
+                        $this->tagProperties['href'] .= '&'.$keep;
                     } else {
-                        $this->tagProperties['href'] .= '?'.$Keep;
+                        $this->tagProperties['href'] .= '?'.$keep;
                     }
                 }
             }

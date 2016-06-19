@@ -12,8 +12,6 @@ class SpanTag extends PairTag
     /**
      * <span> tag.
      *
-     * @deprecated since version 226
-     *
      * @param string $name       jméno a ID tagu
      * @param mixed  $content    vkládaný obsah
      * @param array  $properties parametry tagu

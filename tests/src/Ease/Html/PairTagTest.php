@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class PairTagTest extends TagTest
 {
-
     /**
      * @var PairTag
      */
@@ -17,54 +16,92 @@ class PairTagTest extends TagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
-        $this->object = new \Ease\Html\PairTag;
+        $this->object = new \Ease\Html\PairTag();
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
         
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('PairTag', ['name' => 'Tag', 'id' => 'testing']);
+        $mock->__construct('PairTag', ['name' => 'Tag', 'id' => 'testing'],
+            'Initial Content');
+    }
+
     /**
      * @covers Ease\Html\PairTag::draw
-     * @todo   Implement testDraw().
      */
-    public function testDraw() 
+    public function testDraw($whatWant = null)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $tagType = $this->object->getTagType();
+        if (!strlen($tagType)) {
+            $tagType = 'test';
+            $this->object->setTagType($tagType);
+        }
+        if (is_null($whatWant)) {
+            $whatWant = "\n<$tagType></$tagType>";
+        }
+        ob_start();
+        $this->object->draw();
+        $drawed = ob_get_contents();
+        ob_end_clean();
+        $this->assertEquals($whatWant, $drawed);
     }
 
     /**
      * @covers Ease\Html\PairTag::tagBegin
-     * @todo   Implement testTagBegin().
      */
-    public function testTagBegin() 
+    public function testTagBegin($tagBegin = null)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $tagType = $this->object->getTagType();
+        if (!strlen($tagType)) {
+            $tagType = 'test';
+            $this->object->setTagType($tagType);
+        }
+
+        if (count($this->object->tagProperties)) {
+            $tagBegin = "\n<$tagType".$this->object->tagPropertiesToString().">";
+        } else {
+            $tagBegin = "\n<$tagType>";
+        }
+        ob_start();
+        $this->object->tagBegin();
+        $drawed = ob_get_contents();
+        ob_end_clean();
+        $this->assertEquals($tagBegin, $drawed);
     }
 
     /**
      * @covers Ease\Html\PairTag::tagEnclousure
-     * @todo   Implement testTagEnclousure().
      */
-    public function testTagEnclousure() 
+    public function testTagEnclousure()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $tagType = $this->object->getTagType();
+        if (!strlen($tagType)) {
+            $tagType = 'test';
+            $this->object->setTagType($tagType);
+        }
+        ob_start();
+        $this->object->tagEnclousure();
+        $drawed = ob_get_contents();
+        ob_end_clean();
+        $this->assertEquals("</$tagType>", $drawed);
     }
-
 }
