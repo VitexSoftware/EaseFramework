@@ -87,10 +87,10 @@ class BrickTest extends SandTest
                 $this->object->getColumnsFromSQL('id', 3));
 
             $ids   = $this->object->getColumnsFromSQL(array('id'));
-            $this->assertEquals([0 => ['id' => 2], 1 => ['id' => 3]], $ids);
+            $this->assertEquals([0 => ['id' => 3], 1 => ['id' => 2]], $ids);
             $names = $this->object->getColumnsFromSQL(array('name'));
             $this->assertEquals($names,
-                [0 => ['name' => 'beta'], 1 => ['name' => 'alpha']]);
+                [0 => ['name' => 'alpha'], 1 => ['name' => 'beta']]);
             $all   = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
             $this->assertEquals([2 => ['id' => '2', 'name' => 'beta', 'date' => '2015-11-18 00:00:00'],
                 3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00']],

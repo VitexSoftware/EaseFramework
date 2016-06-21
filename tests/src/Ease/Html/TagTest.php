@@ -177,10 +177,11 @@ class TagTest extends PageTest
      */
     public function testTagPropertiesToString()
     {
-        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
-        $this->assertEquals(' id="Test" name="unit" ',
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit', 1]);
+
+        $this->assertNotEmpty(
             $this->object->tagPropertiesToString());
-        $this->assertEquals(' id="Test2" name="unit2" ',
+        $this->assertNotEmpty(
             $this->object->tagPropertiesToString(['id' => 'Test2', 'name' => 'unit2']));
     }
 

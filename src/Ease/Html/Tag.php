@@ -264,23 +264,23 @@ class Tag extends \Ease\Page
             $tagProperties = $this->tagProperties;
         }
         if (is_array($tagProperties)) {
-            $TagPropertiesString = ' ';
-            foreach ($tagProperties as $TagPropertyName => $TagPropertyValue) {
-                if ($TagPropertyName) {
-                    if (is_numeric($TagPropertyName)) {
-                        if (!strstr($TagPropertiesString,
-                                ' '.$TagPropertyValue.' ')) {
-                            $TagPropertiesString .= ' '.$TagPropertyValue.' ';
+            $tagPropertiesString = ' ';
+            foreach ($tagProperties as $tagPropertyName => $tagPropertyValue) {
+                if ($tagPropertyName) {
+                    if (is_numeric($tagPropertyName)) {
+                        if (!strstr($tagPropertiesString,
+                                ' '.$tagPropertyValue.' ')) {
+                            $tagPropertiesString .= ' '.$tagPropertyValue.' ';
                         }
                     } else {
-                        $TagPropertiesString .= $TagPropertyName.'="'.$TagPropertyValue.'" ';
+                        $tagPropertiesString .= $tagPropertyName.'="'.$tagPropertyValue.'" ';
                     }
                 } else {
-                    $TagPropertiesString .= $TagPropertyValue.' ';
+                    $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
 
-            return $TagPropertiesString;
+            return $tagPropertiesString;
         } else {
             return $this->tagProperties;
         }
