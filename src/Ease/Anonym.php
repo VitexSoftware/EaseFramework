@@ -109,34 +109,37 @@ class Anonym extends Brick
      * Anonym nemá nastavení.
      *
      * @param string $settingName jméno klíče nastavení
+     * @return null no settings
      */
     public function getSettingValue($settingName = null)
     {
-        return;
+        return null;
     }
 
     /**
      * Anonym nemá mail.
+     * @return null no mail
      */
     public function getUserEmail()
     {
-        return;
+        return null;
     }
 
     /**
-     * Maketa oprávnění.
+     * Fake permissions.
      *
-     * @param string $permKeyword klíčové slovo oprávnění
+     * @param string $permKeyword permission keyword
+     * @return null no permissions
      */
     public function getPermission($permKeyword = null)
     {
-        return;
+        return null;
     }
 
     /**
-     * Pouze maketa.
+     * Just fake
      *
-     * @return bool
+     * @return bool true - always logged off
      */
     public function logout()
     {

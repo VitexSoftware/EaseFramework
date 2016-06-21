@@ -9,7 +9,7 @@ namespace Ease\Html;
  *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  */
-class InputContainer extends Ease\Container
+class InputContainer extends \Ease\Container
 {
     /**
      * Name of Radios.

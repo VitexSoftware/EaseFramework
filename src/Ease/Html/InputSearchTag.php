@@ -55,7 +55,7 @@ class InputSearchTag extends InputTag
     public function finalize()
     {
         if (!is_null($this->dataSourceURL)) {
-            EaseJQueryUIPart::jQueryze($this);
+            \Ease\JQuery\UIPart::jQueryze($this);
             $this->addCSS('.ui-autocomplete-loading { background: white url(\'Ease/css/images/ui-anim_basic_16x16.gif\') right center no-repeat; }');
             $this->addJavaScript(
                 '

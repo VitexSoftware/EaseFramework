@@ -7,9 +7,9 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class CheckboxGroup extends EaseInputContainer
+class CheckboxGroup extends InputContainer
 {
-    public $itemClass = 'CheckboxTag';
+    public $itemClass = '\Ease\Html\CheckboxTag';
 
     /**
      * Pocet vlozenych polozek.

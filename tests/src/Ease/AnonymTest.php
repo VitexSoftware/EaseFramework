@@ -20,7 +20,7 @@ class AnonymTest extends BrickTest
      */
     protected function setUp()
     {
-        $this->object = new Anonym;
+        $this->object = new Anonym();
     }
 
     /**
@@ -40,6 +40,12 @@ class AnonymTest extends BrickTest
         $this->assertEquals(get_class($this->object),
             $this->object->setObjectName());
         $this->assertEquals('Test', $this->object->setObjectName('Test'));
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $this->assertEquals('Ease\Anonym@127.0.0.1',
+            $this->object->setObjectName());
+        $_SERVER['REMOTE_USER'] = 'tester';
+        $this->assertEquals('Ease\Anonym@127.0.0.1 [tester]',
+            $this->object->setObjectName());
     }
 
     /**
@@ -76,49 +82,33 @@ class AnonymTest extends BrickTest
 
     /**
      * @covers Ease\Anonym::getSettingValue
-     * @todo   Implement testGetSettingValue().
      */
     public function testGetSettingValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getSettingValue('test'));
     }
 
     /**
      * @covers Ease\Anonym::getUserEmail
-     * @todo   Implement testGetUserEmail().
      */
     public function testGetUserEmail()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getUserEmail());
     }
 
     /**
      * @covers Ease\Anonym::getPermission
-     * @todo   Implement testGetPermission().
      */
     public function testGetPermission()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getPermission());
     }
 
     /**
      * @covers Ease\Anonym::logout
-     * @todo   Implement testLogout().
      */
     public function testLogout()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->logout());
     }
 }

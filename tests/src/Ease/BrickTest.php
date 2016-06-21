@@ -97,7 +97,7 @@ class BrickTest extends SandTest
                 $all);
             $this->assertNull($this->object->getColumnsFromSQL('*', []));
             $some  = $this->object->getColumnsFromSQL(['name', 'id'],
-                "test.date LIKE  '2015-11-18 00:00:00'");
+                "test.date = '2015-11-18 00:00:00'");
             $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
         }
     }

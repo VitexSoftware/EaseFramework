@@ -9,7 +9,6 @@ use Ease\Html\FieldSet;
  */
 class FieldSetTest extends PairTagTest
 {
-
     /**
      * @var FieldSet
      */
@@ -19,16 +18,16 @@ class FieldSetTest extends PairTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
-        $this->object = new \Ease\Html\FieldSet;
+        $this->object = new \Ease\Html\FieldSet('test', 'content');
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
         
     }
@@ -37,7 +36,7 @@ class FieldSetTest extends PairTagTest
      * @covers Ease\Html\FieldSet::setLegend
      * @todo   Implement testSetLegend().
      */
-    public function testSetLegend() 
+    public function testSetLegend()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -49,7 +48,7 @@ class FieldSetTest extends PairTagTest
      * @covers Ease\Html\FieldSet::finalize
      * @todo   Implement testFinalize().
      */
-    public function testFinalize() 
+    public function testFinalize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,4 +56,32 @@ class FieldSetTest extends PairTagTest
         );
     }
 
+    /**
+     * @covers Ease\Html\FieldSet::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+    }
+
+    /**
+     * @covers Ease\Html\FieldSet::setObjectName
+     */
+    public function testSetObjectName()
+    {
+
+        $this->assertEquals(get_class($this->object).'@test',
+            $this->object->setObjectName());
+    }
+
+    /**
+     * @covers Ease\Html\FieldSet::draw
+     * @param string $what ignored
+     */
+    public function testDraw($what = null)
+    {
+        parent::testDraw('
+<fieldset>
+<legend>test</legend>content</fieldset>');
+    }
 }

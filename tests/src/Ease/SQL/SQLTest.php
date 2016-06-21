@@ -146,30 +146,6 @@ class SQLTest extends \Test\Ease\SandTest
     }
 
     /**
-     * @covers Ease\SQL\SQL::createTableQuery
-     * @todo   Implement testCreateTableQuery().
-     */
-    public function testCreateTableQuery()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SQL\SQL::createTable
-     * @todo   Implement testCreateTable().
-     */
-    public function testCreateTable()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\SQL\SQL::getNumRows
      * @todo   Implement testGetNumRows().
      */

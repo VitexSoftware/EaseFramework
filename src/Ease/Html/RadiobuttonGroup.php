@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-class RadiobuttonGroup extends EaseInputContainer
+class RadiobuttonGroup extends InputContainer
 {
     /**
      * @var string

@@ -167,9 +167,11 @@ class TagTest extends PageTest
      */
     public function testSetTagProperties()
     {
+        $this->object->tagProperties = ['title' => 'test'];
         $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
         $this->assertEquals('Test', $this->object->getTagID());
         $this->assertEquals('unit', $this->object->getTagName());
+
     }
 
     /**

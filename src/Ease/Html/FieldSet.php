@@ -28,7 +28,7 @@ class FieldSet extends PairTag
      *
      * @var mixed
      */
-    public $Content = null;
+    public $content = null;
 
     /**
      * Zobrazí rámeček.
@@ -42,7 +42,7 @@ class FieldSet extends PairTag
         $this->legend = $legend;
         $this->legendTag = $this->addItem(new PairTag('legend', null, $this->legend));
         if ($content) {
-            $this->addItem($content);
+            $this->content = $this->addItem($content);
         }
         parent::__construct('fieldset');
     }

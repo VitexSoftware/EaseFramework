@@ -2,7 +2,7 @@
 
 namespace Ease\TWB;
 
-class RadioButtonGroup extends Ease\Container
+class RadioButtonGroup extends \Ease\Container
 {
     /**
      * Jméno.

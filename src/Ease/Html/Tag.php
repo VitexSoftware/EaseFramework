@@ -228,26 +228,20 @@ class Tag extends \Ease\Page
      *
      * @param mixed $tagProperties asociativní pole parametrů tagu
      */
-    public function setTagProperties($tagProperties)
+    public function setTagProperties(array $tagProperties)
     {
-        if (is_array($tagProperties)) {
-            if (isset($tagProperties['id'])) {
-                $tagProperties['id'] = preg_replace('/[^A-Za-z0-9_\\-]/', '',
-                    $tagProperties['id']);
-            }
-            if (is_array($this->tagProperties)) {
-                $this->tagProperties = array_merge($this->tagProperties,
-                    $tagProperties);
-            } else {
-                $this->tagProperties = $tagProperties;
-            }
-            if (isset($tagProperties['name'])) {
-                $this->setTagName($tagProperties['name']);
-            }
+        if (isset($tagProperties['id'])) {
+            $tagProperties['id'] = preg_replace('/[^A-Za-z0-9_\\-]/', '',
+                $tagProperties['id']);
+        }
+        if (is_array($this->tagProperties)) {
+            $this->tagProperties = array_merge($this->tagProperties,
+                $tagProperties);
         } else {
-            $propBuff            = $tagProperties;
-            //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $tagProperties;
-            $this->tagProperties = ' '.$propBuff;
+            $this->tagProperties = $tagProperties;
+        }
+        if (isset($tagProperties['name'])) {
+            $this->setTagName($tagProperties['name']);
         }
     }
 
