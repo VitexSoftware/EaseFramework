@@ -213,7 +213,7 @@ class TagTest extends PageTest
     /**
      * @covers Ease\Html\Tag::draw
      */
-    public function testDraw()
+    public function testDraw($whatWant = null)
     {
         $tagType = $this->object->getTagType();
         if (!strlen($tagType)) {

@@ -19,7 +19,7 @@ class SimpleHeadTagTest extends \Ease\Html\PairTag
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\SimpleHeadTag;
+        $this->object = new \Ease\Html\SimpleHeadTag();
     }
 
     /**

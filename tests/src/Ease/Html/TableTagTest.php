@@ -19,7 +19,7 @@ class TableTagTest extends \Ease\Html\PairTag
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\TableTag;
+        $this->object = new \Ease\Html\TableTag();
     }
 
     /**

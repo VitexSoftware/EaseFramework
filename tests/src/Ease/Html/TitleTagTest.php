@@ -19,7 +19,7 @@ class TitleTagTest extends \Test\Ease\Html\PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\TitleTag;
+        $this->object = new \Ease\Html\TitleTag();
     }
 
     /**

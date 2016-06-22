@@ -31,6 +31,17 @@ class SubmitButtonTest extends UIPartTest
         
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('submint', 'ok');
+    }
+
     /**
      * @covers Ease\JQuery\SubmitButton::onDocumentReady
      * @todo   Implement testOnDocumentReady().

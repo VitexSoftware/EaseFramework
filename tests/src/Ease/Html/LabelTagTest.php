@@ -19,7 +19,7 @@ class LabelTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\LabelTag();
+        $this->object = new \Ease\Html\LabelTag('test');
     }
 
     /**

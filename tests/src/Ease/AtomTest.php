@@ -137,7 +137,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Ease\Atom::draw
      */
-    public function testDraw()
+    public function testDraw($whatWant = null)
     {
         $this->assertEquals('', $this->object->draw());
     }

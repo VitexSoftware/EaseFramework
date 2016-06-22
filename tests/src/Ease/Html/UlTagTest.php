@@ -19,7 +19,7 @@ class UlTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\UlTag;
+        $this->object = new \Ease\Html\UlTag('http://v.s.cz/');
     }
 
     /**

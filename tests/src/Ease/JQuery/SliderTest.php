@@ -44,6 +44,17 @@ class SliderTest extends UIPartTest
         );
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('test');
+    }
+
     /**
      * @covers Ease\JQuery\Slider::setValue
      * @todo   Implement testSetValue().

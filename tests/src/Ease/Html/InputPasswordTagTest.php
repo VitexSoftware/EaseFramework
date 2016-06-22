@@ -19,7 +19,7 @@ class InputPasswordTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\InputPasswordTag;
+        $this->object = new \Ease\Html\InputPasswordTag('test');
     }
 
     /**

@@ -19,7 +19,7 @@ class OlTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\OlTag;
+        $this->object = new \Ease\Html\OlTag();
     }
 
     /**

@@ -32,6 +32,17 @@ class LinkButtonTest extends UIPartTest
         
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('http://v.s.cz/', 'VitexSoftware');
+    }
+
     /**
      * @covers Ease\JQuery\LinkButton::onDocumentReady
      * @todo   Implement testOnDocumentReady().

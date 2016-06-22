@@ -19,7 +19,7 @@ class InputFileTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\InputFileTag;
+        $this->object = new \Ease\Html\InputFileTag('test');
     }
 
     /**

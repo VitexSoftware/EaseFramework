@@ -19,7 +19,7 @@ class SpanTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\SpanTag;
+        $this->object = new \Ease\Html\SpanTag('test');
     }
 
     /**

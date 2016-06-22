@@ -19,7 +19,7 @@ class NavTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\NavTag;
+        $this->object = new \Ease\Html\NavTag();
     }
 
     /**

@@ -19,7 +19,7 @@ class TrTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\TrTag;
+        $this->object = new \Ease\Html\TrTag();
     }
 
     /**

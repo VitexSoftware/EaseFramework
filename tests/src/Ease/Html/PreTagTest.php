@@ -19,7 +19,7 @@ class PreTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\PreTag;
+        $this->object = new \Ease\Html\PreTag();
     }
 
     /**

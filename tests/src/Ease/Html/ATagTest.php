@@ -59,7 +59,7 @@ class ATagTest extends PairTagTest
     /**
      * @covers Ease\Html\ATag::draw
      */
-    public function testDraw()
+    public function testDraw($whatWant = NULL)
     {
         parent::testDraw("\n<a href=\"http://v.s.cz/\" >Vitex Software</a>");
     }

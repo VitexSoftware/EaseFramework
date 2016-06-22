@@ -31,6 +31,16 @@ class UITabsTest extends UIPartTest
     {
         
     }
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('tebs');
+    }
 
     /**
      * @covers Ease\JQuery\UITabs::addTab

@@ -167,7 +167,7 @@ class Tag extends \Ease\Page
      */
     public function addTagClass($className)
     {
-        $this->setTagClass($this->getTagClass().' '.$className);
+        $this->setTagClass(trim($this->getTagClass().' '.$className));
     }
 
     /**
@@ -273,10 +273,7 @@ class Tag extends \Ease\Page
                     $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
-
-            return $tagPropertiesString;
-        } else {
-            return $this->tagProperties;
+            return trim($tagPropertiesString);
         }
     }
 
@@ -327,12 +324,21 @@ class Tag extends \Ease\Page
     }
 
     /**
+     * Add Css to tag properties
+     */
+    function finalize()
+    {
+        if (count($this->cssProperties)) {
+            $this->tagProperties['style'] = $this->cssPropertiesToString();
+        }
+    }
+
+    /**
      * Vykreslí tag.
      */
     public function draw()
     {
-        echo '
-<'.$this->tagType;
+        echo "\n<".$this->tagType.' ';
         echo $this->tagPropertiesToString();
         echo $this->trail;
         echo '>';

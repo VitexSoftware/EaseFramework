@@ -19,7 +19,7 @@ class InputSubmitTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\InputSubmitTag;
+        $this->object = new \Ease\Html\InputSubmitTag('test');
     }
 
     /**

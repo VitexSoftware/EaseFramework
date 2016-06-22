@@ -49,19 +49,20 @@ class Dialog extends UIPart
     /**
      * jQuery dialog.
      *
-     * @param string $DialogID id divu s dialogem
-     * @param string $Title    titulek okna
-     * @param mixed  $Message  obsah dialogu
-     * @param string $Icon     jQueryUI ikona
-     * @param string $Notice   doplnující informce
+     * @param string $dialogID id divu s dialogem
+     * @param string $title    titulek okna
+     * @param mixed  $message  obsah dialogu
+     * @param string $icon     jQueryUI ikona
+     * @param string $notice   doplnující informce
      */
-    public function __construct($DialogID, $Title, $Message, $Icon = 'ui-icon-circle-check', $Notice = null)
+    public function __construct($dialogID, $title, $message,
+                                $icon = 'ui-icon-circle-check', $notice = null)
     {
-        $this->DialogID = $DialogID;
-        $this->Title = $Title;
-        $this->Message = $Message;
-        $this->Icon = $Icon;
-        $this->Notice = $Notice;
+        $this->DialogID       = $dialogID;
+        $this->Title          = $title;
+        $this->Message        = $message;
+        $this->Icon           = $icon;
+        $this->Notice         = $notice;
         $this->partProperties = ['modal' => true, 'buttons' => ['Ok' => 'function () { $( this ).dialog( "close" ); }']];
         parent::__construct();
     }

@@ -19,7 +19,7 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\OptionTag;
+        $this->object = new \Ease\Html\OptionTag('test');
     }
 
     /**

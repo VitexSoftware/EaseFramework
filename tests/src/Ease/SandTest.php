@@ -46,6 +46,7 @@ class SandTest extends AtomTest
      */
     public function testAddStatusMessage()
     {
+        $this->object->addStatusMessage('Message1');
         $this->assertNotEmpty($this->object->getStatusMessages());
     }
 
@@ -388,7 +389,7 @@ class SandTest extends AtomTest
     /**
      * @covers Ease\Sand::draw
      */
-    public function testDraw()
+    public function testDraw($whatWant = null)
     {
         $this->assertEquals('Object: '.get_class($this->object),
             $this->object->draw());

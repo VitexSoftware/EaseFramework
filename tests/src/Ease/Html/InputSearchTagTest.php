@@ -20,7 +20,7 @@ class InputSearchTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\InputSearchTag;
+        $this->object = new \Ease\Html\InputSearchTag('test');
     }
 
     /**

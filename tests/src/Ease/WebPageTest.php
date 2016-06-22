@@ -144,7 +144,7 @@ class WebPageTest extends PageTest
      * @covers Ease\WebPage::draw
      * @todo   Implement testDraw().
      */
-    public function testDraw()
+    public function testDraw($whatWant = null)
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

@@ -18,7 +18,7 @@ class InputTextTagTest extends InputTagTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\Html\InputTextTag();
+        $this->object = new \Ease\Html\InputTextTag('test');
     }
 
     /**

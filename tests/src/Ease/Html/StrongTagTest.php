@@ -19,7 +19,7 @@ class StrongTagTest extends \Ease\Html\PairTag
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\StrongTag;
+        $this->object = new \Ease\Html\StrongTag();
     }
 
     /**

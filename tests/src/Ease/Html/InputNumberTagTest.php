@@ -19,7 +19,7 @@ class InputNumberTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\InputNumberTag();
+        $this->object = new \Ease\Html\InputNumberTag('test');
     }
 
     /**

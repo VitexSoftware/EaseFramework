@@ -31,4 +31,22 @@ class SubmitButtonTest extends \Test\Ease\Html\ButtonTagTest
         
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct();
+    }
+
+    /**
+     * @covers \Ease\TWB\SubmitButton::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw("\n<button class=\"btn\"></button>");
+    }
 }

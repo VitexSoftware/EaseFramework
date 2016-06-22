@@ -33,6 +33,17 @@ class ConfirmedLinkButtonTest extends LinkButtonTest
         
     }
 
+        public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('http://v.s.cz/', 'Vitex Software');
+    }
+
     /**
      * @covers Ease\JQuery\ConfirmedLinkButton::onDocumentReady
      * @todo   Implement testOnDocumentReady().

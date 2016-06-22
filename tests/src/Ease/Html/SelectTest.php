@@ -19,7 +19,7 @@ class SelectTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\Select();
+        $this->object = new \Ease\Html\Select('test');
     }
 
     /**

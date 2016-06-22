@@ -19,7 +19,7 @@ class ParamTagTest extends TagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\ParamTag();
+        $this->object = new \Ease\Html\ParamTag('test', 'value');
     }
 
     /**

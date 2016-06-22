@@ -19,7 +19,7 @@ class TdTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\TdTag;
+        $this->object = new \Ease\Html\TdTag();
     }
 
     /**

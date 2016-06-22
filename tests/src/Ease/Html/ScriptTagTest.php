@@ -19,7 +19,7 @@ class ScriptTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\ScriptTag;
+        $this->object = new \Ease\Html\ScriptTag();
     }
 
     /**

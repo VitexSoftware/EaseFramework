@@ -19,7 +19,7 @@ class TbodyTest extends \Ease\Html\PairTag
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\Tbody;
+        $this->object = new \Ease\Html\Tbody();
     }
 
     /**

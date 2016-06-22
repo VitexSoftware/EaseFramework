@@ -19,7 +19,7 @@ class ImageSubbmitTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\ImageSubbmit;
+        $this->object = new \Ease\Html\ImageSubbmit('test');
     }
 
     /**

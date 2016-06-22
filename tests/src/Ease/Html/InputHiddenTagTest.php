@@ -19,7 +19,7 @@ class InputHiddenTagTest extends InputTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\InputHiddenTag;
+        $this->object = new \Ease\Html\InputHiddenTag('test');
     }
 
     /**

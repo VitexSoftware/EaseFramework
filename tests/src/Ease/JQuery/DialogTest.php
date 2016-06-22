@@ -32,6 +32,17 @@ class DialogTest extends UIPartTest
         
     }
 
+        public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('test', 'Test', 'Test ?');
+    }
+
     /**
      * @covers Ease\JQuery\Dialog::onDocumentReady
      * @todo   Implement testOnDocumentReady().

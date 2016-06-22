@@ -35,7 +35,7 @@ class StatusMessagesTest extends \Test\Ease\Html\DivTest
      * @covers Ease\TWB\StatusMessages::draw
      * @todo   Implement testDraw().
      */
-    public function testDraw() 
+    public function testDraw($whatWant = null) 
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
