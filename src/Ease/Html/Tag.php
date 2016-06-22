@@ -254,6 +254,7 @@ class Tag extends \Ease\Page
      */
     public function tagPropertiesToString($tagProperties = null)
     {
+        $tagPropertiesString = '';
         if (!$tagProperties) {
             $tagProperties = $this->tagProperties;
         }
@@ -273,7 +274,7 @@ class Tag extends \Ease\Page
                     $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
-            return trim($tagPropertiesString);
+            return $tagPropertiesString;
         }
     }
 
@@ -284,17 +285,11 @@ class Tag extends \Ease\Page
      */
     public function setTagCss($cssProperties)
     {
-        if (is_array($cssProperties)) {
-            if (is_array($this->cssProperties)) {
-                $this->cssProperties = array_merge($this->cssProperties,
-                    $cssProperties);
-            } else {
-                $this->cssProperties = $cssProperties;
-            }
+        if (is_array($this->cssProperties)) {
+            $this->cssProperties = array_merge($this->cssProperties,
+                $cssProperties);
         } else {
-            $propBuff            = $cssProperties;
-            //if (substr($propBuff, 0, 1) != ' ') $propBuff = ' ' . $cssProperties;
-            $this->cssProperties = ' '.$propBuff;
+            $this->cssProperties = $cssProperties;
         }
         $this->setTagProperties(['style' => $this->cssPropertiesToString()]);
     }
@@ -338,8 +333,7 @@ class Tag extends \Ease\Page
      */
     public function draw()
     {
-        echo "\n<".$this->tagType.' ';
-        echo $this->tagPropertiesToString();
+        echo "\n<".$this->tagType.$this->tagPropertiesToString();
         echo $this->trail;
         echo '>';
     }
