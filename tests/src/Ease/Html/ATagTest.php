@@ -61,6 +61,6 @@ class ATagTest extends PairTagTest
      */
     public function testDraw($whatWant = NULL)
     {
-        parent::testDraw("\n<a href=\"http://v.s.cz/\" >Vitex Software</a>");
+        parent::testDraw("\n<a href=\"http://v.s.cz/\">Vitex Software</a>");
     }
 }

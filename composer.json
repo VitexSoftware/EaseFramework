@@ -1,7 +1,7 @@
 {
     "name": "vitexsoftware/ease-framework",
     "description": "An PHP Framework for Ease of writing Applications",
-    "version": "1.0",
+    "version": "1.1",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -30,7 +30,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.0",
-        "ext-curl": "*",
         "ext-pdo": "*"
     },
     "require-dev": {

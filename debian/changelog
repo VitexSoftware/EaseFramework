@@ -1,7 +1,6 @@
-ease-framework (171-5) UNRELEASED; urgency=low
+ease-framework (1.1-1) UNRELEASED; urgency=low
 
-  * Update to Twitter Bootstrap 3.0.0
-  * Code Camelization
-  * Add NAV tag
+  * Debian package build updates
+  * Spaces in tag with or without properties fix
 
- -- Vítězslav Vitex Dvořák <vitex@hippy.cz>  Sat, 07 Sep 2013 02:13:47 +0200
+ -- Cybervitexus <vitex@novolen.jinonice.czf>  Fri, 24 Jun 2016 23:45:04 +0200

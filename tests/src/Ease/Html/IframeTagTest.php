@@ -19,7 +19,7 @@ class IframeTagTest extends PairTagTest
      */
     protected function setUp() 
     {
-        $this->object = new \Ease\Html\IframeTag();
+        $this->object = new \Ease\Html\IframeTag('http://v.s.cz/');
     }
 
     /**

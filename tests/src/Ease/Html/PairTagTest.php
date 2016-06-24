@@ -77,7 +77,7 @@ class PairTagTest extends TagTest
         }
 
         if (count($this->object->tagProperties)) {
-            $tagBegin = "\n<$tagType ".$this->object->tagPropertiesToString().">";
+            $tagBegin = "\n<".trim($tagType." ".$this->object->tagPropertiesToString()).">";
         } else {
             $tagBegin = "\n<$tagType>";
         }

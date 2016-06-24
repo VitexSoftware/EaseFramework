@@ -333,8 +333,8 @@ class Tag extends \Ease\Page
      */
     public function draw()
     {
-        echo "\n<".$this->tagType.$this->tagPropertiesToString();
-        echo $this->trail;
-        echo '>';
+        echo "\n<";
+        echo trim($this->tagType.$this->tagPropertiesToString());
+        echo $this->trail.'>';
     }
 }
