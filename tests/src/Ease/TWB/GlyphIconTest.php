@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class GlyphIconTest extends \Test\Ease\Html\SpanTagTest
 {
-
     /**
      * @var GlyphIcon
      */
@@ -17,18 +16,28 @@ class GlyphIconTest extends \Test\Ease\Html\SpanTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
-        $this->object = new \Ease\TWB\GlyphIcon();
+        $this->object = new \Ease\TWB\GlyphIcon('test');
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
         
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+    }
 }

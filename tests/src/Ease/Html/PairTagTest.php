@@ -56,7 +56,11 @@ class PairTagTest extends TagTest
             $this->object->setTagType($tagType);
         }
         if (is_null($whatWant)) {
-            $whatWant = "\n<$tagType></$tagType>";
+            if (count($this->object->tagProperties)) {
+                $whatWant = "\n<$tagType ".$this->object->tagPropertiesToString()."></$tagType>";
+            } else {
+                $whatWant = "\n<$tagType></$tagType>";
+            }
         }
         ob_start();
         $this->object->draw();

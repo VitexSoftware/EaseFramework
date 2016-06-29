@@ -193,10 +193,10 @@ class TagTest extends PageTest
     public function testSetTagCss()
     {
         $this->object->setTagCss('color: blue;');
-        $this->assertEquals(' color: blue;',
+        $this->assertEquals('color: blue;',
             $this->object->cssPropertiesToString());
         $this->object->setTagCss(['color' => 'blue', 'margin' => '5px']);
-        $this->assertEquals(' color:blue;margin:5px;',
+        $this->assertEquals('color:blue;margin:5px;',
             $this->object->cssPropertiesToString());
     }
 
@@ -206,7 +206,7 @@ class TagTest extends PageTest
     public function testCssPropertiesToString()
     {
         $this->object->setTagCss(['color' => 'blue', 'margin' => '5px']);
-        $this->assertEquals(' color:blue;margin:5px;',
+        $this->assertEquals('color:blue;margin:5px;',
             $this->object->cssPropertiesToString());
     }
 

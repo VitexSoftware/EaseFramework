@@ -2,5 +2,7 @@ ease-framework (1.1-1) UNRELEASED; urgency=low
 
   * Debian package build updates
   * Spaces in tag with or without properties fix
+  * Debian package build update
+  * Debian package build update
 
- -- Cybervitexus <vitex@novolen.jinonice.czf>  Fri, 24 Jun 2016 23:45:04 +0200
+ -- Cybervitexus <vitex@novolen.jinonice.czf>  Sat, 25 Jun 2016 17:05:31 +0200

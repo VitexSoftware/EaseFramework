@@ -31,6 +31,17 @@ class TabsTest extends \Test\Ease\ContainerTest
         
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Tabs');
+    }
+
     /**
      * @covers Ease\TWB\Tabs::addTab
      * @todo   Implement testAddTab().

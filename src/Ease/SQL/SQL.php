@@ -539,4 +539,60 @@ abstract class SQL extends \Ease\Sand
     {
         return $this->status;
     }
+
+    /**
+     * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
+     * $this->myKeyColumn je preskocen pokud neni $key false).
+     *
+     * @param array $data
+     * @param bool  $key
+     *
+     * @return string
+     */
+    public function arrayToSetQuery($data, $key = true)
+    {
+        $updates = '';
+        foreach ($data as $column => $value) {
+            if (!strlen($column)) {
+                continue;
+            }
+            if (($column == $this->keyColumn) && $key) {
+                continue;
+            }
+            switch (gettype($value)) {
+                case 'integer':
+                    $value = " $value ";
+                    break;
+                case 'float':
+                case 'double':
+                    $value = ' '.str_replace(',', '.', $value).' ';
+                    break;
+                case 'boolean':
+                    if ($value) {
+                        $value = ' 1 ';
+                    } else {
+                        $value = ' 0 ';
+                    }
+                    break;
+                case 'null':
+                    $value = ' null ';
+                    break;
+                case 'string':
+                    if ($value != 'NOW()') {
+                        if (!strstr($value, "\'")) {
+                            $value = " '".str_replace("'", "\'", $value)."' ";
+                        } else {
+                            $value = " '$value' ";
+                        }
+                    }
+                    break;
+                default:
+                    $value = " '$value' ";
+            }
+
+            $updates .= ' '.$this->getColumnComma().$column.$this->getColumnComma()." = $value,";
+        }
+
+        return substr($updates, 0, -1);
+    }
 }

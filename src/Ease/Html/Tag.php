@@ -274,7 +274,7 @@ class Tag extends \Ease\Page
                     $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
-            return $tagPropertiesString;
+            return trim($tagPropertiesString);
         }
     }
 
@@ -303,6 +303,7 @@ class Tag extends \Ease\Page
      */
     public function cssPropertiesToString($cssProperties = null)
     {
+        $cssPropertiesString = '';
         if (!$cssProperties) {
             $cssProperties = $this->cssProperties;
         }
@@ -311,11 +312,10 @@ class Tag extends \Ease\Page
             foreach ($cssProperties as $CssPropertyName => $CssPropertyValue) {
                 $cssPropertiesString .= $CssPropertyName.':'.$CssPropertyValue.';';
             }
-
-            return $cssPropertiesString;
         } else {
-            return $this->cssProperties;
+            $cssPropertiesString = $this->cssProperties;
         }
+        return trim($cssPropertiesString);
     }
 
     /**
@@ -334,7 +334,7 @@ class Tag extends \Ease\Page
     public function draw()
     {
         echo "\n<";
-        echo trim($this->tagType.$this->tagPropertiesToString());
+        echo trim($this->tagType.' '.$this->tagPropertiesToString());
         echo $this->trail.'>';
     }
 }

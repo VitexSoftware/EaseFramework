@@ -32,11 +32,4 @@ class WellTest extends \Test\Ease\Html\DivTest
         
     }
 
-    /**
-     * @covers Ease\TWB\Well::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw("\n<div class=\"well\"></div>");
-    }
 }
