@@ -9,6 +9,7 @@ namespace Ease\TWB;
  */
 class Textarea extends \Ease\Html\TextareaTag
 {
+
     /**
      * Textarea.
      *
@@ -18,11 +19,7 @@ class Textarea extends \Ease\Html\TextareaTag
      */
     public function __construct($name, $content = '', $properties = null)
     {
-        if (is_null($properties) || !isset($properties['class'])) {
-            $properties = ['class' => 'form-control'];
-        } else {
-            $properties['class'] .= ' form - control  ';
-        }
         parent::__construct($name, $content, $properties);
+        $this->addTagClass('form-control');
     }
 }
