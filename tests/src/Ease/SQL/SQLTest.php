@@ -254,6 +254,19 @@ class SQLTest extends \Test\Ease\SandTest
     }
 
     /**
+     * @covers Ease\SQL\SQL::arrayToSetQuery
+     */
+    public function testArrayToSetQuery()
+    {
+        $this->object->keyColumn = 'id';
+        $sqlFragment               = $this->object->arrayToSetQuery([ '' => 'x',
+            'a' => 1, 'b' => 'word',
+            'c' => null, 'id' => 0, 'z' => 0.4, 'y' => true, 'x' => false]);
+        $this->assertEquals(" a =  1 , b =  'word' , c =  null , z =  0.4 , y =  1 , x =  0 ",
+            $sqlFragment);
+    }
+
+    /**
      * @covers Ease\SQL\SQL::queryToValue
      * @todo   Implement testQueryToValue().
      */

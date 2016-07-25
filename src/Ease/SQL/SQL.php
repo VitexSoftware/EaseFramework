@@ -311,9 +311,9 @@ abstract class SQL extends \Ease\Sand
         }
     }
 
-    public function setTable($TableName)
+    public function setTable($tableName)
     {
-        $this->tableName = $TableName;
+        $this->tableName = $tableName;
     }
 
     /**
@@ -574,7 +574,7 @@ abstract class SQL extends \Ease\Sand
                         $value = ' 0 ';
                     }
                     break;
-                case 'null':
+                case 'NULL':
                     $value = ' null ';
                     break;
                 case 'string':
