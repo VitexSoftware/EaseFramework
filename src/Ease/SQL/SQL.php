@@ -559,7 +559,6 @@ abstract class SQL extends \Ease\Sand
             if (($column == $this->keyColumn) && $key) {
                 continue;
             }
-            $operator = '=';
             switch (gettype($value)) {
                 case 'integer':
                     $value = " $value ";
@@ -575,8 +574,7 @@ abstract class SQL extends \Ease\Sand
                         $value = ' 0 ';
                     }
                     break;
-                case 'NULL':
-                    $operator = 'is';
+                case 'null':
                     $value = ' null ';
                     break;
                 case 'string':
@@ -592,7 +590,7 @@ abstract class SQL extends \Ease\Sand
                     $value = " '$value' ";
             }
 
-            $updates .= ' '.$this->getColumnComma().$column.$this->getColumnComma()." ".$operator." $value,";
+            $updates .= ' '.$this->getColumnComma().$column.$this->getColumnComma()." = $value,";
         }
 
         return substr($updates, 0, -1);
