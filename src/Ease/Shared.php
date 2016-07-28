@@ -31,7 +31,7 @@ class Shared extends Atom
     /**
      * Odkaz na objekt stránky.
      *
-     * @var EaseWebPage
+     * @var WebPage
      */
     public $webPage = null;
 
@@ -288,5 +288,12 @@ class Shared extends Atom
     {
         $easeShared             = self::singleton();
         $easeShared->allItems[] = $itemPointer;
+    }
+
+    public function __destruct()
+    {
+        if (!self::isCli()) {
+            $_SESSION['EaseMessages'] = $this->statusMessages;
+        }
     }
 }
