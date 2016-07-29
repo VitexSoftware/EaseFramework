@@ -105,9 +105,10 @@ class Shared extends Atom
         $cgiMessages = [];
         $webMessages = [];
         $msgFile     = sys_get_temp_dir().'/EaseStatusMessages.ser';
-        if (file_exists($msgFile)) {
+        if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile)
+            && is_writable($msgFile)) {
             $cgiMessages = unserialize(file_get_contents($msgFile));
-            unlink($msgFile);
+            file_put_contents($msgFile, "");
         }
 
         if (isset($_SESSION['EaseMessages'])) {
@@ -275,11 +276,15 @@ class Shared extends Atom
         $easeShared->allItems[] = $itemPointer;
     }
 
+    /**
+     * Write remaining messages to temporary file
+     */
     public function __destruct()
     {
         if (self::isCli()) {
-            file_put_contents(sys_get_temp_dir().'/EaseStatusMessages.ser',
-                serialize($this->statusMessages));
+            $messagesFile = sys_get_temp_dir().'/EaseStatusMessages.ser';
+            file_put_contents($messagesFile, serialize($this->statusMessages));
+            chmod($messagesFile, 666);
         } else {
             $_SESSION['EaseMessages'] = $this->statusMessages;
         }
