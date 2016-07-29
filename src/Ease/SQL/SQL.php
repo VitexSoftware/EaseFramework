@@ -396,8 +396,8 @@ abstract class SQL extends \Ease\Sand
             list(, $caller) = debug_backtrace(false);
             $title = $caller['function'];
         }
-        if (isset($this->easeShared->User) && is_object($this->easeShared->User)) {
-            return $this->easeShared->User->addStatusMessage($title.': #'.$this->errorNumber.' '.$this->errorText,
+        if (isset($this->easeShared->user) && is_object($this->easeShared->user)) {
+            return $this->easeShared->user->addStatusMessage($title.': #'.$this->errorNumber.' '.$this->errorText,
                     'error');
         } else {
             return $this->addToLog($title.': #'.$this->errorNumber.' '.$this->errorText,

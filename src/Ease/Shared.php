@@ -23,7 +23,7 @@ namespace Ease;
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
 class Shared extends Atom
@@ -67,7 +67,7 @@ class Shared extends Atom
      *
      * @var User|Anonym
      */
-    public $User = null;
+    public $user = null;
 
     /**
      * Odkaz na objekt databáze.
@@ -102,11 +102,19 @@ class Shared extends Atom
      */
     public function __construct()
     {
-        $this->setRunType();
+        $cgiMessages = [];
+        $webMessages = [];
+        $msgFile     = sys_get_temp_dir().'/EaseStatusMessages.ser';
+        if (file_exists($msgFile)) {
+            $cgiMessages = unserialize(file_get_contents($msgFile));
+            unlink($msgFile);
+        }
+
         if (isset($_SESSION['EaseMessages'])) {
-            $this->statusMessages = $_SESSION['EaseMessages'];
+            $webMessages = $_SESSION['EaseMessages'];
             unset($_SESSION['EaseMessages']);
         }
+        $this->statusMessages = array_merge($cgiMessages, $webMessages);
     }
 
     /**
@@ -168,29 +176,6 @@ class Shared extends Atom
         }
 
         return;
-    }
-
-    /**
-     * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web).
-     *
-     * @param string $runType force type
-     *
-     * @return string type
-     */
-    public function setRunType($runType = null)
-    {
-        if (!$runType) {
-            if (self::isCli()) {
-                $this->runType = 'cli';
-            } else {
-                $this->runType = 'web';
-            }
-        }
-        if (($runType != 'web') || ($runType != 'cli')) {
-            return;
-        } else {
-            return $this->runType;
-        }
     }
 
     /**
@@ -292,8 +277,12 @@ class Shared extends Atom
 
     public function __destruct()
     {
-        if (!self::isCli()) {
+        if (self::isCli()) {
+            file_put_contents(sys_get_temp_dir().'/EaseStatusMessages.ser',
+                serialize($this->statusMessages));
+        } else {
             $_SESSION['EaseMessages'] = $this->statusMessages;
         }
     }
+
 }
