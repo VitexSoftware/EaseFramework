@@ -84,19 +84,6 @@ class SharedTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Shared::setRunType
-     *
-     * @todo   Implement testSetRunType().
-     */
-    public function testSetRunType()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\Shared::db
      *
      * @todo   Implement testDb().

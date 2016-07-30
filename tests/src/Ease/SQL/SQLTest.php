@@ -296,19 +296,6 @@ class SQLTest extends \Test\Ease\SandTest
     }
 
     /**
-     * @covers Ease\SQL\SQL::getPearObject
-     *
-     * @todo   Implement testGetPearObject().
-     */
-    public function testGetPearObject()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\SQL\SQL::getColumnComma
      *
      * @todo   Implement testGetColumnComma().

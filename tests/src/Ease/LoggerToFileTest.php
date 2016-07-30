@@ -32,7 +32,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::singleton
+     * @covers Ease\LoggerToFile::singleton
      *
      * @todo   Implement testSingleton().
      */
@@ -45,7 +45,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::setupLogFiles
+     * @covers Ease\LoggerToFile::setupLogFiles
      *
      * @todo   Implement testSetupLogFiles().
      */
@@ -58,7 +58,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::setStoreMessages
+     * @covers Ease\LoggerToFile::setStoreMessages
      *
      * @todo   Implement testSetStoreMessages().
      */
@@ -71,7 +71,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::resetStoredMessages
+     * @covers Ease\LoggerToFile::resetStoredMessages
      *
      * @todo   Implement testResetStoredMessages().
      */
@@ -84,7 +84,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::getStoredMessages
+     * @covers Ease\LoggerToFile::getStoredMessages
      *
      * @todo   Implement testGetStoredMessages().
      */
@@ -97,7 +97,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::addToLog
+     * @covers Ease\LoggerToFile::addToLog
      *
      * @todo   Implement testAddToLog().
      */
@@ -110,7 +110,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::renameLogFile
+     * @covers Ease\LoggerToFile::renameLogFile
      *
      * @todo   Implement testRenameLogFile().
      */
@@ -123,7 +123,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::setRunType
+     * @covers Ease\LoggerToFile::setRunType
      *
      * @todo   Implement testSetRunType().
      */
@@ -136,7 +136,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::testDirectory
+     * @covers Ease\LoggerToFile::testDirectory
      *
      * @todo   Implement testTestDirectory().
      */
@@ -149,7 +149,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::error
+     * @covers Ease\LoggerToFile::error
      *
      * @todo   Implement testError().
      */
@@ -162,7 +162,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::__destruct
+     * @covers Ease\LoggerToFile::__destruct
      *
      * @todo   Implement test__destruct().
      */
@@ -175,7 +175,7 @@ class LoggerToFileTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::getLogStyle
+     * @covers Ease\LoggerToFile::getLogStyle
      *
      * @todo   Implement testGetLogStyle().
      */

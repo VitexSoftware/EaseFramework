@@ -203,12 +203,6 @@ abstract class SQL extends \Ease\Sand
     static public $lmt = ' LIMIT ';
 
     /**
-     * Hack WHERE to make Sensio Labs checks happy
-     * @var string
-     */
-    static public $whr = ' WHERE ';
-
-    /**
      * Hack FROM to make Sensio Labs checks happy
      * @var string
      */

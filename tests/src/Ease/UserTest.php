@@ -201,19 +201,6 @@ class UserTest extends AnonymTest
     }
 
     /**
-     * @covers Ease\User::setUserLevel
-     *
-     * @todo   Implement testSetUserLevel().
-     */
-    public function testSetUserLevel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\User::getUserID
      *
      * @todo   Implement testGetUserID().

@@ -719,7 +719,8 @@ class Sand extends Atom
     public function __sleep()
     {
         $objectVars = array_keys(get_object_vars($this));
-        if (method_exists(parent, '__sleep')) {
+        $parent     = get_parent_class(__CLASS__);
+        if (method_exists($parent, '__sleep') && ($parent != 'Ease\Atom')) {
             $parentObjectVars = parent::__sleep();
             array_push($objectVars, $parentObjectVars);
         }

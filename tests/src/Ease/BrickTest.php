@@ -286,41 +286,20 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getmyKeyColumn
-     *
-     * @todo   Implement testGetmyKeyColumn().
      */
     public function testGetmyKeyColumn()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Brick::MyIDExists
-     *
-     * @todo   Implement testMyIDExists().
-     */
-    public function testMyIDExists()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setmyKeyColumn('test');
+        $this->assertEquals('test', $this->object->getmyKeyColumn());
     }
 
     /**
      * @covers Ease\Brick::getMyTable
-     *
-     * @todo   Implement testGetMyTable().
      */
     public function testGetMyTable()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setmyTable('testing');
+        $this->assertEquals('testing', $this->object->getMyTable());
     }
 
     /**
@@ -330,49 +309,35 @@ class BrickTest extends SandTest
      */
     public function testGetMyKey()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setmyKey('test');
+        $this->assertEquals('test', $this->object->getmyKey());
     }
 
     /**
      * @covers Ease\Brick::setMyKey
-     *
-     * @todo   Implement testSetMyKey().
      */
     public function testSetMyKey()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setmyKey('test');
+        $this->assertEquals('test', $this->object->getmyKey());
     }
 
     /**
      * @covers Ease\Brick::setmyKeyColumn
-     *
-     * @todo   Implement testSetmyKeyColumn().
      */
     public function testSetmyKeyColumn()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setmyKeyColumn('test');
+        $this->assertEquals('test', $this->object->getmyKeyColumn());
     }
 
     /**
      * @covers Ease\Brick::setmyTable
-     *
-     * @todo   Implement testSetmyTable().
      */
     public function testSetmyTable()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setmyTable('test');
+        $this->assertEquals('test', $this->object->getMyTable());
     }
 
     /**
@@ -406,10 +371,7 @@ class BrickTest extends SandTest
      */
     public function testLettersOnly()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals('123', $this->object->lettersOnly('1a2b_3'));
     }
 
     /**

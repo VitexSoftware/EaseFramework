@@ -10,7 +10,7 @@ use Ease\LoggerToSyslog;
 class LoggerToSyslogTest extends AtomTest
 {
     /**
-     * @var SysLogger
+     * @var Ease\LoggerToSyslog
      */
     protected $object;
 
@@ -32,59 +32,7 @@ class LoggerToSyslogTest extends AtomTest
     }
 
     /**
-     * @covers Ease\SysLogger::singleton
-     *
-     * @todo   Implement testSingleton().
-     */
-    public function testSingleton()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SysLogger::setStoreMessages
-     *
-     * @todo   Implement testSetStoreMessages().
-     */
-    public function testSetStoreMessages()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SysLogger::resetStoredMessages
-     *
-     * @todo   Implement testResetStoredMessages().
-     */
-    public function testResetStoredMessages()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SysLogger::getStoredMessages
-     *
-     * @todo   Implement testGetStoredMessages().
-     */
-    public function testGetStoredMessages()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\SysLogger::addToLog
+     * @covers Ease\LoggerToSyslog::addToLog
      *
      * @todo   Implement testAddToLog().
      */
@@ -97,7 +45,7 @@ class LoggerToSyslogTest extends AtomTest
     }
 
     /**
-     * @covers Ease\SysLogger::error
+     * @covers Ease\LoggerToSyslog::error
      *
      * @todo   Implement testError().
      */
@@ -110,7 +58,7 @@ class LoggerToSyslogTest extends AtomTest
     }
 
     /**
-     * @covers Ease\SysLogger::__destruct
+     * @covers Ease\LoggerToSyslog::__destruct
      *
      * @todo   Implement test__destruct().
      */
@@ -123,7 +71,7 @@ class LoggerToSyslogTest extends AtomTest
     }
 
     /**
-     * @covers Ease\SysLogger::getLogStyle
+     * @covers Ease\LoggerToSyslog::getLogStyle
      *
      * @todo   Implement testGetLogStyle().
      */

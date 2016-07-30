@@ -32,7 +32,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::singleton
+     * @covers Ease\LoggerToMemory::singleton
      *
      * @todo   Implement testSingleton().
      */
@@ -45,20 +45,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::setupLogFiles
-     *
-     * @todo   Implement testSetupLogFiles().
-     */
-    public function testSetupLogFiles()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger::setStoreMessages
+     * @covers Ease\LoggerToMemory::setStoreMessages
      *
      * @todo   Implement testSetStoreMessages().
      */
@@ -71,7 +58,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::resetStoredMessages
+     * @covers Ease\LoggerToMemory::resetStoredMessages
      *
      * @todo   Implement testResetStoredMessages().
      */
@@ -84,7 +71,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::getStoredMessages
+     * @covers Ease\LoggerToMemory::getStoredMessages
      *
      * @todo   Implement testGetStoredMessages().
      */
@@ -97,7 +84,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::addToLog
+     * @covers Ease\LoggerToMemory::addToLog
      *
      * @todo   Implement testAddToLog().
      */
@@ -110,46 +97,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::renameLogFile
-     *
-     * @todo   Implement testRenameLogFile().
-     */
-    public function testRenameLogFile()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger::setRunType
-     *
-     * @todo   Implement testSetRunType().
-     */
-    public function testSetRunType()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger::testDirectory
-     *
-     * @todo   Implement testTestDirectory().
-     */
-    public function testTestDirectory()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger::error
+     * @covers Ease\LoggerToMemory::error
      *
      * @todo   Implement testError().
      */
@@ -162,20 +110,7 @@ class LoggerToMemoryTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Logger::__destruct
-     *
-     * @todo   Implement test__destruct().
-     */
-    public function test__destruct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger::getLogStyle
+     * @covers Ease\LoggerToMemory::getLogStyle
      *
      * @todo   Implement testGetLogStyle().
      */
