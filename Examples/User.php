@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Ukázková webstránka.
+ * User class example page.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)

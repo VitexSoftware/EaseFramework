@@ -1,5 +1,4 @@
 <?php
-
 /**
  * WebPage example.
  *
@@ -21,7 +20,8 @@ $oPage->addStatusMessage(_('error'), 'error');
 
 $oPage->addItem(new Ease\Html\H1Tag(_('Example Web Page')));
 
-$oPage->addItem(new Ease\Html\FieldSet(_('Status messages'), $oPage->getStatusMessagesAsHtml()));
+$oPage->addItem(new Ease\Html\FieldSet(_('Status messages'),
+    $oPage->getStatusMessagesAsHtml()));
 
 /*
  * Vyrendrování stránky

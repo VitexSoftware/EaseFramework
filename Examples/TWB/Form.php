@@ -6,26 +6,43 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-namespace Ease;
+namespace Ease\Example\TWB;
 
-require_once '../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 
 /*
  * Instancujeme objekt webové stránky
  */
-$oPage = new WebPage();
+$oPage = new \Ease\TWB\WebPage();
 
-$Text = $oPage->getRequestValue('text');
-if ($Text) {
-    $oPage->addStatusMessage(sprintf(_('Bylo zadáno: %s .'), $Text), 'success');
+$text = $oPage->getRequestValue('text');
+if ($text) {
+    $oPage->addStatusMessage(sprintf(_('You enter: %s as text.'), $text),
+        'success');
+} else {
+    $oPage->addStatusMessage(_('Please enter any text'));
 }
 
-$form = new TWB\Form('example');
-$form->addInput(new Html\InputTextTag('text'), _('Text'), _('Default text'), _('Text hint'));
-$form->addItem(new TWB\SubmitButton('ok', 'success'));
+$number = $oPage->getRequestValue('number', 'int');
+if ($text) {
+    $oPage->addStatusMessage(sprintf(_('You enter: %s as number.'), $text),
+        'success');
+} else {
+    $oPage->addStatusMessage(_('Please enter any number'));
+}
 
-$oPage->addItem($form);
+$form = new \Ease\TWB\Form('example'); //Lets have new Form
 
-$oPage->addItem($oPage->getStatusMessagesAsHtml());
+$form->addInput(new \Ease\Html\InputTextTag('text', $text), _('Text'),
+    _('Default text'), _('Text hint')); //Add Text input into
+
+$form->addInput(new \Ease\Html\InputNumberTag('number', $number), _('Number'),
+    123, _('Number hint')); //Add Text input into
+
+$form->addItem(new \Ease\TWB\SubmitButton('ok', 'success')); //Of course ...
+
+$formContainer = $oPage->addItem(new \Ease\TWB\Container($form)); //Enclose it
+
+$formContainer->addItem($oPage->getStatusMessagesAsHtml());
 
 $oPage->draw();

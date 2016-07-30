@@ -1,11 +1,11 @@
 <?php
-
 /**
- * Objekty pro vykreslení stránky.
+ * Simple html page class
  *
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -68,7 +68,7 @@ class Page extends Container
     public static function singleton($user = null)
     {
         if (!isset(self::$_instance)) {
-            $class = __CLASS__;
+            $class           = __CLASS__;
             self::$_instance = new $class($user);
         }
 
@@ -103,11 +103,13 @@ class Page extends Container
      *
      * @return int
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
+    public function addJavaScript($javaScript, $position = null,
+                                  $inDocumentReady = true)
     {
         self::assignWebPage($this);
 
-        return $this->webPage->addJavaScript($javaScript, $position, $inDocumentReady);
+        return $this->webPage->addJavaScript($javaScript, $position,
+                $inDocumentReady);
     }
 
     /**
@@ -119,11 +121,13 @@ class Page extends Container
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
+    public function includeJavaScript($javaScriptFile, $position = null,
+                                      $fwPrefix = false)
     {
         self::assignWebPage($this);
 
-        return $this->webPage->includeJavaScript($javaScriptFile, $position, $fwPrefix);
+        return $this->webPage->includeJavaScript($javaScriptFile, $position,
+                $fwPrefix);
     }
 
     /**
@@ -192,22 +196,22 @@ class Page extends Container
         $url = sprintf(
             '%s://%s%s',
             empty($_SERVER['HTTPS']) ?
-                        (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
-            $_SERVER['SERVER_NAME'],
-            $_SERVER['REQUEST_URI']
+                (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
+            $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
         );
 
         $parts = parse_url($url);
 
-        $port = $_SERVER['SERVER_PORT'];
+        $port   = $_SERVER['SERVER_PORT'];
         $scheme = $parts['scheme'];
-        $host = $parts['host'];
-        $path = @$parts['path'];
-        $qs = @$parts['query'];
+        $host   = $parts['host'];
+        $path   = @$parts['path'];
+        $qs     = @$parts['query'];
 
         $port or $port = ($scheme == 'https') ? '443' : '80';
 
-        if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port != '80')
+        if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port
+            != '80')
         ) {
             $host = "$host:$port";
         }
@@ -228,7 +232,8 @@ class Page extends Container
     {
         $user = Shared::user();
         if (!method_exists($user, 'isLogged') || !$user->isLogged()) {
-            Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'), 'warning');
+            Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'),
+                'warning');
             $this->redirect($loginPage);
             exit;
         }
@@ -241,9 +246,9 @@ class Page extends Container
      */
     public function getRequestValues()
     {
-        global $_REQUEST;
         $requestValuesToKeep = [];
-        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
+        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep)
+            && count($this->webPage->requestValuesToKeep)) {
             foreach ($this->webPage->requestValuesToKeep as $KeyName => $KeyValue) {
                 if ($KeyValue != true) {
                     $requestValuesToKeep[$KeyName] = $KeyValue;
@@ -294,9 +299,9 @@ class Page extends Container
                     return true;
                 }
                 break;
-            if (($value == 'false') || ($value == 0)) {
-                return fals;
-            }
+                if (($value == 'false') || ($value == 0)) {
+                    return fals;
+                }
                 break;
 
                 return;
@@ -321,7 +326,6 @@ class Page extends Container
      */
     public function getRequestValue($field, $sanitizeAs = null)
     {
-        global $_REQUEST;
         $this->setupWebPage();
         if (isset($_REQUEST[$field])) {
             if (isset($this->webPage->requestValuesToKeep[$field])) {
@@ -422,7 +426,7 @@ class Page extends Container
         if (is_array($varNames)) {
             foreach ($varNames as $varName => $varValue) {
                 if (is_numeric($varName)) {
-                    $varName = $varValue;
+                    $varName  = $varValue;
                     $varValue = $this->getRequestValue($varName);
                     if ($varValue) {
                         $this->keepRequestValue($varName, $varValue);
@@ -566,9 +570,11 @@ class Page extends Container
 
                 return $msgTaken;
             } else {
-                if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages) && count($msgSource->webPage->statusMessages)) {
-                    $msgTaken = count($msgSource->webPage->statusMessages);
-                    $this->statusMessages = array_merge($this->statusMessages, $msgSource->webPage->statusMessages);
+                if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages)
+                    && count($msgSource->webPage->statusMessages)) {
+                    $msgTaken                           = count($msgSource->webPage->statusMessages);
+                    $this->statusMessages               = array_merge($this->statusMessages,
+                        $msgSource->webPage->statusMessages);
                     $msgSource->webPage->statusMessages = [];
 
                     return $msgTaken;
@@ -593,4 +599,5 @@ class Page extends Container
             return $baseUrl.'?'.http_build_query($params);
         }
     }
+
 }

@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Listings Example.
  *
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 require_once '../vendor/autoload.php';

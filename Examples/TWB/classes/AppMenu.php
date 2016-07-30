@@ -1,6 +1,6 @@
 <?php
 
-namespace Ease\Example;
+namespace Ease\Example\TWB;
 
 use Ease\Html\ATag;
 
@@ -22,18 +22,19 @@ class AppMenu extends \Ease\TWB\Navbar
 
         $this->addDropDownMenu(
             _('Systém'),
-            array(
+            [
             'settings.php' => '<i class="icon-list"></i>&nbsp;'._('Settings'),
             'shutdown.php' => '<i class="icon-list"></i>&nbsp;'._('Shutdown'),
-            )
+            ]
         );
 
         $this->addDropDownMenu(
             _('Informace'),
-            array(
+            [
             'log.php' => '<i class="icon-list"></i>&nbsp;'._('System log'),
             'http://h.v.s.cz/' => '<i class="icon-list"></i>&nbsp;'._('Hosting'),
-            )
+            ]
         );
     }
+
 }

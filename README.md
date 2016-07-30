@@ -81,3 +81,4 @@ GitHub: https://github.com/VitexSoftware/EaseFramework
 
 Apigen Docs: https://www.vitexsoftware.cz/EaseDoc/
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)

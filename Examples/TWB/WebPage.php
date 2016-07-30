@@ -7,9 +7,9 @@
  * @copyright  2009-2016 Vitex@hippy.cz (G)
  */
 
-namespace Ease\Example;
+namespace Ease\Example\TWB;
 
-require_once '../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 
 /*
  * New web page instance
@@ -22,7 +22,7 @@ $oPage->addStatusMessage(_('success'), 'success');
 $oPage->addStatusMessage(_('warning'), 'warning');
 $oPage->addStatusMessage(_('error'), 'error');
 
-$oPage->addItem(new TWB\LinkButton('./', _('Back to examples'), 'info'));
+$oPage->addItem(new \Ease\TWB\LinkButton('./', _('Back to examples'), 'info'));
 
 /*
  * Page rendering

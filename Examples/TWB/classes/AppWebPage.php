@@ -1,15 +1,14 @@
 <?php
 
-namespace Ease\Example;
+namespace Ease\Example\TWB;
 
 /**
  * Description of EaseBiWebPage.
  *
  * @author vitex
  */
-class EaseExAppWebPage extends \Ease\TWB\WebPage
+class AppWebPage extends \Ease\TWB\WebPage
 {
-
     /**
      * Applicaton Menu.
      *
@@ -26,12 +25,13 @@ class EaseExAppWebPage extends \Ease\TWB\WebPage
     public function __construct($pageTitle = null, &$userObject = null)
     {
         parent::__construct($pageTitle, $userObject);
-        $this->navBar = $this->addItem(
-            new EaseExAppMenu('menu', 'ExApp', array('class' => 'navbar-fixed-top'))
+        $this->navBar    = $this->addItem(
+            new AppMenu('menu', 'ExApp', ['class' => 'navbar-fixed-top'])
         );
-        $this->addItem(new EaseExAppStatusMessages());
+        $this->addItem(new AppStatusMessages());
         $this->container = $this->addItem(
-            new \Ease\Html\Div(null, array('class' => 'container'))
+            new \Ease\Html\Div(null, ['class' => 'container'])
         );
     }
+
 }

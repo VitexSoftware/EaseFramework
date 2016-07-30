@@ -1,6 +1,6 @@
 <?php
 
-namespace Ease\Example;
+namespace Ease\Example\TWB;
 
 class AppStatusMessages extends \Ease\Html\Div
 {
