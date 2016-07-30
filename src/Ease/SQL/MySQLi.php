@@ -239,18 +239,18 @@ class MySQLi extends SQL
      * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data.
      *
      * @param array $data  asociativní pole dat
-     * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
+     * @param int   $keyID id záznamu. Není li uveden použije se aktuální
      *
      * @return sqlresult
      */
-    public function arrayToUpdate($data, $KeyID = null)
+    public function arrayToUpdate($data, $keyID = null)
     {
-        if (!$KeyID) {
-            $IDCol = $data[$this->keyColumn];
+        if (!$keyID) {
+            $idCol = $data[$this->keyColumn];
         }
         unset($data[$this->keyColumn]);
 
-        return $this->exeQuery('UPDATE '.$this->TableName.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$IDCol);
+        return $this->exeQuery(SQL::$upd.$this->TableName.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$idCol);
     }
 
     /**

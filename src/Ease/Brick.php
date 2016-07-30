@@ -342,7 +342,7 @@ class Brick extends Sand
             $tableName = $this->myTable;
         }
         if ($limit) {
-            $limitCond = ' LIMIT '.$limit;
+            $limitCond = SQL\SQL::$lmt.$limit;
         } else {
             $limitCond = '';
         }

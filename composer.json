@@ -33,8 +33,8 @@
     "require": {
         "php": ">=5.6.0",
         "ext-pdo": "*",
-        "pear/mail": "dev-trunk",
-        "pear/mail_mime": "dev-master"
+        "pear/mail": "*",
+        "pear/mail_mime": "*"
     },
     "require-dev": {
         "robmorgan/phinx": "* dev-master",

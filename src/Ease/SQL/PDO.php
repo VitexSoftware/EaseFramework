@@ -366,7 +366,7 @@ class PDO extends SQL
         }
         unset($data[$this->keyColumn]);
 
-        return $this->exeQuery('UPDATE '.$this->TableName.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$IDCol);
+        return $this->exeQuery(self::$upd.$this->TableName.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$IDCol);
     }
 
     /**
@@ -589,7 +589,7 @@ class PDO extends SQL
         if (!$tableName) {
             $tableName = $this->TableName;
         }
-        $tableRowsCount = $this->queryToArray(SQL\SQL::$sel.
+        $tableRowsCount = $this->queryToArray(SQL::$sel.
             'count(*) AS NumRows'.SQL::$frm.$this->getColumnComma().
             $this->easeAddSlashes($tableName).$this->getColumnComma());
         return $tableRowsCount[0]['NumRows'];
