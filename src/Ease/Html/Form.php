@@ -1,10 +1,10 @@
 <?php
-
 /**
  * Html formulář se schopností rekurzivne naplnit hodnotami vložené prvky.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
+
 namespace Ease\Html;
 
 class Form extends PairTag
@@ -40,9 +40,12 @@ class Form extends PairTag
      * @param array  $tagProperties vlastnosti tagu například:
      *                              array('enctype' => 'multipart/form-data')
      */
-    public function __construct($formName, $formAction = null, $formMethod = 'post', $formContents = null, $tagProperties = null)
+    public function __construct($formName, $formAction = null,
+                                $formMethod = 'post', $formContents = null,
+                                $tagProperties = null)
     {
-        parent::__construct('form', ['method' => $formMethod, 'name' => $formName]);
+        parent::__construct('form',
+            ['method' => $formMethod, 'name' => $formName]);
         if ($formAction) {
             $this->setFormTarget($formAction);
         } else {
@@ -79,30 +82,34 @@ class Form extends PairTag
     {
         if (is_array($parametersToChange) && count($parametersToChange)) {
             foreach ($parametersToChange as $paramName => $paramValue) {
-                if ($paramValue == true) {
+                if ($paramValue === true) {
                     unset($parametersToChange[$paramName]);
                 }
             }
-            $targetParts = explode('&', str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
+            $targetParts = explode('&',
+                str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
             if (is_array($targetParts) && count($targetParts)) {
                 $formTargetComputed = '';
-                $targetPartsValues = [];
+                $targetPartsValues  = [];
                 foreach ($targetParts as $targetPart) {
                     if (!strstr($targetPart, '=')) {
                         $formTargetComputed .= $targetPart;
                         continue;
                     }
-                    list($targetPartName, $targetPartaValue) = explode('=', $targetPart);
-                    if ($targetPartValue == true) {
+                    list($targetPartName, $targetPartValue) = explode('=',
+                        $targetPart);
+                    if ($targetPartValue === true) {
                         continue;
                     }
                     $targetPartsValues[$targetPartName] = $targetPartValue;
                 }
             }
             if ($replace) {
-                $newTargPartVals = array_merge($targetPartsValues, $parametersToChange);
+                $newTargPartVals = array_merge($targetPartsValues,
+                    $parametersToChange);
             } else {
-                $newTargPartVals = array_merge($parametersToChange, $targetPartsValues);
+                $newTargPartVals = array_merge($parametersToChange,
+                    $targetPartsValues);
             }
             $glueSign = '?';
             foreach ($newTargPartVals as $newTargetPartsValName => $newTargetPartsValue) {
@@ -135,7 +142,8 @@ class Form extends PairTag
                             return $pagePart;
                         }
                     } else {
-                        $itemFound = $this->objectContentSearch($searchFor, $pagePart);
+                        $itemFound = $this->objectContentSearch($searchFor,
+                            $pagePart);
                         if ($itemFound) {
                             return $itemFound;
                         }
@@ -153,7 +161,8 @@ class Form extends PairTag
     public function finalize()
     {
         $this->setupWebPage();
-        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
+        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep)
+            && count($this->webPage->requestValuesToKeep)) {
             foreach ($this->webPage->requestValuesToKeep as $name => $value) {
                 if (!$this->objectContentSearch($name)) {
                     if (is_string($value)) {
@@ -163,4 +172,5 @@ class Form extends PairTag
             }
         }
     }
+
 }

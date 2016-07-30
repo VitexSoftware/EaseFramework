@@ -3,11 +3,9 @@
 namespace Ease\JQuery;
 
 /**
- * Dialog.
+ * jQueryUI Dialog.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
- *
- * @todo   dodělat #IDčka ...
  */
 class Dialog extends UIPart
 {
@@ -91,4 +89,5 @@ class Dialog extends UIPart
         }
         parent::finalize();
     }
+
 }

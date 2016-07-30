@@ -50,7 +50,7 @@ class Navbar extends \Ease\Html\Div
         $properties['name'] = $name;
         $this->menuInnerContent = parent::addItem(new \Ease\Html\Div(null, ['class' => 'navbar-inner']));
         parent::__construct(null, $properties);
-        $this->addItem(self::NavBarHeader($name, $brand));
+        $this->addItem(self::navBarHeader($name, $brand));
         $navCollapse = $this->addItem(new \Ease\Html\Div(null, ['class' => 'collapse navbar-collapse navbar-'.$name.'-collapse']));
         $this->nav = $navCollapse->addItem(new \Ease\Html\UlTag(null, ['class' => 'nav navbar-nav']));
         $this->tagType = 'nav';
@@ -60,11 +60,17 @@ class Navbar extends \Ease\Html\Div
         Part::twBootstrapize();
     }
 
-    public static function NavBarHeader($handle, $brand)
+    public static function navBarHeader($handle, $brand)
     {
         $navstyle = '.navbar-'.$handle.'-collapse';
-        $nbhc['button'] = new \Ease\Html\ButtonTag([new \Ease\Html\SpanTag(null, _('přepnutí navigace'), ['class' => 'sr-only']), new \Ease\Html\SpanTag(null, null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null, null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null, null, ['class' => 'icon-bar'])], ['type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse', 'data-target' => $navstyle]);
-        if ($brand) {
+        $nbhc['button'] = new \Ease\Html\ButtonTag([new \Ease\Html\SpanTag(null,
+                _('Switch navigation'), ['class' => 'sr-only']), new \Ease\Html\SpanTag(null,
+                null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null,
+                null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null,
+                null, ['class' => 'icon-bar'])],
+            ['type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse',
+            'data-target' => $navstyle]);
+        if (strlen($brand)) {
             $nbhc['brand'] = new \Ease\Html\ATag('./', $brand, ['class' => 'navbar-brand']);
         }
 
@@ -104,7 +110,7 @@ class Navbar extends \Ease\Html\Div
         if (isset($pageItem->tagProperties['href'])) {
             $href = basename($pageItem->tagProperties['href']);
             if (strstr($href, '?')) {
-                list($targetPage, $params) = explode('?', $href);
+                list($targetPage) = explode('?', $href);
             } else {
                 $targetPage = $href;
             }

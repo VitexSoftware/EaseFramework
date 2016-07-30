@@ -102,7 +102,6 @@ class PDO extends SQL
         if (!is_null($column)) {
             $this->keyColumn = $column;
         }
-        //        $this->sqlLink->setKeyColumn($this->myKeyColumn);
     }
 
     /**
@@ -115,7 +114,6 @@ class PDO extends SQL
         if ($tablename) {
             $this->myTable = $tablename;
         }
-        //        $this->sqlLink->setTableName($this->myTable);
     }
 
     /**
@@ -128,7 +126,7 @@ class PDO extends SQL
     public function addSlashes($text)
     {
         $slashed = '';
-        if(method_exists($this->sqlLink, 'real_escape_string')){
+        if (method_exists($this->sqlLink, 'real_escape_string')) {
             $slashed = $this->sqlLink->real_escape_string($text);
         } else {
             $slashed = addslashes($text);
@@ -156,7 +154,7 @@ class PDO extends SQL
                 break;
 
             default:
-                //TODO: Implement Other DB's
+                throw new Exception(_('Unimplemented Database').': '.$this->dbType);
                 break;
         }
 
@@ -164,16 +162,17 @@ class PDO extends SQL
             $this->errorNumber = $this->sqlLink->errorCode();
             $this->errorText   = $this->sqlLink->errorInfo();
         } else {
-            return false;
+            $result = false;
         }
         if ($this->errorNumber != '00000') {
             $this->addStatusMessage('Connect: error #'.$this->errorNumer.' '.$this->errorText,
                 'error');
 
-            return false;
+            $result = false;
         } else {
-            return parent::connect();
+            $result = parent::connect();
         }
+        return $result;
     }
 
     /**
@@ -234,22 +233,7 @@ class PDO extends SQL
                 if ($this->errorNumber) {
                     $this->errorText = $errorText[2];
                 }
-                if (!$this->result && !$ignoreErrors) {
-                    if (\Ease\Shared::isCli()) {
-                        if (function_exists('xdebug_call_function')) {
-                            echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
-                        }
-                        echo "\n$queryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
-                    } else {
-                        echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
-                        if (function_exists('xdebug_print_function_stack')) {
-                            xdebug_print_function_stack('Volano tridou <b>'.xdebug_call_class().'</b> v souboru <b>'.xdebug_call_file().':'.xdebug_call_line().'</b> funkci <b>'.xdebug_call_function().'</b>');
-                        }
-                        echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
-                    }
-                    $this->logError();
-                    $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
-                }
+                $this->logSqlError($ignoreErrors);
 
                 if ($this->errorNumber == '00000') {
                     $this->numRows = $this->result->rowCount();
@@ -335,7 +319,7 @@ class PDO extends SQL
                     $resultArray[$dataRow[$keyColumnToIndex]] = $dataRow;
                 }
             } else {
-                if (($keyColumnToIndex == true) && isset($this->myKeyColumn)) {
+                if (($keyColumnToIndex === true) && isset($this->myKeyColumn)) {
                     foreach ($this->result->fetchAll(\PDO::FETCH_ASSOC) as $dataRow) {
                         $resultArray[$dataRow[$this->myKeyColumn]] = $dataRow;
                     }
@@ -609,8 +593,6 @@ class PDO extends SQL
         return $TableRowsCount[0]['NumRows'];
     }
 
-
-
     /**
      * Vrací uvozovky pro označení sloupečků.
      *
@@ -674,4 +656,5 @@ class PDO extends SQL
 
         return parent::__sleep();
     }
+
 }

@@ -1,14 +1,15 @@
 <?php
-
 /**
  * Twitter Bootstrap common class.
  *
  * @author Vitex <vitex@hippy.cz>
  */
+
 namespace Ease\TWB;
 
 class Part extends \Ease\JQuery\Part
 {
+
     /**
      * Vložení náležitostí pro twitter bootstrap.
      */
@@ -29,8 +30,6 @@ class Part extends \Ease\JQuery\Part
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }
-        //TODO: ONCE: $webPage->head->addItem('<meta name="viewport"
-        // content="width=device-width, initial-scale=1.0">');
         return true;
     }
 
@@ -42,7 +41,7 @@ class Part extends \Ease\JQuery\Part
      * @param string $code       Kód ikony z přehledu
      * @param array  $properties Vlastnosti Tagu
      */
-    public static function GlyphIcon($code, $properties = null)
+    public static function glyphIcon($code, $properties = null)
     {
         if (is_null($properties)) {
             $properties = ['class' => 'glyphicon glyphicon-'.$code];
@@ -56,4 +55,5 @@ class Part extends \Ease\JQuery\Part
 
         return new \Ease\Html\Span(null, $properties);
     }
+
 }

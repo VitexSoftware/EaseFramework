@@ -472,38 +472,6 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Vrací databázový objekt Pear::DB.
-     *
-     * @link http://pear.php.net/manual/en/package.database.mdb2.php
-     *
-     * @todo SET,mdb2
-     *
-     * @return DB|null objekt databáze
-     */
-    public static function &getPearObject()
-    {
-        include_once 'DB.php';
-        $DbHelper = new DB();
-
-        $dsn = [
-            'phptype' => 'mysql', //TODO - pořešit v EaseMySQL
-            'username' => DB_SERVER_USERNAME,
-            'password' => DB_SERVER_PASSWORD,
-            'hostspec' => DB_SERVER,
-        ];
-
-        $db = &$DbHelper->connect($dsn);
-
-        if (PEAR::isError($db)) {
-            return;
-        }
-
-        $db->query('USE '.DB_DATABASE);
-
-        return $db;
-    }
-
-    /**
      * Vrací uvozovky pro označení sloupečků.
      *
      * @return string
@@ -578,4 +546,31 @@ abstract class SQL extends \Ease\Sand
 
         return substr($updates, 0, -1);
     }
+
+    /**
+     * Do when SQL error occurs
+     *
+     * @param boolean $ignoreErrors
+     */
+    public function logSqlError($ignoreErrors = false)
+    {
+        if (!$this->result && !$ignoreErrors) {
+            $queryRaw = $this->lastQuery;
+            if (\Ease\Shared::isCli()) {
+                if (function_exists('xdebug_call_function')) {
+                    echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
+                }
+                echo "\n$queryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
+            } else {
+                echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
+                if (function_exists('xdebug_print_function_stack')) {
+                    xdebug_print_function_stack('Volano tridou <b>'.xdebug_call_class().'</b> v souboru <b>'.xdebug_call_file().':'.xdebug_call_line().'</b> funkci <b>'.xdebug_call_function().'</b>');
+                }
+                echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
+            }
+            $this->logError();
+            $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
+        }
+    }
+
 }

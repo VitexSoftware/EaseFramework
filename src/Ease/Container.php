@@ -60,7 +60,6 @@ class Container extends Sand
     public function __construct($initialContent = null)
     {
         parent::__construct();
-        //$this->webPage = EaseShared::webPage();
         if ($initialContent) {
             $this->addItem($initialContent);
         }
@@ -302,11 +301,6 @@ class Container extends Sand
     {
         $this->pageParts = null;
     }
-    /**
-     * Metoda volaná až po přidání elementu metodou addItem().
-     */
-    //    function AfterAdd() {
-    //    }
 
     /**
      * Převezme JavaScripty.
@@ -523,4 +517,5 @@ class Container extends Sand
 
         return $objectOut;
     }
+
 }

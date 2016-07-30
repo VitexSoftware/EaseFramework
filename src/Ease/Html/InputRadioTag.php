@@ -38,8 +38,6 @@ class InputRadioTag extends InputTag
      * pokud je hodnota stejná jako již nabitá
      *
      * @param string $value vracená hodnota
-     *
-     * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
     public function setValue($value)
     {
@@ -52,4 +50,5 @@ class InputRadioTag extends InputTag
             $this->setTagProperties(['value' => $value]);
         }
     }
+
 }

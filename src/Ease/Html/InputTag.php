@@ -43,8 +43,6 @@ class InputTag extends Tag
      * Nastaví hodnotu vstupního políčka.
      *
      * @param string $value vracená hodnota
-     *
-     * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
     public function setValue($value)
     {

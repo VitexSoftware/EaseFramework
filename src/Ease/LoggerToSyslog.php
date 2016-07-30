@@ -87,7 +87,6 @@ class LoggerToSyslog extends LoggerToMemory
         if (!is_null($logName)) {
             $this->logger = openlog($logName, LOG_NDELAY, LOG_USER);
         }
-        //        $this->easeShared = Shared::singleton();
     }
 
     /**

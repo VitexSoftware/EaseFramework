@@ -5,6 +5,7 @@ namespace Ease\Html;
 /**
  * Group of CheckBoxes.
  *
+ * @deprecated since version 1.1.2
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class CheckboxGroup extends InputContainer
@@ -16,7 +17,7 @@ class CheckboxGroup extends InputContainer
      *
      * @var int
      */
-    private $_subitemCount = 0;
+    private $subitemCount = 0;
 
     /**
      * Pole hodnot k nastavení.
@@ -33,7 +34,8 @@ class CheckboxGroup extends InputContainer
      * @param array  $itemValues
      * @param array  $tagProperties
      */
-    public function __construct($name, $items = null, $itemValues = null, $tagProperties = null)
+    public function __construct($name, $items = null, $itemValues = null,
+                                $tagProperties = null)
     {
         parent::__construct($name, $items, $tagProperties);
         if (!is_null($itemValues)) {
@@ -64,12 +66,12 @@ class CheckboxGroup extends InputContainer
         if (is_object($itemInpage)) {
             if (isset($this->items)) {
                 $keys = array_keys($this->items);
-                $itemInpage->setTagProperties(['name' => $itemInpage->getTagProperty('name').'#'.$keys[$this->_subitemCount]]);
-                if (isset($this->values[$keys[$this->_subitemCount]])) {
-                    $itemInpage->setValue((bool) $this->values[$keys[$this->_subitemCount]]);
+                $itemInpage->setTagProperties(['name' => $itemInpage->getTagProperty('name').'#'.$keys[$this->subitemCount]]);
+                if (isset($this->values[$keys[$this->subitemCount]])) {
+                    $itemInpage->setValue((bool) $this->values[$keys[$this->subitemCount]]);
                 }
                 next($this->items);
-                ++$this->_subitemCount;
+                ++$this->subitemCount;
             }
         }
 
@@ -82,7 +84,8 @@ class CheckboxGroup extends InputContainer
     public function finalize()
     {
         parent::finalize();
-        parent::addItem(new InputHiddenTag('CheckBoxGroups['.$this->name.']', $this->getTagName()));
+        parent::addItem(new InputHiddenTag('CheckBoxGroups['.$this->name.']',
+            $this->getTagName()));
     }
 
     /**
@@ -90,8 +93,6 @@ class CheckboxGroup extends InputContainer
      * pokud je hodnota stejná jako již nabitá
      *
      * @param string $value vracená hodnota
-     *
-     * @todo boolean $Automatic zabraňuje mazání textu z tlačítek v objektu SubmitButton
      */
     public function setValue($value)
     {
@@ -119,4 +120,5 @@ class CheckboxGroup extends InputContainer
             }
         }
     }
+
 }

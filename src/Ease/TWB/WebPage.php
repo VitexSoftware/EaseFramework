@@ -46,8 +46,6 @@ class WebPage extends \Ease\WebPage
         /*
          * Session Singleton Problem hack
          */
-        //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
-
         if (!count($this->easeShared->statusMessages)) {
             return '';
         }

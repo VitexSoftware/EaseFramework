@@ -693,7 +693,7 @@ class Sand extends Atom
     {
         if (is_object($this->logger)) {
             $this->logger->error($this->getObjectName(), $message,
-                $objectData = null);
+                $objectData);
         }
         $this->addStatusMessage($message, 'error');
     }
@@ -716,7 +716,7 @@ class Sand extends Atom
     public function __sleep()
     {
         $objectVars = array_keys(get_object_vars($this));
-        if (@method_exists(parent, '__sleep')) {
+        if (method_exists(parent, '__sleep')) {
             $parentObjectVars = parent::__sleep();
             array_push($objectVars, $parentObjectVars);
         }
@@ -776,4 +776,5 @@ class Sand extends Atom
         $this->setObjectName();
         $this->restoreObjectIdentity();
     }
+
 }

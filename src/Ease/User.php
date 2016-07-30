@@ -87,13 +87,6 @@ class User extends Anonym
     public $slaveUsers = null;
 
     /**
-     * Level uživatele.
-     *
-     * @var int unsigned
-     */
-    public $userLevel = null;
-
-    /**
      * Registr vlastnosti uzivatele.
      *
      * @var array
@@ -310,8 +303,8 @@ class User extends Anonym
         if (is_null($settings)) {
             $settings = $this->getDataValue($this->settingsColumn);
         }
-        if (!is_null($settings)) {
-            $this->settings = @unserialize($settings);
+        if (!is_null($settings) && strlen($settings)) {
+            $this->settings = unserialize($settings);
 
             return true;
         }
@@ -408,18 +401,6 @@ class User extends Anonym
         }
 
         return $hash;
-    }
-
-    /**
-     * Nastaví level uživatele.
-     *
-     * @param int $userLevel uživatelská uroven
-     *
-     * @todo Přesunout do EaseCustomer
-     */
-    public function setUserLevel($userLevel)
-    {
-        $this->userLevel = intval($userLevel);
     }
 
     /**

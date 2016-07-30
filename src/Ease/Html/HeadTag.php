@@ -104,7 +104,6 @@ class HeadTag extends PairTag
                             '
 '.'<script src="'.$ScriptBody.'"></script>'
                         );
-                        //                      EaseShared::webPage()->body->addItem("\n".'<script type="text/javascript" src="' . $ScriptBody . '"></script>'); //TODO: rozchodit
                         break;
                     case '@':
                         $this->addItem(self::jsEnclosure($ScriptBody));

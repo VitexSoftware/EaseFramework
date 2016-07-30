@@ -646,18 +646,6 @@ class Brick extends Sand
     }
 
     /**
-     * Existuje záznam daného ID v databázi.
-     *
-     * @param int $id
-     *
-     * @return int vrací počet položek s daným ID
-     */
-    public function MyIDExists($id)
-    {
-        return $this->dblink->queryToValue('SELECT COUNT(*) FROM '.$this->myTable.' WHERE '.$this->getmyKeyColumn().'='.intval($id));
-    }
-
-    /**
      * Vrací název aktuálně použivané SQL tabulky.
      *
      * @return string

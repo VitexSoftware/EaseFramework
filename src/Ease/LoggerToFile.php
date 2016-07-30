@@ -303,40 +303,45 @@ class LoggerToFile extends LoggerToMemory
     /**
      * Zkontroluje stav adresáře a upozorní na případné nesnáze.
      *
-     * @param string $DirectoryPath cesta k adresáři
-     * @param bool   $IsDir         detekovat existenci adresáře
-     * @param bool   $IsReadable    testovat čitelnost
-     * @param bool   $IsWritable    testovat zapisovatelnost
-     * @param bool   $LogToFile     povolí logování do souboru
+     * @param string $directoryPath cesta k adresáři
+     * @param bool   $isDir         detekovat existenci adresáře
+     * @param bool   $isReadable    testovat čitelnost
+     * @param bool   $isWritable    testovat zapisovatelnost
+     * @param bool   $logToFile     povolí logování do souboru
      *
      * @return bool konečný výsledek testu
      */
-    public static function testDirectory($DirectoryPath, $IsDir = true, $IsReadable = true, $IsWritable = true, $LogToFile = false)
+    public static function testDirectory($directoryPath, $isDir = true,
+                                         $isReadable = true, $isWritable = true,
+                                         $logToFile = false)
     {
         $sanity = true;
-        if ($IsDir) {
-            if (!is_dir($DirectoryPath)) {
-                echo $DirectoryPath._(' není složka. Jsem v adresáři:').' '.getcwd();
-                if ($LogToFile) {
-                    $this->addToLog('TestDirectory', $DirectoryPath._(' není složka. Jsem v adresáři:').' '.getcwd());
+        if ($isDir) {
+            if (!is_dir($directoryPath)) {
+                echo $directoryPath._(' není složka. Jsem v adresáři:').' '.getcwd();
+                if ($logToFile) {
+                    Shared::logger()->addToLog('TestDirectory',
+                        $directoryPath._(' není složka. Jsem v adresáři:').' '.getcwd());
                 }
                 $sanity = false;
             }
         }
-        if ($IsReadable) {
-            if (!is_readable($DirectoryPath)) {
-                echo $DirectoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd();
-                if ($LogToFile) {
-                    $this->addToLog('TestDirectory', $DirectoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd());
+        if ($isReadable) {
+            if (!is_readable($directoryPath)) {
+                echo $directoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd();
+                if ($logToFile) {
+                    Shared::logger()->addToLog('TestDirectory',
+                        $directoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd());
                 }
                 $sanity = false;
             }
         }
-        if ($IsWritable) {
-            if (!is_writable($DirectoryPath)) {
-                echo $DirectoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd();
-                if ($LogToFile) {
-                    $this->addToLog('TestDirectory', $DirectoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd());
+        if ($isWritable) {
+            if (!is_writable($directoryPath)) {
+                echo $directoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd();
+                if ($logToFile) {
+                    Shared::logger()->addToLog('TestDirectory',
+                        $directoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd());
                 }
 
                 $sanity = false;

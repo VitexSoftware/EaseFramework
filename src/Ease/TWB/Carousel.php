@@ -133,6 +133,6 @@ class Carousel extends \Ease\Html\Div
             $this->addJavaScript('$(\'#'.$this->name.'\').carousel();', null,
                 true);
         }
-        //$this->includeJavaScript('js/bootstrap-carousel.js');
     }
+
 }

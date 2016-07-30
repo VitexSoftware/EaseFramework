@@ -196,7 +196,7 @@ class Page extends Container
         $url = sprintf(
             '%s://%s%s',
             empty($_SERVER['HTTPS']) ?
-                (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
+                ($_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
             $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
         );
 
@@ -205,9 +205,16 @@ class Page extends Container
         $port   = $_SERVER['SERVER_PORT'];
         $scheme = $parts['scheme'];
         $host   = $parts['host'];
-        $path   = @$parts['path'];
-        $qs     = @$parts['query'];
-
+        if (isset($parts['path'])) {
+            $path = $parts['path'];
+        } else {
+            $path = null;
+        }
+        if (isset($parts['query'])) {
+            $qs = $parts['query'];
+        } else {
+            $qs = null;
+        }
         $port or $port = ($scheme == 'https') ? '443' : '80';
 
         if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port
@@ -235,7 +242,7 @@ class Page extends Container
             Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'),
                 'warning');
             $this->redirect($loginPage);
-            exit;
+            exit(); //Stop and redirect;
         }
     }
 
@@ -249,9 +256,9 @@ class Page extends Container
         $requestValuesToKeep = [];
         if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep)
             && count($this->webPage->requestValuesToKeep)) {
-            foreach ($this->webPage->requestValuesToKeep as $KeyName => $KeyValue) {
-                if ($KeyValue != true) {
-                    $requestValuesToKeep[$KeyName] = $KeyValue;
+            foreach ($this->webPage->requestValuesToKeep as $KeyName => $keyValue) {
+                if ($keyValue !== true) {
+                    $requestValuesToKeep[$KeyName] = $keyValue;
                 }
             }
         }
@@ -283,6 +290,7 @@ class Page extends Container
      */
     public static function sanitizeAsType($value, $sanitizeAs)
     {
+        $sanitized = null;
         switch ($sanitizeAs) {
             case 'string':
                 return (string) $value;
@@ -295,25 +303,30 @@ class Page extends Container
                 break;
             case 'bool':
             case 'boolean':
-                if (($value == 'true') || ($value == 1)) {
-                    return true;
-                }
-                break;
-                if (($value == 'false') || ($value == 0)) {
-                    return fals;
+                switch ($value) {
+                    case 'FALSE':
+                    case 'false':
+                    case false:
+                    case 0:
+                    case '':
+                        $sanitized = false;
+                        break;
+                    case 1:
+                    case true:
+                    case 'true':
+                    case 'TRUE':
+                        $sanitized = true;
+                        break;
                 }
                 break;
 
                 return;
             case 'null':
-            case 'null':
-                if (strtoupper($value) == 'null') {
-                    return;
-                }
             default:
-                return $value;
+                $sanitized = $value;
                 break;
         }
+        return $sanitized;
     }
 
     /**
@@ -338,7 +351,7 @@ class Page extends Container
             }
         } else {
             if (isset($this->requestValuesToKeep[$field])) {
-                if ($this->requestValuesToKeep[$field] != true) {
+                if ($this->requestValuesToKeep[$field] !== true) {
                     return $this->requestValuesToKeep[$field];
                 }
             }
@@ -408,10 +421,13 @@ class Page extends Container
      *
      * @param string $varName  název klíče
      * @param mixed  $varValue hodnota klíče
+     *
+     * @return string Keeped key name
      */
     public function keepRequestValue($varName, $varValue = true)
     {
         Shared::webPage()->requestValuesToKeep[$varName] = $varValue;
+        return $varName;
     }
 
     /**
@@ -436,18 +452,6 @@ class Page extends Container
                 } else {
                     $this->keepRequestValue($varName, $varValue);
                 }
-
-                /*
-                  {
-                  if ($VarName == $VarValue) {
-                  if (!isset($this->webPage->requestValuesToKeep[$VarName])) {
-                  $this->KeepRequestValue($VarValue, true);
-                  }
-                  } else {
-                  $this->KeepRequestValue($VarName, $VarValue);
-                  }
-                  }
-                 */
             }
         }
     }

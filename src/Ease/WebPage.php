@@ -271,11 +271,6 @@ class WebPage extends Page
      */
     public function getStatusMessagesAsHtml($what = null)
     {
-        /*
-         * Session Singleton Problem hack
-         */
-        //$this->easeShared->takeStatusMessages(EaseShared::user()->getStatusMessages(true));
-
         if (!count($this->easeShared->statusMessages)) {
             return '';
         }
@@ -310,18 +305,6 @@ class WebPage extends Page
         }
 
         return $htmlFargment;
-    }
-
-    /**
-     * Nastavi skin.
-     *
-     * @deprecated since version 190
-     *
-     * @param string $skinName název skinu
-     */
-    public function setSkin($skinName)
-    {
-        $this->SkinName = $skinName;
     }
 
     /**

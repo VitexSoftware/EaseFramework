@@ -120,7 +120,7 @@ class Tag extends \Ease\Page
     public function getTagName()
     {
         $tagName = null;
-        if ($this->setName == true) {
+        if ($this->setName === true) {
             if (isset($this->tagProperties['name'])) {
                 $tagName = $this->tagProperties['name'];
             }
@@ -321,7 +321,7 @@ class Tag extends \Ease\Page
     /**
      * Add Css to tag properties
      */
-    function finalize()
+    public function finalize()
     {
         if (count($this->cssProperties)) {
             $this->tagProperties['style'] = $this->cssPropertiesToString();
