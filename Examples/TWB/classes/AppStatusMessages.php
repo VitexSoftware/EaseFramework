@@ -4,7 +4,6 @@ namespace Ease\Example\TWB;
 
 class AppStatusMessages extends \Ease\Html\Div
 {
-
     /**
      * Blok stavových zpráv.
      */
@@ -18,9 +17,7 @@ class AppStatusMessages extends \Ease\Html\Div
         $this->addJavaScript(
             '$("#StatusMessages").click(function () {
             $("#StatusMessages").fadeTo("slow",0.25).slideUp("slow");
-            });',
-            3,
-            true
+            });', 3, true
         );
     }
 

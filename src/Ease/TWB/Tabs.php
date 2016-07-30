@@ -39,7 +39,8 @@ class Tabs extends \Ease\Container
      * @param array  $tabsList
      * @param array  $partProperties
      */
-    public function __construct($partName, $tabsList = null, $tagProperties = null)
+    public function __construct($partName, $tabsList = null,
+                                $tagProperties = null)
     {
         $this->partName = $partName;
         parent::__construct();
@@ -91,29 +92,35 @@ class Tabs extends \Ease\Container
         if (is_null($this->activeTab)) {
             $this->activeTab = current(array_keys($this->tabs));
         }
-        $tabsUl = $this->addItem(new \Ease\Html\UlTag(null, ['class' => 'nav nav-tabs', 'id' => $this->partName]));
+        $tabsUl = $this->addItem(new \Ease\Html\UlTag(null,
+            ['class' => 'nav nav-tabs', 'id' => $this->partName]));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.$this->partName.\Ease\Brick::lettersOnly($tabName), $tabName, ['data-toggle' => 'tab']), ['class' => 'active']));
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.$this->partName.\Ease\Brick::lettersOnly($tabName),
+                    $tabName, ['data-toggle' => 'tab']), ['class' => 'active']));
             } else {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.$this->partName.\Ease\Brick::lettersOnly($tabName), $tabName, ['data-toggle' => 'tab'])));
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.$this->partName.\Ease\Brick::lettersOnly($tabName),
+                    $tabName, ['data-toggle' => 'tab'])));
             }
         }
-        $tabDiv = $this->addItem(new \Ease\Html\Div(null, ['id' => $this->partName.'body', 'class' => 'tab-content']));
+        $tabDiv = $this->addItem(new \Ease\Html\Div(null,
+            ['id' => $this->partName.'body', 'class' => 'tab-content']));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabDiv->addItem(new \Ease\Html\Div($tabContent, ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName), 'class' => 'tab-pane active']));
+                $tabDiv->addItem(new \Ease\Html\Div($tabContent,
+                    ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
+                    'class' => 'tab-pane active', ]));
             } else {
-                $tabDiv->addItem(new \Ease\Html\Div($tabContent, ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName), 'class' => 'tab-pane']));
+                $tabDiv->addItem(new \Ease\Html\Div($tabContent,
+                    ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
+                    'class' => 'tab-pane', ]));
             }
         }
         Part::twBootstrapize();
         \Ease\Shared::webPage()->addJavaScript(
             '
         $(\'#'.$this->partName.' a[href="#'.\Ease\Brick::lettersOnly($this->activeTab).'"]\').tab(\'show\');
-',
-            null,
-            true
+', null, true
         );
     }
 }

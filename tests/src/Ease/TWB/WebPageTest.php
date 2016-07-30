@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class WebPageTest extends \Test\Ease\WebPageTest
 {
-
     /**
      * @var WebPage
      */
@@ -17,7 +16,7 @@ class WebPageTest extends \Test\Ease\WebPageTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\WebPage();
     }
@@ -26,21 +25,20 @@ class WebPageTest extends \Test\Ease\WebPageTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\WebPage::getStatusMessagesAsHtml
+     *
      * @todo   Implement testGetStatusMessagesAsHtml().
      */
-    public function testGetStatusMessagesAsHtml() 
+    public function testGetStatusMessagesAsHtml()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

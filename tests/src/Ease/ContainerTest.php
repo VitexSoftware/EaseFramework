@@ -9,7 +9,6 @@ use Ease\Container;
  */
 class ContainerTest extends SandTest
 {
-
     /**
      * @var Container
      */
@@ -21,7 +20,7 @@ class ContainerTest extends SandTest
      */
     protected function setUp()
     {
-        $this->object = new Container;
+        $this->object = new Container();
     }
 
     /**
@@ -30,307 +29,330 @@ class ContainerTest extends SandTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\Container::raise
+     *
      * @todo   Implement testRaise().
      */
     public function testRaise()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::addItemCustom
+     *
      * @todo   Implement testAddItemCustom().
      */
     public function testAddItemCustom()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::addItem
+     *
      * @todo   Implement testAddItem().
      */
     public function testAddItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::addAsFirst
+     *
      * @todo   Implement testAddAsFirst().
      */
     public function testAddAsFirst()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::suicide
+     *
      * @todo   Implement testSuicide().
      */
     public function testSuicide()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::getItemsCount
+     *
      * @todo   Implement testGetItemsCount().
      */
     public function testGetItemsCount()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::addNextTo
+     *
      * @todo   Implement testAddNextTo().
      */
     public function testAddNextTo()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::lastItem
+     *
      * @todo   Implement testLastItem().
      */
     public function testLastItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::addToLastItem
+     *
      * @todo   Implement testAddToLastItem().
      */
     public function testAddToLastItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::getFirstPart
+     *
      * @todo   Implement testGetFirstPart().
      */
     public function testGetFirstPart()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::addItems
+     *
      * @todo   Implement testAddItems().
      */
     public function testAddItems()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::emptyContents
+     *
      * @todo   Implement testEmptyContents().
      */
     public function testEmptyContents()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::takeJavascripts
+     *
      * @todo   Implement testTakeJavascripts().
      */
     public function testTakeJavascripts()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::takeCascadeStyles
+     *
      * @todo   Implement testTakeCascadeStyles().
      */
     public function testTakeCascadeStyles()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::drawAllContents
+     *
      * @todo   Implement testDrawAllContents().
      */
     public function testDrawAllContents()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::getRendered
+     *
      * @todo   Implement testGetRendered().
      */
     public function testGetRendered()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::showContents
+     *
      * @todo   Implement testShowContents().
      */
     public function testShowContents()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::drawIfNotDrawn
+     *
      * @todo   Implement testDrawIfNotDrawn().
      */
     public function testDrawIfNotDrawn()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::isFinalized
+     *
      * @todo   Implement testIsFinalized().
      */
     public function testIsFinalized()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::setFinalized
+     *
      * @todo   Implement testSetFinalized().
      */
     public function testSetFinalized()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::fillUp
+     *
      * @todo   Implement testFillUp().
      */
     public function testFillUp()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::fillMeUp
+     *
      * @todo   Implement testFillMeUp().
      */
     public function testFillMeUp()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::isEmpty
+     *
      * @todo   Implement testIsEmpty().
      */
     public function testIsEmpty()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::draw
+     *
      * @todo   Implement testDraw().
      */
     public function testDraw($whatWant = null)
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\Container::__toString
+     *
      * @todo   Implement test__toString().
      */
     public function test__toString()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
-
 }

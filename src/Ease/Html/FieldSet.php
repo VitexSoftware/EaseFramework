@@ -40,7 +40,8 @@ class FieldSet extends PairTag
     {
         $this->setTagName($legend);
         $this->legend = $legend;
-        $this->legendTag = $this->addItem(new PairTag('legend', null, $this->legend));
+        $this->legendTag = $this->addItem(new PairTag('legend', null,
+            $this->legend));
         if ($content) {
             $this->content = $this->addItem($content);
         }

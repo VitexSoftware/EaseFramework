@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2015 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -111,37 +111,7 @@ class LoggerToSyslog extends LoggerToMemory
         return self::$_instance;
     }
 
-    /**
-     * Povolí nebo zakáže ukládání zpráv.
-     *
-     * @param type $check
-     */
-    public function setStoreMessages($check)
-    {
-        $this->storeMessages = $check;
-        if (is_bool($check)) {
-            $this->resetStoredMessages();
-        }
-    }
-
-    /**
-     * Resetne pole uložených zpráv.
-     */
-    public function resetStoredMessages()
-    {
-        $this->storedMessages = [];
-    }
-
-    /**
-     * Vrací pole uložených zpráv.
-     *
-     * @return array
-     */
-    public function getStoredMessages()
-    {
-        return $this->storedMessages;
-    }
-
+    
     /**
      * Zapise zapravu do logu.
      *
@@ -166,7 +136,9 @@ class LoggerToSyslog extends LoggerToMemory
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = ' ~'.$caller.'~ '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
+        $logLine = ' ~'.$caller.'~ '.str_replace(['notice', 'message', 'debug', 'report',
+                'error', 'warning', 'success', 'info', 'mail', ],
+                ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -205,22 +177,6 @@ class LoggerToSyslog extends LoggerToMemory
     {
         if ($this->logger) {
             closelog();
-        }
-    }
-
-    /**
-     * Vrací styl logování.
-     *
-     * @param string $logType typ logu warning|info|success|error|notice|*
-     *
-     * @return string
-     */
-    public function getLogStyle($logType = 'notice')
-    {
-        if (key_exists($logType, $this->logStyles)) {
-            return $this->logStyles[$logType];
-        } else {
-            return '';
         }
     }
 

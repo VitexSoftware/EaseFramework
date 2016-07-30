@@ -27,10 +27,9 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
      */
     protected function tearDown()
     {
-
     }
 
-        public function testConstructor()
+    public function testConstructor()
     {
         $classname = get_class($this->object);
 
@@ -44,6 +43,7 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
 
     /**
      * @covers Ease\TWB\Pagination::addPage
+     *
      * @todo   Implement testAddPage().
      */
     public function testAddPage()
@@ -56,6 +56,7 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
 
     /**
      * @covers Ease\TWB\Pagination::Draw
+     *
      * @param null $whatWant ignored here
      */
     public function testDraw($whatWant = null)

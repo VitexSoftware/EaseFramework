@@ -127,6 +127,7 @@ class Tag extends \Ease\Page
         } else {
             $tagName = $this->tagName;
         }
+
         return $tagName;
     }
 
@@ -274,6 +275,7 @@ class Tag extends \Ease\Page
                     $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
+
             return trim($tagPropertiesString);
         }
     }
@@ -315,11 +317,12 @@ class Tag extends \Ease\Page
         } else {
             $cssPropertiesString = $this->cssProperties;
         }
+
         return trim($cssPropertiesString);
     }
 
     /**
-     * Add Css to tag properties
+     * Add Css to tag properties.
      */
     public function finalize()
     {

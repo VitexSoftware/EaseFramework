@@ -44,7 +44,8 @@ class Select extends PairTag
      * @param array  $itemsIDs     id položek
      * @param array  $properties   tag properties
      */
-    public function __construct($name, $items = null, $defaultValue = null, $itemsIDs = false, $properties = null)
+    public function __construct($name, $items = null, $defaultValue = null,
+                                $itemsIDs = false, $properties = null)
     {
         parent::__construct('select', $properties);
         $this->defaultValue = $defaultValue;

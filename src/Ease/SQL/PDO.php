@@ -27,11 +27,11 @@ class PDO extends SQL
      *
      * @var PDOStatement
      */
-    public $result    = null;
-    public $status    = false; //Pripojeno ?
+    public $result = null;
+    public $status = false; //Pripojeno ?
     public $lastQuery = '';
-    public $numRows   = 0;
-    public $debug     = false;
+    public $numRows = 0;
+    public $debug = false;
 
     /**
      * KeyColumn used for postgresql insert id.
@@ -46,7 +46,7 @@ class PDO extends SQL
      * @var string
      */
     public $myTable = null;
-    public $data    = null;
+    public $data = null;
     public $charset = 'utf8';
     public $collate = 'utf8_czech_ci';
 
@@ -85,7 +85,7 @@ class PDO extends SQL
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            $class          = __CLASS__;
+            $class = __CLASS__;
             self::$instance = new $class();
         }
 
@@ -131,6 +131,7 @@ class PDO extends SQL
         } else {
             $slashed = addslashes($text);
         }
+
         return $slashed;
     }
 
@@ -154,13 +155,13 @@ class PDO extends SQL
                 break;
 
             default:
-                throw new Exception(_('Unimplemented Database').': '.$this->dbType);
+                throw new \Exception(_('Unimplemented Database').': '.$this->dbType);
                 break;
         }
 
         if (is_object($this->sqlLink)) {
             $this->errorNumber = $this->sqlLink->errorCode();
-            $this->errorText   = $this->sqlLink->errorInfo();
+            $this->errorText = $this->sqlLink->errorInfo();
         } else {
             $result = false;
         }
@@ -172,6 +173,7 @@ class PDO extends SQL
         } else {
             $result = parent::connect();
         }
+
         return $result;
     }
 
@@ -189,7 +191,7 @@ class PDO extends SQL
         if ($change) {
             $this->Database = $dbName;
         } else {
-            $this->errorText   = $this->sqlLink->error;
+            $this->errorText = $this->sqlLink->error;
             $this->errorNumber = $this->sqlLink->errno;
             $this->addStatusMessage('Connect: error #'.$this->errorNumber.' '.$this->errorText,
                 'error');
@@ -212,24 +214,22 @@ class PDO extends SQL
         if (is_null($this->sqlLink)) {
             $this->connect();
             if (is_null($this->sqlLink)) {
-                
             }
         }
 
-
-        $queryRaw           = $this->sanitizeQuery($queryRaw);
-        $this->lastQuery    = $queryRaw;
+        $queryRaw = $this->sanitizeQuery($queryRaw);
+        $this->lastQuery = $queryRaw;
         $this->lastInsertID = null;
-        $this->errorText    = null;
-        $this->errorNumber  = null;
-        $sqlAction          = trim(strtolower(current(explode(' ', $queryRaw))));
+        $this->errorText = null;
+        $this->errorNumber = null;
+        $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
 
         switch ($sqlAction) {
             case 'select':
             case 'show':
-                $this->result      = $this->sqlLink->query($queryRaw);
+                $this->result = $this->sqlLink->query($queryRaw);
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $errorText         = $this->sqlLink->errorInfo();
+                $errorText = $this->sqlLink->errorInfo();
                 if ($this->errorNumber) {
                     $this->errorText = $errorText[2];
                 }
@@ -242,10 +242,10 @@ class PDO extends SQL
             case 'insert':
             case 'replace':
             case 'delete':
-                $stmt              = $this->sqlLink->prepare($queryRaw);
+                $stmt = $this->sqlLink->prepare($queryRaw);
                 $stmt->execute();
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $this->errorText   = $this->sqlLink->errorInfo();
+                $this->errorText = $this->sqlLink->errorInfo();
 
                 if (isset($this->errorText[2])) {
                     $this->error($this->errorText[2], $queryRaw);
@@ -253,14 +253,14 @@ class PDO extends SQL
 
                 if ($this->errorText[0] == '0000') {
                     $this->lastInsertID = $this->getlastInsertID();
-                    $this->numRows      = $stmt->rowCount();
+                    $this->numRows = $stmt->rowCount();
                 }
                 break;
             case 'update':
-                $stmt              = $this->sqlLink->prepare($queryRaw);
+                $stmt = $this->sqlLink->prepare($queryRaw);
                 $stmt->execute();
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $errorText         = $this->sqlLink->errorInfo();
+                $errorText = $this->sqlLink->errorInfo();
                 if ($this->errorNumber) {
                     $this->errorText = $errorText[2];
                 }
@@ -426,7 +426,7 @@ class PDO extends SQL
     public function arrayToValuesQuery($data, $key = true)
     {
         $values = [];
-        $query  = '';
+        $query = '';
 
         foreach ($data as $column => $value) {
             if (!strlen($column)) {
@@ -470,7 +470,7 @@ class PDO extends SQL
         }
 
         $keys = [];
-        $cc   = $this->getColumnComma();
+        $cc = $this->getColumnComma();
         foreach (array_keys($values) as $columnKey) {
             $keys[] = $cc.$columnKey.$cc;
         }
@@ -489,8 +489,8 @@ class PDO extends SQL
      */
     public function prepSelect($data, $ldiv = 'AND')
     {
-        $operator     = null;
-        $conditions   = [];
+        $operator = null;
+        $conditions = [];
         $conditionsII = [];
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
@@ -506,15 +506,15 @@ class PDO extends SQL
             }
 
             if (is_null($value)) {
-                $value    = 'null';
+                $value = 'null';
                 $operator = ' IS ';
             } else {
                 if (strlen($value) && ($value[0] == '!')) {
                     $operator = ' != ';
-                    $value    = substr($value, 1);
+                    $value = substr($value, 1);
                 } else {
                     if (($value === '!null') || (strtoupper($value) === 'IS NOT null')) {
-                        $value    = 'null';
+                        $value = 'null';
                         $operator = 'IS NOT';
                     } else {
                         if (is_null($operator)) {
@@ -656,5 +656,4 @@ class PDO extends SQL
 
         return parent::__sleep();
     }
-
 }

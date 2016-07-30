@@ -1,10 +1,11 @@
 <?php
 /**
- * Twitter Bootstrap usage example page
+ * Twitter Bootstrap usage example page.
  *
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease\Example\TWB;
 
 require_once __DIR__.'/../../vendor/autoload.php';

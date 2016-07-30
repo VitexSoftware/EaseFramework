@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\JQuery;
+
 use Ease\JQuery\Part;
 
 /**
@@ -8,7 +9,6 @@ use Ease\JQuery\Part;
  */
 class PartTest extends \Test\Ease\PageTest
 {
-
     /**
      * @var Part
      */
@@ -18,7 +18,7 @@ class PartTest extends \Test\Ease\PageTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new Part();
     }
@@ -27,16 +27,16 @@ class PartTest extends \Test\Ease\PageTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\JQuery\Part::setPartName
+     *
      * @todo   Implement testSetPartName().
      */
-    public function testSetPartName() 
+    public function testSetPartName()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -46,9 +46,10 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::onDocumentReady
+     *
      * @todo   Implement testOnDocumentReady().
      */
-    public function testOnDocumentReady() 
+    public function testOnDocumentReady()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -58,9 +59,10 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::finalize
+     *
      * @todo   Implement testFinalize().
      */
-    public function testFinalize() 
+    public function testFinalize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -70,9 +72,10 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::jQueryze
+     *
      * @todo   Implement testJQueryze().
      */
-    public function testJQueryze() 
+    public function testJQueryze()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -82,9 +85,10 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::setPartProperties
+     *
      * @todo   Implement testSetPartProperties().
      */
-    public function testSetPartProperties() 
+    public function testSetPartProperties()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -94,9 +98,10 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::getPartPropertiesToString
+     *
      * @todo   Implement testGetPartPropertiesToString().
      */
-    public function testGetPartPropertiesToString() 
+    public function testGetPartPropertiesToString()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -106,9 +111,10 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::is_assoc
+     *
      * @todo   Implement testIs_assoc().
      */
-    public function testIs_assoc() 
+    public function testIs_assoc()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -118,14 +124,14 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::partPropertiesToString
+     *
      * @todo   Implement testPartPropertiesToString().
      */
-    public function testPartPropertiesToString() 
+    public function testPartPropertiesToString()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class SubmitButtonTest extends InputTagTest
 {
-
     /**
      * @var SubmitButton
      */
@@ -17,7 +16,7 @@ class SubmitButtonTest extends InputTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\SubmitButton('test');
     }
@@ -26,21 +25,20 @@ class SubmitButtonTest extends InputTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\SubmitButton::setValue
+     *
      * @todo   Implement testSetValue().
      */
-    public function testSetValue() 
+    public function testSetValue()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

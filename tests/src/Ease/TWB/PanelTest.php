@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class PanelTest extends \Test\Ease\Html\DivTest
 {
-
     /**
      * @var Panel
      */
@@ -17,7 +16,7 @@ class PanelTest extends \Test\Ease\Html\DivTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\Panel();
     }
@@ -26,16 +25,16 @@ class PanelTest extends \Test\Ease\Html\DivTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\Panel::addItem
+     *
      * @todo   Implement testAddItem().
      */
-    public function testAddItem() 
+    public function testAddItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,9 +44,10 @@ class PanelTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Panel::finalize
+     *
      * @todo   Implement testFinalize().
      */
-    public function testFinalize() 
+    public function testFinalize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,14 +57,14 @@ class PanelTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Panel::footer
+     *
      * @todo   Implement testFooter().
      */
-    public function testFooter() 
+    public function testFooter()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

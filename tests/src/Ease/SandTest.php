@@ -18,7 +18,7 @@ class SandTest extends AtomTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\Sand;
+        $this->object = new \Ease\Sand();
     }
 
     /**
@@ -27,7 +27,6 @@ class SandTest extends AtomTest
      */
     protected function tearDown()
     {
-
     }
 
     public function testConstructor()
@@ -73,8 +72,8 @@ class SandTest extends AtomTest
      */
     public function testAttachObject()
     {
-        $this->object->attachObject('user', new \stdClass);
-        $this->assertEquals(new \stdClass, $this->object->user);
+        $this->object->attachObject('user', new \stdClass());
+        $this->assertEquals(new \stdClass(), $this->object->user);
     }
 
     /**
@@ -115,6 +114,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::restoreObjectIdentity
+     *
      * @todo   Implement testRestoreObjectIdentity().
      */
     public function testRestoreObjectIdentity()
@@ -124,6 +124,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::resetObjectIdentity
+     *
      * @todo   Implement testResetObjectIdentity().
      */
     public function testResetObjectIdentity()
@@ -136,7 +137,7 @@ class SandTest extends AtomTest
      */
     public function testDivDataArray()
     {
-        $sourceArray      = [1 => 'a', 2 => 'b'];
+        $sourceArray = [1 => 'a', 2 => 'b'];
         $destinationArray = [];
         $this->object->divDataArray($sourceArray, $destinationArray, 2);
         $this->assertEquals([2 => 'b'], $destinationArray);
@@ -160,7 +161,7 @@ class SandTest extends AtomTest
     {
         $this->assertNull($this->object->setData(null));
 
-        $data               = ['a' => 1, 'b' => 2];
+        $data = ['a' => 1, 'b' => 2];
         $this->object->setData($data, true);
         $this->assertEquals($data, $this->object->getData());
         $this->object->data = null;
@@ -201,6 +202,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::setDataValue
+     *
      * @todo   Implement testSetDataValue().
      */
     public function testSetDataValue()
@@ -247,7 +249,7 @@ class SandTest extends AtomTest
      */
     public function testRip()
     {
-        $this->assertEquals('kuprikladu', $this->object->rip("kupříkladu"));
+        $this->assertEquals('kuprikladu', $this->object->rip('kupříkladu'));
     }
 
     /**
@@ -298,7 +300,7 @@ class SandTest extends AtomTest
     public function testRecursiveIconv()
     {
         $original = ["\x80", "\x95"];
-        $exepted  = ["\xe2\x82\xac", "\xe2\x80\xa2"];
+        $exepted = ["\xe2\x82\xac", "\xe2\x80\xa2"];
         $this->assertEquals($exepted,
             $this->object->recursiveIconv('cp1252', 'utf-8', $original));
 
@@ -312,13 +314,14 @@ class SandTest extends AtomTest
     public function testArrayIconv()
     {
         $original = "\x80";
-        $exepted  = "\xe2\x82\xac";
+        $exepted = "\xe2\x82\xac";
         $this->object->arrayIconv($original, 0, ['cp1252', 'utf-8']);
         $this->assertEquals($exepted, $original);
     }
 
     /**
      * @covers Ease\Sand::addToLog
+     *
      * @todo   Implement testAddToLog().
      */
     public function testAddToLog()
@@ -328,6 +331,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::error
+     *
      * @todo   Implement testError().
      */
     public function testError()
@@ -337,6 +341,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::__toString
+     *
      * @todo   Implement test__toString().
      */
     public function test__toString()
@@ -346,6 +351,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::__sleep
+     *
      * @todo   Implement test__sleep().
      */
     public function test__sleep()
@@ -355,6 +361,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::humanFilesize
+     *
      * @todo   Implement testHumanFilesize().
      */
     public function testHumanFilesize()
@@ -375,12 +382,12 @@ class SandTest extends AtomTest
         $a = [
             ['id' => '2', 'name' => 'b'],
             ['id' => '1', 'name' => 'a'],
-            ['id' => '3', 'name' => 'c']
+            ['id' => '3', 'name' => 'c'],
         ];
         $c = [
             'a' => ['id' => '1', 'name' => 'a'],
             'b' => ['id' => '2', 'name' => 'b'],
-            'c' => ['id' => '3', 'name' => 'c']
+            'c' => ['id' => '3', 'name' => 'c'],
         ];
 
         $this->assertEquals($c, $this->object->reindexArrayBy($a, 'name'));
@@ -397,6 +404,7 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::__wakeup
+     *
      * @todo   Implement test__wakeup().
      */
     public function test__wakeup()

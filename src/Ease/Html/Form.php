@@ -90,7 +90,7 @@ class Form extends PairTag
                 str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
             if (is_array($targetParts) && count($targetParts)) {
                 $formTargetComputed = '';
-                $targetPartsValues  = [];
+                $targetPartsValues = [];
                 foreach ($targetParts as $targetPart) {
                     if (!strstr($targetPart, '=')) {
                         $formTargetComputed .= $targetPart;
@@ -172,5 +172,4 @@ class Form extends PairTag
             }
         }
     }
-
 }

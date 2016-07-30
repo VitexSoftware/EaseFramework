@@ -6,6 +6,7 @@ namespace Ease\Html;
  * Group of CheckBoxes.
  *
  * @deprecated since version 1.1.2
+ *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
 class CheckboxGroup extends InputContainer
@@ -120,5 +121,4 @@ class CheckboxGroup extends InputContainer
             }
         }
     }
-
 }

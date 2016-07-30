@@ -35,14 +35,14 @@ class Dialog extends UIPart
      *
      * @var type
      */
-    public $Icon = '';
+    public $icon = '';
 
     /**
      * Doplnující informace.
      *
      * @var type
      */
-    public $Notice = null;
+    public $notice = null;
 
     /**
      * jQuery dialog.
@@ -56,11 +56,11 @@ class Dialog extends UIPart
     public function __construct($dialogID, $title, $message,
                                 $icon = 'ui-icon-circle-check', $notice = null)
     {
-        $this->dialogID       = $dialogID;
-        $this->title          = $title;
-        $this->message        = $message;
-        $this->Icon           = $icon;
-        $this->Notice         = $notice;
+        $this->dialogID = $dialogID;
+        $this->title = $title;
+        $this->message = $message;
+        $this->icon           = $icon;
+        $this->notice         = $notice;
         $this->partProperties = ['modal' => true, 'buttons' => ['Ok' => 'function () { $( this ).dialog( "close" ); }']];
         parent::__construct();
     }
@@ -70,7 +70,7 @@ class Dialog extends UIPart
      */
     public function onDocumentReady()
     {
-        return '$("#'.$this->dialogID.'").dialog( {'.Part::partPropertiesToString($this->partProperties).'} )';
+        return '$("#'.$this->dialogID.'").dialog( '.json_encode($this->partProperties).' )';
     }
 
     /**
@@ -78,16 +78,15 @@ class Dialog extends UIPart
      */
     public function finalize()
     {
-        $DialogDiv     = $this->addItem(new Ease\Html\Div(null,
+        $dialogDiv     = $this->addItem(new \Ease\Html\Div(null,
             ['id' => $this->dialogID, 'title' => $this->title]));
-        $Dialogmessage = $DialogDiv->addItem(new \Ease\Html\PTag());
-        $Dialogmessage->addItem(new \Ease\Html\Span(null,
-            ['class' => 'ui-icon '.$this->Icon, 'style' => 'float:left; margin:0 7px 50px 0;']));
-        $Dialogmessage->addItem($this->message);
-        if (!is_null($this->Notice)) {
-            $DialogDiv->addItem(new \Ease\Html\PTag($this->Notice));
+        $dialogMessage = $dialogDiv->addItem(new \Ease\Html\PTag());
+        $dialogMessage->addItem(new \Ease\Html\Span(null,
+            ['class' => 'ui-icon '.$this->icon, 'style' => 'float:left; margin:0 7px 50px 0;']));
+        $dialogMessage->addItem($this->message);
+        if (!is_null($this->notice)) {
+            $dialogDiv->addItem(new \Ease\Html\PTag($this->notice));
         }
         parent::finalize();
     }
-
 }

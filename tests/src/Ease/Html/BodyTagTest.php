@@ -20,7 +20,7 @@ class BodyTagTest extends PairTagTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\Html\BodyTag;
+        $this->object = new \Ease\Html\BodyTag();
     }
 
     /**
@@ -29,7 +29,6 @@ class BodyTagTest extends PairTagTest
      */
     protected function tearDown()
     {
-
     }
 
     public function testConstructor()

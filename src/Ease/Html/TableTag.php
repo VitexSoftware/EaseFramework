@@ -58,7 +58,8 @@ class TableTag extends PairTag
         $tableRow = $this->tBody->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
-                if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType() == 'td') {
+                if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType()
+                    == 'td') {
                     $tableRow->addItem($column);
                 } else {
                     $tableRow->addItem(new TdTag($column, $properties));
@@ -82,7 +83,8 @@ class TableTag extends PairTag
         $tableRow = $this->tHead->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
-                if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType() == 'th') {
+                if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType()
+                    == 'th') {
                     $tableRow->addItem($column);
                 } else {
                     $tableRow->addItem(new ThTag($column, $properties));

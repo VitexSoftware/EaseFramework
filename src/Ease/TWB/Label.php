@@ -7,7 +7,6 @@ namespace Ease\TWB;
 
 class Label extends \Ease\Html\SpanTag
 {
-
     /**
      * Návěstí bootstrapu.
      *

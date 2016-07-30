@@ -9,7 +9,6 @@ use Ease\LoggerToSyslog;
  */
 class LoggerToSyslogTest extends AtomTest
 {
-
     /**
      * @var SysLogger
      */
@@ -21,7 +20,7 @@ class LoggerToSyslogTest extends AtomTest
      */
     protected function setUp()
     {
-        $this->object = new LoggerToSyslog;
+        $this->object = new LoggerToSyslog();
     }
 
     /**
@@ -30,103 +29,109 @@ class LoggerToSyslogTest extends AtomTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\SysLogger::singleton
+     *
      * @todo   Implement testSingleton().
      */
     public function testSingleton()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::setStoreMessages
+     *
      * @todo   Implement testSetStoreMessages().
      */
     public function testSetStoreMessages()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::resetStoredMessages
+     *
      * @todo   Implement testResetStoredMessages().
      */
     public function testResetStoredMessages()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::getStoredMessages
+     *
      * @todo   Implement testGetStoredMessages().
      */
     public function testGetStoredMessages()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::addToLog
+     *
      * @todo   Implement testAddToLog().
      */
     public function testAddToLog()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::error
+     *
      * @todo   Implement testError().
      */
     public function testError()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::__destruct
+     *
      * @todo   Implement test__destruct().
      */
     public function test__destruct()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
     /**
      * @covers Ease\SysLogger::getLogStyle
+     *
      * @todo   Implement testGetLogStyle().
      */
     public function testGetLogStyle()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
-
 }

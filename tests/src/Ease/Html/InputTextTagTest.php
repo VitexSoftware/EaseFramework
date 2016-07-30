@@ -27,6 +27,5 @@ class InputTextTagTest extends InputTagTest
      */
     protected function tearDown()
     {
-        
     }
 }

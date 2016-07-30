@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Třídy pro vykreslení obecne stránky shopu.
  *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -140,12 +140,12 @@ class WebPage extends Page
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
+    public function includeJavaScript($javaScriptFile, $position = null,
+                                      $fwPrefix = false)
     {
         if ($fwPrefix) {
             return $this->addToScriptsStack(
-                '#'.$this->jsPrefix.$javaScriptFile,
-                $position
+                    '#'.$this->jsPrefix.$javaScriptFile, $position
             );
         } else {
             return $this->addToScriptsStack('#'.$javaScriptFile, $position);
@@ -161,7 +161,8 @@ class WebPage extends Page
      *
      * @return string
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
+    public function addJavaScript($javaScript, $position = null,
+                                  $inDocumentReady = true)
     {
         if ($inDocumentReady) {
             return $this->addToScriptsStack('$'.$javaScript, $position);

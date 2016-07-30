@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class TabsTest extends \Test\Ease\ContainerTest
 {
-
     /**
      * @var Tabs
      */
@@ -17,7 +16,7 @@ class TabsTest extends \Test\Ease\ContainerTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\Tabs('tabs');
     }
@@ -26,9 +25,8 @@ class TabsTest extends \Test\Ease\ContainerTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     public function testConstructor()
@@ -44,9 +42,10 @@ class TabsTest extends \Test\Ease\ContainerTest
 
     /**
      * @covers Ease\TWB\Tabs::addTab
+     *
      * @todo   Implement testAddTab().
      */
-    public function testAddTab() 
+    public function testAddTab()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -56,9 +55,10 @@ class TabsTest extends \Test\Ease\ContainerTest
 
     /**
      * @covers Ease\TWB\Tabs::getTagID
+     *
      * @todo   Implement testGetTagID().
      */
-    public function testGetTagID() 
+    public function testGetTagID()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -68,14 +68,14 @@ class TabsTest extends \Test\Ease\ContainerTest
 
     /**
      * @covers Ease\TWB\Tabs::finalize
+     *
      * @todo   Implement testFinalize().
      */
-    public function testFinalize() 
+    public function testFinalize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

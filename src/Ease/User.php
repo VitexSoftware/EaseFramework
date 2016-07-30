@@ -63,7 +63,7 @@ class User extends Anonym
      *
      * @var int unsigned
      */
-    public $parent              = null;
+    public $parent = null;
 
     /**
      * ID prave nacteneho uzivatele.
@@ -214,7 +214,7 @@ class User extends Anonym
         if (!count($formData)) {
             return;
         }
-        $login    = $this->easeAddSlashes($formData[$this->loginColumn]);
+        $login = $this->easeAddSlashes($formData[$this->loginColumn]);
         $password = $this->easeAddSlashes($formData[$this->passwordColumn]);
         if (!$login) {
             $this->addStatusMessage(_('chybí login'), 'error');
@@ -282,9 +282,9 @@ class User extends Anonym
      */
     public function loginSuccess()
     {
-        $this->userID    = (int) $this->getMyKey();
+        $this->userID = (int) $this->getMyKey();
         $this->userLogin = $this->getDataValue($this->loginColumn);
-        $this->logged    = true;
+        $this->logged = true;
         $this->addStatusMessage(sprintf(_('Přihlášení %s proběhlo bez problémů'),
                 $this->userLogin), 'success');
 
@@ -371,7 +371,7 @@ class User extends Anonym
         for ($i = 0; $i < 10; ++$i) {
             $encryptedPassword .= $this->randomNumber();
         }
-        $passwordSalt      = substr(md5($encryptedPassword), 0, 2);
+        $passwordSalt = substr(md5($encryptedPassword), 0, 2);
         $encryptedPassword = md5($passwordSalt.$plainTextPassword).':'.$passwordSalt;
 
         return $encryptedPassword;
@@ -586,8 +586,7 @@ class User extends Anonym
      */
     public static function getGravatar(
     $email, $size = 80, $default = 'mm', $maxRating = 'g'
-    )
-    {
+    ) {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";

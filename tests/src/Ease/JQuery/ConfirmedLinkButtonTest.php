@@ -9,7 +9,6 @@ use Ease\JQuery\ConfirmedLinkButton;
  */
 class ConfirmedLinkButtonTest extends LinkButtonTest
 {
-
     /**
      * @var ConfirmedLinkButton
      */
@@ -19,21 +18,21 @@ class ConfirmedLinkButtonTest extends LinkButtonTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
-        $this->object = new ConfirmedLinkButton('http://v.s.cz/', 'VitexSoftware');
+        $this->object = new ConfirmedLinkButton('http://v.s.cz/',
+            'VitexSoftware');
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
-        public function testConstructor()
+    public function testConstructor()
     {
         $classname = get_class($this->object);
 
@@ -46,14 +45,14 @@ class ConfirmedLinkButtonTest extends LinkButtonTest
 
     /**
      * @covers Ease\JQuery\ConfirmedLinkButton::onDocumentReady
+     *
      * @todo   Implement testOnDocumentReady().
      */
-    public function testOnDocumentReady() 
+    public function testOnDocumentReady()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

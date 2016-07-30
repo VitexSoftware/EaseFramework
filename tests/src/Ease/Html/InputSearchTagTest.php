@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\Html;
+
 use Ease\Html\InputSearchTag;
 
 /**
@@ -8,7 +9,6 @@ use Ease\Html\InputSearchTag;
  */
 class InputSearchTagTest extends InputTagTest
 {
-
     /**
      * @var InputSearchTag
      */
@@ -18,7 +18,7 @@ class InputSearchTagTest extends InputTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\InputSearchTag('test');
     }
@@ -27,16 +27,16 @@ class InputSearchTagTest extends InputTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\InputSearchTag::setDataSource
+     *
      * @todo   Implement testSetDataSource().
      */
-    public function testSetDataSource() 
+    public function testSetDataSource()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -46,14 +46,14 @@ class InputSearchTagTest extends InputTagTest
 
     /**
      * @covers Ease\Html\InputSearchTag::finalize
+     *
      * @todo   Implement testFinalize().
      */
-    public function testFinalize() 
+    public function testFinalize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

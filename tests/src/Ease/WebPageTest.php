@@ -20,7 +20,7 @@ class WebPageTest extends PageTest
      */
     protected function setUp()
     {
-        $this->object = new WebPage;
+        $this->object = new WebPage();
     }
 
     /**
@@ -29,11 +29,11 @@ class WebPageTest extends PageTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\WebPage::setTagID
+     *
      * @todo   Implement testSetTagID().
      */
     public function testSetTagID()
@@ -46,6 +46,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::addItem
+     *
      * @todo   Implement testAddItem().
      */
     public function testAddItem()
@@ -58,6 +59,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::includeJavaScript
+     *
      * @todo   Implement testIncludeJavaScript().
      */
     public function testIncludeJavaScript()
@@ -70,6 +72,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::addJavaScript
+     *
      * @todo   Implement testAddJavaScript().
      */
     public function testAddJavaScript()
@@ -82,6 +85,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::addToScriptsStack
+     *
      * @todo   Implement testAddToScriptsStack().
      */
     public function testAddToScriptsStack()
@@ -94,6 +98,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::addCSS
+     *
      * @todo   Implement testAddCSS().
      */
     public function testAddCSS()
@@ -106,6 +111,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::includeCss
+     *
      * @todo   Implement testIncludeCss().
      */
     public function testIncludeCss()
@@ -118,6 +124,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::getStatusMessagesAsHtml
+     *
      * @todo   Implement testGetStatusMessagesAsHtml().
      */
     public function testGetStatusMessagesAsHtml()
@@ -130,6 +137,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::setSkin
+     *
      * @todo   Implement testSetSkin().
      */
     public function testSetSkin()
@@ -142,6 +150,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::draw
+     *
      * @todo   Implement testDraw().
      */
     public function testDraw($whatWant = null)
@@ -154,6 +163,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::finalizeRegistred
+     *
      * @todo   Implement testFinalizeRegistred().
      */
     public function testFinalizeRegistred()
@@ -166,6 +176,7 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::setPageTitle
+     *
      * @todo   Implement testSetPageTitle().
      */
     public function testSetPageTitle()

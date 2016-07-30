@@ -17,11 +17,11 @@ class PairTag extends Tag
     public $trail = '';
 
     /**
-     * Common pair tag
+     * Common pair tag.
      *
      * @param string       $tagType       typ tagu
      * @param array|string $tagProperties parametry tagu
-     * @param mixed $content Content to insert into tag
+     * @param mixed        $content       Content to insert into tag
      */
     public function __construct($tagType = null, $tagProperties = null,
                                 $content = null)
@@ -43,7 +43,7 @@ class PairTag extends Tag
     }
 
     /**
-     * Show pair tag begin
+     * Show pair tag begin.
      */
     public function tagBegin()
     {

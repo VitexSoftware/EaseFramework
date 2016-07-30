@@ -140,7 +140,8 @@ class Slider extends UIPart
                 }
             }
         } else {
-            $this->addItem(new $this->inputClass($this->partName, $this->partProperties['value']));
+            $this->addItem(new $this->inputClass($this->partName,
+                $this->partProperties['value']));
             $this->lastItem->setTagID($this->partName);
         }
     }
@@ -151,7 +152,8 @@ class Slider extends UIPart
     public function finalize()
     {
         \Ease\Shared::webPage()->addCSS(' #'.$this->partName.' { margin: 10px; }');
-        $this->addItem(new Ease\Html\Div(null, ['id' => $this->partName.'-slider']));
+        $this->addItem(new \Ease\Html\Div(null,
+            ['id' => $this->partName.'-slider']));
         if (isset($this->partProperties['values'])) {
             if (is_array($this->partProperties['values'])) {
                 $JavaScript = '';

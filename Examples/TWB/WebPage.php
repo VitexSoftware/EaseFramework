@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Example WebPage for TwitterBootstrap.
  *

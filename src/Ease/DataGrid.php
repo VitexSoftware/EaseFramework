@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Zobrazení tabulky dat.
  *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class DataGrid extends Html\TableTag

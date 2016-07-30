@@ -6,7 +6,6 @@ use Ease\SQL\SQL;
 
 class SQLTester extends SQL
 {
-
 }
 
 /**
@@ -34,11 +33,11 @@ class SQLTest extends \Test\Ease\SandTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\SQL\SQL::connect
+     *
      * @todo   Implement testConnect().
      */
     public function testConnect()
@@ -51,6 +50,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::selectDB
+     *
      * @todo   Implement testSelectDB().
      */
     public function testSelectDB()
@@ -63,6 +63,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getInsertID
+     *
      * @todo   Implement testGetInsertID().
      */
     public function testGetInsertID()
@@ -75,6 +76,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::ping
+     *
      * @todo   Implement testPing().
      */
     public function testPing()
@@ -87,6 +89,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::__wakeup
+     *
      * @todo   Implement test__wakeup().
      */
     public function test__wakeup()
@@ -99,6 +102,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::sanitizeQuery
+     *
      * @todo   Implement testSanitizeQuery().
      */
     public function testSanitizeQuery()
@@ -111,6 +115,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::makeReport
+     *
      * @todo   Implement testMakeReport().
      */
     public function testMakeReport()
@@ -123,6 +128,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::setUp
+     *
      * @todo   Implement testSetUp().
      */
     public function testSetUp()
@@ -135,6 +141,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::setTable
+     *
      * @todo   Implement testSetTable().
      */
     public function testSetTable()
@@ -147,6 +154,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getNumRows
+     *
      * @todo   Implement testGetNumRows().
      */
     public function testGetNumRows()
@@ -159,6 +167,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getLastQuery
+     *
      * @todo   Implement testGetLastQuery().
      */
     public function testGetLastQuery()
@@ -171,6 +180,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getlastInsertID
+     *
      * @todo   Implement testGetlastInsertID().
      */
     public function testGetlastInsertID()
@@ -183,6 +193,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getLastError
+     *
      * @todo   Implement testGetLastError().
      */
     public function testGetLastError()
@@ -195,6 +206,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::logError
+     *
      * @todo   Implement testLogError().
      */
     public function testLogError()
@@ -207,6 +219,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::__sleep
+     *
      * @todo   Implement test__sleep().
      */
     public function test__sleep()
@@ -219,6 +232,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::__destruct
+     *
      * @todo   Implement test__destruct().
      */
     public function test__destruct()
@@ -231,6 +245,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::queryTo2DArray
+     *
      * @todo   Implement testQueryTo2DArray().
      */
     public function testQueryTo2DArray()
@@ -247,15 +262,16 @@ class SQLTest extends \Test\Ease\SandTest
     public function testArrayToSetQuery()
     {
         $this->object->keyColumn = 'id';
-        $sqlFragment               = $this->object->arrayToSetQuery([ '' => 'x',
+        $sqlFragment = $this->object->arrayToSetQuery(['' => 'x',
             'a' => 1, 'b' => 'word',
-            'c' => null, 'id' => 0, 'z' => 0.4, 'y' => true, 'x' => false]);
+            'c' => null, 'id' => 0, 'z' => 0.4, 'y' => true, 'x' => false, ]);
         $this->assertEquals(" a =  1 , b =  'word' , c =  null , z =  0.4 , y =  1 , x =  0 ",
             $sqlFragment);
     }
 
     /**
      * @covers Ease\SQL\SQL::queryToValue
+     *
      * @todo   Implement testQueryToValue().
      */
     public function testQueryToValue()
@@ -268,6 +284,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::queryToCount
+     *
      * @todo   Implement testQueryToCount().
      */
     public function testQueryToCount()
@@ -280,6 +297,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getPearObject
+     *
      * @todo   Implement testGetPearObject().
      */
     public function testGetPearObject()
@@ -292,6 +310,7 @@ class SQLTest extends \Test\Ease\SandTest
 
     /**
      * @covers Ease\SQL\SQL::getColumnComma
+     *
      * @todo   Implement testGetColumnComma().
      */
     public function testGetColumnComma()

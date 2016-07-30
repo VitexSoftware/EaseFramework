@@ -20,7 +20,7 @@ class TagTest extends PageTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\Html\Tag;
+        $this->object = new \Ease\Html\Tag();
     }
 
     /**
@@ -29,7 +29,6 @@ class TagTest extends PageTest
      */
     protected function tearDown()
     {
-
     }
 
     public function testConstructor()
@@ -50,10 +49,9 @@ class TagTest extends PageTest
      */
     public function testSetObjectName()
     {
-
         $type = $this->object->getTagType();
         if (!$type) {
-        $this->assertEquals(get_class($this->object),
+            $this->assertEquals(get_class($this->object),
                 $this->object->setObjectName());
             $type = 'type';
         }
@@ -171,7 +169,6 @@ class TagTest extends PageTest
         $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
         $this->assertEquals('Test', $this->object->getTagID());
         $this->assertEquals('unit', $this->object->getTagName());
-
     }
 
     /**

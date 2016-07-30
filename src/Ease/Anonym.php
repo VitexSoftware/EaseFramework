@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Objekt Anonymního uživatele.
  *
@@ -8,6 +7,7 @@
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class Anonym extends Brick
@@ -109,35 +109,32 @@ class Anonym extends Brick
      * Anonym nemá nastavení.
      *
      * @param string $settingName jméno klíče nastavení
-     * @return null no settings
      */
     public function getSettingValue($settingName = null)
     {
-        return null;
+        return;
     }
 
     /**
      * Anonym nemá mail.
-     * @return null no mail
      */
     public function getUserEmail()
     {
-        return null;
+        return;
     }
 
     /**
      * Fake permissions.
      *
      * @param string $permKeyword permission keyword
-     * @return null no permissions
      */
     public function getPermission($permKeyword = null)
     {
-        return null;
+        return;
     }
 
     /**
-     * Just fake
+     * Just fake.
      *
      * @return bool true - always logged off
      */

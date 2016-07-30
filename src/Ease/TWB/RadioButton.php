@@ -1,8 +1,8 @@
 <?php
-
 /**
  * RadioButton Twitter Bootstrapu.
  */
+
 namespace Ease\TWB;
 
 class RadioButton extends \Ease\Html\Div
@@ -15,13 +15,16 @@ class RadioButton extends \Ease\Html\Div
      * @param mixed      $caption
      * @param array      $properties
      */
-    public function __construct($name = null, $value = null, $caption = null, $properties = null)
+    public function __construct($name = null, $value = null, $caption = null,
+                                $properties = null)
     {
         if (isset($properties['id'])) {
             $for = $properties['id'];
         } else {
             $for = $name;
         }
-        parent::__construct(null, new \Ease\Html\LabelTag($for, [new \Ease\Html\InputRadioTag($name, $value, $properties), $caption]));
+        parent::__construct(null,
+            new \Ease\Html\LabelTag($for,
+            [new \Ease\Html\InputRadioTag($name, $value, $properties), $caption]));
     }
 }

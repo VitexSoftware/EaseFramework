@@ -26,7 +26,7 @@
             "Test\\Ease\\SQL\\": "tests/src/Ease/SQL",
             "Test\\Ease\\TWB\\": "tests/src/Ease/TWB",
             "Ease\\Example\\TWB\\": "Examples/TWB/classes"
-            
+
         }
     },
     "minimum-stability": "dev",

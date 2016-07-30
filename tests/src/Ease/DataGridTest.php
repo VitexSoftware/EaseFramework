@@ -9,7 +9,6 @@ use Ease\DataGrid;
  */
 class DataGridTest extends Html\TableTagTest
 {
-
     /**
      * @var DataGrid
      */
@@ -21,7 +20,7 @@ class DataGridTest extends Html\TableTagTest
      */
     protected function setUp()
     {
-        $this->object = new DataGrid;
+        $this->object = new DataGrid();
     }
 
     /**
@@ -30,19 +29,18 @@ class DataGridTest extends Html\TableTagTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\DataGrid::populate
+     *
      * @todo   Implement testPopulate().
      */
     public function testPopulate()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
-
 }

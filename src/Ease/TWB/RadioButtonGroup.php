@@ -65,8 +65,11 @@ class RadioButtonGroup extends \Ease\Container
             } else {
                 $checked = null;
             }
-            $tagProperties = ['id' => $this->name.$pos++, 'name' => $this->name, $checked];
-            $this->addItem(new \Ease\Html\Div(new \Ease\Html\LabelTag(null, [new \Ease\Html\InputRadioTag($this->name, $value, $tagProperties), $caption]), ['class' => $class]));
+            $tagProperties = ['id' => $this->name.$pos++, 'name' => $this->name,
+                $checked, ];
+            $this->addItem(new \Ease\Html\Div(new \Ease\Html\LabelTag(null,
+                [new \Ease\Html\InputRadioTag($this->name, $value,
+                    $tagProperties), $caption]), ['class' => $class]));
         }
     }
 }

@@ -17,7 +17,8 @@ class CheckboxTag extends InputTag
      * @param string $value      vracená hodnota checkboxu
      * @param array  $properties parametry tagu
      */
-    public function __construct($name, $checked = false, $value = null, $properties = null)
+    public function __construct($name, $checked = false, $value = null,
+                                $properties = null)
     {
         if ($properties) {
             $properties['type'] = 'checkbox';

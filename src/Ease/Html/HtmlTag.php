@@ -18,7 +18,9 @@ class HtmlTag extends PairTag
      */
     public function __construct($Content = null)
     {
-        parent::__construct('html', ['lang' => $this->langCode, 'xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => $this->langCode], $Content);
+        parent::__construct('html',
+            ['lang' => $this->langCode, 'xmlns' => 'http://www.w3.org/1999/xhtml',
+            'xml:lang' => $this->langCode, ], $Content);
     }
 
     /**

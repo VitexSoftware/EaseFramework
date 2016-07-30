@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class JavaScript extends Ease\html\ScriptTag
+class JavaScript extends ScriptTag
 {
     /**
      * fragment javaskriptu ve stránce.

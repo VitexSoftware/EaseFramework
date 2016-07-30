@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class LoggerToFile extends LoggerToMemory
@@ -220,7 +220,9 @@ class LoggerToFile extends LoggerToMemory
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message', 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail'], ['**', '##', '@@', '::'], $type).' '.$message."\n";
+        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
+                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail', ],
+                ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -246,7 +248,8 @@ class LoggerToFile extends LoggerToMemory
             if ($type == 'error') {
                 if ($this->errorLogFile) {
                     if (!$this->_errorLogFileHandle) {
-                        $this->_errorLogFileHandle = fopen($this->errorLogFile, 'a+');
+                        $this->_errorLogFileHandle = fopen($this->errorLogFile,
+                            'a+');
                     }
                     if ($this->_errorLogFileHandle) {
                         fputs($this->_errorLogFileHandle, $LogLine);
@@ -364,22 +367,28 @@ class LoggerToFile extends LoggerToMemory
             $LogFileHandle = @fopen($this->errorLogFile, 'a+');
             if ($LogFileHandle) {
                 if ($this->easeShared->runType == 'web') {
-                    fputs($LogFileHandle, Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle,
+                        Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
-                    fputs($LogFileHandle, Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle,
+                        Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_POST) && count($_POST)) {
-                    fputs($LogFileHandle, Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle,
+                        Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_GET) && count($_GET)) {
-                    fputs($LogFileHandle, Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($LogFileHandle,
+                        Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if ($objectData) {
-                    fputs($LogFileHandle, Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
+                    fputs($LogFileHandle,
+                        Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
                 }
                 fclose($LogFileHandle);
             } else {
-                $this->addToLog('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file', 'error');
+                $this->addToLog('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file',
+                    'error');
             }
         }
         $this->addToLog($caller, $message, 'error');

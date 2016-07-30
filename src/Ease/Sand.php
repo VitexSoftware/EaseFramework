@@ -56,7 +56,7 @@ class Sand extends Atom
         'MyIDSColumn', 'MSIDSColumn',
         'MyRefIDColumn', 'MSRefIDColumn',
         'myCreateColumn', 'MSCreateColumn',
-        'myLastModifiedColumn', 'MSLastModifiedColumn',];
+        'myLastModifiedColumn', 'MSLastModifiedColumn', ];
 
     /**
      * Klíčový sloupeček v používané MySQL tabulce.
@@ -173,12 +173,13 @@ class Sand extends Atom
      */
     public function getStatusMessages($clean = false)
     {
-        $shared   = Shared::instanced();
+        $shared = Shared::instanced();
         $messages = array_merge($this->statusMessages,
             $this->logger->statusMessages, $shared->getStatusMessages());
         if ($clean) {
             $this->cleanMessages();
         }
+
         return $messages;
     }
 
@@ -189,6 +190,7 @@ class Sand extends Atom
     {
         parent::cleanMessages();
         $this->logger->cleanMessages();
+
         return Shared::instanced()->cleanMessages();
     }
 
@@ -552,20 +554,21 @@ class Sand extends Atom
      */
     public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
-        $encryptedText     = null;
+        $encryptedText = null;
         srand((double) microtime() * 1000000); //for sake of MCRYPT_RAND
-        $encryptKey        = md5($encryptKey);
-        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey        = substr($encryptKey, 0,
+        $encryptKey = md5($encryptKey);
+        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey = substr($encryptKey, 0,
             mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector     = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
+        $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
             $encryptedText = mcrypt_generic($encryptHandle, $textToEncrypt);
             mcrypt_generic_deinit($encryptHandle);
             mcrypt_module_close($encryptHandle);
             $encryptedText = $initialVector.$encryptedText;
         }
+
         return $encryptedText;
     }
 
@@ -579,14 +582,14 @@ class Sand extends Atom
      */
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
-        $decryptedText     = null;
-        $encryptKey        = md5($encryptKey);
-        $encryptHandle     = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey        = substr($encryptKey, 0,
+        $decryptedText = null;
+        $encryptKey = md5($encryptKey);
+        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
+        $encryptKey = substr($encryptKey, 0,
             mcrypt_enc_get_key_size($encryptHandle));
         $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector     = substr($textToDecrypt, 0, $initialVectorSize);
-        $textToDecrypt     = substr($textToDecrypt, $initialVectorSize);
+        $initialVector = substr($textToDecrypt, 0, $initialVectorSize);
+        $textToDecrypt = substr($textToDecrypt, $initialVectorSize);
         if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
             $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
             mcrypt_generic_deinit($encryptHandle);
@@ -659,6 +662,7 @@ class Sand extends Atom
      * Pomocná funkce pro překódování vícerozměrného pole.
      *
      * @see recursiveIconv
+     *
      * @param mixed  $val
      * @param string $key
      * @param mixed  $encodings
@@ -692,8 +696,7 @@ class Sand extends Atom
     public function error($message, $objectData = null)
     {
         if (is_object($this->logger)) {
-            $this->logger->error($this->getObjectName(), $message,
-                $objectData);
+            $this->logger->error($this->getObjectName(), $message, $objectData);
         }
         $this->addStatusMessage($message, 'error');
     }
@@ -735,8 +738,8 @@ class Sand extends Atom
     public static function humanFilesize($filesize)
     {
         if (is_numeric($filesize)) {
-            $decr   = 1024;
-            $step   = 0;
+            $decr = 1024;
+            $step = 0;
             $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
             while (($filesize / $decr) > 0.9) {
@@ -751,10 +754,11 @@ class Sand extends Atom
     }
 
     /**
-     * Reindex Array by given key
+     * Reindex Array by given key.
      *
-     * @param array  $data array to reindex
+     * @param array  $data    array to reindex
      * @param string $indexBy one of columns in array
+     *
      * @return array
      */
     public function reindexArrayBy($data, $indexBy = null)
@@ -776,5 +780,4 @@ class Sand extends Atom
         $this->setObjectName();
         $this->restoreObjectIdentity();
     }
-
 }

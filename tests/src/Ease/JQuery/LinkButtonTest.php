@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\JQuery;
+
 use Ease\JQuery\LinkButton;
 
 /**
@@ -8,7 +9,6 @@ use Ease\JQuery\LinkButton;
  */
 class LinkButtonTest extends UIPartTest
 {
-
     /**
      * @var LinkButton
      */
@@ -18,7 +18,7 @@ class LinkButtonTest extends UIPartTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new LinkButton('http://v.s.cz/', 'Vitex Software');
     }
@@ -27,9 +27,8 @@ class LinkButtonTest extends UIPartTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     public function testConstructor()
@@ -45,9 +44,10 @@ class LinkButtonTest extends UIPartTest
 
     /**
      * @covers Ease\JQuery\LinkButton::onDocumentReady
+     *
      * @todo   Implement testOnDocumentReady().
      */
-    public function testOnDocumentReady() 
+    public function testOnDocumentReady()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,9 +57,10 @@ class LinkButtonTest extends UIPartTest
 
     /**
      * @covers Ease\JQuery\LinkButton::setTagID
+     *
      * @todo   Implement testSetTagID().
      */
-    public function testSetTagID() 
+    public function testSetTagID()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -69,14 +70,14 @@ class LinkButtonTest extends UIPartTest
 
     /**
      * @covers Ease\JQuery\LinkButton::getTagID
+     *
      * @todo   Implement testGetTagID().
      */
-    public function testGetTagID() 
+    public function testGetTagID()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

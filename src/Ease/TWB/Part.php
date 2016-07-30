@@ -9,7 +9,6 @@ namespace Ease\TWB;
 
 class Part extends \Ease\JQuery\Part
 {
-
     /**
      * Vložení náležitostí pro twitter bootstrap.
      */
@@ -30,6 +29,7 @@ class Part extends \Ease\JQuery\Part
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }
+
         return true;
     }
 
@@ -55,5 +55,4 @@ class Part extends \Ease\JQuery\Part
 
         return new \Ease\Html\Span(null, $properties);
     }
-
 }

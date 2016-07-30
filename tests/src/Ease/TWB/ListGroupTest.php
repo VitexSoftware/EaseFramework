@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class ListGroupTest extends \Test\Ease\Html\UlTagTest
 {
-
     /**
      * @var ListGroup
      */
@@ -17,7 +16,7 @@ class ListGroupTest extends \Test\Ease\Html\UlTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\ListGroup();
     }
@@ -26,21 +25,20 @@ class ListGroupTest extends \Test\Ease\Html\UlTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\ListGroup::addItemSmart
+     *
      * @todo   Implement testAddItemSmart().
      */
-    public function testAddItemSmart() 
+    public function testAddItemSmart()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class FormTest extends \Test\Ease\Html\FormTest
 {
-
     /**
      * @var Form
      */
@@ -17,7 +16,7 @@ class FormTest extends \Test\Ease\Html\FormTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\Form('form');
     }
@@ -26,16 +25,16 @@ class FormTest extends \Test\Ease\Html\FormTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\Form::addInput
+     *
      * @todo   Implement testAddInput().
      */
-    public function testAddInput() 
+    public function testAddInput()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,14 +44,14 @@ class FormTest extends \Test\Ease\Html\FormTest
 
     /**
      * @covers Ease\TWB\Form::addItem
+     *
      * @todo   Implement testAddItem().
      */
-    public function testAddItem() 
+    public function testAddItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

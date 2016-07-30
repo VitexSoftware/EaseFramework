@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Třídy pro odesílání Mailu ✉.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 //We Use System/Pear ones:
@@ -97,7 +97,8 @@ class Mailer extends Page
      * @param string $mailSubject   předmět
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
-    public function __construct($emailAddress, $mailSubject, $emailContents = null)
+    public function __construct($emailAddress, $mailSubject,
+                                $emailContents = null)
     {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
@@ -109,13 +110,13 @@ class Mailer extends Page
 
         $this->setMailHeaders(
             [
-                    'To' => $emailAddress,
-                    'From' => $this->fromEmailAddress,
-                    'Reply-To' => $this->fromEmailAddress,
-                    'Subject' => $mailSubject,
-                    'Content-Type' => 'text/plain; charset=utf-8',
-                    'Content-Transfer-Encoding' => '8bit',
-                ]
+                'To' => $emailAddress,
+                'From' => $this->fromEmailAddress,
+                'Reply-To' => $this->fromEmailAddress,
+                'Subject' => $mailSubject,
+                'Content-Type' => 'text/plain; charset=utf-8',
+                'Content-Transfer-Encoding' => '8bit',
+            ]
         );
 
         $this->mimer = new \Mail_mime($this->crLf);
@@ -191,7 +192,8 @@ class Mailer extends Page
             } else {
                 $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
                 $this->htmlDocument->setOutputFormat($this->getOutputFormat());
-                $this->htmlBody = $this->htmlDocument->addItem(new Html\BodyTag('Mail', $item));
+                $this->htmlBody = $this->htmlDocument->addItem(new Html\BodyTag('Mail',
+                    $item));
                 $mailBody = $this->htmlDocument;
             }
         } else {
@@ -258,13 +260,17 @@ class Mailer extends Page
         } else {
             $this->mailer = &$oMail->factory('mail');
         }
-        $this->sendResult = $this->mailer->send($this->emailAddress, $this->mailHeadersDone, $this->mailBody);
+        $this->sendResult = $this->mailer->send($this->emailAddress,
+            $this->mailHeadersDone, $this->mailBody);
         if ($this->sendResult) {
             if ($this->notify) {
-                $this->addStatusMessage(sprintf(_('Zpráva %s byla odeslána na adresu %s'), $this->emailSubject, $this->emailAddress), 'success');
+                $this->addStatusMessage(sprintf(_('Zpráva %s byla odeslána na adresu %s'),
+                        $this->emailSubject, $this->emailAddress), 'success');
             }
         } else {
-            $this->addStatusMessage(sprintf(_('Zpráva %s, pro %s nebyla odeslána z důvodu %s'), $this->emailSubject, $this->emailAddress, $this->sendResult->message), 'warning');
+            $this->addStatusMessage(sprintf(_('Zpráva %s, pro %s nebyla odeslána z důvodu %s'),
+                    $this->emailSubject, $this->emailAddress,
+                    $this->sendResult->message), 'warning');
         }
 
         return $this->sendResult;

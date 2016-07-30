@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\Html;
+
 use Ease\Html\CheckboxTag;
 
 /**
@@ -8,7 +9,6 @@ use Ease\Html\CheckboxTag;
  */
 class CheckboxTagTest extends InputTagTest
 {
-
     /**
      * @var CheckboxTag
      */
@@ -18,7 +18,7 @@ class CheckboxTagTest extends InputTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\CheckboxTag('test');
     }
@@ -27,21 +27,20 @@ class CheckboxTagTest extends InputTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\CheckboxTag::setValue
+     *
      * @todo   Implement testSetValue().
      */
-    public function testSetValue() 
+    public function testSetValue()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

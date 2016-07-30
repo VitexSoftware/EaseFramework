@@ -27,7 +27,5 @@ class TextareaTest extends \Test\Ease\Html\TextareaTagTest
      */
     protected function tearDown()
     {
-        
     }
-
 }

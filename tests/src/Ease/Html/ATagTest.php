@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\Html;
+
 use Ease\Html\ATag;
 
 /**
@@ -8,7 +9,6 @@ use Ease\Html\ATag;
  */
 class ATagTest extends PairTagTest
 {
-
     /**
      * @var ATag
      */
@@ -18,7 +18,7 @@ class ATagTest extends PairTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\ATag('http://v.s.cz/', 'Vitex Software');
     }
@@ -27,17 +27,16 @@ class ATagTest extends PairTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\ATag::afterAdd
      */
-    public function testAfterAdd() 
+    public function testAfterAdd()
     {
-        $keeps                                       = ['test' => 'testing', 'test2' => true];
+        $keeps = ['test' => 'testing', 'test2' => true];
         \Ease\Shared::webPage()->requestValuesToKeep = $keeps;
         $this->object->afterAdd();
         $this->assertEquals('http://v.s.cz/?test=testing',
@@ -59,7 +58,7 @@ class ATagTest extends PairTagTest
     /**
      * @covers Ease\Html\ATag::draw
      */
-    public function testDraw($whatWant = NULL)
+    public function testDraw($whatWant = null)
     {
         parent::testDraw("\n<a href=\"http://v.s.cz/\">Vitex Software</a>");
     }

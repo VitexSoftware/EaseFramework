@@ -93,7 +93,8 @@ class InputContainer extends \Ease\Container
         $itemID = 1;
         foreach ($this->items as $value => $caption) {
             if ($this->checked == $value) {
-                $this->addItem(new $this->itemClass($this->name, $value, ['checked']));
+                $this->addItem(new $this->itemClass($this->name, $value,
+                    ['checked']));
             } else {
                 $this->addItem(new $this->itemClass($this->name, $value));
             }

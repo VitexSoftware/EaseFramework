@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\JQuery;
+
 use Ease\JQuery\Dialog;
 
 /**
@@ -8,7 +9,6 @@ use Ease\JQuery\Dialog;
  */
 class DialogTest extends UIPartTest
 {
-
     /**
      * @var Dialog
      */
@@ -18,7 +18,7 @@ class DialogTest extends UIPartTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new Dialog('test', 'Test', 'Test ?');
     }
@@ -27,12 +27,11 @@ class DialogTest extends UIPartTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
-        public function testConstructor()
+    public function testConstructor()
     {
         $classname = get_class($this->object);
 
@@ -45,9 +44,10 @@ class DialogTest extends UIPartTest
 
     /**
      * @covers Ease\JQuery\Dialog::onDocumentReady
+     *
      * @todo   Implement testOnDocumentReady().
      */
-    public function testOnDocumentReady() 
+    public function testOnDocumentReady()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,14 +57,14 @@ class DialogTest extends UIPartTest
 
     /**
      * @covers Ease\JQuery\Dialog::finalize
+     *
      * @todo   Implement testFinalize().
      */
-    public function testFinalize() 
+    public function testFinalize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

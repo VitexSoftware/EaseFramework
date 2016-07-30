@@ -27,7 +27,6 @@ class PairTagTest extends TagTest
      */
     protected function tearDown()
     {
-        
     }
 
     public function testConstructor()
@@ -81,7 +80,7 @@ class PairTagTest extends TagTest
         }
 
         if (count($this->object->tagProperties)) {
-            $tagBegin = "\n<".trim($tagType." ".$this->object->tagPropertiesToString()).">";
+            $tagBegin = "\n<".trim($tagType.' '.$this->object->tagPropertiesToString()).'>';
         } else {
             $tagBegin = "\n<$tagType>";
         }

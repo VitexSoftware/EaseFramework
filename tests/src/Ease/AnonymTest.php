@@ -29,7 +29,6 @@ class AnonymTest extends BrickTest
      */
     protected function tearDown()
     {
-
     }
 
     /**

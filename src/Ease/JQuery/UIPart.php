@@ -27,7 +27,8 @@ class UIPart extends Part
         $webPage->includeJavaScript('jquery-ui/jquery-ui.js', 1, true);
         $jQueryUISkin = \Ease\Shared::instanced()->getConfigValue('jQueryUISkin');
         if ($jQueryUISkin) {
-            $webPage->includeCss('jquery-ui-themes/'.self::getSkinName().'/jquery-ui.css', true);
+            $webPage->includeCss('jquery-ui-themes/'.self::getSkinName().'/jquery-ui.css',
+                true);
         } else {
             $webPage->includeCss('jquery-ui/css/smoothness/jquery-ui.css', true);
         }

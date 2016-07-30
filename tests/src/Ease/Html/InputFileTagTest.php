@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class InputFileTagTest extends InputTagTest
 {
-
     /**
      * @var InputFileTag
      */
@@ -17,7 +16,7 @@ class InputFileTagTest extends InputTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\InputFileTag('test');
     }
@@ -26,9 +25,7 @@ class InputFileTagTest extends InputTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
-
 }

@@ -27,7 +27,6 @@ class GlyphIconTest extends \Test\Ease\Html\SpanTagTest
      */
     protected function tearDown()
     {
-        
     }
 
     public function testConstructor()

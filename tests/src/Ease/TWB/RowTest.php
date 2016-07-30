@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class RowTest extends \Test\Ease\Html\DivTest
 {
-
     /**
      * @var Row
      */
@@ -17,30 +16,29 @@ class RowTest extends \Test\Ease\Html\DivTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
-        $this->object = new \Ease\TWB\Row;
+        $this->object = new \Ease\TWB\Row();
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\Row::addColumn
+     *
      * @todo   Implement testAddColumn().
      */
-    public function testAddColumn() 
+    public function testAddColumn()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

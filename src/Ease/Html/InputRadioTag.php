@@ -50,5 +50,4 @@ class InputRadioTag extends InputTag
             $this->setTagProperties(['value' => $value]);
         }
     }
-
 }

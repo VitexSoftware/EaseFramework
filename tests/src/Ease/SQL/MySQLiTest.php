@@ -20,7 +20,7 @@ class MySQLiTest extends SQLTest
      */
     protected function setUp()
     {
-        $this->object = new MySQLi;
+        $this->object = new MySQLi();
     }
 
     /**
@@ -29,11 +29,11 @@ class MySQLiTest extends SQLTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\SQL\MySqli::singleton
+     *
      * @todo   Implement testSingleton().
      */
     public function testSingleton()
@@ -46,6 +46,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::addSlashes
+     *
      * @todo   Implement testAddSlashes().
      */
     public function testAddSlashes()
@@ -58,6 +59,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::connect
+     *
      * @todo   Implement testConnect().
      */
     public function testConnect()
@@ -70,6 +72,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::selectDB
+     *
      * @todo   Implement testSelectDB().
      */
     public function testSelectDB()
@@ -82,6 +85,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::exeQuery
+     *
      * @todo   Implement testExeQuery().
      */
     public function testExeQuery()
@@ -94,6 +98,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::queryToArray
+     *
      * @todo   Implement testQueryToArray().
      */
     public function testQueryToArray()
@@ -106,6 +111,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::arrayToInsert
+     *
      * @todo   Implement testArrayToInsert().
      */
     public function testArrayToInsert()
@@ -118,6 +124,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::arrayToUpdate
+     *
      * @todo   Implement testArrayToUpdate().
      */
     public function testArrayToUpdate()
@@ -130,6 +137,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::arrayToQuery
+     *
      * @todo   Implement testArrayToQuery().
      */
     public function testArrayToQuery()
@@ -142,6 +150,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::prepSelect
+     *
      * @todo   Implement testPrepSelect().
      */
     public function testPrepSelect()
@@ -154,6 +163,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::tableExist
+     *
      * @todo   Implement testTableExist().
      */
     public function testTableExist()
@@ -166,6 +176,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::getTableNumRows
+     *
      * @todo   Implement testGetTableNumRows().
      */
     public function testGetTableNumRows()
@@ -178,6 +189,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::truncateTable
+     *
      * @todo   Implement testTruncateTable().
      */
     public function testTruncateTable()
@@ -190,6 +202,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::close
+     *
      * @todo   Implement testClose().
      */
     public function testClose()
@@ -202,6 +215,7 @@ class MySQLiTest extends SQLTest
 
     /**
      * @covers Ease\SQL\MySqli::__destruct
+     *
      * @todo   Implement test__destruct().
      */
     public function test__destruct()

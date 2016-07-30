@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class OptionTagTest extends \Test\Ease\Html\PairTagTest
 {
-
     /**
      * @var OptionTag
      */
@@ -17,7 +16,7 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\OptionTag('test');
     }
@@ -26,16 +25,16 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\OptionTag::setDefault
+     *
      * @todo   Implement testSetDefault().
      */
-    public function testSetDefault() 
+    public function testSetDefault()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,9 +44,10 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
 
     /**
      * @covers Ease\Html\OptionTag::setValue
+     *
      * @todo   Implement testSetValue().
      */
-    public function testSetValue() 
+    public function testSetValue()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,14 +57,14 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
 
     /**
      * @covers Ease\Html\OptionTag::getValue
+     *
      * @todo   Implement testGetValue().
      */
-    public function testGetValue() 
+    public function testGetValue()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

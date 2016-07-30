@@ -20,7 +20,7 @@ class LoggerToMemoryTest extends AtomTest
      */
     protected function setUp()
     {
-        $this->object = new LoggerToMemory;
+        $this->object = new LoggerToMemory();
     }
 
     /**
@@ -29,11 +29,11 @@ class LoggerToMemoryTest extends AtomTest
      */
     protected function tearDown()
     {
-
     }
 
     /**
      * @covers Ease\Logger::singleton
+     *
      * @todo   Implement testSingleton().
      */
     public function testSingleton()
@@ -46,6 +46,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::setupLogFiles
+     *
      * @todo   Implement testSetupLogFiles().
      */
     public function testSetupLogFiles()
@@ -58,6 +59,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::setStoreMessages
+     *
      * @todo   Implement testSetStoreMessages().
      */
     public function testSetStoreMessages()
@@ -70,6 +72,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::resetStoredMessages
+     *
      * @todo   Implement testResetStoredMessages().
      */
     public function testResetStoredMessages()
@@ -82,6 +85,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::getStoredMessages
+     *
      * @todo   Implement testGetStoredMessages().
      */
     public function testGetStoredMessages()
@@ -94,6 +98,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::addToLog
+     *
      * @todo   Implement testAddToLog().
      */
     public function testAddToLog()
@@ -106,6 +111,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::renameLogFile
+     *
      * @todo   Implement testRenameLogFile().
      */
     public function testRenameLogFile()
@@ -118,6 +124,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::setRunType
+     *
      * @todo   Implement testSetRunType().
      */
     public function testSetRunType()
@@ -130,6 +137,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::testDirectory
+     *
      * @todo   Implement testTestDirectory().
      */
     public function testTestDirectory()
@@ -142,6 +150,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::error
+     *
      * @todo   Implement testError().
      */
     public function testError()
@@ -154,6 +163,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::__destruct
+     *
      * @todo   Implement test__destruct().
      */
     public function test__destruct()
@@ -166,6 +176,7 @@ class LoggerToMemoryTest extends AtomTest
 
     /**
      * @covers Ease\Logger::getLogStyle
+     *
      * @todo   Implement testGetLogStyle().
      */
     public function testGetLogStyle()

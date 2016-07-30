@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class LabelTagTest extends PairTagTest
 {
-
     /**
      * @var LabelTag
      */
@@ -17,7 +16,7 @@ class LabelTagTest extends PairTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\LabelTag('test');
     }
@@ -26,21 +25,20 @@ class LabelTagTest extends PairTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\LabelTag::setObjectName
+     *
      * @todo   Implement testSetObjectName().
      */
-    public function testSetObjectName() 
+    public function testSetObjectName()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

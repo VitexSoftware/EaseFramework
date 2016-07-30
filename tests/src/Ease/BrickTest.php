@@ -86,17 +86,17 @@ class BrickTest extends SandTest
             $this->assertEquals([0 => ['id' => '3']],
                 $this->object->getColumnsFromSQL('id', 3));
 
-            $ids   = $this->object->getColumnsFromSQL(array('id'));
+            $ids = $this->object->getColumnsFromSQL(array('id'));
             $this->assertEquals([0 => ['id' => 3], 1 => ['id' => 2]], $ids);
             $names = $this->object->getColumnsFromSQL(array('name'));
             $this->assertEquals($names,
                 [0 => ['name' => 'alpha'], 1 => ['name' => 'beta']]);
-            $all   = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
+            $all = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
             $this->assertEquals([2 => ['id' => '2', 'name' => 'beta', 'date' => '2015-11-18 00:00:00'],
-                3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00']],
+                3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00'], ],
                 $all);
             $this->assertNull($this->object->getColumnsFromSQL('*', []));
-            $some  = $this->object->getColumnsFromSQL(['name', 'id'],
+            $some = $this->object->getColumnsFromSQL(['name', 'id'],
                 "test.date = '2015-11-18 00:00:00'");
             $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
         }
@@ -104,6 +104,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getDataFromSQL
+     *
      * @todo   Implement testGetDataFromSQL().
      */
     public function testGetDataFromSQL()
@@ -116,6 +117,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::setUpUser
+     *
      * @todo   Implement testSetUpUser().
      */
     public function testSetUpUser()
@@ -128,6 +130,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getUser
+     *
      * @todo   Implement testGetUser().
      */
     public function testGetUser()
@@ -140,6 +143,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::easeAddSlashes
+     *
      * @todo   Implement testEaseAddSlashes().
      */
     public function testEaseAddSlashes()
@@ -152,6 +156,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::loadFromSQL
+     *
      * @todo   Implement testLoadFromSQL().
      */
     public function testLoadFromSQL()
@@ -164,6 +169,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getAllFromSQL
+     *
      * @todo   Implement testGetAllFromSQL().
      */
     public function testGetAllFromSQL()
@@ -176,6 +182,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::updateToSQL
+     *
      * @todo   Implement testUpdateToSQL().
      */
     public function testUpdateToSQL()
@@ -188,6 +195,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::saveToSQL
+     *
      * @todo   Implement testSaveToSQL().
      */
     public function testSaveToSQL()
@@ -200,6 +208,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::insertToSQL
+     *
      * @todo   Implement testInsertToSQL().
      */
     public function testInsertToSQL()
@@ -212,6 +221,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::save
+     *
      * @todo   Implement testSave().
      */
     public function testSave()
@@ -224,6 +234,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::deleteFromSQL
+     *
      * @todo   Implement testDeleteFromSQL().
      */
     public function testDeleteFromSQL()
@@ -236,6 +247,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::takeToData
+     *
      * @todo   Implement testTakeToData().
      */
     public function testTakeToData()
@@ -248,6 +260,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getSQLList
+     *
      * @todo   Implement testGetSQLList().
      */
     public function testGetSQLList()
@@ -260,6 +273,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::takemyTable
+     *
      * @todo   Implement testTakemyTable().
      */
     public function testTakemyTable()
@@ -272,6 +286,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getmyKeyColumn
+     *
      * @todo   Implement testGetmyKeyColumn().
      */
     public function testGetmyKeyColumn()
@@ -284,6 +299,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::MyIDExists
+     *
      * @todo   Implement testMyIDExists().
      */
     public function testMyIDExists()
@@ -296,6 +312,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getMyTable
+     *
      * @todo   Implement testGetMyTable().
      */
     public function testGetMyTable()
@@ -308,6 +325,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getMyKey
+     *
      * @todo   Implement testGetMyKey().
      */
     public function testGetMyKey()
@@ -320,6 +338,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::setMyKey
+     *
      * @todo   Implement testSetMyKey().
      */
     public function testSetMyKey()
@@ -332,6 +351,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::setmyKeyColumn
+     *
      * @todo   Implement testSetmyKeyColumn().
      */
     public function testSetmyKeyColumn()
@@ -344,6 +364,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::setmyTable
+     *
      * @todo   Implement testSetmyTable().
      */
     public function testSetmyTable()
@@ -356,6 +377,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::mySQLTableExist
+     *
      * @todo   Implement testMySQLTableExist().
      */
     public function testMySQLTableExist()
@@ -368,6 +390,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getSQLItemsCount
+     *
      * @todo   Implement testGetSQLItemsCount().
      */
     public function testGetSQLItemsCount()
@@ -391,6 +414,7 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::searchColumns
+     *
      * @todo   Implement testSearchColumns().
      */
     public function testSearchColumns()
@@ -409,12 +433,12 @@ class BrickTest extends SandTest
         $a = [
             ['id' => '2', 'name' => 'b'],
             ['id' => '1', 'name' => 'a'],
-            ['id' => '3', 'name' => 'c']
+            ['id' => '3', 'name' => 'c'],
         ];
         $b = [
             '1' => ['id' => '1', 'name' => 'a'],
             '2' => ['id' => '2', 'name' => 'b'],
-            '3' => ['id' => '3', 'name' => 'c']
+            '3' => ['id' => '3', 'name' => 'c'],
         ];
 
         parent::testReindexArrayBy();

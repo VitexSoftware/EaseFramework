@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Ukázková webstránka.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease\Example\TWB;
 
 require_once __DIR__.'/../../vendor/autoload.php';

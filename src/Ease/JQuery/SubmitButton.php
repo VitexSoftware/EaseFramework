@@ -43,13 +43,15 @@ class SubmitButton extends UIPart
      * @param array|string $JQOptions  parametry pro $.button()
      * @param array        $Properties vlastnosti HTML tagu
      */
-    public function __construct($name, $value, $Title = null, $JQOptions = null, $Properties = null)
+    public function __construct($name, $value, $Title = null, $JQOptions = null,
+                                $Properties = null)
     {
         parent::__construct();
         $this->Name = $name;
         $this->JQOptions = $JQOptions;
         $Properties['title'] = $Title;
-        $this->Button = $this->addItem(new \Ease\Html\InputSubmitTag($name, $value, $Properties));
+        $this->Button = $this->addItem(new \Ease\Html\InputSubmitTag($name,
+            $value, $Properties));
     }
 
     /**

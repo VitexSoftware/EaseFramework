@@ -25,7 +25,7 @@ class AppWebPage extends \Ease\TWB\WebPage
     public function __construct($pageTitle = null, &$userObject = null)
     {
         parent::__construct($pageTitle, $userObject);
-        $this->navBar    = $this->addItem(
+        $this->navBar = $this->addItem(
             new AppMenu('menu', 'ExApp', ['class' => 'navbar-fixed-top'])
         );
         $this->addItem(new AppStatusMessages());
@@ -33,5 +33,4 @@ class AppWebPage extends \Ease\TWB\WebPage
             new \Ease\Html\Div(null, ['class' => 'container'])
         );
     }
-
 }

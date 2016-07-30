@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class NavbarTest extends \Test\Ease\Html\DivTest
 {
-
     /**
      * @var Navbar
      */
@@ -17,7 +16,7 @@ class NavbarTest extends \Test\Ease\Html\DivTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\Navbar();
     }
@@ -26,16 +25,16 @@ class NavbarTest extends \Test\Ease\Html\DivTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\Navbar::NavBarHeader
+     *
      * @todo   Implement testNavBarHeader().
      */
-    public function testNavBarHeader() 
+    public function testNavBarHeader()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,9 +44,10 @@ class NavbarTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Navbar::addItem
+     *
      * @todo   Implement testAddItem().
      */
-    public function testAddItem() 
+    public function testAddItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,9 +57,10 @@ class NavbarTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Navbar::addMenuItem
+     *
      * @todo   Implement testAddMenuItem().
      */
-    public function testAddMenuItem() 
+    public function testAddMenuItem()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -69,9 +70,10 @@ class NavbarTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Navbar::addDropDownSubmenu
+     *
      * @todo   Implement testAddDropDownSubmenu().
      */
-    public function testAddDropDownSubmenu() 
+    public function testAddDropDownSubmenu()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -81,14 +83,14 @@ class NavbarTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Navbar::addDropDownMenu
+     *
      * @todo   Implement testAddDropDownMenu().
      */
-    public function testAddDropDownMenu() 
+    public function testAddDropDownMenu()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

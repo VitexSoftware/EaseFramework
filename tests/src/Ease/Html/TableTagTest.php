@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class TableTagTest extends \Ease\Html\PairTag
 {
-
     /**
      * @var TableTag
      */
@@ -17,7 +16,7 @@ class TableTagTest extends \Ease\Html\PairTag
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\TableTag();
     }
@@ -26,16 +25,16 @@ class TableTagTest extends \Ease\Html\PairTag
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\TableTag::setHeader
+     *
      * @todo   Implement testSetHeader().
      */
-    public function testSetHeader() 
+    public function testSetHeader()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,9 +44,10 @@ class TableTagTest extends \Ease\Html\PairTag
 
     /**
      * @covers Ease\Html\TableTag::addRowColumns
+     *
      * @todo   Implement testAddRowColumns().
      */
-    public function testAddRowColumns() 
+    public function testAddRowColumns()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -57,9 +57,10 @@ class TableTagTest extends \Ease\Html\PairTag
 
     /**
      * @covers Ease\Html\TableTag::addRowHeaderColumns
+     *
      * @todo   Implement testAddRowHeaderColumns().
      */
-    public function testAddRowHeaderColumns() 
+    public function testAddRowHeaderColumns()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -69,9 +70,10 @@ class TableTagTest extends \Ease\Html\PairTag
 
     /**
      * @covers Ease\Html\TableTag::isEmpty
+     *
      * @todo   Implement testIsEmpty().
      */
-    public function testIsEmpty() 
+    public function testIsEmpty()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -81,14 +83,14 @@ class TableTagTest extends \Ease\Html\PairTag
 
     /**
      * @covers Ease\Html\TableTag::populate
+     *
      * @todo   Implement testPopulate().
      */
-    public function testPopulate() 
+    public function testPopulate()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

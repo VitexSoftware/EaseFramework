@@ -6,13 +6,12 @@ use Ease\Html\ATag;
 
 class AppMenu extends \Ease\TWB\Navbar
 {
-
     /**
      * Application Menu.
      *
-     * @param string           $name
-     * @param string|\Ease\Html\ImgTag           $brand  Boostrap Menu Brand
-     * @param array            $properties
+     * @param string                   $name
+     * @param string|\Ease\Html\ImgTag $brand      Boostrap Menu Brand
+     * @param array                    $properties
      */
     public function __construct($name = null, $brand = null, $properties = null)
     {
@@ -36,5 +35,4 @@ class AppMenu extends \Ease\TWB\Navbar
             ]
         );
     }
-
 }

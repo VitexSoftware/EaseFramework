@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class LinkButtonTest extends \Test\Ease\Html\ATagTest
 {
-
     /**
      * @var LinkButton
      */
@@ -17,7 +16,7 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\LinkButton();
     }
@@ -26,9 +25,7 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
-
 }

@@ -87,8 +87,7 @@ class HeadTag extends PairTag
             $this->addItem(
                 '<style>'.implode(
                     '
-',
-                    $cascadeStyles
+', $cascadeStyles
                 ).'</style>'
             );
         }
@@ -118,8 +117,7 @@ class HeadTag extends PairTag
                     self::jsEnclosure(
                         '$(document).ready(function () { '.implode(
                             '
-',
-                            $ODRStack
+', $ODRStack
                         ).' });'
                     )
                 );

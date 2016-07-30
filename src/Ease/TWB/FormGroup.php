@@ -13,12 +13,11 @@ namespace Ease\TWB;
  */
 class FormGroup extends \Ease\Html\Div
 {
-
     public function __construct($label = null, $content = null,
                                 $placeholder = null, $helptext = null,
                                 $addTagClass = 'form-control')
     {
-        $formKey             = \Ease\Brick::lettersOnly($label);
+        $formKey = \Ease\Brick::lettersOnly($label);
         $properties['class'] = 'form-group';
         parent::__construct(null, $properties);
         $this->addItem(new \Ease\Html\LabelTag($formKey, $label));

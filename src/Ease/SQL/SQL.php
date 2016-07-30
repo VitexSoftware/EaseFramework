@@ -278,10 +278,10 @@ abstract class SQL extends \Ease\Sand
     public function makeReport()
     {
         $this->report['LastMessage'] = $this->lastMessage;
-        $this->report['ErrorText']   = $this->errorText;
-        $this->report['Database']    = $this->database;
-        $this->report['Username']    = $this->username;
-        $this->report['Server']      = $this->server;
+        $this->report['ErrorText'] = $this->errorText;
+        $this->report['Database'] = $this->database;
+        $this->report['Username'] = $this->username;
+        $this->report['Server'] = $this->server;
     }
 
     /**
@@ -484,7 +484,7 @@ abstract class SQL extends \Ease\Sand
     /**
      * Return conect status.
      * 
-     * @return boolean
+     * @return bool
      */
     public function isConnected()
     {
@@ -548,9 +548,9 @@ abstract class SQL extends \Ease\Sand
     }
 
     /**
-     * Do when SQL error occurs
+     * Do when SQL error occurs.
      *
-     * @param boolean $ignoreErrors
+     * @param bool $ignoreErrors
      */
     public function logSqlError($ignoreErrors = false)
     {
@@ -572,5 +572,4 @@ abstract class SQL extends \Ease\Sand
             $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
         }
     }
-
 }

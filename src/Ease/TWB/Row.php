@@ -1,8 +1,8 @@
 <?php
-
 /**
  * Twitter Bootrstap Row.
  */
+
 namespace Ease\TWB;
 
 class Row extends \Ease\Html\Div
@@ -29,7 +29,8 @@ class Row extends \Ease\Html\Div
      *
      * @return Col Column contains $content
      */
-    public function &addColumn($size, $content = null, $target = 'md', $properties = null)
+    public function &addColumn($size, $content = null, $target = 'md',
+                               $properties = null)
     {
         $added = $this->addItem(new Col($size, $content, $target, $properties));
 

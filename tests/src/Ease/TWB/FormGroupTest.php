@@ -39,6 +39,5 @@ class FormGroupTest extends \Test\Ease\Html\DivTest
      */
     protected function tearDown()
     {
-        
     }
 }

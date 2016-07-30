@@ -90,7 +90,7 @@ class Part extends \Ease\Page
                 $this->partProperties = $partProperties;
             }
         } else {
-            $propBuff             = $partProperties;
+            $propBuff = $partProperties;
             $this->partProperties = ' '.$propBuff;
         }
     }
@@ -117,11 +117,11 @@ class Part extends \Ease\Page
      * @param array|string $partProperties vlastnosti jQuery widgetu
      *
      * @deprecated since version 1.1.2
+     *
      * @return string
      */
     public static function partPropertiesToString($partProperties)
     {
         return json_encode($partProperties);
     }
-
 }

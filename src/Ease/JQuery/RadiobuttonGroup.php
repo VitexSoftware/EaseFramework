@@ -9,7 +9,7 @@ namespace Ease\JQuery;
  *
  * @link   http://jqueryui.com/demos/button/#radio
  */
-class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup
+class RadiobuttonGroup extends \Ease\Html\RadiobuttonGroup
 {
     /**
      * Doplní popisek prvku.
@@ -31,9 +31,11 @@ class RadiobuttonGroup extends Ease\Html\RadiobuttonGroup
     public function finalize()
     {
         UIPart::jQueryze($this);
-        $enclosure = new Ease\Html\Div($this->pageParts, ['id' => $this->Name.'Group']);
+        $enclosure = new \Ease\Html\Div($this->pageParts,
+            ['id' => $this->Name.'Group']);
         unset($this->pageParts);
         $this->addItem($enclosure);
-        $this->addJavaScript('$(function () { $( "#'.$enclosure->getTagID().'" ).buttonset(); } );', null, true);
+        $this->addJavaScript('$(function () { $( "#'.$enclosure->getTagID().'" ).buttonset(); } );',
+            null, true);
     }
 }

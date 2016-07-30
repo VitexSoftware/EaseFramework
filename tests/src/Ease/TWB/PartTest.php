@@ -7,7 +7,6 @@ namespace Test\Ease\TWB;
  */
 class PartTest extends \Test\Ease\JQuery\PartTest
 {
-
     /**
      * @var Part
      */
@@ -17,7 +16,7 @@ class PartTest extends \Test\Ease\JQuery\PartTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\TWB\Part();
     }
@@ -26,16 +25,16 @@ class PartTest extends \Test\Ease\JQuery\PartTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\TWB\Part::twBootstrapize
+     *
      * @todo   Implement testTwBootstrapize().
      */
-    public function testTwBootstrapize() 
+    public function testTwBootstrapize()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,14 +44,14 @@ class PartTest extends \Test\Ease\JQuery\PartTest
 
     /**
      * @covers Ease\TWB\Part::GlyphIcon
+     *
      * @todo   Implement testGlyphIcon().
      */
-    public function testGlyphIcon() 
+    public function testGlyphIcon()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

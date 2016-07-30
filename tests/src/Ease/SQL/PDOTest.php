@@ -20,7 +20,7 @@ class PDOTest extends SQLTest
      */
     protected function setUp()
     {
-        $this->object = new PDO;
+        $this->object = new PDO();
     }
 
     /**
@@ -29,11 +29,11 @@ class PDOTest extends SQLTest
      */
     protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\SQL\PDO::singleton
+     *
      * @todo   Implement testSingleton().
      */
     public function testSingleton()
@@ -46,6 +46,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::setKeyColumn
+     *
      * @todo   Implement testSetKeyColumn().
      */
     public function testSetKeyColumn()
@@ -58,6 +59,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::setTableName
+     *
      * @todo   Implement testSetTableName().
      */
     public function testSetTableName()
@@ -70,6 +72,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::addSlashes
+     *
      * @todo   Implement testAddSlashes().
      */
     public function testAddSlashes()
@@ -82,6 +85,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::connect
+     *
      * @todo   Implement testConnect().
      */
     public function testConnect()
@@ -94,6 +98,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::selectDB
+     *
      * @todo   Implement testSelectDB().
      */
     public function testSelectDB()
@@ -106,6 +111,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::exeQuery
+     *
      * @todo   Implement testExeQuery().
      */
     public function testExeQuery()
@@ -118,6 +124,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::getlastInsertID
+     *
      * @todo   Implement testGetlastInsertID().
      */
     public function testGetlastInsertID()
@@ -130,6 +137,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::queryToArray
+     *
      * @todo   Implement testQueryToArray().
      */
     public function testQueryToArray()
@@ -142,6 +150,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::arrayToInsert
+     *
      * @todo   Implement testArrayToInsert().
      */
     public function testArrayToInsert()
@@ -154,6 +163,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::arrayToUpdate
+     *
      * @todo   Implement testArrayToUpdate().
      */
     public function testArrayToUpdate()
@@ -166,6 +176,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::arrayToQuery
+     *
      * @todo   Implement testArrayToQuery().
      */
     public function testArrayToQuery()
@@ -178,6 +189,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::arrayToInsertQuery
+     *
      * @todo   Implement testArrayToInsertQuery().
      */
     public function testArrayToInsertQuery()
@@ -190,6 +202,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::arrayToValuesQuery
+     *
      * @todo   Implement testArrayToValuesQuery().
      */
     public function testArrayToValuesQuery()
@@ -202,6 +215,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::arrayToSetQuery
+     *
      * @todo   Implement testArrayToSetQuery().
      */
     public function testArrayToSetQuery()
@@ -214,6 +228,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::prepSelect
+     *
      * @todo   Implement testPrepSelect().
      */
     public function testPrepSelect()
@@ -226,6 +241,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::getTableNumRows
+     *
      * @todo   Implement testGetTableNumRows().
      */
     public function testGetTableNumRows()
@@ -238,6 +254,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::getColumnComma
+     *
      * @todo   Implement testGetColumnComma().
      */
     public function testGetColumnComma()
@@ -250,6 +267,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::close
+     *
      * @todo   Implement testClose().
      */
     public function testClose()
@@ -262,6 +280,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::__destruct
+     *
      * @todo   Implement test__destruct().
      */
     public function test__destruct()
@@ -274,6 +293,7 @@ class PDOTest extends SQLTest
 
     /**
      * @covers Ease\SQL\PDO::__sleep
+     *
      * @todo   Implement test__sleep().
      */
     public function test__sleep()

@@ -7,7 +7,6 @@ namespace Test\Ease\Html;
  */
 class UlTagTest extends PairTagTest
 {
-
     /**
      * @var UlTag
      */
@@ -17,7 +16,7 @@ class UlTagTest extends PairTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         $this->object = new \Ease\Html\UlTag('http://v.s.cz/');
     }
@@ -26,16 +25,16 @@ class UlTagTest extends PairTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\UlTag::addItems
+     *
      * @todo   Implement testAddItems().
      */
-    public function testAddItems() 
+    public function testAddItems()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -45,14 +44,14 @@ class UlTagTest extends PairTagTest
 
     /**
      * @covers Ease\Html\UlTag::addItemSmart
+     *
      * @todo   Implement testAddItemSmart().
      */
-    public function testAddItemSmart() 
+    public function testAddItemSmart()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
-
 }

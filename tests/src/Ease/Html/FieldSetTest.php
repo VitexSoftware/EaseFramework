@@ -29,11 +29,11 @@ class FieldSetTest extends PairTagTest
      */
     protected function tearDown()
     {
-        
     }
 
     /**
      * @covers Ease\Html\FieldSet::setLegend
+     *
      * @todo   Implement testSetLegend().
      */
     public function testSetLegend()
@@ -46,6 +46,7 @@ class FieldSetTest extends PairTagTest
 
     /**
      * @covers Ease\Html\FieldSet::finalize
+     *
      * @todo   Implement testFinalize().
      */
     public function testFinalize()
@@ -69,13 +70,13 @@ class FieldSetTest extends PairTagTest
      */
     public function testSetObjectName()
     {
-
         $this->assertEquals(get_class($this->object).'@test',
             $this->object->setObjectName());
     }
 
     /**
      * @covers Ease\Html\FieldSet::draw
+     *
      * @param string $what ignored
      */
     public function testDraw($what = null)
