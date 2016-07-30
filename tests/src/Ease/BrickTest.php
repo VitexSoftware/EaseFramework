@@ -371,7 +371,7 @@ class BrickTest extends SandTest
      */
     public function testLettersOnly()
     {
-        $this->assertEquals('123', $this->object->lettersOnly('1a2b_3'));
+        $this->assertEquals('1a2b3', $this->object->lettersOnly('1a2b_3'));
     }
 
     /**
