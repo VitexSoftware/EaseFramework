@@ -158,13 +158,6 @@ abstract class SQL extends \Ease\Sand
     public $lastMessage = null;
 
     /**
-     * Prodlevy v sekundách pro znovupřipojení k databázi.
-     *
-     * @var array
-     */
-    public $reconectTimeouts = ['web' => 1, 'cgi' => 10];
-
-    /**
      * Nastavení vlastností přípojení.
      *
      * @var array
@@ -403,16 +396,6 @@ abstract class SQL extends \Ease\Sand
             return $this->addToLog($title.': #'.$this->errorNumber.' '.$this->errorText,
                     'error');
         }
-    }
-
-    /**
-     * Znovu se připojí k databázi.
-     */
-    public function reconnect()
-    {
-        $this->close();
-        sleep($this->reconectTimeouts[$this->easeShared->runType]);
-        $this->connect();
     }
 
     /**

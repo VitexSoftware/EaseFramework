@@ -206,18 +206,6 @@ class SQLTest extends \Test\Ease\SandTest
     }
 
     /**
-     * @covers Ease\SQL\SQL::reconnect
-     * @todo   Implement testReconnect().
-     */
-    public function testReconnect()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\SQL\SQL::__sleep
      * @todo   Implement test__sleep().
      */

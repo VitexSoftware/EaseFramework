@@ -149,32 +149,26 @@ class MySQLi extends SQL
         $this->errorText    = null;
         $this->errorNumber  = null;
         $sqlAction          = trim(strtolower(current(explode(' ', $queryRaw))));
-        do {
-            $this->result      = $this->sqlLink->query($queryRaw);
-            $this->errorNumber = $this->sqlLink->errno;
-            $this->errorText   = $this->sqlLink->error;
-            if (!$this->result && !$ignoreErrors) {
-                if (\Ease\Shared::isCli()) {
-                    if (function_exists('xdebug_call_function')) {
-                        echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
-                    }
-                    echo "\n$queryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
-                } else {
-                    echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
-                    if (function_exists('xdebug_print_function_stack')) {
-                        xdebug_print_function_stack('Volano tridou <b>'.xdebug_call_class().'</b> v souboru <b>'.xdebug_call_file().':'.xdebug_call_line().'</b> funkci <b>'.xdebug_call_function().'</b>');
-                    }
-                    echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
+
+        $this->result      = $this->sqlLink->query($queryRaw);
+        $this->errorNumber = $this->sqlLink->errno;
+        $this->errorText   = $this->sqlLink->error;
+        if (!$this->result && !$ignoreErrors) {
+            if (\Ease\Shared::isCli()) {
+                if (function_exists('xdebug_call_function')) {
+                    echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
                 }
-                $this->logError();
-                $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
-                if ($this->errorNumber == 2006) {
-                    $this->reconnect();
-                } else {
-                    return;
+                echo "\n$queryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
+            } else {
+                echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
+                if (function_exists('xdebug_print_function_stack')) {
+                    xdebug_print_function_stack('Volano tridou <b>'.xdebug_call_class().'</b> v souboru <b>'.xdebug_call_file().':'.xdebug_call_line().'</b> funkci <b>'.xdebug_call_function().'</b>');
                 }
+                echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
             }
-        } while ($this->errorNumber == 2006); // 'MySQL server has gone away'
+            $this->logError();
+            $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
+        }
 
         switch ($sqlAction) {
             case 'select':
@@ -481,4 +475,5 @@ class MySQLi extends SQL
     {
         return;
     }
+
 }

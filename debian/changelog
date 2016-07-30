@@ -1,4 +1,4 @@
-ease-framework (1.1-4) UNRELEASED; urgency=low
+ease-framework (1.1-5) UNRELEASED; urgency=low
 
   [ Cybervitexus ]
   * Debian package build updates
@@ -10,5 +10,6 @@ ease-framework (1.1-4) UNRELEASED; urgency=low
   * Namespaces fixed on jquery ui dialog class
   * Debian Package Composer update
   * Fix NULL handling when create SET type query
+  * Fixed Insert Set SQL fragment generation
 
- -- vitex <vitex@developer.kancl.brevnov.czf>  Thu, 21 Jul 2016 19:46:25 +0200
+ -- vitex <vitex@developer.kancl.brevnov.czf>  Mon, 25 Jul 2016 13:05:47 +0200
