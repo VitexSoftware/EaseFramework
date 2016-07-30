@@ -56,6 +56,12 @@ class Page extends Container
     public $outputFormat = null;
 
     /**
+     * Is page closed for adding new contents ?
+     * @var boolean
+     */
+    public $pageClosed = false;
+
+    /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
      * se bude v ramci behu programu pouzivat pouze jedna jeho instance (ta prvni).
      *
@@ -242,8 +248,25 @@ class Page extends Container
             Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'),
                 'warning');
             $this->redirect($loginPage);
-            exit(); //Stop and redirect;
+            $this->pageClosed = true;
         }
+    }
+
+    /**
+     * Include next element into current page (if not closed).
+     *
+     * @param mixed  $pageItem     value or EaseClass with draw() method.
+     * @param string $pageItemName Custom 'storing' name.
+     *
+     * @return mixed Pointer to included object
+     */
+    public function addItem($pageItem, $pageItemName = null)
+    {
+        $result = null;
+        if ($this->pageClosed === false) {
+            $result = parent::addItem($pageItem, $pageItemName);
+        }
+        return $result;
     }
 
     /**

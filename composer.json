@@ -32,7 +32,9 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.0",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "pear/mail": "dev-trunk",
+        "pear/mail_mime": "dev-master"
     },
     "require-dev": {
         "robmorgan/phinx": "* dev-master",

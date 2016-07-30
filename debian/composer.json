@@ -10,6 +10,9 @@
         }
     ],
     "autoload": {
+        "psr-0": {
+            "Mail": "/usr/share/php/Mail/"
+        },
         "psr-4": {
             "Ease\\": ".",
             "Ease\\Html\\": "Html",

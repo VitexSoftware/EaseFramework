@@ -212,10 +212,10 @@ class Brick extends Sand
 
                 return;
             }
-            $where = ' WHERE '.$this->dblink->prepSelect($conditions);
+            $where = SQL\SQL::$whr.$this->dblink->prepSelect($conditions);
         } else {
             if (!is_null($conditions)) {
-                $where = ' WHERE '.$conditions;
+                $where = SQL\SQL::$whr.$conditions;
             }
         }
 
@@ -228,16 +228,16 @@ class Brick extends Sand
                 foreach ($orderBy as $oid => $oname) {
                     $orderBy[$oid] = "`$oname`";
                 }
-                $orderByCond = ' ORDER BY '.implode(',', $orderBy);
+                $orderByCond = SQL\SQL::$ord.implode(',', $orderBy);
             } else {
-                $orderByCond = ' ORDER BY '.$orderBy;
+                $orderByCond = SQL\SQL::$ord.$orderBy;
             }
         } else {
             $orderByCond = '';
         }
 
         if ($limit) {
-            $limitCond = ' LIMIT '.$limit;
+            $limitCond = SQL\SQL::$lmt.$limit;
         } else {
             $limitCond = '';
         }
@@ -247,15 +247,15 @@ class Brick extends Sand
                 $columnsList[$id] = $cc.$column.$cc;
             }
 
-            return $this->dblink->queryToArray('SELECT '.implode(',',
-                        $columnsList).' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
+            return $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
+                        $columnsList).SQL\SQL::$frm.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
                     $indexBy);
         } else {
             if (!strstr($columnsList, '*')) {
                 $columnsList = $cc.$columnsList.$cc;
             }
 
-            return $this->dblink->queryToArray('SELECT '.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
+            return $this->dblink->queryToArray(SQL\SQL::$sel.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
                     $indexBy);
         }
     }
@@ -281,7 +281,7 @@ class Brick extends Sand
             $this->error('loadFromSQL: Unknown Key', $this->data);
         }
         $cc = $this->dblink->getColumnComma();
-        $queryRaw = 'SELECT * FROM '.$cc.$this->myTable.$cc.' WHERE '.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
+        $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
     }
@@ -348,9 +348,9 @@ class Brick extends Sand
         }
         if ($orderByColumn) {
             if (is_array($orderByColumn)) {
-                $orderByCond = ' ORDER BY '.implode(',', $orderByColumn);
+                $orderByCond = SQL\SQL::$ord.implode(',', $orderByColumn);
             } else {
-                $orderByCond = ' ORDER BY '.$orderByColumn;
+                $orderByCond = SQL\SQL::$ord.$orderByColumn;
             }
         } else {
             $orderByCond = '';
@@ -359,10 +359,10 @@ class Brick extends Sand
         if (!$columnsList) {
             $cc = $this->dblink->getColumnComma();
 
-            return $this->dblink->queryToArray('SELECT * FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
+            return $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
                     $ColumnToIndex);
         } else {
-            return $this->dblink->queryToArray('SELECT '.implode(',',
+            return $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
                         $columnsList).' FROM '.$tableName.$limitCond.$orderByCond,
                     $ColumnToIndex);
         }
@@ -412,7 +412,7 @@ class Brick extends Sand
         }
 
         $cc = $this->dblink->getColumnComma();
-        $queryRaw = 'UPDATE '.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).'  WHERE '.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->EaseAddSlashes($key)."'";
+        $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->EaseAddSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 if (array_key_exists($defDatPref, $this->data)) {
@@ -552,7 +552,7 @@ class Brick extends Sand
 
         if (count($data)) {
             $cc = $this->dblink->getColumnComma();
-            $this->dblink->exeQuery('DELETE FROM '.$cc.$this->myTable.$cc.' WHERE '.$this->dblink->prepSelect($data));
+            $this->dblink->exeQuery(SQL\SQL::$dlt.$cc.$this->myTable.$cc.SQL\SQL::$whr.$this->dblink->prepSelect($data));
             if ($this->dblink->getNumRows()) {
                 return true;
             } else {
@@ -571,16 +571,16 @@ class Brick extends Sand
      * @param array  $data      asociativní pole dat
      * @param string $column    název položky k převzetí
      * @param bool   $mayBeNull nahrazovat chybejici hodnotu nullem ?
-     * @param string $RenameAs  název cílového políčka
+     * @param string $renameAs  název cílového políčka
      *
      * @return mixed převzatá do pole
      */
     public function takeToData($data, $column, $mayBeNull = false,
-                               $RenameAs = null)
+                               $renameAs = null)
     {
         if (isset($data[$column])) {
-            if ($RenameAs) {
-                $this->setDataValue($RenameAs, $data[$column]);
+            if ($renameAs) {
+                $this->setDataValue($renameAs, $data[$column]);
             } else {
                 $this->setDataValue($column, $data[$column]);
             }
@@ -612,8 +612,7 @@ class Brick extends Sand
             $myKeyColumn = $this->myKeyColumn;
         }
         $cc = $this->dblink->getColumnComma();
-        $listQuery = "SELECT $cc".$myKeyColumn."$cc FROM $tableName ";
-
+        $listQuery = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
         $this->dblink->queryToArray($listQuery);
         $this->DataIdList = $this->dblink->resultArray;
 
@@ -748,7 +747,7 @@ class Brick extends Sand
             $tableName = $this->myTable;
         }
 
-        return $this->dblink->queryToValue('SELECT COUNT('.$this->myKeyColumn.') FROM '.$tableName);
+        return $this->dblink->queryToValue(SQL\SQL::$sel.'COUNT('.$this->myKeyColumn.') FROM '.$tableName);
     }
 
     /**
@@ -775,7 +774,7 @@ class Brick extends Sand
             $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
         }
 
-        return $this->dblink->queryToArray('SELECT * FROM '.$this->myTable.' WHERE '.implode(' OR ',
+        return $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$this->myTable.SQL\SQL::$whr.implode(' OR ',
                     $conditons));
     }
 

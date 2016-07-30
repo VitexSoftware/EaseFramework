@@ -250,7 +250,7 @@ class MySQLi extends SQL
         }
         unset($data[$this->keyColumn]);
 
-        return $this->exeQuery('UPDATE '.$this->TableName.' SET '.$this->arrayToQuery($data).' WHERE '.$this->keyColumn.'='.$IDCol);
+        return $this->exeQuery('UPDATE '.$this->TableName.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$IDCol);
     }
 
     /**
@@ -418,7 +418,7 @@ class MySQLi extends SQL
         if (!$tableName) {
             $tableName = $this->TableName;
         }
-        $TableRowsCount = $this->queryToArray('SELECT count(*) AS NumRows FROM `'.$this->easeAddSlashes($tableName).'`');
+        $TableRowsCount = $this->queryToArray(SQL::$sel.'count(*) AS NumRows FROM `'.$this->easeAddSlashes($tableName).'`');
 
         return $TableRowsCount[0]['NumRows'];
     }

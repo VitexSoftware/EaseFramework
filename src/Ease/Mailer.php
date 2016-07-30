@@ -8,10 +8,6 @@
 
 namespace Ease;
 
-//We Use System/Pear ones:
-require_once 'Mail.php';
-require_once 'Mail/mime.php';
-
 /**
  * Sestaví a odešle mail.
  *
