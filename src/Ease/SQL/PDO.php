@@ -136,44 +136,49 @@ class PDO extends SQL
     }
 
     /**
-     * Připojí se k mysql databázi.
+     * Perform connect to database
+     *
+     * @return boolean|null connecting result true: connected, false: error, null: no SQL configured
      */
     public function connect()
     {
-        switch ($this->dbType) {
-            case 'mysql':
-                $this->sqlLink = new \PDO($this->dbType.':dbname='.$this->database.';host='.$this->server.';port='.$this->port.';charset=utf8',
-                    $this->username, $this->password,
-                    [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
-                break;
-            case 'pgsql':
-                $this->sqlLink = new \PDO($this->dbType.':dbname='.$this->database.';host='.$this->server.';port='.$this->port,
-                    $this->username, $this->password);
-                if (is_object($this->sqlLink)) {
-                    $this->sqlLink->query("SET NAMES 'UTF-8'");
-                }
-                break;
-
-            default:
-                throw new \Exception(_('Unimplemented Database').': '.$this->dbType);
-                break;
-        }
-
-        if (is_object($this->sqlLink)) {
-            $this->errorNumber = $this->sqlLink->errorCode();
-            $this->errorText   = $this->sqlLink->errorInfo();
+        if (is_null($this->dbType)) {
+            $result = null;
         } else {
-            $result = false;
-        }
-        if ($this->errorNumber != '00000') {
-            $this->addStatusMessage('Connect: error #'.$this->errorNumer.' '.$this->errorText,
-                'error');
+            switch ($this->dbType) {
+                case 'mysql':
+                    $this->sqlLink = new \PDO($this->dbType.':dbname='.$this->database.';host='.$this->server.';port='.$this->port.';charset=utf8',
+                        $this->username, $this->password,
+                        [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'utf8\'']);
+                    break;
+                case 'pgsql':
+                    $this->sqlLink = new \PDO($this->dbType.':dbname='.$this->database.';host='.$this->server.';port='.$this->port,
+                        $this->username, $this->password);
+                    if (is_object($this->sqlLink)) {
+                        $this->sqlLink->query("SET NAMES 'UTF-8'");
+                    }
+                    break;
 
-            $result = false;
-        } else {
-            $result = parent::connect();
-        }
+                default:
+                    throw new \Exception(_('Unimplemented Database').': '.$this->dbType);
+                    break;
+            }
 
+            if (is_object($this->sqlLink)) {
+                $this->errorNumber = $this->sqlLink->errorCode();
+                $this->errorText   = $this->sqlLink->errorInfo();
+            } else {
+                $result = false;
+            }
+            if ($this->errorNumber != '00000') {
+                $this->addStatusMessage('Connect: error #'.$this->errorNumer.' '.$this->errorText,
+                    'error');
+
+                $result = false;
+            } else {
+                $result = parent::connect();
+            }
+        }
         return $result;
     }
 

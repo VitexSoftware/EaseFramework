@@ -66,6 +66,12 @@ class LoggerToSyslog extends LoggerToMemory
     public $easeShared = null;
 
     /**
+     * List of allready flushed messages
+     * @var array 
+     */
+    public $flushed = [];
+
+    /**
      * Saves obejct instace (singleton...).
      */
     private static $_instance = null;
@@ -111,7 +117,6 @@ class LoggerToSyslog extends LoggerToMemory
         return self::$_instance;
     }
 
-    
     /**
      * Zapise zapravu do logu.
      *
@@ -136,8 +141,8 @@ class LoggerToSyslog extends LoggerToMemory
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = ' ~'.$caller.'~ '.str_replace(['notice', 'message', 'debug', 'report',
-                'error', 'warning', 'success', 'info', 'mail', ],
+        $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
+                'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
@@ -184,16 +189,23 @@ class LoggerToSyslog extends LoggerToMemory
      * Flush Messages.
      *
      * @param string $caller
+     * @return int how many messages was flushed
      */
     public function flush($caller = null)
     {
+        $flushed = 0;
         if (count($this->statusMessages)) {
             foreach ($this->statusMessages as $type => $messages) {
-                foreach ($messages as $message) {
-                    $this->addToLog($caller, $message, $type);
+                foreach ($messages as $messageID => $message) {
+                    if (!isset($this->flushed[$type][$messageID])) {
+                        $this->addToLog($caller, $message, $type);
+                        $this->flushed[$type][$messageID] = true;
+                        $flushed++;
+                    }
                 }
             }
-            $this->cleanMessages();
         }
+        return $flushed;
     }
+
 }
