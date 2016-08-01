@@ -160,7 +160,7 @@ class Sand extends Atom
     public function addStatusMessage($message, $type = 'info', $addIcons = true,
                                      $addToLog = true)
     {
-        return Shared::logger()->addStatusMessage($message, $type, $addIcons,
+        return Shared::instanced()->addStatusMessage($message, $type, $addIcons,
                 $addToLog);
     }
 
