@@ -319,6 +319,9 @@ class Page extends Container
                 return (string) $value;
                 break;
             case 'int':
+                if (!strlen(trim($value))) {
+                    return null;
+                }
                 return (int) $value;
                 break;
             case 'float':
