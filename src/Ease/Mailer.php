@@ -252,9 +252,9 @@ class Mailer extends Page
 
         $oMail = new \Mail();
         if (count($this->parameters)) {
-            $this->mailer = &$oMail->factory('smtp', $this->parameters);
+            $this->mailer = $oMail->factory('smtp', $this->parameters);
         } else {
-            $this->mailer = &$oMail->factory('mail');
+            $this->mailer = $oMail->factory('mail');
         }
         $this->sendResult = $this->mailer->send($this->emailAddress,
             $this->mailHeadersDone, $this->mailBody);

@@ -53,13 +53,13 @@ class WebPage extends \Ease\WebPage
 
         $allMessages = [];
         foreach ($this->easeShared->statusMessages as $quee => $messages) {
-            foreach ($messages as $MesgID => $message) {
-                $allMessages[$MesgID][$quee] = $message;
+            foreach ($messages as $msgID => $message) {
+                $allMessages[$msgID][$quee] = $message;
             }
         }
         ksort($allMessages);
-        foreach ($allMessages as $message) {
-            $messageType = key($message);
+        foreach ($allMessages as $messages) {
+            $messageType = key($messages);
 
             if (is_array($what)) {
                 if (!in_array($messageType, $what)) {
@@ -67,21 +67,22 @@ class WebPage extends \Ease\WebPage
                 }
             }
 
-            $message = reset($message);
-
-            if (is_object($this->logger)) {
-                if (!isset($this->logger->logStyles[$messageType])) {
-                    $messageType = 'notice';
+            foreach ($messages as $message) {
+                if (is_object($this->logger)) {
+                    if (!isset($this->logger->logStyles[$messageType])) {
+                        $messageType = 'notice';
+                    }
+                    if ($messageType == 'error') {
+                        $messageType = 'danger';
+                    }
+                    $htmlFargment .= '<div class="alert alert-'.$messageType.'" >'.$message.'</div>'."\n";
+                } else {
+                    $htmlFargment .= '<div class="alert">'.$message.'</div>'."\n";
                 }
-                if ($messageType == 'error') {
-                    $messageType = 'danger';
-                }
-                $htmlFargment .= '<div class="alert alert-'.$messageType.'" >'.$message.'</div>'."\n";
-            } else {
-                $htmlFargment .= '<div class="alert">'.$message.'</div>'."\n";
             }
         }
 
         return $htmlFargment;
     }
+
 }
