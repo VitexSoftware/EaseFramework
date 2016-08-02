@@ -1,4 +1,4 @@
-ease-framework (1.1-5) UNRELEASED; urgency=low
+ease-framework (1.1.2-1) UNRELEASED; urgency=low
 
   [ Cybervitexus ]
   * Debian package build updates
@@ -11,5 +11,15 @@ ease-framework (1.1-5) UNRELEASED; urgency=low
   * Debian Package Composer update
   * Fix NULL handling when create SET type query
   * Fixed Insert Set SQL fragment generation
+  * PHP Framework for Ease of writing Applications (debian version)
+    1.1.2-stable-6 partPropertiesToString code is back Mailer code
+    update Geting status messages in WebPage fixed
+  * PHP Framework for Ease of writing Applications (debian version)
+    1.1.2-1 partPropertiesToString code is back Mailer code update
+    Geting status messages in WebPage fixed
+  * partPropertiesToString code is back Mailer code update Geting status
+    messages in WebPage fixed
+  * partPropertiesToString code is back Mailer code update Geting status
+    messages in WebPage fixed
 
- -- vitex <vitex@developer.kancl.brevnov.czf>  Mon, 25 Jul 2016 13:05:47 +0200
+ -- vitex <vitex@developer.kancl.brevnov.czf>  Mon, 01 Aug 2016 13:54:44 +0200

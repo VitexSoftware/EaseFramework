@@ -111,7 +111,13 @@ class Part extends \Ease\Page
         return self::partPropertiesToString($partProperties);
     }
 
-    public static function is_assoc($arr)
+    /**
+     * Test for associative array
+     *
+     * @param array $arr
+     * @return boolean
+     */
+    public static function isAssoc($arr)
     {
         return array_values($arr) !== $arr;
     }
@@ -139,7 +145,7 @@ class Part extends \Ease\Page
                         }
                     } else {
                         if (is_array($partPropertyValue)) {
-                            if (self::is_assoc($partPropertyValue)) {
+                            if (self::isAssoc($partPropertyValue)) {
                                 if ($partPropertyName) {
                                     $partsArray[] = $partPropertyName.': { '.self::partPropertiesToString($partPropertyValue).' } ';
                                 } else {
