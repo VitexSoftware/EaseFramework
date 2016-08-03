@@ -26,7 +26,7 @@ For Debian please use repo:
 In this case please add this to your app composer.json:
 
     "require": {
-        "vitexsoftware/ease-framework": "1.1-stable"
+        "ease-framework": "*"
     },
     "repositories": [
         {
