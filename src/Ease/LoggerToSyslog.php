@@ -38,18 +38,11 @@ class LoggerToSyslog extends LoggerToMemory
     public $parentObject = null;
 
     /**
-     * Ukládat Zprávy do pole;.
-     *
-     * @var bool
-     */
-    private $storeMessages = false;
-
-    /**
      * Pole uložených zpráv.
      *
      * @var array
      */
-    private $storedMessages = [];
+    public $statusMessages = [];
 
     /**
      * ID naposledy ulozene zpravy.
@@ -135,9 +128,8 @@ class LoggerToSyslog extends LoggerToMemory
         if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
-        if ($this->storeMessages) {
-            $this->storedMessages[$type][$this->messageID] = $message;
-        }
+
+        $this->statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 

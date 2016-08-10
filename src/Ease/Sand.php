@@ -174,7 +174,9 @@ class Sand extends Atom
     public function getStatusMessages($clean = false)
     {
         $messages = array_merge($this->statusMessages,
-            $this->logger->statusMessages, Shared::logger()->getStatusMessages());
+            $this->logger->statusMessages,
+            Shared::logger()->getStatusMessages(),
+            Shared::instanced()->getStatusMessages());
         if ($clean) {
             $this->cleanMessages();
         }

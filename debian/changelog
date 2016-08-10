@@ -1,4 +1,4 @@
-ease-framework (1.1.2-1) UNRELEASED; urgency=low
+ease-framework (1.1.3-3) UNRELEASED; urgency=low
 
   [ Cybervitexus ]
   * Debian package build updates
@@ -21,5 +21,30 @@ ease-framework (1.1.2-1) UNRELEASED; urgency=low
     messages in WebPage fixed
   * partPropertiesToString code is back Mailer code update Geting status
     messages in WebPage fixed
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
+  * Rename isAssoc() to be PSR1 compilant
 
- -- vitex <vitex@developer.kancl.brevnov.czf>  Mon, 01 Aug 2016 13:54:44 +0200
+ -- vitex <vitex@developer.kancl.brevnov.czf>  Tue, 02 Aug 2016 14:53:45 +0200

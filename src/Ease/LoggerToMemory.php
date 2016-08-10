@@ -55,20 +55,6 @@ class LoggerToMemory extends Atom
     public $parentObject = null;
 
     /**
-     * Ukládat Zprávy do pole;.
-     *
-     * @var bool
-     */
-    private $storeMessages = false;
-
-    /**
-     * Pole uložených zpráv.
-     *
-     * @var array
-     */
-    private $storedMessages = [];
-
-    /**
      * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
@@ -114,37 +100,6 @@ class LoggerToMemory extends Atom
     }
 
     /**
-     * Povolí nebo zakáže ukládání zpráv.
-     *
-     * @param type $check
-     */
-    public function setStoreMessages($check)
-    {
-        $this->storeMessages = $check;
-        if (is_bool($check)) {
-            $this->resetStoredMessages();
-        }
-    }
-
-    /**
-     * Resetne pole uložených zpráv.
-     */
-    public function resetStoredMessages()
-    {
-        $this->storedMessages = [];
-    }
-
-    /**
-     * Vrací pole uložených zpráv.
-     *
-     * @return array
-     */
-    public function getStoredMessages()
-    {
-        return $this->storedMessages;
-    }
-
-    /**
      * Zapise zapravu do logu.
      *
      * @param string $caller  název volajícího objektu
@@ -162,9 +117,8 @@ class LoggerToMemory extends Atom
         if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
-        if ($this->storeMessages) {
-            $this->storedMessages[$type][$this->messageID] = $message;
-        }
+
+        $this->statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 

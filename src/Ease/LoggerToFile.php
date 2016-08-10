@@ -74,20 +74,6 @@ class LoggerToFile extends LoggerToMemory
     private $_errorLogFileHandle = null;
 
     /**
-     * Ukládat Zprávy do pole;.
-     *
-     * @var bool
-     */
-    private $storeMessages = false;
-
-    /**
-     * Pole uložených zpráv.
-     *
-     * @var array
-     */
-    private $storedMessages = [];
-
-    /**
      * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
@@ -128,7 +114,7 @@ class LoggerToFile extends LoggerToMemory
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $Class = __CLASS__;
+            $Class           = __CLASS__;
             self::$_instance = new $Class();
         }
 
@@ -146,54 +132,23 @@ class LoggerToFile extends LoggerToMemory
             if (defined('LOG_DIRECTORY')) {
                 $this->logPrefix = Brick::sysFilename(constant('LOG_DIRECTORY'));
                 if ($this->TestDirectory($this->logPrefix)) {
-                    $this->logFileName = $this->logPrefix.$this->logFileName;
-                    $this->reportFile = $this->logPrefix.$this->reportFile;
+                    $this->logFileName  = $this->logPrefix.$this->logFileName;
+                    $this->reportFile   = $this->logPrefix.$this->reportFile;
                     $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
                 } else {
-                    $this->logPrefix = null;
-                    $this->logFileName = null;
-                    $this->reportFile = null;
+                    $this->logPrefix    = null;
+                    $this->logFileName  = null;
+                    $this->reportFile   = null;
                     $this->errorLogFile = null;
                 }
             } else {
-                $this->logType = 'none';
-                $this->logPrefix = null;
-                $this->logFileName = null;
-                $this->reportFile = null;
+                $this->logType      = 'none';
+                $this->logPrefix    = null;
+                $this->logFileName  = null;
+                $this->reportFile   = null;
                 $this->errorLogFile = null;
             }
         }
-    }
-
-    /**
-     * Povolí nebo zakáže ukládání zpráv.
-     *
-     * @param type $Check
-     */
-    public function setStoreMessages($Check)
-    {
-        $this->storeMessages = $Check;
-        if (is_bool($Check)) {
-            $this->resetStoredMessages();
-        }
-    }
-
-    /**
-     * Resetne pole uložených zpráv.
-     */
-    public function resetStoredMessages()
-    {
-        $this->storedMessages = [];
-    }
-
-    /**
-     * Vrací pole uložených zpráv.
-     *
-     * @return array
-     */
-    public function getStoredMessages()
-    {
-        return $this->storedMessages;
     }
 
     /**
@@ -214,14 +169,12 @@ class LoggerToFile extends LoggerToMemory
         if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
-        if ($this->storeMessages) {
-            $this->storedMessages[$type][$this->messageID] = $message;
-        }
+        $this->statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail', ],
+                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
@@ -321,30 +274,30 @@ class LoggerToFile extends LoggerToMemory
         $sanity = true;
         if ($isDir) {
             if (!is_dir($directoryPath)) {
-                echo $directoryPath._(' není složka. Jsem v adresáři:').' '.getcwd();
+                echo $directoryPath._(' not an folder. Current directory:').' '.getcwd();
                 if ($logToFile) {
                     Shared::logger()->addToLog('TestDirectory',
-                        $directoryPath._(' není složka. Jsem v adresáři:').' '.getcwd());
+                        $directoryPath._(' not an folder. Current directory:').' '.getcwd());
                 }
                 $sanity = false;
             }
         }
         if ($isReadable) {
             if (!is_readable($directoryPath)) {
-                echo $directoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd();
+                echo $directoryPath._(' not an readable folder. Current directory:').' '.getcwd();
                 if ($logToFile) {
                     Shared::logger()->addToLog('TestDirectory',
-                        $directoryPath._(' není čitelná složka. Jsem v adresáři:').' '.getcwd());
+                        $directoryPath._(' not an readable folder. Current directory:').' '.getcwd());
                 }
                 $sanity = false;
             }
         }
         if ($isWritable) {
             if (!is_writable($directoryPath)) {
-                echo $directoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd();
+                echo $directoryPath._(' not an writeable folder. Current directory:').' '.getcwd();
                 if ($logToFile) {
                     Shared::logger()->addToLog('TestDirectory',
-                        $directoryPath._(' není zapisovatelná složka. Jsem v adresáři:').' '.getcwd());
+                        $directoryPath._(' not an writeable folder. Current directory:').' '.getcwd());
                 }
 
                 $sanity = false;
@@ -422,4 +375,5 @@ class LoggerToFile extends LoggerToMemory
             return '';
         }
     }
+
 }

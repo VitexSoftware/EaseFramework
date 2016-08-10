@@ -6,3 +6,7 @@ BUILD_DIR:=build
 %:
 	dh $@
 
+override_dh_install:
+	dh_install
+	./debian/fixversion.sh
+
