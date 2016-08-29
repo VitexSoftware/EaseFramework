@@ -178,6 +178,7 @@ class Page extends Container
             $_SESSION['EaseMessages'] = $messages;
         }
         header('Location: '.$url);
+        $this->pageClosed = true;
     }
 
     /**

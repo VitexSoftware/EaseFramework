@@ -5,3 +5,4 @@
 composer.lock
 /build/
 /debian/ease-framework/
+/debian/nbproject/private/
