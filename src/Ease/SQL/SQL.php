@@ -562,9 +562,9 @@ abstract class SQL extends \Ease\Sand
                     break;
                 case 'boolean':
                     if ($value) {
-                        $value = ' 1 ';
+                        $value = ' TRUE ';
                     } else {
-                        $value = ' 0 ';
+                        $value = ' FALSE ';
                     }
                     break;
                 case 'NULL':
