@@ -260,6 +260,7 @@ class PDO extends SQL
                 if ($this->errorText[0] == '0000') {
                     $this->lastInsertID = $this->getlastInsertID();
                     $this->numRows      = $stmt->rowCount();
+                    $this->result       = true;
                 }
                 break;
             case 'update':
@@ -451,9 +452,9 @@ class PDO extends SQL
                     break;
                 case 'boolean':
                     if ($value) {
-                        $value = ' 1 ';
+                        $value = ' TRUE ';
                     } else {
-                        $value = ' 0 ';
+                        $value = ' FALSE ';
                     }
                     break;
                 case 'null':
