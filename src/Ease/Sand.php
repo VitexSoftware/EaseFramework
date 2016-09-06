@@ -788,5 +788,4 @@ class Sand extends Atom
         $this->setObjectName();
         $this->restoreObjectIdentity();
     }
-
 }

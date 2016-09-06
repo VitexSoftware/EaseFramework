@@ -92,7 +92,7 @@ class LoggerToMemory extends Atom
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $class = __CLASS__;
+            $class           = __CLASS__;
             self::$_instance = new $class();
         }
 
@@ -123,7 +123,7 @@ class LoggerToMemory extends Atom
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail', ],
+                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';

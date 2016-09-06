@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class InputFileTag extends InputTag
 {
+
     /**
      * Vstupní box pro volbu souboru.
      *

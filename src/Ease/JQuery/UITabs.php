@@ -71,7 +71,7 @@ class UITabs extends UIPart
     {
         $this->addJavaScript('$(function () { $( "#'.$this->partName.'" ).tabs( {'.$this->getPartPropertiesToString().'} ); });',
             null, true);
-        $Div = $this->addItem(new \Ease\Html\Div(null,
+        $Div   = $this->addItem(new \Ease\Html\Div(null,
             ['id' => $this->partName]));
         $UlTag = $Div->addItem(new \Ease\Html\UlTag());
         $Index = 0;

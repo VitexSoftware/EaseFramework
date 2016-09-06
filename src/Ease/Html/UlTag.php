@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class UlTag extends PairTag
 {
+
     /**
      * Vytvori UL container.
      *

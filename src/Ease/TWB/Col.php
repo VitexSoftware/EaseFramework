@@ -4,6 +4,7 @@ namespace Ease\TWB;
 
 class Col extends \Ease\Html\Div
 {
+
     /**
      * Bunka CSS tabulky bootstrapu.
      *

@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class InputNumberTag extends InputTag
 {
+
     /**
      * Vstupní pole čísla.
      *

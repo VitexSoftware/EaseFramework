@@ -13,4 +13,5 @@ class RadiobuttonGroup extends InputContainer
      * @var string
      */
     public $itemClass = 'InputRadioTag';
+
 }

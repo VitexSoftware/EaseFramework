@@ -34,7 +34,7 @@ class ButtonDropdown extends \Ease\Html\Div
         if ($size) {
             $btnClass .= 'btn-'.$size;
         }
-        $this->button = $this->addItem(new \Ease\Html\ButtonTag([$label.' <span class="caret"></span>'],
+        $this->button   = $this->addItem(new \Ease\Html\ButtonTag([$label.' <span class="caret"></span>'],
             ['class' => $btnClass.' dropdown-toggle', 'type' => 'button', 'data-toggle' => 'dropdown']));
         $this->dropdown = $this->addItem(new \Ease\Html\UlTag(null,
             ['class' => 'dropdown-menu', 'role' => 'menu']));

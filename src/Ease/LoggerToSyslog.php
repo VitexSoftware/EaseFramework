@@ -199,5 +199,4 @@ class LoggerToSyslog extends LoggerToMemory
         }
         return $flushed;
     }
-
 }

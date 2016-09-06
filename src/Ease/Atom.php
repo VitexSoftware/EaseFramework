@@ -94,7 +94,7 @@ class Atom
      */
     public function cleanMessages()
     {
-        $this->messageCount = 0;
+        $this->messageCount   = 0;
         $this->statusMessages = [];
     }
 

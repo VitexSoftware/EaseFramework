@@ -7,6 +7,7 @@ namespace Ease\TWB;
  */
 class SubmitButton extends \Ease\Html\ButtonTag
 {
+
     /**
      * Odesílací tlačítko formuláře Twitter Bootstrapu.
      *

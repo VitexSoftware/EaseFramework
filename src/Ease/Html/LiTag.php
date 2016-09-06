@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class LiTag extends PairTag
 {
+
     /**
      * Simple LI tag.
      *

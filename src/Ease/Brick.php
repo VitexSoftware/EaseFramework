@@ -280,7 +280,7 @@ class Brick extends Sand
         if (is_null($itemID)) {
             $this->error('loadFromSQL: Unknown Key', $this->data);
         }
-        $cc = $this->dblink->getColumnComma();
+        $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
@@ -299,7 +299,7 @@ class Brick extends Sand
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
-        $SQLResult = $this->getDataFromSQL($itemID);
+        $SQLResult              = $this->getDataFromSQL($itemID);
         $this->multipleteResult = (count($SQLResult) > 1);
 
         if ($this->multipleteResult) {
@@ -382,7 +382,7 @@ class Brick extends Sand
         }
 
         if (is_null($data)) {
-            $data = $this->getData();
+            $data        = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -411,7 +411,7 @@ class Brick extends Sand
             $data[$this->myLastModifiedColumn] = 'NOW()';
         }
 
-        $cc = $this->dblink->getColumnComma();
+        $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->EaseAddSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
@@ -494,7 +494,7 @@ class Brick extends Sand
     public function insertToSQL($data = null)
     {
         if (is_null($data)) {
-            $data = $this->getData();
+            $data        = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -611,8 +611,8 @@ class Brick extends Sand
         if (!$myKeyColumn) {
             $myKeyColumn = $this->myKeyColumn;
         }
-        $cc = $this->dblink->getColumnComma();
-        $listQuery = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
+        $cc               = $this->dblink->getColumnComma();
+        $listQuery        = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
         $this->dblink->queryToArray($listQuery);
         $this->DataIdList = $this->dblink->resultArray;
 
@@ -768,7 +768,7 @@ class Brick extends Sand
      */
     public function searchColumns($searchTerm, $columns)
     {
-        $sTerm = $this->dblink->addSlashes($searchTerm);
+        $sTerm     = $this->dblink->addSlashes($searchTerm);
         $conditons = [];
         foreach ($columns as $column) {
             $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';

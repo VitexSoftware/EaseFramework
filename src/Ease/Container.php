@@ -116,7 +116,7 @@ class Container extends Sand
                     $pageItemName = $pageItemName.$duplicity++;
                 }
 
-                $context->pageParts[$pageItemName] = $pageItem;
+                $context->pageParts[$pageItemName]               = $pageItem;
                 $context->pageParts[$pageItemName]->parentObject = &$context;
 
                 if (isset($context->pageParts[$pageItemName]->raiseItems) && is_array($context->pageParts[$pageItemName]->raiseItems)
@@ -128,7 +128,7 @@ class Container extends Sand
                     $context->pageParts[$pageItemName]->afterAdd();
                 }
                 $context->lastItem = &$context->pageParts[$pageItemName];
-                $itemPointer = &$context->pageParts[$pageItemName];
+                $itemPointer       = &$context->pageParts[$pageItemName];
             } else {
                 $context->error('Page Item object without draw() method',
                     $pageItem);
@@ -136,12 +136,12 @@ class Container extends Sand
         } else {
             if (is_array($pageItem)) {
                 $addedItemPointer = $context->addItems($pageItem);
-                $itemPointer = &$addedItemPointer;
+                $itemPointer      = &$addedItemPointer;
             } else {
                 if (!is_null($pageItem)) {
                     $context->pageParts[] = $pageItem;
-                    $EndPointer = end($context->pageParts);
-                    $itemPointer = &$EndPointer;
+                    $EndPointer           = end($context->pageParts);
+                    $itemPointer          = &$EndPointer;
                 }
             }
         }
@@ -176,9 +176,9 @@ class Container extends Sand
         if (is_null($pageItemName)) {
             $pageItemName = '1st';
         }
-        $swap = $this->pageParts;
+        $swap            = $this->pageParts;
         $this->emptyContents();
-        $itemPointer = $this->addItem($pageItem, $pageItemName);
+        $itemPointer     = $this->addItem($pageItem, $pageItemName);
         $this->pageParts = array_merge($this->pageParts, $swap);
 
         return $itemPointer;

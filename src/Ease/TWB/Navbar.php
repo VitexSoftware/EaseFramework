@@ -46,20 +46,20 @@ class Navbar extends \Ease\Html\Div
                 $properties['class'] = 'navbar navbar-default';
             }
         }
-        $properties['role'] = 'navigation';
-        $properties['name'] = $name;
+        $properties['role']     = 'navigation';
+        $properties['name']     = $name;
         $this->menuInnerContent = parent::addItem(new \Ease\Html\Div(null,
                 ['class' => 'navbar-inner']));
         parent::__construct(null, $properties);
         $this->addItem(self::navBarHeader($name, $brand));
-        $navCollapse = $this->addItem(new \Ease\Html\Div(null,
+        $navCollapse            = $this->addItem(new \Ease\Html\Div(null,
             ['class' => 'collapse navbar-collapse navbar-'.$name.'-collapse']));
-        $this->nav = $navCollapse->addItem(new \Ease\Html\UlTag(null,
+        $this->nav              = $navCollapse->addItem(new \Ease\Html\UlTag(null,
             ['class' => 'nav navbar-nav']));
-        $this->tagType = 'nav';
-        $pullRigt = new \Ease\Html\Div(null,
+        $this->tagType          = 'nav';
+        $pullRigt               = new \Ease\Html\Div(null,
             ['class' => 'pull-right']);
-        $this->navRight = $pullRigt->addItem(new \Ease\Html\UlTag(null,
+        $this->navRight         = $pullRigt->addItem(new \Ease\Html\UlTag(null,
             ['class' => 'nav navbar-nav nav-right']));
         $navCollapse->addItem($pullRigt);
         Part::twBootstrapize();
@@ -67,14 +67,14 @@ class Navbar extends \Ease\Html\Div
 
     public static function navBarHeader($handle, $brand)
     {
-        $navstyle = '.navbar-'.$handle.'-collapse';
+        $navstyle       = '.navbar-'.$handle.'-collapse';
         $nbhc['button'] = new \Ease\Html\ButtonTag([new \Ease\Html\SpanTag(null,
                 _('Switch navigation'), ['class' => 'sr-only']), new \Ease\Html\SpanTag(null,
                 null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null,
                 null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null,
                 null, ['class' => 'icon-bar'])],
             ['type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse',
-            'data-target' => $navstyle, ]);
+            'data-target' => $navstyle,]);
         if (strlen($brand)) {
             $nbhc['brand'] = new \Ease\Html\ATag('./', $brand,
                 ['class' => 'navbar-brand']);
@@ -167,7 +167,7 @@ class Navbar extends \Ease\Html\Div
         Part::twBootstrapize();
         \Ease\Shared::webPage()->addJavaScript('$(\'.dropdown-toggle\').dropdown();',
             null, true);
-        $dropDown = new \Ease\Html\LiTag(null,
+        $dropDown     = new \Ease\Html\LiTag(null,
             ['class' => 'dropdown', 'id' => $label]);
         $dropDown->addItem(new \Ease\Html\ATag('#'.$label.'',
             $label.'<b class="caret"></b>',

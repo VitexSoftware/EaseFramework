@@ -10,6 +10,7 @@ namespace Ease;
 
 class DataGrid extends Html\TableTag
 {
+
     /**
      * Datagrid.
      *

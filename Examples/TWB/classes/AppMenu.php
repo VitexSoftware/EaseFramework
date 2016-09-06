@@ -6,6 +6,7 @@ use Ease\Html\ATag;
 
 class AppMenu extends \Ease\TWB\Navbar
 {
+
     /**
      * Application Menu.
      *

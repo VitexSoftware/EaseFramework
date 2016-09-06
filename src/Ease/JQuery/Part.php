@@ -90,7 +90,7 @@ class Part extends \Ease\Page
                 $this->partProperties = $partProperties;
             }
         } else {
-            $propBuff = $partProperties;
+            $propBuff             = $partProperties;
             $this->partProperties = ' '.$propBuff;
         }
     }
@@ -202,5 +202,4 @@ class Part extends \Ease\Page
             return $partProperties;
         }
     }
-
 }

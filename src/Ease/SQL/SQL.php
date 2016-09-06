@@ -320,10 +320,10 @@ abstract class SQL extends \Ease\Sand
     public function makeReport()
     {
         $this->report['LastMessage'] = $this->lastMessage;
-        $this->report['ErrorText'] = $this->errorText;
-        $this->report['Database'] = $this->database;
-        $this->report['Username'] = $this->username;
-        $this->report['Server'] = $this->server;
+        $this->report['ErrorText']   = $this->errorText;
+        $this->report['Database']    = $this->database;
+        $this->report['Username']    = $this->username;
+        $this->report['Server']      = $this->server;
     }
 
     /**

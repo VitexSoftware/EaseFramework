@@ -103,7 +103,7 @@ class Shared extends Atom
     {
         $cgiMessages = [];
         $webMessages = [];
-        $msgFile = sys_get_temp_dir().'/EaseStatusMessages.ser';
+        $msgFile     = sys_get_temp_dir().'/EaseStatusMessages.ser';
         if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile)
             && is_writable($msgFile)) {
             $cgiMessages = unserialize(file_get_contents($msgFile));
@@ -271,7 +271,7 @@ class Shared extends Atom
      */
     public static function registerItem(&$itemPointer)
     {
-        $easeShared = self::singleton();
+        $easeShared             = self::singleton();
         $easeShared->allItems[] = $itemPointer;
     }
 

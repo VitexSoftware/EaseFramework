@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class ATag extends PairTag
 {
+
     /**
      * zobrazí HTML odkaz.
      *

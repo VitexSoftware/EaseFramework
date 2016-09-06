@@ -7,6 +7,7 @@ namespace Ease\Html;
  */
 class AddressTag extends PairTag
 {
+
     /**
      * Html element pro adresu.
      *

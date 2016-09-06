@@ -11,6 +11,7 @@ namespace Ease\Html;
  */
 class ImageSubbmit extends InputTag
 {
+
     /**
      * Zobrazí <input type="image">.
      *

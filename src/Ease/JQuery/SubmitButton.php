@@ -47,10 +47,10 @@ class SubmitButton extends UIPart
                                 $Properties = null)
     {
         parent::__construct();
-        $this->Name = $name;
-        $this->JQOptions = $JQOptions;
+        $this->Name          = $name;
+        $this->JQOptions     = $JQOptions;
         $Properties['title'] = $Title;
-        $this->Button = $this->addItem(new \Ease\Html\InputSubmitTag($name,
+        $this->Button        = $this->addItem(new \Ease\Html\InputSubmitTag($name,
             $value, $Properties));
     }
 

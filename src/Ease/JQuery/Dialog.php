@@ -56,9 +56,9 @@ class Dialog extends UIPart
     public function __construct($dialogID, $title, $message,
                                 $icon = 'ui-icon-circle-check', $notice = null)
     {
-        $this->dialogID = $dialogID;
-        $this->title = $title;
-        $this->message = $message;
+        $this->dialogID       = $dialogID;
+        $this->title          = $title;
+        $this->message        = $message;
         $this->icon           = $icon;
         $this->notice         = $notice;
         $this->partProperties = ['modal' => true, 'buttons' => ['Ok' => 'function () { $( this ).dialog( "close" ); }']];

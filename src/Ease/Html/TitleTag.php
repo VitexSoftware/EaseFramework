@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class TitleTag extends PairTag
 {
+
     /**
      * Title html tag.
      *

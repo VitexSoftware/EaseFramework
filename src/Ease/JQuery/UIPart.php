@@ -9,6 +9,7 @@ namespace Ease\JQuery;
  */
 class UIPart extends Part
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -23,7 +24,7 @@ class UIPart extends Part
     public static function jQueryze()
     {
         parent::jQueryze();
-        $webPage = \Ease\Shared::webPage();
+        $webPage      = \Ease\Shared::webPage();
         $webPage->includeJavaScript('jquery-ui/jquery-ui.js', 1, true);
         $jQueryUISkin = \Ease\Shared::instanced()->getConfigValue('jQueryUISkin');
         if ($jQueryUISkin) {

@@ -84,5 +84,4 @@ class WebPage extends \Ease\WebPage
 
         return $htmlFargment;
     }
-
 }

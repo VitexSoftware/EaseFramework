@@ -375,5 +375,4 @@ class LoggerToFile extends LoggerToMemory
             return '';
         }
     }
-
 }

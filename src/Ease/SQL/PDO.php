@@ -664,5 +664,4 @@ class PDO extends SQL
 
         return parent::__sleep();
     }
-
 }

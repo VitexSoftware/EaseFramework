@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class JavaScript extends ScriptTag
 {
+
     /**
      * fragment javaskriptu ve stránce.
      *
