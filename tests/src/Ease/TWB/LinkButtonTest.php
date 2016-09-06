@@ -18,7 +18,7 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\TWB\LinkButton();
+        $this->object = new \Ease\TWB\LinkButton('http://v.s.cz/', 'test');
     }
 
     /**
@@ -27,5 +27,16 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
      */
     protected function tearDown()
     {
+    }
+
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct();
     }
 }

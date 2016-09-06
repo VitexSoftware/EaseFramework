@@ -3,7 +3,7 @@
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2014 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -296,7 +296,7 @@ class Sand extends Atom
 
     /**
      * Z datového pole $SourceArray přemístí políčko $ColumName do pole
-     * $DestinationArray.
+     * $destinationArray.
      *
      * @param array  $sourceArray      zdrojové pole dat
      * @param array  $destinationArray cílové pole dat
@@ -305,14 +305,15 @@ class Sand extends Atom
     public static function divDataArray(&$sourceArray, &$destinationArray,
                                         $columName)
     {
+        $result = false;
         if (array_key_exists($columName, $sourceArray)) {
             $destinationArray[$columName] = $sourceArray[$columName];
             unset($sourceArray[$columName]);
 
-            return true;
+            $result = true;
         }
 
-        return false;
+        return $result;
     }
 
     /**

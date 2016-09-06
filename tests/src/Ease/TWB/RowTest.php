@@ -31,14 +31,12 @@ class RowTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\Row::addColumn
-     *
-     * @todo   Implement testAddColumn().
      */
     public function testAddColumn()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addColumn(2, 'TestContent');
+        $this->assertEquals('
+<div class="row">
+<div class="col-md-2">TestContent</div></div>', (string) $this->object);
     }
 }

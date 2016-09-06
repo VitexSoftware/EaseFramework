@@ -23,14 +23,14 @@ class LinkButton extends UIPart
      *
      * @var array
      */
-    public $JQOptions = null;
+    public $jqOptions = null;
 
     /**
      * Odkaz tlačítka.
      *
      * @var Ease\Html\ATag
      */
-    public $Button = null;
+    public $button = null;
 
     /**
      * Link se vzhledem tlačítka.
@@ -47,16 +47,16 @@ class LinkButton extends UIPart
     {
         parent::__construct();
         if (!isset($properties['id'])) {
-            $this->Name = \Ease\Brick::randomString();
+            $this->name = \Ease\Brick::randomString();
         } else {
-            $this->Name = $properties['id'];
+            $this->name = $properties['id'];
         }
-        $this->JQOptions = $jQOptions;
-        $this->Button = $this->addItem(new \Ease\Html\ATag($href, $contents));
+        $this->jqOptions = $jQOptions;
+        $this->button    = $this->addItem(new \Ease\Html\ATag($href, $contents));
         if ($properties) {
-            $this->Button->setTagProperties($properties);
+            $this->button->setTagProperties($properties);
         }
-        $this->Button->setTagProperties(['id' => $this->Name]);
+        $this->button->setTagProperties(['id' => $this->name]);
     }
 
     /**
@@ -64,7 +64,7 @@ class LinkButton extends UIPart
      */
     public function onDocumentReady()
     {
-        return '$("#'.$this->Name.'").button( {'.Part::partPropertiesToString($this->JQOptions).'} )';
+        return '$("#'.$this->name.'").button( {'.Part::partPropertiesToString($this->jqOptions).'} )';
     }
 
     /**
@@ -76,7 +76,7 @@ class LinkButton extends UIPart
      */
     public function setTagID($TagID = null)
     {
-        return $this->Button->setTagID($TagID);
+        return $this->button->setTagID($TagID);
     }
 
     /**
@@ -86,6 +86,6 @@ class LinkButton extends UIPart
      */
     public function getTagID()
     {
-        return $this->Button->getTagID();
+        return $this->button->getTagID();
     }
 }

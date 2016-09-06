@@ -43,6 +43,6 @@ class ConfirmedLinkButton extends LinkButton
      */
     public function onDocumentReady()
     {
-        return '$("#'.$this->Name.'").button( '.json_encode($this->JQOptions).' ).click( function () { $( "#'.$this->id.'-dialog" ).dialog( "open" ); } );';
+        return '$("#'.$this->getTagID().'").button( {'.Part::partPropertiesToString($this->JQOptions).'} ).click( function () { $( "#'.$this->id.'-dialog" ).dialog( "open" ); } );';
     }
 }

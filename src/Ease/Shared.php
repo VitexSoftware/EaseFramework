@@ -8,8 +8,7 @@
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
- * @author    Vitex <vitex@hippy.cz>
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
 namespace Ease;

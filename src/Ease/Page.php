@@ -171,7 +171,7 @@ class Page extends Container
      *
      * @param string $url adresa přesměrování
      */
-    public static function redirect($url)
+    static function redirect($url)
     {
         $messages = Shared::instanced()->statusMessages;
         if (count($messages)) {
