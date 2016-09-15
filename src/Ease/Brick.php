@@ -45,7 +45,7 @@ class Brick extends Sand
     {
         parent::__construct();
 
-        if ($this->myTable) {
+        if (!is_null($this->myTable)) {
             $this->takemyTable($this->myTable);
         }
 
@@ -64,17 +64,16 @@ class Brick extends Sand
     public function setObjectName($objectName = null)
     {
         $result = null;
-        if ($objectName) {
-            $result = parent::setObjectName($objectName);
-        } else {
+        if (is_null($objectName)) {
             $key = $this->getMyKey($this->data);
             if ($key) {
                 $result = parent::setObjectName(get_class($this).'@'.$key);
             } else {
                 $result = parent::setObjectName();
             }
+        } else {
+            $result = parent::setObjectName($objectName);
         }
-
         return $result;
     }
 
@@ -114,12 +113,6 @@ class Brick extends Sand
     {
         if (isset($this->user)) {
             $user = &$this->user;
-        } else {
-            if (isset($this->easeShared->user)) {
-                $user = &$this->easeShared->user;
-            } else {
-                $user = null;
-            }
         }
 
         return $user;
@@ -160,22 +153,6 @@ class Brick extends Sand
         }
 
         return parent::addStatusMessage($message, $type);
-    }
-
-    /**
-     * Funkce pro defaultní slashování v celém projektu.
-     *
-     * @param string $text text k olomítkování
-     *
-     * @return string
-     */
-    public function easeAddSlashes($text)
-    {
-        if (is_object($this->dblink) && is_resource($this->dblink->sqlLink)) {
-            return mysql_real_escape_string($text, $this->dblink->sqlLink);
-        } else {
-            return parent::EaseAddSlashes($text);
-        }
     }
 
     /**
@@ -299,19 +276,19 @@ class Brick extends Sand
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
-        $SQLResult              = $this->getDataFromSQL($itemID);
-        $this->multipleteResult = (count($SQLResult) > 1);
+        $sqlResult              = $this->getDataFromSQL($itemID);
+        $this->multipleteResult = (count($sqlResult) > 1);
 
         if ($this->multipleteResult) {
             $results = [];
-            foreach ($SQLResult as $id => $data) {
+            foreach ($sqlResult as $id => $data) {
                 $this->takeData($data);
                 $results[$id] = $this->getData();
             }
             $this->data = $results;
         } else {
-            if (isset($SQLResult[0])) {
-                $this->takeData($SQLResult[0]);
+            if (isset($sqlResult[0])) {
+                $this->takeData($sqlResult[0]);
             } else {
                 return;
             }
@@ -341,34 +318,35 @@ class Brick extends Sand
         if (is_null($tableName)) {
             $tableName = $this->myTable;
         }
-        if ($limit) {
-            $limitCond = SQL\SQL::$lmt.$limit;
-        } else {
+
+        if (is_null($limit)) {
             $limitCond = '';
+        } else {
+            $limitCond = SQL\SQL::$lmt.$limit;
         }
-        if ($orderByColumn) {
+        if (is_null($orderByColumn)) {
+            $orderByCond = '';
+        } else {
             if (is_array($orderByColumn)) {
                 $orderByCond = SQL\SQL::$ord.implode(',', $orderByColumn);
             } else {
                 $orderByCond = SQL\SQL::$ord.$orderByColumn;
             }
-        } else {
-            $orderByCond = '';
         }
-
-        if (!$columnsList) {
+        if (is_null($columnsList)) {
             $cc = $this->dblink->getColumnComma();
-
-            return $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
-                    $ColumnToIndex);
+            $records = $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
+                $ColumnToIndex);
         } else {
-            return $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
-                        $columnsList).' FROM '.$tableName.$limitCond.$orderByCond,
+            $records = $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
+                    $columnsList).' FROM '.$tableName.$limitCond.$orderByCond,
                     $ColumnToIndex);
         }
+        return $records;
     }
 
     /**
+     * Perform SQL record update.
      * Provede update záznamu do SQL.
      *
      * @param array $data
@@ -377,7 +355,7 @@ class Brick extends Sand
      */
     public function updateToSQL($data = null)
     {
-        if (!$this->myTable) {
+        if (is_null($this->myTable)) {
             return;
         }
 
@@ -485,11 +463,12 @@ class Brick extends Sand
     }
 
     /**
+     * Insert record to SQL database.
      * Vloží záznam do SQL databáze.
      *
      * @param array $data
      *
-     * @return id
+     * @return int id of new row in database
      */
     public function insertToSQL($data = null)
     {
@@ -521,16 +500,6 @@ class Brick extends Sand
         }
 
         return;
-    }
-
-    /**
-     * Ulozi data objektu.
-     *
-     * @return array ID zaznamu vlozenych nebo ulozenych
-     */
-    public function save()
-    {
-        return $this->saveToSQL();
     }
 
     /**
@@ -587,7 +556,7 @@ class Brick extends Sand
 
             return $data[$column];
         } else {
-            if ($mayBeNull) {
+            if (!is_null($mayBeNull)) {
                 $this->setDataValue($column, null);
 
                 return;
@@ -665,7 +634,7 @@ class Brick extends Sand
      */
     public function getMyKey($data = null)
     {
-        if (!$data) {
+        if (!is_null($data)) {
             $data = $this->getData();
         }
         if (isset($data) && isset($data[$this->myKeyColumn])) {
@@ -712,7 +681,6 @@ class Brick extends Sand
     {
         $this->myTable = $myTable;
         $this->setObjectIdentity(['myTable' => $myTable]);
-        unset($this->sqlStruct['my']);
     }
 
     /**
@@ -748,16 +716,6 @@ class Brick extends Sand
         }
 
         return $this->dblink->queryToValue(SQL\SQL::$sel.'COUNT('.$this->myKeyColumn.') FROM '.$tableName);
-    }
-
-    /**
-     * Pouze malé a velké písmena.
-     *
-     * @return string text bez zvláštních znaků
-     */
-    public static function lettersOnly($text)
-    {
-        return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
     }
 
     /**

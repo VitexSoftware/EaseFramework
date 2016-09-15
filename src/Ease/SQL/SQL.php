@@ -614,4 +614,16 @@ abstract class SQL extends \Ease\Sand
             $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
         }
     }
+
+    /**
+     * Funkce pro defaultní slashování v celém frameworku.
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    public function easeAddSlashes($text)
+    {
+        return addSlashes($text);
+    }
 }

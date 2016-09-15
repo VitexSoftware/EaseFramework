@@ -3,10 +3,10 @@
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2015 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
-namespace Ease;
+namespace Ease\Logger;
 
 /**
  * Log to syslog.
@@ -14,7 +14,7 @@ namespace Ease;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class LoggerToSyslog extends LoggerToMemory
+class ToSyslog extends ToMemory
 {
     /**
      * Předvolená metoda logování.

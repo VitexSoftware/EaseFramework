@@ -196,11 +196,11 @@ class Shared extends Atom
     public static function logger()
     {
         if (defined('LOG_NAME')) {
-            return LoggerToSyslog::singleton();
+            return Logger\ToSyslog::singleton();
         } elseif (defined('LOG_FILE')) {
-            LoggerToFile::singleton();
+            Logger\ToFile::singleton();
         } else {
-            return LoggerToMemory::singleton();
+            return Logger\ToMemory::singleton();
         }
     }
 

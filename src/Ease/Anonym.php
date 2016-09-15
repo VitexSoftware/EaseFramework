@@ -5,7 +5,7 @@
  * PHP Version 5
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2011 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -31,7 +31,7 @@ class Anonym extends Brick
      *
      * @var string
      */
-    public $language = 'cs';
+    public $language = 'en';
 
     /**
      * Registr vlastnosti uzivatele.
@@ -56,7 +56,7 @@ class Anonym extends Brick
      */
     public function setObjectName($objectName = null)
     {
-        if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
+        if (is_null($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
             if (isset($_SERVER['REMOTE_USER'])) {
                 $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';
             } else {

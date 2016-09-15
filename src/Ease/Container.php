@@ -1,5 +1,6 @@
 <?php
 /**
+ * Object able to contain other object in int.
  * Objekt schopný do sebe pojmou jiné objekty.
  *
  * @author     Vitex <vitex@hippy.cz>
@@ -25,13 +26,15 @@ class Container extends Sand
     public $drawStatus = false;
 
     /**
-     * Znaková sada stránky.
+     * Content Charset
+     * Znaková sada obsahu.
      *
      * @var string
      */
     public $charSet = 'utf-8';
 
     /**
+     * Is class finalized ?
      * Prošel už objekt finalizací ?
      *
      * @var bool
@@ -48,7 +51,7 @@ class Container extends Sand
     /**
      * Odkaz na webstránku.
      *
-     * @var EasePage
+     * @var Page
      */
     public $webPage = null;
 

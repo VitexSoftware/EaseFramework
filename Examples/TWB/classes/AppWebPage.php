@@ -12,9 +12,16 @@ class AppWebPage extends \Ease\TWB\WebPage
     /**
      * Applicaton Menu.
      *
-     * @var EaseBiMenu
+     * @var AppMenu
      */
     public $navBar = null;
+
+    /**
+     * Page main area.
+     *
+     * @var \Ease\TWB\Container
+     */
+    public $container = null;
 
     /**
      * Stránka aplikace.
@@ -22,13 +29,13 @@ class AppWebPage extends \Ease\TWB\WebPage
      * @param string    $pageTitle
      * @param Ease\User $userObject
      */
-    public function __construct($pageTitle = null, &$userObject = null)
+    public function __construct($pageTitle = null)
     {
-        parent::__construct($pageTitle, $userObject);
+        parent::__construct($pageTitle);
         $this->navBar    = $this->addItem(
             new AppMenu('menu', 'ExApp', ['class' => 'navbar-fixed-top'])
         );
-        $this->addItem(new AppStatusMessages());
+        $this->addItem(new \Ease\TWB\StatusMessages());
         $this->container = $this->addItem(
             new \Ease\Html\Div(null, ['class' => 'container'])
         );

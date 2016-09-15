@@ -1,14 +1,14 @@
 <?php
 /**
- * Třída pro logování.
+ * Class to Log messages.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
-namespace Ease;
+namespace Ease\Logger;
 
-class LoggerToMemory extends Atom
+class ToMemory extends \Ease\Atom
 {
     /**
      * Předvolená metoda logování.
@@ -78,7 +78,7 @@ class LoggerToMemory extends Atom
      */
     public function __construct()
     {
-        $this->easeShared = Shared::singleton();
+        $this->easeShared = \Ease\Shared::singleton();
     }
 
     /**

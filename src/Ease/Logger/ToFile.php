@@ -6,9 +6,9 @@
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
-namespace Ease;
+namespace Ease\Logger;
 
-class LoggerToFile extends LoggerToMemory
+class ToFile extends ToMemory
 {
     /**
      * Předvolená metoda logování.
@@ -95,12 +95,12 @@ class LoggerToFile extends LoggerToMemory
     /**
      * Logovací třída.
      *
-     * @param string $BaseLogDir
+     * @param string $baseLogDir
      */
-    public function __construct($BaseLogDir = null)
+    public function __construct($baseLogDir = null)
     {
-        $this->easeShared = Shared::singleton();
-        $this->setupLogFiles();
+        $this->easeShared = \Ease\Shared::singleton();
+        $this->setupLogFiles($baseLogDir);
     }
 
     /**
@@ -124,30 +124,34 @@ class LoggerToFile extends LoggerToMemory
     /**
      * Nastaví cesty logovacích souborů.
      */
-    public function setupLogFiles()
+    public function setupLogFiles($baseLogDir = null)
     {
-        if ($this->logPrefix) {
-            return;
-        } else {
-            if (defined('LOG_DIRECTORY')) {
-                $this->logPrefix = Brick::sysFilename(constant('LOG_DIRECTORY'));
-                if ($this->TestDirectory($this->logPrefix)) {
-                    $this->logFileName  = $this->logPrefix.$this->logFileName;
-                    $this->reportFile   = $this->logPrefix.$this->reportFile;
-                    $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
-                } else {
-                    $this->logPrefix    = null;
-                    $this->logFileName  = null;
-                    $this->reportFile   = null;
-                    $this->errorLogFile = null;
-                }
+        if (is_null($baseLogDir)) {
+            $baseLogDir = $this->logPrefix;
+        }
+
+        if (is_null($baseLogDir) && defined('LOG_DIRECTORY')) {
+            $baseLogDir = constant('LOG_DIRECTORY');
+        }
+
+        if ($baseLogDir) {
+            $this->logPrefix = \Ease\Brick::sysFilename($baseLogDir);
+            if ($this->TestDirectory($this->logPrefix)) {
+                $this->logFileName  = $this->logPrefix.$this->logFileName;
+                $this->reportFile   = $this->logPrefix.$this->reportFile;
+                $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
             } else {
-                $this->logType      = 'none';
                 $this->logPrefix    = null;
                 $this->logFileName  = null;
                 $this->reportFile   = null;
                 $this->errorLogFile = null;
             }
+        } else {
+            $this->logType      = 'none';
+            $this->logPrefix    = null;
+            $this->logFileName  = null;
+            $this->reportFile   = null;
+            $this->errorLogFile = null;
         }
     }
 

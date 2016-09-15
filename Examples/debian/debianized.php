@@ -2,4 +2,5 @@
 <?php
 require '/var/tmp/composer/autoload.php';
 
-echo \Ease\Sand::printPreBasic($_SERVER);
+$logger = new \Ease\Logger\ToSyslog('EaseFramDemo');
+$logger->addStatusMessage('Hallo world!');

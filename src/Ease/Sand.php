@@ -73,13 +73,6 @@ class Sand extends Atom
     public $myIDSColumn = null;
 
     /**
-     * Synchronizační sloupeček. napr IDS.
-     *
-     * @var string
-     */
-    public $msIDSColumn = null;
-
-    /**
      * Sloupeček obsahující datum vložení záznamu do shopu.
      *
      * @var string
@@ -132,14 +125,14 @@ class Sand extends Atom
         }
         switch ($this->logType) {
             case 'file':
-                $this->logger = LoggerToFile::singleton();
+                $this->logger = Logger\ToFile::singleton();
                 break;
             case 'syslog':
-                $this->logger = LoggerToSyslog::singleton();
+                $this->logger = Logger\ToSyslog::singleton();
                 break;
             case 'memory':
             default:
-                $this->logger = LoggerToMemory::singleton();
+                $this->logger = Logger\ToMemory::singleton();
                 break;
         }
 
@@ -435,18 +428,6 @@ class Sand extends Atom
         }
 
         return count($data);
-    }
-
-    /**
-     * Funkce pro defaultní slashování v celém frameworku.
-     *
-     * @param string $text
-     *
-     * @return string
-     */
-    public function easeAddSlashes($text)
-    {
-        return addSlashes($text);
     }
 
     /**
@@ -778,6 +759,17 @@ class Sand extends Atom
         }
 
         return $reindexedData;
+    }
+
+    /**
+     * Filter Only letters from string.
+     * Pouze malé a velké písmena.
+     *
+     * @return string text bez zvláštních znaků
+     */
+    public static function lettersOnly($text)
+    {
+        return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
     }
 
     /**

@@ -11,6 +11,7 @@
     "autoload": {
         "psr-4": {
             "Ease\\": "src/Ease/",
+            "Ease\\Logger\\": "src/Ease/Logger",
             "Ease\\Html\\": "src/Ease/Html",
             "Ease\\JQuery\\": "src/Ease/JQuery",
             "Ease\\SQL\\": "src/Ease/SQL",
@@ -20,6 +21,7 @@
     "autoload-dev": {
         "psr-4": {
             "Test\\Ease\\": "tests/src/Ease",
+            "Test\\Ease\\Logger\\": "tests/src/Ease/Logger",
             "Test\\Ease\\Html\\": "tests/src/Ease/Html",
             "Test\\Ease\\JQuery\\": "tests/src/Ease/JQuery",
             "Test\\Ease\\SQL\\": "tests/src/Ease/SQL",

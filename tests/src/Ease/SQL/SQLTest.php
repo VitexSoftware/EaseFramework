@@ -307,4 +307,12 @@ class SQLTest extends \Test\Ease\SandTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\SQL\SQL::easeAddSlashes
+     */
+    public function testEaseAddSlashes()
+    {
+        $this->assertEquals("\'", $this->object->easeAddSlashes("'"));
+    }
 }

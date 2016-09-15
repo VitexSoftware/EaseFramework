@@ -10,9 +10,9 @@ class AppMenu extends \Ease\TWB\Navbar
     /**
      * Application Menu.
      *
-     * @param string                   $name
-     * @param string|\Ease\Html\ImgTag $brand      Boostrap Menu Brand
-     * @param array                    $properties
+     * @param string $name
+     * @param mixed  $brand      Boostrap Menu Brand
+     * @param array  $properties page menu div tag properties
      */
     public function __construct($name = null, $brand = null, $properties = null)
     {
@@ -21,7 +21,7 @@ class AppMenu extends \Ease\TWB\Navbar
         $this->addMenuItem(new ATag('http://l.q.cz/', _('LinkQuick')));
 
         $this->addDropDownMenu(
-            _('Systém'),
+            _('System'),
             [
             'settings.php' => '<i class="icon-list"></i>&nbsp;'._('Settings'),
             'shutdown.php' => '<i class="icon-list"></i>&nbsp;'._('Shutdown'),

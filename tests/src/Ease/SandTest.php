@@ -237,14 +237,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::easeAddSlashes
-     */
-    public function testEaseAddSlashes()
-    {
-        $this->assertEquals("\'", $this->object->easeAddSlashes("'"));
-    }
-
-    /**
      * @covers Ease\Sand::rip
      */
     public function testRip()
