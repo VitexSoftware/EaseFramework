@@ -1,5 +1,7 @@
-EaseFramework
-=============
+![EasePHP Framework Logo](https://raw.githubusercontent.com/VitexSoftware/EaseFramework/master/ease-framework-logo.png "Project Logo")
+
+EasePHP Framework
+=================
 
 Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 
