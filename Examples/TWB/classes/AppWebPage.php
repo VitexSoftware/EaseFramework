@@ -27,7 +27,6 @@ class AppWebPage extends \Ease\TWB\WebPage
      * Stránka aplikace.
      *
      * @param string    $pageTitle
-     * @param Ease\User $userObject
      */
     public function __construct($pageTitle = null)
     {

@@ -290,7 +290,7 @@ class ToFile extends ToMemory
             if (!is_readable($directoryPath)) {
                 echo $directoryPath._(' not an readable folder. Current directory:').' '.getcwd();
                 if ($logToFile) {
-                    Shared::logger()->addToLog('TestDirectory',
+                    \Ease\Shared::logger()->addToLog('TestDirectory',
                         $directoryPath._(' not an readable folder. Current directory:').' '.getcwd());
                 }
                 $sanity = false;
@@ -300,7 +300,7 @@ class ToFile extends ToMemory
             if (!is_writable($directoryPath)) {
                 echo $directoryPath._(' not an writeable folder. Current directory:').' '.getcwd();
                 if ($logToFile) {
-                    Shared::logger()->addToLog('TestDirectory',
+                    \Ease\Shared::logger()->addToLog('TestDirectory',
                         $directoryPath._(' not an writeable folder. Current directory:').' '.getcwd());
                 }
 
@@ -321,28 +321,28 @@ class ToFile extends ToMemory
     public function error($caller, $message, $objectData = null)
     {
         if ($this->errorLogFile) {
-            $LogFileHandle = @fopen($this->errorLogFile, 'a+');
-            if ($LogFileHandle) {
+            $logFileHandle = @fopen($this->errorLogFile, 'a+');
+            if ($logFileHandle) {
                 if ($this->easeShared->runType == 'web') {
-                    fputs($LogFileHandle,
+                    fputs($logFileHandle,
                         Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
-                    fputs($LogFileHandle,
+                    fputs($logFileHandle,
                         Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_POST) && count($_POST)) {
-                    fputs($LogFileHandle,
-                        Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($logFileHandle,
+                        \Ease\Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_GET) && count($_GET)) {
-                    fputs($LogFileHandle,
-                        Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs($logFileHandle,
+                        \Ease\Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if ($objectData) {
-                    fputs($LogFileHandle,
-                        Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
+                    fputs($logFileHandle,
+                        \Ease\Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
                 }
-                fclose($LogFileHandle);
+                fclose($logFileHandle);
             } else {
                 $this->addToLog('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file',
                     'error');

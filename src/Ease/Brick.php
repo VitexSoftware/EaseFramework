@@ -334,13 +334,13 @@ class Brick extends Sand
             }
         }
         if (is_null($columnsList)) {
-            $cc = $this->dblink->getColumnComma();
+            $cc      = $this->dblink->getColumnComma();
             $records = $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
                 $ColumnToIndex);
         } else {
             $records = $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
                     $columnsList).' FROM '.$tableName.$limitCond.$orderByCond,
-                    $ColumnToIndex);
+                $ColumnToIndex);
         }
         return $records;
     }

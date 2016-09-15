@@ -204,6 +204,7 @@ class User extends Anonym
 
     /**
      * Pokusí se o přihlášení.
+     * Try to Sign in
      *
      * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
      *
@@ -214,15 +215,15 @@ class User extends Anonym
         if (!count($formData)) {
             return;
         }
-        $login    = $this->easeAddSlashes($formData[$this->loginColumn]);
-        $password = $this->easeAddSlashes($formData[$this->passwordColumn]);
+        $login    = $this->dblink->addSlashes($formData[$this->loginColumn]);
+        $password = $this->dblink->AddSlashes($formData[$this->passwordColumn]);
         if (!$login) {
-            $this->addStatusMessage(_('chybí login'), 'error');
+            $this->addStatusMessage(_('missing login'), 'error');
 
             return;
         }
         if (!$password) {
-            $this->addStatusMessage(_('chybí heslo'), 'error');
+            $this->addStatusMessage(_('missing password'), 'error');
 
             return;
         }
@@ -242,14 +243,14 @@ class User extends Anonym
             } else {
                 $this->userID = null;
                 if (count($this->getData())) {
-                    $this->addStatusMessage(_('neplatné heslo'), 'error');
+                    $this->addStatusMessage(_('invalid password'), 'error');
                 }
                 $this->dataReset();
 
                 return false;
             }
         } else {
-            $this->addStatusMessage(sprintf(_('uživatel %s neexistuje'), $login,
+            $this->addStatusMessage(sprintf(_('user %s does not exist'), $login,
                     'error'));
 
             return false;
@@ -267,7 +268,7 @@ class User extends Anonym
             return true;
         }
         if ($this->getDataValue($this->disableColumn)) {
-            $this->addStatusMessage(_('přihlášení zakázáno administrátorem'),
+            $this->addStatusMessage(_('Sign in denied by administrator'),
                 'warning');
 
             return false;
@@ -285,8 +286,8 @@ class User extends Anonym
         $this->userID    = (int) $this->getMyKey();
         $this->userLogin = $this->getDataValue($this->loginColumn);
         $this->logged    = true;
-        $this->addStatusMessage(sprintf(_('Přihlášení %s proběhlo bez problémů'),
-                $this->userLogin), 'success');
+        $this->addStatusMessage(sprintf(_('Sign in %s all ok'), $this->userLogin),
+            'success');
 
         return true;
     }

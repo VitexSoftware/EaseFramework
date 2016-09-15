@@ -19,7 +19,7 @@ before_script:
   - psql -c "CREATE USER easetest WITH PASSWORD 'easetest'" -U postgres
   - psql -c 'CREATE DATABASE easetest OWNER easetest;' -U postgres
   - mysql -e 'create database easetest;'  
-  - mysql -e 'GRANT ALL ON easetest.* TO \'easetest\'@\'localhost\' IDENTIFIED BY \'easetest\' ;'  
+  - mysql -e "GRANT ALL ON easetest.* TO 'easetest'@'localhost' IDENTIFIED BY 'easetest' ;"  
   
 script:
   - mkdir -p build/logs
