@@ -167,11 +167,12 @@ class Page extends Container
     }
 
     /**
+     * Perform http redirect
      * Provede http přesměrování.
      *
      * @param string $url adresa přesměrování
      */
-    static function redirect($url)
+    public function redirect($url)
     {
         $messages = Shared::instanced()->statusMessages;
         if (count($messages)) {

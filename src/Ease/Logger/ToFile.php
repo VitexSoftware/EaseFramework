@@ -280,7 +280,7 @@ class ToFile extends ToMemory
             if (!is_dir($directoryPath)) {
                 echo $directoryPath._(' not an folder. Current directory:').' '.getcwd();
                 if ($logToFile) {
-                    Shared::logger()->addToLog('TestDirectory',
+                    \Ease\Shared::logger()->addToLog('TestDirectory',
                         $directoryPath._(' not an folder. Current directory:').' '.getcwd());
                 }
                 $sanity = false;
@@ -325,10 +325,10 @@ class ToFile extends ToMemory
             if ($logFileHandle) {
                 if ($this->easeShared->runType == 'web') {
                     fputs($logFileHandle,
-                        Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                        \Ease\Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 } else {
                     fputs($logFileHandle,
-                        Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                        \Ease\Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_POST) && count($_POST)) {
                     fputs($logFileHandle,
