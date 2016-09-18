@@ -265,7 +265,7 @@ class SQLTest extends \Test\Ease\SandTest
         $sqlFragment = $this->object->arrayToSetQuery(['' => 'x',
             'a' => 1, 'b' => 'word',
             'c' => null, 'id' => 0, 'z' => 0.4, 'y' => true, 'x' => false, ]);
-        $this->assertEquals(" a =  1 , b =  'word' , c =  null , z =  0.4 , y =  1 , x =  0 ",
+        $this->assertEquals(" a =  1 , b =  'word' , c =  null , z =  0.4 , y =  TRUE , x =  FALSE ",
             $sqlFragment);
     }
 

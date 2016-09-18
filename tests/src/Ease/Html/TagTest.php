@@ -221,6 +221,10 @@ class TagTest extends PageTest
         $this->object->draw();
         $drawed = ob_get_contents();
         ob_end_clean();
-        $this->assertEquals("\n<$tagType />", $drawed);
+        if (is_null($whatWant)) {
+            $this->assertEquals("\n<$tagType />", $drawed);
+        } else {
+            $this->assertEquals($whatWant, $drawed);
+        }
     }
 }

@@ -18,7 +18,7 @@ class RadioButtonTest extends \Test\Ease\Html\DivTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\TWB\RadioButton();
+        $this->object = new \Ease\TWB\RadioButton('radio', 'X', 'test');
     }
 
     /**
