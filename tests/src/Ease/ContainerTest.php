@@ -29,19 +29,26 @@ class ContainerTest extends SandTest
      */
     protected function tearDown()
     {
+
+    }
+
+    public function testConstructor()
+    {
+        parent::testConstructor();
+        $tester = new \Ease\Container('test');
+        $this->assertEquals('test', $tester->__toString());
     }
 
     /**
      * @covers Ease\Container::raise
-     *
-     * @todo   Implement testRaise().
      */
     public function testRaise()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $div                   = new \Ease\Html\Div('TestDiv');
+        $this->object->webPage = new \Ease\WebPage('toRaise');
+        $this->object->raise($div);
+        $this->object->raise($div, ['webPage']);
+        $this->assertEquals($div->webPage, $this->object->webPage);
     }
 
     /**
@@ -98,15 +105,15 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::getItemsCount
-     *
-     * @todo   Implement testGetItemsCount().
      */
     public function testGetItemsCount()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->emptyContents();
+        $this->assertEquals(0, $this->object->getItemsCount());
+        $this->object->addItem('@');
+        $this->assertEquals(1, $this->object->getItemsCount());
+        $this->assertEquals(2,
+            $this->object->getItemsCount(new \Ease\Html\Div(['a', 'b'])));
     }
 
     /**

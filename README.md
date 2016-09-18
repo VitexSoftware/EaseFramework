@@ -71,8 +71,18 @@ Testing
 -------
 
 At first you need initialise create sql user & database with login and password 
-from testing/phinx.yml and initialise teting database by **phinx migrate** 
-command
+from testing/phinx.yml and initialise testing database by **phinx migrate** 
+command:
+
+```
+cd testing
+mysqladmin -u root -p create easetest
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON easetest.* TO easetest@localhost IDENTIFIED BY 'easetest'"
+sudo -u postgres bash -c "psql -c \"CREATE USER easetest WITH PASSWORD 'easetest';\""
+sudo -u postgres bash -c "psql -c \"create database 'easetest' with owner 'easetest' encoding='utf8' template template0;\""
+../vendor/bin/phinx -e development migrate
+../vendor/bin/phinx -e testing migrate
+```
 
 Links
 =====

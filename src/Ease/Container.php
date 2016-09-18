@@ -203,21 +203,23 @@ class Container extends Sand
 
     /**
      * Vrací počet vložených položek.
+     * Obtain number of enclosed items in current or given object
      *
      * @param Container $object hodnota nebo EaseObjekt s polem ->pageParts
      *
-     * @return int | null
+     * @return int nuber of parts enclosed
      */
     public function getItemsCount($object = null)
     {
+        $itemCount = null;
         if (is_null($object)) {
-            return count($this->pageParts);
+            $itemCount = count($this->pageParts);
         }
         if (is_object($object) && isset($object->pageParts)) {
-            return count($object->pageParts);
+            $itemCount = count($object->pageParts);
         }
 
-        return;
+        return $itemCount;
     }
 
     /**
@@ -321,7 +323,7 @@ class Container extends Sand
         if (count($scriptsToProcess)) {
             foreach ($scriptsToProcess as $scriptID => $script) {
                 if ($script[0] == '#') {
-                    $this->IncludeJavaScript(substr($script, 1), $scriptID);
+                    $this->includeJavaScript(substr($script, 1), $scriptID);
                 } else {
                     $this->addJavaScript(substr($script, 1), $scriptID);
                 }
@@ -372,13 +374,13 @@ class Container extends Sand
      */
     public function getRendered()
     {
-        $RetVal = '';
+        $retVal = '';
         ob_start();
         $this->draw();
-        $RetVal .= ob_get_contents();
+        $retVal .= ob_get_contents();
         ob_clean();
 
-        return $RetVal;
+        return $retVal;
     }
 
     /**

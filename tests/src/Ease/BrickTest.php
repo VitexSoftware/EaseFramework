@@ -311,6 +311,7 @@ class BrickTest extends SandTest
     {
         $this->object->setmyKey('test');
         $this->assertEquals('test', $this->object->getmyKey());
+        $this->assertEquals('X', $this->object->getmyKey(['id' => 'X']));
     }
 
     /**
@@ -320,6 +321,9 @@ class BrickTest extends SandTest
     {
         $this->object->setmyKey('test');
         $this->assertEquals('test', $this->object->getmyKey());
+
+        $this->object->setmyKeyColumn(null);
+        $this->assertNull($this->object->getmyKey());
     }
 
     /**

@@ -634,14 +634,15 @@ class Brick extends Sand
      */
     public function getMyKey($data = null)
     {
-        if (!is_null($data)) {
+        $key = null;
+        if (is_null($data)) {
             $data = $this->getData();
         }
         if (isset($data) && isset($data[$this->myKeyColumn])) {
-            return $data[$this->myKeyColumn];
+            $key = $data[$this->myKeyColumn];
         }
 
-        return;
+        return $key;
     }
 
     /**
@@ -653,13 +654,14 @@ class Brick extends Sand
      */
     public function setMyKey($myKeyValue)
     {
+        $result = null;
         if (isset($this->myKeyColumn)) {
             $this->setDataValue($this->myKeyColumn, $myKeyValue);
-
-            return true;
+            $result = true;
         } else {
-            return false;
+            $result = false;
         }
+        return $result;
     }
 
     /**

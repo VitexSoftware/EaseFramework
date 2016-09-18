@@ -18,8 +18,8 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source
   - psql -c "CREATE USER easetest WITH PASSWORD 'easetest'" -U postgres
   - psql -c 'CREATE DATABASE easetest OWNER easetest;' -U postgres
-  - mysql -e 'create database easetest;'  
-  - mysql -e "GRANT ALL ON easetest.* TO 'easetest'@'localhost' IDENTIFIED BY 'easetest' ;"  
+  - mysql -u root -e 'create database easetest;'  
+  - mysql -u root -e "GRANT ALL ON easetest.* TO 'easetest'@'localhost' IDENTIFIED BY 'easetest' ;"  
   
 script:
   - mkdir -p build/logs
