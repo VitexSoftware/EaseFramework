@@ -31,7 +31,7 @@ class RadiobuttonGroup extends \Ease\Html\RadiobuttonGroup
      */
     public function finalize()
     {
-        UIPart::jQueryze($this);
+        UIPart::jQueryze();
         $enclosure = new \Ease\Html\Div($this->pageParts,
             ['id' => $this->Name.'Group']);
         unset($this->pageParts);

@@ -5,7 +5,7 @@
 
 namespace Ease\TWB;
 
-class Label extends \Ease\Html\SpanTag
+class Label extends \Ease\Html\Span
 {
 
     /**
@@ -25,6 +25,6 @@ class Label extends \Ease\Html\SpanTag
         } else {
             $properties['class'] = ' label label-'.$type;
         }
-        parent::__construct(null, $content, $properties);
+        parent::__construct($content, $properties);
     }
 }

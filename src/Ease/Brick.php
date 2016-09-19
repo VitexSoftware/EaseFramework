@@ -63,7 +63,6 @@ class Brick extends Sand
      */
     public function setObjectName($objectName = null)
     {
-        $result = null;
         if (is_null($objectName)) {
             $key = $this->getMyKey($this->data);
             if ($key) {
@@ -88,14 +87,12 @@ class Brick extends Sand
      */
     public function setUpUser(&$user, &$targetObject = null)
     {
-        $result = null;
         if (is_object($user)) {
             if (is_object($targetObject)) {
                 $targetObject->user = &$user;
             } else {
                 $this->user = &$user;
             }
-
             $result = true;
         } else {
             $result = false;
@@ -654,7 +651,6 @@ class Brick extends Sand
      */
     public function setMyKey($myKeyValue)
     {
-        $result = null;
         if (isset($this->myKeyColumn)) {
             $this->setDataValue($this->myKeyColumn, $myKeyValue);
             $result = true;

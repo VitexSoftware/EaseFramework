@@ -41,7 +41,7 @@ class Scroller extends Ease\Html\DivTag
      */
     public function finalize()
     {
-        UIPart::jQueryze($this);
+        UIPart::jQueryze();
         \Ease\Shared::webPage()->includeCss('smoothDivScroll.css', true);
         \Ease\Shared::webPage()->includeJavaScript('jquery.smoothDivScroll-1.1.js',
             null, true);

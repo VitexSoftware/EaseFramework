@@ -342,4 +342,21 @@ class WebPage extends Page
     {
         $this->pageTitle = $pageTitle;
     }
+
+    /**
+     * Vrací počet vložených položek.
+     * Obtain number of enclosed items in current page body or given object
+     *
+     * @param Container $object hodnota nebo EaseObjekt s polem ->pageParts
+     *
+     * @return int nuber of parts enclosed
+     */
+    public function getItemsCount($object = null)
+    {
+        if (is_null($object)) {
+            $object = &$this->body;
+        }
+
+        return parent::getItemsCount($object);
+    }
 }

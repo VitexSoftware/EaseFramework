@@ -3,6 +3,7 @@
 namespace Ease\Html;
 
 /**
+ * Send button
  * Odesílací tlačítko.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>

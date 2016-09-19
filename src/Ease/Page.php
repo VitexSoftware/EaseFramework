@@ -318,16 +318,16 @@ class Page extends Container
         $sanitized = null;
         switch ($sanitizeAs) {
             case 'string':
-                return (string) $value;
+                $sanitized = (string) $value;
                 break;
             case 'int':
                 if (!strlen(trim($value))) {
-                    return null;
+                    $sanitized = null;
                 }
-                return (int) $value;
+                $sanitized = (int) $value;
                 break;
             case 'float':
-                return (float) $value;
+                $sanitized = (float) $value;
                 break;
             case 'bool':
             case 'boolean':

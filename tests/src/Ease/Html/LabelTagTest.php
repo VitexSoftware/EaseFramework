@@ -41,4 +41,18 @@ class LabelTagTest extends PairTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('for');
+
+        $mock->__construct('for', 'Iam label',
+            ['name' => 'Label', 'id' => 'testing']);
+    }
 }

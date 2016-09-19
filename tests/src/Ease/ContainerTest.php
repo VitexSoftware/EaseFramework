@@ -326,15 +326,13 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::isEmpty
-     *
-     * @todo   Implement testIsEmpty().
      */
     public function testIsEmpty()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->emptyContents();
+        $this->assertTrue($this->object->isEmpty());
+        $this->object->addItem('@');
+        $this->assertFalse($this->object->isEmpty($this->object));
     }
 
     /**

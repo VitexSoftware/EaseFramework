@@ -276,8 +276,9 @@ class Tag extends \Ease\Page
                 }
             }
 
-            return trim($tagPropertiesString);
+            $tagPropertiesString = trim($tagPropertiesString);
         }
+        return $tagPropertiesString;
     }
 
     /**

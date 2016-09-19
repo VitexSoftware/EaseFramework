@@ -5,7 +5,7 @@ namespace Ease\TWB;
 /**
  * Odznak bootstrapu.
  */
-class Badge extends \Ease\Html\SpanTag
+class Badge extends \Ease\Html\Span
 {
 
     /**
@@ -18,7 +18,7 @@ class Badge extends \Ease\Html\SpanTag
      */
     public function __construct($content = null, $properties = null)
     {
-        parent::__construct(null, $content, $properties);
+        parent::__construct($content, $properties);
         $this->addTagClass('badge');
     }
 }

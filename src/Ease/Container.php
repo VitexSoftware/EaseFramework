@@ -143,8 +143,8 @@ class Container extends Sand
             } else {
                 if (!is_null($pageItem)) {
                     $context->pageParts[] = $pageItem;
-                    $EndPointer           = end($context->pageParts);
-                    $itemPointer          = &$EndPointer;
+                    $endPointer           = end($context->pageParts);
+                    $itemPointer          = &$endPointer;
                 }
             }
         }
@@ -231,7 +231,6 @@ class Container extends Sand
      */
     public function &addNextTo($pageItem)
     {
-        $itemPointer = null;
         $itemPointer = $this->parentObject->addItem($pageItem);
 
         return $itemPointer;
@@ -402,6 +401,7 @@ class Container extends Sand
 
     /**
      * Vykresli se, pokud již tak nebylo učiněno.
+     * Draw contents not drawn yet
      */
     public function drawIfNotDrawn()
     {
@@ -514,12 +514,10 @@ class Container extends Sand
      */
     public function __toString()
     {
-        $objectOut = '';
         ob_start();
         $this->draw();
         $objectOut = ob_get_contents();
         ob_end_clean();
-
         return $objectOut;
     }
 }

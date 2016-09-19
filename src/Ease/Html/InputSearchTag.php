@@ -44,9 +44,9 @@ class InputSearchTag extends InputTag
      *
      * @param string $DataSourceURL url zdroje dat našeptávače ve formátu JSON
      */
-    public function setDataSource($DataSourceURL)
+    public function setDataSource($dataSourceURL)
     {
-        $this->dataSourceURL = $DataSourceURL;
+        $this->dataSourceURL = $dataSourceURL;
     }
 
     /**
@@ -55,7 +55,7 @@ class InputSearchTag extends InputTag
     public function finalize()
     {
         if (!is_null($this->dataSourceURL)) {
-            \Ease\JQuery\UIPart::jQueryze($this);
+            \Ease\JQuery\UIPart::jQueryze();
             $this->addCSS('.ui-autocomplete-loading { background: white url(\'Ease/css/images/ui-anim_basic_16x16.gif\') right center no-repeat; }');
             $this->addJavaScript(
                 '

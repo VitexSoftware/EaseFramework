@@ -271,9 +271,17 @@ class Sand extends Atom
      */
     public function restoreObjectIdentity($identity = null)
     {
-        foreach ($this->identityColumns as $column) {
-            if (isset($this->identity[$column])) {
-                $this->$column = $this->identity[$column];
+        if (is_null($identity)) {
+            foreach ($this->identityColumns as $column) {
+                if (isset($this->identity[$column])) {
+                    $this->$column = $this->identity[$column];
+                }
+            }
+        } else {
+            foreach ($identity as $column) {
+                if (isset($this->identity[$column])) {
+                    $this->$column = $this->identity[$column];
+                }
             }
         }
     }
@@ -592,7 +600,6 @@ class Sand extends Atom
      */
     public static function randomNumber($minimal = null, $maximal = null)
     {
-        $rand = null;
         mt_srand((double) microtime() * 1000000);
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {

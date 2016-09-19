@@ -68,10 +68,10 @@ class Navbar extends \Ease\Html\Div
     public static function navBarHeader($handle, $brand)
     {
         $navstyle       = '.navbar-'.$handle.'-collapse';
-        $nbhc['button'] = new \Ease\Html\ButtonTag([new \Ease\Html\SpanTag(null,
-                _('Switch navigation'), ['class' => 'sr-only']), new \Ease\Html\SpanTag(null,
-                null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null,
-                null, ['class' => 'icon-bar']), new \Ease\Html\SpanTag(null,
+        $nbhc['button'] = new \Ease\Html\ButtonTag([new \Ease\Html\Span(
+                _('Switch navigation'), ['class' => 'sr-only']), new \Ease\Html\Span(
+                null, ['class' => 'icon-bar']), new \Ease\Html\Span(
+                null, ['class' => 'icon-bar']), new \Ease\Html\Span(
                 null, ['class' => 'icon-bar'])],
             ['type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse',
             'data-target' => $navstyle,]);

@@ -80,7 +80,7 @@ class Atom
             ksort($allMessages);
             foreach ($allMessages as $message) {
                 $quee = key($message);
-                $this->addStatusMessage(reset($message), $quee, false, false);
+                $this->addStatusMessage(reset($message), $quee);
             }
 
             return count($statusMessages);

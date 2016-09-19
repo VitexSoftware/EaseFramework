@@ -125,7 +125,6 @@ class PDO extends SQL
      */
     public function addSlashes($text)
     {
-        $slashed = '';
         if (method_exists($this->sqlLink, 'real_escape_string')) {
             $slashed = $this->sqlLink->real_escape_string($text);
         } else {
