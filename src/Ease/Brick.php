@@ -250,9 +250,9 @@ class Brick extends Sand
             $itemID = $this->getMyKey();
         }
         if (is_string($itemID)) {
-            $itemID = "'".$this->easeAddSlashes($itemID)."'";
+            $itemID = "'".$this->dblink->easeAddSlashes($itemID)."'";
         } else {
-            $itemID = $this->easeAddSlashes($itemID);
+            $itemID = $this->dblink->easeAddSlashes($itemID);
         }
         if (is_null($itemID)) {
             $this->error('loadFromSQL: Unknown Key', $this->data);
