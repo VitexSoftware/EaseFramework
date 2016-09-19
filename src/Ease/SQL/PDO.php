@@ -353,7 +353,7 @@ class PDO extends SQL
      */
     public function arrayToInsert($data)
     {
-        return $this->exeQuery('INSERT INTO '.$this->getColumnComma().$this->TableName.$this->getColumnComma().' SET '.$this->arrayToQuery($data));
+        return $this->exeQuery('INSERT INTO '.$this->getColumnComma().$this->myTable.$this->getColumnComma().' SET '.$this->arrayToQuery($data));
     }
 
     /**
@@ -372,7 +372,7 @@ class PDO extends SQL
         }
         unset($data[$this->keyColumn]);
 
-        return $this->exeQuery(self::$upd.$this->TableName.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$IDCol);
+        return $this->exeQuery(self::$upd.$this->myTable.' SET '.$this->arrayToQuery($data).SQL::$whr.$this->keyColumn.'='.$IDCol);
     }
 
     /**
@@ -533,9 +533,9 @@ class PDO extends SQL
                     if ($value === null) {
                         $value .= ' null,';
                     } elseif ($value) {
-                        $value = ' 1';
+                        $value = ' TRUE';
                     } else {
-                        $value = ' 0';
+                        $value = ' FALSE';
                     }
                 } elseif (!is_string($value)) {
                     $value = " $value";
@@ -593,7 +593,7 @@ class PDO extends SQL
     public function getTableNumRows($tableName = null)
     {
         if (!$tableName) {
-            $tableName = $this->TableName;
+            $tableName = $this->myTable;
         }
         $tableRowsCount = $this->queryToArray(SQL::$sel.
             'count(*) AS NumRows'.SQL::$frm.$this->getColumnComma().
@@ -664,4 +664,5 @@ class PDO extends SQL
 
         return parent::__sleep();
     }
+
 }

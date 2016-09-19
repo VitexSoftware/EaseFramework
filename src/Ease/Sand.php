@@ -755,7 +755,12 @@ class Sand extends Atom
         $reindexedData = [];
 
         foreach ($data as $dataID => $data) {
-            $reindexedData[$data[$indexBy]] = $data;
+            if (array_key_exists($indexBy, $data)) {
+                $reindexedData[$data[$indexBy]] = $data;
+            } else {
+                throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
+                    $indexBy));
+            }
         }
 
         return $reindexedData;
