@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class EmTag extends PairTag
 {
-
     /**
      * Tag kurzívu.
      *

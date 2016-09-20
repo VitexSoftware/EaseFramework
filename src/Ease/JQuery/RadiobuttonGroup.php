@@ -11,7 +11,6 @@ namespace Ease\JQuery;
  */
 class RadiobuttonGroup extends \Ease\Html\RadiobuttonGroup
 {
-
     /**
      * Doplní popisek prvku.
      *

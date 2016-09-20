@@ -5,7 +5,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-
 namespace Ease\Logger;
 
 /**
@@ -59,8 +58,9 @@ class ToSyslog extends ToMemory
     public $easeShared = null;
 
     /**
-     * List of allready flushed messages
-     * @var array 
+     * List of allready flushed messages.
+     *
+     * @var array
      */
     public $flushed = [];
 
@@ -134,7 +134,7 @@ class ToSyslog extends ToMemory
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
-                'error', 'warning', 'success', 'info', 'mail',],
+                'error', 'warning', 'success', 'info', 'mail', ],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
@@ -181,6 +181,7 @@ class ToSyslog extends ToMemory
      * Flush Messages.
      *
      * @param string $caller
+     *
      * @return int how many messages was flushed
      */
     public function flush($caller = null)
@@ -192,11 +193,12 @@ class ToSyslog extends ToMemory
                     if (!isset($this->flushed[$type][$messageID])) {
                         $this->addToLog($caller, $message, $type);
                         $this->flushed[$type][$messageID] = true;
-                        $flushed++;
+                        ++$flushed;
                     }
                 }
             }
         }
+
         return $flushed;
     }
 }

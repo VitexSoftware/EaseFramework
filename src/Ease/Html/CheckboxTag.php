@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class CheckboxTag extends InputTag
 {
-
     /**
      * Zobrazuje HTML Checkbox.
      *

@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class BodyTag extends PairTag
 {
-
     /**
      * Tělo stránky je v aplikaci vždy dostupně jako
      * $this->easeShared->webPage->body.

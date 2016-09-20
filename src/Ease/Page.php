@@ -5,7 +5,6 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
@@ -57,7 +56,8 @@ class Page extends Container
 
     /**
      * Is page closed for adding new contents ?
-     * @var boolean
+     *
+     * @var bool
      */
     public $pageClosed = false;
 
@@ -74,7 +74,7 @@ class Page extends Container
     public static function singleton($user = null)
     {
         if (!isset(self::$_instance)) {
-            $class           = __CLASS__;
+            $class = __CLASS__;
             self::$_instance = new $class($user);
         }
 
@@ -210,9 +210,9 @@ class Page extends Container
 
         $parts = parse_url($url);
 
-        $port   = $_SERVER['SERVER_PORT'];
+        $port = $_SERVER['SERVER_PORT'];
         $scheme = $parts['scheme'];
-        $host   = $parts['host'];
+        $host = $parts['host'];
         if (isset($parts['path'])) {
             $path = $parts['path'];
         } else {
@@ -257,8 +257,8 @@ class Page extends Container
     /**
      * Include next element into current page (if not closed).
      *
-     * @param mixed  $pageItem     value or EaseClass with draw() method.
-     * @param string $pageItemName Custom 'storing' name.
+     * @param mixed  $pageItem     value or EaseClass with draw() method
+     * @param string $pageItemName Custom 'storing' name
      *
      * @return mixed Pointer to included object
      */
@@ -268,6 +268,7 @@ class Page extends Container
         if ($this->pageClosed === false) {
             $result = parent::addItem($pageItem, $pageItemName);
         }
+
         return $result;
     }
 
@@ -470,7 +471,7 @@ class Page extends Container
         if (is_array($varNames)) {
             foreach ($varNames as $varName => $varValue) {
                 if (is_numeric($varName)) {
-                    $varName  = $varValue;
+                    $varName = $varValue;
                     $varValue = $this->getRequestValue($varName);
                     if ($varValue) {
                         $this->keepRequestValue($varName, $varValue);
@@ -604,8 +605,8 @@ class Page extends Container
             } else {
                 if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages)
                     && count($msgSource->webPage->statusMessages)) {
-                    $msgTaken                           = count($msgSource->webPage->statusMessages);
-                    $this->statusMessages               = array_merge($this->statusMessages,
+                    $msgTaken = count($msgSource->webPage->statusMessages);
+                    $this->statusMessages = array_merge($this->statusMessages,
                         $msgSource->webPage->statusMessages);
                     $msgSource->webPage->statusMessages = [];
 

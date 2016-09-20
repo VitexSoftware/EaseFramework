@@ -4,7 +4,6 @@
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
-
 namespace Ease\Html;
 
 class Form extends PairTag
@@ -90,7 +89,7 @@ class Form extends PairTag
                 str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
             if (is_array($targetParts) && count($targetParts)) {
                 $formTargetComputed = '';
-                $targetPartsValues  = [];
+                $targetPartsValues = [];
                 foreach ($targetParts as $targetPart) {
                     if (!strstr($targetPart, '=')) {
                         $formTargetComputed .= $targetPart;

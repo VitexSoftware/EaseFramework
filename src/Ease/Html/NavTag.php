@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class NavTag extends PairTag
 {
-
     /**
      * Tag semantiky navigaze.
      *

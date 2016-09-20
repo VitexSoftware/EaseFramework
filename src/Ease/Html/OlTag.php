@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class OlTag extends UlTag
 {
-
     /**
      * Vytvori OL container.
      *

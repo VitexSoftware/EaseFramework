@@ -7,7 +7,6 @@ namespace Ease\Html;
  */
 class ScriptTag extends PairTag
 {
-
     /**
      * Skript.
      *

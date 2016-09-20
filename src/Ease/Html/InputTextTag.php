@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class InputTextTag extends InputTag
 {
-
     /**
      * Zobrazí input text tag.
      *

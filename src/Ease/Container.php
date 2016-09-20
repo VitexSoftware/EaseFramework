@@ -6,7 +6,6 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class Container extends Sand
@@ -119,7 +118,7 @@ class Container extends Sand
                     $pageItemName = $pageItemName.$duplicity++;
                 }
 
-                $context->pageParts[$pageItemName]               = $pageItem;
+                $context->pageParts[$pageItemName] = $pageItem;
                 $context->pageParts[$pageItemName]->parentObject = &$context;
 
                 if (isset($context->pageParts[$pageItemName]->raiseItems) && is_array($context->pageParts[$pageItemName]->raiseItems)
@@ -131,7 +130,7 @@ class Container extends Sand
                     $context->pageParts[$pageItemName]->afterAdd();
                 }
                 $context->lastItem = &$context->pageParts[$pageItemName];
-                $itemPointer       = &$context->pageParts[$pageItemName];
+                $itemPointer = &$context->pageParts[$pageItemName];
             } else {
                 $context->error('Page Item object without draw() method',
                     $pageItem);
@@ -139,12 +138,12 @@ class Container extends Sand
         } else {
             if (is_array($pageItem)) {
                 $addedItemPointer = $context->addItems($pageItem);
-                $itemPointer      = &$addedItemPointer;
+                $itemPointer = &$addedItemPointer;
             } else {
                 if (!is_null($pageItem)) {
                     $context->pageParts[] = $pageItem;
-                    $endPointer           = end($context->pageParts);
-                    $itemPointer          = &$endPointer;
+                    $endPointer = end($context->pageParts);
+                    $itemPointer = &$endPointer;
                 }
             }
         }
@@ -156,8 +155,8 @@ class Container extends Sand
     /**
      * Include next element into current object.
      *
-     * @param mixed  $pageItem     value or EaseClass with draw() method.
-     * @param string $pageItemName Custom 'storing' name.
+     * @param mixed  $pageItem     value or EaseClass with draw() method
+     * @param string $pageItemName Custom 'storing' name
      *
      * @return mixed Pointer to included object
      */
@@ -179,9 +178,9 @@ class Container extends Sand
         if (is_null($pageItemName)) {
             $pageItemName = '1st';
         }
-        $swap            = $this->pageParts;
+        $swap = $this->pageParts;
         $this->emptyContents();
-        $itemPointer     = $this->addItem($pageItem, $pageItemName);
+        $itemPointer = $this->addItem($pageItem, $pageItemName);
         $this->pageParts = array_merge($this->pageParts, $swap);
 
         return $itemPointer;
@@ -203,7 +202,7 @@ class Container extends Sand
 
     /**
      * Vrací počet vložených položek.
-     * Obtain number of enclosed items in current or given object
+     * Obtain number of enclosed items in current or given object.
      *
      * @param Container $object hodnota nebo EaseObjekt s polem ->pageParts
      *
@@ -401,7 +400,7 @@ class Container extends Sand
 
     /**
      * Vykresli se, pokud již tak nebylo učiněno.
-     * Draw contents not drawn yet
+     * Draw contents not drawn yet.
      */
     public function drawIfNotDrawn()
     {
@@ -518,6 +517,7 @@ class Container extends Sand
         $this->draw();
         $objectOut = ob_get_contents();
         ob_end_clean();
+
         return $objectOut;
     }
 }

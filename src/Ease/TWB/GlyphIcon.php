@@ -7,7 +7,6 @@ namespace Ease\TWB;
  */
 class GlyphIcon extends \Ease\Html\Span
 {
-
     /**
      * Vloží ikonu.
      *

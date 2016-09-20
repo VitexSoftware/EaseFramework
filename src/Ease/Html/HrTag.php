@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class HrTag extends Tag
 {
-
     /**
      * Horizontal line tag.
      *

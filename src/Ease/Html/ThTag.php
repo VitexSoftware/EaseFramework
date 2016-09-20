@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class ThTag extends PairTag
 {
-
     /**
      * Buňka s popiskem tabulky.
      *

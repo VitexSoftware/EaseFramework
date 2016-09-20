@@ -2,12 +2,10 @@
 /**
  * Formulář Bootstrapu.
  */
-
 namespace Ease\TWB;
 
 class Form extends \Ease\Html\Form
 {
-
     /**
      * Formulář Bootstrapu.
      *

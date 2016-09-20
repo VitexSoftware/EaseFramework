@@ -7,7 +7,6 @@
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2011 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
@@ -63,7 +62,7 @@ class User extends Anonym
      *
      * @var int unsigned
      */
-    public $parent              = null;
+    public $parent = null;
 
     /**
      * ID prave nacteneho uzivatele.
@@ -204,7 +203,7 @@ class User extends Anonym
 
     /**
      * Pokusí se o přihlášení.
-     * Try to Sign in
+     * Try to Sign in.
      *
      * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
      *
@@ -215,7 +214,7 @@ class User extends Anonym
         if (!count($formData)) {
             return;
         }
-        $login    = $this->dblink->addSlashes($formData[$this->loginColumn]);
+        $login = $this->dblink->addSlashes($formData[$this->loginColumn]);
         $password = $this->dblink->AddSlashes($formData[$this->passwordColumn]);
         if (!$login) {
             $this->addStatusMessage(_('missing login'), 'error');
@@ -283,9 +282,9 @@ class User extends Anonym
      */
     public function loginSuccess()
     {
-        $this->userID    = (int) $this->getMyKey();
+        $this->userID = (int) $this->getMyKey();
         $this->userLogin = $this->getDataValue($this->loginColumn);
-        $this->logged    = true;
+        $this->logged = true;
         $this->addStatusMessage(sprintf(_('Sign in %s all ok'), $this->userLogin),
             'success');
 
@@ -372,7 +371,7 @@ class User extends Anonym
         for ($i = 0; $i < 10; ++$i) {
             $encryptedPassword .= $this->randomNumber();
         }
-        $passwordSalt      = substr(md5($encryptedPassword), 0, 2);
+        $passwordSalt = substr(md5($encryptedPassword), 0, 2);
         $encryptedPassword = md5($passwordSalt.$plainTextPassword).':'.$passwordSalt;
 
         return $encryptedPassword;
@@ -587,8 +586,7 @@ class User extends Anonym
      */
     public static function getGravatar(
     $email, $size = 80, $default = 'mm', $maxRating = 'g'
-    )
-    {
+    ) {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";

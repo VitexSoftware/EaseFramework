@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class H2Tag extends PairTag
 {
-
     /**
      * Nadpis druhé velikosti.
      *

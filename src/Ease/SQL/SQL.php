@@ -7,7 +7,6 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2014 Vitex@vitexsoftware.cz (G)
  */
-
 namespace Ease\SQL;
 
 /**
@@ -179,46 +178,53 @@ abstract class SQL extends \Ease\Sand
     public $dbType;
 
     /**
-     * Hack WHERE to make Sensio Labs checks happy
+     * Hack WHERE to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $whr = ' WHERE ';
+    public static $whr = ' WHERE ';
 
     /**
-     * Hack SELECT to make Sensio Labs checks happy
+     * Hack SELECT to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $sel = 'SELECT ';
+    public static $sel = 'SELECT ';
 
     /**
-     * Hack ORDER BY to make Sensio Labs checks happy
+     * Hack ORDER BY to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $ord = ' ORDER BY ';
+    public static $ord = ' ORDER BY ';
 
     /**
-     * Hack LIMIT to make Sensio Labs checks happy
+     * Hack LIMIT to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $lmt = ' LIMIT ';
+    public static $lmt = ' LIMIT ';
 
     /**
-     * Hack FROM to make Sensio Labs checks happy
+     * Hack FROM to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $frm = ' FROM ';
+    public static $frm = ' FROM ';
 
     /**
-     * Hack DELETE FROM to make Sensio Labs checks happy
+     * Hack DELETE FROM to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $dlt = 'DELETE FROM ';
+    public static $dlt = 'DELETE FROM ';
 
     /**
-     * Hack UPDATE to make Sensio Labs checks happy
+     * Hack UPDATE to make Sensio Labs checks happy.
+     *
      * @var string
      */
-    static public $upd = 'UPDATE ';
+    public static $upd = 'UPDATE ';
 
     /**
      * Obecný objekt databáze.
@@ -320,10 +326,10 @@ abstract class SQL extends \Ease\Sand
     public function makeReport()
     {
         $this->report['LastMessage'] = $this->lastMessage;
-        $this->report['ErrorText']   = $this->errorText;
-        $this->report['Database']    = $this->database;
-        $this->report['Username']    = $this->username;
-        $this->report['Server']      = $this->server;
+        $this->report['ErrorText'] = $this->errorText;
+        $this->report['Database'] = $this->database;
+        $this->report['Username'] = $this->username;
+        $this->report['Server'] = $this->server;
     }
 
     /**
@@ -525,7 +531,7 @@ abstract class SQL extends \Ease\Sand
 
     /**
      * Return conect status.
-     * 
+     *
      * @return bool
      */
     public function isConnected()
@@ -624,6 +630,6 @@ abstract class SQL extends \Ease\Sand
      */
     public function easeAddSlashes($text)
     {
-        return addSlashes($text);
+        return addslashes($text);
     }
 }

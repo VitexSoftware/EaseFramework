@@ -52,7 +52,7 @@ class LinkButton extends UIPart
             $this->name = $properties['id'];
         }
         $this->jqOptions = $jQOptions;
-        $this->button    = $this->addItem(new \Ease\Html\ATag($href, $contents));
+        $this->button = $this->addItem(new \Ease\Html\ATag($href, $contents));
         if ($properties) {
             $this->button->setTagProperties($properties);
         }

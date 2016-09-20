@@ -2,12 +2,10 @@
 /**
  * RadioButton Twitter Bootstrapu.
  */
-
 namespace Ease\TWB;
 
 class RadioButton extends \Ease\Html\Div
 {
-
     /**
      *  RadioButton Twitter Bootstrapu.
      *

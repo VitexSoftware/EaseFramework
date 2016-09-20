@@ -7,7 +7,6 @@
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 class Anonym extends Brick

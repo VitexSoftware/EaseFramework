@@ -56,11 +56,11 @@ class Dialog extends UIPart
     public function __construct($dialogID, $title, $message,
                                 $icon = 'ui-icon-circle-check', $notice = null)
     {
-        $this->dialogID       = $dialogID;
-        $this->title          = $title;
-        $this->message        = $message;
-        $this->icon           = $icon;
-        $this->notice         = $notice;
+        $this->dialogID = $dialogID;
+        $this->title = $title;
+        $this->message = $message;
+        $this->icon = $icon;
+        $this->notice = $notice;
         $this->partProperties = ['modal' => true, 'buttons' => ['Ok' => 'function () { $( this ).dialog( "close" ); }']];
         parent::__construct();
     }
@@ -78,7 +78,7 @@ class Dialog extends UIPart
      */
     public function finalize()
     {
-        $dialogDiv     = $this->addItem(new \Ease\Html\Div(null,
+        $dialogDiv = $this->addItem(new \Ease\Html\Div(null,
             ['id' => $this->dialogID, 'title' => $this->title]));
         $dialogMessage = $dialogDiv->addItem(new \Ease\Html\PTag());
         $dialogMessage->addItem(new \Ease\Html\Span(null,

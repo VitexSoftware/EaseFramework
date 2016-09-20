@@ -5,7 +5,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-
 namespace Ease\Logger;
 
 class ToFile extends ToMemory
@@ -114,7 +113,7 @@ class ToFile extends ToMemory
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $Class           = __CLASS__;
+            $Class = __CLASS__;
             self::$_instance = new $Class();
         }
 
@@ -137,20 +136,20 @@ class ToFile extends ToMemory
         if ($baseLogDir) {
             $this->logPrefix = \Ease\Brick::sysFilename($baseLogDir);
             if ($this->TestDirectory($this->logPrefix)) {
-                $this->logFileName  = $this->logPrefix.$this->logFileName;
-                $this->reportFile   = $this->logPrefix.$this->reportFile;
+                $this->logFileName = $this->logPrefix.$this->logFileName;
+                $this->reportFile = $this->logPrefix.$this->reportFile;
                 $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
             } else {
-                $this->logPrefix    = null;
-                $this->logFileName  = null;
-                $this->reportFile   = null;
+                $this->logPrefix = null;
+                $this->logFileName = null;
+                $this->reportFile = null;
                 $this->errorLogFile = null;
             }
         } else {
-            $this->logType      = 'none';
-            $this->logPrefix    = null;
-            $this->logFileName  = null;
-            $this->reportFile   = null;
+            $this->logType = 'none';
+            $this->logPrefix = null;
+            $this->logFileName = null;
+            $this->reportFile = null;
             $this->errorLogFile = null;
         }
     }
@@ -178,7 +177,7 @@ class ToFile extends ToMemory
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
+                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail', ],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';

@@ -5,7 +5,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease;
 
 /**
@@ -20,14 +19,14 @@ class Mailer extends Page
      *
      * @var
      */
-    public $mailer          = null;
-    public $mimer           = null;
-    public $textBody        = null;
-    public $mailHeaders     = [];
+    public $mailer = null;
+    public $mimer = null;
+    public $textBody = null;
+    public $mailHeaders = [];
     public $mailHeadersDone = null;
-    public $crLf            = "\n";
-    public $mailBody        = null;
-    public $finalized       = false;
+    public $crLf = "\n";
+    public $mailBody = null;
+    public $finalized = false;
 
     /**
      * Již vzrendrované HTML.
@@ -115,7 +114,7 @@ class Mailer extends Page
             ]
         );
 
-        $this->mimer                                = new \Mail_mime($this->crLf);
+        $this->mimer = new \Mail_mime($this->crLf);
         $this->mimer->_build_params['text_charset'] = 'UTF-8';
         $this->mimer->_build_params['html_charset'] = 'UTF-8';
         $this->mimer->_build_params['head_charset'] = 'UTF-8';
@@ -163,7 +162,7 @@ class Mailer extends Page
         }
         if (isset($this->mailHeaders['Subject'])) {
             if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
-                $this->emailSubject           = $this->mailHeaders['Subject'];
+                $this->emailSubject = $this->mailHeaders['Subject'];
                 $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
             }
         }
@@ -188,9 +187,9 @@ class Mailer extends Page
             } else {
                 $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
                 $this->htmlDocument->setOutputFormat($this->getOutputFormat());
-                $this->htmlBody     = $this->htmlDocument->addItem(new Html\BodyTag('Mail',
+                $this->htmlBody = $this->htmlDocument->addItem(new Html\BodyTag('Mail',
                     $item));
-                $mailBody           = $this->htmlDocument;
+                $mailBody = $this->htmlDocument;
             }
         } else {
             $this->textBody .= $item;
@@ -228,9 +227,9 @@ class Mailer extends Page
         }
 
         $this->setMailHeaders(['Date' => date('r')]);
-        $this->mailBody        = $this->mimer->get();
+        $this->mailBody = $this->mimer->get();
         $this->mailHeadersDone = $this->mimer->headers($this->mailHeaders);
-        $this->finalized       = true;
+        $this->finalized = true;
     }
 
     /**

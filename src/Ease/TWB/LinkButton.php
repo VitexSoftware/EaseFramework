@@ -12,7 +12,6 @@ namespace Ease\TWB;
  */
 class LinkButton extends \Ease\Html\ATag
 {
-
     /**
      * Odkazové tlačítko twbootstrabu.
      *

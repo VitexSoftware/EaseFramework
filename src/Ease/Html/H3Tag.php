@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class H3Tag extends PairTag
 {
-
     /**
      * Simple H3 tag.
      *

@@ -109,11 +109,11 @@ class Tabs extends \Ease\Container
             if ($tabName == $this->activeTab) {
                 $tabDiv->addItem(new \Ease\Html\Div($tabContent,
                     ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
-                    'class' => 'tab-pane active',]));
+                    'class' => 'tab-pane active', ]));
             } else {
                 $tabDiv->addItem(new \Ease\Html\Div($tabContent,
                     ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
-                    'class' => 'tab-pane',]));
+                    'class' => 'tab-pane', ]));
             }
         }
         Part::twBootstrapize();

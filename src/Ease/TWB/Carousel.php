@@ -5,7 +5,6 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
-
 namespace Ease\TWB;
 
 /**
@@ -52,11 +51,11 @@ class Carousel extends \Ease\Html\Div
     public function __construct($name = null, $properties = null)
     {
         parent::__construct(null, $properties);
-        $this->name       = $this->setTagID($name);
+        $this->name = $this->setTagID($name);
         $this->setTagClass('carousel slide');
         $this->indicators = $this->addItem(new \Ease\Html\OlTag(null,
             ['class' => 'carousel-indicators']));
-        $this->inner      = $this->addItem(new \Ease\Html\Div(null,
+        $this->inner = $this->addItem(new \Ease\Html\Div(null,
             ['class' => 'carousel-inner', 'role' => 'listbox']));
     }
 
@@ -86,7 +85,7 @@ class Carousel extends \Ease\Html\Div
                 $cpt->addItem(new \Ease\Html\PTag($caption));
             }
         }
-        $to        = $this->indicators->getItemsCount();
+        $to = $this->indicators->getItemsCount();
         $indicator = new \Ease\Html\LiTag(null,
             ['data-target' => '#'.$this->name, 'data-slide-to' => $to]);
         if ($default) {

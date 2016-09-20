@@ -20,7 +20,7 @@ class HtmlTag extends PairTag
     {
         parent::__construct('html',
             ['lang' => $this->langCode, 'xmlns' => 'http://www.w3.org/1999/xhtml',
-            'xml:lang' => $this->langCode,], $Content);
+            'xml:lang' => $this->langCode, ], $Content);
     }
 
     /**

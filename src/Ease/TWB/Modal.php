@@ -57,19 +57,19 @@ class Modal extends \Ease\Html\Div
     {
         parent::__construct(null,
             ['class' => 'modal fade', 'id' => $name, 'tabindex' => '-1', 'role' => 'dialog',
-            'aria-labelledby' => $title.'ID', 'aria-hidden' => 'true',]);
+            'aria-labelledby' => $title.'ID', 'aria-hidden' => 'true', ]);
         $this->properties = $properties;
-        $this->name       = $name;
-        $this->title      = $title;
-        $this->header     = new \Ease\Html\Div(null, ['class' => 'modal-header']);
+        $this->name = $name;
+        $this->title = $title;
+        $this->header = new \Ease\Html\Div(null, ['class' => 'modal-header']);
         $this->header->addItem(new \Ease\Html\ButtonTag('&times;',
             ['class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true']));
-        $this->body       = new \Ease\Html\Div($content,
+        $this->body = new \Ease\Html\Div($content,
             ['class' => 'modal-body']);
-        $this->footer     = new \Ease\Html\Div(null, ['class' => 'modal-footer']);
+        $this->footer = new \Ease\Html\Div(null, ['class' => 'modal-footer']);
         $this->footer->addItem(new \Ease\Html\ButtonTag(_('Close'),
             ['id' => $name.'ko', 'type' => 'button', 'class' => 'btn btn-default',
-            'data-dismiss' => 'modal',]));
+            'data-dismiss' => 'modal', ]));
         $this->footer->addItem(new \Ease\Html\ButtonTag(_('Save'),
             ['id' => $name.'ok', 'type' => 'button', 'class' => 'btn btn-primary']));
     }
@@ -80,7 +80,7 @@ class Modal extends \Ease\Html\Div
     public function finalize()
     {
         Part::twBootstrapize();
-        $modalDialog  = $this->addItem(new \Ease\Html\Div(null,
+        $modalDialog = $this->addItem(new \Ease\Html\Div(null,
             ['class' => 'modal-dialog', 'role' => 'document']));
         $modalContent = $modalDialog->addItem(new \Ease\Html\Div(null,
             ['class' => 'modal-content']));

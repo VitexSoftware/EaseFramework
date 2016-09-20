@@ -4,7 +4,6 @@ namespace Ease\TWB;
 
 class ListGroup extends \Ease\Html\UlTag
 {
-
     /**
      * Vytvori ListGroup.
      *

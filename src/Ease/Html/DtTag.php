@@ -7,7 +7,6 @@ namespace Ease\Html;
  */
 class DtTag extends PairTag
 {
-
     /**
      * Pojem definice.
      *

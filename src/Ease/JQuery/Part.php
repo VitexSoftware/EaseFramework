@@ -90,7 +90,7 @@ class Part extends \Ease\Page
                 $this->partProperties = $partProperties;
             }
         } else {
-            $propBuff             = $partProperties;
+            $propBuff = $partProperties;
             $this->partProperties = ' '.$propBuff;
         }
     }
@@ -112,10 +112,11 @@ class Part extends \Ease\Page
     }
 
     /**
-     * Test for associative array
+     * Test for associative array.
      *
      * @param array $arr
-     * @return boolean
+     *
+     * @return bool
      */
     public static function isAssoc($arr)
     {
@@ -133,7 +134,7 @@ class Part extends \Ease\Page
     {
         if (is_array($partProperties)) {
             $partPropertiesString = '';
-            $partsArray           = [];
+            $partsArray = [];
             foreach ($partProperties as $partPropertyName => $partPropertyValue) {
                 if (!is_null($partPropertyName)) {
                     if (is_numeric($partPropertyName)) {

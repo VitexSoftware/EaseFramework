@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class InputHiddenTag extends InputTag
 {
-
     /**
      * Skrytý input.
      *

@@ -2,7 +2,6 @@
 /**
  * Panel Twitter Bootstrapu.
  */
-
 namespace Ease\TWB;
 
 class Panel extends \Ease\Html\Div
@@ -53,7 +52,7 @@ class Panel extends \Ease\Html\Div
     public function __construct($heading = null, $type = 'default',
                                 $body = null, $footer = null)
     {
-        $this->type        = $type;
+        $this->type = $type;
         $this->addToFooter = $footer;
         parent::__construct(null, ['class' => 'panel panel-'.$this->type]);
         if (!is_null($heading)) {

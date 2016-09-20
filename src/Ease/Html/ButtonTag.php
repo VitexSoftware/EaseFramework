@@ -7,7 +7,6 @@ namespace Ease\Html;
  */
 class ButtonTag extends PairTag
 {
-
     /**
      * Html element pro tlačítko.
      *

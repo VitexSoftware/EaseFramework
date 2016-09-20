@@ -7,7 +7,6 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2012 Vitex@hippy.cz (G)
  */
-
 namespace Ease\SQL;
 
 /**
@@ -22,21 +21,21 @@ class MySQLi extends SQL
      *
      * @var mysqli
      */
-    public $sqlLink   = null; // MS SQL link identifier
+    public $sqlLink = null; // MS SQL link identifier
     /**
      * SQLLink result.
      *
      * @var mysqli_result
      */
-    public $result    = null;
-    public $status    = false; //Pripojeno ?
+    public $result = null;
+    public $status = false; //Pripojeno ?
     public $lastQuery = '';
-    public $numRows   = 0;
-    public $debug     = false;
+    public $numRows = 0;
+    public $debug = false;
     public $keyColumn = '';
-    public $data      = null;
-    public $charset   = 'utf8';
-    public $collate   = 'utf8_czech_ci';
+    public $data = null;
+    public $charset = 'utf8';
+    public $collate = 'utf8_czech_ci';
 
     /**
      * Povolit Explain každého dotazu do logu ?
@@ -68,7 +67,7 @@ class MySQLi extends SQL
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            $class          = __CLASS__;
+            $class = __CLASS__;
             self::$instance = new $class();
         }
 
@@ -123,7 +122,7 @@ class MySQLi extends SQL
         if ($change) {
             $this->Database = $dbName;
         } else {
-            $this->errorText   = $this->sqlLink->error;
+            $this->errorText = $this->sqlLink->error;
             $this->errorNumber = $this->sqlLink->errno;
             $this->addStatusMessage('Connect: error #'.$this->errorNumber.' '.$this->errorText,
                 'error');
@@ -143,16 +142,16 @@ class MySQLi extends SQL
      */
     public function exeQuery($queryRaw, $ignoreErrors = false)
     {
-        $queryRaw           = $this->sanitizeQuery($queryRaw);
-        $this->lastQuery    = $queryRaw;
+        $queryRaw = $this->sanitizeQuery($queryRaw);
+        $this->lastQuery = $queryRaw;
         $this->lastInsertID = null;
-        $this->errorText    = null;
-        $this->errorNumber  = null;
-        $sqlAction          = trim(strtolower(current(explode(' ', $queryRaw))));
+        $this->errorText = null;
+        $this->errorNumber = null;
+        $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
 
-        $this->result      = $this->sqlLink->query($queryRaw);
+        $this->result = $this->sqlLink->query($queryRaw);
         $this->errorNumber = $this->sqlLink->errno;
-        $this->errorText   = $this->sqlLink->error;
+        $this->errorText = $this->sqlLink->error;
 
         $this->logSqlError($ignoreErrors);
 
@@ -319,8 +318,8 @@ class MySQLi extends SQL
      */
     public function prepSelect($data, $ldiv = 'AND')
     {
-        $operator     = null;
-        $conditions   = [];
+        $operator = null;
+        $conditions = [];
         $conditionsII = [];
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
@@ -336,15 +335,15 @@ class MySQLi extends SQL
             }
 
             if (is_null($value)) {
-                $value    = 'null';
+                $value = 'null';
                 $operator = ' IS ';
             } else {
                 if (strlen($value) && ($value[0] == '!')) {
                     $operator = ' != ';
-                    $value    = substr($value, 1);
+                    $value = substr($value, 1);
                 } else {
                     if (($value == '!null') || (strtoupper($value) == 'IS NOT null')) {
-                        $value    = 'null';
+                        $value = 'null';
                         $operator = 'IS NOT';
                     } else {
                         if (is_null($operator)) {

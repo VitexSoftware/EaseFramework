@@ -14,9 +14,6 @@ class TextareaTag extends PairTag
      */
     public $content = null;
 
-    /**
-     *
-     */
     public $setName = true;
 
     /**

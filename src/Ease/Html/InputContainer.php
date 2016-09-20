@@ -49,7 +49,7 @@ class InputContainer extends \Ease\Container
     public function __construct($name, $items = null, $tagProperties = null)
     {
         parent::__construct();
-        $this->name  = $name;
+        $this->name = $name;
         $this->items = $items;
     }
 

@@ -9,7 +9,6 @@ namespace Ease\Html;
  */
 class InputSubmitTag extends InputTag
 {
-
     /**
      * Odesílací tlačítko formuláře.
      *
@@ -25,8 +24,8 @@ class InputSubmitTag extends InputTag
         if (is_null($properties)) {
             $properties = [];
         }
-        $properties['type']  = 'submit';
-        $properties['name']  = $name;
+        $properties['type'] = 'submit';
+        $properties['name'] = $name;
         $properties['value'] = $value;
         parent::__construct($name, $value, $properties);
     }
@@ -38,6 +37,5 @@ class InputSubmitTag extends InputTag
      */
     public function setValue($value = true)
     {
-
     }
 }
