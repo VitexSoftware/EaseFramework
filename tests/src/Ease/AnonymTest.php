@@ -29,6 +29,7 @@ class AnonymTest extends BrickTest
      */
     protected function tearDown()
     {
+
     }
 
     /**
@@ -45,6 +46,18 @@ class AnonymTest extends BrickTest
         $_SERVER['REMOTE_USER'] = 'tester';
         $this->assertEquals('Ease\Anonym@127.0.0.1 [tester]',
             $this->object->setObjectName());
+    }
+
+    /**
+     * @covers Ease\Anonym::remoteToIdentity
+     */
+    public function testRemoteToIdentity()
+    {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $this->assertEquals('127.0.0.1', $this->object->remoteToIdentity());
+        $_SERVER['REMOTE_USER'] = 'tester';
+        $this->assertEquals('127.0.0.1 [tester]',
+            $this->object->remoteToIdentity());
     }
 
     /**

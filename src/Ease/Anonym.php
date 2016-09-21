@@ -7,6 +7,7 @@
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class Anonym extends Brick
@@ -56,16 +57,26 @@ class Anonym extends Brick
     public function setObjectName($objectName = null)
     {
         if (is_null($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
-            if (isset($_SERVER['REMOTE_USER'])) {
-                $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';
-            } else {
-                $identity = $_SERVER['REMOTE_ADDR'];
-            }
-
-            return parent::setObjectName(get_class($this).'@'.$identity);
+            $name = parent::setObjectName(get_class($this).'@'.self::remoteToIdentity());
         } else {
-            return parent::setObjectName($objectName);
+            $name = parent::setObjectName($objectName);
         }
+        return $name;
+    }
+
+    /**
+     * Returns user identity with logname if logged
+     *
+     * @return string
+     */
+    static public function remoteToIdentity()
+    {
+        if (isset($_SERVER['REMOTE_USER'])) {
+            $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';
+        } else {
+            $identity = $_SERVER['REMOTE_ADDR'];
+        }
+        return $identity;
     }
 
     /**
