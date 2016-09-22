@@ -5,6 +5,7 @@
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2012 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -95,13 +96,13 @@ class WebPage extends Page
         $this->pageParts['html']->setupWebPage($this);
         $this->pageParts['html']->addItem(new Html\HeadTag());
         $this->pageParts['html']->addItem(new Html\BodyTag());
-        $this->head = &$this->pageParts['html']->pageParts['head'];
+        $this->head                 = &$this->pageParts['html']->pageParts['head'];
         $this->head->raise($this);
 
         $this->body = &$this->pageParts['html']->pageParts['body'];
         $this->body->raise($this);
 
-        $this->javaScripts = &$this->head->javaScripts;
+        $this->javaScripts   = &$this->head->javaScripts;
         $this->cascadeStyles = &$this->head->cascadeStyles;
     }
 
@@ -207,9 +208,9 @@ class WebPage extends Page
                     unset($javaScripts[$scriptFound]);
                 }
 
-                $Backup = array_slice($javaScripts, $position);
+                $Backup                 = array_slice($javaScripts, $position);
                 $javaScripts[$position] = $code;
-                $NextFreeID = $position + 1;
+                $NextFreeID             = $position + 1;
                 foreach ($Backup as $code) {
                     $javaScripts[$NextFreeID++] = $code;
                 }
@@ -357,5 +358,30 @@ class WebPage extends Page
         }
 
         return parent::getItemsCount($object);
+    }
+
+    /**
+     * Je element prázdný ?
+     * Is body element empty ?
+     *
+     * @param Html\BodyTag $element Ease Html Element
+     *
+     * @return bool emptyness
+     */
+    public function isEmpty($element = null)
+    {
+        if (is_null($element)) {
+            $element = &$this->body;
+        }
+        return parent::isEmpty($element);
+    }
+
+    /**
+     * Vyprázní obsah webstránky
+     * Empty webpage contents
+     */
+    public function emptyContents()
+    {
+        $this->body->emptyContents();
     }
 }

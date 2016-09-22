@@ -482,7 +482,7 @@ class Container extends Sand
     public function isEmpty($element = null)
     {
         if (is_null($element)) {
-            $element = $this;
+            $element = &$this;
         }
 
         return !count($element->pageParts);
