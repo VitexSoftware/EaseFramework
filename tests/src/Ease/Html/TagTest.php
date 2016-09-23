@@ -55,6 +55,7 @@ class TagTest extends PageTest
                 $this->object->setObjectName());
             $type = 'type';
         }
+        $this->object->setTagName(null);
         $this->object->setTagType($type);
         $this->assertEquals(get_class($this->object).'@'.$type,
             $this->object->setObjectName());

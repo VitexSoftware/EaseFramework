@@ -30,4 +30,13 @@ class ButtonTagTest extends PairTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\Html\ButtonTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<button>Test</button>');
+    }
 }

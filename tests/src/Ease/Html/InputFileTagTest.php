@@ -28,4 +28,24 @@ class InputFileTagTest extends InputTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\Html\InputFileTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input name="test" type="file" />');
+    }
+
+    /**
+     * @covers Ease\Html\InputFileTag::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
+    }
 }

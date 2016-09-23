@@ -32,15 +32,33 @@ class CheckboxTagTest extends InputTagTest
     }
 
     /**
+     * @covers Ease\Html\CheckboxTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input type="checkbox" name="test" />');
+    }
+
+    /**
+     * @covers Ease\Html\CheckboxTag::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
+    }
+
+    /**
      * @covers Ease\Html\CheckboxTag::setValue
      *
      * @todo   Implement testSetValue().
      */
     public function testSetValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setValue(true);
+        $this->assertEquals('true', $this->object->getTagProperty('checked'));
     }
 }

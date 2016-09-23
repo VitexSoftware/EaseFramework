@@ -49,9 +49,9 @@ class ATagTest extends PairTagTest
     public function testTagPropertiesToString()
     {
         $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
-        $this->assertEquals(' href="http://v.s.cz/" id="Test" name="unit" ',
+        $this->assertEquals('href="http://v.s.cz/" id="Test" name="unit"',
             $this->object->tagPropertiesToString());
-        $this->assertEquals(' id="Test2" name="unit2" ',
+        $this->assertEquals('id="Test2" name="unit2"',
             $this->object->tagPropertiesToString(['id' => 'Test2', 'name' => 'unit2']));
     }
 

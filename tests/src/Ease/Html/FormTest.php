@@ -82,4 +82,15 @@ class FormTest extends PairTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Html\Form::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
+    }
 }

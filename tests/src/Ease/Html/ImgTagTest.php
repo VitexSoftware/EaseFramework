@@ -35,6 +35,8 @@ class ImgTagTest extends TagTest
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw('<img src="http://localhost/favicon.png" />');
+        parent::testDraw('
+<img src="http://localhost/favicon.png" />');
     }
+
 }
