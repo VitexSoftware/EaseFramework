@@ -28,4 +28,13 @@ class InputPasswordTagTest extends InputTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\Html\InputPasswordTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input type="password" name="test" />');
+    }
 }

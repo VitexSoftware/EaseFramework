@@ -43,4 +43,24 @@ class InputRadioTagTest extends InputTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Html\InputRadioTag::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('radio', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
+    }
+
+    /**
+     * @covers Ease\Html\InputRadioTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input name="radio" type="radio" />');
+    }
 }

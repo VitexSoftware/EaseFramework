@@ -28,4 +28,13 @@ class InputNumberTagTest extends InputTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\Html\InputNumberTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input type="number" name="test" />');
+    }
 }

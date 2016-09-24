@@ -29,6 +29,19 @@ class SubmitButtonTest extends InputTagTest
     {
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('option', 'value');
+    }
+
     /**
      * @covers Ease\Html\SubmitButton::setValue
      *
@@ -40,5 +53,14 @@ class SubmitButtonTest extends InputTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\Html\SubmitButton::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input type="submit" name="test" value="test" />');
     }
 }

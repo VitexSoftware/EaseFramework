@@ -52,4 +52,28 @@ class InputTagTest extends TagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Html\InputTag::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
+    }
+
+    /**
+     * @covers Ease\Html\InputTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        if (is_null($whatWant)) {
+            $whatWant = '
+<input name="test" />';
+        }
+
+        parent::testDraw($whatWant);
+    }
 }

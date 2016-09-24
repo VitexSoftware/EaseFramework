@@ -23,10 +23,10 @@ class SubmitButton extends InputTag
      *
      * @param string $label    nápis na tlačítku
      * @param string $value    odesílaná hodnota
-     * @param string $Hint     tip při najetí myší
+     * @param string $hint     tip při najetí myší
      * @param string $classCss css třída pro tag tlačítka
      */
-    public function __construct($label, $value = null, $Hint = null,
+    public function __construct($label, $value = null, $hint = null,
                                 $classCss = null)
     {
         $properties = ['type' => 'submit'];
@@ -36,8 +36,8 @@ class SubmitButton extends InputTag
         } else {
             $properties['value'] = $value;
         }
-        if ($Hint) {
-            $properties['title'] = $Hint;
+        if ($hint) {
+            $properties['title'] = $hint;
         }
         if ($classCss) {
             $properties['class'] = $classCss;

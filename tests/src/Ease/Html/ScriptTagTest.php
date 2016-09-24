@@ -28,4 +28,15 @@ class ScriptTagTest extends PairTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\Html\ScriptTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<script>// <![CDATA[
+
+// ]]></script>');
+    }
 }

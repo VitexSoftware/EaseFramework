@@ -43,4 +43,13 @@ class InputSubmitTagTest extends InputTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Html\InputSubmitTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input name="test" type="submit" value="test" />');
+    }
 }

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+	<meta name="robots" content="noindex">
+
+	<title>File Ease/TWB/Part.php | Ease PHP Framework 1.1.3 </title>
+
+	<script type="text/javascript" src="resources/combined.js?147071225"></script>
+	<script type="text/javascript" src="elementlist.js?3997670416"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Ease.html">Ease<span></span></a>
+						<ul>
+				<li><a href="namespace-Ease.Html.html">Html</a>
+						</li>
+				<li><a href="namespace-Ease.JQuery.html">JQuery</a>
+						</li>
+				<li><a href="namespace-Ease.Logger.html">Logger</a>
+						</li>
+				<li><a href="namespace-Ease.SQL.html">SQL</a>
+						</li>
+				<li class="active"><a href="namespace-Ease.TWB.html">TWB</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Ease.TWB.Badge.html">Badge</a></li>
+				<li><a href="class-Ease.TWB.ButtonDropdown.html">ButtonDropdown</a></li>
+				<li><a href="class-Ease.TWB.Carousel.html">Carousel</a></li>
+				<li><a href="class-Ease.TWB.Checkbox.html">Checkbox</a></li>
+				<li><a href="class-Ease.TWB.CheckBoxGroup.html">CheckBoxGroup</a></li>
+				<li><a href="class-Ease.TWB.Col.html">Col</a></li>
+				<li><a href="class-Ease.TWB.Container.html">Container</a></li>
+				<li><a href="class-Ease.TWB.Form.html">Form</a></li>
+				<li><a href="class-Ease.TWB.FormGroup.html">FormGroup</a></li>
+				<li><a href="class-Ease.TWB.Label.html">Label</a></li>
+				<li><a href="class-Ease.TWB.LinkButton.html">LinkButton</a></li>
+				<li><a href="class-Ease.TWB.ListGroup.html">ListGroup</a></li>
+				<li><a href="class-Ease.TWB.Modal.html">Modal</a></li>
+				<li><a href="class-Ease.TWB.Navbar.html">Navbar</a></li>
+				<li><a href="class-Ease.TWB.Pagination.html">Pagination</a></li>
+				<li><a href="class-Ease.TWB.Panel.html">Panel</a></li>
+				<li class="active"><a href="class-Ease.TWB.Part.html">Part</a></li>
+				<li><a href="class-Ease.TWB.RadioButton.html">RadioButton</a></li>
+				<li><a href="class-Ease.TWB.RadioButtonGroup.html">RadioButtonGroup</a></li>
+				<li><a href="class-Ease.TWB.Row.html">Row</a></li>
+				<li><a href="class-Ease.TWB.StatusMessages.html">StatusMessages</a></li>
+				<li><a href="class-Ease.TWB.SubmitButton.html">SubmitButton</a></li>
+				<li><a href="class-Ease.TWB.Tabs.html">Tabs</a></li>
+				<li><a href="class-Ease.TWB.Textarea.html">Textarea</a></li>
+				<li><a href="class-Ease.TWB.WebPage.html">WebPage</a></li>
+				<li><a href="class-Ease.TWB.Well.html">Well</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Ease.TWB.html" title="Summary of Ease\TWB"><span>Namespace</span></a>
+			</li>
+			<li>
+				<a href="class-Ease.TWB.Part.html" title="Summary of Ease\TWB\Part"><span>Class</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<pre><code><span id="1" class="l"><a class="l" href="#1"> 1: </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a class="l" href="#2"> 2: </a><span class="php-comment">/**
+</span></span><span id="3" class="l"><a class="l" href="#3"> 3: </a><span class="php-comment"> * Twitter Bootstrap common class.
+</span></span><span id="4" class="l"><a class="l" href="#4"> 4: </a><span class="php-comment"> *
+</span></span><span id="5" class="l"><a class="l" href="#5"> 5: </a><span class="php-comment"> * @author Vitex &lt;vitex@hippy.cz&gt;
+</span></span><span id="6" class="l"><a class="l" href="#6"> 6: </a><span class="php-comment"> */</span>
+</span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-keyword1">namespace</span> Ease\TWB;
+</span><span id="8" class="l"><a class="l" href="#8"> 8: </a>
+</span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-keyword1">class</span> <a id="Part" href="#Part">Part</a> <span class="php-keyword1">extends</span> \Ease\JQuery\Part
+</span><span id="10" class="l"><a class="l" href="#10">10: </a>{
+</span><span id="11" class="l"><a class="l" href="#11">11: </a>    <span class="php-comment">/**
+</span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment">     * Vložení náležitostí pro twitter bootstrap.
+</span></span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-comment">     */</span>
+</span><span id="14" class="l"><a class="l" href="#14">14: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___construct" href="#___construct">__construct</a>()
+</span><span id="15" class="l"><a class="l" href="#15">15: </a>    {
+</span><span id="16" class="l"><a class="l" href="#16">16: </a>        parent::__construct();
+</span><span id="17" class="l"><a class="l" href="#17">17: </a>        self::twBootstrapize();
+</span><span id="18" class="l"><a class="l" href="#18">18: </a>    }
+</span><span id="19" class="l"><a class="l" href="#19">19: </a>
+</span><span id="20" class="l"><a class="l" href="#20">20: </a>    <span class="php-comment">/**
+</span></span><span id="21" class="l"><a class="l" href="#21">21: </a><span class="php-comment">     * Opatří objekt vším potřebným pro funkci bootstrapu.
+</span></span><span id="22" class="l"><a class="l" href="#22">22: </a><span class="php-comment">     */</span>
+</span><span id="23" class="l"><a class="l" href="#23">23: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_twBootstrapize" href="#_twBootstrapize">twBootstrapize</a>()
+</span><span id="24" class="l"><a class="l" href="#24">24: </a>    {
+</span><span id="25" class="l"><a class="l" href="#25">25: </a>        parent::jQueryze();
+</span><span id="26" class="l"><a class="l" href="#26">26: </a>        <span class="php-var">$webPage</span> = \Ease\Shared::webPage();
+</span><span id="27" class="l"><a class="l" href="#27">27: </a>        <span class="php-var">$webPage</span>-&gt;includeJavaScript(<span class="php-quote">'twitter-bootstrap/js/bootstrap.js'</span>, <span class="php-num">1</span>, <span class="php-keyword1">true</span>);
+</span><span id="28" class="l"><a class="l" href="#28">28: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$webPage</span>-&gt;mainStyle)) {
+</span><span id="29" class="l"><a class="l" href="#29">29: </a>            <span class="php-var">$webPage</span>-&gt;includeCss(<span class="php-var">$webPage</span>-&gt;mainStyle, <span class="php-keyword1">true</span>);
+</span><span id="30" class="l"><a class="l" href="#30">30: </a>        }
+</span><span id="31" class="l"><a class="l" href="#31">31: </a>
+</span><span id="32" class="l"><a class="l" href="#32">32: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+</span><span id="33" class="l"><a class="l" href="#33">33: </a>    }
+</span><span id="34" class="l"><a class="l" href="#34">34: </a>
+</span><span id="35" class="l"><a class="l" href="#35">35: </a>    <span class="php-comment">/**
+</span></span><span id="36" class="l"><a class="l" href="#36">36: </a><span class="php-comment">     * Vrací ikonu.
+</span></span><span id="37" class="l"><a class="l" href="#37">37: </a><span class="php-comment">     *
+</span></span><span id="38" class="l"><a class="l" href="#38">38: </a><span class="php-comment">     * @link  http://getbootstrap.com/components/#glyphicons Přehled ikon
+</span></span><span id="39" class="l"><a class="l" href="#39">39: </a><span class="php-comment">     *
+</span></span><span id="40" class="l"><a class="l" href="#40">40: </a><span class="php-comment">     * @param string $code       Kód ikony z přehledu
+</span></span><span id="41" class="l"><a class="l" href="#41">41: </a><span class="php-comment">     * @param array  $properties Vlastnosti Tagu
+</span></span><span id="42" class="l"><a class="l" href="#42">42: </a><span class="php-comment">     */</span>
+</span><span id="43" class="l"><a class="l" href="#43">43: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_glyphIcon" href="#_glyphIcon">glyphIcon</a>(<span class="php-var">$code</span>, <span class="php-var">$properties</span> = <span class="php-keyword1">null</span>)
+</span><span id="44" class="l"><a class="l" href="#44">44: </a>    {
+</span><span id="45" class="l"><a class="l" href="#45">45: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">is_null</span>(<span class="php-var">$properties</span>)) {
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>            <span class="php-var">$properties</span> = [<span class="php-quote">'class'</span> =&gt; <span class="php-quote">'glyphicon glyphicon-'</span>.<span class="php-var">$code</span>];
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>        } <span class="php-keyword1">else</span> {
+</span><span id="48" class="l"><a class="l" href="#48">48: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$properties</span>[<span class="php-quote">'class'</span>])) {
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>                <span class="php-var">$properties</span>[<span class="php-quote">'class'</span>] = <span class="php-quote">'glyphicon glyphicon-'</span>.<span class="php-var">$code</span>.<span class="php-quote">' '</span>.<span class="php-var">$properties</span>[<span class="php-quote">'class'</span>];
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>            } <span class="php-keyword1">else</span> {
+</span><span id="51" class="l"><a class="l" href="#51">51: </a>                <span class="php-var">$properties</span>[<span class="php-quote">'class'</span>] = <span class="php-quote">'glyphicon glyphicon-'</span>.<span class="php-var">$code</span>;
+</span><span id="52" class="l"><a class="l" href="#52">52: </a>            }
+</span><span id="53" class="l"><a class="l" href="#53">53: </a>        }
+</span><span id="54" class="l"><a class="l" href="#54">54: </a>
+</span><span id="55" class="l"><a class="l" href="#55">55: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> \Ease\Html\Span(<span class="php-keyword1">null</span>, <span class="php-var">$properties</span>);
+</span><span id="56" class="l"><a class="l" href="#56">56: </a>    }
+</span><span id="57" class="l"><a class="l" href="#57">57: </a>}
+</span><span id="58" class="l"><a class="l" href="#58">58: </a></span></code></pre>
+
+	<div id="footer">
+		Ease PHP Framework 1.1.3  API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

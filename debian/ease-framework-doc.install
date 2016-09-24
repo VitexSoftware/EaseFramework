@@ -1,0 +1,3 @@
+docs/*	usr/share/doc/ease-framework
+docs/resources/*	usr/share/doc/ease-framework/resources
+debian/ease-framework-doc.conf	usr/share/doc/ease-framework-doc/apache

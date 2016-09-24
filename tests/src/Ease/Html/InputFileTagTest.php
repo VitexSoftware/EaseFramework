@@ -38,14 +38,4 @@ class InputFileTagTest extends InputTagTest
 <input name="test" type="file" />');
     }
 
-    /**
-     * @covers Ease\Html\InputFileTag::getTagName
-     */
-    public function testGetTagName()
-    {
-        $this->assertEquals('test', $this->object->getTagName());
-        $this->object->setName = true;
-        $this->object->setTagName('Test');
-        $this->assertEquals('Test', $this->object->getTagName());
-    }
 }

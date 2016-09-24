@@ -9,4 +9,4 @@ BUILD_DIR:=build
 override_dh_install:
 	dh_install
 	./debian/fixversion.sh
-
+	./debian/apigendoc.sh

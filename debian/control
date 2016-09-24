@@ -15,10 +15,11 @@ Priority: optional
 Description: Another PHP framework
  Support HTML5, jQueryUI and TwitterBootstrap all with  PHPUnit tests. 
 
-Description-cs: Další PHP framework
- Ease Framework je aktívně vyvíjen od roku 2008. Podporuje HTML5 a jQueryUI
- a PHPUnit testy. Snaží se o přehledně psaný kod s PEAR upravou.
- Čeština byla zvolena jako výchozí jazyk pro dokumentaci PHPDoc a apiGen.
- Jazykově závislé řetězce mají gettext překlad do Anglického jazyka.
-
-
+Package: ease-framework-doc
+Depends: ${misc:Depends},
+Suggests: www-browser
+Architecture: all
+Section: doc
+Priority: optional
+Description: Ease Framework documentation
+ ApiGen html documentation for ease-framework php library

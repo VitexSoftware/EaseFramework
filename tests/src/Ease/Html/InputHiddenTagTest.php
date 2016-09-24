@@ -28,4 +28,13 @@ class InputHiddenTagTest extends InputTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\Html\InputHiddenTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input name="test" type="hidden" />');
+    }
 }

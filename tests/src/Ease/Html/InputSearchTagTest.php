@@ -56,4 +56,13 @@ class InputSearchTagTest extends InputTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Html\InputSearchTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<input id="'.$this->object->getTagID().'" type="search" name="test" />');
+    }
 }

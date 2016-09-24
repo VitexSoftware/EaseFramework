@@ -29,6 +29,19 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
     {
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('option', 'value');
+    }
+
     /**
      * @covers Ease\Html\OptionTag::setDefault
      *
@@ -66,5 +79,14 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\Html\OptionTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<option value="">test</option>');
     }
 }

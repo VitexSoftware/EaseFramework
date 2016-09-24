@@ -39,4 +39,24 @@ class ParamTagTest extends TagTest
             ->getMockForAbstractClass();
         $mock->__construct('name', 'value');
     }
+
+    /**
+     * @covers Ease\Html\ParamTag::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
+    }
+
+    /**
+     * @covers Ease\Html\ParamTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<param name="test" value="value" />');
+    }
 }
