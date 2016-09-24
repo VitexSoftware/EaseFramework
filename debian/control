@@ -12,8 +12,8 @@ Architecture: all
 Suggests: libjs-jquery-ui-docs, libjs-jquery-ui-theme-base, libjs-jquery-ui-theme-black-tie, libjs-jquery-ui-theme-blitzer, libjs-jquery-ui-theme-cupertino, libjs-jquery-ui-theme-dark-hive, libjs-jquery-ui-theme-dot-luv, libjs-jquery-ui-theme-eggplant, libjs-jquery-ui-theme-excite-bike, libjs-jquery-ui-theme-flick, libjs-jquery-ui-theme-hot-sneaks, libjs-jquery-ui-theme-humanity, libjs-jquery-ui-theme-le-frog, libjs-jquery-ui-theme-mint-choc, libjs-jquery-ui-theme-overcast, libjs-jquery-ui-theme-pepper-grinder, libjs-jquery-ui-theme-redmond, libjs-jquery-ui-theme-smoothness, libjs-jquery-ui-theme-south-street, libjs-jquery-ui-theme-start, libjs-jquery-ui-theme-sunny, libjs-jquery-ui-theme-swanky-purse, libjs-jquery-ui-theme-trontastic, libjs-jquery-ui-theme-ui-darkness, libjs-jquery-ui-theme-ui-lightness, libjs-jquery-ui-theme-vader, libjs-jquery-password-strength, composer
 Section: web
 Priority: optional
-Description: Another PHP framework
- Support HTML5, jQueryUI and TwitterBootstrap all with  PHPUnit tests. 
+Description: Simple PHP framework
+ Support ORM, HTML5, jQueryUI and TwitterBootstrap Classes. 
 
 Package: ease-framework-doc
 Depends: ${misc:Depends},

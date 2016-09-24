@@ -6,10 +6,18 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 class Atom
 {
+    /**
+     * Version of EasePHPFramework
+     *
+     * @var string
+     */
+    static public $frameworkVersion = '1.1.4';
+
     /**
      * Udržuje v sobě jméno objektu.
      *
@@ -93,7 +101,7 @@ class Atom
      */
     public function cleanMessages()
     {
-        $this->messageCount = 0;
+        $this->messageCount   = 0;
         $this->statusMessages = [];
     }
 

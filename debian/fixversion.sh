@@ -4,3 +4,5 @@ REVISION=`cat debian/revision | perl -ne 'chomp; print join(".", splice(@{[split
 echo ${VERSION}.${REVISION}
 sed -i -e '/\"version\"/c\    \"version\": \"'${VERSION}'.'${REVISION}'",' debian/ease-framework/usr/share/php/Ease/composer.json
 
+sed -i -e "/static public \$frameworkVersion/c\    static public \$frameworkVersion = '${VERSION}.${REVISION}';" debian/ease-framework/usr/share/php/Ease/Atom.php
+sed -i -e "/static public \$frameworkVersion/c\    static public \$frameworkVersion = '${VERSION}.${REVISION}';" src/Ease/Atom.php

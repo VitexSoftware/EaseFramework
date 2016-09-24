@@ -14,9 +14,12 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 
 ---
 
-
 Installation
 ------------
+
+To get Docker image:
+
+    docker pull vitexsoftware/easephpframework
 
 For Debian please use repo:
 
@@ -84,6 +87,17 @@ sudo -u postgres bash -c "psql -c \"create database 'easetest' with owner 'easet
 ../vendor/bin/phinx -e testing migrate
 ```
 
+Building
+--------
+
+Simply run debian/deb-package.sh
+
+For Docker:
+
+    docker build -t vitexus/ease-framework .
+    docker push vitexus/ease-framework
+
+
 Links
 =====
 
@@ -91,6 +105,6 @@ Homepage: https://www.vitexsoftware.cz/ease.php
 
 GitHub: https://github.com/VitexSoftware/EaseFramework
 
-Apigen Docs: https://www.vitexsoftware.cz/EaseDoc/
+Apigen Docs: https://www.vitexsoftware.cz/ease-framework/
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)
