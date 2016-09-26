@@ -16,6 +16,7 @@
         "psr-4": {
             "Ease\\": ".",
             "Ease\\Html\\": "Html",
+            "Ease\\Logger\\": "Logger",
             "Ease\\JQuery\\": "JQuery",
             "Ease\\SQL\\": "SQL",
             "Ease\\TWB\\": "TWB"
