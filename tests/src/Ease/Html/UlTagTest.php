@@ -54,4 +54,13 @@ class UlTagTest extends PairTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\Html\InputTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<ul>http://v.s.cz/</ul>');
+    }
 }

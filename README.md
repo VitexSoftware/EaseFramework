@@ -11,6 +11,7 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Build Status](https://img.shields.io/travis/VitexSoftware/EaseFramework/master.svg?style=flat-square)](https://travis-ci.org/VitexSoftware/EaseFramework)
 [![Coverage Status](https://img.shields.io/coveralls/VitexSoftware/EaseFramework/master.svg?style=flat-square)](https://coveralls.io/r/VitexSoftware/EaseFramework?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/easephpframework.svg)](https://hub.docker.com/r/vitexsoftware/easephpframework/)
 
 ---
 
@@ -21,7 +22,7 @@ To get Docker image:
 
     docker pull vitexsoftware/easephpframework
 
-For Debian please use repo:
+For Debian, Ubuntu & friends please use repo:
 
     wget -O - http://v.s.cz/info@vitexsoftware.cz.gpg.key|sudo apt-key add -
     echo deb http://v.s.cz/ stable main > /etc/apt/sources.list.d/ease.list

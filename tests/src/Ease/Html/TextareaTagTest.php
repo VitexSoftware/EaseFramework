@@ -29,6 +29,18 @@ class TextareaTagTest extends PairTagTest
     {
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+        $mock->__construct('Textarea', 'Text');
+    }
+
     /**
      * @covers Ease\Html\TextareaTag::setValue
      *
@@ -40,5 +52,16 @@ class TextareaTagTest extends PairTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\Html\TextareaTag::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('textarea', $this->object->getTagName());
+        $this->object->setName = true;
+        $this->object->setTagName('Test');
+        $this->assertEquals('Test', $this->object->getTagName());
     }
 }
