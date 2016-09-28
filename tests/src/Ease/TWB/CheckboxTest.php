@@ -21,6 +21,19 @@ class CheckboxTest extends \Test\Ease\Html\DivTest
         $this->object = new \Ease\TWB\Checkbox();
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('Tag', 'true', 'content', true);
+    }
+
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.

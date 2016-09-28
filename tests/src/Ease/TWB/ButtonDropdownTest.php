@@ -21,6 +21,19 @@ class ButtonDropdownTest extends \Test\Ease\Html\DivTest
         $this->object = new \Ease\TWB\ButtonDropdown();
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('Tag', 'success', 'content', 10, ['a.html' => 'A']);
+    }
+
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
@@ -53,5 +66,16 @@ class ButtonDropdownTest extends \Test\Ease\Html\DivTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\Html\InputTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+div class="btn-group">
+<button class="btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown"> <span class="caret"></span></button>
+<ul class="dropdown-menu" role="menu"></ul></div>');
     }
 }
