@@ -335,16 +335,14 @@ class Page extends Container
                 switch ($value) {
                     case 'FALSE':
                     case 'false':
-                    case false:
-                    case 0:
-                    case '':
                         $sanitized = false;
                         break;
-                    case 1:
-                    case true:
                     case 'true':
                     case 'TRUE':
                         $sanitized = true;
+                        break;
+                    default :
+                        $sanitized = boolval($value);
                         break;
                 }
                 break;
