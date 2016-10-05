@@ -1,4 +1,4 @@
-ease-framework (1.1.3-8) UNRELEASED; urgency=low
+ease-framework (1.1.3-11) UNRELEASED; urgency=low
 
   [ Cybervitexus ]
   * Debian package build updates
@@ -54,5 +54,8 @@ ease-framework (1.1.3-8) UNRELEASED; urgency=low
     framework-doc
   * Clean unwanted files in repository
   * Clean unwanted files in repository
+  * Fixed wrong sanitize of boolean $_REQUEST values
+  * Fixed wrong sanitize of boolean $_REQUEST values
+  * Fixed wrong sanitize of boolean $_REQUEST values
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 26 Sep 2016 01:39:58 +0200
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sun, 02 Oct 2016 23:53:50 +0200

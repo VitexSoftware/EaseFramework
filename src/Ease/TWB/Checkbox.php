@@ -23,7 +23,7 @@ class Checkbox extends \Ease\Html\Div
      * @param array      $properties
      */
     public function __construct($name = null, $value = 'on', $content = null,
-                                $checked = false, $properties = null)
+                                $checked = false, $properties = [])
     {
         $label = new \Ease\Html\LabelTag($name);
         $this->checkbox = $label->addItem(new \Ease\Html\CheckboxTag($name,
@@ -31,6 +31,6 @@ class Checkbox extends \Ease\Html\Div
         if ($content) {
             $label->addItem($content);
         }
-        parent::__construct($name, $label, $properties);
+        parent::__construct($label);
     }
 }
