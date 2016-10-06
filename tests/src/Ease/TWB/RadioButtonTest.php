@@ -28,4 +28,15 @@ class RadioButtonTest extends \Test\Ease\Html\DivTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\TWB\RadioButton::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<div>
+<label for="radio">
+<input name="radio" value="X" type="radio" />test</label></div>');
+    }
 }

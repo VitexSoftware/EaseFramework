@@ -18,7 +18,7 @@ class CheckboxTest extends \Test\Ease\Html\DivTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\TWB\Checkbox();
+        $this->object = new \Ease\TWB\Checkbox('CheckBox');
     }
 
     public function testConstructor()
@@ -31,7 +31,8 @@ class CheckboxTest extends \Test\Ease\Html\DivTest
             ->getMockForAbstractClass();
         $mock->__construct('Test');
 
-        $mock->__construct('Tag', 'true', 'content', true);
+        $mock->__construct('checktest', 'true', 'Test CheckBOX', true,
+            ['title' => 'test']);
     }
 
     /**
@@ -40,5 +41,16 @@ class CheckboxTest extends \Test\Ease\Html\DivTest
      */
     protected function tearDown()
     {
+    }
+
+    /**
+     * @covers Ease\TWB\Checkbox::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<div>
+<label for="CheckBox">
+<input type="checkbox" value="on" name="CheckBox" /></label></div>');
     }
 }

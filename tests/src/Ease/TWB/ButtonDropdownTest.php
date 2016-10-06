@@ -31,7 +31,8 @@ class ButtonDropdownTest extends \Test\Ease\Html\DivTest
             ->getMockForAbstractClass();
         $mock->__construct('Test');
 
-        $mock->__construct('Tag', 'success', 'content', 10, ['a.html' => 'A']);
+        $mock->__construct('Tag', 'success', 10, ['a.html' => 'A'],
+            ['title' => 'dropdown']);
     }
 
     /**
@@ -74,7 +75,7 @@ class ButtonDropdownTest extends \Test\Ease\Html\DivTest
     public function testDraw($whatWant = null)
     {
         parent::testDraw('
-div class="btn-group">
+<div class="btn-group">
 <button class="btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown"> <span class="caret"></span></button>
 <ul class="dropdown-menu" role="menu"></ul></div>');
     }
