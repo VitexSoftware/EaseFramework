@@ -96,10 +96,10 @@ class Tabs extends \Ease\Container
             ['class' => 'nav nav-tabs', 'id' => $this->partName]));
         foreach ($this->tabs as $tabName => $tabContent) {
             if ($tabName == $this->activeTab) {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.$this->partName.\Ease\Brick::lettersOnly($tabName),
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
                     $tabName, ['data-toggle' => 'tab']), ['class' => 'active']));
             } else {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.$this->partName.\Ease\Brick::lettersOnly($tabName),
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
                     $tabName, ['data-toggle' => 'tab'])));
             }
         }
