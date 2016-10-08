@@ -2,10 +2,12 @@
 /**
  * RadioButton Twitter Bootstrapu.
  */
+
 namespace Ease\TWB;
 
 class RadioButton extends \Ease\Html\Div
 {
+
     /**
      *  RadioButton Twitter Bootstrapu.
      *
@@ -22,7 +24,7 @@ class RadioButton extends \Ease\Html\Div
         } else {
             $for = $name;
         }
-        parent::__construct(null,
+        parent::__construct(
             new \Ease\Html\LabelTag($for,
             [new \Ease\Html\InputRadioTag($name, $value, $properties), $caption]));
     }

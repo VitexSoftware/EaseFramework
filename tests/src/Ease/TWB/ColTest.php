@@ -18,7 +18,7 @@ class ColTest extends \Test\Ease\Html\DivTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\TWB\Col();
+        $this->object = new \Ease\TWB\Col(2);
     }
 
     /**
