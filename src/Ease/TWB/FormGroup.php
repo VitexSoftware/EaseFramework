@@ -17,7 +17,16 @@ class FormGroup extends \Ease\Html\Div
                                 $placeholder = null, $helptext = null,
                                 $addTagClass = 'form-control')
     {
-        $formKey = \Ease\Brick::lettersOnly($label);
+        if (is_object($content) && method_exists($content, 'getTagID')) {
+            $id = $content->getTagID();
+        } else {
+            $id = null;
+        }
+        if (is_null($id)) {
+            $formKey = \Ease\Brick::lettersOnly($label);
+        } else {
+            $formKey = $id;
+        }
         $properties['class'] = 'form-group';
         parent::__construct(null, $properties);
         $this->addItem(new \Ease\Html\LabelTag($formKey, $label));
