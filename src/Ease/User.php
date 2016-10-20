@@ -395,7 +395,7 @@ class User extends Anonym
             return;
         }
         $hash = $this->encryptPassword($newPassword);
-        $this->dblink->exeQuery(SQL\SQL::$upd.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.SQL\SQL::$whr.$this->myKeyColumn.'='.$userID);
+        $this->dblink->exeQuery(SQL\SQL::$upd.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\''.SQL\SQL::$whr.$this->myKeyColumn.'='.$userID);
         $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
         if ($userID == $this->getUserID()) {
             $this->setDataValue($this->passwordColumn, $hash);
@@ -613,4 +613,5 @@ class User extends Anonym
         }
         return $name;
     }
+
 }
