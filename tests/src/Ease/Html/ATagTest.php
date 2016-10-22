@@ -29,6 +29,7 @@ class ATagTest extends PairTagTest
      */
     protected function tearDown()
     {
+
     }
 
     /**
@@ -36,7 +37,7 @@ class ATagTest extends PairTagTest
      */
     public function testAfterAdd()
     {
-        $keeps = ['test' => 'testing', 'test2' => true];
+        $keeps                                       = ['test' => 'testing', 'test2' => true];
         \Ease\Shared::webPage()->requestValuesToKeep = $keeps;
         $this->object->afterAdd();
         $this->assertEquals('http://v.s.cz/?test=testing',
@@ -60,6 +61,9 @@ class ATagTest extends PairTagTest
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw("\n<a href=\"http://v.s.cz/\">Vitex Software</a>");
+        if (is_null($whatWant)) {
+            $whatWant = "\n<a href=\"http://v.s.cz/\">Vitex Software</a>";
+        }
+        parent::testDraw($whatWant);
     }
 }

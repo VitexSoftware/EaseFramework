@@ -37,6 +37,25 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $mock->__construct();
+        $mock->__construct("http://vitexsoftware.cz/");
+    }
+
+    /**
+     * @covers Ease\TWB\LinkButton::tagPropertiesToString
+     */
+    public function testTagPropertiesToString()
+    {
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit']);
+        $this->assertEquals('class="btn btn-default" href="http://v.s.cz/" id="Test" name="unit"',
+            $this->object->tagPropertiesToString());
+    }
+
+    /**
+     * @covers Ease\TWB\LinkButton::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<a class="btn btn-default" href="http://v.s.cz/">test</a>');
     }
 }

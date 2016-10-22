@@ -54,4 +54,12 @@ class FormTest extends \Test\Ease\Html\FormTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\TWB\Form::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('form', $this->object->getTagName());
+    }
 }

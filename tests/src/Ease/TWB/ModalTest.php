@@ -29,6 +29,19 @@ class ModalTest extends \Test\Ease\Html\DivTest
     {
     }
 
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('TestName', 'TestTitle');
+
+        $mock->__construct('name', 'title', 'Content', ['id' => 'modal']);
+    }
+
     /**
      * @covers Ease\TWB\Modal::finalize
      *

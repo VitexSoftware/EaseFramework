@@ -28,4 +28,12 @@ class TextareaTest extends \Test\Ease\Html\TextareaTagTest
     protected function tearDown()
     {
     }
+
+    /**
+     * @covers Ease\TWB\Textarea::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('test', $this->object->getTagName());
+    }
 }

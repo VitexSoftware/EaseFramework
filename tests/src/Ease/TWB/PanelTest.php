@@ -67,4 +67,14 @@ class PanelTest extends \Test\Ease\Html\DivTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\TWB\Panel::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<div class="panel panel-default">
+<div class="panel-body"></div></div>');
+    }
 }

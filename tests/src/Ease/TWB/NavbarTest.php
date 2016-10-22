@@ -18,7 +18,7 @@ class NavbarTest extends \Test\Ease\Html\DivTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\TWB\Navbar();
+        $this->object = new \Ease\TWB\Navbar('Navbar');
     }
 
     /**
@@ -27,6 +27,19 @@ class NavbarTest extends \Test\Ease\Html\DivTest
      */
     protected function tearDown()
     {
+    }
+
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Name');
+
+        $mock->__construct('Name', 'Brand', ['title' => 'test']);
     }
 
     /**
@@ -92,5 +105,25 @@ class NavbarTest extends \Test\Ease\Html\DivTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\TWB\Navbar::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<nav class="navbar navbar-default" role="navigation" name="Navbar">
+<div class="navbar-inner">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-Navbar-collapse">
+<span class="sr-only">Switch navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button></div>
+<div class="collapse navbar-collapse navbar-Navbar-collapse">
+<ul class="nav navbar-nav"></ul>
+<div class="pull-right">
+<ul class="nav navbar-nav nav-right"></ul></div></div></div></nav>');
     }
 }

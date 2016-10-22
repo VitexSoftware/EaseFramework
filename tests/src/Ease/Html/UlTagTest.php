@@ -60,7 +60,10 @@ class UlTagTest extends PairTagTest
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw('
-<ul>http://v.s.cz/</ul>');
+        if (is_null($whatWant)) {
+            $whatWant = '
+<ul>http://v.s.cz/</ul>';
+        }
+        parent::testDraw($whatWant);
     }
 }
