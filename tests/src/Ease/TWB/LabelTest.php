@@ -28,4 +28,18 @@ class LabelTest extends \Test\Ease\Html\SpanTest
     protected function tearDown()
     {
     }
+
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('info');
+
+        $mock->__construct('warning', 'some text', ['title' => 'test']);
+    }
+
 }

@@ -34,9 +34,12 @@ class ScriptTagTest extends PairTagTest
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw('
+        if (is_null($whatWant)) {
+            $whatWant = '
 <script>// <![CDATA[
 
-// ]]></script>');
+// ]]></script>';
+        }
+        parent::testDraw($whatWant);
     }
 }
