@@ -36,7 +36,10 @@ class ButtonTagTest extends PairTagTest
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw('
-<button>Test</button>');
+        if (is_null($whatWant)) {
+            $whatWant = '
+<button>Test</button>';
+        }
+        parent::testDraw($whatWant);
     }
 }

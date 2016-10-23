@@ -39,7 +39,7 @@ class NavbarTest extends \Test\Ease\Html\DivTest
             ->getMockForAbstractClass();
         $mock->__construct('Name');
 
-        $mock->__construct('Name', 'Brand', ['title' => 'test']);
+        $mock->__construct('Name', 'Brand', ['class' => 'test']);
     }
 
     /**
@@ -105,6 +105,38 @@ class NavbarTest extends \Test\Ease\Html\DivTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\TWB\Navbar::isEmpty
+     */
+    public function testIsEmpty()
+    {
+        $this->object->emptyContents();
+        $this->assertTrue($this->object->isEmpty());
+        $this->object->addItem('@');
+        $this->assertTrue($this->object->isEmpty($this->object));
+    }
+
+    /**
+     * @covers Ease\TWB\Navbar::getItemsCount
+     */
+    public function testGetItemsCount()
+    {
+        $this->object->emptyContents();
+        $this->assertEquals(0, $this->object->getItemsCount());
+        $this->object->addItem('@');
+        $this->assertEquals(0, $this->object->getItemsCount());
+        $this->assertEquals(2,
+            $this->object->getItemsCount(new \Ease\Html\Div(['a', 'b'])));
+    }
+
+    /**
+     * @covers Ease\TWB\Navbar::getTagName
+     */
+    public function testGetTagName()
+    {
+        $this->assertEquals('Navbar', $this->object->getTagName());
     }
 
     /**

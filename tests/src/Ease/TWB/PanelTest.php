@@ -27,6 +27,21 @@ class PanelTest extends \Test\Ease\Html\DivTest
      */
     protected function tearDown()
     {
+
+    }
+
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('Test');
+
+        $mock->__construct('PanelTest', 'danger', 'body', 'footer',
+            ['title' => 'test']);
     }
 
     /**
@@ -66,6 +81,30 @@ class PanelTest extends \Test\Ease\Html\DivTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Ease\TWB\Panel::getItemsCount
+     */
+    public function testGetItemsCount()
+    {
+        $this->object->emptyContents();
+        $this->assertEquals(0, $this->object->getItemsCount());
+        $this->object->addItem('@');
+        $this->assertEquals(0, $this->object->getItemsCount());
+        $this->assertEquals(2,
+            $this->object->getItemsCount(new \Ease\Html\Div(['a', 'b'])));
+    }
+
+    /**
+     * @covers Ease\TWB\Panel::isEmpty
+     */
+    public function testIsEmpty()
+    {
+        $this->object->emptyContents();
+        $this->assertTrue($this->object->isEmpty());
+        $this->object->addItem('@');
+        $this->assertFalse($this->object->isEmpty($this->object->body));
     }
 
     /**
