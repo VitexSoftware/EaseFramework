@@ -595,7 +595,7 @@ class PDO extends SQL
         }
         $tableRowsCount = $this->queryToArray(SQL::$sel.
             'count(*) AS NumRows'.SQL::$frm.$this->getColumnComma().
-            $this->easeAddSlashes($tableName).$this->getColumnComma());
+            $this->addSlashes($tableName).$this->getColumnComma());
 
         return $tableRowsCount[0]['NumRows'];
     }

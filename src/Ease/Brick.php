@@ -248,9 +248,9 @@ class Brick extends Sand
             $itemID = $this->getMyKey();
         }
         if (is_string($itemID)) {
-            $itemID = "'".$this->dblink->easeAddSlashes($itemID)."'";
+            $itemID = "'".$this->dblink->addSlashes($itemID)."'";
         } else {
-            $itemID = $this->dblink->easeAddSlashes($itemID);
+            $itemID = $this->dblink->addSlashes($itemID);
         }
         if (is_null($itemID)) {
             $this->error('loadFromSQL: Unknown Key', $this->data);
@@ -389,7 +389,7 @@ class Brick extends Sand
         }
 
         $cc = $this->dblink->getColumnComma();
-        $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->EaseAddSlashes($key)."'";
+        $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 if (array_key_exists($defDatPref, $this->data)) {
