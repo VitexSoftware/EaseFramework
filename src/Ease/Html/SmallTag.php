@@ -1,4 +1,4 @@
-h<?php
+<?php
 
 namespace Ease\Html;
 
@@ -7,16 +7,17 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class StrongTag extends PairTag
+class SmallTag extends PairTag
 {
     /**
-     * Tag pro tučné písmo.
+     * Tag pro male písmo.
+     * Small font tag
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
     public function __construct($content = null, $properties = null)
     {
-        parent::__construct('strong', $properties, $content);
+        parent::__construct('small', $properties, $content);
     }
 }

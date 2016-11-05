@@ -107,7 +107,7 @@ class MailerTest extends PageTest
      * @covers Ease\Mailer::draw
      * @todo   Implement testDraw().
      */
-    public function testDraw()
+    public function testDraw($whatWant = NULL)
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
