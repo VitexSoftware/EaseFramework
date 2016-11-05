@@ -19,8 +19,8 @@ build:
     dependencies:
         before:
             - sudo composer self-update && composer --version
-            - mysql -e "CREATE DATABASE easetest"
-            - mysql -e "GRANT ALL PRIVILEGES ON easetest.* TO easetest@localhost IDENTIFIED BY 'easetest'"
+            - mysql -u root -e "CREATE DATABASE easetest"
+            - mysql -u root -e "GRANT ALL PRIVILEGES ON easetest.* TO easetest@localhost IDENTIFIED BY 'easetest'"
             - composer install
             - ./vendor/bin/composer migrate            
     tests:
