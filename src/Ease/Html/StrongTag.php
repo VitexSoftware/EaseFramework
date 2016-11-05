@@ -1,4 +1,4 @@
-h<?php
+<?php
 
 namespace Ease\Html;
 
