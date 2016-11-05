@@ -22,7 +22,7 @@ build:
             - mysql -u root -e "CREATE DATABASE easetest"
             - mysql -u root -e "GRANT ALL PRIVILEGES ON easetest.* TO easetest@localhost IDENTIFIED BY 'easetest'"
             - composer install
-            - ./vendor/bin/composer migrate            
+            - ./vendor/bin/phinx migrate            
     tests:
         override:
             -
