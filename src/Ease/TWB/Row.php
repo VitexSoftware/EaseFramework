@@ -18,6 +18,7 @@ class Row extends \Ease\Html\Div
 
     /**
      * Vloží do řádku políčko.
+     * Add Column into Row.
      *
      * @link   http://getbootstrap.com/css/#grid
      *
