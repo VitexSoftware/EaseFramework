@@ -40,7 +40,7 @@ class Part extends \Ease\JQuery\Part
      * @param string $code       Kód ikony z přehledu
      * @param array  $properties Vlastnosti Tagu
      */
-    public static function glyphIcon($code, $properties = null)
+    public static function glyphIcon($code, $properties = [])
     {
         if (is_null($properties)) {
             $properties = ['class' => 'glyphicon glyphicon-'.$code];

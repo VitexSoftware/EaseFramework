@@ -15,7 +15,7 @@ class TitleTag extends PairTag
      * @param string $contents   text titulku
      * @param array  $properties parametry tagu
      */
-    public function __construct($contents = null, $properties = null)
+    public function __construct($contents = null, $properties = [])
     {
         parent::__construct('title', $properties, $contents);
     }

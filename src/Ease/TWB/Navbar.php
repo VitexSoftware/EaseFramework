@@ -35,7 +35,7 @@ class Navbar extends \Ease\Html\Div
      * @param string $brand
      * @param array  $properties
      */
-    public function __construct($name = null, $brand = null, $properties = null)
+    public function __construct($name = null, $brand = null, $properties = [])
     {
         if (is_array($properties) && array_key_exists('class', $properties)) {
             $originalClass = $properties['class'];

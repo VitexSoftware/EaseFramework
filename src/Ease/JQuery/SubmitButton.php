@@ -44,7 +44,7 @@ class SubmitButton extends UIPart
      * @param array        $Properties vlastnosti HTML tagu
      */
     public function __construct($name, $value, $Title = null, $JQOptions = null,
-                                $Properties = null)
+                                $properties = [])
     {
         parent::__construct();
         $this->Name = $name;

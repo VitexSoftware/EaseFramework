@@ -14,7 +14,7 @@ class AppMenu extends \Ease\TWB\Navbar
      * @param mixed  $brand      Boostrap Menu Brand
      * @param array  $properties page menu div tag properties
      */
-    public function __construct($name = null, $brand = null, $properties = null)
+    public function __construct($name = null, $brand = null, $properties = [])
     {
         parent::__construct($name, $brand, $properties);
         $this->addMenuItem(new ATag('http://v.s.cz/ease.php', _('Homepage')));

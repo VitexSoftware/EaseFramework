@@ -16,7 +16,7 @@ class ATag extends PairTag
      * @param mixed  $contents   vkládaný obsah
      * @param array  $properties parametry tagu
      */
-    public function __construct($href, $contents = null, $properties = null)
+    public function __construct($href, $contents = null, $properties = [])
     {
         if (!is_array($properties)) {
             $properties = [];

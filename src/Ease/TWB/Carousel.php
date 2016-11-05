@@ -48,7 +48,7 @@ class Carousel extends \Ease\Html\Div
      * @param string $name
      * @param array  $properties ['data-ride'=>'carousel'] means autorun
      */
-    public function __construct($name = null, $properties = null)
+    public function __construct($name = null, $properties = [])
     {
         parent::__construct(null, $properties);
         $this->name = $this->setTagID($name);

@@ -12,7 +12,7 @@ class Well extends \Ease\Html\Div
      *
      * @param mixed $content
      */
-    public function __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = [])
     {
         parent::__construct($content, $properties);
         $this->addTagClass('well');

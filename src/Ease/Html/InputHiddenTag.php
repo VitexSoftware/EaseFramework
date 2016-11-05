@@ -16,7 +16,7 @@ class InputHiddenTag extends InputTag
      * @param string $value      vracená hodnota
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
+    public function __construct($name, $value = null, $properties = [])
     {
         parent::__construct($name, $value);
         $properties['type'] = 'hidden';

@@ -15,7 +15,7 @@ class EmTag extends PairTag
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = [])
     {
         parent::__construct('em', $properties, $content);
     }

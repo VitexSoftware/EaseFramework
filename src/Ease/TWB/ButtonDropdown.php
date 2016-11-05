@@ -26,7 +26,7 @@ class ButtonDropdown extends \Ease\Html\Div
      * @param array  $properties Parametry tagu
      */
     public function __construct($label = null, $type = 'default', $size = null,
-                                $items = null, $properties = null)
+                                $items = null, $properties = [])
     {
         parent::__construct(null, $properties);
         $this->setTagClass('btn-group');

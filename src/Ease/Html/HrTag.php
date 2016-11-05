@@ -14,7 +14,7 @@ class HrTag extends Tag
      *
      * @param array $properties parametry tagu
      */
-    public function __construct($properties = null)
+    public function __construct($properties = [])
     {
         parent::__construct('hr', $properties);
     }

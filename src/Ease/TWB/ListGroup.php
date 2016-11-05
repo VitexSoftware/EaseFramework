@@ -12,7 +12,7 @@ class ListGroup extends \Ease\Html\UlTag
      * @param mixed $ulContents položky seznamu
      * @param array $properties parametry tagu
      */
-    public function __construct($ulContents = null, $properties = null)
+    public function __construct($ulContents = null, $properties = [])
     {
         parent::__construct($ulContents, $properties);
         $this->addTagClass('list-group');
@@ -26,7 +26,7 @@ class ListGroup extends \Ease\Html\UlTag
      *
      * @return mixed
      */
-    public function &addItemSmart($pageItem, $properties = null)
+    public function &addItemSmart($pageItem, $properties = [])
     {
         $item = parent::addItemSmart($pageItem, $properties);
         $item->addTagClass('list-group-item');

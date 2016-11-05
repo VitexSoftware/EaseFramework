@@ -15,7 +15,7 @@ class H2Tag extends PairTag
      * @param mixed  $content    text nadpisu
      * @param string $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = [])
     {
         parent::__construct('h2', $properties, $content);
     }

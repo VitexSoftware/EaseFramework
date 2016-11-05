@@ -22,7 +22,7 @@ class Scroller extends Ease\Html\DivTag
      * @param array            $Properties
      */
     public function __construct($name = null, $Content = null,
-                                $Properties = null)
+                                $properties = [])
     {
         $Properties['id'] = $name;
         parent::__construct($name, $Content, $Properties);

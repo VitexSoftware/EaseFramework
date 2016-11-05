@@ -23,7 +23,7 @@ class TextareaTag extends PairTag
      * @param string $content    obsah textarey
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $content = '', $properties = null)
+    public function __construct($name, $content = '', $properties = [])
     {
         $this->setTagName($name);
         parent::__construct('textarea', $properties);

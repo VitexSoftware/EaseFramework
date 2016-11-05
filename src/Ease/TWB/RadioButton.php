@@ -17,7 +17,7 @@ class RadioButton extends \Ease\Html\Div
      * @param array      $properties
      */
     public function __construct($name = null, $value = null, $caption = null,
-                                $properties = null)
+                                $properties = [])
     {
         if (isset($properties['id'])) {
             $for = $properties['id'];

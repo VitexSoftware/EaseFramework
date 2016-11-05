@@ -17,7 +17,7 @@ class IframeTag extends PairTag
      * @param string $src        content url
      * @param array  $properties HTML tag proberties
      */
-    public function __construct($src, $properties = null)
+    public function __construct($src, $properties = [])
     {
         if (is_null($properties)) {
             $properties = ['src' => $src];

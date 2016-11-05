@@ -16,7 +16,7 @@ class InputSubmitTag extends InputTag
      * @param string $value      vracená hodnota
      * @param array  $properties Pole vlastností tagu
      */
-    public function __construct($name, $value = null, $properties = null)
+    public function __construct($name, $value = null, $properties = [])
     {
         if (!$value) {
             $value = $name;

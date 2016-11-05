@@ -15,7 +15,7 @@ class NavTag extends PairTag
      * @param mixed $content    vložené prvky
      * @param array $properties pole parametrů
      */
-    public function __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = [])
     {
         parent::__construct('div', $properties, $content);
     }

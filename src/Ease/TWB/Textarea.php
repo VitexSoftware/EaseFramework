@@ -16,7 +16,7 @@ class Textarea extends \Ease\Html\TextareaTag
      * @param string $content    obsah textarey
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($name, $content = '', $properties = null)
+    public function __construct($name, $content = '', $properties = [])
     {
         parent::__construct($name, $content, $properties);
         $this->addTagClass('form-control');

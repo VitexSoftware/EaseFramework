@@ -21,7 +21,7 @@ class LinkButton extends \Ease\Html\ATag
      * @param array  $properties dodatečné vlastnosti
      */
     public function __construct($href, $contents = null, $type = null,
-                                $properties = null)
+                                $properties = [])
     {
         if (isset($properties['class'])) {
             $class = ' '.$properties['class'];
