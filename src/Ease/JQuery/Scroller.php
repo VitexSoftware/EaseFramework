@@ -18,14 +18,14 @@ class Scroller extends Ease\Html\DivTag
      * Rolovatelná oblast.
      *
      * @param string           $name
-     * @param \Ease\Page|mixed $Content
-     * @param array            $Properties
+     * @param \Ease\Page|mixed $content
+     * @param array            $properties
      */
-    public function __construct($name = null, $Content = null,
+    public function __construct($name = null, $content = null,
                                 $properties = [])
     {
-        $Properties['id'] = $name;
-        parent::__construct($name, $Content, $Properties);
+        $properties['id'] = $name;
+        parent::__construct($name, $content, $properties);
         parent::addItem(new Ease\Html\Div(null,
             ['class' => 'scrollingHotSpotLeft']));
         parent::addItem(new Ease\Html\Div(null,
