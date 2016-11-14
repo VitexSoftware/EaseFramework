@@ -83,7 +83,7 @@ cd testing
 mysqladmin -u root -p create easetest
 mysql -u root -p -e "GRANT ALL PRIVILEGES ON easetest.* TO easetest@localhost IDENTIFIED BY 'easetest'"
 sudo -u postgres bash -c "psql -c \"CREATE USER easetest WITH PASSWORD 'easetest';\""
-sudo -u postgres bash -c "psql -c \"create database 'easetest' with owner 'easetest' encoding='utf8' template template0;\""
+sudo -u postgres bash -c "psql -c \"create database easetest with owner easetest encoding='utf8' template template0;\""
 ../vendor/bin/phinx -e development migrate
 ../vendor/bin/phinx -e testing migrate
 ```
