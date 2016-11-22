@@ -230,6 +230,7 @@ class PDO extends SQL
 
         switch ($sqlAction) {
             case 'select':
+            case 'truncate':
             case 'show':
                 $this->result = $this->sqlLink->query($queryRaw);
                 $this->errorNumber = $this->sqlLink->errorCode();
