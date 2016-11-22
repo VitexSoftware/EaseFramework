@@ -62,24 +62,24 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
     public function testDraw($whatWant = null)
     {
         parent::testDraw('
-<ul class="pagination" >
+<ul class="pagination">
 <li>
-<a href="?page=0" >
-<span class="glyphicon glyphicon-fast-backward" ></span></a></li>
+<a href="?page=0">
+<span class="glyphicon glyphicon-fast-backward"></span></a></li>
 <li>
-<a href="?page=1" >
-<span class="glyphicon glyphicon-chevron-left" ></span></a></li>
+<a href="?page=1">
+<span class="glyphicon glyphicon-chevron-left"></span></a></li>
 <li>
-<a href="?page=0" >1</a></li>
+<a href="?page=0">1</a></li>
 <li>
-<a href="?page=1" >2</a></li>
-<li class="active" >
-<a href="?page=2" >3</a></li>
-<li class="disabled" >
-<a href="?page=#" >
-<span class="glyphicon glyphicon-chevron-right" ></span></a></li>
-<li class="disabled" >
-<a href="?page=#" >
-<span class="glyphicon glyphicon-fast-forward" ></span></a></li></ul>');
+<a href="?page=1">2</a></li>
+<li class="active">
+<a href="?page=2">3</a></li>
+<li class="disabled">
+<a href="?page=#">
+<span class="glyphicon glyphicon-chevron-right"></span></a></li>
+<li class="disabled">
+<a href="?page=#">
+<span class="glyphicon glyphicon-fast-forward"></span></a></li></ul>');
     }
 }

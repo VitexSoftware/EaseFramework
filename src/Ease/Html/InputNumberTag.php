@@ -16,7 +16,7 @@ class InputNumberTag extends InputTag
      * @param string $value      předvolená hodnota
      * @param array  $properties dodatečné vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
+    public function __construct($name, $value = null, $properties = [])
     {
         $properties['type'] = 'number';
         if ($value) {

@@ -18,6 +18,7 @@ class Row extends \Ease\Html\Div
 
     /**
      * Vloží do řádku políčko.
+     * Add Column into Row.
      *
      * @link   http://getbootstrap.com/css/#grid
      *
@@ -29,7 +30,7 @@ class Row extends \Ease\Html\Div
      * @return Col Column contains $content
      */
     public function &addColumn($size, $content = null, $target = 'md',
-                               $properties = null)
+                               $properties = [])
     {
         $added = $this->addItem(new Col($size, $content, $target, $properties));
 

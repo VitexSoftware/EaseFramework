@@ -41,4 +41,13 @@ class ListGroupTest extends \Test\Ease\Html\UlTagTest
             'This test has not been implemented yet.'
         );
     }
+
+    /**
+     * @covers Ease\TWB\ListGroup::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<ul class="list-group"></ul>');
+    }
 }

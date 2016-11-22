@@ -14,17 +14,17 @@ class SimpleHeadTag extends PairTag
      *
      * @var string
      */
-    public static $ContentType = 'text/html';
+    public static $contentType = 'text/html';
 
     /**
      * head tag with defined meta http-equiv content type.
      *
-     * @param mixed $Contents   vkládaný obsah
-     * @param array $Properties parametry tagu
+     * @param mixed $contents   vkládaný obsah
+     * @param array $properties parametry tagu
      */
-    public function __construct($Contents = null, $Properties = null)
+    public function __construct($contents = null, $properties = [])
     {
-        parent::__construct('head', $Properties, $Contents);
-        $this->addItem('<meta http-equiv="Content-Type" content="'.self::$ContentType.'; charset='.$this->charSet.'" />');
+        parent::__construct('head', $properties, $contents);
+        $this->addItem('<meta http-equiv="Content-Type" content="'.self::$contentType.'; charset='.$this->charSet.'" />');
     }
 }

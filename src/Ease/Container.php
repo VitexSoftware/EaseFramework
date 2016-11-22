@@ -299,6 +299,7 @@ class Container extends Sand
 
     /**
      * Vyprázní obsah objektu.
+     * Empty container contents
      */
     public function emptyContents()
     {

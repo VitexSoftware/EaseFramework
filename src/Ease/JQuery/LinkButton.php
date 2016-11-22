@@ -43,7 +43,7 @@ class LinkButton extends UIPart
      * @param array        $properties vlastnosti HTML tagu
      */
     public function __construct($href, $contents, $jQOptions = null,
-                                $properties = null)
+                                $properties = [])
     {
         parent::__construct();
         if (!isset($properties['id'])) {

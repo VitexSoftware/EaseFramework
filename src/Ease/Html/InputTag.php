@@ -23,7 +23,7 @@ class InputTag extends Tag
      * @param string|EaseObject $value      vracená hodnota
      * @param array             $properties vlastnosti tagu
      */
-    public function __construct($name, $value = null, $properties = null)
+    public function __construct($name, $value = null, $properties = [])
     {
         parent::__construct('input');
         $this->setTagName($name);

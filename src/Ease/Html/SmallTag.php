@@ -3,20 +3,21 @@
 namespace Ease\Html;
 
 /**
- * HTML Table row class.
+ * HTML major heading tag.
  *
- * @author     Vitex <vitex@hippy.cz>
+ * @author Vitex <vitex@hippy.cz>
  */
-class TrTag extends PairTag
+class SmallTag extends PairTag
 {
     /**
-     * TR tag.
+     * Tag pro male písmo.
+     * Small font tag
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('tr', $properties, $content);
+        parent::__construct('small', $properties, $content);
     }
 }

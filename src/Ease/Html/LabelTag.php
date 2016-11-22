@@ -14,7 +14,7 @@ class LabelTag extends PairTag
      *
      * @var mixed
      */
-    public $Contents = null;
+    public $contents = null;
 
     /**
      * zobrazí tag pro návěští.
@@ -23,7 +23,7 @@ class LabelTag extends PairTag
      * @param mixed  $contents   obsah opatřovaný popiskem
      * @param array  $properties vlastnosti tagu
      */
-    public function __construct($for, $contents = null, $properties = null)
+    public function __construct($for, $contents = null, $properties = [])
     {
         $this->setTagProperties(['for' => $for]);
         parent::__construct('label', $properties);

@@ -34,6 +34,17 @@ class FormGroupTest extends \Test\Ease\Html\DivTest
     }
 
     /**
+     * @covers Ease\TWB\FormGroup::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw('
+<div class="form-group">
+<label for="Label">Label</label>
+<input type="text" name="text" class="form-control" id="Label" /></div>');
+    }
+
+    /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */

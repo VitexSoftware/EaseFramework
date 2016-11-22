@@ -15,7 +15,7 @@ class UlTag extends PairTag
      * @param mixed $ulContents položky seznamu
      * @param array $properties parametry tagu
      */
-    public function __construct($ulContents = null, $properties = null)
+    public function __construct($ulContents = null, $properties = [])
     {
         parent::__construct('ul', $properties, $ulContents);
     }
@@ -43,7 +43,7 @@ class UlTag extends PairTag
      *
      * @return mixed
      */
-    public function &addItemSmart($pageItem, $properties = null)
+    public function &addItemSmart($pageItem, $properties = [])
     {
         if (is_array($pageItem)) {
             foreach ($pageItem as $item) {

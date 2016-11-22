@@ -45,6 +45,9 @@ class SubmitButtonTest extends \Test\Ease\Html\ButtonTagTest
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw("\n<button class=\"btn\"></button>");
+        if (is_null($whatWant)) {
+            $whatWant = "\n<button class=\"btn\"></button>";
+        }
+        parent::testDraw($whatWant);
     }
 }

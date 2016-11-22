@@ -29,7 +29,7 @@ class TableTag extends PairTag
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
      */
-    public function __construct($content = null, $properties = null)
+    public function __construct($content = null, $properties = [])
     {
         parent::__construct('table', $properties, $content);
         $this->tHead = $this->addItem(new Thead());
@@ -53,7 +53,7 @@ class TableTag extends PairTag
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    public function &addRowColumns($columns = null, $properties = null)
+    public function &addRowColumns($columns = null, $properties = [])
     {
         $tableRow = $this->tBody->addItem(new TrTag());
         if (is_array($columns)) {
@@ -78,7 +78,7 @@ class TableTag extends PairTag
      *
      * @return TrTag odkaz na řádku tabulky
      */
-    public function &addRowHeaderColumns($columns = null, $properties = null)
+    public function &addRowHeaderColumns($columns = null, $properties = [])
     {
         $tableRow = $this->tHead->addItem(new TrTag());
         if (is_array($columns)) {

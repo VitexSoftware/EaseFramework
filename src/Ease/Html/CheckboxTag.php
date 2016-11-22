@@ -42,7 +42,7 @@ class CheckboxTag extends InputTag
      */
     public function setValue($value = true)
     {
-        if ($value == true) {
+        if ($value === true) {
             $this->setTagProperties(['checked' => 'true']);
         } else {
             unset($this->tagProperties['checked']);
