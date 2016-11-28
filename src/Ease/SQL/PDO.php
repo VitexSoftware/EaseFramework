@@ -344,7 +344,7 @@ class PDO extends SQL
     }
 
     /**
-     * vloží obsah pole $data do předvolené tabulky $this->myTable.
+     * Insert array values as new database row
      *
      * @param string $data
      *
@@ -352,7 +352,12 @@ class PDO extends SQL
      */
     public function arrayToInsert($data)
     {
-        return $this->exeQuery('INSERT INTO '.$this->getColumnComma().$this->myTable.$this->getColumnComma().' SET '.$this->arrayToQuery($data));
+        $cc  = $this->getColumnComma();
+        $set = ' ';
+        if ($this->dbType == 'mysql') {
+            $set = ' SET ';
+        }
+        return $this->exeQuery('INSERT INTO '.$cc.$this->myTable.$cc.$set.$this->arrayToQuery($data));
     }
 
     /**
@@ -457,6 +462,7 @@ class PDO extends SQL
                     }
                     break;
                 case 'null':
+                case 'NULL':
                     $value = ' null ';
                     break;
                 case 'string':
