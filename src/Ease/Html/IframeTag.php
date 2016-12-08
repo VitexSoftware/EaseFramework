@@ -19,11 +19,7 @@ class IframeTag extends PairTag
      */
     public function __construct($src, $properties = [])
     {
-        if (is_null($properties)) {
-            $properties = ['src' => $src];
-        } else {
-            $properties['src'] = $src;
-        }
+        $properties['src'] = $src;
         $this->setTagProperties($properties);
         parent::__construct();
     }
