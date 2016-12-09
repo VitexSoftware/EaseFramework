@@ -21,8 +21,9 @@ build:
             - sudo composer self-update && composer --version
             - mysql -u root -e "CREATE DATABASE easetest"
             - mysql -u root -e "GRANT ALL PRIVILEGES ON easetest.* TO easetest@localhost IDENTIFIED BY 'easetest'"
-            - composer install
+            - composer self-update
             - composer diagnose
+            - composer install
             - ./vendor/bin/phinx migrate  --configuration tests/phinx.yml         
     tests:
         override:
