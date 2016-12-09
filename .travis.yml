@@ -26,7 +26,8 @@ script:
   - ./vendor/bin/parallel-lint src tests
   - ./vendor/bin/phinx migrate -e testing -c tests/phinx.yml
   - ./vendor/bin/phinx migrate -e development -c tests/phinx.yml
-  - ./vendor/bin/phpunit -c  tests/configuration.xml --coverage-text --coverage-clover --bootstrap tests/Bootstrap.php
+  - cd tests
+  - ../vendor/bin/phpunit -c configuration.xml --bootstrap Bootstrap.php src
   - echo commented now ./vendor/bin/phpcs src --standard=psr2 -sp
 
 after_script:
