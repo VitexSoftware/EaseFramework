@@ -17,7 +17,7 @@ class LabelTag extends PairTag
     public $contents = null;
 
     /**
-     * zobrazí tag pro návěští.
+     * Show tag label
      *
      * @param string $for        vztažný element
      * @param mixed  $contents   obsah opatřovaný popiskem
@@ -27,11 +27,11 @@ class LabelTag extends PairTag
     {
         $this->setTagProperties(['for' => $for]);
         parent::__construct('label', $properties);
-        $this->Contents = $this->addItem($contents);
+        $this->contents = $this->addItem($contents);
     }
 
     /**
-     * Nastaví jméno objektu.
+     * Set object name.
      *
      * @param string $objectName nastavované jméno
      *
@@ -39,10 +39,10 @@ class LabelTag extends PairTag
      */
     public function setObjectName($objectName = null)
     {
-        if ($objectName) {
-            return parent::setObjectName($objectName);
+        if (is_null($objectName)) {
+            $objectName = get_class($this).'@'.$this->getTagProperty('for');
         }
 
-        return parent::setObjectName(get_class($this).'@'.$this->getTagProperty('for'));
+        return parent::setObjectName($objectName);
     }
 }
