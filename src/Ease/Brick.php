@@ -77,44 +77,6 @@ class Brick extends Sand
         return $result;
     }
 
-    /**
-     * Přiřadí objektu odkaz na objekt uživatele.
-     *
-     * @param object|User $user         pointer to user object
-     * @param object      $targetObject objekt kterému je uživatel přiřazován.
-     *                                  přiřazován
-     *
-     * @return bool
-     */
-    public function setUpUser(&$user, &$targetObject = null)
-    {
-        if (is_object($user)) {
-            if (is_object($targetObject)) {
-                $targetObject->user = &$user;
-            } else {
-                $this->user = &$user;
-            }
-            $result = true;
-        } else {
-            $result = false;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Vraci objekt uzivatele.
-     *
-     * @return User
-     */
-    public function &getUser()
-    {
-        if (isset($this->user)) {
-            $user = &$this->user;
-        }
-
-        return $user;
-    }
 
     /**
      * Přidá zprávu do zásobníku pro zobrazení uživateli.
@@ -594,7 +556,7 @@ class Brick extends Sand
      */
     public function takemyTable($myTable = null)
     {
-        if ($myTable) {
+        if (is_null($myTable)) {
             $this->myTable = $myTable;
         }
         if (!isset($this->dblink) || !is_object($this->dblink)) {

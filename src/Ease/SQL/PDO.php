@@ -215,10 +215,8 @@ class PDO extends SQL
      */
     public function exeQuery($queryRaw, $ignoreErrors = false)
     {
-        if (is_null($this->sqlLink)) {
+        if (!isset($this->sqlLink) || is_null($this->sqlLink)) {
             $this->connect();
-            if (is_null($this->sqlLink)) {
-            }
         }
 
         $queryRaw = $this->sanitizeQuery($queryRaw);

@@ -20,7 +20,7 @@ class BrickTest extends SandTest
      */
     protected function setUp()
     {
-        $this->object = new Brick();
+        $this->object = new \Test\BrickTester();
     }
 
     /**
@@ -29,9 +29,6 @@ class BrickTest extends SandTest
      */
     protected function tearDown()
     {
-        if (is_object($this->object->dblink)) {
-            $this->object->dblink->close();
-        }
     }
 
     /**
@@ -86,17 +83,17 @@ class BrickTest extends SandTest
             $this->assertEquals([0 => ['id' => '3']],
                 $this->object->getColumnsFromSQL('id', 3));
 
-            $ids = $this->object->getColumnsFromSQL(array('id'));
+            $ids   = $this->object->getColumnsFromSQL(array('id'));
             $this->assertEquals([0 => ['id' => 3], 1 => ['id' => 2]], $ids);
             $names = $this->object->getColumnsFromSQL(array('name'));
             $this->assertEquals($names,
                 [0 => ['name' => 'alpha'], 1 => ['name' => 'beta']]);
-            $all = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
+            $all   = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
             $this->assertEquals([2 => ['id' => '2', 'name' => 'beta', 'date' => '2015-11-18 00:00:00'],
-                3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00'], ],
+                3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00'],],
                 $all);
             $this->assertNull($this->object->getColumnsFromSQL('*', []));
-            $some = $this->object->getColumnsFromSQL(['name', 'id'],
+            $some  = $this->object->getColumnsFromSQL(['name', 'id'],
                 "test.date = '2015-11-18 00:00:00'");
             $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
         }
@@ -104,67 +101,20 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getDataFromSQL
-     *
-     * @todo   Implement testGetDataFromSQL().
      */
     public function testGetDataFromSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Brick::setUpUser
-     *
-     * @todo   Implement testSetUpUser().
-     */
-    public function testSetUpUser()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Brick::getUser
-     *
-     * @todo   Implement testGetUser().
-     */
-    public function testGetUser()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Brick::easeAddSlashes
-     *
-     * @todo   Implement testEaseAddSlashes().
-     */
-    public function testEaseAddSlashes()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object->getDataFromSQL(3),
+            'Error Reading data from SQL');
     }
 
     /**
      * @covers Ease\Brick::loadFromSQL
-     *
-     * @todo   Implement testLoadFromSQL().
      */
     public function testLoadFromSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->loadFromSQL(2);
+        $this->assertEquals(2, $this->object->getMyKey());
     }
 
     /**
@@ -397,9 +347,9 @@ class BrickTest extends SandTest
     public function testReindexArrayBy()
     {
         $a = [
-            ['id' => '2', 'name' => 'b'],
-            ['id' => '1', 'name' => 'a'],
-            ['id' => '3', 'name' => 'c'],
+                ['id' => '2', 'name' => 'b'],
+                ['id' => '1', 'name' => 'a'],
+                ['id' => '3', 'name' => 'c'],
         ];
         $b = [
             '1' => ['id' => '1', 'name' => 'a'],

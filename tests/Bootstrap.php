@@ -11,19 +11,15 @@ if (!isset($_SESSION)) {
 
 require __DIR__.'/../vendor/autoload.php';
 
-//require_once('PHP/Token/Stream/Autoload.php');
-
-\Ease\Shared::user(new Ease\Anonym());
-\Ease\Shared::webPage(new Ease\WebPage());
-
-/*
- * Logovací adresář
- */
 define('LOG_DIRECTORY', '/var/tmp/');
-
 define('DB_SERVER', 'localhost');
 define('DB_SERVER_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');
 define('DB_SERVER_USERNAME', 'easetest');
 define('DB_PORT', 5432);
 define('DB_TYPE', 'pgsql');
+
+//require_once('PHP/Token/Stream/Autoload.php');
+
+\Ease\Shared::user(new Ease\Anonym());
+\Ease\Shared::webPage(new Ease\WebPage());
