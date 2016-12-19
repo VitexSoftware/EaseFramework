@@ -100,8 +100,8 @@ class ToSyslog extends ToMemory
     {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
-            if (defined('LOG_NAME')) {
-                self::$_instance = new $class(constant('LOG_NAME'));
+            if (defined('EASE_APPNAME')) {
+                self::$_instance = new $class(constant('EASE_APPNAME'));
             } else {
                 self::$_instance = new $class('EaseFramework');
             }

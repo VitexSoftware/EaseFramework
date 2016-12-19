@@ -11,7 +11,7 @@ if (!isset($_SESSION)) {
 
 require __DIR__.'/../vendor/autoload.php';
 
-define('LOG_DIRECTORY', '/var/tmp/');
+define('EASE_LOGGER', 'syslog');
 define('DB_SERVER', 'localhost');
 define('DB_SERVER_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');

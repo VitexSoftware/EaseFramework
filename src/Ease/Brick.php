@@ -84,10 +84,8 @@ class Brick extends Sand
      * @param string $message  zprava
      * @param string $type     Fronta zprav (warning|info|error|success)
      * @param bool   $addIcons prida UTF8 ikonky na zacatek zprav
-     * @param bool   $addToLog zapisovat zpravu do logu ?
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true,
-                                     $addToLog = true)
+    public function addStatusMessage($message, $type = 'info', $addIcons = true)
     {
         if ($addIcons) {
             switch ($type) {
@@ -108,10 +106,6 @@ class Brick extends Sand
                     break;
             }
         }
-        if ($addToLog) {
-            $this->addToLog($message, $type);
-        }
-
         return parent::addStatusMessage($message, $type);
     }
 

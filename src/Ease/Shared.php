@@ -10,6 +10,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -96,13 +97,25 @@ class Shared extends Atom
     public static $userSessionName = 'User';
 
     /**
+     * Logger live here
+     * @var Logger\ToFile|Logger\ToMemory|Logger\ToSyslog
+     */
+    static public $log = null;
+    
+    /**
+     * Array of Status Messages
+     * @var array of Logger\Message
+     */
+    public $messages = [];
+
+    /**
      * Inicializace sdílené třídy.
      */
     public function __construct()
     {
         $cgiMessages = [];
         $webMessages = [];
-        $msgFile = sys_get_temp_dir().'/EaseStatusMessages.ser';
+        $msgFile     = sys_get_temp_dir().'/EaseStatusMessages.ser';
         if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile)
             && is_writable($msgFile)) {
             $cgiMessages = unserialize(file_get_contents($msgFile));
@@ -194,13 +207,7 @@ class Shared extends Atom
      */
     public static function logger()
     {
-        if (defined('LOG_NAME')) {
-            return Logger\ToSyslog::singleton();
-        } elseif (defined('LOG_FILE')) {
-            Logger\ToFile::singleton();
-        } else {
-            return Logger\ToMemory::singleton();
-        }
+        return Logger\Regent::singleton();
     }
 
     /**
@@ -270,8 +277,20 @@ class Shared extends Atom
      */
     public static function registerItem(&$itemPointer)
     {
-        $easeShared = self::singleton();
+        $easeShared             = self::singleton();
         $easeShared->allItems[] = $itemPointer;
+    }
+
+    /**
+     * Take message to print / log
+     * @param Logger\Message $message
+     */
+    public function takeMessage($message)
+    {
+        $this->messages[] = $message;
+        $this->addStatusMessage($message->body, $message->type);
+        $this->logger()->addToLog($message->caller, $message->body,
+            $message->type);
     }
 
     /**

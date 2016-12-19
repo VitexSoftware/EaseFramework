@@ -88,16 +88,9 @@ class Sand extends Atom
     /**
      * Objekt pro logování.
      *
-     * @var Logger
+     * @var Logger\Regent
      */
     public $logger = null;
-
-    /**
-     * Jakým objektem řešit logování ?
-     *
-     * @var Logger
-     */
-    public $logType = null;
 
     /**
      * Odkaz na vlastnící objekt.
@@ -119,21 +112,7 @@ class Sand extends Atom
     public function __construct()
     {
         $this->easeShared = Shared::singleton();
-        if (!$this->logType && defined('LOG_TYPE')) {
-            $this->logType = constant('LOG_TYPE');
-        }
-        switch ($this->logType) {
-            case 'file':
-                $this->logger = Logger\ToFile::singleton();
-                break;
-            case 'syslog':
-                $this->logger = Logger\ToSyslog::singleton();
-                break;
-            case 'memory':
-            default:
-                $this->logger = Logger\ToMemory::singleton();
-                break;
-        }
+        $this->logger     = $this->easeShared->logger();
 
         $this->setObjectName();
         $this->initialIdenty = $this->saveObjectIdentity();
@@ -149,11 +128,10 @@ class Sand extends Atom
      *
      * @return
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true,
-                                     $addToLog = true)
+    public function addStatusMessage($message, $type = 'info')
     {
-        return Shared::instanced()->addStatusMessage($message, $type, $addIcons,
-                $addToLog);
+        return $this->easeShared->takeMessage(new Logger\Message($message,
+                $type, get_class($this)));
     }
 
     /**

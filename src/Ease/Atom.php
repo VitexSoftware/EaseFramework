@@ -57,6 +57,7 @@ class Atom
     }
 
     /**
+     * Add message to stack to show or write to file
      * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu.
      *
      * @param string $message text zpravy

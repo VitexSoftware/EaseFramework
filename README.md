@@ -54,7 +54,20 @@ Docker:
 Composer:
 ---------
     composer require vitexsoftware/ease-framework
-    
+
+
+Framework Constants
+===================
+
+  * EASE_APPNAME - common name of application. Mainly used in logs.
+  * EASE_LOGGER  - one of memory,console,file,syslog or combination "console|syslog"
+  * DB_TYPE      - pgsql|mysql|sqlite|...
+  * DB_HOST      - localhost is default 
+  * DB_PORT      - database port 
+  * DB_DATABASE  - database schema name
+  * DB_USERNAME  - database user login name
+  * DB_PASSWORD  - database user password
+
 
 
 Example

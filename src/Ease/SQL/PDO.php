@@ -66,7 +66,7 @@ class PDO extends SQL
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance = null;
+    private static $_instance = null;
 
     /**
      * Database Type.
@@ -83,12 +83,12 @@ class PDO extends SQL
      */
     public static function singleton()
     {
-        if (!isset(self::$instance)) {
+        if (!isset(self::$_instance)) {
             $class = __CLASS__;
-            self::$instance = new $class();
+            self::$_instance = new $class();
         }
 
-        return self::$instance;
+        return self::$_instance;
     }
 
     /**
