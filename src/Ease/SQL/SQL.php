@@ -5,8 +5,9 @@
  * @deprecated since version 200
  *
  * @author     Vitex <vitex@hippy.cz>
- * @copyright  2009-2014 Vitex@vitexsoftware.cz (G)
+ * @copyright  2009-2016 Vitex@vitexsoftware.cz (G)
  */
+
 namespace Ease\SQL;
 
 /**
@@ -326,10 +327,10 @@ abstract class SQL extends \Ease\Sand
     public function makeReport()
     {
         $this->report['LastMessage'] = $this->lastMessage;
-        $this->report['ErrorText'] = $this->errorText;
-        $this->report['Database'] = $this->database;
-        $this->report['Username'] = $this->username;
-        $this->report['Server'] = $this->server;
+        $this->report['ErrorText']   = $this->errorText;
+        $this->report['Database']    = $this->database;
+        $this->report['Username']    = $this->username;
+        $this->report['Server']      = $this->server;
     }
 
     /**
@@ -402,47 +403,6 @@ abstract class SQL extends \Ease\Sand
             }
         } else {
             return;
-        }
-    }
-
-    /**
-     * Ověří existenci tabulky.
-     *
-     * @param string $tableName
-     *
-     * @return null|bool
-     */
-    public function tableExist($tableName = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->tableName;
-        }
-        if (!$tableName) {
-            $this->error('TableExist: $TableName not known');
-
-            return;
-        }
-
-        return true;
-    }
-
-    /**
-     * Zaznamená SQL Chybu.
-     *
-     * @param string $title volitelný popisek, většinou název volající funkce
-     */
-    public function logError($title = null)
-    {
-        if (is_null($title)) {
-            list(, $caller) = debug_backtrace(false);
-            $title = $caller['function'];
-        }
-        if (isset($this->easeShared->user) && is_object($this->easeShared->user)) {
-            return $this->easeShared->user->addStatusMessage($title.': #'.$this->errorNumber.' '.$this->errorText,
-                    'error');
-        } else {
-            return $this->addToLog($title.': #'.$this->errorNumber.' '.$this->errorText,
-                    'error');
         }
     }
 
@@ -604,20 +564,17 @@ abstract class SQL extends \Ease\Sand
     {
         if (!$this->result && !$ignoreErrors) {
             $queryRaw = $this->lastQuery;
-            if (\Ease\Shared::isCli()) {
-                if (function_exists('xdebug_call_function')) {
-                    echo "\nVolano tridou <b>".xdebug_call_class().' v souboru '.xdebug_call_file().':'.xdebug_call_line().' funkcí '.xdebug_call_function()."\n";
-                }
-                echo "\n$queryRaw\n\n#".$this->errorNumber.':'.$this->errorText;
-            } else {
-                echo '<br clear=all><pre class="error" style="border: red 1px dahed; ">';
-                if (function_exists('xdebug_print_function_stack')) {
-                    xdebug_print_function_stack('Volano tridou <b>'.xdebug_call_class().'</b> v souboru <b>'.xdebug_call_file().':'.xdebug_call_line().'</b> funkci <b>'.xdebug_call_function().'</b>');
-                }
-                echo "<br clear=all>$queryRaw\n\n<br clear=\"all\">#".$this->errorNumber.':<strong>'.$this->errorText.'</strong></pre></br>';
+            $callerBackTrace = debug_backtrace();
+            $callerBackTrace = $callerBackTrace[2];
+            $caller          = $callerBackTrace['function'].'()';
+            if (isset($callerBackTrace['class'])) {
+                $caller .= ' in '.$callerBackTrace['class'];
             }
-            $this->logError();
-            $this->error('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw);
+            if (isset($callerBackTrace['object'])) {
+                $caller .= ' ('.get_class($callerBackTrace['object']).')';
+            }
+            \Ease\Shared::logger()->addStatusMessage(new \Ease\Logger\Message('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw,
+                'error', $caller));
         }
     }
 

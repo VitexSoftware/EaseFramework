@@ -77,7 +77,6 @@ class Brick extends Sand
         return $result;
     }
 
-
     /**
      * Přidá zprávu do zásobníku pro zobrazení uživateli.
      *
@@ -127,7 +126,7 @@ class Brick extends Sand
     {
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
-             throw new Exception('getColumnsFromSQL: Missing ColumnList');
+            throw new Exception('getColumnsFromSQL: Missing ColumnList');
         }
 
         if (is_int($conditions)) {
@@ -135,12 +134,7 @@ class Brick extends Sand
         }
 
         $where = '';
-        if (is_array($conditions)) {
-            if (!count($conditions)) {
-                $this->error('getColumnsFromSQL: Missing Conditions');
-
-                return;
-            }
+        if (is_array($conditions) && count($conditions)) {
             $where = SQL\SQL::$whr.$this->dblink->prepSelect($conditions);
         } else {
             if (!is_null($conditions)) {
@@ -153,7 +147,7 @@ class Brick extends Sand
         }
 
         if ($orderBy) {
-            if (is_array($orderBy)) {
+            if (is_array($orderBy) && count($indexBy)) {
                 foreach ($orderBy as $oid => $oname) {
                     $orderBy[$oid] = "`$oname`";
                 }
@@ -165,7 +159,7 @@ class Brick extends Sand
             $orderByCond = '';
         }
 
-        if ($limit) {
+        if (intval($limit)) {
             $limitCond = SQL\SQL::$lmt.$limit;
         } else {
             $limitCond = '';
@@ -207,9 +201,9 @@ class Brick extends Sand
             $itemID = $this->dblink->addSlashes($itemID);
         }
         if (is_null($itemID)) {
-            $this->error('loadFromSQL: Unknown Key', $this->data);
+            throw  new Exception ('loadFromSQL: Unknown Key');
         }
-        $cc = $this->dblink->getColumnComma();
+        $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
@@ -228,7 +222,7 @@ class Brick extends Sand
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
-        $sqlResult = $this->getDataFromSQL($itemID);
+        $sqlResult              = $this->getDataFromSQL($itemID);
         $this->multipleteResult = (count($sqlResult) > 1);
 
         if ($this->multipleteResult) {
@@ -286,7 +280,7 @@ class Brick extends Sand
             }
         }
         if (is_null($columnsList)) {
-            $cc = $this->dblink->getColumnComma();
+            $cc      = $this->dblink->getColumnComma();
             $records = $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
                 $ColumnToIndex);
         } else {
@@ -313,7 +307,7 @@ class Brick extends Sand
         }
 
         if (is_null($data)) {
-            $data = $this->getData();
+            $data        = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -342,7 +336,7 @@ class Brick extends Sand
             $data[$this->myLastModifiedColumn] = 'NOW()';
         }
 
-        $cc = $this->dblink->getColumnComma();
+        $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
@@ -426,7 +420,7 @@ class Brick extends Sand
     public function insertToSQL($data = null)
     {
         if (is_null($data)) {
-            $data = $this->getData();
+            $data        = $this->getData();
             $useInObject = true;
         } else {
             $useInObject = false;
@@ -533,8 +527,8 @@ class Brick extends Sand
         if (!$myKeyColumn) {
             $myKeyColumn = $this->myKeyColumn;
         }
-        $cc = $this->dblink->getColumnComma();
-        $listQuery = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
+        $cc               = $this->dblink->getColumnComma();
+        $listQuery        = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
         $this->dblink->queryToArray($listQuery);
         $this->DataIdList = $this->dblink->resultArray;
 
@@ -546,11 +540,9 @@ class Brick extends Sand
      *
      * @param string $myTable
      */
-    public function takemyTable($myTable = null)
+    public function takemyTable($myTable)
     {
-        if (is_null($myTable)) {
-            $this->myTable = $myTable;
-        }
+        $this->myTable = $myTable;
         if (!isset($this->dblink) || !is_object($this->dblink)) {
             $this->dblink = Shared::db();
         }
@@ -639,25 +631,6 @@ class Brick extends Sand
     }
 
     /**
-     * Test na existenci tabulky v SQL databázi.
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     */
-    public function mySQLTableExist($tableName = null)
-    {
-        if (!$tableName) {
-            $tableName = $this->myTable;
-        }
-        if (!$tableName) {
-            $this->error('ShopTableExist: $TableName not known', $this->identity);
-        }
-
-        return $this->dblink->tableExist($tableName);
-    }
-
-    /**
      * Vrátí počet položek tabulky v SQL.
      *
      * @param string $tableName pokud není zadáno, použije se $this->myTable
@@ -681,7 +654,7 @@ class Brick extends Sand
      */
     public function searchColumns($searchTerm, $columns)
     {
-        $sTerm = $this->dblink->addSlashes($searchTerm);
+        $sTerm     = $this->dblink->addSlashes($searchTerm);
         $conditons = [];
         foreach ($columns as $column) {
             $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';

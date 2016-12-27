@@ -124,7 +124,7 @@ class PDO extends SQL
      */
     public function addSlashes($text)
     {
-        if (method_exists($this->sqlLink, 'real_escape_string')) {
+        if (isset($this->sqlLink) && method_exists($this->sqlLink, 'real_escape_string')) {
             $slashed = $this->sqlLink->real_escape_string($text);
         } else {
             $slashed = addslashes($text);
@@ -158,7 +158,7 @@ class PDO extends SQL
                     break;
 
                 default:
-                    throw new \Exception(_('Unimplemented Database').': '.$this->dbType);
+                    throw new \Exception(_('Unimplemented Database type').': '.$this->dbType);
                     break;
             }
 
@@ -564,26 +564,6 @@ class PDO extends SQL
         }
 
         return trim(implode($ldiv, $conditions).' '.implode(' ', $conditionsII));
-    }
-
-    /**
-     * Vrací 1 pokud tabulka v databázi existuje.
-     *
-     * @param string $tableName
-     *
-     * @return int
-     */
-    public function tableExist($tableName = null)
-    {
-        if (!parent::tableExist($tableName)) {
-            return;
-        }
-        $this->exeQuery("SHOW TABLES LIKE '".$tableName."'");
-        if ($this->numRows) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
