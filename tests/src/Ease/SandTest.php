@@ -322,16 +322,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::error
-     *
-     * @todo   Implement testError().
-     */
-    public function testError()
-    {
-        $this->object->error('message');
-    }
-
-    /**
      * @covers Ease\Sand::__toString
      *
      * @todo   Implement test__toString().

@@ -86,11 +86,18 @@ class Regent extends \Ease\Atom
         }
     }
 
-    public function addStatusMessage($message, $type = 'info')
+    /**
+     *
+     * @param \Ease\Logger\Message $message
+     * @param string $type
+     * @return type
+     */
+    public function addStatusObject(Message $message, $type = 'info')
     {
-        $this->addToLog($caller, $message);
-        \Ease\Shared::instanced()->addStatusMessage($message, $type);
-        return parent::addStatusMessage($message, $type);
+        $this->addToLog($message->caller, $message->body, $message->type);
+        \Ease\Shared::instanced()->addStatusMessage($message->body,
+            $message->type);
+        return parent::addStatusMessage($message->body, $message->type);
     }
 
     /**

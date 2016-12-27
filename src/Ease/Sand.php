@@ -661,20 +661,6 @@ class Sand extends Atom
     }
 
     /**
-     * Oznamuje chybovou událost.
-     *
-     * @param string $message    zpráva
-     * @param mixed  $objectData pole dat k zaznamenání
-     */
-    public function error($message, $objectData = null)
-    {
-        if (is_object($this->logger)) {
-            $this->logger->error($this->getObjectName(), $message, $objectData);
-        }
-        $this->addStatusMessage($message, 'error');
-    }
-
-    /**
      * Magická funkce pro všechny potomky.
      *
      * @return string

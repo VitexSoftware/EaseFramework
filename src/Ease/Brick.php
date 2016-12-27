@@ -127,9 +127,7 @@ class Brick extends Sand
     {
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
-            $this->error('getColumnsFromSQL: Missing ColumnList');
-
-            return;
+             throw new Exception('getColumnsFromSQL: Missing ColumnList');
         }
 
         if (is_int($conditions)) {
