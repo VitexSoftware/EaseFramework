@@ -20,7 +20,7 @@ class BrickTest extends SandTest
      */
     protected function setUp()
     {
-        $this->object = new \Test\BrickTester();
+        $this->object = new Local\BrickTester();
     }
 
     /**

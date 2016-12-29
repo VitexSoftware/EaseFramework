@@ -45,19 +45,6 @@ class PageTest extends ContainerTest
     }
 
     /**
-     * @covers Ease\Page::assignWebPage
-     *
-     * @todo   Implement testAssignWebPage().
-     */
-    public function testAssignWebPage()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\Page::addJavaScript
      *
      * @todo   Implement testAddJavaScript().

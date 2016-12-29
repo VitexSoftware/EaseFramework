@@ -20,7 +20,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\": "tests",
+            "Test\\Ease\\Local\\": "tests",
             "Test\\Ease\\": "tests/src/Ease",
             "Test\\Ease\\Logger\\": "tests/src/Ease/Logger",
             "Test\\Ease\\Html\\": "tests/src/Ease/Html",

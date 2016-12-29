@@ -29,7 +29,7 @@ class ContainerTest extends SandTest
      */
     protected function tearDown()
     {
-
+        
     }
 
     public function testConstructor()
@@ -53,28 +53,28 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::addItemCustom
-     *
-     * @todo   Implement testAddItemCustom().
      */
     public function testAddItemCustom()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $context = new \Ease\Html\Div();
+        Container::addItemCustom('*', $context);
+        $this->assertEquals("\n<div>*</div>", $context->getRendered());
+
+        $context = new \Ease\Html\Div();
+        Container::addItemCustom(new \Ease\Html\ImgTag(null), $context);
+        $this->assertEquals("\n<div>\n<img src=\"\" /></div>",
+            $context->getRendered());
     }
 
     /**
      * @covers Ease\Container::addItem
-     *
-     * @todo   Implement testAddItem().
      */
     public function testAddItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $prober   = new \Ease\Html\H1Tag();
+        $inserted = $this->object->addItem($prober);
+        $this->assertEquals($inserted, $prober);
+        $this->assertEquals($prober, end($this->object->pageParts));
     }
 
     /**
@@ -235,15 +235,11 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::getRendered
-     *
-     * @todo   Implement testGetRendered().
      */
     public function testGetRendered()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItem('*');
+        $this->assertNotEmpty($this->object->getRendered());
     }
 
     /**

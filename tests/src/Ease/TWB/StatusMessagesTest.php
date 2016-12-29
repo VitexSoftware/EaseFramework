@@ -19,6 +19,7 @@ class StatusMessagesTest extends \Test\Ease\Html\DivTest
     protected function setUp()
     {
         $this->object = new \Ease\TWB\StatusMessages();
+        \Ease\Shared::instanced()->addStatusMessage('test');
     }
 
     /**
@@ -31,14 +32,13 @@ class StatusMessagesTest extends \Test\Ease\Html\DivTest
 
     /**
      * @covers Ease\TWB\StatusMessages::draw
-     *
-     * @todo   Implement testDraw().
      */
     public function testDraw($whatWant = null)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        \Ease\Shared::instanced()->statusMessages = [];
+        \Ease\Shared::instanced()->addStatusMessage('test');
+        $this->assertEquals("\n".'<div><div class="MessageForUser" style="color: blue;" >test</div></div>',$this->object->getRendered());
+        \Ease\Shared::instanced()->statusMessages = [];
+        $this->assertEmpty($this->object->getRendered());
     }
 }

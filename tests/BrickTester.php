@@ -1,5 +1,5 @@
 <?php
-namespace Test;
+namespace Test\Ease\Local;
 
 /**
  * Description of BrickTester

@@ -8,12 +8,13 @@ class StatusMessages extends \Ease\Html\Div
 {
     /**
      * Blok stavových zpráv.
+     * Status message block
      */
     public function __construct()
     {
         $properties['class'] = 'well';
         $properties['id'] = 'StatusMessages';
-        $properties['title'] = _('kliknutím skryjete zprávy');
+        $properties['title'] = _('Click to hide messages');
         $properties['style'] = 'padding-top: 40px; padding-bottom: 0px;';
         parent::__construct(null, null, $properties);
         \Ease\JQuery\Part::jQueryze();
@@ -23,12 +24,13 @@ class StatusMessages extends \Ease\Html\Div
 
     /**
      * Vypíše stavové zprávy.
+     * Print status messafes
      */
     public function draw()
     {
-        $StatusMessages = trim($this->webPage->getStatusMessagesAsHtml());
-        if ($StatusMessages) {
-            parent::addItem($StatusMessages);
+        $statusMessages = trim(\Ease\Shared::webPage()->getStatusMessagesAsHtml());
+        if (strlen($statusMessages)) {
+            parent::addItem($statusMessages);
             parent::draw();
         } else {
             $this->suicide();

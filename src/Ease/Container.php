@@ -25,14 +25,6 @@ class Container extends Sand
     public $drawStatus = false;
 
     /**
-     * Content Charset
-     * Znaková sada obsahu.
-     *
-     * @var string
-     */
-    public $charSet = 'utf-8';
-
-    /**
      * Is class finalized ?
      * Prošel už objekt finalizací ?
      *
@@ -62,7 +54,7 @@ class Container extends Sand
     public function __construct($initialContent = null)
     {
         parent::__construct();
-        if ($initialContent) {
+        if (!is_null($initialContent)) {
             $this->addItem($initialContent);
         }
     }
@@ -283,6 +275,7 @@ class Container extends Sand
     }
 
     /**
+     * Insert an array of elemnts
      * Vloží pole elementů.
      *
      * @param array $itemsArray pole hodnot nebo EaseObjektů s metodou draw()
@@ -290,8 +283,8 @@ class Container extends Sand
     public function addItems($itemsArray)
     {
         $itemsAdded = [];
-        foreach ($itemsArray as $item) {
-            $itemsAdded[] = $this->addItem($item);
+        foreach ($itemsArray as $itemID => $item) {
+            $itemsAdded[$itemID] = $this->addItem($item);
         }
 
         return $itemsAdded;
@@ -377,8 +370,8 @@ class Container extends Sand
         ob_start();
         $this->draw();
         $retVal .= ob_get_contents();
-        ob_clean();
-
+        ob_end_clean();
+        
         return $retVal;
     }
 
@@ -421,6 +414,7 @@ class Container extends Sand
     }
 
     /**
+     * Set label of parts finalized.
      * Nastaví návěstí finalizace části.
      *
      * @param bool $flag příznak finalizace

@@ -85,25 +85,6 @@ class Page extends Container
     }
 
     /**
-     * Přiřadí objekt stránky do webPage.
-     *
-     * @param object|Page|Container $easeObject objekt do kterého
-     *                                          přiřazujeme WebStránku
-     */
-    public static function assignWebPage(&$easeObject)
-    {
-        if (isset($easeObject->easeShared->webPage)) {
-            $easeObject->webPage = &$easeObject->easeShared->webPage;
-        } else {
-            if (is_subclass_of($easeObject, 'EasePage')) {
-                $easeObject->webPage = &$easeObject;
-            } else {
-                $easeObject->webPage = &Shared::webPage();
-            }
-        }
-    }
-
-    /**
      * Vloží javascript do stránky.
      *
      * @param string $javaScript      JS code
@@ -114,9 +95,7 @@ class Page extends Container
      */
     public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
     {
-        self::assignWebPage($this);
-
-        return $this->webPage->addJavaScript($javaScript, $position, $inDocumentReady);
+        return \Ease\Shared::webPage()->addJavaScript($javaScript, $position, $inDocumentReady);
     }
 
     /**
@@ -130,9 +109,7 @@ class Page extends Container
      */
     public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
     {
-        self::assignWebPage($this);
-
-        return $this->webPage->includeJavaScript($javaScriptFile, $position, $fwPrefix);
+        return \Ease\Shared::webPage()->includeJavaScript($javaScriptFile, $position, $fwPrefix);
     }
 
     /**
@@ -144,9 +121,7 @@ class Page extends Container
      */
     public function addCSS($css)
     {
-        self::assignWebPage($this);
-
-        return $this->webPage->addCSS($css);
+        return \Ease\Shared::webPage()->addCSS($css);
     }
 
     /**
@@ -160,9 +135,7 @@ class Page extends Container
      */
     public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
     {
-        self::assignWebPage($this);
-
-        return $this->webPage->includeCss($cssFile, $fwPrefix, $media);
+        return \Ease\Shared::webPage()->includeCss($cssFile, $fwPrefix, $media);
     }
 
     /**

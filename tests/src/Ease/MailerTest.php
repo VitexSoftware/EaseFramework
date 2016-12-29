@@ -102,17 +102,21 @@ class MailerTest extends PageTest
             'This test has not been implemented yet.'
         );
     }
+    
+    /**
+     * @covers Ease\Mailer::getRendered
+     */
+    public function testGetRendered()
+    {
+        $this->assertEmpty($this->object->getRendered());
+    }
 
     /**
      * @covers Ease\Mailer::draw
-     * @todo   Implement testDraw().
      */
     public function testDraw($whatWant = NULL)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->draw());
     }
 
     /**

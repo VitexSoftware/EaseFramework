@@ -24,6 +24,14 @@ class HeadTag extends PairTag
     public $cascadeStyles = null;
 
     /**
+     * Content Charset
+     * Znaková sada obsahu.
+     *
+     * @var string
+     */
+    public $charSet       = 'utf-8';
+
+    /**
      * Html HEAD tag with basic contents and skin support.
      *
      * @param mixed $content vkládaný obsah

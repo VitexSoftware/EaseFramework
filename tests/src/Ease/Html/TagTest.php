@@ -29,6 +29,7 @@ class TagTest extends PageTest
      */
     protected function tearDown()
     {
+        
     }
 
     public function testConstructor()

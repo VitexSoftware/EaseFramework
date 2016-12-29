@@ -61,6 +61,7 @@ Framework Constants
 
   * EASE_APPNAME - common name of application. Mainly used in logs.
   * EASE_LOGGER  - one of memory,console,file,syslog or combination "console|syslog"
+  * EASE_SMTP    - Custom SMTP Settings (JSON Encoded) 
   * DB_TYPE      - pgsql|mysql|sqlite|...
   * DB_HOST      - localhost is default 
   * DB_PORT      - database port 
