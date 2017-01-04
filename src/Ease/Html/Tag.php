@@ -263,19 +263,11 @@ class Tag extends \Ease\Page
             $tagPropertiesString = ' ';
             foreach ($tagProperties as $tagPropertyName => $tagPropertyValue) {
                 if ($tagPropertyName) {
-                    if (is_numeric($tagPropertyName)) {
-                        if (!strstr($tagPropertiesString,
-                                ' '.$tagPropertyValue.' ')) {
-                            $tagPropertiesString .= ' '.$tagPropertyValue.' ';
-                        }
-                    } else {
-                        $tagPropertiesString .= $tagPropertyName.'="'.$tagPropertyValue.'" ';
-                    }
+                    $tagPropertiesString .= $tagPropertyName.'="'.$tagPropertyValue.'" ';
                 } else {
                     $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
-
             $tagPropertiesString = trim($tagPropertiesString);
         }
 
