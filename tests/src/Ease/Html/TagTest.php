@@ -178,7 +178,7 @@ class TagTest extends PageTest
      */
     public function testTagPropertiesToString()
     {
-        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit', 1]);
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit', 1, 3=>5]);
 
         $this->assertNotEmpty(
             $this->object->tagPropertiesToString());
@@ -191,9 +191,6 @@ class TagTest extends PageTest
      */
     public function testSetTagCss()
     {
-        $this->object->setTagCss('color: blue;');
-        $this->assertEquals('color: blue;',
-            $this->object->cssPropertiesToString());
         $this->object->setTagCss(['color' => 'blue', 'margin' => '5px']);
         $this->assertEquals('color:blue;margin:5px;',
             $this->object->cssPropertiesToString());
@@ -228,5 +225,16 @@ class TagTest extends PageTest
         } else {
             $this->assertEquals($whatWant, $drawed);
         }
+    }
+
+    /**
+     * @covers Ease\Html\Tag::finalize
+     */
+    public function testFinalize()
+    {
+        $this->object->setTagCss(['color' => 'black']);
+        $this->object->finalize();
+        $this->assertEquals('color:black;',
+            $this->object->getTagProperty('style'), 'error finializing tag');
     }
 }

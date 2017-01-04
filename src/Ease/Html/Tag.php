@@ -263,30 +263,32 @@ class Tag extends \Ease\Page
             $tagPropertiesString = ' ';
             foreach ($tagProperties as $tagPropertyName => $tagPropertyValue) {
                 if ($tagPropertyName) {
-                    $tagPropertiesString .= $tagPropertyName.'="'.$tagPropertyValue.'" ';
+                    if (is_numeric($tagPropertyName)) {
+                        if (!strstr($tagPropertiesString,
+                                ' '.$tagPropertyValue.' ')) {
+                            $tagPropertiesString .= ' '.$tagPropertyValue.' ';
+                        }
+                    } else {
+                        $tagPropertiesString .= $tagPropertyName.'="'.$tagPropertyValue.'" ';
+                    }
                 } else {
                     $tagPropertiesString .= $tagPropertyValue.' ';
                 }
             }
+
             $tagPropertiesString = trim($tagPropertiesString);
         }
-
         return $tagPropertiesString;
     }
 
     /**
      * Nastaví paramatry Css.
      *
-     * @param array|string $cssProperties asociativní pole, nebo CSS definice
+     * @param array $cssProperties asociativní pole, nebo CSS definice
      */
-    public function setTagCss($cssProperties)
+    public function setTagCss(array $cssProperties)
     {
-        if (is_array($this->cssProperties)) {
-            $this->cssProperties = array_merge($this->cssProperties,
-                $cssProperties);
-        } else {
-            $this->cssProperties = $cssProperties;
-        }
+        $this->cssProperties = $cssProperties;
         $this->setTagProperties(['style' => $this->cssPropertiesToString()]);
     }
 
@@ -303,15 +305,10 @@ class Tag extends \Ease\Page
         if (!$cssProperties) {
             $cssProperties = $this->cssProperties;
         }
-        if (is_array($cssProperties)) {
-            $cssPropertiesString = ' ';
-            foreach ($cssProperties as $CssPropertyName => $CssPropertyValue) {
-                $cssPropertiesString .= $CssPropertyName.':'.$CssPropertyValue.';';
-            }
-        } else {
-            $cssPropertiesString = $this->cssProperties;
+        $cssPropertiesString = ' ';
+        foreach ($cssProperties as $CssPropertyName => $CssPropertyValue) {
+            $cssPropertiesString .= $CssPropertyName.':'.$CssPropertyValue.';';
         }
-
         return trim($cssPropertiesString);
     }
 

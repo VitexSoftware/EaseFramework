@@ -9,9 +9,11 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Latest Version](https://img.shields.io/github/release/VitexSoftware/EaseFramework.svg?style=flat-square)](https://github.com/VitexSoftware/EaseFramework/releases)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat-square)](https://github.com/VitexSoftware/EaseFramework/blob/master/LICENSE)
 [![Build Status](https://img.shields.io/travis/VitexSoftware/EaseFramework/master.svg?style=flat-square)](https://travis-ci.org/VitexSoftware/EaseFramework)
-[![Coverage Status](https://img.shields.io/coveralls/VitexSoftware/EaseFramework/master.svg?style=flat-square)](https://coveralls.io/r/VitexSoftware/EaseFramework?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
 [![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/easephpframework.svg)](https://hub.docker.com/r/vitexsoftware/easephpframework/)
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)
+
 
 ---
 
@@ -122,5 +124,3 @@ Homepage: https://www.vitexsoftware.cz/ease.php
 GitHub: https://github.com/VitexSoftware/EaseFramework
 
 Apigen Docs: https://www.vitexsoftware.cz/ease-framework/
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)
