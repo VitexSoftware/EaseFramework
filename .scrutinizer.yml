@@ -30,7 +30,7 @@ build:
     tests:
         override:
             -
-                command: 'phpunit --coverage-clover=clover'
+                command: 'phpunit --coverage-clover=clover.log'
                 coverage:
-                    file: 'clover'
-                    format: 'php-clover'
+                    file: 'clover.log'
+                    format: 'clover'
