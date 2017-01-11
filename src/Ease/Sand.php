@@ -5,6 +5,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease;
 
 /**
@@ -55,7 +56,7 @@ class Sand extends Atom
         'MyIDSColumn',
         'MyRefIDColumn',
         'myCreateColumn',
-        'myLastModifiedColumn', ];
+        'myLastModifiedColumn',];
 
     /**
      * Klíčový sloupeček v používané MySQL tabulce.
@@ -513,6 +514,7 @@ class Sand extends Atom
     }
 
     /**
+     * Encrypt.
      * Šifrování.
      *
      * @param string $textToEncrypt plaintext
@@ -522,25 +524,15 @@ class Sand extends Atom
      */
     public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
-        $encryptedText = null;
-        srand((float) microtime() * 1000000); //for sake of MCRYPT_RAND
-        $encryptKey = md5($encryptKey);
-        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey = substr($encryptKey, 0,
-            mcrypt_enc_get_key_size($encryptHandle));
-        $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = mcrypt_create_iv($initialVectorSize, MCRYPT_RAND);
-        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
-            $encryptedText = mcrypt_generic($encryptHandle, $textToEncrypt);
-            mcrypt_generic_deinit($encryptHandle);
-            mcrypt_module_close($encryptHandle);
-            $encryptedText = $initialVector.$encryptedText;
-        }
-
-        return $encryptedText;
+        $encryption_key = base64_decode($encryptKey);
+        $iv             = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+        $encrypted      = openssl_encrypt($textToEncrypt, 'aes-256-cbc',
+            $encryption_key, 0, $iv);
+        return base64_encode($encrypted.'::'.$iv);
     }
 
     /**
+     * Decrypt
      * Dešifrování.
      *
      * @param string $textToDecrypt šifrovaný text
@@ -550,21 +542,11 @@ class Sand extends Atom
      */
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
-        $decryptedText = null;
-        $encryptKey = md5($encryptKey);
-        $encryptHandle = mcrypt_module_open('des', '', 'cfb', '');
-        $encryptKey = substr($encryptKey, 0,
-            mcrypt_enc_get_key_size($encryptHandle));
-        $initialVectorSize = mcrypt_enc_get_iv_size($encryptHandle);
-        $initialVector = substr($textToDecrypt, 0, $initialVectorSize);
-        $textToDecrypt = substr($textToDecrypt, $initialVectorSize);
-        if (mcrypt_generic_init($encryptHandle, $encryptKey, $initialVector) != -1) {
-            $decryptedText = mdecrypt_generic($encryptHandle, $textToDecrypt);
-            mcrypt_generic_deinit($encryptHandle);
-            mcrypt_module_close($encryptHandle);
-        }
-
-        return $decryptedText;
+        $encryption_key = base64_decode($encryptKey);
+        list($encrypted_data, $iv) = explode('::',
+            base64_decode($textToDecrypt), 2);
+        return openssl_decrypt($encrypted_data, 'aes-256-cbc', $encryption_key,
+            0, $iv);
     }
 
     /**
@@ -678,7 +660,7 @@ class Sand extends Atom
     public function __sleep()
     {
         $objectVars = array_keys(get_object_vars($this));
-        $parent = get_parent_class(__CLASS__);
+        $parent     = get_parent_class(__CLASS__);
         if (method_exists($parent, '__sleep') && ($parent != 'Ease\Atom')) {
             $parentObjectVars = parent::__sleep();
             array_push($objectVars, $parentObjectVars);
@@ -698,8 +680,8 @@ class Sand extends Atom
     public static function humanFilesize($filesize)
     {
         if (is_numeric($filesize)) {
-            $decr = 1024;
-            $step = 0;
+            $decr   = 1024;
+            $step   = 0;
             $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
             while (($filesize / $decr) > 0.9) {
