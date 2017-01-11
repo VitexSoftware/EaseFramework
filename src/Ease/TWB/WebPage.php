@@ -23,7 +23,6 @@ class WebPage extends \Ease\WebPage
      * Stránka s podporou pro twitter bootstrap.
      *
      * @param string   $pageTitle
-     * @param EaseUser $userObject
      */
     public function __construct($pageTitle = null)
     {
