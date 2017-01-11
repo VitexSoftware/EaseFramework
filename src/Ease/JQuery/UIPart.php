@@ -18,7 +18,6 @@ class UIPart extends Part
     /**
      * Opatří objekt vším potřebným pro funkci jQueryUI.
      *
-     * @param \Ease\Page|mixed $EaseObject objekt k opatření jQuery závislostmi
      */
     public static function jQueryze()
     {

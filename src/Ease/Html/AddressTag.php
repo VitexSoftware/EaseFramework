@@ -11,7 +11,7 @@ class AddressTag extends PairTag
      * Html element pro adresu.
      *
      * @param string $content       text adresy
-     * @param array  $TagProperites vlastnosti tagu
+     * @param array  $tagProperties vlastnosti tagu
      */
     public function __construct($content = null, $tagProperties = null)
     {

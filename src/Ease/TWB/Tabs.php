@@ -37,7 +37,7 @@ class Tabs extends \Ease\Container
      *
      * @param string $partName       - DIV id
      * @param array  $tabsList
-     * @param array  $partProperties
+     * @param array  $tagProperties
      */
     public function __construct($partName, $tabsList = null,
                                 $tagProperties = null)
