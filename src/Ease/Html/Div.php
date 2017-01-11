@@ -12,7 +12,6 @@ class Div extends PairTag
     /**
      * Prostý tag odstavce DIV.
      *
-     * @param string $name       ID tagu
      * @param mixed  $content    vložené prvky
      * @param array  $properties pole parametrů
      */
