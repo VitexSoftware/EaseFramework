@@ -243,6 +243,9 @@ class PDO extends SQL
                 }
                 break;
             case 'insert':
+                if ($this->dbType == 'pgsql') {
+                    $queryRaw .= ' RETURNING '.$this->myKeyColumn;
+                }
             case 'replace':
             case 'delete':
                 $stmt = $this->sqlLink->prepare($queryRaw);
@@ -255,7 +258,11 @@ class PDO extends SQL
                 }
 
                 if ($this->errorText[0] == '0000') {
-                    $this->lastInsertID = $this->getlastInsertID();
+                    if (($this->dbType == 'pgsql') && ($sqlAction == 'insert')) {
+                        $this->lastInsertID = current($stmt->fetch());
+                    } else {
+                        $this->lastInsertID = $this->getlastInsertID();
+                    }
                     $this->numRows = $stmt->rowCount();
                     $this->result = true;
                 }
