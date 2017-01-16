@@ -259,7 +259,10 @@ class PDO extends SQL
 
                 if ($this->errorText[0] == '0000') {
                     if (($this->dbType == 'pgsql') && ($sqlAction == 'insert')) {
-                        $this->lastInsertID = current($stmt->fetch());
+                        $fetched = $stmt->fetch();
+                        if(is_array($fetched)){
+                            $this->lastInsertID = current($fetched);
+                        }
                     } else {
                         $this->lastInsertID = $this->getlastInsertID();
                     }

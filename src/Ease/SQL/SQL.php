@@ -78,7 +78,7 @@ abstract class SQL extends \Ease\Sand
      *
      * @var int unsigned
      */
-    public $lastIsnertID = null;
+    public $lastInsertID = null;
 
     /**
      * Poslední vykonaná SQL Query.
