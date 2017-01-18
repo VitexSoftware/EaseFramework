@@ -136,7 +136,7 @@ class PDO extends SQL
     /**
      * Perform connect to database.
      *
-     * @return bool|null connecting result true: connected, false: error, null: no SQL configured
+     * @return false|null connecting result true: connected, false: error, null: no SQL configured
      */
     public function connect()
     {
@@ -505,7 +505,7 @@ class PDO extends SQL
      * @param array  $data Pokud hodnota zacina znakem ! Je tento odstranen a generovan je negovany test
      * @param string $ldiv typ generovane podminky AND/OR
      *
-     * @return sql
+     * @return string
      */
     public function prepSelect($data, $ldiv = 'AND')
     {

@@ -42,7 +42,7 @@ class InputSearchTag extends InputTag
     /**
      * Nastaví zdroj dat našeptávače.
      *
-     * @param string $DataSourceURL url zdroje dat našeptávače ve formátu JSON
+     * @param string $dataSourceURL url zdroje dat našeptávače ve formátu JSON
      */
     public function setDataSource($dataSourceURL)
     {

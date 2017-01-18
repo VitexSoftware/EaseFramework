@@ -117,7 +117,7 @@ class ToSyslog extends ToMemory
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return bool byl report zapsán ?
+     * @return null|boolean byl report zapsán ?
      */
     public function addToLog($caller, $message, $type = 'message')
     {

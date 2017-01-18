@@ -124,8 +124,6 @@ class Sand extends Atom
      *
      * @param string $message  Text zprávy
      * @param string $type     Fronta zpráv (warning|info|error|success)
-     * @param bool   $addIcons přidá UTF8 ikonky na začátek zpráv
-     * @param bool   $addToLog zapisovat zpravu do logu ?
      *
      * @return
      */

@@ -75,8 +75,8 @@ class ToConsole extends ToMemory
     /**
      * Set Ansi Color
      * 
-     * @param type $str
-     * @param type $color
+     * @param string $str
+     * @param string $color
      * @return string
      */
     public static function set($str, $color)
@@ -98,7 +98,7 @@ class ToConsole extends ToMemory
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return bool byl report zapsán ?
+     * @return boolean|null byl report zapsán ?
      */
     public function addToLog($caller, $message, $type = 'message')
     {

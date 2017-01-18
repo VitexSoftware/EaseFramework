@@ -21,8 +21,6 @@ class ConfirmedLinkButton extends LinkButton
      *
      * @param string       $href       cíl odkazu
      * @param string       $contents   obsah tlačítka
-     * @param array|string $JQOptions  parametry pro $.button()
-     * @param array        $properties vlastnosti HTML tagu
      */
     public function __construct($href, $contents)
     {
