@@ -208,7 +208,7 @@ class User extends Anonym
      *
      * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
      *
-     * @return bool
+     * @return null|boolean
      */
     public function tryToLogin($formData)
     {
@@ -560,7 +560,7 @@ class User extends Anonym
      * @param bool $multiplete nevarovat v případě vícenásobného
      *                         výsledku
      *
-     * @return array Results
+     * @return null|integer Results
      */
     public function loadFromSQL($itemID = null, $multiplete = false)
     {
@@ -577,7 +577,7 @@ class User extends Anonym
      * address.
      *
      * @param string $email     The email address
-     * @param string $size      Size in pixels, defaults to 80px [ 1 - 512 ]
+     * @param integer $size      Size in pixels, defaults to 80px [ 1 - 512 ]
      * @param string $default   [ 404 | mm | identicon | monsterid | wavatar ]
      * @param string $maxRating Maximum rating (inclusive) [ g | pg | r | x ]
      *

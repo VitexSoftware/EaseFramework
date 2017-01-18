@@ -122,6 +122,7 @@ class ToFile extends ToMemory
 
     /**
      * Nastaví cesty logovacích souborů.
+     * @param string $baseLogDir
      */
     public function setupLogFiles($baseLogDir = null)
     {
@@ -161,7 +162,7 @@ class ToFile extends ToMemory
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return bool byl report zapsán ?
+     * @return null|boolean byl report zapsán ?
      */
     public function addToLog($caller, $message, $type = 'message')
     {
@@ -222,7 +223,7 @@ class ToFile extends ToMemory
      *
      * @param string $newLogFileName new log filename
      *
-     * @return bool
+     * @return string
      */
     public function renameLogFile($newLogFileName)
     {

@@ -33,6 +33,9 @@ class Message
      */
     public $when;
 
+    /**
+     * @param string $caller
+     */
     public function __construct($message, $type = 'info', $caller = null,
                                 $when = null)
     {
