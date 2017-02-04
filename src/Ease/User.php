@@ -388,17 +388,17 @@ class User extends Anonym
      */
     public function passwordChange($newPassword, $userID = null)
     {
-        if (!$userID) {
+        $hash = null;
+        if (empty($userID)) {
             $userID = $this->getUserID();
         }
-        if (!$userID) {
-            return;
-        }
-        $hash = $this->encryptPassword($newPassword);
-        $this->dblink->exeQuery(SQL\SQL::$upd.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\''.SQL\SQL::$whr.$this->myKeyColumn.'='.$userID);
-        $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
-        if ($userID == $this->getUserID()) {
-            $this->setDataValue($this->passwordColumn, $hash);
+        if (!empty($userID)) {
+            $hash = $this->encryptPassword($newPassword);
+            $this->dblink->exeQuery(SQL\SQL::$upd.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\''.SQL\SQL::$whr.$this->myKeyColumn.'='.$userID);
+            $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
+            if ($userID == $this->getUserID()) {
+                $this->setDataValue($this->passwordColumn, $hash);
+            }
         }
 
         return $hash;
@@ -606,12 +606,11 @@ class User extends Anonym
     public function setObjectName($objectName = null)
     {
 
-        if (!$objectName && isset($_SERVER['REMOTE_ADDR'])) {
+        if (empty($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
             $name = parent::setObjectName(get_class($this).':'.$this->getUserName().'@'.self::remoteToIdentity());
         } else {
             $name = parent::setObjectName($objectName);
         }
         return $name;
     }
-
 }

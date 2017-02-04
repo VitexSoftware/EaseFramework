@@ -134,7 +134,7 @@ class ToFile extends ToMemory
             $baseLogDir = constant('LOG_DIRECTORY');
         }
 
-        if ($baseLogDir) {
+        if (!empty($baseLogDir)) {
             $this->logPrefix = \Ease\Brick::sysFilename($baseLogDir);
             if ($this->TestDirectory($this->logPrefix)) {
                 $this->logFileName = $this->logPrefix.$this->logFileName;
@@ -191,19 +191,19 @@ class ToFile extends ToMemory
                 flush();
             }
         }
-        if ($this->logPrefix) {
+        if (!empty($this->logPrefix)) {
             if ($this->logType == 'file' || $this->logType == 'both') {
-                if ($this->logFileName) {
+                if (!empty($this->logFileName)) {
                     if (!$this->_logFileHandle) {
                         $this->_logFileHandle = fopen($this->logFileName, 'a+');
                     }
-                    if ($this->_logFileHandle) {
+                    if ($this->_logFileHandle != null) {
                         fwrite($this->_logFileHandle, $LogLine);
                     }
                 }
             }
             if ($type == 'error') {
-                if ($this->errorLogFile) {
+                if (!empty($this->errorLogFile)) {
                     if (!$this->_errorLogFileHandle) {
                         $this->_errorLogFileHandle = fopen($this->errorLogFile,
                             'a+');

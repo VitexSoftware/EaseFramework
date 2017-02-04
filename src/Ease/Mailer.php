@@ -177,7 +177,7 @@ class Mailer extends Page
      *
      * @param mixed $item EaseObjekt nebo cokoliv s metodou draw();
      *
-     * @return mixed ukazatel na vložený obsah
+     * @return Ease\pointer|null ukazatel na vložený obsah
      */
     public function &addItem($item, $pageItemName = null)
     {

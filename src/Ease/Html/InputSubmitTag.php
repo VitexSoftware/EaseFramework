@@ -18,7 +18,7 @@ class InputSubmitTag extends InputTag
      */
     public function __construct($name, $value = null, $properties = [])
     {
-        if (!$value) {
+        if (is_null($value)) {
             $value = $name;
         }
         if (is_null($properties)) {

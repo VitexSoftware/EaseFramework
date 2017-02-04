@@ -1,5 +1,6 @@
 <?php
 /**
+ * Html form able to be recursive filled
  * Html formulář se schopností rekurzivne naplnit hodnotami vložené prvky.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
@@ -41,11 +42,11 @@ class Form extends PairTag
      */
     public function __construct($formName, $formAction = null,
                                 $formMethod = 'post', $formContents = null,
-                                $tagProperties = null)
+                                $tagProperties = [])
     {
         parent::__construct('form',
             ['method' => $formMethod, 'name' => $formName]);
-        if ($formAction) {
+        if (is_null($formAction)) {
             $this->setFormTarget($formAction);
         } else {
             if (isset($_SERVER['REQUEST_URI'])) {
@@ -55,7 +56,7 @@ class Form extends PairTag
         if (isset($formContents)) {
             $this->addItem($formContents);
         }
-        if (!is_null($tagProperties)) {
+        if (count($tagProperties)) {
             $this->setTagProperties($tagProperties);
         }
     }

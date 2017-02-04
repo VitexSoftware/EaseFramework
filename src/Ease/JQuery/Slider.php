@@ -44,14 +44,14 @@ class Slider extends UIPart
      * Nastavuje jméno objektu
      * Je li znnámý, doplní jméno objektu jménem inputu.
      *
-     * @param string $ObjectName vynucené jméno objektu
+     * @param string $objectName vynucené jméno objektu
      *
      * @return string new name
      */
-    public function setObjectName($ObjectName = null)
+    public function setObjectName($objectName = null)
     {
-        if ($ObjectName) {
-            return parent::setObjectName($ObjectName);
+        if (!is_null($objectName)) {
+            return parent::setObjectName($objectName);
         } else {
             if ($this->partName) {
                 return parent::setObjectName(get_class($this).'@'.$this->partName);

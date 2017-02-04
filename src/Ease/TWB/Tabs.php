@@ -59,7 +59,7 @@ class Tabs extends \Ease\Container
      * @param mixed  $tabContent
      * @param bool   $active     Má být tento tab aktivní ?
      *
-     * @return pointer odkaz na vložený obsah
+     * @return \Ease\Html\Div odkaz na vložený obsah
      */
     public function &addTab($tabName, $tabContent = null, $active = false)
     {

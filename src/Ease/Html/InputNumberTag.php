@@ -19,10 +19,10 @@ class InputNumberTag extends InputTag
     public function __construct($name, $value = null, $properties = [])
     {
         $properties['type'] = 'number';
-        if ($value) {
+        if (!is_null($value)) {
             $properties['value'] = $value;
         }
-        if ($name) {
+        if (!empty($name)) {
             $properties['name'] = $name;
         }
         $this->setTagProperties($properties);

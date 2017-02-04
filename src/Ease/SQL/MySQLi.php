@@ -245,7 +245,7 @@ class MySQLi extends SQL
      */
     public function arrayToUpdate($data, $keyID = null)
     {
-        if (!$keyID) {
+        if (empty($keyID)) {
             $idCol = $data[$this->keyColumn];
         }
         unset($data[$this->keyColumn]);
@@ -441,9 +441,10 @@ class MySQLi extends SQL
     }
 
     /**
+     * Close database connect
      * Ukončí připojení k databázi.
      *
-     * @return type
+     * @return boolean
      */
     public function close()
     {

@@ -110,7 +110,7 @@ class PDO extends SQL
      */
     public function setTableName($tablename = null)
     {
-        if ($tablename) {
+        if (!empty($tablename)) {
             $this->myTable = $tablename;
         }
     }
@@ -379,7 +379,7 @@ class PDO extends SQL
      */
     public function arrayToUpdate($data, $KeyID = null)
     {
-        if (!$KeyID) {
+        if (empty($KeyID)) {
             $IDCol = $data[$this->keyColumn];
         }
         unset($data[$this->keyColumn]);
@@ -585,7 +585,7 @@ class PDO extends SQL
      */
     public function getTableNumRows($tableName = null)
     {
-        if (!$tableName) {
+        if (empty($tableName)) {
             $tableName = $this->myTable;
         }
         $tableRowsCount = $this->queryToArray(SQL::$sel.

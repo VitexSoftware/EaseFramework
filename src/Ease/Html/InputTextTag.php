@@ -21,7 +21,7 @@ class InputTextTag extends InputTag
         if (!isset($properties['type'])) {
             $properties['type'] = 'text';
         }
-        if ($value) {
+        if (!is_null($value)) {
             $properties['value'] = $value;
         }
         if ($name) {

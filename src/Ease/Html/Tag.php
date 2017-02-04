@@ -76,6 +76,7 @@ class Tag extends \Ease\Page
     }
 
     /**
+     * Set ObjectName
      * Nastaví jméno objektu.
      *
      * @param string $objectName jméno objektu
@@ -84,13 +85,13 @@ class Tag extends \Ease\Page
      */
     public function setObjectName($objectName = null)
     {
-        if ($objectName) {
+        if (!is_null($objectName)) {
             return parent::setObjectName($objectName);
         }
-        if ($this->tagName) {
+        if (!empty($this->tagName)) {
             return parent::setObjectName(get_class($this).'@'.$this->tagName);
         } else {
-            if ($this->tagType) {
+            if (!empty($this->tagType)) {
                 return parent::setObjectName(get_class($this).'@'.$this->tagType);
             } else {
                 return parent::setObjectName();

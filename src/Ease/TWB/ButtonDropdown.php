@@ -31,7 +31,7 @@ class ButtonDropdown extends \Ease\Html\Div
         parent::__construct(null, $properties);
         $this->setTagClass('btn-group');
         $btnClass = 'btn btn-'.$type.' ';
-        if ($size) {
+        if (!empty($size)) {
             $btnClass .= 'btn-'.$size;
         }
         $this->button = $this->addItem(new \Ease\Html\ButtonTag([$label.' <span class="caret"></span>'],

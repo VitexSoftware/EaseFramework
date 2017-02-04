@@ -3,7 +3,7 @@
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2017 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -186,10 +186,10 @@ class Sand extends Atom
      */
     public function setObjectName($objectName = null)
     {
-        if ($objectName) {
-            $this->objectName = $objectName;
-        } else {
+        if (empty($objectName)) {
             $this->objectName = get_class($this);
+        } else {
+            $this->objectName = $objectName;
         }
 
         return $this->objectName;

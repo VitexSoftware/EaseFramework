@@ -3,7 +3,8 @@
 namespace Ease\Html;
 
 /**
- * Zobrazí input text tag.
+ * Show search input field
+ * Zobrazí vyhledávací poloíčko.
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */

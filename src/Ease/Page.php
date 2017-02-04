@@ -195,7 +195,7 @@ class Page extends Container
             } else {
                 $qs = null;
             }
-            $port or $port = ($scheme == 'https') ? '443' : '80';
+            $port || $port = ($scheme == 'https') ? '443' : '80';
 
             if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port != '80')
             ) {
@@ -311,7 +311,7 @@ class Page extends Container
                     case 'TRUE':
                         $sanitized = true;
                         break;
-                    default :
+                    default:
                         $sanitized = boolval($value);
                         break;
                 }
@@ -340,7 +340,7 @@ class Page extends Container
             if (isset($this->webPage->requestValuesToKeep[$field])) {
                 $this->webPage->requestValuesToKeep[$field] = $_REQUEST[$field];
             }
-            if ($sanitizeAs) {
+            if (!empty($sanitizeAs)) {
                 return self::sanitizeAsType($_REQUEST[$field], $sanitizeAs);
             } else {
                 return $_REQUEST[$field];
@@ -367,7 +367,7 @@ class Page extends Container
     public static function getGetValue($field, $sanitizeAs = null)
     {
         if (isset($_GET[$field])) {
-            if ($sanitizeAs) {
+            if (!empty($sanitizeAs)) {
                 return self::sanitizeAsType($_GET[$field], $sanitizeAs);
             } else {
                 return $_GET[$field];

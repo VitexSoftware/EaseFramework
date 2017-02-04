@@ -482,6 +482,7 @@ class Brick extends Sand
     }
 
     /**
+     * Assign data from field to data array.
      * Přiřadí data z políčka do pole dat.
      *
      * @param array  $data      asociativní pole dat
@@ -495,7 +496,7 @@ class Brick extends Sand
                                $renameAs = null)
     {
         if (isset($data[$column])) {
-            if ($renameAs) {
+            if (!is_null($renameAs)) {
                 $this->setDataValue($renameAs, $data[$column]);
             } else {
                 $this->setDataValue($column, $data[$column]);
@@ -517,22 +518,19 @@ class Brick extends Sand
      * @param string $tableName   jméno tabulky
      * @param string $myKeyColumn klíčovací sloupeček
      *
-     * @return int počet položek
+     * @return array list of IDs
      */
     public function getSQLList($tableName = null, $myKeyColumn = null)
     {
-        if (!$tableName) {
+        if (is_null($tableName)) {
             $tableName = $this->myTable;
         }
-        if (!$myKeyColumn) {
+        if (is_null($myKeyColumn)) {
             $myKeyColumn = $this->myKeyColumn;
         }
         $cc               = $this->dblink->getColumnComma();
         $listQuery        = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
-        $this->dblink->queryToArray($listQuery);
-        $this->DataIdList = $this->dblink->resultArray;
-
-        return count($this->DataIdList);
+        return $this->dblink->queryToArray($listQuery);
     }
 
     /**

@@ -3,7 +3,7 @@
  * Třídy pro vykreslení obecne stránky shopu.
  *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright  2009-2012 Vitex@hippy.cz (G)
+ * @copyright  2009-2017 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -250,7 +250,7 @@ class WebPage extends Page
      * @param bool   $fwPrefix Přidat cestu frameworku ? (obvykle /Ease/)
      * @param string $media    screen|printer|braile a podobně
      *
-     * @return bool
+     * @return int one
      */
     public function includeCss($cssFile, $fwPrefix = false, $media = 'screen')
     {
@@ -260,7 +260,7 @@ class WebPage extends Page
             $this->easeShared->cascadeStyles[$cssFile] = $cssFile;
         }
 
-        return true;
+        return 1;
     }
 
     /**

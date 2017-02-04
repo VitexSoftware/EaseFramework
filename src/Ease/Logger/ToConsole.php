@@ -128,7 +128,7 @@ class ToConsole extends ToMemory
             case 'error':
                 fputs($this->stderr, $logLine."\n");
                 break;
-            default :
+            default:
                 fputs($this->stdout, $logLine."\n");
                 break;
         }

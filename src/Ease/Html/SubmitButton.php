@@ -30,16 +30,16 @@ class SubmitButton extends InputTag
                                 $classCss = null)
     {
         $properties = ['type' => 'submit'];
-        if (!$value) {
+        if (is_null($value)) {
             $value = trim(str_replace([' ', '?'], '',
                     @iconv('utf-8', 'us-ascii//TRANSLIT', strtolower($label))));
         } else {
             $properties['value'] = $value;
         }
-        if ($hint) {
+        if (!empty($hint)) {
             $properties['title'] = $hint;
         }
-        if ($classCss) {
+        if (!is_null($classCss)) {
             $properties['class'] = $classCss;
         }
         $this->setTagProperties($properties);
