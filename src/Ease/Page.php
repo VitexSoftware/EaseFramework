@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Simple html page class.
  *
@@ -16,7 +15,6 @@ namespace Ease;
  */
 class Page extends Container
 {
-
     /**
      * Saves obejct instace (singleton...).
      */
@@ -93,9 +91,11 @@ class Page extends Container
      *
      * @return int
      */
-    public function addJavaScript($javaScript, $position = null, $inDocumentReady = true)
+    public function addJavaScript($javaScript, $position = null,
+                                  $inDocumentReady = true)
     {
-        return \Ease\Shared::webPage()->addJavaScript($javaScript, $position, $inDocumentReady);
+        return \Ease\Shared::webPage()->addJavaScript($javaScript, $position,
+                $inDocumentReady);
     }
 
     /**
@@ -107,9 +107,11 @@ class Page extends Container
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null, $fwPrefix = false)
+    public function includeJavaScript($javaScriptFile, $position = null,
+                                      $fwPrefix = false)
     {
-        return \Ease\Shared::webPage()->includeJavaScript($javaScriptFile, $position, $fwPrefix);
+        return \Ease\Shared::webPage()->includeJavaScript($javaScriptFile,
+                $position, $fwPrefix);
     }
 
     /**
@@ -150,7 +152,7 @@ class Page extends Container
         if (count($messages)) {
             $_SESSION['EaseMessages'] = $messages;
         }
-        header('Location: ' . $url);
+        header('Location: '.$url);
         $this->pageClosed = true;
     }
 
@@ -176,8 +178,10 @@ class Page extends Container
         $url = null;
         if (php_sapi_name() != 'cli') {
             $url = sprintf(
-                '%s://%s%s', empty($_SERVER['HTTPS']) ?
-                ($_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http', $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
+                '%s://%s%s',
+                empty($_SERVER['HTTPS']) ?
+                ($_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
+                $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
             );
 
             $parts = parse_url($url);
@@ -197,7 +201,8 @@ class Page extends Container
             }
             $port || $port = ($scheme == 'https') ? '443' : '80';
 
-            if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port != '80')
+            if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port
+                != '80')
             ) {
                 $host = "$host:$port";
             }
@@ -219,7 +224,8 @@ class Page extends Container
     {
         $user = Shared::user();
         if (!method_exists($user, 'isLogged') || !$user->isLogged()) {
-            Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'), 'warning');
+            Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'),
+                'warning');
             $this->redirect($loginPage);
             $this->pageClosed = true;
         }
@@ -251,7 +257,8 @@ class Page extends Container
     public function getRequestValues()
     {
         $requestValuesToKeep = [];
-        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep) && count($this->webPage->requestValuesToKeep)) {
+        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep)
+            && count($this->webPage->requestValuesToKeep)) {
             foreach ($this->webPage->requestValuesToKeep as $KeyName => $keyValue) {
                 if ($keyValue !== true) {
                     $requestValuesToKeep[$KeyName] = $keyValue;
@@ -492,7 +499,7 @@ class Page extends Container
         $ArgsToKeep = [];
         foreach ($requestValuesToKeep as $name => $value) {
             if (is_string($value) && strlen($value)) {
-                $ArgsToKeep[$name] = $name . '=' . $value;
+                $ArgsToKeep[$name] = $name.'='.$value;
             }
         }
 
@@ -559,7 +566,7 @@ class Page extends Container
             ksort($allMessages);
             foreach ($allMessages as $message) {
                 $quee = key($message);
-                $this->addStatusMessage(reset($message), $quee, false, false);
+                $this->addStatusMessage(reset($message), $quee);
             }
 
             return count($msgSource);
@@ -571,9 +578,11 @@ class Page extends Container
 
                 return $msgTaken;
             } else {
-                if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages) && count($msgSource->webPage->statusMessages)) {
+                if (isset($msgSource->webPage) && isset($msgSource->webPage->statusMessages)
+                    && count($msgSource->webPage->statusMessages)) {
                     $msgTaken                           = count($msgSource->webPage->statusMessages);
-                    $this->statusMessages               = array_merge($this->statusMessages, $msgSource->webPage->statusMessages);
+                    $this->statusMessages               = array_merge($this->statusMessages,
+                        $msgSource->webPage->statusMessages);
                     $msgSource->webPage->statusMessages = [];
 
                     return $msgTaken;
@@ -593,10 +602,9 @@ class Page extends Container
     public static function arrayToUrlParams($params, $baseUrl = '')
     {
         if (strstr($baseUrl, '?')) {
-            return $baseUrl . '&' . http_build_query($params);
+            return $baseUrl.'&'.http_build_query($params);
         } else {
-            return $baseUrl . '?' . http_build_query($params);
+            return $baseUrl.'?'.http_build_query($params);
         }
     }
-
 }

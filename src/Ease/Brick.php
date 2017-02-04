@@ -34,12 +34,12 @@ class Brick extends Sand
     /**
      * Multiplete DATA indicator.
      *
-     * @var int
+     * @var boolean
      */
     protected $multipleteResult;
 
     /**
-     * [Cs]Základní objekt pracující s databází.
+     * Basic class to implement ORM
      */
     public function __construct()
     {
@@ -180,7 +180,7 @@ class Brick extends Sand
 
             return $this->dblink->queryToArray(SQL\SQL::$sel.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
                     $indexBy);
-        }
+       }
     }
 
     /**
@@ -199,8 +199,7 @@ class Brick extends Sand
             $itemID = "'".$this->dblink->addSlashes($itemID)."'";
         } else {
             $itemID = $this->dblink->addSlashes($itemID);
-        }
-        if (is_null($itemID)) {
+       } if (is_null($itemID)) {
             throw  new Exception ('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
@@ -213,12 +212,12 @@ class Brick extends Sand
      * Načte z SQL data k aktuálnímu $ItemID a použije je v objektu.
      *
      * @param int   $itemID     klíč záznamu
-     * @param array $dataPrefix název datové skupiny
      *
      * @return array Results
      */
     public function loadFromSQL($itemID = null)
     {
+        $rowsLoaded = null;
         if (is_null($itemID)) {
             $itemID = $this->getMyKey();
         }
@@ -235,15 +234,13 @@ class Brick extends Sand
         } else {
             if (isset($sqlResult[0])) {
                 $this->takeData($sqlResult[0]);
-            } else {
-                return;
             }
         }
         if (count($this->data)) {
-            return count($this->data);
+            $rowsLoaded = count($this->data);
         }
 
-        return;
+        return $rowsLoaded;
     }
 
     /**
@@ -637,7 +634,7 @@ class Brick extends Sand
      */
     public function getSQLItemsCount($tableName = null)
     {
-        if (!$tableName) {
+        if (is_null($tableName)) {
             $tableName = $this->myTable;
         }
 

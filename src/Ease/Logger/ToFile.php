@@ -177,7 +177,7 @@ class ToFile extends ToMemory
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $LogLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
+        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
                 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail', ],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
@@ -185,9 +185,9 @@ class ToFile extends ToMemory
         }
         if ($this->logType == 'console' || $this->logType == 'both') {
             if ($this->runType == 'cgi') {
-                echo $LogLine;
+                echo $logLine;
             } else {
-                echo '<div style="'.$this->logStyles[$type].'">'.$LogLine."</div>\n";
+                echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";
                 flush();
             }
         }
@@ -197,8 +197,8 @@ class ToFile extends ToMemory
                     if (!$this->_logFileHandle) {
                         $this->_logFileHandle = fopen($this->logFileName, 'a+');
                     }
-                    if ($this->_logFileHandle != null) {
-                        fwrite($this->_logFileHandle, $LogLine);
+                    if ($this->_logFileHandle !== null) {
+                        fwrite($this->_logFileHandle, $logLine);
                     }
                 }
             }
@@ -209,7 +209,7 @@ class ToFile extends ToMemory
                             'a+');
                     }
                     if ($this->_errorLogFileHandle) {
-                        fputs($this->_errorLogFileHandle, $LogLine);
+                        fputs($this->_errorLogFileHandle, $logLine);
                     }
                 }
             }
