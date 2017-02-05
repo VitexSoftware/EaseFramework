@@ -46,7 +46,7 @@ class Form extends PairTag
     {
         parent::__construct('form',
             ['method' => $formMethod, 'name' => $formName]);
-        if (is_null($formAction)) {
+        if (!is_null($formAction)) {
             $this->setFormTarget($formAction);
         } else {
             if (isset($_SERVER['REQUEST_URI'])) {
