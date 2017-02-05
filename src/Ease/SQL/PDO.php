@@ -243,7 +243,8 @@ class PDO extends SQL
                 }
                 break;
             case 'insert':
-                if ($this->dbType == 'pgsql') {
+                if (($this->dbType == 'pgsql') && !strstr(strtoupper($queryRaw),
+                        'ON CONFLICT')) {
                     $queryRaw .= ' RETURNING '.$this->myKeyColumn;
                 }
             case 'replace':
@@ -258,7 +259,8 @@ class PDO extends SQL
                 }
 
                 if ($this->errorText[0] == '0000') {
-                    if (($this->dbType == 'pgsql') && ($sqlAction == 'insert')) {
+                    if (($this->dbType == 'pgsql') && (strstr($queryRaw,
+                            strtoupper('RETURNING')))) {
                         $fetched = $stmt->fetch();
                         if(is_array($fetched)){
                             $this->lastInsertID = current($fetched);
