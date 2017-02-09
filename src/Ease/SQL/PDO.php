@@ -254,7 +254,7 @@ class PDO extends SQL
                 $this->errorText = $this->sqlLink->errorInfo();
 
                 if (isset($this->errorText[2])) {
-                    $this->error($this->errorText[2], $queryRaw);
+                    $this->addStatusMessage($this->errorText[2].': '. $queryRaw,'error');
                 }
 
                 if ($this->errorText[0] == '0000') {

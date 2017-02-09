@@ -124,8 +124,8 @@ class Container extends Sand
                 $context->lastItem = &$context->pageParts[$pageItemName];
                 $itemPointer = &$context->pageParts[$pageItemName];
             } else {
-                $context->error('Page Item object without draw() method',
-                    $pageItem);
+                $context->addStatusMessage('Page Item object without draw() method',
+                    $pageItem,'error');
             }
         } else {
             if (is_array($pageItem)) {
