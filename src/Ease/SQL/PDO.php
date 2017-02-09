@@ -533,7 +533,7 @@ class PDO extends SQL
                     $operator = ' != ';
                     $value = substr($value, 1);
                 } else {
-                    if (($value === '!null') || (strtoupper($value) === 'IS NOT null')) {
+                    if (($value === '!null') || (strtoupper($value) === 'IS NOT NULL')) {
                         $value = 'null';
                         $operator = 'IS NOT';
                     } else {
