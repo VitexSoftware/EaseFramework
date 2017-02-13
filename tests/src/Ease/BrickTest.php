@@ -99,7 +99,7 @@ class BrickTest extends SandTest
             $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
             $this->object->getColumnsFromSQL(null);
         } else {
-            throw new \Ease\Exception('NoSQL: test skipped');
+            $this->markTestSkipped('Database not used');
         }
     }
 
@@ -113,7 +113,7 @@ class BrickTest extends SandTest
             $this->assertNotEmpty($this->object->getDataFromSQL(3),
                 'Error Reading data from SQL');
         } else {
-            $this->markTestIncomplete(
+            $this->markTestSkipped(
                 'Object do not use SQL'
             );
         }
@@ -129,9 +129,7 @@ class BrickTest extends SandTest
             $this->object->loadFromSQL(2);
             $this->assertEquals(2, $this->object->getMyKey());
         } else {
-            $this->markTestIncomplete(
-                'Object do not use SQL'
-            );
+            $this->markTestSkipped('Object do not use SQL');
         }
     }
 
@@ -143,9 +141,7 @@ class BrickTest extends SandTest
     public function testGetAllFromSQL()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     /**
