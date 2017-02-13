@@ -98,6 +98,8 @@ class BrickTest extends SandTest
                 "test.date = '2015-11-18 00:00:00'");
             $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
             $this->object->getColumnsFromSQL(null);
+        } else {
+            throw new \Ease\Exception('NoSQL: test skipped');
         }
     }
 
