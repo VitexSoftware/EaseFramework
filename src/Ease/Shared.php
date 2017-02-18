@@ -232,21 +232,23 @@ class Shared extends Atom
 
     /**
      * Vrací, případně i založí objekt uživatele.
+     * Obtain (eventually new created) user object
      *
      * @param User|Anonym|string $user objekt nového uživatele nebo
      *                                 název třídy
      *
      * @return User
      */
-    public static function &user($user = null, $userSessionName = null)
+    public static function &user($user = null)
     {
-        if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
-            return $_SESSION[self::$userSessionName];
+        if (defined('EASE_APPNAME')) {
+            self::$userSessionName = constant('EASE_APPNAME').'.User';
         }
 
-        if (!is_null($userSessionName)) {
-            self::$userSessionName = $userSessionName;
+        if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
+            $user = $_SESSION[self::$userSessionName];
         }
+
         if (is_object($user)) {
             $_SESSION[self::$userSessionName] = clone $user;
         } else {
@@ -257,10 +259,13 @@ class Shared extends Atom
             }
         }
 
-        return $_SESSION[self::$userSessionName];
+        $user = $_SESSION[self::$userSessionName];
+
+        return $user;
     }
 
     /**
+     * Do we use commandline PHP ?
      * Běží php v příkazovém řádku ?
      *
      * @return bool

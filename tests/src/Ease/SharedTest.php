@@ -20,7 +20,7 @@ class SharedTest extends AtomTest
      */
     protected function setUp()
     {
-        $this->object = new Shared();
+        $this->object = \Ease\Shared::instanced();
     }
 
     /**
@@ -33,131 +33,81 @@ class SharedTest extends AtomTest
 
     /**
      * @covers Ease\Shared::singleton
-     *
-     * @todo   Implement testSingleton().
      */
     public function testSingleton()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('\Ease\Shared', \Ease\Shared::singleton());
     }
 
     /**
      * @covers Ease\Shared::instanced
-     *
-     * @todo   Implement testInstanced().
      */
     public function testInstanced()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('\Ease\Shared', \Ease\Shared::instanced());
     }
 
     /**
      * @covers Ease\Shared::setConfigValue
-     *
-     * @todo   Implement testSetConfigValue().
+     * @covers Ease\Shared::getConfigValue
      */
     public function testSetConfigValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setConfigValue('test', true);
+        $this->assertTrue($this->object->getConfigValue('test'));
     }
 
-    /**
-     * @covers Ease\Shared::getConfigValue
-     *
-     * @todo   Implement testGetConfigValue().
-     */
-    public function testGetConfigValue()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
 
     /**
      * @covers Ease\Shared::db
-     *
-     * @todo   Implement testDb().
      */
     public function testDb()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('\Ease\SQL\PDO', \Ease\Shared::db());
     }
 
     /**
      * @covers Ease\Shared::logger
-     *
-     * @todo   Implement testLogger().
      */
     public function testLogger()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('\Ease\Logger\Regent', \Ease\Shared::logger());
     }
 
     /**
      * @covers Ease\Shared::webPage
-     *
-     * @todo   Implement testWebPage().
      */
     public function testWebPage()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('\Ease\WebPage', \Ease\Shared::webPage());
     }
 
     /**
      * @covers Ease\Shared::user
-     *
-     * @todo   Implement testUser().
      */
     public function testUser()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('\Ease\Anonym', \Ease\Shared::user());
+        $this->assertInstanceOf('\Ease\User',
+            \Ease\Shared::user(new \Ease\User()));
+        $this->assertInstanceOf('\Ease\User', \Ease\Shared::user());
     }
 
     /**
      * @covers Ease\Shared::isCli
-     *
-     * @todo   Implement testIsCli().
      */
     public function testIsCli()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->isCli());
     }
 
     /**
      * @covers Ease\Shared::registerItem
-     *
-     * @todo   Implement testRegisterItem().
      */
     public function testRegisterItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $item = new \Ease\Html\ATag('#');
+        \Ease\Shared::registerItem($item);
+        $this->assertInstanceOf(get_class($item), end($this->object->allItems));
     }
 }
