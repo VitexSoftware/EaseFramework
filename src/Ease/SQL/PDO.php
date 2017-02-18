@@ -255,7 +255,7 @@ class PDO extends SQL
                 $this->errorText = $this->sqlLink->errorInfo();
 
                 if (isset($this->errorText[2])) {
-                    $this->error($this->errorText[2], $queryRaw);
+                    $this->addStatusMessage($this->errorText[2].': '. $queryRaw,'error');
                 }
 
                 if ($this->errorText[0] == '0000') {
@@ -535,7 +535,7 @@ class PDO extends SQL
                     $operator = ' != ';
                     $value = substr($value, 1);
                 } else {
-                    if (($value === '!null') || (strtoupper($value) === 'IS NOT null')) {
+                    if (($value === '!null') || (strtoupper($value) === 'IS NOT NULL')) {
                         $value = 'null';
                         $operator = 'IS NOT';
                     } else {

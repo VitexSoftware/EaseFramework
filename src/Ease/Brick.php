@@ -311,7 +311,7 @@ class Brick extends Sand
         }
 
         if (!count($data)) {
-            $this->error(_('UpdateToSQL: Missing data'));
+            $this->addStatusMessage(_('UpdateToSQL: Missing data'),'error');
 
             return;
         }
@@ -319,8 +319,8 @@ class Brick extends Sand
         if (!isset($data[$this->myKeyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->error(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn,
-                    $data);
+                $this->addStatusMessage(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn,
+                    $data,'error');
 
                 return;
             }
@@ -366,7 +366,7 @@ class Brick extends Sand
         }
 
         if (count($data) < 1) {
-            $this->error('SaveToSQL: Missing data', $data);
+            $this->addStatusMessage('SaveToSQL: Missing data','error');
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
@@ -424,7 +424,7 @@ class Brick extends Sand
         }
 
         if (!count($data)) {
-            $this->error('NO data for Insert to SQL: '.$this->myTable);
+            $this->addStatusMessage('NO data for Insert to SQL: '.$this->myTable,'error');
 
             return;
         }
@@ -472,7 +472,7 @@ class Brick extends Sand
                 return false;
             }
         } else {
-            $this->error('DeleteFromSQL: Unknown key.', $data);
+            $this->addStatusMessage('DeleteFromSQL: Unknown key.', 'error');
 
             return false;
         }
