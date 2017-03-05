@@ -101,7 +101,7 @@ class Shared extends Atom
      * @var Logger\ToFile|Logger\ToMemory|Logger\ToSyslog
      */
     static public $log = null;
-    
+
     /**
      * Array of Status Messages
      * @var array of Logger\Message
@@ -115,16 +115,24 @@ class Shared extends Atom
     {
         $cgiMessages = [];
         $webMessages = [];
-        $msgFile     = sys_get_temp_dir().'/EaseStatusMessages.ser';
+        $prefix      = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
+        $msgFile     = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages.ser';
         if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile)
             && is_writable($msgFile)) {
             $cgiMessages = unserialize(file_get_contents($msgFile));
             file_put_contents($msgFile, '');
         }
 
-        if (isset($_SESSION['EaseMessages'])) {
-            $webMessages = $_SESSION['EaseMessages'];
-            unset($_SESSION['EaseMessages']);
+        if (defined('EASE_APPNAME')) {
+            if (isset($_SESSION[constant('EASE_APPNAME')]['EaseMessages'])) {
+                $webMessages = $_SESSION[constant('EASE_APPNAME')]['EaseMessages'];
+                unset($_SESSION[constant('EASE_APPNAME')]['EaseMessages']);
+            }
+        } else {
+            if (isset($_SESSION['EaseMessages'])) {
+                $webMessages = $_SESSION['EaseMessages'];
+                unset($_SESSION['EaseMessages']);
+            }
         }
         $this->statusMessages = array_merge($cgiMessages, $webMessages);
     }
@@ -232,23 +240,21 @@ class Shared extends Atom
 
     /**
      * Vrací, případně i založí objekt uživatele.
-     * Obtain (eventually new created) user object
      *
      * @param User|Anonym|string $user objekt nového uživatele nebo
      *                                 název třídy
      *
      * @return User
      */
-    public static function &user($user = null)
+    public static function &user($user = null, $userSessionName = null)
     {
-        if (defined('EASE_APPNAME')) {
-            self::$userSessionName = constant('EASE_APPNAME').'.User';
-        }
-
         if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
-            $user = $_SESSION[self::$userSessionName];
+            return $_SESSION[self::$userSessionName];
         }
 
+        if (!is_null($userSessionName)) {
+            self::$userSessionName = $userSessionName;
+        }
         if (is_object($user)) {
             $_SESSION[self::$userSessionName] = clone $user;
         } else {
@@ -259,13 +265,10 @@ class Shared extends Atom
             }
         }
 
-        $user = $_SESSION[self::$userSessionName];
-
-        return $user;
+        return $_SESSION[self::$userSessionName];
     }
 
     /**
-     * Do we use commandline PHP ?
      * Běží php v příkazovém řádku ?
      *
      * @return bool
@@ -304,11 +307,16 @@ class Shared extends Atom
     public function __destruct()
     {
         if (self::isCli()) {
-            $messagesFile = sys_get_temp_dir().'/EaseStatusMessages.ser';
+            $prefix       = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
+            $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages.ser';
             file_put_contents($messagesFile, serialize($this->statusMessages));
             chmod($messagesFile, 666);
         } else {
-            $_SESSION['EaseMessages'] = $this->statusMessages;
+            if (defined('EASE_APPNAME')) {
+                $_SESSION[constant('EASE_APPNAME')]['EaseMessages'] = $this->statusMessages;
+            } else {
+                $_SESSION['EaseMessages'] = $this->statusMessages;
+            }
         }
     }
 }
