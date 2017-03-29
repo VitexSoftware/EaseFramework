@@ -64,6 +64,9 @@ class Regent extends \Ease\Atom
                 case 'memory':
                     $this->loggers[$logger] = ToMemory::singleton();
                     break;
+                case 'email':
+                    $this->loggers[$logger] = ToEmail::singleton();
+                    break;
             }
     }
 

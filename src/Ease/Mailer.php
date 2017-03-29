@@ -271,7 +271,7 @@ class Mailer extends Page
     }
 
     /**
-     * Mail vložený do stránky se nevykresluje.
+     * Do not draw mail included in page
      */
     public function draw()
     {
@@ -279,7 +279,7 @@ class Mailer extends Page
     }
 
     /**
-     * Odešle mail.
+     * Send mail.
      */
     public function send()
     {
@@ -295,15 +295,16 @@ class Mailer extends Page
         }
         $this->sendResult = $this->mailer->send($this->emailAddress,
             $this->mailHeadersDone, $this->mailBody);
-        if ($this->sendResult) {
-            if ($this->notify) {
-                $this->addStatusMessage(sprintf(_('Zpráva %s byla odeslána na adresu %s'),
+
+        if ($this->notify === true) {
+            if ($this->sendResult === true) {
+                $this->addStatusMessage(sprintf(_('Message %s was sent to %s'),
                         $this->emailSubject, $this->emailAddress), 'success');
+            } else {
+                $this->addStatusMessage(sprintf(_('Message %s, for %s was not sent because of %s'),
+                        $this->emailSubject, $this->emailAddress,
+                        $this->sendResult->message), 'warning');
             }
-        } else {
-            $this->addStatusMessage(sprintf(_('Zpráva %s, pro %s nebyla odeslána z důvodu %s'),
-                    $this->emailSubject, $this->emailAddress,
-                    $this->sendResult->message), 'warning');
         }
 
         return $this->sendResult;
@@ -318,4 +319,5 @@ class Mailer extends Page
     {
         $this->notify = (bool) $notify;
     }
+
 }

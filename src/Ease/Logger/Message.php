@@ -39,7 +39,7 @@ class Message
     public function __construct($message, $type = 'info', $caller = null,
                                 $when = null)
     {
-        $this->body = $message;
+        $this->body   = $message;
         $this->type   = $type;
         $this->caller = $caller;
         if (is_null($when)) {
@@ -48,4 +48,36 @@ class Message
             $this->when = $when;
         }
     }
+
+    /**
+     * Unicode Symbol for given message type
+     *
+     * @param string $type
+     * @return string
+     */
+    static public function getTypeUnicodeSymbol($type)
+    {
+        switch ($type) {
+            case 'mail':                       // Envelope
+                $symbol = '✉';
+                break;
+            case 'warning':                    // Vykřičník v trojůhelníku
+                $symbol = '⚠';
+                break;
+            case 'error':                      // Lebka
+                $symbol = '☠';
+                break;
+            case 'success':                    // Kytička
+                $symbol = '❁';
+                break;
+            case 'debug':                      // Gear
+                $symbol = '⚙';
+                break;
+            default:                           // i v kroužku
+                $symbol = 'ⓘ';
+                break;
+        }
+        return $symbol;
+    }
+
 }

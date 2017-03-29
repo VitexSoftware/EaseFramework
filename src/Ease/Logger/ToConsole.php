@@ -30,7 +30,7 @@ class ToConsole extends ToMemory
      * Standard error handle
      * @var resource
      */
-    public $stderr               = null;
+    public $stderr = null;
 
     /**
      * Ansi Codes
@@ -90,7 +90,6 @@ class ToConsole extends ToMemory
         return $ansi_str;
     }
 
-
     /**
      * Zapise zapravu do logu.
      *
@@ -102,26 +101,8 @@ class ToConsole extends ToMemory
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-
-        switch ($type) {
-            case 'mail':                       // Envelope
-                $message = $this->set(' ✉ '.$message, 'blue');
-                break;
-            case 'warning':                    // Vykřičník v trojůhelníku
-                $message = $this->set(' ⚠ '.$message, 'yellow');
-                break;
-            case 'error':                      // Lebka
-                $message = $this->set(' ☠ '.$message, 'red');
-                break;
-            case 'success':                    // Kytička
-                $message = $this->set(' ❁ '.$message, 'green');
-                break;
-            default:                           // i v kroužku
-                $message = $this->set(' ⓘ '.$message, 'white');
-                break;
-        }
-
-
+        $message = $this->set(' '.Message::getTypeUnicodeSymbol($type).' '.$message,
+            self::getTypeColor($type));
         $logLine = strftime("%D %T").' `'.$caller.'` '.$message;
 
         switch ($type) {
@@ -132,6 +113,36 @@ class ToConsole extends ToMemory
                 fputs($this->stdout, $logLine."\n");
                 break;
         }
+    }
+
+    /**
+     * Get color code for given message 
+     * 
+     * @param string $type
+     */
+    public static function getTypeColor($type)
+    {
+        switch ($type) {
+            case 'mail':                       // Envelope
+                $color = 'blue';
+                break;
+            case 'warning':                    // Vykřičník v trojůhelníku
+                $color = 'yellow';
+                break;
+            case 'error':                      // Lebka
+                $color = 'red';
+                break;
+            case 'debug':                      // Kytička
+                $color = 'magenta';
+                break;
+            case 'success':                    // Kytička
+                $color = 'green';
+                break;
+            default:                           // i v kroužku
+                $color = 'white';
+                break;
+        }
+        return $color;
     }
 
     /**
@@ -151,4 +162,5 @@ class ToConsole extends ToMemory
 
         return self::$_instance;
     }
+
 }

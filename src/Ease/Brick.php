@@ -83,27 +83,13 @@ class Brick extends Sand
      * @param string $message  zprava
      * @param string $type     Fronta zprav (warning|info|error|success)
      * @param bool   $addIcons prida UTF8 ikonky na zacatek zprav
+     *
+     * @return bool Was message added to message handler object ?
      */
     public function addStatusMessage($message, $type = 'info', $addIcons = true)
     {
         if ($addIcons) {
-            switch ($type) {
-                case 'mail':                       // Envelope
-                    $message = ' ✉ '.$message;
-                    break;
-                case 'warning':                    // Vykřičník v trojůhelníku
-                    $message = ' ⚠ '.$message;
-                    break;
-                case 'error':                      // Lebka
-                    $message = ' ☠ '.$message;
-                    break;
-                case 'success':                    // Kytička
-                    $message = ' ❁ '.$message;
-                    break;
-                default:                           // i v kroužku
-                    $message = ' ⓘ '.$message;
-                    break;
-            }
+            $message = ' '.Logger\Message::getTypeUnicodeSymbol($type).' '.$message;
         }
         return parent::addStatusMessage($message, $type);
     }
@@ -180,7 +166,7 @@ class Brick extends Sand
 
             return $this->dblink->queryToArray(SQL\SQL::$sel.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
                     $indexBy);
-       }
+        }
     }
 
     /**
@@ -199,8 +185,8 @@ class Brick extends Sand
             $itemID = "'".$this->dblink->addSlashes($itemID)."'";
         } else {
             $itemID = $this->dblink->addSlashes($itemID);
-       } if (is_null($itemID)) {
-            throw  new Exception ('loadFromSQL: Unknown Key');
+        } if (is_null($itemID)) {
+            throw new Exception('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
@@ -311,7 +297,7 @@ class Brick extends Sand
         }
 
         if (!count($data)) {
-            $this->addStatusMessage(_('UpdateToSQL: Missing data'),'error');
+            $this->addStatusMessage(_('UpdateToSQL: Missing data'), 'error');
 
             return;
         }
@@ -320,7 +306,7 @@ class Brick extends Sand
             $key = $this->getMyKey();
             if (is_null($key)) {
                 $this->addStatusMessage(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn,
-                    $data,'error');
+                    $data, 'error');
 
                 return;
             }
@@ -366,7 +352,7 @@ class Brick extends Sand
         }
 
         if (count($data) < 1) {
-            $this->addStatusMessage('SaveToSQL: Missing data','error');
+            $this->addStatusMessage('SaveToSQL: Missing data', 'error');
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
@@ -424,7 +410,8 @@ class Brick extends Sand
         }
 
         if (!count($data)) {
-            $this->addStatusMessage('NO data for Insert to SQL: '.$this->myTable,'error');
+            $this->addStatusMessage('NO data for Insert to SQL: '.$this->myTable,
+                'error');
 
             return;
         }
@@ -525,8 +512,8 @@ class Brick extends Sand
         if (is_null($myKeyColumn)) {
             $myKeyColumn = $this->myKeyColumn;
         }
-        $cc               = $this->dblink->getColumnComma();
-        $listQuery        = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
+        $cc        = $this->dblink->getColumnComma();
+        $listQuery = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
         return $this->dblink->queryToArray($listQuery);
     }
 
@@ -675,4 +662,5 @@ class Brick extends Sand
 
         return parent::reindexArrayBy($data, $indexBy);
     }
+
 }
