@@ -155,7 +155,7 @@ class ToEmail extends ToMemory
             $type = 'notice';
         }
 
-        $logLine = new \Ease\Html\Div($message,
+        $logLine = new \Ease\Html\Div(strftime("%D %T").' `'.$caller.'`: '.$message,
             ['style' => $this->logStyles[$type]]);
 
         $this->mailer->addItem($logLine);
