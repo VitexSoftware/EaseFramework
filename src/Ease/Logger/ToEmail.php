@@ -94,10 +94,10 @@ class ToEmail extends ToMemory
      *
      * @param string $
      */
-    public function __construct($recipient = null, $subject = 'log')
+    public function __construct($recipient = null, $subject = null)
     {
         $this->recipient = $recipient;
-        $this->subject   = $subject;
+        $this->subject   = empty($subject) ? \Ease\Page::phpSelf() : $subject;
     }
 
     /**
