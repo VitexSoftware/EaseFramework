@@ -239,8 +239,17 @@ abstract class SQL extends \Ease\Sand
         if (!isset($this->server) && defined('DB_SERVER')) {
             $this->server = constant('DB_SERVER');
         }
+        if (!isset($this->server) && defined('DB_HOST')) {
+            $this->server = constant('DB_HOST');
+        }
+        if (!isset($this->username) && defined('DB_USERNAME')) {
+            $this->username = constant('DB_USERNAME');
+        }
         if (!isset($this->username) && defined('DB_SERVER_USERNAME')) {
             $this->username = constant('DB_SERVER_USERNAME');
+        }
+        if (!isset($this->password) && defined('DB_PASSWORD')) {
+            $this->password = constant('DB_PASSWORD');
         }
         if (!isset($this->password) && defined('DB_SERVER_PASSWORD')) {
             $this->password = constant('DB_SERVER_PASSWORD');
