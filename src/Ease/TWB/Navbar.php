@@ -167,7 +167,7 @@ class Navbar extends \Ease\Html\Div
             null, true);
         $dropDown     = new \Ease\Html\LiTag(null,
             ['class' => 'dropdown', 'id' => $label]);
-        $dropDown->addItem(new \Ease\Html\ATag('#'.$label.'',
+        $dropDown->addItem(new \Ease\Html\ATag('#',
             $label.'<b class="caret"></b>',
             ['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']));
         $dropDownMenu = $dropDown->addItem(new \Ease\Html\UlTag(null,
