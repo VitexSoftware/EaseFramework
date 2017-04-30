@@ -8,3 +8,8 @@ composer.lock
 /debian/nbproject/private/
 /docs/
 /debian/ease-framework-doc/
+/.idea/
+/debian/ease-framework-doc.debhelper.log
+/debian/ease-framework-doc.substvars
+/debian/ease-framework.debhelper.log
+/debian/ease-framework.substvars
