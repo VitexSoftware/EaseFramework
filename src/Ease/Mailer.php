@@ -115,10 +115,15 @@ class Mailer extends Page
             ]
         );
 
-        $this->mimer                                = new \Mail_mime($this->crLf);
-        $this->mimer->_build_params['text_charset'] = 'UTF-8';
-        $this->mimer->_build_params['html_charset'] = 'UTF-8';
-        $this->mimer->_build_params['head_charset'] = 'UTF-8';
+        
+        $mimer_params = array(
+            'html_charset' => 'utf-8',
+            'text_charset' => 'utf-8',
+            'head_charset' => 'utf-8',
+            'eol' => $this->crLf,
+        );
+
+        $this->mimer                                = new \Mail_mime($mimer_params);
 
         parent::__construct();
         $this->setOutputFormat('mail');
