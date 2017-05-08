@@ -101,7 +101,7 @@ class ToConsole extends ToMemory
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-        $message = $this->set(' '.Message::getTypeUnicodeSymbol($type).' '.$message,
+        $message = $this->set(' '.Message::getTypeUnicodeSymbol($type).' '.strip_tags($message),
             self::getTypeColor($type));
         $logLine = strftime("%D %T").' `'.$caller.'` '.$message;
 
