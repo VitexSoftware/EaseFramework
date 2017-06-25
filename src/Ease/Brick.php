@@ -645,22 +645,4 @@ class Brick extends Sand
         return $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$this->myTable.SQL\SQL::$whr.implode(' OR ',
                     $conditons));
     }
-
-    /**
-     * Reindex Array by given key.
-     *
-     * @param array  $data    array to reindex
-     * @param string $indexBy one of columns in array
-     *
-     * @return array
-     */
-    public function reindexArrayBy($data, $indexBy = null)
-    {
-        if (is_null($indexBy)) {
-            $indexBy = $this->getmyKeyColumn();
-        }
-
-        return parent::reindexArrayBy($data, $indexBy);
-    }
-
 }

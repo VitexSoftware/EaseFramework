@@ -701,7 +701,7 @@ class Sand extends Atom
      *
      * @return array
      */
-    public function reindexArrayBy($data, $indexBy = null)
+    public static function reindexArrayBy($data, $indexBy = null)
     {
         $reindexedData = [];
 
