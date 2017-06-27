@@ -12,8 +12,9 @@ class Container extends Sand
 {
     /**
      * Pole objektů a fragmentů k vykreslení.
+     * Array of objects and fragments to draw
      *
-     * @var array
+     * @var array|null
      */
     public $pageParts = [];
 
@@ -45,6 +46,13 @@ class Container extends Sand
      * @var Page
      */
     public $webPage = null;
+
+    /**
+     * Pointer to last item added
+     * 
+     * @var mixed 
+     */
+    public $lastItem = null;
 
     /**
      * Kontejner, který může obsahovat vložené objekty, které se vykreslí.

@@ -30,7 +30,7 @@ class InputRadioTag extends InputTag
             $this->setTagProperties($tagProperties);
         }
         $this->setTagProperties(['type' => 'radio']);
-        $this->Value = $value;
+        $this->value = $value;
     }
 
     /**

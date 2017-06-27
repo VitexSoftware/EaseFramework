@@ -5,6 +5,7 @@
  *
  * @author Vítězslav Dvořák <vitex@hippy.cz>
  */
+
 namespace Ease\Html;
 
 class Form extends PairTag
@@ -86,10 +87,10 @@ class Form extends PairTag
                     unset($parametersToChange[$paramName]);
                 }
             }
-            $targetParts = explode('&',
+            $targetParts        = explode('&',
                 str_replace('&&', '&', str_replace('?', '&', $this->formTarget)));
+            $formTargetComputed = '';
             if (is_array($targetParts) && count($targetParts)) {
-                $formTargetComputed = '';
                 $targetPartsValues = [];
                 foreach ($targetParts as $targetPart) {
                     if (!strstr($targetPart, '=')) {
@@ -104,7 +105,7 @@ class Form extends PairTag
                     $targetPartsValues[$targetPartName] = $targetPartValue;
                 }
             }
-            if ($replace) {
+            if ($replace === true) {
                 $newTargPartVals = array_merge($targetPartsValues,
                     $parametersToChange);
             } else {
@@ -114,7 +115,7 @@ class Form extends PairTag
             $glueSign = '?';
             foreach ($newTargPartVals as $newTargetPartsValName => $newTargetPartsValue) {
                 $formTargetComputed .= $glueSign.urlencode($newTargetPartsValName).'='.urlencode($newTargetPartsValue);
-                $glueSign = '&';
+                $glueSign           = '&';
             }
             $this->setFormTarget($formTargetComputed);
         }

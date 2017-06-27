@@ -46,7 +46,7 @@ class InputContainer extends \Ease\Container
      * @param array  $items         pole položek
      * @param string $tagProperties parametry tagů
      */
-    public function __construct($name, $items = null, $tagProperties = null)
+    public function __construct($name, $items = [], $tagProperties = null)
     {
         parent::__construct();
         $this->name = $name;

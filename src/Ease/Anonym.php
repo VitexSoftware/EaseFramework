@@ -69,7 +69,7 @@ class Anonym extends Brick
      *
      * @return string
      */
-    static public function remoteToIdentity()
+    public static function remoteToIdentity()
     {
         if (isset($_SERVER['REMOTE_USER'])) {
             $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';

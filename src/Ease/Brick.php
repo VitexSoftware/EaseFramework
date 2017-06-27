@@ -210,7 +210,7 @@ class Brick extends Sand
         $sqlResult              = $this->getDataFromSQL($itemID);
         $this->multipleteResult = (count($sqlResult) > 1);
 
-        if ($this->multipleteResult) {
+        if ($this->multipleteResult && is_array($sqlResult)) {
             $results = [];
             foreach ($sqlResult as $id => $data) {
                 $this->takeData($data);
@@ -305,8 +305,8 @@ class Brick extends Sand
         if (!isset($data[$this->myKeyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->addStatusMessage(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn,
-                    $data, 'error');
+                $this->addStatusMessage(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn.' '.
+                    json_encode($data), 'error');
 
                 return;
             }
@@ -323,11 +323,7 @@ class Brick extends Sand
         $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
-                if (array_key_exists($defDatPref, $this->data)) {
-                    return $this->data[$defDatPref][$this->myKeyColumn];
-                } else {
-                    return $this->data[$this->myKeyColumn];
-                }
+                return $this->data[$this->myKeyColumn];
             } else {
                 return $key;
             }
@@ -359,7 +355,7 @@ class Brick extends Sand
                     $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(),
                         [$this->getmyKeyColumn() => $this->getMyKey($data)]);
                 } else {
-                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(),
+                    $rowsFound = $this->getColumnsFromSQL([$this->getmyKeyColumn()],
                         $data);
                     if (count($rowsFound)) {
                         if (is_numeric($rowsFound[0][$this->getmyKeyColumn()])) {
