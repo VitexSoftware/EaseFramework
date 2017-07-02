@@ -735,7 +735,7 @@ class Sand extends Atom
      *
      * @return boolean
      */
-    public static function is_serialized($data)
+    public static function isSerialized($data)
     {
         // if it isn't a string, it isn't serialized
         if (!is_string($data)) return false;

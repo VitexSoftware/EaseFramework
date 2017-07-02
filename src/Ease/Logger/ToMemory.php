@@ -5,6 +5,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease\Logger;
 
 class ToMemory extends \Ease\Atom
@@ -91,7 +92,7 @@ class ToMemory extends \Ease\Atom
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $class = __CLASS__;
+            $class           = __CLASS__;
             self::$_instance = new $class();
         }
 
@@ -110,10 +111,8 @@ class ToMemory extends \Ease\Atom
     public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
-        if (($this->logLevel == 'silent') && ($type != 'error')) {
-            return;
-        }
-        if (($this->logLevel != 'debug') && ($type == 'debug')) {
+        if ((($type != 'error') && ($this->logLevel == 'silent')) ||
+            (($type == 'debug') && ($this->logLevel != 'debug'))) {
             return;
         }
 
@@ -122,7 +121,7 @@ class ToMemory extends \Ease\Atom
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail', ],
+                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';

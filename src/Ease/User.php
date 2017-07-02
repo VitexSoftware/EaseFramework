@@ -304,7 +304,7 @@ class User extends Anonym
         if (is_null($settings)) {
             $settings = $this->getDataValue($this->settingsColumn);
         }
-        if ($this->is_serialized($settings)) {
+        if ($this->isSerialized($settings)) {
             $this->settings = unserialize($settings);
 
             return true;
