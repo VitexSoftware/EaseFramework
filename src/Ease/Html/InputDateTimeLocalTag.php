@@ -3,24 +3,24 @@
 namespace Ease\Html;
 
 /**
- * Vstupní pole čísla.
+ * HTML5 input datetime-local tag.
  *
- * @author Vítězslav Dvořák <vitex@hippy.cz>
+ * @author Vitex <vitex@hippy.cz>
  */
-class InputNumberTag extends InputTag
+class InputDateTimeLocalTag extends InputTag
 {
 
     /**
-     * The <input type="number"> defines a numeric input field.
-     * You can also set restrictions on what numbers are accepted.
+     * The <input type="date"> is used for input fields that should contain a
+     * date and time with no time zone.
      *
      * @param string $name       name
      * @param string $value      initial value
-     * @param array  $properties additional tag properties
+     * @param array  $properties additional properties
      */
     public function __construct($name, $value = null, $properties = [])
     {
-        $properties['type']  = 'number';
+        $properties['type']  = 'datetime-local';
         $properties['value'] = $value;
         $properties['name']  = $name;
         parent::__construct($name, $value, $properties);
