@@ -3,21 +3,20 @@
 namespace Ease\Html;
 
 /**
- * HTML5 nav tag.
+ * HTML5 footer tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag
+class FooterTag extends PairTag
 {
-
     /**
-     * Defines navigation links
+     * Defines a footer for a document or section
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('nav', $properties, $content);
+        parent::__construct('footer', $properties, $content);
     }
 }

@@ -3,24 +3,24 @@
 namespace Ease\Html;
 
 /**
- * Vstupní pole čísla.
+ * HTML5 url input tag.
  *
- * @author Vítězslav Dvořák <vitex@hippy.cz>
+ * @author Vitex <vitex@hippy.cz>
  */
-class InputNumberTag extends InputTag
+class InputUrlTag extends InputTag
 {
 
     /**
-     * The <input type="number"> defines a numeric input field.
-     * You can also set restrictions on what numbers are accepted.
+     * The <input type="url"> is used for input fields that should contain a
+     * URL address.
      *
      * @param string $name       name
      * @param string $value      initial value
-     * @param array  $properties additional tag properties
+     * @param array  $properties additional properties
      */
     public function __construct($name, $value = null, $properties = [])
     {
-        $properties['type']  = 'number';
+        $properties['type']  = 'url';
         $properties['value'] = $value;
         $properties['name']  = $name;
         parent::__construct($name, $value, $properties);

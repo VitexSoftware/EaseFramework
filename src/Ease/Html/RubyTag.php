@@ -3,18 +3,17 @@
 namespace Ease\Html;
 
 /**
- * HTML Div tag.
+ * HTML5 ruby tag.
  *
- * @deprecated since 1.2.3
  * @author Vitex <vitex@hippy.cz>
  */
-class Div extends PairTag
+class RubyTag extends PairTag
 {
     /**
-     * Prostý tag odstavce DIV.
+     * Defines a ruby annotation (for East Asian typography)
      *
-     * @param mixed  $content    vložené prvky
-     * @param array  $properties pole parametrů
+     * @param mixed  $content    items included
+     * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {

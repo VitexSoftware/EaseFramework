@@ -3,21 +3,20 @@
 namespace Ease\Html;
 
 /**
- * HTML5 nav tag.
+ * HTML5 meter tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag
+class MeterTag extends PairTag
 {
-
     /**
-     * Defines navigation links
+     * Defines a scalar measurement within a known range (a gauge)
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('nav', $properties, $content);
+        parent::__construct('meter', $properties, $content);
     }
 }

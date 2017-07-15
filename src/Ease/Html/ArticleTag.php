@@ -3,21 +3,21 @@
 namespace Ease\Html;
 
 /**
- * HTML5 nav tag.
+ * HTML5 Article tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag
+class ArticleTag extends PairTag
 {
 
     /**
-     * Defines navigation links
+     * Defines an article in a document
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('nav', $properties, $content);
+        parent::__construct('article', $properties, $content);
     }
 }

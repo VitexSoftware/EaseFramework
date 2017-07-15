@@ -3,21 +3,20 @@
 namespace Ease\Html;
 
 /**
- * HTML5 nav tag.
+ * HTML5 BDI tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag
+class BdiTag extends PairTag
 {
-
     /**
-     * Defines navigation links
+     * Isolates a part of text that might be formatted in a different direction from other text outside it
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('nav', $properties, $content);
+        parent::__construct('bdi', $properties, $content);
     }
 }

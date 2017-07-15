@@ -3,21 +3,20 @@
 namespace Ease\Html;
 
 /**
- * HTML5 nav tag.
+ * HTML5 rp tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag
+class RpTag extends PairTag
 {
-
     /**
-     * Defines navigation links
+     * Defines what to show in browsers that do not support ruby annotations
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('nav', $properties, $content);
+        parent::__construct('rp', $properties, $content);
     }
 }

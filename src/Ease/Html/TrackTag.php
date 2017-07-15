@@ -3,21 +3,21 @@
 namespace Ease\Html;
 
 /**
- * HTML5 nav tag.
+ * HTML5 track tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class NavTag extends PairTag
+class TrackTag extends PairTag
 {
 
     /**
-     * Defines navigation links
+     * Defines text tracks for media elements (<video> and <audio>)
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('nav', $properties, $content);
+        parent::__construct('track', $properties, $content);
     }
 }
