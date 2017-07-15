@@ -284,7 +284,7 @@ class User extends Anonym
     public function loginSuccess()
     {
         $this->userID    = (int) $this->getMyKey();
-        $this->userLogin = $this->getDataValue($this->loginColumn);
+        $this->setUserLogin($this->getDataValue($this->loginColumn));
         $this->logged    = true;
         $this->addStatusMessage(sprintf(_('Sign in %s all ok'), $this->userLogin),
             'success');
