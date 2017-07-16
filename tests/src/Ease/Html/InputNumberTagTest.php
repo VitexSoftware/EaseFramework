@@ -18,7 +18,7 @@ class InputNumberTagTest extends InputTagTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\Html\InputNumberTag('test');
+        $this->object = new \Ease\Html\InputNumberTag('23');
     }
 
     /**
@@ -35,6 +35,6 @@ class InputNumberTagTest extends InputTagTest
     public function testDraw($whatWant = null)
     {
         parent::testDraw('
-<input type="number" name="test" />');
+<input name="23" type="number" value="" />');
     }
 }
