@@ -35,6 +35,6 @@ class InputNumberTagTest extends InputTagTest
     public function testDraw($whatWant = null)
     {
         parent::testDraw('
-<input type="number" name="test" />');
+<input name="test" type="number" value="" />');
     }
 }

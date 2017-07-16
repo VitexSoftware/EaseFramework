@@ -16,6 +16,7 @@ sudo: false
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source
+  - ls -la ./vendor/bin
   - psql -c "CREATE USER easetest WITH PASSWORD 'easetest'" -U postgres
   - psql -c 'CREATE DATABASE easetest OWNER easetest;' -U postgres
   - mysql -u root -e 'create database easetest;'  
@@ -28,8 +29,8 @@ script:
   - ./vendor/bin/phinx migrate -e development -c tests/phinx.yml
   - cd tests
   - ../vendor/bin/phpunit -c configuration.xml --bootstrap Bootstrap.php src
-  - echo commented now ./vendor/bin/phpcs src --standard=psr2 -sp
+  - ../vendor/bin/phpcs src --standard=psr2 -sp
 
 after_script:
-  - php vendor/bin/coveralls
-
+  - ../vendor/bin/coveralls
+  

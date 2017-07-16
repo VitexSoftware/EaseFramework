@@ -31,26 +31,20 @@ class InputTagTest extends TagTest
 
     /**
      * @covers Ease\Html\InputTag::setValue
-     *
-     * @todo   Implement testSetValue().
      */
     public function testSetValue()
     {
-        $this->object->setValue('val');
-        $this->assertEquals('val', $this->object->getTagProperty('value'));
+        $this->object->setValue('test');
+        $this->assertEquals('test', $this->object->getTagProperty('value'));
     }
 
     /**
      * @covers Ease\Html\InputTag::getValue
-     *
-     * @todo   Implement testGetValue().
      */
     public function testGetValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setValue('test');
+        $this->assertEquals($this->object->getValue(),'test' );
     }
 
     /**
