@@ -16,6 +16,7 @@ sudo: false
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source
+  - ls -la ./vendor/bin
   - psql -c "CREATE USER easetest WITH PASSWORD 'easetest'" -U postgres
   - psql -c 'CREATE DATABASE easetest OWNER easetest;' -U postgres
   - mysql -u root -e 'create database easetest;'  
