@@ -34,8 +34,8 @@ class InputTagTest extends TagTest
      */
     public function testSetValue()
     {
-        $this->object->setValue('val');
-        $this->assertEquals('val', $this->object->getTagProperty('value'));
+        $this->object->setValue('test');
+        $this->assertEquals('test', $this->object->getTagProperty('value'));
     }
 
     /**
@@ -43,8 +43,8 @@ class InputTagTest extends TagTest
      */
     public function testGetValue()
     {
-        $this->object->setValue('val');
-        $this->assertEquals($this->object->getValue(),'val' );
+        $this->object->setValue('test');
+        $this->assertEquals($this->object->getValue(),'test' );
     }
 
     /**
