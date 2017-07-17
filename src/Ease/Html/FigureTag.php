@@ -7,7 +7,7 @@ namespace Ease\Html;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class ArticleTag extends PairTag
+class FigureTag extends PairTag
 {
     /**
      * Defines self-contained content
