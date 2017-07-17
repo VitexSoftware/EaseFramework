@@ -1,6 +1,6 @@
 <?php
 /**
- * Třídy pro vykreslení obecne stránky shopu.
+ * Common webpage class
  *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright  2009-2017 Vitex@hippy.cz (G)

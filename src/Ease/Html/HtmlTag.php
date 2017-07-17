@@ -9,7 +9,7 @@ namespace Ease\Html;
  */
 class HtmlTag extends PairTag
 {
-    public $LangCode = 'cs-CZ';
+    public $langCode = 'cs-CZ';
 
     /**
      * HTML.
@@ -19,8 +19,7 @@ class HtmlTag extends PairTag
     public function __construct($content = null)
     {
         parent::__construct('html',
-            ['lang' => $this->langCode, 'xmlns' => 'http://www.w3.org/1999/xhtml',
-            'xml:lang' => $this->langCode, ], $content);
+            ['lang' => $this->langCode], $content);
     }
 
     /**

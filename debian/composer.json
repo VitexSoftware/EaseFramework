@@ -19,7 +19,8 @@
             "Ease\\Logger\\": "Logger",
             "Ease\\JQuery\\": "JQuery",
             "Ease\\SQL\\": "SQL",
-            "Ease\\TWB\\": "TWB"
+            "Ease\\TWB\\": "TWB",
+            "Ease\\TWB4\\": "TWB4"
         }
 
     },
