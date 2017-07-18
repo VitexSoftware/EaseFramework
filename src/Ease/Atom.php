@@ -159,6 +159,16 @@ class Atom
     }
 
     /**
+     * Magická funkce pro všechny potomky.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return '';
+    }
+
+    /**
      * Default Draw method.
      *
      * @return string

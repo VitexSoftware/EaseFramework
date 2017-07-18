@@ -322,16 +322,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::__toString
-     *
-     * @todo   Implement test__toString().
-     */
-    public function test__toString()
-    {
-        $this->object->__toString();
-    }
-
-    /**
      * @covers Ease\Sand::__sleep
      *
      * @todo   Implement test__sleep().

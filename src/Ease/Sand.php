@@ -641,16 +641,6 @@ class Sand extends Atom
     }
 
     /**
-     * Magická funkce pro všechny potomky.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'Object: '.$this->getObjectName();
-    }
-
-    /**
      * Pro serializaci připraví vše.
      *
      * @return array

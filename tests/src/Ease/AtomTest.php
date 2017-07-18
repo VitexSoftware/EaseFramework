@@ -130,6 +130,14 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Ease\Atom::__toString
+     */
+    public function test__toString()
+    {
+        $this->assertEmpty($this->object->__toString());
+    }
+
+    /**
      * @covers Ease\Atom::draw
      */
     public function testDraw($whatWant = null)
