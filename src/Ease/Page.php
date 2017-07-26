@@ -220,12 +220,14 @@ class Page extends Container
      *
      * @param string $loginPage adresa přihlašovací stránky
      */
-    public function onlyForLogged($loginPage = 'login.php')
+    public function onlyForLogged($loginPage = 'login.php', $message = null)
     {
         $user = Shared::user();
         if (!method_exists($user, 'isLogged') || !$user->isLogged()) {
-            Shared::user()->addStatusMessage(_('Nejprve se prosím přihlašte'),
-                'warning');
+            if (!empty($message)) {
+                Shared::user()->addStatusMessage(_('Sign in first please'),
+                    'warning');
+            }
             $this->redirect($loginPage);
             $this->pageClosed = true;
         }

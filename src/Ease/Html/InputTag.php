@@ -33,7 +33,7 @@ class InputTag extends Tag
         if (!is_null($value)) {
             //Pokud je hodnota EaseObjekt, vytáhne si hodnotu políčka z něj
             if (is_object($value) && method_exists($value, 'getDataValue')) {
-                $value = $content->getDataValue($name);
+                $value = $value->getDataValue($name);
             }
             $this->setValue($value);
         }
