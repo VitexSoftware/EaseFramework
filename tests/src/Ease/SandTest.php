@@ -370,8 +370,7 @@ class SandTest extends AtomTest
      */
     public function testDraw($whatWant = null)
     {
-        $this->assertEquals('Object: '.get_class($this->object),
-            $this->object->draw());
+        $this->assertEmpty($this->object->draw());
     }
 
     /**

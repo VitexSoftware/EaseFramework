@@ -92,15 +92,13 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::suicide
-     *
-     * @todo   Implement testSuicide().
      */
     public function testSuicide()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $element = new \Ease\Html\DivTag();
+        $embeded = $element->addItem($this->object);
+        $embeded->suicide();
+        $this->assertEmpty($element->pageParts);
     }
 
     /**
@@ -183,15 +181,12 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::emptyContents
-     *
-     * @todo   Implement testEmptyContents().
      */
     public function testEmptyContents()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItem(new \Ease\Html\DivTag());
+        $this->object->emptyContents();
+        $this->assertEmpty($this->object->pageParts);
     }
 
     /**
@@ -257,28 +252,28 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::drawIfNotDrawn
-     *
-     * @todo   Implement testDrawIfNotDrawn().
      */
-    public function testDrawIfNotDrawn()
+    public function testDrawIfNotDrawn($canBeEmpty = false)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        ob_start();
+        $this->object->drawIfNotDrawn();
+        if ($canBeEmpty || (get_class($this->object) == 'Ease\Container')) {
+            $this->markTestSkipped(get_class($this->object).'is Empty');
+        } else {
+            $out = ob_get_contents();
+            $this->assertNotEmpty($out);
+        }
+        ob_end_clean();
     }
 
     /**
      * @covers Ease\Container::isFinalized
-     *
-     * @todo   Implement testIsFinalized().
      */
     public function testIsFinalized()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertFalse($this->object->isFinalized());
+        $this->object->setFinalized();
+        $this->assertTrue($this->object->isFinalized());
     }
 
     /**
@@ -333,15 +328,21 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::draw
-     *
-     * @todo   Implement testDraw().
      */
     public function testDraw($whatWant = null)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        ob_start();
+        $this->object->draw();
+        if (get_class($this->object) == 'Ease\Container') {
+            $this->markTestSkipped(get_class($this->object).' is Empty');
+        } else {
+            $out = ob_get_contents();
+            $this->assertNotEmpty($out);
+            if (!is_null($whatWant)) {
+                $this->assertEquals($whatWant, $out);
+            }
+        }
+        ob_end_clean();
     }
 
     /**

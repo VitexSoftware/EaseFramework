@@ -37,7 +37,20 @@ class CheckboxTagTest extends InputTagTest
     public function testSetValue()
     {
         $this->object->setValue(true);
-        $this->assertEquals('true', $this->object->getTagProperty('checked'));
+        $this->assertTrue($this->object->getValue());
+        $this->object->setValue(false);
+        $this->assertFalse($this->object->getValue());
+    }
+
+    /**
+     * @covers Ease\Html\CheckboxTag::getValue
+     */
+    public function testGetValue()
+    {
+        $this->object->setValue(true);
+        $this->assertTrue($this->object->getValue());
+        $this->object->setValue(false);
+        $this->assertFalse($this->object->getValue());
     }
 
     /**
