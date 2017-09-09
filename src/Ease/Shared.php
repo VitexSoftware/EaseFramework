@@ -319,4 +319,42 @@ class Shared extends Atom
             }
         }
     }
+
+    /**
+     * Initialise Gettext
+     *
+     * @param string $appname
+     * @param string $defaultLocale  locale of source code localstring
+     * @param string $i18n           directory contains en_US/APPNAME.mo
+     *
+     * @return 
+     */
+    public static function initializeGetText($appname, $defaultLocale = 'en_US',
+                                             $i18n = '../i18n')
+    {
+
+        $langs = [
+            'en_US' => ['en', 'English (International)'],
+            'cs_CZ' => ['cs', 'Česky (Čeština)'],
+        ];
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            $defaultLocale = \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        }
+        if (isset($_GET['locale'])) {
+            $defaultLocale = preg_replace('/[^a-zA-Z_]/', '',
+                substr($_GET['locale'], 0, 10));
+        }
+        foreach ($langs as $code => $lang) {
+            if ($defaultLocale == $lang[0]) {
+                $defaultLocale = $code;
+            }
+        }
+        setlocale(LC_ALL, $defaultLocale);
+        bind_textdomain_codeset($appname, 'UTF-8');
+        putenv("LC_ALL=$defaultLocale");
+        if (file_exists($i18n)) {
+            bindtextdomain($appname, $i18n);
+        }
+        return textdomain($appname);
+    }
 }
