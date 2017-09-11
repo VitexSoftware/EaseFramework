@@ -6,6 +6,9 @@ BUILD_DIR:=build
 %:
 	dh $@
 
+override_dh_auto_test:
+	echo tests temporarly skipped for now in rules file
+
 override_dh_install:
 	./debian/apigendoc.sh
 	dh_install

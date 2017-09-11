@@ -20,6 +20,7 @@ doc:
 	debian/apigendoc.sh
 
 test:
+	composer update
 	phpunit --bootstrap tests/Bootstrap.php
 
 deb:
