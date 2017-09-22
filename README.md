@@ -73,6 +73,7 @@ Framework Constants
   * DB_DATABASE  - database schema name
   * DB_USERNAME  - database user login name
   * DB_PASSWORD  - database user password
+  * DB_SETUP     - database setup command (executed directly after connect)
 
 
 

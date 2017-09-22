@@ -15,7 +15,7 @@ namespace Ease\SQL;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-abstract class SQL extends \Ease\Sand
+abstract class SQL extends \Ease\Molecule
 {
     /**
      * SQL operation result handle.
@@ -230,37 +230,28 @@ abstract class SQL extends \Ease\Sand
     /**
      * Obecný objekt databáze.
      */
-    public function __construct()
+    public function __construct($options = [])
     {
         parent::__construct();
-        if (!isset($this->dbType) && defined('DB_TYPE')) {
-            $this->dbType = constant('DB_TYPE');
-        }
-        if (!isset($this->server) && defined('DB_SERVER')) {
-            $this->server = constant('DB_SERVER');
-        }
-        if (!isset($this->server) && defined('DB_HOST')) {
-            $this->server = constant('DB_HOST');
-        }
-        if (!isset($this->username) && defined('DB_USERNAME')) {
-            $this->username = constant('DB_USERNAME');
-        }
-        if (!isset($this->username) && defined('DB_SERVER_USERNAME')) {
-            $this->username = constant('DB_SERVER_USERNAME');
-        }
-        if (!isset($this->password) && defined('DB_PASSWORD')) {
-            $this->password = constant('DB_PASSWORD');
-        }
-        if (!isset($this->password) && defined('DB_SERVER_PASSWORD')) {
-            $this->password = constant('DB_SERVER_PASSWORD');
-        }
-        if (!isset($this->database) && defined('DB_DATABASE')) {
-            $this->database = constant('DB_DATABASE');
-        }
-        if (!isset($this->port) && defined('DB_PORT')) {
-            $this->port = constant('DB_PORT');
-        }
+        $this->setUp($options);
         $this->connect();
+    }
+
+    /**
+     * SetUp Object to be ready for connect
+     *
+     * @param array $options Object Options (company,url,user,password,evidence,
+     *                                       prefix,defaultUrlParams,debug)
+     */
+    public function setUp($options = [])
+    {
+        $this->setupProperty($options, 'dbType', 'DB_TYPE');
+        $this->setupProperty($options, 'server', 'DB_HOST');
+        $this->setupProperty($options, 'username', 'DB_USERNAME');
+        $this->setupProperty($options, 'password', 'DB_PASSWORD');
+        $this->setupProperty($options, 'database', 'DB_DATABASE');
+        $this->setupProperty($options, 'port', 'DB_PORT');
+        $this->setupProperty($options, 'connectionSettings', 'DB_SETUP');
     }
 
     /**
@@ -268,7 +259,17 @@ abstract class SQL extends \Ease\Sand
      */
     public function connect()
     {
-        $this->setUp();
+        if (!$this->connectAllreadyUP) {
+            if (isset($this->connectionSettings) && is_array($this->connectionSettings)
+                && count($this->connectionSettings)) {
+                foreach ($this->connectionSettings as $setName => $SetValue) {
+                    if (strlen($setName)) {
+                        $this->exeQuery("SET $setName $SetValue");
+                    }
+                }
+                $this->connectAllreadyUP = true;
+            }
+        }
         $this->status = true;
     }
 
@@ -340,26 +341,6 @@ abstract class SQL extends \Ease\Sand
         $this->report['Database']    = $this->database;
         $this->report['Username']    = $this->username;
         $this->report['Server']      = $this->server;
-    }
-
-    /**
-     * Nastaví připojení.
-     *
-     * @deprecated since version 210
-     */
-    public function setUp()
-    {
-        if (!$this->connectAllreadyUP) {
-            if (isset($this->connectionSettings) && is_array($this->connectionSettings)
-                && count($this->connectionSettings)) {
-                foreach ($this->connectionSettings as $setName => $SetValue) {
-                    if (strlen($setName)) {
-                        $this->exeQuery("SET $setName $SetValue");
-                    }
-                }
-                $this->connectAllreadyUP = true;
-            }
-        }
     }
 
     public function setTable($tableName)
@@ -572,7 +553,7 @@ abstract class SQL extends \Ease\Sand
     public function logSqlError($ignoreErrors = false)
     {
         if (!$this->result && !$ignoreErrors) {
-            $queryRaw = $this->lastQuery;
+            $queryRaw        = $this->lastQuery;
             $callerBackTrace = debug_backtrace();
             $callerBackTrace = $callerBackTrace[2];
             $caller          = $callerBackTrace['function'].'()';
@@ -583,7 +564,7 @@ abstract class SQL extends \Ease\Sand
                 $caller .= ' ('.get_class($callerBackTrace['object']).')';
             }
             \Ease\Shared::logger()->addStatusMessage(new \Ease\Logger\Message('ExeQuery: #'.$this->errorNumber.': '.$this->errorText."\n".$queryRaw,
-                'error', $caller));
+                    'error', $caller));
         }
     }
 

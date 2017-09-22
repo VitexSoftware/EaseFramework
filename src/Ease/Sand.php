@@ -1,6 +1,6 @@
 <?php
 /**
- * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
+ * Zakladni objekt urceny k rodicovstvi pokročilým objektum.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2017 Vitex@hippy.cz (G)
@@ -14,7 +14,7 @@ namespace Ease;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class Sand extends Atom
+class Sand extends Molecule
 {
     /**
      * Default Language Code.

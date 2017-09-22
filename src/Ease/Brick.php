@@ -45,7 +45,7 @@ class Brick extends Sand
     {
         parent::__construct();
 
-        if (!is_null($this->myTable)) {
+        if (!empty($this->myTable)) {
             $this->takemyTable($this->myTable);
         }
 
