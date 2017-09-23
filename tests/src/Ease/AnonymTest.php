@@ -21,6 +21,7 @@ class AnonymTest extends BrickTest
     protected function setUp()
     {
         $this->object = new Anonym();
+        $this->object->takemyTable('test');
     }
 
     /**

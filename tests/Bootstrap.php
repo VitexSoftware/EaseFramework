@@ -16,10 +16,10 @@ require __DIR__.'/../vendor/autoload.php';
 
 define('EASE_APPNAME', 'EaseUnitTest');
 define('EASE_LOGGER', 'syslog');
-define('DB_SERVER', 'localhost');
-define('DB_SERVER_PASSWORD', 'easetest');
+define('DB_HOST', 'localhost');
+define('DB_PASSWORD', 'easetest');
 define('DB_DATABASE', 'easetest');
-define('DB_SERVER_USERNAME', 'easetest');
+define('DB_USERNAME', 'easetest');
 define('DB_PORT', 5432);
 define('DB_TYPE', 'pgsql');
 

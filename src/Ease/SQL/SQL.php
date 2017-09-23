@@ -232,7 +232,6 @@ abstract class SQL extends \Ease\Molecule
      */
     public function __construct($options = [])
     {
-        parent::__construct();
         $this->setUp($options);
         $this->connect();
     }

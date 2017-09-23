@@ -59,18 +59,51 @@ class Tabs extends \Ease\Container
      * @param mixed  $tabContent
      * @param bool   $active     Má být tento tab aktivní ?
      *
-     * @return \Ease\Html\Div odkaz na vložený obsah
+     * @return \Ease\Html\DivTag odkaz na vložený obsah
      */
     public function &addTab($tabName, $tabContent = null, $active = false)
     {
         if (is_null($tabContent)) {
-            $tabContent = new \Ease\Html\Div();
+            $tabContent = new \Ease\Html\DivTag();
         }
-        $this->tabs[$tabName] = $tabContent;
+        $this->tabs[$tabName] = ['static' => $tabContent];
         if ($active) {
             $this->activeTab = $tabName;
         }
 
+        return $this->tabs[$tabName];
+    }
+
+    /**
+     * Create new Dynamic Tab
+     *
+     * @param string $tabName    jméno a titulek tabu
+     * @param string $tabUrl     where to obtain tab content
+     * @param bool   $active     Má být tento tab aktivní ?
+     *
+     * @return \Ease\Html\DivTag odkaz na vložený obsah
+     */
+    public function &addAjaxTab($tabName, $tabUrl, $active = false)
+    {
+        $this->tabs[$tabName] = ['ajax' => $tabUrl];
+        if ($active) {
+            $this->activeTab = $tabName;
+        }
+        \Ease\Shared::webPage()->addJavaScript('
+$(\'#'.$this->getTagID().' a\').click(function (e) {
+	e.preventDefault();
+
+	var url = $(this).attr("data-url");
+  	var href = this.hash;
+  	var pane = $(this);
+
+	// ajax load from data-url
+	$(href).load(url,function(result){
+	    pane.tab(\'show\');
+	});
+});
+            
+');
         return $this->tabs[$tabName];
     }
 
@@ -94,26 +127,39 @@ class Tabs extends \Ease\Container
         }
         $tabsUl = $this->addItem(new \Ease\Html\UlTag(null,
             ['class' => 'nav nav-tabs', 'id' => $this->partName]));
-        foreach ($this->tabs as $tabName => $tabContent) {
+        foreach ($this->tabs as $tabName => $tab) {
+            $tabProperties = ['data-toggle' => 'tab'];
+            if (key($tab) == 'ajax') {
+                $tabProperties['data-url'] = current($tab);
+            }
             if ($tabName == $this->activeTab) {
                 $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
-                    $tabName, ['data-toggle' => 'tab']), ['class' => 'active']));
+                    $tabName, $tabProperties), ['class' => 'active']));
             } else {
                 $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
-                    $tabName, ['data-toggle' => 'tab'])));
+                    $tabName, $tabProperties)));
             }
         }
-        $tabDiv = $this->addItem(new \Ease\Html\Div(null,
+        $tabDiv = $this->addItem(new \Ease\Html\DivTag(null,
             ['id' => $this->partName.'body', 'class' => 'tab-content']));
-        foreach ($this->tabs as $tabName => $tabContent) {
+        foreach ($this->tabs as $tabName => $tab) {
+            switch (key($tab)) {
+                case 'static':
+                    $tabContent = current($tab);
+                    break;
+                case 'ajax':
+                    $tabContent = '';
+                    break;
+            }
+
             if ($tabName == $this->activeTab) {
-                $tabDiv->addItem(new \Ease\Html\Div($tabContent,
+                $tabDiv->addItem(new \Ease\Html\DivTag($tabContent,
                     ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
-                    'class' => 'tab-pane active', ]));
+                    'class' => 'tab-pane active',]));
             } else {
-                $tabDiv->addItem(new \Ease\Html\Div($tabContent,
+                $tabDiv->addItem(new \Ease\Html\DivTag($tabContent,
                     ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
-                    'class' => 'tab-pane', ]));
+                    'class' => 'tab-pane',]));
             }
         }
         Part::twBootstrapize();
@@ -122,5 +168,17 @@ class Tabs extends \Ease\Container
         $(\'#'.$this->partName.' a[href="#'.\Ease\Brick::lettersOnly($this->activeTab).'"]\').tab(\'show\');
 ', null, true
         );
+
+
+        if (key($this->tabs[$this->activeTab]) == 'ajax') {
+
+
+            \Ease\Shared::webPage()->addJavaScript('
+// load first tab content
+$(\'#'.$this->activeTab.'\').load($(\'.active a\').attr("data-url"),function(result){
+  $(\'.active a\').tab(\'show\');
+});
+');
+        }
     }
 }

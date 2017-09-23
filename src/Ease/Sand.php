@@ -165,47 +165,6 @@ class Sand extends Molecule
     }
 
     /**
-     * Připojí ke stávajícímu objektu přiřazený objekt.
-     *
-     * @param string $propertyName název proměnné
-     * @param object $object       přiřazovaný objekt
-     */
-    public function attachObject($propertyName, $object)
-    {
-        if (is_object($object)) {
-            $this->$propertyName = &$object;
-        }
-    }
-
-    /**
-     * Nastaví jméno objektu.
-     *
-     * @param string $objectName
-     *
-     * @return string Jméno objektu
-     */
-    public function setObjectName($objectName = null)
-    {
-        if (empty($objectName)) {
-            $this->objectName = get_class($this);
-        } else {
-            $this->objectName = $objectName;
-        }
-
-        return $this->objectName;
-    }
-
-    /**
-     * Vrací jméno objektu.
-     *
-     * @return string
-     */
-    public function getObjectName()
-    {
-        return $this->objectName;
-    }
-
-    /**
      * Nastaví novou identitu objektu.
      *
      * @param array $newIdentity

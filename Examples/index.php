@@ -13,11 +13,11 @@ require_once '../vendor/autoload.php';
 /*
  * Instancujeme objekt webové stránky
  */
-$oPage = new WebPage(\_('Ease Framework - Usage examples'));
+$oPage = new TWB\WebPage(\_('Ease Framework - Usage examples'));
 
 $oPage->addItem(new Html\H1Tag(\_('Ease Framework - Usage examples')));
 
-$tabs = $oPage->addItem(new JQuery\UITabs('examples'));
+$tabs = $oPage->addItem(new TWB\Tabs('examples'));
 
 $d     = dir('.');
 while (false !== ($entry = $d->read())) {

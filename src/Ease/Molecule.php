@@ -22,6 +22,34 @@ class Molecule extends Atom
     public $configuration = [];
 
     /**
+     * Nastaví jméno objektu.
+     *
+     * @param string $objectName
+     *
+     * @return string Jméno objektu
+     */
+    public function setObjectName($objectName = null)
+    {
+        if (empty($objectName)) {
+            $this->objectName = get_class($this);
+        } else {
+            $this->objectName = $objectName;
+        }
+
+        return $this->objectName;
+    }
+
+    /**
+     * Vrací jméno objektu.
+     *
+     * @return string
+     */
+    public function getObjectName()
+    {
+        return $this->objectName;
+    }
+
+    /**
      * Load Configuration values from json file $this->configFile and define UPPERCASE keys
      */
     public function loadConfig($configFile)

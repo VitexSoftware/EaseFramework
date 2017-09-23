@@ -176,67 +176,53 @@ class PageTest extends ContainerTest
 
     /**
      * @covers Ease\Page::sanitizeAsType
-     *
-     * @todo   Implement testSanitizeAsType().
      */
     public function testSanitizeAsType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInternalType('string',
+            $this->object->sanitizeAsType('123', 'string'));
+        $this->assertInternalType('integer',
+            $this->object->sanitizeAsType('123', 'int'));
+        $this->assertInternalType('boolean',
+            $this->object->sanitizeAsType('0', 'boolean'));
     }
 
     /**
      * @covers Ease\Page::getRequestValue
-     *
-     * @todo   Implement testGetRequestValue().
      */
     public function testGetRequestValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $_REQUEST['test'] = 'lala';
+        $this->assertEquals('lala', $this->object->getRequestValue('test'));
     }
 
     /**
      * @covers Ease\Page::getGetValue
-     *
-     * @todo   Implement testGetGetValue().
      */
     public function testGetGetValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $_GET['test'] = 'lolo';
+        $this->assertEquals('lolo', $this->object->getGetValue('test'));
     }
 
     /**
      * @covers Ease\Page::getPostValue
-     *
-     * @todo   Implement testGetPostValue().
      */
     public function testGetPostValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $_POST['test'] = 'lili';
+        $this->assertEquals('lili', $this->object->getPostValue('test'));
     }
 
     /**
      * @covers Ease\Page::isFormPosted
-     *
-     * @todo   Implement testIsFormPosted().
      */
     public function testIsFormPosted()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        unset($_POST);
+        $this->assertFalse($this->object->isFormPosted());
+        $_POST['test'] = 'lili';
+        $this->assertTrue($this->object->isFormPosted());
     }
 
     /**

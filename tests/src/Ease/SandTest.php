@@ -68,35 +68,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::attachObject
-     */
-    public function testAttachObject()
-    {
-        $this->object->attachObject('user', new \stdClass());
-        $this->assertEquals(new \stdClass(), $this->object->user);
-    }
-
-    /**
-     * @covers Ease\Sand::setObjectName
-     */
-    public function testSetObjectName()
-    {
-        $this->object->setObjectName('Testing');
-        $this->assertEquals('Testing', $this->object->getObjectName());
-        $this->object->setObjectName();
-        $this->assertEquals(get_class($this->object),
-            $this->object->getObjectName());
-    }
-
-    /**
-     * @covers Ease\Sand::getObjectName
-     */
-    public function testGetObjectName()
-    {
-        $this->assertNotEmpty($this->object->getObjectName());
-    }
-
-    /**
      * @covers Ease\Sand::setObjectIdentity
      */
     public function testSetObjectIdentity()

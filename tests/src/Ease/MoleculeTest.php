@@ -27,7 +27,27 @@ class MoleculeTest extends AtomTest
      */
     protected function tearDown()
     {
+        
+    }
 
+    /**
+     * @covers Ease\Molecule::setObjectName
+     */
+    public function testSetObjectName()
+    {
+        $this->object->setObjectName('Testing');
+        $this->assertEquals('Testing', $this->object->getObjectName());
+        $this->object->setObjectName();
+        $this->assertEquals(get_class($this->object),
+            $this->object->getObjectName());
+    }
+
+    /**
+     * @covers Ease\Molecule::getObjectName
+     */
+    public function testGetObjectName()
+    {
+        $this->assertNotEmpty($this->object->getObjectName());
     }
 
     /**
@@ -51,7 +71,7 @@ class MoleculeTest extends AtomTest
             define('OBJNAME', 'CONSTATNT');
         }
 
-        $options = ['key' => 'value'];
+        $options                  = ['key' => 'value'];
         $this->object->objectName = 'Original';
         $this->object->setupProperty($options, 'objectName', 'OBJNAME');
         $this->assertEquals('Original', $this->object->objectName);

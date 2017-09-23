@@ -91,11 +91,11 @@ class BrickTest extends SandTest
             $this->assertEquals($names,
                 [0 => ['name' => 'alpha'], 1 => ['name' => 'beta']]);
             $all   = $this->object->getColumnsFromSQL('*', null, 'name', 'id');
-            $this->assertEquals([2 => ['id' => '2', 'name' => 'beta', 'date' => '2015-11-18 00:00:00'],
-                3 => ['id' => '3', 'name' => 'alpha', 'date' => '2015-11-17 00:00:00'],],
+            $this->assertEquals([2 => ['id' => 2, 'name' => 'beta', 'datim' => '2015-11-18 00:00:00'],
+                3 => ['id' => '3', 'name' => 'alpha', 'datim' => '2015-11-17 00:00:00'],],
                 $all);
             $some  = $this->object->getColumnsFromSQL(['name', 'id'],
-                "test.date = '2015-11-18 00:00:00'");
+                "test.datim = '2015-11-18 00:00:00'");
             $this->assertEquals([0 => ['name' => 'beta', 'id' => 2]], $some);
             $this->object->getColumnsFromSQL(null);
         } else {
@@ -135,13 +135,12 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getAllFromSQL
-     *
-     * @todo   Implement testGetAllFromSQL().
      */
     public function testGetAllFromSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->assertFalse(empty(
+                $this->object->getAllFromSQL('test', ['name', 'date'], 1,
+                    'date', 'name')));
     }
 
     /**
@@ -354,5 +353,4 @@ class BrickTest extends SandTest
             'This test has not been implemented yet.'
         );
     }
-
- }
+}
