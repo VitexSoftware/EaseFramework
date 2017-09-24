@@ -17,7 +17,8 @@ $oPage = new TWB\WebPage(\_('Ease Framework - Usage examples'));
 
 $oPage->addItem(new Html\H1Tag(\_('Ease Framework - Usage examples')));
 
-$tabs = $oPage->addItem(new TWB\Tabs('examples'));
+$tabs = new TWB\Tabs('examples');
+
 
 $d     = dir('.');
 while (false !== ($entry = $d->read())) {
@@ -26,5 +27,7 @@ while (false !== ($entry = $d->read())) {
     }
 }
 $d->close();
+
+$oPage->addItem(new TWB\Container($tabs));
 
 $oPage->draw();

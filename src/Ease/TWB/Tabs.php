@@ -163,22 +163,21 @@ $(\'#'.$this->getTagID().' a\').click(function (e) {
             }
         }
         Part::twBootstrapize();
-        \Ease\Shared::webPage()->addJavaScript(
-            '
-        $(\'#'.$this->partName.' a[href="#'.\Ease\Brick::lettersOnly($this->activeTab).'"]\').tab(\'show\');
-', null, true
-        );
 
 
         if (key($this->tabs[$this->activeTab]) == 'ajax') {
-
-
             \Ease\Shared::webPage()->addJavaScript('
 // load first tab content
-$(\'#'.$this->activeTab.'\').load($(\'.active a\').attr("data-url"),function(result){
+$(\'#'.$this->partName.$this->activeTab.'\').load($(\'.active a\').attr("data-url"),function(result){
   $(\'.active a\').tab(\'show\');
 });
 ');
+        } else {
+            \Ease\Shared::webPage()->addJavaScript(
+                '
+        $(\'#'.$this->partName.' a[href="#'.\Ease\Brick::lettersOnly($this->activeTab).'"]\').tab(\'show\');
+', null, true
+            );
         }
     }
 }
