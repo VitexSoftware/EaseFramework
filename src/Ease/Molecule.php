@@ -95,4 +95,32 @@ class Molecule extends Atom
             }
         }
     }
+
+    /**
+     * Pro serializaci připraví vše.
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        $objectVarsRaw = get_object_vars($this);
+        $objectVars    = array_combine(array_keys($objectVarsRaw),
+            array_keys($objectVarsRaw));
+        $parent     = get_parent_class(__CLASS__);
+        if (method_exists($parent, '__sleep')) {
+            $parentObjectVars = parent::__sleep();
+            if (is_array($parentObjectVars)) {
+                $objectVars = array_merge($objectVars, $parentObjectVars);
+            }
+        }
+        return $objectVars;
+    }
+
+    /**
+     * Akce po probuzení ze serializace.
+     */
+    public function __wakeup()
+    {
+        $this->setObjectName();
+    }
 }

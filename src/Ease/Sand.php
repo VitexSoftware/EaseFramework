@@ -600,24 +600,6 @@ class Sand extends Molecule
     }
 
     /**
-     * Pro serializaci připraví vše.
-     *
-     * @return array
-     */
-    public function __sleep()
-    {
-        $objectVars = array_keys(get_object_vars($this));
-        $parent     = get_parent_class(__CLASS__);
-        if (method_exists($parent, '__sleep') && ($parent != 'Ease\Atom')) {
-            $parentObjectVars = parent::__sleep();
-            array_push($objectVars, $parentObjectVars);
-        }
-        $this->saveObjectIdentity();
-
-        return $objectVars;
-    }
-
-    /**
      * Zobrazí velikost souboru v srozumitelném tvaru.
      *
      * @param int $filesize bytů
@@ -708,13 +690,5 @@ class Sand extends Molecule
         return false;
     }
 
-    /**
-     * Akce po probuzení ze serializace.
-     */
-    public function __wakeup()
-    {
-        $this->setObjectName();
-        $this->restoreObjectIdentity();
-    }
 
 }

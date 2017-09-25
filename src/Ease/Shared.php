@@ -246,26 +246,29 @@ class Shared extends Atom
      *
      * @return User
      */
-    public static function &user($user = null, $userSessionName = null)
+    public static function &user($user = null, $userSessionName = 'User')
     {
-        if (is_null($user) && isset($_SESSION[self::$userSessionName]) && is_object($_SESSION[self::$userSessionName])) {
-            return $_SESSION[self::$userSessionName];
+        $efprefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework';
+
+        if (is_null($user) && isset($_SESSION[$efprefix][self::$userSessionName])
+            && is_object($_SESSION[$efprefix][self::$userSessionName])) {
+            return $_SESSION[$efprefix][self::$userSessionName];
         }
 
         if (!is_null($userSessionName)) {
             self::$userSessionName = $userSessionName;
         }
         if (is_object($user)) {
-            $_SESSION[self::$userSessionName] = clone $user;
+            $_SESSION[$efprefix][self::$userSessionName] = clone $user;
         } else {
             if (class_exists($user)) {
-                $_SESSION[self::$userSessionName] = new $user();
-            } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[self::$userSessionName])) {
-                $_SESSION[self::$userSessionName] = new Anonym();
+                $_SESSION[$efprefix][self::$userSessionName] = new $user();
+            } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
+                $_SESSION[$efprefix][self::$userSessionName] = new Anonym();
             }
         }
 
-        return $_SESSION[self::$userSessionName];
+        return $_SESSION[$efprefix][self::$userSessionName];
     }
 
     /**
