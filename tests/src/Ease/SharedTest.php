@@ -29,6 +29,7 @@ class SharedTest extends AtomTest
      */
     protected function tearDown()
     {
+
     }
 
     /**
@@ -56,7 +57,6 @@ class SharedTest extends AtomTest
         $this->object->setConfigValue('test', true);
         $this->assertTrue($this->object->getConfigValue('test'));
     }
-
 
     /**
      * @covers Ease\Shared::db
@@ -91,6 +91,18 @@ class SharedTest extends AtomTest
         $this->assertInstanceOf('\Ease\User',
             \Ease\Shared::user(new \Ease\User()));
         $this->assertInstanceOf('\Ease\User', \Ease\Shared::user());
+    }
+
+    /**
+     * @covers Ease\Shared::loadConfig
+     * @expectedException Ease\Exception
+     */
+    public function testLoadConfig()
+    {
+        $this->object->loadConfig('src/molecule.json');
+        $this->assertArrayHasKey('opt', $this->object->configuration);
+        $this->assertTrue(defined('KEY'));
+        $this->object->loadConfig('unexistent.json');
     }
 
     /**

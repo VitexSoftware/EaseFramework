@@ -51,18 +51,6 @@ class MoleculeTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Molecule::loadConfig
-     * @expectedException Ease\Exception
-     */
-    public function testLoadConfig()
-    {
-        $this->object->loadConfig('src/molecule.json');
-        $this->assertArrayHasKey('opt', $this->object->configuration);
-        $this->assertTrue(defined('KEY'));
-        $this->object->loadConfig('unexistent.json');
-    }
-
-    /**
      * @covers Ease\Molecule::setupProperty
      */
     public function testSetupProperty()
