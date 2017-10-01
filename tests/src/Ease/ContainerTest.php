@@ -56,11 +56,11 @@ class ContainerTest extends SandTest
      */
     public function testAddItemCustom()
     {
-        $context = new \Ease\Html\Div();
+        $context = new \Ease\Html\DivTag();
         Container::addItemCustom('*', $context);
         $this->assertEquals("\n<div>*</div>", $context->getRendered());
 
-        $context = new \Ease\Html\Div();
+        $context = new \Ease\Html\DivTag();
         Container::addItemCustom(new \Ease\Html\ImgTag(null), $context);
         $this->assertEquals("\n<div>\n<img src=\"\" /></div>",
             $context->getRendered());
@@ -84,10 +84,11 @@ class ContainerTest extends SandTest
      */
     public function testAddAsFirst()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItem(new \Ease\Html\DivTag());
+        $this->object->addAsFirst(new \Ease\Html\Span());
+        $testSpan               = new \Ease\Html\Span();
+        $testSpan->parentObject = $this->object;
+        $this->assertEquals($testSpan, current($this->object->pageParts));
     }
 
     /**
@@ -111,33 +112,32 @@ class ContainerTest extends SandTest
         $this->object->addItem('@');
         $this->assertEquals(1, $this->object->getItemsCount());
         $this->assertEquals(2,
-            $this->object->getItemsCount(new \Ease\Html\Div(['a', 'b'])));
+            $this->object->getItemsCount(new \Ease\Html\DivTag(['a', 'b'])));
     }
 
     /**
      * @covers Ease\Container::addNextTo
-     *
-     * @todo   Implement testAddNextTo().
      */
     public function testAddNextTo()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $testDiv = $this->object->addItem(new \Ease\Html\DivTag());
+        $testDiv->addNextTo(new \Ease\Html\Span());
+        $testSpan               = new \Ease\Html\Span();
+        $testSpan->parentObject = $this->object;
+        $this->assertEquals($testSpan, end($this->object->pageParts));
     }
 
     /**
      * @covers Ease\Container::lastItem
-     *
-     * @todo   Implement testLastItem().
      */
     public function testLastItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItem(new \Ease\Html\DivTag());
+        $this->object->addItem(new \Ease\Html\ATag('', ''));
+        $this->object->addItem(new \Ease\Html\PTag());
+        $testP               = new \Ease\Html\PTag();
+        $testP->parentObject = $this->object;
+        $this->assertEquals($testP, $this->object->lastItem());
     }
 
     /**
@@ -155,28 +155,24 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::getFirstPart
-     *
-     * @todo   Implement testGetFirstPart().
      */
     public function testGetFirstPart()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItem(new \Ease\Html\DivTag());
+        $this->object->addItem(new \Ease\Html\ATag('', ''));
+        $this->object->addItem(new \Ease\Html\PTag());
+        $controlDiv               = new \Ease\Html\DivTag();
+        $controlDiv->parentObject = $this->object;
+        $this->assertEquals($controlDiv, $this->object->getFirstPart());
     }
 
     /**
      * @covers Ease\Container::addItems
-     *
-     * @todo   Implement testAddItems().
      */
     public function testAddItems()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItems([new \Ease\Html\DivTag(), new \Ease\Html\Span()]);
+        $this->assertEquals(2, $this->object->getItemsCount());
     }
 
     /**
@@ -217,15 +213,18 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::drawAllContents
-     *
-     * @todo   Implement testDrawAllContents().
      */
     public function testDrawAllContents()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        ob_start();
+        $this->object->drawAllContents();
+        if (get_class($this->object) == 'Ease\Container') {
+            $this->markTestSkipped(get_class($this->object).'is Empty');
+        } else {
+            $out = ob_get_contents();
+            $this->assertNotEmpty($out);
+        }
+        ob_end_clean();
     }
 
     /**
@@ -235,19 +234,6 @@ class ContainerTest extends SandTest
     {
         $this->object->addItem('*');
         $this->assertNotEmpty($this->object->getRendered());
-    }
-
-    /**
-     * @covers Ease\Container::showContents
-     *
-     * @todo   Implement testShowContents().
-     */
-    public function testShowContents()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 
     /**
@@ -264,6 +250,13 @@ class ContainerTest extends SandTest
             $this->assertNotEmpty($out);
         }
         ob_end_clean();
+        ob_start();
+        $this->object->drawIfNotDrawn();
+        if (!$canBeEmpty && (get_class($this->object) != 'Ease\Container')) {
+            $out = ob_get_contents();
+            $this->assertEmpty($out);
+        }
+        ob_end_clean();
     }
 
     /**
@@ -278,41 +271,11 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::setFinalized
-     *
-     * @todo   Implement testSetFinalized().
      */
     public function testSetFinalized()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Container::fillUp
-     *
-     * @todo   Implement testFillUp().
-     */
-    public function testFillUp()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Container::fillMeUp
-     *
-     * @todo   Implement testFillMeUp().
-     */
-    public function testFillMeUp()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setFinalized();
+        $this->assertTrue($this->object->isFinalized());
     }
 
     /**
@@ -347,14 +310,9 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::__toString
-     *
-     * @todo   Implement test__toString().
      */
     public function test__toString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue(is_string($this->object->__toString()));
     }
 }

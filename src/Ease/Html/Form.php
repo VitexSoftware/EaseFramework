@@ -173,4 +173,47 @@ class Form extends PairTag
             }
         }
     }
+
+    /**
+     * Naplní vložené objekty daty.
+     *
+     * @param string $data asociativní pole dat
+     */
+    public function fillUp($data = null)
+    {
+        if (is_null($data)) {
+            $data = $this->getData();
+        }
+        self::fillMeUp($data, $this);
+    }
+
+    /**
+     * Projde všechny vložené objekty a pokud se jejich jména shodují s klíči
+     * dat, nastaví se jim hodnota.
+     *
+     * @param array           $data asociativní pole dat
+     * @param Container|mixed $form formulář k naplnění
+     */
+    public static function fillMeUp(&$data, &$form)
+    {
+        if (isset($form->pageParts) && is_array($form->pageParts) && count($form->pageParts)) {
+            foreach ($form->pageParts as $partName => $part) {
+                if (isset($part->pageParts) && is_array($part->pageParts) && count($part->pageParts)) {
+                    self::fillMeUp($data, $part);
+                }
+                if (is_object($part)) {
+                    if (method_exists($part, 'setValue') && method_exists($part,
+                            'getTagName')) {
+                        $tagName = $part->getTagName();
+                        if (isset($data[$tagName])) {
+                            $part->setValue($data[$tagName], true);
+                        }
+                    }
+                    if (method_exists($part, 'setValues')) {
+                        $part->setValues($data);
+                    }
+                }
+            }
+        }
+    }
 }

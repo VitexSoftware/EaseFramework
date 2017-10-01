@@ -51,7 +51,7 @@ class BrickTest extends SandTest
      */
     public function testSetObjectName()
     {
-        parent::testSetObjectName();
+//        parent::testSetObjectName();
         $this->object->setMyKey(123);
         $this->object->setObjectName();
         $this->assertEquals(get_class($this->object).'@123',
@@ -138,9 +138,9 @@ class BrickTest extends SandTest
      */
     public function testGetAllFromSQL()
     {
-        $this->assertFalse(empty(
-                $this->object->getAllFromSQL('test', ['name', 'date'], 1,
-                    'date', 'name')));
+        $all = $this->object->getAllFromSQL('test', ['name', 'datim'], 1,
+            'datim', 'name');
+        $this->assertEquals(1, count($all));
     }
 
     /**

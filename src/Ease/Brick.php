@@ -236,13 +236,13 @@ class Brick extends Sand
      * @param array  $columnsList   získat pouze vyjmenované sloupečky
      * @param int    $limit         SQL Limit na vracene radky
      * @param string $orderByColumn jméno sloupečku pro třídění
-     * @param string $ColumnToIndex jméno sloupečku pro indexaci
+     * @param string $columnToIndex jméno sloupečku pro indexaci
      *
      * @return array
      */
     public function getAllFromSQL($tableName = null, $columnsList = null,
                                   $limit = null, $orderByColumn = null,
-                                  $ColumnToIndex = null)
+                                  $columnToIndex = null)
     {
         if (is_null($tableName)) {
             $tableName = $this->myTable;
@@ -265,11 +265,11 @@ class Brick extends Sand
         if (is_null($columnsList)) {
             $cc      = $this->dblink->getColumnComma();
             $records = $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
-                $ColumnToIndex);
+                $columnToIndex);
         } else {
             $records = $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
-                    $columnsList).' FROM '.$tableName.$limitCond.$orderByCond,
-                $ColumnToIndex);
+                    $columnsList).' FROM '.$tableName.$orderByCond.$limitCond,
+                $columnToIndex);
         }
 
         return $records;

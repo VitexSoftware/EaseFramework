@@ -93,4 +93,25 @@ class FormTest extends PairTagTest
         $this->object->setTagName('Test');
         $this->assertEquals('Test', $this->object->getTagName());
     }
+
+    /**
+     * @covers Ease\Html\Form::fillUp
+     */
+    public function testFillUp()
+    {
+        $this->object->fillUp(['a' => 1, 'b' => 2]);
+    }
+
+    /**
+     * @covers Ease\Html\Form::fillMeUp
+     *
+     * @todo   Implement testFillMeUp().
+     */
+    public function testFillMeUp()
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
 }

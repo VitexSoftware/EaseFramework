@@ -384,23 +384,6 @@ class Container extends Sand
     }
 
     /**
-     * Zobrazí schéma hierarchie vložených objektů.
-     *
-     * @param int $level aktuální uroven zanoření
-     */
-    public function showContents($level = 0)
-    {
-        foreach ($this->pageParts as $partName => $partContents) {
-            if (is_object($partContents) && method_exists($partContents,
-                    'ShowContents')) {
-                $partContents->showContents($level + 1);
-            } else {
-                echo str_repeat('&nbsp;.&nbsp;', $level).$partName.'<br>';
-            }
-        }
-    }
-
-    /**
      * Vykresli se, pokud již tak nebylo učiněno.
      * Draw contents not drawn yet.
      */
@@ -433,49 +416,6 @@ class Container extends Sand
     }
 
     /**
-     * Naplní vložené objekty daty.
-     *
-     * @param type $data asociativní pole dat
-     */
-    public function fillUp($data = null)
-    {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
-        self::fillMeUp($data, $this);
-    }
-
-    /**
-     * Projde všechny vložené objekty a pokud se jejich jména shodují s klíči
-     * dat, nastaví se jim hodnota.
-     *
-     * @param array           $data asociativní pole dat
-     * @param Container|mixed $form formulář k naplnění
-     */
-    public static function fillMeUp(&$data, &$form)
-    {
-        if (isset($form->pageParts) && is_array($form->pageParts) && count($form->pageParts)) {
-            foreach ($form->pageParts as $partName => $part) {
-                if (isset($part->pageParts) && is_array($part->pageParts) && count($part->pageParts)) {
-                    self::fillMeUp($data, $part);
-                }
-                if (is_object($part)) {
-                    if (method_exists($part, 'setValue') && method_exists($part,
-                            'getTagName')) {
-                        $tagName = $part->getTagName();
-                        if (isset($data[$tagName])) {
-                            $part->setValue($data[$tagName], true);
-                        }
-                    }
-                    if (method_exists($part, 'setValues')) {
-                        $part->setValues($data);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Je element prázdný ?
      *
      * @param Container $element Ease Html Element
@@ -492,7 +432,7 @@ class Container extends Sand
     }
 
     /**
-     * Vykreslí objekt z jeho položek.
+     * Recursive draw object and its contents
      */
     public function draw()
     {
@@ -510,7 +450,7 @@ class Container extends Sand
     }
 
     /**
-     * Vyrendruje objekt.
+     * Render Obect (and its contents) as string.
      *
      * @return string
      */
