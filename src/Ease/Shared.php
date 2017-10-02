@@ -704,7 +704,7 @@ class Shared extends Atom
         } else {
             if (class_exists($user)) {
                 $_SESSION[$efprefix][self::$userSessionName] = new $user();
-            } elseif (!isset($_SESSION[self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
+            } elseif (!isset($_SESSION[$efprefix][self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
                 $_SESSION[$efprefix][self::$userSessionName] = new Anonym();
             }
         }
