@@ -164,11 +164,8 @@ class WebPage extends Page
     public function addJavaScript($javaScript, $position = null,
                                   $inDocumentReady = true)
     {
-        if ($inDocumentReady) {
-            return $this->addToScriptsStack('$'.$javaScript, $position);
-        }
-
-        return $this->addToScriptsStack('@'.$javaScript, $position);
+        return $this->addToScriptsStack($inDocumentReady ? '$' : '@'.$javaScript,
+                $position);
     }
 
     /**

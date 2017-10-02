@@ -33,15 +33,14 @@ class PageTest extends ContainerTest
 
     /**
      * @covers Ease\Page::singleton
-     *
-     * @todo   Implement testSingleton().
      */
     public function testSingleton()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        if (get_class($this->object) == 'Ease\Page') {
+            $this->assertInstanceOf(get_class($this->object), Page::singleton());
+        } else {
+            $this->markTestSkipped('Only for Ease\Page');
+        }
     }
 
     /**
@@ -51,10 +50,8 @@ class PageTest extends ContainerTest
      */
     public function testAddJavaScript()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addJavaScript('alert("hallo");');
+        $this->object->addJavaScript('alert("wordld");', false);
     }
 
     /**

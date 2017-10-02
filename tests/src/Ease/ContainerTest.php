@@ -120,7 +120,7 @@ class ContainerTest extends SandTest
      */
     public function testAddNextTo()
     {
-        $testDiv = $this->object->addItem(new \Ease\Html\DivTag());
+        $testDiv                = $this->object->addItem(new \Ease\Html\DivTag());
         $testDiv->addNextTo(new \Ease\Html\Span());
         $testSpan               = new \Ease\Html\Span();
         $testSpan->parentObject = $this->object;

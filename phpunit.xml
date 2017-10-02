@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="./tests/Bootstrap.php">
+<phpunit colors="true" bootstrap="./testing/bootstrap.php">
     <testsuites>
         <testsuite name="all">
             <directory>./tests</directory>
@@ -8,15 +8,15 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">src/Ease</directory>
         </whitelist>
     </filter>
 
-    <logging>
+    <!-- logging>
         <log type="tap" target="build/report.tap"/>
         <log type="junit" target="build/report.junit.xml"/>
         <log type="coverage-text" target="php://stdout"/>
-        <!-- log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/ -->
-        <log type="coverage-clover" target="/tmp/nb-phpunit-coverage.xml"/>
-    </logging>
+        <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging -->
 </phpunit>

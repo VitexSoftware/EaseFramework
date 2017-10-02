@@ -89,7 +89,7 @@ class Page extends Container
      * @param string $position        končná pozice: '+','-','0','--',...
      * @param bool   $inDocumentReady vložit do DocumentReady bloku ?
      *
-     * @return int
+     * @return int 
      */
     public function addJavaScript($javaScript, $position = null,
                                   $inDocumentReady = true)
