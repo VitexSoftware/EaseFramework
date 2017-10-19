@@ -155,6 +155,7 @@ class SandTest extends AtomTest
      */
     public function testGetDataCount()
     {
+        $this->object->dataReset();
         $data = ['a' => 1, 'b' => 2];
         $this->object->setData($data);
         $this->assertEquals(2, $this->object->getDataCount());

@@ -163,7 +163,7 @@ class ContainerTest extends SandTest
         $this->object->addItem(new \Ease\Html\PTag());
         $controlDiv               = new \Ease\Html\DivTag();
         $controlDiv->parentObject = $this->object;
-        $this->assertEquals($controlDiv, $this->object->getFirstPart());
+            $this->assertEquals($controlDiv, $this->object->getFirstPart());
     }
 
     /**

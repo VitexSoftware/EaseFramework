@@ -164,7 +164,7 @@ class WebPage extends Page
     public function addJavaScript($javaScript, $position = null,
                                   $inDocumentReady = true)
     {
-        return $this->addToScriptsStack($inDocumentReady ? '$' : '@'.$javaScript,
+        return $this->addToScriptsStack(($inDocumentReady ? '$' : '@').$javaScript,
                 $position);
     }
 
@@ -205,11 +205,11 @@ class WebPage extends Page
                     unset($javaScripts[$scriptFound]);
                 }
 
-                $Backup                 = array_slice($javaScripts, $position);
+                $backup                 = array_slice($javaScripts, $position);
                 $javaScripts[$position] = $code;
-                $NextFreeID             = $position + 1;
-                foreach ($Backup as $code) {
-                    $javaScripts[$NextFreeID++] = $code;
+                $nextFreeID             = $position + 1;
+                foreach ($backup as $code) {
+                    $javaScripts[$nextFreeID++] = $code;
                 }
 
                 return $position;
