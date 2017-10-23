@@ -5,16 +5,15 @@ namespace Ease\Html;
 /**
  * HTML span tag.
  *
- * @deprecated since version 1.4.1
  * @author Vitex <vitex@hippy.cz>
  */
-class Span extends PairTag
+class SpanTag extends PairTag
 {
     /**
      * <span> tag.
      *
-     * @param mixed $content    vkládaný obsah
-     * @param array $properties parametry tagu
+     * @param mixed $content    content entered
+     * @param array $properties tag parameters
      */
     public function __construct($content = null, $properties = [])
     {

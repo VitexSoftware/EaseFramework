@@ -84,6 +84,7 @@ class ContainerTest extends SandTest
      */
     public function testAddAsFirst()
     {
+        $this->object->emptyContents();
         $this->object->addItem(new \Ease\Html\DivTag());
         $this->object->addAsFirst(new \Ease\Html\Span());
         $testSpan               = new \Ease\Html\Span();
@@ -142,15 +143,17 @@ class ContainerTest extends SandTest
 
     /**
      * @covers Ease\Container::addToLastItem
-     *
-     * @todo   Implement testAddToLastItem().
      */
     public function testAddToLastItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->emptyContents();
+        $this->object->addItem(new \Ease\Html\DivTag());
+
+        $testobj = new \Ease\Html\SpanTag('test');
+
+        $this->object->addToLastItem($testobj);
+        $this->assertEquals($testobj,
+            $this->object->getFirstPart()->getFirstPart());
     }
 
     /**
@@ -158,12 +161,13 @@ class ContainerTest extends SandTest
      */
     public function testGetFirstPart()
     {
+        $this->object->emptyContents();
         $this->object->addItem(new \Ease\Html\DivTag());
         $this->object->addItem(new \Ease\Html\ATag('', ''));
         $this->object->addItem(new \Ease\Html\PTag());
         $controlDiv               = new \Ease\Html\DivTag();
         $controlDiv->parentObject = $this->object;
-            $this->assertEquals($controlDiv, $this->object->getFirstPart());
+        $this->assertEquals($controlDiv, $this->object->getFirstPart());
     }
 
     /**
@@ -171,6 +175,7 @@ class ContainerTest extends SandTest
      */
     public function testAddItems()
     {
+        $this->object->emptyContents();
         $this->object->addItems([new \Ease\Html\DivTag(), new \Ease\Html\Span()]);
         $this->assertEquals(2, $this->object->getItemsCount());
     }
@@ -186,43 +191,21 @@ class ContainerTest extends SandTest
     }
 
     /**
-     * @covers Ease\Container::takeJavascripts
-     *
-     * @todo   Implement testTakeJavascripts().
-     */
-    public function testTakeJavascripts()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Container::takeCascadeStyles
-     *
-     * @todo   Implement testTakeCascadeStyles().
-     */
-    public function testTakeCascadeStyles()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\Container::drawAllContents
      */
     public function testDrawAllContents()
     {
         ob_start();
         $this->object->drawAllContents();
-        if (get_class($this->object) == 'Ease\Container') {
-            $this->markTestSkipped(get_class($this->object).'is Empty');
-        } else {
-            $out = ob_get_contents();
-            $this->assertNotEmpty($out);
+        switch (get_class($this->object)) {
+            case 'Ease\Container':
+            case 'Ease\Page':
+                $this->markTestSkipped(get_class($this->object).'is Empty');
+                break;
+            default :
+                $out = ob_get_contents();
+                $this->assertNotEmpty($out);
+                break;
         }
         ob_end_clean();
     }
@@ -296,14 +279,18 @@ class ContainerTest extends SandTest
     {
         ob_start();
         $this->object->draw();
-        if (get_class($this->object) == 'Ease\Container') {
-            $this->markTestSkipped(get_class($this->object).' is Empty');
-        } else {
-            $out = ob_get_contents();
-            $this->assertNotEmpty($out);
-            if (!is_null($whatWant)) {
-                $this->assertEquals($whatWant, $out);
-            }
+        switch (get_class($this->object)) {
+            case 'Ease\Container':
+            case 'Ease\Page':
+                $this->markTestSkipped(get_class($this->object).' is Empty');
+                break;
+            default :
+                $out = ob_get_contents();
+                $this->assertNotEmpty($out);
+                if (!is_null($whatWant)) {
+                    $this->assertEquals($whatWant, $out);
+                }
+                break;
         }
         ob_end_clean();
     }

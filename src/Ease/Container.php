@@ -254,7 +254,7 @@ class Container extends Sand
      *
      * @return bool success
      */
-    public function &addToLastItem($pageItem)
+    public function addToLastItem($pageItem)
     {
         if (!method_exists($this->lastItem, 'addItem')) {
             return false;
@@ -305,49 +305,6 @@ class Container extends Sand
     public function emptyContents()
     {
         $this->pageParts = null;
-    }
-
-    /**
-     * Převezme JavaScripty.
-     *
-     * @param EasePage|array $scripts pole skriptiptů nebo EaseObjekt s
-     *                                vloženými skripty v poli ->javaScripts
-     */
-    public function takeJavascripts(&$scripts)
-    {
-        if (is_object($scripts)) {
-            $scriptsToProcess = $scripts->javaScripts;
-        } else {
-            $scriptsToProcess = $scripts;
-        }
-        if (count($scriptsToProcess)) {
-            foreach ($scriptsToProcess as $scriptID => $script) {
-                if ($script[0] == '#') {
-                    $this->includeJavaScript(substr($script, 1), $scriptID);
-                } else {
-                    $this->addJavaScript(substr($script, 1), $scriptID);
-                }
-            }
-        }
-    }
-
-    /**
-     * Převezme kaskádove styly.
-     *
-     * @param EasePage|array $styles pole definic stylů nebo objekt s nimi
-     */
-    public function takeCascadeStyles($styles)
-    {
-        if (is_object($styles)) {
-            $stylesToProcess = &$styles->webPage->head->cascadeStyles;
-        } else {
-            $stylesToProcess = &$styles;
-        }
-        if (count($stylesToProcess)) {
-            foreach ($stylesToProcess as $Style) {
-                $this->AddCss($Style);
-            }
-        }
     }
 
     /**

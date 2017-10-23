@@ -20,7 +20,7 @@ class HeadTagTest extends PairTagTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\Html\HeadTag();
+        $this->object = new HeadTag();
     }
 
     /**

@@ -20,17 +20,17 @@ class MailerTest extends PageTest
     {
         $this->object = new \Ease\Mailer('info@vitexsoftware.cz', 'Unit Test');
     }
- 
+
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
     protected function tearDown()
     {
-
+        
     }
 
-        public function testConstructor()
+    public function testConstructor()
     {
         $classname = get_class($this->object);
 
@@ -44,39 +44,32 @@ class MailerTest extends PageTest
     }
 
     /**
-     * @covers Ease\Mailer::getMailHeader
-     * @todo   Implement testGetMailHeader().
-     */
-    public function testGetMailHeader()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\Mailer::setMailHeaders
-     * @todo   Implement testSetMailHeaders().
      */
     public function testSetMailHeaders()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->mailHeaders['From'] = 'ease@framework.cz';
+        $this->object->setMailHeaders(['x-mail' => 'test']);
+        $this->assertEquals('test', $this->object->getMailHeader('x-mail'));
+        $this->assertEquals('ease@framework.cz',
+            $this->object->getMailHeader('From'));
+    }
+
+    /**
+     * @covers Ease\Mailer::getMailHeader
+     */
+    public function testGetMailHeader()
+    {
+        $this->assertEquals('info@vitexsoftware.cz',
+            $this->object->getMailHeader('To'));
     }
 
     /**
      * @covers Ease\Mailer::addItem
-     * @todo   Implement testAddItem().
      */
     public function testAddItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        return parent::testAddItem();
     }
 
     /**
@@ -102,7 +95,7 @@ class MailerTest extends PageTest
             'This test has not been implemented yet.'
         );
     }
-    
+
     /**
      * @covers Ease\Mailer::getRendered
      */
@@ -130,8 +123,6 @@ class MailerTest extends PageTest
             'This test has not been implemented yet.'
         );
     }
-
-
 
     /**
      * @covers Ease\Mailer::setUserNotification
