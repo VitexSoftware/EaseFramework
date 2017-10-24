@@ -99,10 +99,12 @@ class SharedTest extends AtomTest
      */
     public function testLoadConfig()
     {
-        $this->object->loadConfig('src/molecule.json');
+        $this->object->loadConfig('src/configtest.json');
         $this->assertArrayHasKey('opt', $this->object->configuration);
         $this->assertTrue(defined('KEY'));
         $this->object->loadConfig('unexistent.json');
+        $this->assertEquals('optvalue', $this->object->getConfigValue('opt'));
+        $this->assertEquals('keyvalue', $this->object->getConfigValue('KEY'));
     }
 
     /**
@@ -122,4 +124,5 @@ class SharedTest extends AtomTest
         \Ease\Shared::registerItem($item);
         $this->assertInstanceOf(get_class($item), end($this->object->allItems));
     }
+
 }

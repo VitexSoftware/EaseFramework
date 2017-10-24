@@ -195,6 +195,9 @@ class ContainerTest extends SandTest
      */
     public function testDrawAllContents()
     {
+        $this->object->emptyContents();
+        $this->object->addItem('content1');
+        $this->object->addItem('content2');
         ob_start();
         $this->object->drawAllContents();
         switch (get_class($this->object)) {
@@ -215,8 +218,16 @@ class ContainerTest extends SandTest
      */
     public function testGetRendered()
     {
-        $this->object->addItem('*');
-        $this->assertNotEmpty($this->object->getRendered());
+        switch (get_class($this->object)) {
+            case 'Ease\Container':
+            case 'Ease\Page':
+                $this->markTestSkipped(get_class($this->object).' is Empty');
+                break;
+            default :
+                $this->object->addItem('*');
+                $this->assertNotEmpty($this->object->getRendered());
+                break;
+        }
     }
 
     /**
@@ -226,19 +237,30 @@ class ContainerTest extends SandTest
     {
         ob_start();
         $this->object->drawIfNotDrawn();
-        if ($canBeEmpty || (get_class($this->object) == 'Ease\Container')) {
-            $this->markTestSkipped(get_class($this->object).'is Empty');
-        } else {
-            $out = ob_get_contents();
-            $this->assertNotEmpty($out);
+
+        switch (get_class($this->object)) {
+            case 'Ease\Container':
+            case 'Ease\Page':
+                $this->markTestSkipped(get_class($this->object).' is Empty');
+                break;
+            default :
+                if ($canBeEmpty) {
+                    $this->markTestSkipped(get_class($this->object).'is Empty');
+                } else {
+                    $out = ob_get_contents();
+                    $this->assertNotEmpty($out);
+                }
+                ob_end_clean();
+                ob_start();
+                $this->object->drawIfNotDrawn();
+                if (!$canBeEmpty && (get_class($this->object) != 'Ease\Container')) {
+                    $out = ob_get_contents();
+                    $this->assertEmpty($out);
+                }
+
+                break;
         }
-        ob_end_clean();
-        ob_start();
-        $this->object->drawIfNotDrawn();
-        if (!$canBeEmpty && (get_class($this->object) != 'Ease\Container')) {
-            $out = ob_get_contents();
-            $this->assertEmpty($out);
-        }
+
         ob_end_clean();
     }
 
@@ -300,6 +322,15 @@ class ContainerTest extends SandTest
      */
     public function test__toString()
     {
-        $this->assertTrue(is_string($this->object->__toString()));
+        $result = $this->object->__toString();
+        switch (get_class($this->object)) {
+            case 'Ease\Container':
+            case 'Ease\Page':
+                $this->markTestSkipped(get_class($this->object).' is Empty');
+                break;
+            default :
+                $this->assertTrue(is_string($result));
+                break;
+        }
     }
 }

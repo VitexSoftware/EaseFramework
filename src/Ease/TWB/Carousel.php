@@ -10,7 +10,7 @@ namespace Ease\TWB;
 /**
  * Carousel for Twitter Bootstrap.
  */
-class Carousel extends \Ease\Html\Div
+class Carousel extends \Ease\Html\DivTag
 {
     /**
      * Carousel name.
@@ -22,7 +22,7 @@ class Carousel extends \Ease\Html\Div
     /**
      * Carousel's inner div.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $inner = null;
 

@@ -804,7 +804,7 @@ class Shared extends Atom
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
                                              $i18n = '../i18n')
     {
-
+        $langs = [];
         foreach (self::$alllngs as $langCode => $language) {
             $langs[$langCode] = [strstr($langCode, '_') ? substr($langCode, 0,
                     strpos($langCode, '_')) : $langCode, $language];
