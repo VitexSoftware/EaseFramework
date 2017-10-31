@@ -71,7 +71,7 @@ class Tabs extends \Ease\Container
             $this->activeTab = $tabName;
         }
 
-        return $this->tabs[$tabName];
+        return $this->tabs[$tabName]['static'];
     }
 
     /**

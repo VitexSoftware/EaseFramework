@@ -256,10 +256,6 @@ class Container extends Sand
      */
     public function addToLastItem($pageItem)
     {
-        if (!method_exists($this->lastItem, 'addItem')) {
-            return false;
-        }
-
         return $this->lastItem->addItem($pageItem);
     }
 
