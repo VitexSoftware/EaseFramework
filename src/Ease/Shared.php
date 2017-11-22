@@ -644,9 +644,18 @@ class Shared extends Atom
      *
      * @return SQL\PDO
      */
-    public static function db()
+    public static function &db($pdo = null)
     {
-        return SQL\PDO::singleton();
+        $shared = self::instanced();
+        if (is_object($pdo)) {
+            $shared->dbLink = &$pdo;
+        }
+        if (!is_object($shared->dbLink)) {
+            $shared->dbLink = self::db(SQL\PDO::singleton(is_array($pdo) ? $pdo : [
+                ]));
+        }
+
+        return $shared->dbLink;
     }
 
     /**
@@ -771,7 +780,7 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception('Config file '.realpath($configFile) ? realpath($configFile)
-                    : $configFile.' does not exist');
+                        : $configFile.' does not exist');
         }
         $this->configuration = json_decode(file_get_contents($configFile), true);
         if (is_null($this->configuration)) {
@@ -795,9 +804,11 @@ class Shared extends Atom
     /**
      * Initialise Gettext
      *
-     * @param string $appname
+     * $i18n/$defaultLocale/LC_MESSAGES/$appname.mo
+     *
+     * @param string $appname        name for binddomain
      * @param string $defaultLocale  locale of source code localstring
-     * @param string $i18n           directory contains en_US/APPNAME.mo
+     * @param string $i18n           directory base localisation directory
      *
      * @return
      */
@@ -810,13 +821,15 @@ class Shared extends Atom
                     strpos($langCode, '_')) : $langCode, $language];
         }
 
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && function_exists('\locale_accept_from_http')) {
             $defaultLocale = \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         }
+
         if (isset($_GET['locale'])) {
             $defaultLocale = preg_replace('/[^a-zA-Z_]/', '',
                 substr($_GET['locale'], 0, 10));
         }
+
         foreach ($langs as $code => $lang) {
             if ($defaultLocale == $lang[0]) {
                 $defaultLocale = $code;

@@ -64,7 +64,7 @@ Framework Constants
 ===================
 
   * EASE_APPNAME - common name of application. Mainly used in logs.
-  * EASE_LOGGER  - one of memory,console,file,syslog,mail or combination "console|syslog"
+  * EASE_LOGGER  - one of memory,console,file,syslog,email,std,eventlog or combination "console|syslog"
   * EASE_EMAILTO - recipient for Ease/Logger/ToMail
   * EASE_SMTP    - Custom SMTP Settings (JSON Encoded) 
   * DB_TYPE      - pgsql|mysql|sqlite|...
@@ -91,6 +91,29 @@ $form->addItem(new \Ease\TWB\SubmitButton('OK', 'success') );
 $oPage->draw();
 ```
 
+Logging
+-------
+
+ You can use any combination of this logging modules:
+
+   * memory     - log to array in memory
+   * console    - log to ansi sequence capable console
+   * file       - log to specified file
+   * syslog 
+   * email,
+   * std 
+   * eventlog
+    
+
+
+  ```php
+    define('EASE_LOGGER', 'console|syslog');
+    $logger = new \Ease\Sand();
+    $logger->addStatusMessage('Error Message', 'error');
+  ```
+
+
+
 Testing
 -------
 
@@ -113,12 +136,6 @@ Building
 --------
 
 Simply run debian/deb-package.sh
-
-For Docker:
-
-    docker build -t vitexus/ease-framework .
-    docker push vitexus/ease-framework
-
 
 Links
 =====

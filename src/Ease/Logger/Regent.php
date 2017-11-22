@@ -52,8 +52,8 @@ class Regent extends \Ease\Atom
 
         foreach ($loggers as $logger)
             switch ($logger) {
-                case 'file':
-                    $this->loggers[$logger] = ToFile::singleton();
+                case 'dir':
+                    $this->loggers[$logger] = ToDir::singleton();
                     break;
                 case 'console':
                     $this->loggers[$logger] = ToConsole::singleton();
@@ -66,6 +66,20 @@ class Regent extends \Ease\Atom
                     break;
                 case 'email':
                     $this->loggers[$logger] = ToEmail::singleton();
+                    break;
+                case 'std':
+                    $this->loggers[$logger] = ToStd::singleton();
+                    break;
+                case 'eventlog':
+                    $this->loggers[$logger] = ToEventlog::singleton();
+                    break;
+                default :
+                    if (class_exists($logger) && method_exists($logger,
+                            'singleton')) {
+                        $this->loggers[$logger] = $logger::singleton();
+                    } else {
+                        $this->loggers[$logger] = ToFile::singleton($logger);
+                    }
                     break;
             }
     }

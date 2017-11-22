@@ -5,6 +5,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2015 Vitex@hippy.cz (G)
  */
+
 namespace Ease\SQL;
 
 /**
@@ -26,11 +27,11 @@ class PDO extends SQL
      *
      * @var PDOStatement
      */
-    public $result = null;
-    public $status = false; //Pripojeno ?
+    public $result    = null;
+    public $status    = false; //Pripojeno ?
     public $lastQuery = '';
-    public $numRows = 0;
-    public $debug = false;
+    public $numRows   = 0;
+    public $debug     = false;
 
     /**
      * KeyColumn used for postgresql insert id.
@@ -45,7 +46,7 @@ class PDO extends SQL
      * @var string
      */
     public $myTable = null;
-    public $data = null;
+    public $data    = null;
     public $charset = 'utf8';
     public $collate = 'utf8_czech_ci';
 
@@ -81,11 +82,11 @@ class PDO extends SQL
      *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      */
-    public static function singleton()
+    public static function singleton($options = [])
     {
         if (!isset(self::$_instance)) {
-            $class = __CLASS__;
-            self::$_instance = new $class();
+            $class           = __CLASS__;
+            self::$_instance = new $class($options);
         }
 
         return self::$_instance;
@@ -124,7 +125,8 @@ class PDO extends SQL
      */
     public function addSlashes($text)
     {
-        if (isset($this->sqlLink) && method_exists($this->sqlLink, 'real_escape_string')) {
+        if (isset($this->sqlLink) && method_exists($this->sqlLink,
+                'real_escape_string')) {
             $slashed = $this->sqlLink->real_escape_string($text);
         } else {
             $slashed = addslashes($text);
@@ -164,7 +166,7 @@ class PDO extends SQL
 
             if (is_object($this->sqlLink)) {
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $this->errorText = $this->sqlLink->errorInfo();
+                $this->errorText   = $this->sqlLink->errorInfo();
             } else {
                 $result = false;
             }
@@ -195,7 +197,7 @@ class PDO extends SQL
         if ($change) {
             $this->Database = $dbName;
         } else {
-            $this->errorText = $this->sqlLink->error;
+            $this->errorText   = $this->sqlLink->error;
             $this->errorNumber = $this->sqlLink->errno;
             $this->addStatusMessage('Connect: error #'.$this->errorNumber.' '.$this->errorText,
                 'error');
@@ -219,20 +221,20 @@ class PDO extends SQL
             $this->connect();
         }
 
-        $queryRaw = $this->sanitizeQuery($queryRaw);
-        $this->lastQuery = $queryRaw;
+        $queryRaw           = $this->sanitizeQuery($queryRaw);
+        $this->lastQuery    = $queryRaw;
         $this->lastInsertID = null;
-        $this->errorText = null;
-        $this->errorNumber = null;
-        $sqlAction = trim(strtolower(current(explode(' ', $queryRaw))));
+        $this->errorText    = null;
+        $this->errorNumber  = null;
+        $sqlAction          = trim(strtolower(current(explode(' ', $queryRaw))));
 
         switch ($sqlAction) {
             case 'select':
             case 'truncate':
             case 'show':
-                $this->result = $this->sqlLink->query($queryRaw);
+                $this->result      = $this->sqlLink->query($queryRaw);
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $errorText = $this->sqlLink->errorInfo();
+                $errorText         = $this->sqlLink->errorInfo();
                 if ($this->errorNumber) {
                     $this->errorText = $errorText[2];
                 }
@@ -249,34 +251,35 @@ class PDO extends SQL
                 }
             case 'replace':
             case 'delete':
-                $stmt = $this->sqlLink->prepare($queryRaw);
+                $stmt              = $this->sqlLink->prepare($queryRaw);
                 $stmt->execute();
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $this->errorText = $this->sqlLink->errorInfo();
+                $this->errorText   = $this->sqlLink->errorInfo();
 
                 if (isset($this->errorText[2])) {
-                    $this->addStatusMessage($this->errorText[2].': '. $queryRaw,'error');
+                    $this->addStatusMessage($this->errorText[2].': '.$queryRaw,
+                        'error');
                 }
 
                 if ($this->errorText[0] == '0000') {
                     if (($this->dbType == 'pgsql') && (strstr($queryRaw,
                             strtoupper('RETURNING')))) {
                         $fetched = $stmt->fetch();
-                        if(is_array($fetched)){
+                        if (is_array($fetched)) {
                             $this->lastInsertID = current($fetched);
                         }
                     } else {
                         $this->lastInsertID = $this->getlastInsertID();
                     }
                     $this->numRows = $stmt->rowCount();
-                    $this->result = true;
+                    $this->result  = true;
                 }
                 break;
             case 'update':
-                $stmt = $this->sqlLink->prepare($queryRaw);
+                $stmt              = $this->sqlLink->prepare($queryRaw);
                 $stmt->execute();
                 $this->errorNumber = $this->sqlLink->errorCode();
-                $errorText = $this->sqlLink->errorInfo();
+                $errorText         = $this->sqlLink->errorInfo();
                 if ($this->errorNumber) {
                     $this->errorText = $errorText[2];
                 }
@@ -447,7 +450,7 @@ class PDO extends SQL
     public function arrayToValuesQuery($data, $key = true)
     {
         $values = [];
-        $query = '';
+        $query  = '';
 
         foreach ($data as $column => $value) {
             if (!strlen($column)) {
@@ -492,7 +495,7 @@ class PDO extends SQL
         }
 
         $keys = [];
-        $cc = $this->getColumnComma();
+        $cc   = $this->getColumnComma();
         foreach (array_keys($values) as $columnKey) {
             $keys[] = $cc.$columnKey.$cc;
         }
@@ -511,8 +514,8 @@ class PDO extends SQL
      */
     public function prepSelect($data, $ldiv = 'AND')
     {
-        $operator = null;
-        $conditions = [];
+        $operator     = null;
+        $conditions   = [];
         $conditionsII = [];
         foreach ($data as $column => $value) {
             if (is_integer($column)) {
@@ -528,15 +531,15 @@ class PDO extends SQL
             }
 
             if (is_null($value)) {
-                $value = 'null';
+                $value    = 'null';
                 $operator = ' IS ';
             } else {
                 if (strlen($value) && ($value[0] == '!')) {
                     $operator = ' != ';
-                    $value = substr($value, 1);
+                    $value    = substr($value, 1);
                 } else {
                     if (($value === '!null') || (strtoupper($value) === 'IS NOT NULL')) {
-                        $value = 'null';
+                        $value    = 'null';
                         $operator = 'IS NOT';
                     } else {
                         if (is_null($operator)) {
