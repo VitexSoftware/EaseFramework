@@ -52,9 +52,6 @@ class Regent extends \Ease\Atom
 
         foreach ($loggers as $logger)
             switch ($logger) {
-                case 'dir':
-                    $this->loggers[$logger] = ToDir::singleton();
-                    break;
                 case 'console':
                     $this->loggers[$logger] = ToConsole::singleton();
                     break;

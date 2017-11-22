@@ -20,11 +20,16 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 ---
 
 Installation
-------------
+============
 
-To get Docker image:
+Download https://github.com/VitexSoftware/EaseFramework/archive/master.zip or:
 
-    docker pull vitexsoftware/easephpframework
+Composer:
+---------
+    composer require vitexsoftware/ease-framework
+
+Linux
+-----
 
 For Debian, Ubuntu & friends please use repo:
 
@@ -53,11 +58,9 @@ In this case please add this to your app composer.json:
 Docker:
 -------
 
-    pull vitexus/ease-framework
+To get Docker image:
 
-Composer:
----------
-    composer require vitexsoftware/ease-framework
+    docker pull vitexsoftware/easephpframework
 
 
 Framework Constants
@@ -99,19 +102,16 @@ Logging
    * memory     - log to array in memory
    * console    - log to ansi sequence capable console
    * file       - log to specified file
-   * syslog 
-   * email,
-   * std 
-   * eventlog
-    
-
+   * syslog     - log to linux syslog service
+   * email      - send all messages to constant('EASE_EMAILTO') at end
+   * std        - write messages to stdout/stderr
+   * eventlog   - log to Windows eventlog 
 
   ```php
     define('EASE_LOGGER', 'console|syslog');
     $logger = new \Ease\Sand();
     $logger->addStatusMessage('Error Message', 'error');
   ```
-
 
 
 Testing
