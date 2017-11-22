@@ -10,6 +10,7 @@ namespace Ease\Html;
  */
 class Span extends PairTag
 {
+
     /**
      * <span> tag.
      *

@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class SummaryTag extends PairTag
 {
+
     /**
      * Defines a visible heading for a <details> element
      *

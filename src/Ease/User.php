@@ -58,12 +58,13 @@ class User extends Anonym
      * @var array
      */
     public $permissionsInactive = null;  //Prava na ktera jiz uzivatel z duvodu nizkeho levelu nedosahne
+
     /**
      * Objekt nadřazeného uživatele.
      *
      * @var int unsigned
      */
-    public $parent              = null;
+    public $parent = null;
 
     /**
      * ID prave nacteneho uzivatele.
@@ -283,9 +284,9 @@ class User extends Anonym
      */
     public function loginSuccess()
     {
-        $this->userID    = (int) $this->getMyKey();
+        $this->userID = (int) $this->getMyKey();
         $this->setUserLogin($this->getDataValue($this->loginColumn));
-        $this->logged    = true;
+        $this->logged = true;
         $this->addStatusMessage(sprintf(_('Sign in %s all ok'), $this->userLogin),
             'success');
 
@@ -586,7 +587,7 @@ class User extends Anonym
      * @source http://gravatar.com/site/implement/images/php/
      */
     public static function getGravatar(
-    $email, $size = 80, $default = 'mm', $maxRating = 'g'
+        $email, $size = 80, $default = 'mm', $maxRating = 'g'
     )
     {
         $url = 'http://www.gravatar.com/avatar/';

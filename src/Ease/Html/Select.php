@@ -49,7 +49,7 @@ class Select extends PairTag
     {
         parent::__construct('select', $properties);
         $this->defaultValue = $defaultValue;
-        $this->_itemsIDs = $itemsIDs;
+        $this->_itemsIDs    = $itemsIDs;
         $this->setTagName($name);
         if (is_array($items)) {
             $this->addItems($items);

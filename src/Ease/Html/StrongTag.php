@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class StrongTag extends PairTag
 {
+
     /**
      * Tag pro tučné písmo.
      *

@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class FigureTag extends PairTag
 {
+
     /**
      * Defines self-contained content
      *

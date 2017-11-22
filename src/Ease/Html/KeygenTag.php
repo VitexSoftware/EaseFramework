@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class KeygenTag extends PairTag
 {
+
     /**
      * Defines a key-pair generator field (for forms)
      *

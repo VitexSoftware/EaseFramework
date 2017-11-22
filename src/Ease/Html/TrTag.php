@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class TrTag extends PairTag
 {
+
     /**
      * TR tag.
      *

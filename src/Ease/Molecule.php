@@ -15,6 +15,7 @@ namespace Ease;
  */
 class Molecule extends Atom
 {
+
     /**
      * Nastaví jméno objektu.
      *
@@ -71,7 +72,7 @@ class Molecule extends Atom
         $objectVarsRaw = get_object_vars($this);
         $objectVars    = array_combine(array_keys($objectVarsRaw),
             array_keys($objectVarsRaw));
-        $parent     = get_parent_class(__CLASS__);
+        $parent        = get_parent_class(__CLASS__);
         if (method_exists($parent, '__sleep')) {
             $parentObjectVars = parent::__sleep();
             if (is_array($parentObjectVars)) {

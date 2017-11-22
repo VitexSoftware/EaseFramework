@@ -79,5 +79,4 @@ class Message
         }
         return $symbol;
     }
-
 }

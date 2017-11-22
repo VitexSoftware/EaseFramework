@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class OutputTag extends PairTag
 {
+
     /**
      * Defines the result of a calculation
      *

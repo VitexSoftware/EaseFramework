@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class HeaderTag extends PairTag
 {
+
     /**
      * Defines a header for a document or section
      *

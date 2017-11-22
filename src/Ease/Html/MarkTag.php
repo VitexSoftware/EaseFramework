@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class MarkTag extends PairTag
 {
+
     /**
      * Defines marked/highlighted text
      *

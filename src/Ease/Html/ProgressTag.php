@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class ProgressTag extends PairTag
 {
+
     /**
      * Represents the progress of a task
      *

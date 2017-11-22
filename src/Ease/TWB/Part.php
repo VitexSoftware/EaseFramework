@@ -4,10 +4,12 @@
  *
  * @author Vitex <vitex@hippy.cz>
  */
+
 namespace Ease\TWB;
 
 class Part extends \Ease\JQuery\Part
 {
+
     /**
      * Vložení náležitostí pro twitter bootstrap.
      */

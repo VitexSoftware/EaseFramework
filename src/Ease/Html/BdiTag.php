@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class BdiTag extends PairTag
 {
+
     /**
      * Isolates a part of text that might be formatted in a different direction from other text outside it
      *

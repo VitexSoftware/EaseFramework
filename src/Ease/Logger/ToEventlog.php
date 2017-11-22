@@ -5,6 +5,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease\Logger;
 
 /**
@@ -38,5 +39,4 @@ class ToEventlog extends ToSyslog implements Loggingable
     {
         return iconv("UTF-8", "cp1251", $message);
     }
-
 }

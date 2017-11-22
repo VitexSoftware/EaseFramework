@@ -22,7 +22,8 @@ class MySQLi extends SQL
      *
      * @var mysqli
      */
-    public $sqlLink   = null; // MS SQL link identifier
+    public $sqlLink = null; // MS SQL link identifier
+
     /**
      * SQLLink result.
      *

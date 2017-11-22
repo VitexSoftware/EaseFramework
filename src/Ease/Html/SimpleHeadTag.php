@@ -15,13 +15,14 @@ class SimpleHeadTag extends PairTag
      * @var string
      */
     public static $contentType = 'text/html';
+
     /**
      * Content Charset
      * Znaková sada obsahu.
      *
      * @var string
      */
-    public $charSet       = 'utf-8';
+    public $charSet = 'utf-8';
 
     /**
      * head tag with defined meta http-equiv content type.

@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class DetailsTag extends PairTag
 {
+
     /**
      * Defines additional details that the user can view or hide
      *

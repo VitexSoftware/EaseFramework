@@ -2,10 +2,12 @@
 /**
  * Vypisuje stavové hlášky.
  */
+
 namespace Ease\TWB;
 
 class StatusMessages extends \Ease\Html\Div
 {
+
     /**
      * Blok stavových zpráv.
      * Status message block
@@ -13,7 +15,7 @@ class StatusMessages extends \Ease\Html\Div
     public function __construct()
     {
         $properties['class'] = 'well';
-        $properties['id'] = 'StatusMessages';
+        $properties['id']    = 'StatusMessages';
         $properties['title'] = _('Click to hide messages');
         $properties['style'] = 'padding-top: 40px; padding-bottom: 0px;';
         parent::__construct(null, null, $properties);

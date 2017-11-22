@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class MenuItemTag extends PairTag
 {
+
     /**
      * Defines a command/menu item that the user can invoke from a popup menu
      *

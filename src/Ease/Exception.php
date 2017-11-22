@@ -19,9 +19,9 @@ class Exception extends \Exception
     {
         $trace = $this->getTrace();
         \Ease\Shared::logger()->addStatusObject(new Logger\Message($message,
-            'error',
-            $trace[0]['class'].'::'.$trace[0]['function'].(isset($trace[0]['line']))
-                    ? '' : ':'.$trace[0]['line'] ));
+                'error',
+                $trace[0]['class'].'::'.$trace[0]['function'].(isset($trace[0]['line']))
+                        ? '' : ':'.$trace[0]['line'] ));
         parent::__construct($message, $code, $previous);
     }
 }

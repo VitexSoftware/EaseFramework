@@ -13,6 +13,7 @@ namespace Ease\TWB;
  */
 class FormGroup extends \Ease\Html\Div
 {
+
     public function __construct($label = null, $content = null,
                                 $placeholder = null, $helptext = null,
                                 $addTagClass = 'form-control')
@@ -38,7 +39,7 @@ class FormGroup extends \Ease\Html\Div
         $this->addItem($content);
         if ($helptext) {
             $this->addItem(new \Ease\Html\PTag($helptext,
-                ['class' => 'help-block']));
+                    ['class' => 'help-block']));
         }
     }
 }

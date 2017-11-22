@@ -18,8 +18,7 @@ class HtmlTag extends PairTag
      */
     public function __construct($content = null)
     {
-        parent::__construct('html',
-            ['lang' => $this->langCode], $content);
+        parent::__construct('html', ['lang' => $this->langCode], $content);
     }
 
     /**

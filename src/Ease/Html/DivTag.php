@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class DivTag extends PairTag
 {
+
     /**
      * Simple Div tag
      *

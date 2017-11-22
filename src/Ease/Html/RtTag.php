@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class RtTag extends PairTag
 {
+
     /**
      * Defines an explanation/pronunciation of characters (for East Asian typography)
      *

@@ -7,6 +7,7 @@ namespace Ease\TWB4;
  */
 class PillBadge extends \Ease\Html\Span
 {
+
     /**
      * Rounded Bootstrap4's Badge
      *

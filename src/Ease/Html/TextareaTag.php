@@ -13,7 +13,6 @@ class TextareaTag extends PairTag
      * Odkaz na obsah.
      */
     public $content = null;
-
     public $setName = true;
 
     /**

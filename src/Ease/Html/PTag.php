@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class PTag extends PairTag
 {
+
     /**
      * Odstavec.
      *

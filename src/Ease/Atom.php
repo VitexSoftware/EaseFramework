@@ -148,14 +148,7 @@ class Atom
      */
     public static function sysFilename($path)
     {
-        $path = str_replace('//', '/', $path);
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $path = str_replace('/', '\\', $path);
-        } else {
-            $path = str_replace('\\', '/', $path);
-        }
-
-        return $path;
+        return str_replace(['\\', '/'], PHP_DIR_SEPARATOR, $path);
     }
 
     /**

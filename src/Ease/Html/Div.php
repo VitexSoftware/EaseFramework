@@ -10,6 +10,7 @@ namespace Ease\Html;
  */
 class Div extends PairTag
 {
+
     /**
      * Prostý tag odstavce DIV.
      *

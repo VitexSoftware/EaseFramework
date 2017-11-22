@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class DatalistTag extends PairTag
 {
+
     /**
      * Specifies a list of pre-defined options for input controls
      *

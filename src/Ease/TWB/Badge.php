@@ -7,6 +7,7 @@ namespace Ease\TWB;
  */
 class Badge extends \Ease\Html\Span
 {
+
     /**
      * Návěstí bootstrapu.
      *

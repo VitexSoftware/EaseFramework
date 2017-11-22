@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class SectionTag extends PairTag
 {
+
     /**
      * Defines a section in a document
      *

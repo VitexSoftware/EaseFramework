@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class RubyTag extends PairTag
 {
+
     /**
      * Defines a ruby annotation (for East Asian typography)
      *

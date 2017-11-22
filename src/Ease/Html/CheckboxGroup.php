@@ -86,7 +86,7 @@ class CheckboxGroup extends InputContainer
     {
         parent::finalize();
         parent::addItem(new InputHiddenTag('CheckBoxGroups['.$this->name.']',
-            $this->getTagName()));
+                $this->getTagName()));
     }
 
     /**

@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class ParamTag extends Tag
 {
+
     /**
      * Paramm tag.
      *

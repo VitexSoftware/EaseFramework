@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class TimeTag extends PairTag
 {
+
     /**
      * Defines a date/time
      *

@@ -162,5 +162,4 @@ class ToConsole extends ToMemory
 
         return self::$_instance;
     }
-
 }

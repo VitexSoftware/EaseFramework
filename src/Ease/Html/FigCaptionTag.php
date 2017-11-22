@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class FigCaptionTag extends PairTag
 {
+
     /**
      * Defines a caption for a <figure> element
      *

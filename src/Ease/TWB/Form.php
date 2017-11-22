@@ -2,10 +2,12 @@
 /**
  * Formulář Bootstrapu.
  */
+
 namespace Ease\TWB;
 
 class Form extends \Ease\Html\Form
 {
+
     /**
      * Formulář Bootstrapu.
      *
@@ -44,7 +46,7 @@ class Form extends \Ease\Html\Form
                              $helptext = null)
     {
         return $this->addItem(new FormGroup($caption, $input, $placeholder,
-                $helptext));
+                    $helptext));
     }
 
     /**

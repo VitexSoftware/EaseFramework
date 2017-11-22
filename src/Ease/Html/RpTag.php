@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class RpTag extends PairTag
 {
+
     /**
      * Defines what to show in browsers that do not support ruby annotations
      *

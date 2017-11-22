@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class WbrTag extends PairTag
 {
+
     /**
      * Defines a possible line-break
      *

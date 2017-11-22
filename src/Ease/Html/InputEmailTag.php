@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class InputEmailTag extends InputTag
 {
+
     /**
      * The <input type="email"> is used for input fields that should contain an
      * e-mail address.
@@ -19,7 +20,7 @@ class InputEmailTag extends InputTag
      */
     public function __construct($name, $value = null, $properties = [])
     {
-        $properties['type'] = 'email';
+        $properties['type']  = 'email';
         $properties['value'] = $value;
         $properties['name']  = $name;
         parent::__construct($name, $value, $properties);

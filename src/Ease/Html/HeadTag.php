@@ -29,7 +29,7 @@ class HeadTag extends PairTag
      *
      * @var string
      */
-    public $charSet       = 'utf-8';
+    public $charSet = 'utf-8';
 
     /**
      * Html HEAD tag with basic contents and skin support.

@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class SmallTag extends PairTag
 {
+
     /**
      * Tag pro male písmo.
      * Small font tag

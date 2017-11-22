@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class FooterTag extends PairTag
 {
+
     /**
      * Defines a footer for a document or section
      *

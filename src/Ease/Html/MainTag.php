@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class MainTag extends PairTag
 {
+
     /**
      * Defines the main content of a document
      *

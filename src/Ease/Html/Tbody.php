@@ -4,6 +4,7 @@ namespace Ease\Html;
 
 class Tbody extends PairTag
 {
+
     /**
      * <tbody>.
      *

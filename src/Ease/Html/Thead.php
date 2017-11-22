@@ -4,6 +4,7 @@ namespace Ease\Html;
 
 class Thead extends PairTag
 {
+
     /**
      * <thead>.
      *

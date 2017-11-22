@@ -126,7 +126,7 @@ $(\'#'.$this->getTagID().' a\').click(function (e) {
             $this->activeTab = current(array_keys($this->tabs));
         }
         $tabsUl = $this->addItem(new \Ease\Html\UlTag(null,
-            ['class' => 'nav nav-tabs', 'id' => $this->partName]));
+                ['class' => 'nav nav-tabs', 'id' => $this->partName]));
         foreach ($this->tabs as $tabName => $tab) {
             $tabProperties = ['data-toggle' => 'tab'];
             if (key($tab) == 'ajax') {
@@ -134,14 +134,14 @@ $(\'#'.$this->getTagID().' a\').click(function (e) {
             }
             if ($tabName == $this->activeTab) {
                 $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
-                    $tabName, $tabProperties), ['class' => 'active']));
+                            $tabName, $tabProperties), ['class' => 'active']));
             } else {
                 $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
-                    $tabName, $tabProperties)));
+                            $tabName, $tabProperties)));
             }
         }
         $tabDiv = $this->addItem(new \Ease\Html\DivTag(null,
-            ['id' => $this->partName.'body', 'class' => 'tab-content']));
+                ['id' => $this->partName.'body', 'class' => 'tab-content']));
         foreach ($this->tabs as $tabName => $tab) {
             switch (key($tab)) {
                 case 'static':
@@ -154,12 +154,12 @@ $(\'#'.$this->getTagID().' a\').click(function (e) {
 
             if ($tabName == $this->activeTab) {
                 $tabDiv->addItem(new \Ease\Html\DivTag($tabContent,
-                    ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
-                    'class' => 'tab-pane active',]));
+                        ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
+                        'class' => 'tab-pane active',]));
             } else {
                 $tabDiv->addItem(new \Ease\Html\DivTag($tabContent,
-                    ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
-                    'class' => 'tab-pane',]));
+                        ['id' => $this->partName.\Ease\Brick::lettersOnly($tabName),
+                        'class' => 'tab-pane',]));
             }
         }
         Part::twBootstrapize();

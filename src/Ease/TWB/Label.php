@@ -2,10 +2,12 @@
 /**
  * Návěstí bootstrapu.
  */
+
 namespace Ease\TWB;
 
 class Label extends \Ease\Html\Span
 {
+
     /**
      * Návěstí bootstrapu.
      *

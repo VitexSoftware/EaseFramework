@@ -49,7 +49,7 @@ class InputContainer extends \Ease\Container
     public function __construct($name, $items = [], $tagProperties = null)
     {
         parent::__construct();
-        $this->name = $name;
+        $this->name  = $name;
         $this->items = $items;
     }
 
@@ -94,7 +94,7 @@ class InputContainer extends \Ease\Container
         foreach ($this->items as $value => $caption) {
             if ($this->checked == $value) {
                 $this->addItem(new $this->itemClass($this->name, $value,
-                    ['checked']));
+                        ['checked']));
             } else {
                 $this->addItem(new $this->itemClass($this->name, $value));
             }

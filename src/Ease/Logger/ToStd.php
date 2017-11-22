@@ -5,6 +5,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
 namespace Ease\Logger;
 
 /**
@@ -132,7 +133,7 @@ class ToStd extends ToMemory
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
-                'error', 'warning', 'success', 'info', 'mail', ],
+                'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
@@ -174,7 +175,7 @@ class ToStd extends ToMemory
      */
     public function finalizeMessage($messageRaw)
     {
-        return $messageRaw;
+        return trim($messageRaw).PHP_EOL;
     }
 
     /**

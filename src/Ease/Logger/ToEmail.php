@@ -212,5 +212,4 @@ class ToEmail extends ToMemory
 
         return $flushed;
     }
-
 }

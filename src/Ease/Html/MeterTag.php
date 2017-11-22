@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class MeterTag extends PairTag
 {
+
     /**
      * Defines a scalar measurement within a known range (a gauge)
      *

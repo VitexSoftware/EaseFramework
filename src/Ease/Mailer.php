@@ -115,7 +115,7 @@ class Mailer extends Page
             ]
         );
 
-        
+
         $mimer_params = array(
             'html_charset' => 'utf-8',
             'text_charset' => 'utf-8',
@@ -123,7 +123,7 @@ class Mailer extends Page
             'eol' => $this->crLf,
         );
 
-        $this->mimer                                = new \Mail_mime($mimer_params);
+        $this->mimer = new \Mail_mime($mimer_params);
 
         parent::__construct();
         $this->setOutputFormat('mail');
@@ -194,7 +194,7 @@ class Mailer extends Page
                 $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
                 $this->htmlDocument->setOutputFormat($this->getOutputFormat());
                 $this->htmlBody     = $this->htmlDocument->addItem(new Html\BodyTag('Mail',
-                    $item));
+                        $item));
                 $mailBody           = $this->htmlDocument;
             }
         } else {
@@ -324,5 +324,4 @@ class Mailer extends Page
     {
         $this->notify = (bool) $notify;
     }
-
 }

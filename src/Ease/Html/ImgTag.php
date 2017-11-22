@@ -9,6 +9,7 @@ namespace Ease\Html;
  */
 class ImgTag extends Tag
 {
+
     /**
      * Html Obrazek.
      * Html Image.

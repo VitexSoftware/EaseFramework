@@ -130,7 +130,7 @@ class Sand extends Molecule
     public function addStatusMessage($message, $type = 'info')
     {
         return $this->easeShared->takeMessage(new Logger\Message($message,
-                $type, get_class($this)));
+                    $type, get_class($this)));
     }
 
     /**
@@ -641,7 +641,7 @@ class Sand extends Molecule
                 $reindexedData[$data[$indexBy]] = $data;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
-                    $indexBy));
+                        $indexBy));
             }
         }
 
@@ -689,6 +689,4 @@ class Sand extends Molecule
         }
         return false;
     }
-
-
 }
