@@ -48,35 +48,13 @@ class ToSyslog extends ToStd implements Loggingable
     }
 
     /**
-     * Zapise zapravu do logu.
+     * Output logline to syslog/messages by its type
      *
-     * @param string $caller  název volajícího objektu
-     * @param string $message zpráva
-     * @param string $type    typ zprávy (success|info|error|warning|*)
-     *
-     * @return null|boolean byl report zapsán ?
+     * @param string $type    message type 'error' or anything else
+     * @param string $logLine message to output
      */
-    public function addToLog($caller, $message, $type = 'message')
+    public function output($type, $logLine)
     {
-        ++$this->messageID;
-        if (($this->logLevel == 'silent') && ($type != 'error')) {
-            return;
-        }
-        if (($this->logLevel != 'debug') && ($type == 'debug')) {
-            return;
-        }
-
-        $this->statusMessages[$type][$this->messageID] = $message;
-
-        $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
-
-        $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
-                'error', 'warning', 'success', 'info', 'mail',],
-                ['**', '##', '@@', '::'], $type).' '.$message."\n";
-        if (!isset($this->logStyles[$type])) {
-            $type = 'notice';
-        }
-
         switch ($type) {
             case 'error':
                 syslog(LOG_ERR, $this->finalizeMessage($logLine));
@@ -85,8 +63,6 @@ class ToSyslog extends ToStd implements Loggingable
                 syslog(LOG_INFO, $this->finalizeMessage($logLine));
                 break;
         }
-
-        return true;
     }
 
     /**

@@ -109,6 +109,7 @@ class ToStd extends ToMemory
         return self::$_instance;
     }
 
+    
     /**
      * Zapise zapravu do logu.
      *
@@ -139,16 +140,27 @@ class ToStd extends ToMemory
             $type = 'notice';
         }
 
-        switch ($type) {
-            case 'error':
-                fwrite(STDERR, $this->logName.': '.$message);
-                break;
-            default:
-                fwrite(STDOUT, $this->logName.': '.$message);
-                break;
-        }
+        $this->output($type, $logLine);
 
         return true;
+    }
+
+    /**
+     * Output logline to stderr/stdout by its type
+     *
+     * @param string $type    message type 'error' or anything else
+     * @param string $logLine message to output
+     */
+    public function output($type, $logLine)
+    {
+        switch ($type) {
+            case 'error':
+                fwrite(STDERR, $this->logName.': '.$logLine);
+                break;
+            default:
+                fwrite(STDOUT, $this->logName.': '.$logLine);
+                break;
+        }
     }
 
     /**
