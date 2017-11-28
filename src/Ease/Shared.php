@@ -775,6 +775,10 @@ class Shared extends Atom
 
     /**
      * Load Configuration values from json file $this->configFile and define UPPERCASE keys
+     *
+     * @param string $configFile Path to file with configuration
+     *
+     * @return array full configuration array
      */
     public function loadConfig($configFile)
     {
@@ -799,6 +803,8 @@ class Shared extends Atom
         if (array_key_exists('debug', $this->configuration)) {
             $this->debug = boolval($this->configuration['debug']);
         }
+
+        return $this->configuration;
     }
 
     /**

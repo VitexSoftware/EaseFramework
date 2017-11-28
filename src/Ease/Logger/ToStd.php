@@ -155,10 +155,14 @@ class ToStd extends ToMemory
     {
         switch ($type) {
             case 'error':
-                fwrite(STDERR, $this->logName.': '.$logLine);
+                $stderr = fopen('php://stderr', 'w');
+                fwrite($stderr, $this->logName.': '.$logLine);
+                fclose($stderr);
                 break;
             default:
-                fwrite(STDOUT, $this->logName.': '.$logLine);
+                $stdout = fopen('php://stdout', 'w');
+                fwrite($stdout, $this->logName.': '.$logLine);
+                fclose($stdout);
                 break;
         }
     }
