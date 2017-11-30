@@ -25,11 +25,16 @@ class Message
      * @var string info|succes|warning|danger|mail
      */
     public $type;
+
+    /**
+     * 
+     * @var \Ease\Atom
+     */
     public $caller;
 
     /**
-     *
-     * @var type
+     * Message Time
+     * @var string
      */
     public $when;
 

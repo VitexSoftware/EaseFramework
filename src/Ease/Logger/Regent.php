@@ -42,12 +42,12 @@ class Regent extends \Ease\Atom
         'info' => 'color: blue;',
     ];
 
-    public function __construct()
+    public function __construct($logger = null)
     {
-        if (defined('EASE_LOGGER')) {
+        if (is_null($logger) && defined('EASE_LOGGER')) {
             $loggers = explode('|', constant('EASE_LOGGER'));
         } else {
-            $loggers[] = 'syslog';
+            $loggers = empty($logger) ? ['syslog'] : $logger;
         }
 
         foreach ($loggers as $logger)
@@ -104,6 +104,7 @@ class Regent extends \Ease\Atom
      *
      * @param \Ease\Logger\Message $message
      * @param string $type
+     * 
      * @return type
      */
     public function addStatusObject(Message $message, $type = 'info')

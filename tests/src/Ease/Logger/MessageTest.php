@@ -23,7 +23,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->object = new Message('test');
     }
 
-        public function testConstructor()
+    public function testConstructor()
     {
         $classname = get_class($this->object);
 
@@ -32,10 +32,10 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $mock->__construct('test');
-        $mock->__construct('test','test','now');
-        $this->assertEquals('test',$mock->body);
+        $mock->__construct('test', 'test', 'test', 'now');
+        $this->assertEquals('test', $mock->body);
     }
-    
+
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
@@ -43,5 +43,16 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         
+    }
+
+    public function testGetTypeUnicodeSymbol()
+    {
+        $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail'));
+        $this->assertEquals('⚠', Message::getTypeUnicodeSymbol('warning'));
+        $this->assertEquals('☠', Message::getTypeUnicodeSymbol('error'));
+        $this->assertEquals('❁', Message::getTypeUnicodeSymbol('success'));
+        $this->assertEquals('⚙', Message::getTypeUnicodeSymbol('debug'));
+        $this->assertEquals('ⓘ', Message::getTypeUnicodeSymbol('info'));
+        $this->assertEquals('ⓘ', Message::getTypeUnicodeSymbol('anythingelse'));
     }
 }
