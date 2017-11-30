@@ -1,6 +1,7 @@
 #!/bin/bash
 VERSION=`cat debian/composer.json | grep version | awk -F'"' '{print $4}'`
-REVISION=`cat debian/revision | perl -ne 'chomp; print join(".", splice(@{[split/\./,$_]}, 0, -1), map {++$_} pop @{[split/\./,$_]}), "\n";'`
+DEBVERSION=`cat debian/changelog | head -1 |  cut -d "(" -f2 | cut -d ")" -f1`
+REVISION=`echo $DEBVERSION | awk -F- '{print $2}'`
 echo ${VERSION}.${REVISION}
 sed -i -e '/\"version\"/c\    \"version\": \"'${VERSION}'.'${REVISION}'",' debian/ease-framework/usr/share/php/Ease/composer.json
 
