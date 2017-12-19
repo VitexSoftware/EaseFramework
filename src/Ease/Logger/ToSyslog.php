@@ -48,6 +48,29 @@ class ToSyslog extends ToStd implements Loggingable
     }
 
     /**
+     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
+     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
+     * instance (ta prvni).
+     *
+     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
+     * priklad
+     */
+    public static function singleton()
+    {
+        if (!isset(self::$_instance)) {
+            $class = __CLASS__;
+            if (defined('EASE_APPNAME')) {
+                self::$_instance = new $class(constant('EASE_APPNAME'));
+            } else {
+                self::$_instance = new $class('EaseFramework');
+            }
+        }
+
+        return self::$_instance;
+    }
+    
+    
+    /**
      * Output logline to syslog/messages by its type
      *
      * @param string $type    message type 'error' or anything else

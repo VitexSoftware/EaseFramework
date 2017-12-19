@@ -29,8 +29,8 @@
             "Test\\Ease\\SQL\\": "tests/src/Ease/SQL",
             "Test\\Ease\\TWB\\": "tests/src/Ease/TWB",
             "Test\\Ease\\TWB4\\": "tests/src/Ease/TWB4",
-            "Ease\\Example\\TWB\\": "Examples/TWB/classes"
-
+            "Ease\\Example\\TWB\\": "Examples/TWB/classes",
+            "Test\\Ease\\Codeception": "tests/_support/_generated/"
         }
     },
     "minimum-stability": "dev",

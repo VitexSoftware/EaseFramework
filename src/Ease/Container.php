@@ -128,7 +128,7 @@ class Container extends Sand
                     $context->raise($context->pageParts[$pageItemName]);
                 }
                 if (method_exists($context->pageParts[$pageItemName], 'AfterAdd')) {
-                    $context->pageParts[$pageItemName]->afterAdd();
+                    $context->pageParts[$pageItemName]->afterAdd($context);
                 }
                 $context->lastItem = &$context->pageParts[$pageItemName];
                 $itemPointer       = &$context->pageParts[$pageItemName];
@@ -303,7 +303,17 @@ class Container extends Sand
         $this->pageParts = null;
     }
 
+    
     /**
+     * Contentets
+     * 
+     * @return mixed
+     */
+    public function getContents(){
+        return $this->pageParts;
+    }
+
+        /**
      * Projde rekurzivně všechny vložené objekty a zavolá jeich draw().
      */
     public function drawAllContents()

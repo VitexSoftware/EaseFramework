@@ -69,7 +69,7 @@ class MailerTest extends PageTest
      */
     public function testAddItem()
     {
-        return parent::testAddItem();
+        $this->object->addItem(new \Ease\Html\H1Tag());
     }
 
     /**
@@ -159,4 +159,47 @@ class MailerTest extends PageTest
         $this->object->addItem('@');
         $this->assertTrue($this->object->isEmpty($this->object));
     }
+
+    /**
+     * @covers Ease\Mailer::addItemCustom
+     */
+    public function testAddItemCustom()
+    {
+        $context = new \Ease\Html\DivTag();
+        \Ease\Container::addItemCustom('*', $context);
+        $this->assertEquals("\n<div>*</div>", $context->getRendered());
+
+        $context = new \Ease\Html\DivTag();
+        \Ease\Container::addItemCustom(new \Ease\Html\ImgTag(null), $context);
+        $this->object->addItem([new \Ease\Html\ATag('#', 'TEST'), new \Ease\Html\ATag('#',
+                'TEST')]);
+    }
+
+    /**
+     * @covers Ease\Mailer::getFirstPart
+     */
+    public function testGetFirstPart()
+    {
+        $this->object->emptyContents();
+        $this->object->addItem(new \Ease\Html\DivTag());
+        $this->object->addItem(new \Ease\Html\ATag('', ''));
+        $this->object->addItem(new \Ease\Html\PTag());
+        $controlDiv               = new \Ease\Html\DivTag();
+        $controlDiv->parentObject = $this->object;
+    }
+    
+    /**
+     * @covers Ease\Mailer::addAsFirst
+     *
+     * @todo   Implement testAddAsFirst().
+     */
+    public function testAddAsFirst()
+    {
+        $this->object->emptyContents();
+        $this->object->addItem(new \Ease\Html\DivTag());
+        $this->object->addAsFirst(new \Ease\Html\SpanTag());
+    }
+   
+    
+    
 }

@@ -47,7 +47,7 @@ class Regent extends \Ease\Atom
         if (is_null($logger) && defined('EASE_LOGGER')) {
             $loggers = explode('|', constant('EASE_LOGGER'));
         } else {
-            $loggers = empty($logger) ? ['syslog'] : $logger;
+            $loggers = empty($logger) ? ['syslog'] : [$logger];
         }
 
         foreach ($loggers as $logger)
@@ -101,7 +101,8 @@ class Regent extends \Ease\Atom
     }
 
     /**
-     *
+     * Add Status Object to stack
+     * 
      * @param \Ease\Logger\Message $message
      * @param string $type
      * 

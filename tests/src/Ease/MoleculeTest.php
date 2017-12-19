@@ -74,4 +74,26 @@ class MoleculeTest extends AtomTest
         $this->object->setupProperty($options, 'objectName', 'OBJNAME');
         $this->assertEquals('ARRAY', $this->object->objectName);
     }
+
+    
+    /**
+     * @covers Ease\Molecule::addToLog
+     *
+     * @todo   Implement testAddToLog().
+     */
+    public function testAddToLog()
+    {
+        $this->object->addToLog('Message');
+    }
+    
+    /**
+     * @covers Ease\Molecule::addStatusMessage
+     */
+    public function testAddStatusMessage()
+    {
+        $this->object->addStatusMessage('Message1');
+        $this->assertNotEmpty($this->object->getStatusMessages());
+    }
+
+    
 }

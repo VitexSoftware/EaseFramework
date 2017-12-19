@@ -189,6 +189,9 @@ class Mailer extends Page
         $mailBody = '';
         if (is_object($item)) {
             if (is_object($this->htmlDocument)) {
+                if (is_null($this->htmlBody)) {
+                    $this->htmlBody = new Html\BodyTag();
+                }
                 $mailBody = $this->htmlBody->addItem($item, $pageItemName);
             } else {
                 $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
@@ -198,11 +201,16 @@ class Mailer extends Page
                 $mailBody           = $this->htmlDocument;
             }
         } else {
-            $this->textBody .= $item;
+            $this->textBody .= is_array($item) ? implode("\n", $item) : $item;
             $this->mimer->setTXTBody($this->textBody);
         }
 
         return $mailBody;
+    }
+
+    public function getContents()
+    {
+        return $this->htmlBody;
     }
 
     /**
@@ -223,6 +231,7 @@ class Mailer extends Page
      * Is object empty ?
      *
      * @param Container $element
+     * 
      * @return boolean
      */
     public function isEmpty($element = null)
@@ -324,4 +333,19 @@ class Mailer extends Page
     {
         $this->notify = (bool) $notify;
     }
+    
+    /**
+     * Vloží další element za stávající.
+     *
+     * @param mixed $pageItem hodnota nebo EaseObjekt s metodou draw()
+     *
+     * @return pointer Odkaz na vložený objekt
+     */
+    public function &addNextTo($pageItem)
+    {
+        $itemPointer = $this->htmlBody->parentObject->addItem($pageItem);
+
+        return $itemPointer;
+    }
+    
 }

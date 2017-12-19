@@ -24,8 +24,10 @@ doc:
 	apigen generate --source src --destination docs --title "Ease PHP Framework ${VERSION}" --charset UTF-8 --access-levels public --access-levels protected --php --tree
 
 
-test:
+composer:
 	composer update
+
+test:
 	echo sudo service postgresql start ; sudo service postgresql start
 	phpunit --bootstrap tests/Bootstrap.php
 

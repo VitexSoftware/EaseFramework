@@ -75,7 +75,7 @@ class ContainerTest extends SandTest
     {
         $prober   = new \Ease\Html\H1Tag();
         $inserted = $this->object->addItem($prober);
-        $this->assertEquals($inserted, $prober);
+        $this->assertEquals(get_class($inserted), get_class($prober));
         $this->assertEquals($prober, end($this->object->pageParts));
     }
 
@@ -170,7 +170,8 @@ class ContainerTest extends SandTest
         $this->object->addItem(new \Ease\Html\PTag());
         $controlDiv               = new \Ease\Html\DivTag();
         $controlDiv->parentObject = $this->object;
-        $this->assertEquals($controlDiv, $this->object->getFirstPart());
+        $this->assertEquals(get_class($controlDiv),
+            get_class($this->object->getFirstPart()));
     }
 
     /**
@@ -190,7 +191,7 @@ class ContainerTest extends SandTest
     {
         $this->object->addItem(new \Ease\Html\DivTag());
         $this->object->emptyContents();
-        $this->assertEmpty($this->object->pageParts);
+        $this->assertEmpty($this->object->getContents());
     }
 
     /**

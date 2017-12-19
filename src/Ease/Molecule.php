@@ -16,6 +16,14 @@ namespace Ease;
 class Molecule extends Atom
 {
 
+    public function __construct()
+    {
+        $this->easeShared = Shared::singleton();
+        $this->logger     = $this->easeShared->logger();
+
+        $this->setObjectName();
+    }
+
     /**
      * Nastaví jméno objektu.
      *
@@ -60,6 +68,41 @@ class Molecule extends Atom
                 $this->$name = constant($constant);
             }
         }
+    }
+
+    /**
+     * Zapíše zprávu do logu.
+     *
+     * @param string $message zpráva
+     * @param string $type    typ zprávy (info|warning|success|error|*)
+     *
+     * @return bool byl report zapsán ?
+     */
+    public function addToLog($message, $type = 'message')
+    {
+        $logged = false;
+        if (is_object($this->logger)) {
+            $this->logger->addToLog($this->getObjectName(), $message, $type);
+        } else {
+            $logged = Shared::logger()->addToLog($this->getObjectName(),
+                $message, $type);
+        }
+
+        return $logged;
+    }
+
+    /**
+     * Přidá zprávu do sdíleného zásobníku pro zobrazení uživateli.
+     *
+     * @param string $message  Text zprávy
+     * @param string $type     Fronta zpráv (warning|info|error|success)
+     *
+     * @return
+     */
+    public function addStatusMessage($message, $type = 'info')
+    {
+        return $this->easeShared->takeMessage(new Logger\Message($message,
+                    $type, get_class($this)));
     }
 
     /**

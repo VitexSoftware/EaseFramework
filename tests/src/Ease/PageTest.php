@@ -38,8 +38,6 @@ class PageTest extends ContainerTest
     {
         if (get_class($this->object) == 'Ease\Page') {
             $this->assertInstanceOf(get_class($this->object), Page::singleton());
-        } else {
-            $this->markTestSkipped('Only for Ease\Page');
         }
     }
 

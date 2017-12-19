@@ -41,15 +41,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::addStatusMessage
-     */
-    public function testAddStatusMessage()
-    {
-        $this->object->addStatusMessage('Message1');
-        $this->assertNotEmpty($this->object->getStatusMessages());
-    }
-
-    /**
      * @covers Ease\Sand::getStatusMessages
      */
     public function testGetStatusMessages()
@@ -283,15 +274,6 @@ class SandTest extends AtomTest
         $this->assertEquals($exepted, $original);
     }
 
-    /**
-     * @covers Ease\Sand::addToLog
-     *
-     * @todo   Implement testAddToLog().
-     */
-    public function testAddToLog()
-    {
-        $this->object->addToLog('Message');
-    }
 
     /**
      * @covers Ease\Sand::__sleep

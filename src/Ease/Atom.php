@@ -148,7 +148,7 @@ class Atom
      */
     public static function sysFilename($path)
     {
-        return str_replace(['\\', '/'], PHP_DIR_SEPARATOR, $path);
+        return str_replace(['\\', '/'], constant('DIRECTORY_SEPARATOR'), $path);
     }
 
     /**

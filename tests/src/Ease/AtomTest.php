@@ -54,7 +54,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->cleanMessages();
         $this->object->addStatusMessage(_('Status message add test'), 'info');
-        $this->assertNotEmpty($this->object->statusMessages);
+        $this->assertNotEmpty($this->object->getStatusMessages());
     }
 
     /**

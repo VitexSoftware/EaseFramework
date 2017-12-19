@@ -42,7 +42,7 @@ class RegentTest extends \Test\Ease\AtomTest
             ->getMockForAbstractClass();
         $mock->__construct('test');
         $mock->__construct('test', 'test', 'test', 'now');
-        $this->assertEquals('test', $mock->body);
+        $this->assertEquals('test', isset($mock->body) ? $mock->body : null);
     }
 
     /**
