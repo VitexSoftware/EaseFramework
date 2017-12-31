@@ -51,7 +51,7 @@ class Sand extends Molecule
      * @var array
      */
     public $identityColumns = ['ObjectName',
-        'myKeyColumn',
+        'keyColumn',
         'myTable',
         'MyIDSColumn',
         'MyRefIDColumn',
@@ -63,7 +63,7 @@ class Sand extends Molecule
      *
      * @var string
      */
-    public $myKeyColumn = 'id';
+    public $keyColumn = 'id';
 
     /**
      * Synchronizační sloupeček. napr products_ids.

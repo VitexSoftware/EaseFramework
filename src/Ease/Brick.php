@@ -116,7 +116,7 @@ class Brick extends Sand
         }
 
         if (is_int($conditions)) {
-            $conditions = [$this->getmyKeyColumn() => $conditions];
+            $conditions = [$this->getkeyColumn() => $conditions];
         }
 
         $where = '';
@@ -189,7 +189,7 @@ class Brick extends Sand
             throw new Exception('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
-        $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getmyKeyColumn().$cc.' = '.$itemID;
+        $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getkeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
     }
@@ -302,17 +302,17 @@ class Brick extends Sand
             return;
         }
 
-        if (!isset($data[$this->myKeyColumn])) {
+        if (!isset($data[$this->keyColumn])) {
             $key = $this->getMyKey();
             if (is_null($key)) {
-                $this->addStatusMessage(get_class($this).':UpdateToSQL: Unknown myKeyColumn:'.$this->myKeyColumn.' '.
+                $this->addStatusMessage(get_class($this).':UpdateToSQL: Unknown keyColumn:'.$this->keyColumn.' '.
                     json_encode($data), 'error');
 
                 return;
             }
         } else {
-            $key = $data[$this->myKeyColumn];
-            unset($data[$this->myKeyColumn]);
+            $key = $data[$this->keyColumn];
+            unset($data[$this->keyColumn]);
         }
 
         if (isset($this->myLastModifiedColumn) && !isset($data[$this->myLastModifiedColumn])) {
@@ -320,10 +320,10 @@ class Brick extends Sand
         }
 
         $cc       = $this->dblink->getColumnComma();
-        $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->myKeyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
+        $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->keyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
-                return $this->data[$this->myKeyColumn];
+                return $this->data[$this->keyColumn];
             } else {
                 return $key;
             }
@@ -333,7 +333,7 @@ class Brick extends Sand
     }
 
     /**
-     * Uloží pole dat do SQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn.
+     * Uloží pole dat do SQL. Pokud je $SearchForID 0 updatuje pokud ze nastaven  keyColumn.
      *
      * @param array $data        asociativní pole dat
      * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
@@ -352,16 +352,16 @@ class Brick extends Sand
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
-                    $rowsFound = $this->getColumnsFromSQL($this->getmyKeyColumn(),
-                        [$this->getmyKeyColumn() => $this->getMyKey($data)]);
+                    $rowsFound = $this->getColumnsFromSQL($this->getkeyColumn(),
+                        [$this->getkeyColumn() => $this->getMyKey($data)]);
                 } else {
-                    $rowsFound = $this->getColumnsFromSQL([$this->getmyKeyColumn()],
+                    $rowsFound = $this->getColumnsFromSQL([$this->getkeyColumn()],
                         $data);
                     if (count($rowsFound)) {
-                        if (is_numeric($rowsFound[0][$this->getmyKeyColumn()])) {
-                            $data[$this->getmyKeyColumn()] = (int) $rowsFound[0][$this->getmyKeyColumn()];
+                        if (is_numeric($rowsFound[0][$this->getkeyColumn()])) {
+                            $data[$this->getkeyColumn()] = (int) $rowsFound[0][$this->getkeyColumn()];
                         } else {
-                            $data[$this->getmyKeyColumn()] = $rowsFound[0][$this->getmyKeyColumn()];
+                            $data[$this->getkeyColumn()] = $rowsFound[0][$this->getkeyColumn()];
                         }
                     }
                 }
@@ -372,8 +372,8 @@ class Brick extends Sand
                     $result = $this->insertToSQL($data);
                 }
             } else {
-                if (isset($data[$this->myKeyColumn]) && !is_null($data[$this->myKeyColumn])
-                    && strlen($data[$this->myKeyColumn])) {
+                if (isset($data[$this->keyColumn]) && !is_null($data[$this->keyColumn])
+                    && strlen($data[$this->keyColumn])) {
                     $result = $this->updateToSQL($data);
                 } else {
                     $result = $this->insertToSQL($data);
@@ -439,7 +439,7 @@ class Brick extends Sand
     public function deleteFromSQL($data = null)
     {
         if (is_int($data)) {
-            $data = [$this->getmyKeyColumn() => intval($data)];
+            $data = [$this->getkeyColumn() => intval($data)];
         } else {
             if (is_null($data)) {
                 $data = $this->getData();
@@ -496,20 +496,20 @@ class Brick extends Sand
      * Načte IDčeka z tabulky.
      *
      * @param string $tableName   jméno tabulky
-     * @param string $myKeyColumn klíčovací sloupeček
+     * @param string $keyColumn klíčovací sloupeček
      *
      * @return array list of IDs
      */
-    public function getSQLList($tableName = null, $myKeyColumn = null)
+    public function getSQLList($tableName = null, $keyColumn = null)
     {
         if (is_null($tableName)) {
             $tableName = $this->myTable;
         }
-        if (is_null($myKeyColumn)) {
-            $myKeyColumn = $this->myKeyColumn;
+        if (is_null($keyColumn)) {
+            $keyColumn = $this->keyColumn;
         }
         $cc        = $this->dblink->getColumnComma();
-        $listQuery = SQL\SQL::$sel.$cc.$myKeyColumn.$cc.SQL\SQL::$frm.$tableName;
+        $listQuery = SQL\SQL::$sel.$cc.$keyColumn.$cc.SQL\SQL::$frm.$tableName;
         return $this->dblink->queryToArray($listQuery);
     }
 
@@ -525,7 +525,7 @@ class Brick extends Sand
             $this->dblink = Shared::db();
         }
         $this->dblink->setTableName($myTable);
-        $this->dblink->setKeyColumn($this->myKeyColumn);
+        $this->dblink->setKeyColumn($this->keyColumn);
     }
 
     /**
@@ -533,9 +533,9 @@ class Brick extends Sand
      *
      * @return string
      */
-    public function getmyKeyColumn()
+    public function getkeyColumn()
     {
-        return $this->myKeyColumn;
+        return $this->keyColumn;
     }
 
     /**
@@ -561,8 +561,8 @@ class Brick extends Sand
         if (is_null($data)) {
             $data = $this->getData();
         }
-        if (isset($data) && isset($data[$this->myKeyColumn])) {
-            $key = $data[$this->myKeyColumn];
+        if (isset($data) && isset($data[$this->keyColumn])) {
+            $key = $data[$this->keyColumn];
         }
 
         return $key;
@@ -577,8 +577,8 @@ class Brick extends Sand
      */
     public function setMyKey($myKeyValue)
     {
-        if (isset($this->myKeyColumn)) {
-            $this->setDataValue($this->myKeyColumn, $myKeyValue);
+        if (isset($this->keyColumn)) {
+            $this->setDataValue($this->keyColumn, $myKeyValue);
             $result = true;
         } else {
             $result = false;
@@ -590,11 +590,11 @@ class Brick extends Sand
     /**
      * Nastaví jméno klíčového sloupečku v shopu.
      *
-     * @param string $myKeyColumn
+     * @param string $keyColumn
      */
-    public function setmyKeyColumn($myKeyColumn)
+    public function setkeyColumn($keyColumn)
     {
-        $this->myKeyColumn = $myKeyColumn;
+        $this->keyColumn = $keyColumn;
     }
 
     /**
@@ -621,7 +621,7 @@ class Brick extends Sand
             $tableName = $this->myTable;
         }
 
-        return $this->dblink->queryToValue(SQL\SQL::$sel.'COUNT('.$this->myKeyColumn.') FROM '.$tableName);
+        return $this->dblink->queryToValue(SQL\SQL::$sel.'COUNT('.$this->keyColumn.') FROM '.$tableName);
     }
 
     /**

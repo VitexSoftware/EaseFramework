@@ -111,7 +111,7 @@ class BrickTest extends SandTest
         if (\Ease\Shared::db()->isConnected()) {
             $this->object->takemyTable('test');
             $this->assertNotEmpty($this->object->getDataFromSQL(3),
-                'Error Reading data from SQL');
+                 'Error Reading data from SQL');
         } else {
             $this->markTestSkipped(
                 'Object do not use SQL'
@@ -145,115 +145,76 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::updateToSQL
-     *
-     * @todo   Implement testUpdateToSQL().
      */
     public function testUpdateToSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->updateToSQL(['id' => 3, 'name' => 'updateTested', 'datim' => 'NOW()']);
     }
 
     /**
      * @covers Ease\Brick::saveToSQL
-     *
-     * @todo   Implement testSaveToSQL().
      */
     public function testSaveToSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->updateToSQL(['id' => 2, 'name' => 'SaveUpdateTested', 'datim' => 'NOW()']);
+        $this->object->updateToSQL(['name' => 'SaveInsertTested', 'datim' => 'NOW()']);
     }
 
     /**
      * @covers Ease\Brick::insertToSQL
-     *
-     * @todo   Implement testInsertToSQL().
      */
     public function testInsertToSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Brick::save
-     *
-     * @todo   Implement testSave().
-     */
-    public function testSave()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->updateToSQL(['name' => 'insertTested', 'datim' => 'NOW()']);
     }
 
     /**
      * @covers Ease\Brick::deleteFromSQL
-     *
-     * @todo   Implement testDeleteFromSQL().
+     * @after testInsertToSQL
      */
     public function testDeleteFromSQL()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $idsRaw = $this->object->getColumnsFromSQL('id');
+        if ($idsRaw) {
+            $lastid = end($idsRaw)['id'];
+        } else {
+            $lastid = 1;
+        }
+        $this->object->deleteFromSQL($lastid);
     }
 
     /**
      * @covers Ease\Brick::takeToData
-     *
-     * @todo   Implement testTakeToData().
      */
     public function testTakeToData()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->takeToData(['a' => 1, 'b' => 2],'b', false, 'name');
+        $this->object->takeToData(['c' => 3, 'd' => null],'b', true, 'code');
     }
 
     /**
      * @covers Ease\Brick::getSQLList
-     *
-     * @todo   Implement testGetSQLList().
      */
     public function testGetSQLList()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getSQLList();
     }
 
     /**
      * @covers Ease\Brick::takemyTable
-     *
-     * @todo   Implement testTakemyTable().
      */
     public function testTakemyTable()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->takemyTable($this->object->getMyTable());
     }
 
     /**
-     * @covers Ease\Brick::getmyKeyColumn
+     * @covers Ease\Brick::getkeyColumn
      */
-    public function testGetmyKeyColumn()
+    public function testGetkeyColumn()
     {
-        $this->object->setmyKeyColumn('test');
-        $this->assertEquals('test', $this->object->getmyKeyColumn());
+        $this->object->setkeyColumn('test');
+        $this->assertEquals('test', $this->object->getkeyColumn());
     }
 
     /**
@@ -267,8 +228,6 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::getMyKey
-     *
-     * @todo   Implement testGetMyKey().
      */
     public function testGetMyKey()
     {
@@ -285,17 +244,17 @@ class BrickTest extends SandTest
         $this->object->setmyKey('test');
         $this->assertEquals('test', $this->object->getmyKey());
 
-        $this->object->setmyKeyColumn(null);
+        $this->object->setkeyColumn(null);
         $this->assertNull($this->object->getmyKey());
     }
 
     /**
-     * @covers Ease\Brick::setmyKeyColumn
+     * @covers Ease\Brick::setkeyColumn
      */
-    public function testSetmyKeyColumn()
+    public function testSetkeyColumn()
     {
-        $this->object->setmyKeyColumn('test');
-        $this->assertEquals('test', $this->object->getmyKeyColumn());
+        $this->object->setkeyColumn('test');
+        $this->assertEquals('test', $this->object->getkeyColumn());
     }
 
     /**
@@ -308,29 +267,11 @@ class BrickTest extends SandTest
     }
 
     /**
-     * @covers Ease\Brick::mySQLTableExist
-     *
-     * @todo   Implement testMySQLTableExist().
-     */
-    public function testMySQLTableExist()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\Brick::getSQLItemsCount
-     *
-     * @todo   Implement testGetSQLItemsCount().
      */
     public function testGetSQLItemsCount()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getSQLItemsCount();
     }
 
     /**
@@ -343,14 +284,9 @@ class BrickTest extends SandTest
 
     /**
      * @covers Ease\Brick::searchColumns
-     *
-     * @todo   Implement testSearchColumns().
      */
     public function testSearchColumns()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->searchColumns('test', ['name']);
     }
 }

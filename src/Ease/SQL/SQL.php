@@ -490,7 +490,7 @@ abstract class SQL extends \Ease\Molecule
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false).
+     * $this->keyColumn je preskocen pokud neni $key false).
      *
      * @param array $data
      * @param bool  $key

@@ -247,7 +247,7 @@ class PDO extends SQL
             case 'insert':
                 if (($this->dbType == 'pgsql') && !strstr(strtoupper($queryRaw),
                         'ON CONFLICT')) {
-                    $queryRaw .= ' RETURNING '.$this->myKeyColumn;
+                    $queryRaw .= ' RETURNING '.$this->keyColumn;
                 }
             case 'replace':
             case 'delete':
@@ -308,7 +308,7 @@ class PDO extends SQL
         switch ($this->dbType) {
             case 'pgsql':
                 if (is_null($column)) {
-                    $column = $this->myTable.'_'.$this->myKeyColumn.'_seq';
+                    $column = $this->myTable.'_'.$this->keyColumn.'_seq';
                 } else {
                     $column = $this->myTable.'_'.$column.'_seq';
                 }
@@ -338,9 +338,9 @@ class PDO extends SQL
                     $resultArray[$dataRow[$keyColumnToIndex]] = $dataRow;
                 }
             } else {
-                if (($keyColumnToIndex === true) && isset($this->myKeyColumn)) {
+                if (($keyColumnToIndex === true) && isset($this->keyColumn)) {
                     foreach ($this->result->fetchAll(\PDO::FETCH_ASSOC) as $dataRow) {
-                        $resultArray[$dataRow[$this->myKeyColumn]] = $dataRow;
+                        $resultArray[$dataRow[$this->keyColumn]] = $dataRow;
                     }
                 } else {
                     foreach ($this->result->fetchAll(\PDO::FETCH_ASSOC) as $dataRow) {
@@ -375,7 +375,7 @@ class PDO extends SQL
 
     /**
      * upravi obsah zaznamu v predvolene tabulce $this->myTable, kde klicovy sloupec
-     * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data.
+     * $this->keyColumn je hodnota v klicovem sloupci hodnotami z pole $data.
      *
      * @param array $data  asociativní pole dat
      * @param int   $KeyID id záznamu. Není li uveden použije se aktuální
@@ -394,7 +394,7 @@ class PDO extends SQL
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false).
+     * $this->keyColumn je preskocen pokud neni $key false).
      *
      * @param array $data
      * @param bool  $key
@@ -417,7 +417,7 @@ class PDO extends SQL
 
     /**
      * z pole $data vytvori fragment SQL dotazu pro INSERT (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false).
+     * $this->keyColumn je preskocen pokud neni $key false).
      *
      * @param array $data
      * @param bool  $key
@@ -440,7 +440,7 @@ class PDO extends SQL
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false).
+     * $this->keyColumn je preskocen pokud neni $key false).
      *
      * @param array $data
      * @param bool  $key
@@ -629,7 +629,7 @@ class PDO extends SQL
      */
     public function useObject($object)
     {
-        $this->setKeyColumn($object->getmyKeyColumn());
+        $this->setKeyColumn($object->getkeyColumn());
         $this->setTableName($object->getMyTable());
     }
 
@@ -663,4 +663,9 @@ class PDO extends SQL
 
         return parent::__sleep();
     }
+
+    public function __wakeup()
+    {
+        $this->setUp();
+}
 }

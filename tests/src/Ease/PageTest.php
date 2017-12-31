@@ -29,6 +29,7 @@ class PageTest extends ContainerTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -59,114 +60,73 @@ class PageTest extends ContainerTest
      */
     public function testIncludeJavaScript()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->includeJavaScript('test.js');
     }
 
     /**
      * @covers Ease\Page::addCSS
-     *
-     * @todo   Implement testAddCSS().
      */
     public function testAddCSS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addCSS('.test {color:red;}');
     }
 
     /**
      * @covers Ease\Page::includeCss
-     *
-     * @todo   Implement testIncludeCss().
      */
     public function testIncludeCss()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->includeCss('test.css');
     }
 
     /**
      * @covers Ease\Page::redirect
-     *
-     * @todo   Implement testRedirect().
      */
     public function testRedirect()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->redirect('http://v.s.cz/');
     }
 
     /**
      * @covers Ease\Page::getUri
-     *
-     * @todo   Implement testGetUri().
      */
     public function testGetUri()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $_SERVER['REQUEST_URI'] = 'test';
+        Page::getUri();
     }
 
     /**
      * @covers Ease\Page::phpSelf
-     *
-     * @todo   Implement testPhpSelf().
      */
     public function testPhpSelf()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        Page::phpSelf();
     }
 
     /**
      * @covers Ease\Page::onlyForLogged
-     *
-     * @todo   Implement testOnlyForLogged().
      */
     public function testOnlyForLogged()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->onlyForLogged();
     }
 
     /**
      * @covers Ease\Page::getRequestValues
-     *
-     * @todo   Implement testGetRequestValues().
      */
     public function testGetRequestValues()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getRequestValues();
     }
 
     /**
      * @covers Ease\Page::isPosted
-     *
-     * @todo   Implement testIsPosted().
      */
     public function testIsPosted()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $_SERVER['REQUEST_METHOD'] = 'test';
+        \Ease\Page::isPosted();
     }
 
     /**
@@ -222,131 +182,81 @@ class PageTest extends ContainerTest
 
     /**
      * @covers Ease\Page::keepRequestValue
-     *
-     * @todo   Implement testKeepRequestValue().
      */
     public function testKeepRequestValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->keepRequestValue('test');
     }
 
     /**
      * @covers Ease\Page::keepRequestValues
-     *
-     * @todo   Implement testKeepRequestValues().
      */
     public function testKeepRequestValues()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->keepRequestValues(['id', 'test']);
     }
 
     /**
      * @covers Ease\Page::unKeepRequestValue
-     *
-     * @todo   Implement testUnKeepRequestValue().
      */
     public function testUnKeepRequestValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->unKeepRequestValue('test');
     }
 
     /**
      * @covers Ease\Page::unKeepRequestValues
-     *
-     * @todo   Implement testUnKeepRequestValues().
      */
     public function testUnKeepRequestValues()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->unKeepRequestValues();
     }
 
     /**
      * @covers Ease\Page::getLinkParametersToKeep
-     *
-     * @todo   Implement testGetLinkParametersToKeep().
      */
     public function testGetLinkParametersToKeep()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getLinkParametersToKeep();
     }
 
     /**
      * @covers Ease\Page::setupWebPage
-     *
-     * @todo   Implement testSetupWebPage().
      */
     public function testSetupWebPage()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setupWebPage();
     }
 
     /**
      * @covers Ease\Page::setOutputFormat
-     *
-     * @todo   Implement testSetOutputFormat().
      */
     public function testSetOutputFormat()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setOutputFormat('html');
     }
 
     /**
      * @covers Ease\Page::getOutputFormat
-     *
-     * @todo   Implement testGetOutputFormat().
      */
     public function testGetOutputFormat()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getOutputFormat();
     }
 
     /**
      * @covers Ease\Page::takeStatusMessages
-     *
-     * @todo   Implement testTakeStatusMessages().
      */
     public function testTakeStatusMessages()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->takeStatusMessages(['info' => ['test', 'test2']]);
     }
 
     /**
      * @covers Ease\Page::arrayToUrlParams
-     *
-     * @todo   Implement testArrayToUrlParams().
      */
     public function testArrayToUrlParams()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->arrayToUrlParams(['a' => 1, 'b' => 2], 'http://v.s.cz/');
     }
 }

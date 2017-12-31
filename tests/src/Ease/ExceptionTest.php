@@ -38,7 +38,7 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase
         $mock->__construct('test');
         throw new Exception('test');
     }
-    
+
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.

@@ -152,7 +152,11 @@ class Page extends Container
         if (count($messages)) {
             $_SESSION['EaseMessages'] = $messages;
         }
-        header('Location: '.$url);
+        if (headers_sent()) {
+            $this->addJavaScript('window.location = "'.$url.'"',0,false);
+        } else {
+            header('Location: '.$url);
+        }
         $this->pageClosed = true;
     }
 

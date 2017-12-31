@@ -29,7 +29,7 @@ class User extends Anonym
      *
      * @var string
      */
-    public $myKeyColumn = 'id';
+    public $keyColumn = 'id';
 
     /**
      * Sloupecek obsahujici datum vložení záznamu uživatele do shopu.
@@ -150,7 +150,7 @@ class User extends Anonym
                 $this->loadFromSQL($userID);
             } else {
                 if (isset($this->loginColumn)) {
-                    $this->setmyKeyColumn($this->loginColumn);
+                    $this->setkeyColumn($this->loginColumn);
                     $this->loadFromSQL($userID);
                     $this->resetObjectIdentity();
                 }
@@ -228,7 +228,7 @@ class User extends Anonym
 
             return;
         }
-        $this->setObjectIdentity(['myKeyColumn' => $this->loginColumn]);
+        $this->setObjectIdentity(['keyColumn' => $this->loginColumn]);
         if ($this->loadFromSQL($login)) {
             $this->setObjectName();
             $this->resetObjectIdentity(['ObjectName']);
@@ -395,7 +395,7 @@ class User extends Anonym
         }
         if (!empty($userID)) {
             $hash = $this->encryptPassword($newPassword);
-            $this->dblink->exeQuery(SQL\SQL::$upd.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\''.SQL\SQL::$whr.$this->myKeyColumn.'='.$userID);
+            $this->dblink->exeQuery(SQL\SQL::$upd.$this->myTable.' SET '.$this->passwordColumn.'=\''.$hash.'\''.SQL\SQL::$whr.$this->keyColumn.'='.$userID);
             $this->addToLog('PasswordChange: '.$this->getDataValue($this->loginColumn).'@'.$userID.'#'.$this->getDataValue($this->myIDSColumn).' '.$hash);
             if ($userID == $this->getUserID()) {
                 $this->setDataValue($this->passwordColumn, $hash);
@@ -534,7 +534,7 @@ class User extends Anonym
 
     /**
      * Uloží pole dat a serializovaná nastavení do SQL.
-     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  myKeyColumn.
+     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  keyColumn.
      *
      * @param array $data        asociativní pole dat
      * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat

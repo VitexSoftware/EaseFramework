@@ -27,6 +27,7 @@ class SandTest extends AtomTest
      */
     protected function tearDown()
     {
+        
     }
 
     public function testConstructor()
@@ -63,7 +64,7 @@ class SandTest extends AtomTest
      */
     public function testSetObjectIdentity()
     {
-        $this->object->setObjectIdentity(['myKeyColumn' => 'index_key']);
+        $this->object->setObjectIdentity(['keyColumn' => 'index_key']);
     }
 
     /**
@@ -99,7 +100,7 @@ class SandTest extends AtomTest
      */
     public function testDivDataArray()
     {
-        $sourceArray = [1 => 'a', 2 => 'b'];
+        $sourceArray      = [1 => 'a', 2 => 'b'];
         $destinationArray = [];
         $this->object->divDataArray($sourceArray, $destinationArray, 2);
         $this->assertEquals([2 => 'b'], $destinationArray);
@@ -123,7 +124,7 @@ class SandTest extends AtomTest
     {
         $this->assertNull($this->object->setData(null));
 
-        $data = ['a' => 1, 'b' => 2];
+        $data               = ['a' => 1, 'b' => 2];
         $this->object->setData($data, true);
         $this->assertEquals($data, $this->object->getData());
         $this->object->data = null;
@@ -255,7 +256,7 @@ class SandTest extends AtomTest
     public function testRecursiveIconv()
     {
         $original = ["\x80", "\x95"];
-        $exepted = ["\xe2\x82\xac", "\xe2\x80\xa2"];
+        $exepted  = ["\xe2\x82\xac", "\xe2\x80\xa2"];
         $this->assertEquals($exepted,
             $this->object->recursiveIconv('cp1252', 'utf-8', $original));
 
@@ -269,11 +270,10 @@ class SandTest extends AtomTest
     public function testArrayIconv()
     {
         $original = "\x80";
-        $exepted = "\xe2\x82\xac";
+        $exepted  = "\xe2\x82\xac";
         $this->object->arrayIconv($original, 0, ['cp1252', 'utf-8']);
         $this->assertEquals($exepted, $original);
     }
-
 
     /**
      * @covers Ease\Sand::__sleep
@@ -325,6 +325,15 @@ class SandTest extends AtomTest
     public function testDraw($whatWant = null)
     {
         $this->assertEmpty($this->object->draw());
+    }
+
+    /**
+     * @covers Ease\Sand::isSerialized
+     */
+    public function testIsSerialized()
+    {
+        \Ease\Brick::isSerialized('a:6:{s:1:"a";s:6:"string";s:1:"b";i:1;s:1:"c";d:2.4;s:1:"d";i:2222222222222;s:1:"e";O:8:"stdClass":0:{}s:1:"f";b:1;}');
+        \Ease\Brick::isSerialized('a:1:{s:4:"test";b:1;');
     }
 
     /**

@@ -206,9 +206,9 @@ class MySQLi extends SQL
                     $resultArray[$dataRow[$keyColumnToIndex]] = $dataRow;
                 }
             } else {
-                if (($keyColumnToIndex === true) && isset($this->myKeyColumn)) {
+                if (($keyColumnToIndex === true) && isset($this->keyColumn)) {
                     while ($dataRow = $this->result->fetch_assoc()) {
-                        $resultArray[$dataRow[$this->myKeyColumn]] = $dataRow;
+                        $resultArray[$dataRow[$this->keyColumn]] = $dataRow;
                     }
                 } else {
                     while ($dataRow = $this->result->fetch_assoc()) {
@@ -237,7 +237,7 @@ class MySQLi extends SQL
 
     /**
      * upravi obsah zaznamu v predvolene tabulce $this->myTable, kde klicovy sloupec
-     * $this->myKeyColumn je hodnota v klicovem sloupci hodnotami z pole $data.
+     * $this->keyColumn je hodnota v klicovem sloupci hodnotami z pole $data.
      *
      * @param array $data  asociativní pole dat
      * @param int   $keyID id záznamu. Není li uveden použije se aktuální
@@ -256,7 +256,7 @@ class MySQLi extends SQL
 
     /**
      * z pole $data vytvori fragment SQL dotazu za WHERE (klicovy sloupec
-     * $this->myKeyColumn je preskocen pokud neni $key false).
+     * $this->keyColumn je preskocen pokud neni $key false).
      *
      * @param array $data
      * @param bool  $Key

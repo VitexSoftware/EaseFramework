@@ -74,26 +74,18 @@ class MailerTest extends PageTest
 
     /**
      * @covers Ease\Mailer::addFile
-     * @todo   Implement testAddFile().
      */
     public function testAddFile()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addFile('README.md', 'text/markdown');
     }
 
     /**
      * @covers Ease\Mailer::finalize
-     * @todo   Implement testFinalize().
      */
     public function testFinalize()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->finalize();
     }
 
     /**
@@ -114,26 +106,18 @@ class MailerTest extends PageTest
 
     /**
      * @covers Ease\Mailer::send
-     * @todo   Implement testSend().
      */
     public function testSend()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->send();
     }
 
     /**
      * @covers Ease\Mailer::setUserNotification
-     * @todo   Implement testSetUserNotification().
      */
     public function testSetUserNotification()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setUserNotification('true');
     }
 
     /**
