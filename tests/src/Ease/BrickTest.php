@@ -214,7 +214,7 @@ class BrickTest extends SandTest
     public function testGetkeyColumn()
     {
         $this->object->setkeyColumn('test');
-        $this->assertEquals('test', $this->object->getkeyColumn());
+        $this->assertEquals('test', $this->object->getKeyColumn());
     }
 
     /**
@@ -254,7 +254,7 @@ class BrickTest extends SandTest
     public function testSetkeyColumn()
     {
         $this->object->setkeyColumn('test');
-        $this->assertEquals('test', $this->object->getkeyColumn());
+        $this->assertEquals('test', $this->object->getKeyColumn());
     }
 
     /**

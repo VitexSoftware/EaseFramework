@@ -629,7 +629,7 @@ class PDO extends SQL
      */
     public function useObject($object)
     {
-        $this->setKeyColumn($object->getkeyColumn());
+        $this->setKeyColumn($object->getKeyColumn());
         $this->setTableName($object->getMyTable());
     }
 

@@ -116,7 +116,7 @@ class Brick extends Sand
         }
 
         if (is_int($conditions)) {
-            $conditions = [$this->getkeyColumn() => $conditions];
+            $conditions = [$this->getKeyColumn() => $conditions];
         }
 
         $where = '';
@@ -189,7 +189,7 @@ class Brick extends Sand
             throw new Exception('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
-        $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getkeyColumn().$cc.' = '.$itemID;
+        $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
     }
@@ -352,16 +352,16 @@ class Brick extends Sand
         } else {
             if ($searchForID) {
                 if ($this->getMyKey($data)) {
-                    $rowsFound = $this->getColumnsFromSQL($this->getkeyColumn(),
-                        [$this->getkeyColumn() => $this->getMyKey($data)]);
+                    $rowsFound = $this->getColumnsFromSQL($this->getKeyColumn(),
+                        [$this->getKeyColumn() => $this->getMyKey($data)]);
                 } else {
-                    $rowsFound = $this->getColumnsFromSQL([$this->getkeyColumn()],
+                    $rowsFound = $this->getColumnsFromSQL([$this->getKeyColumn()],
                         $data);
                     if (count($rowsFound)) {
-                        if (is_numeric($rowsFound[0][$this->getkeyColumn()])) {
-                            $data[$this->getkeyColumn()] = (int) $rowsFound[0][$this->getkeyColumn()];
+                        if (is_numeric($rowsFound[0][$this->getKeyColumn()])) {
+                            $data[$this->getKeyColumn()] = (int) $rowsFound[0][$this->getKeyColumn()];
                         } else {
-                            $data[$this->getkeyColumn()] = $rowsFound[0][$this->getkeyColumn()];
+                            $data[$this->getKeyColumn()] = $rowsFound[0][$this->getKeyColumn()];
                         }
                     }
                 }
@@ -439,7 +439,7 @@ class Brick extends Sand
     public function deleteFromSQL($data = null)
     {
         if (is_int($data)) {
-            $data = [$this->getkeyColumn() => intval($data)];
+            $data = [$this->getKeyColumn() => intval($data)];
         } else {
             if (is_null($data)) {
                 $data = $this->getData();
@@ -533,7 +533,7 @@ class Brick extends Sand
      *
      * @return string
      */
-    public function getkeyColumn()
+    public function getKeyColumn()
     {
         return $this->keyColumn;
     }
