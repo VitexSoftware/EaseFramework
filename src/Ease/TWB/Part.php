@@ -26,7 +26,7 @@ class Part extends \Ease\JQuery\Part
     {
         parent::jQueryze();
         $webPage = \Ease\Shared::webPage();
-        $webPage->includeJavaScript('twitter-bootstrap/js/bootstrap.js', 1, true);
+        $webPage->includeJavaScript('bootstrap/js/bootstrap.js', 1, true);
         if (isset($webPage->mainStyle)) {
             $webPage->includeCss($webPage->mainStyle, true);
         }
