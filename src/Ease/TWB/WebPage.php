@@ -17,7 +17,7 @@ class WebPage extends \Ease\WebPage
      *
      * @var string relative path/url
      */
-    public $mainStyle = 'twitter-bootstrap/css/bootstrap.css';
+    public $mainStyle = 'bootstrap/css/bootstrap.css';
 
     /**
      * Stránka s podporou pro twitter bootstrap.
