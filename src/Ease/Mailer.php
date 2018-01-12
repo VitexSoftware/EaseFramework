@@ -311,12 +311,13 @@ class Mailer extends Page
             $this->mailHeadersDone, $this->mailBody);
 
         if ($this->notify === true) {
+            $mailStripped = str_replace(['<','>'], '', $this->emailAddress);
             if ($this->sendResult === true) {
                 $this->addStatusMessage(sprintf(_('Message %s was sent to %s'),
-                        $this->emailSubject, $this->emailAddress), 'success');
+                        $this->emailSubject, $mailStripped), 'success');
             } else {
                 $this->addStatusMessage(sprintf(_('Message %s, for %s was not sent because of %s'),
-                        $this->emailSubject, $this->emailAddress,
+                        $this->emailSubject, $mailStripped,
                         $this->sendResult->message), 'warning');
             }
         }

@@ -138,9 +138,11 @@ class BrickTest extends SandTest
      */
     public function testGetAllFromSQL()
     {
+        if(is_object($this->object->dblink)){
         $all = $this->object->getAllFromSQL('test', ['name', 'datim'], 1,
             'datim', 'name');
         $this->assertEquals(1, count($all));
+    }
     }
 
     /**
