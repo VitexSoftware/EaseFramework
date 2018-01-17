@@ -211,52 +211,12 @@ class BrickTest extends SandTest
     }
 
     /**
-     * @covers Ease\Brick::getkeyColumn
-     */
-    public function testGetkeyColumn()
-    {
-        $this->object->setkeyColumn('test');
-        $this->assertEquals('test', $this->object->getKeyColumn());
-    }
-
-    /**
      * @covers Ease\Brick::getMyTable
      */
     public function testGetMyTable()
     {
         $this->object->setmyTable('testing');
         $this->assertEquals('testing', $this->object->getMyTable());
-    }
-
-    /**
-     * @covers Ease\Brick::getMyKey
-     */
-    public function testGetMyKey()
-    {
-        $this->object->setmyKey('test');
-        $this->assertEquals('test', $this->object->getmyKey());
-        $this->assertEquals('X', $this->object->getmyKey(['id' => 'X']));
-    }
-
-    /**
-     * @covers Ease\Brick::setMyKey
-     */
-    public function testSetMyKey()
-    {
-        $this->object->setmyKey('test');
-        $this->assertEquals('test', $this->object->getmyKey());
-
-        $this->object->setkeyColumn(null);
-        $this->assertNull($this->object->getmyKey());
-    }
-
-    /**
-     * @covers Ease\Brick::setkeyColumn
-     */
-    public function testSetkeyColumn()
-    {
-        $this->object->setkeyColumn('test');
-        $this->assertEquals('test', $this->object->getKeyColumn());
     }
 
     /**

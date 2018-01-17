@@ -109,6 +109,46 @@ class SandTest extends AtomTest
     }
 
     /**
+     * @covers Ease\Sand::getMyKey
+     */
+    public function testGetMyKey()
+    {
+        $this->object->setmyKey('test');
+        $this->assertEquals('test', $this->object->getmyKey());
+        $this->assertEquals('X', $this->object->getmyKey(['id' => 'X']));
+    }
+
+    /**
+     * @covers Ease\Sand::setMyKey
+     */
+    public function testSetMyKey()
+    {
+        $this->object->setmyKey('test');
+        $this->assertEquals('test', $this->object->getmyKey());
+
+        $this->object->setkeyColumn(null);
+        $this->assertNull($this->object->getmyKey());
+    }
+
+    /**
+     * @covers Ease\Sand::getkeyColumn
+     */
+    public function testGetkeyColumn()
+    {
+        $this->object->setkeyColumn('test');
+        $this->assertEquals('test', $this->object->getKeyColumn());
+    }
+
+    /**
+     * @covers Ease\Sand::setkeyColumn
+     */
+    public function testSetkeyColumn()
+    {
+        $this->object->setkeyColumn('test');
+        $this->assertEquals('test', $this->object->getKeyColumn());
+    }
+
+    /**
      * @covers Ease\Sand::dataReset
      */
     public function testDataReset()

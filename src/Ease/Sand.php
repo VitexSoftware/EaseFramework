@@ -59,7 +59,7 @@ class Sand extends Molecule
         'myLastModifiedColumn',];
 
     /**
-     * Klíčový sloupeček v používané MySQL tabulce.
+     * Key Column for Current Record
      *
      * @var string
      */
@@ -233,6 +233,65 @@ class Sand extends Molecule
         }
 
         return $result;
+    }
+
+    /**
+     * Gives you value of KEY Column
+     *
+     * @param array $data data z nichž se vrací hodnota klíče
+     *
+     * @return int key column value
+     */
+    public function getMyKey($data = null)
+    {
+        $key = null;
+        if (is_null($data)) {
+            $data = $this->getData();
+        }
+        if (isset($data) && isset($data[$this->keyColumn])) {
+            $key = $data[$this->keyColumn];
+        }
+
+        return $key;
+    }
+
+    /**
+     * Nastavuje hodnotu klíčového políčka pro SQL.
+     *
+     * @param int|string $myKeyValue
+     *
+     * @return bool
+     */
+    public function setMyKey($myKeyValue)
+    {
+        if (isset($this->keyColumn)) {
+            $this->setDataValue($this->keyColumn, $myKeyValue);
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Gives you Current KeyColumn Name
+     *
+     * @return string
+     */
+    public function getKeyColumn()
+    {
+        return $this->keyColumn;
+    }
+
+    /**
+     * Nastaví jméno klíčového sloupečku v shopu.
+     *
+     * @param string $keyColumn
+     */
+    public function setkeyColumn($keyColumn)
+    {
+        $this->keyColumn = $keyColumn;
     }
 
     /**

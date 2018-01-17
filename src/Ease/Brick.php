@@ -529,16 +529,6 @@ class Brick extends Sand
     }
 
     /**
-     * Vrací název klíčového sloupce pro SQL.
-     *
-     * @return string
-     */
-    public function getKeyColumn()
-    {
-        return $this->keyColumn;
-    }
-
-    /**
      * Vrací název aktuálně použivané SQL tabulky.
      *
      * @return string
@@ -546,55 +536,6 @@ class Brick extends Sand
     public function getMyTable()
     {
         return $this->myTable;
-    }
-
-    /**
-     * Vrací hodnotu klíčového políčka pro SQL.
-     *
-     * @param array $data data z nichž se vrací hodnota klíče
-     *
-     * @return int
-     */
-    public function getMyKey($data = null)
-    {
-        $key = null;
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
-        if (isset($data) && isset($data[$this->keyColumn])) {
-            $key = $data[$this->keyColumn];
-        }
-
-        return $key;
-    }
-
-    /**
-     * Nastavuje hodnotu klíčového políčka pro SQL.
-     *
-     * @param int|string $myKeyValue
-     *
-     * @return bool
-     */
-    public function setMyKey($myKeyValue)
-    {
-        if (isset($this->keyColumn)) {
-            $this->setDataValue($this->keyColumn, $myKeyValue);
-            $result = true;
-        } else {
-            $result = false;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Nastaví jméno klíčového sloupečku v shopu.
-     *
-     * @param string $keyColumn
-     */
-    public function setkeyColumn($keyColumn)
-    {
-        $this->keyColumn = $keyColumn;
     }
 
     /**
