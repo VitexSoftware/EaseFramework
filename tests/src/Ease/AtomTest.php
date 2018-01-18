@@ -86,11 +86,14 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     public function testgetstatusMessages()
     {
         $this->object->cleanMessages();
+        $this->object->addStatusMessage('Message');
         $this->object->addStatusMessage('Message', 'warning');
         $this->object->addStatusMessage('Message', 'debug');
         $this->object->addStatusMessage('Message', 'error');
         $messages = $this->object->getstatusMessages();
-        $this->assertEquals(3, count($messages));
+        $this->assertArrayHasKey('error', $messages);
+        $this->assertArrayHasKey('debug', $messages);
+        $this->assertArrayHasKey('info', $messages);
 
         $this->object->getStatusMessages(true);
         $messages = $this->object->getstatusMessages();

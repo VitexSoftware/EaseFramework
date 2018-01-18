@@ -81,7 +81,7 @@ class Molecule extends Atom
     public function addToLog($message, $type = 'message')
     {
         $logged = false;
-        if (is_object($this->logger)) {
+        if (isset($this->logger) && is_object($this->logger)) {
             $this->logger->addToLog($this->getObjectName(), $message, $type);
         } else {
             $logged = Shared::logger()->addToLog($this->getObjectName(),
@@ -103,6 +103,22 @@ class Molecule extends Atom
     {
         return $this->easeShared->takeMessage(new Logger\Message($message,
                     $type, get_class($this)));
+    }
+
+    /**
+     * Obtain Status Messages
+     *
+     * @param bool $clean Remove messages from strack ?
+     *
+     * @return array
+     */
+    public function getStatusMessages($clean = false)
+    {
+        $messages = $this->easeShared->getStatusMessages();
+        if ($clean) {
+            $this->cleanMessages();
+        }
+        return $messages;
     }
 
     /**
