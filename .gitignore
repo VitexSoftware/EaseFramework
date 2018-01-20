@@ -12,3 +12,4 @@ composer.lock
 /debian/ease-framework-doc.substvars
 /debian/ease-framework.debhelper.log
 /debian/ease-framework.substvars
+/.vagrant/

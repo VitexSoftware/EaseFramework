@@ -35,5 +35,10 @@ deb:
 	dch -i "`git log -1 --pretty=%B`"
 	debuild -i -us -uc -b
 
+rpm:
+	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" rpm.spec
+	rpmbuild -ba rpm.spec
+
+
 .PHONY : install build
 	
