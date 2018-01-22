@@ -13,3 +13,4 @@ composer.lock
 /debian/ease-framework.debhelper.log
 /debian/ease-framework.substvars
 /.vagrant/
+/debian/tmp/
