@@ -153,7 +153,7 @@ class Page extends Container
             $_SESSION['EaseMessages'] = $messages;
         }
         if (headers_sent()) {
-            $this->addJavaScript('window.location = "'.$url.'"',0,false);
+            $this->addJavaScript('window.location = "'.$url.'"', 0, false);
         } else {
             header('Location: '.$url);
         }
@@ -181,12 +181,13 @@ class Page extends Container
     {
         $url = null;
         if (php_sapi_name() != 'cli') {
-            $url = sprintf(
-                '%s://%s%s',
-                empty($_SERVER['HTTPS']) ?
-                ($_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
-                $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']
-            );
+
+            $schema = 'http';
+            if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) {
+                $schema .= 's';
+            }
+            $url = sprintf('%s://%s%s', $schema, $_SERVER['SERVER_NAME'],
+                $_SERVER['REQUEST_URI']);
 
             $parts = parse_url($url);
 
