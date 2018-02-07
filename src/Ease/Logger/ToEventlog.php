@@ -37,7 +37,7 @@ class ToEventlog extends ToSyslog implements Loggingable
      */
     public function finalizeMessage($messageRaw)
     {
-        return iconv("UTF-8", "cp1251", $message);
+        return iconv("UTF-8", "cp1251//TRANSLIT", $messageRaw);
     }
     
     /**
