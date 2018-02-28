@@ -1,8 +1,8 @@
 <?php
 /**
- * Obsluha MySQL.
+ * Object Relation Model Trait
  *
- * @author     Vitex <vitex@hippy.cz>
+ * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  * @copyright  2018 Vitex@hippy.cz (G)
  */
 
@@ -17,7 +17,7 @@ trait Orm
     /**
      * Objekt pro práci s SQL.
      *
-     * @var SQL\PDO
+     * @var PDO
      */
     public $dblink = null;
 
@@ -72,10 +72,10 @@ trait Orm
 
         $where = '';
         if (is_array($conditions) && count($conditions)) {
-            $where = SQL\SQL::$whr.$this->dblink->prepSelect($conditions);
+            $where = SQL::$whr.$this->dblink->prepSelect($conditions);
         } else {
             if (!is_null($conditions)) {
-                $where = SQL\SQL::$whr.$conditions;
+                $where = SQL::$whr.$conditions;
             }
         }
 
@@ -88,16 +88,16 @@ trait Orm
                 foreach ($orderBy as $oid => $oname) {
                     $orderBy[$oid] = "`$oname`";
                 }
-                $orderByCond = SQL\SQL::$ord.implode(',', $orderBy);
+                $orderByCond = SQL::$ord.implode(',', $orderBy);
             } else {
-                $orderByCond = SQL\SQL::$ord.$orderBy;
+                $orderByCond = SQL::$ord.$orderBy;
             }
         } else {
             $orderByCond = '';
         }
 
         if (intval($limit)) {
-            $limitCond = SQL\SQL::$lmt.$limit;
+            $limitCond = SQL::$lmt.$limit;
         } else {
             $limitCond = '';
         }
@@ -107,15 +107,15 @@ trait Orm
                 $columnsList[$id] = $cc.$column.$cc;
             }
 
-            return $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
-                        $columnsList).SQL\SQL::$frm.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
+            return $this->dblink->queryToArray(SQL::$sel.implode(',',
+                        $columnsList).SQL::$frm.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
                     $indexBy);
         } else {
             if (!strstr($columnsList, '*')) {
                 $columnsList = $cc.$columnsList.$cc;
             }
 
-            return $this->dblink->queryToArray(SQL\SQL::$sel.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
+            return $this->dblink->queryToArray(SQL::$sel.$columnsList.' FROM '.$cc.$this->myTable.$cc.' '.$where.$orderByCond.$limitCond,
                     $indexBy);
         }
     }
@@ -140,7 +140,7 @@ trait Orm
             throw new Exception('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
-        $queryRaw = SQL\SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL\SQL::$whr.$cc.$this->getKeyColumn().$cc.' = '.$itemID;
+        $queryRaw = SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL::$whr.$cc.$this->getKeyColumn().$cc.' = '.$itemID;
 
         return $this->dblink->queryToArray($queryRaw);
     }
@@ -202,23 +202,23 @@ trait Orm
         if (is_null($limit)) {
             $limitCond = '';
         } else {
-            $limitCond = SQL\SQL::$lmt.$limit;
+            $limitCond = SQL::$lmt.$limit;
         }
         if (is_null($orderByColumn)) {
             $orderByCond = '';
         } else {
             if (is_array($orderByColumn)) {
-                $orderByCond = SQL\SQL::$ord.implode(',', $orderByColumn);
+                $orderByCond = SQL::$ord.implode(',', $orderByColumn);
             } else {
-                $orderByCond = SQL\SQL::$ord.$orderByColumn;
+                $orderByCond = SQL::$ord.$orderByColumn;
             }
         }
         if (is_null($columnsList)) {
             $cc      = $this->dblink->getColumnComma();
-            $records = $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
+            $records = $this->dblink->queryToArray(SQL::$sel.'* FROM '.$cc.$tableName.$cc.' '.$limitCond.$orderByCond,
                 $columnToIndex);
         } else {
-            $records = $this->dblink->queryToArray(SQL\SQL::$sel.implode(',',
+            $records = $this->dblink->queryToArray(SQL::$sel.implode(',',
                     $columnsList).' FROM '.$tableName.$orderByCond.$limitCond,
                 $columnToIndex);
         }
@@ -271,7 +271,7 @@ trait Orm
         }
 
         $cc       = $this->dblink->getColumnComma();
-        $queryRaw = SQL\SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL\SQL::$whr.$cc.$this->keyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
+        $queryRaw = SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL::$whr.$cc.$this->keyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 return $this->data[$this->keyColumn];
@@ -399,7 +399,7 @@ trait Orm
 
         if (count($data)) {
             $cc = $this->dblink->getColumnComma();
-            $this->dblink->exeQuery(SQL\SQL::$dlt.$cc.$this->myTable.$cc.SQL\SQL::$whr.$this->dblink->prepSelect($data));
+            $this->dblink->exeQuery(SQL::$dlt.$cc.$this->myTable.$cc.SQL::$whr.$this->dblink->prepSelect($data));
             if ($this->dblink->getNumRows()) {
                 return true;
             } else {
@@ -460,7 +460,7 @@ trait Orm
             $keyColumn = $this->keyColumn;
         }
         $cc        = $this->dblink->getColumnComma();
-        $listQuery = SQL\SQL::$sel.$cc.$keyColumn.$cc.SQL\SQL::$frm.$tableName;
+        $listQuery = SQL::$sel.$cc.$keyColumn.$cc.SQL::$frm.$tableName;
         return $this->dblink->queryToArray($listQuery);
     }
 
@@ -473,7 +473,7 @@ trait Orm
     {
         $this->myTable = $myTable;
         if (!isset($this->dblink) || !is_object($this->dblink)) {
-            $this->dblink = Shared::db();
+            $this->dblink = \Ease\Shared::db();
         }
         $this->dblink->setTableName($myTable);
         $this->dblink->setKeyColumn($this->keyColumn);
@@ -513,7 +513,7 @@ trait Orm
             $tableName = $this->myTable;
         }
 
-        return $this->dblink->queryToValue(SQL\SQL::$sel.'COUNT('.$this->keyColumn.') FROM '.$tableName);
+        return $this->dblink->queryToValue(SQL::$sel.'COUNT('.$this->keyColumn.') FROM '.$tableName);
     }
 
     /**
@@ -530,7 +530,7 @@ trait Orm
             $conditons[] = '`'.$column.'` LIKE \'%'.$sTerm.'%\'';
         }
 
-        return $this->dblink->queryToArray(SQL\SQL::$sel.'* FROM '.$this->myTable.SQL\SQL::$whr.implode(' OR ',
+        return $this->dblink->queryToArray(SQL::$sel.'* FROM '.$this->myTable.SQL::$whr.implode(' OR ',
                     $conditons));
     }
 }
