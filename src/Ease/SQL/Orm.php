@@ -6,7 +6,7 @@
  * @copyright  2018 Vitex@hippy.cz (G)
  */
 
-namespace Ease;
+namespace Ease\SQL;
 
 /**
  *

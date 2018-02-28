@@ -14,6 +14,12 @@ checks:
         duplication: true
         
 build:
+    nodes:
+        analysis:
+            project_setup:
+                override: true
+            tests:
+                override: php-scrutinizer-run
     environment:
         php:
             version: 7.1.0
@@ -28,7 +34,7 @@ build:
             - composer install --no-interaction
             - ./vendor/bin/phinx migrate  --configuration tests/phinx.yml         
     tests:
-        override:
+        override: 
             -
                 command: './vendor/bin/phpunit --coverage-clover=clover.log'
                 coverage:

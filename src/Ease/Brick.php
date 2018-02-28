@@ -11,7 +11,7 @@ namespace Ease;
 class Brick extends Sand
 {
 
-    use Orm;
+    use SQL\Orm;
     /**
      * Odkaz na objekt uživatele.
      *
