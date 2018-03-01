@@ -28,22 +28,12 @@ trait Orm
      */
     public $myTable = '';
 
+    
     /**
-     * Přidá zprávu do zásobníku pro zobrazení uživateli.
-     *
-     * @param string $message  zprava
-     * @param string $type     Fronta zprav (warning|info|error|success)
-     * @param bool   $addIcons prida UTF8 ikonky na zacatek zprav
-     *
-     * @return bool Was message added to message handler object ?
+     * Record create time column 
+     * @var string 
      */
-    public function addStatusMessage($message, $type = 'info', $addIcons = true)
-    {
-        if ($addIcons) {
-            $message = ' '.Logger\Message::getTypeUnicodeSymbol($type).' '.$message;
-        }
-        return parent::addStatusMessage($message, $type);
-    }
+    public $createColumn = null;
 
     /**
      * Vrací z databáze sloupečky podle podmínek.
