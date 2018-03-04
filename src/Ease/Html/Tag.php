@@ -318,7 +318,7 @@ class Tag extends \Ease\Page
      */
     public function finalize()
     {
-        if (count($this->cssProperties)) {
+        if (!empty($this->cssProperties)) {
             $this->tagProperties['style'] = $this->cssPropertiesToString();
         }
     }
