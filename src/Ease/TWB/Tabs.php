@@ -132,11 +132,12 @@ $(\'#'.$this->getTagID().' a\').click(function (e) {
             if (key($tab) == 'ajax') {
                 $tabProperties['data-url'] = current($tab);
             }
+            $anchor = '#'.\Ease\Brick::lettersOnly( str_replace(['(',')'],'',$this->partName.$tabName));
             if ($tabName == $this->activeTab) {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag($anchor,
                             $tabName, $tabProperties), ['class' => 'active']));
             } else {
-                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag('#'.\Ease\Brick::lettersOnly($this->partName.$tabName),
+                $tabsUl->addItem(new \Ease\Html\LiTag(new \Ease\Html\ATag($anchor,
                             $tabName, $tabProperties)));
             }
         }
