@@ -15,6 +15,12 @@ class ContainerTest extends SandTest
     protected $object;
 
     /**
+     * What we want to get ?
+     * @var string
+     */
+    public $rendered = '';
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -58,11 +64,11 @@ class ContainerTest extends SandTest
     {
         $context = new \Ease\Html\DivTag();
         Container::addItemCustom('*', $context);
-        $this->assertEquals("\n<div>*</div>", $context->getRendered());
+        $this->assertEquals("<div>*</div>", $context->getRendered());
 
         $context = new \Ease\Html\DivTag();
         Container::addItemCustom(new \Ease\Html\ImgTag(null), $context);
-        $this->assertEquals("\n<div>\n<img src=\"\" /></div>",
+        $this->assertEquals("<div><img src=\"\" /></div>",
             $context->getRendered());
         $this->object->addItem([new \Ease\Html\ATag('#', 'TEST'), new \Ease\Html\ATag('#',
                 'TEST')]);
@@ -165,6 +171,7 @@ class ContainerTest extends SandTest
     public function testGetFirstPart()
     {
         $this->object->emptyContents();
+        $this->assertNull($this->object->getFirstPart());
         $this->object->addItem(new \Ease\Html\DivTag());
         $this->object->addItem(new \Ease\Html\ATag('', ''));
         $this->object->addItem(new \Ease\Html\PTag());
@@ -172,6 +179,15 @@ class ContainerTest extends SandTest
         $controlDiv->parentObject = $this->object;
         $this->assertEquals(get_class($controlDiv),
             get_class($this->object->getFirstPart()));
+    }
+
+    /**
+     * @covers Ease\Container::getContents
+     */
+    public function testGetContents()
+    {
+        $this->object->emptyContents();
+        $this->assertEmpty($this->object->getContents());
     }
 
     /**
@@ -242,30 +258,13 @@ class ContainerTest extends SandTest
     {
         ob_start();
         $this->object->drawIfNotDrawn();
-
-        switch (get_class($this->object)) {
-            case 'Ease\Container':
-            case 'Ease\Page':
-                $this->assertTrue(true);
-                break;
-            default :
-                if ($canBeEmpty) {
-                    $this->markTestSkipped(get_class($this->object).'is Empty');
-                } else {
-                    $out = ob_get_contents();
-                    $this->assertNotEmpty($out);
-                }
-                ob_end_clean();
-                ob_start();
-                $this->object->drawIfNotDrawn();
-                if (!$canBeEmpty && (get_class($this->object) != 'Ease\Container')) {
-                    $out = ob_get_contents();
-                    $this->assertEmpty($out);
-                }
-
-                break;
-        }
-
+        $out = ob_get_contents();
+        $this->assertEquals($this->rendered, $out);
+        ob_end_clean();
+        ob_start();
+        $this->object->drawIfNotDrawn();
+        $out = ob_get_contents();
+        $this->assertEmpty($out);
         ob_end_clean();
     }
 
@@ -305,6 +304,8 @@ class ContainerTest extends SandTest
     public function testDraw($whatWant = null)
     {
         ob_start();
+        $this->object->emptyContents();
+        $this->object->addItem(new \Ease\Html\SmallTag('test'));
         $this->object->draw();
         switch (get_class($this->object)) {
             case 'Ease\Container':

@@ -11,6 +11,8 @@ class NavTagTest extends PairTagTest
      * @var NavTag
      */
     protected $object;
+    
+    public $rendered = '<nav></nav>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

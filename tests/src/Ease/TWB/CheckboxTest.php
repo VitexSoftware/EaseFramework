@@ -12,6 +12,9 @@ class CheckboxTest extends \Test\Ease\Html\DivTagTest
      */
     protected $object;
 
+    public $rendered = '<div><label for="CheckBox"><input type="checkbox" value="on" name="CheckBox" /></label></div>';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -43,14 +46,4 @@ class CheckboxTest extends \Test\Ease\Html\DivTagTest
     {
     }
 
-    /**
-     * @covers Ease\TWB\Checkbox::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<div>
-<label for="CheckBox">
-<input type="checkbox" value="on" name="CheckBox" /></label></div>');
-    }
 }

@@ -11,6 +11,7 @@ class ButtonDropdownTest extends \Test\Ease\Html\DivTagTest
      * @var ButtonDropdown
      */
     protected $object;
+    public $rendered = '<div class="btn-group"><button class="btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown"> <span class="caret"></span></button><ul class="dropdown-menu" role="menu"></ul></div>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -70,14 +71,4 @@ class ButtonDropdownTest extends \Test\Ease\Html\DivTagTest
         );
     }
 
-    /**
-     * @covers Ease\Html\InputTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<div class="btn-group">
-<button class="btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown"> <span class="caret"></span></button>
-<ul class="dropdown-menu" role="menu"></ul></div>');
-    }
 }

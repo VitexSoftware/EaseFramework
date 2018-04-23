@@ -12,7 +12,9 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
      */
     protected $object;
 
-    /**
+    public $rendered = '<a class="btn btn-default" href="http://v.s.cz/">test</a>';
+
+        /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -50,12 +52,4 @@ class LinkButtonTest extends \Test\Ease\Html\ATagTest
             $this->object->tagPropertiesToString());
     }
 
-    /**
-     * @covers Ease\TWB\LinkButton::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<a class="btn btn-default" href="http://v.s.cz/">test</a>');
-    }
 }

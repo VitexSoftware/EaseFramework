@@ -15,6 +15,12 @@ class ATagTest extends PairTagTest
     protected $object;
 
     /**
+     * What we want to get ?
+     * @var string
+     */
+    public $rendered = '<a href="http://v.s.cz/">Vitex Software</a>';
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -29,7 +35,7 @@ class ATagTest extends PairTagTest
      */
     protected function tearDown()
     {
-
+        
     }
 
     /**
@@ -56,14 +62,4 @@ class ATagTest extends PairTagTest
             $this->object->tagPropertiesToString(['id' => 'Test2', 'name' => 'unit2']));
     }
 
-    /**
-     * @covers Ease\Html\ATag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        if (is_null($whatWant)) {
-            $whatWant = "\n<a href=\"http://v.s.cz/\">Vitex Software</a>";
-        }
-        parent::testDraw($whatWant);
-    }
 }

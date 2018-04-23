@@ -12,6 +12,9 @@ class LabelTest extends \Test\Ease\Html\SpanTest
      */
     protected $object;
 
+    public $rendered = '<span class=" label label-default"></span>';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

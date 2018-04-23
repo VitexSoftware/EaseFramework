@@ -11,6 +11,7 @@ class BadgeTest extends \Test\Ease\Html\SpanTest
      * @var Badge
      */
     protected $object;
+    public $rendered = '<span class="badge"></span>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

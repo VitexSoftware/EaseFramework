@@ -14,6 +14,7 @@ class ButtonGroupTest extends \Test\Ease\Html\DivTagTest
      */
     protected $object;
 
+    public $rendered = '<div role="group" class="btn-group" aria-label="testGroup"></div>';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

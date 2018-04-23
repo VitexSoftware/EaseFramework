@@ -15,6 +15,12 @@ class TagTest extends PageTest
     protected $object;
 
     /**
+     * What we want to get ?
+     * @var string
+     */
+    public $rendered = '< />';
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -178,7 +184,7 @@ class TagTest extends PageTest
      */
     public function testTagPropertiesToString()
     {
-        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit', 1, 3=>5]);
+        $this->object->setTagProperties(['id' => 'Test', 'name' => 'unit', 1, 3 => 5]);
 
         $this->assertNotEmpty(
             $this->object->tagPropertiesToString());
@@ -221,7 +227,7 @@ class TagTest extends PageTest
         $drawed = ob_get_contents();
         ob_end_clean();
         if (is_null($whatWant)) {
-            $this->assertEquals("\n<$tagType />", $drawed);
+            $this->assertEquals("<$tagType />", $drawed);
         } else {
             $this->assertEquals($whatWant, $drawed);
         }

@@ -11,6 +11,7 @@ class FormTest extends \Test\Ease\Html\FormTest
      * @var Form
      */
     protected $object;
+    public $rendered = '<form method="post" name="form" class="form-horizontal" role="form"></form>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,6 +28,7 @@ class FormTest extends \Test\Ease\Html\FormTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**

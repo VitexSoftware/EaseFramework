@@ -11,6 +11,8 @@ class ColTest extends \Test\Ease\Html\DivTagTest
      * @var Col
      */
     protected $object;
+    
+    public $rendered = '<div class="col-md-2"></div>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

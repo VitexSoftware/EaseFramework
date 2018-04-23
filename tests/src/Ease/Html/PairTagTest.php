@@ -13,6 +13,12 @@ class PairTagTest extends TagTest
     protected $object;
 
     /**
+     * What we want to get ?
+     * @var string
+     */
+    public $rendered = '<></>';
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -27,6 +33,7 @@ class PairTagTest extends TagTest
      */
     protected function tearDown()
     {
+        
     }
 
     public function testConstructor()
@@ -55,10 +62,14 @@ class PairTagTest extends TagTest
             $this->object->setTagType($tagType);
         }
         if (is_null($whatWant)) {
-            if (count($this->object->tagProperties)) {
-                $whatWant = "\n<$tagType ".$this->object->tagPropertiesToString()."></$tagType>";
+            if (is_null($this->rendered)) {
+                if (count($this->object->tagProperties)) {
+                    $whatWant = "<$tagType ".$this->object->tagPropertiesToString()."></$tagType>";
+                } else {
+                    $whatWant = "<$tagType></$tagType>";
+                }
             } else {
-                $whatWant = "\n<$tagType></$tagType>";
+                $whatWant = $this->rendered;
             }
         }
         ob_start();
@@ -80,9 +91,9 @@ class PairTagTest extends TagTest
         }
 
         if (count($this->object->tagProperties)) {
-            $tagBegin = "\n<".trim($tagType.' '.$this->object->tagPropertiesToString()).'>';
+            $tagBegin = "<".trim($tagType.' '.$this->object->tagPropertiesToString()).'>';
         } else {
-            $tagBegin = "\n<$tagType>";
+            $tagBegin = "<$tagType>";
         }
         ob_start();
         $this->object->tagBegin();

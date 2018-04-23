@@ -12,6 +12,9 @@ class NavbarTest extends \Test\Ease\Html\DivTagTest
      */
     protected $object;
 
+    public $rendered = '<nav class="navbar navbar-default" role="navigation" name="Navbar"><div class="navbar-inner"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-Navbar-collapse"><span class="sr-only">Switch navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div><div class="collapse navbar-collapse navbar-Navbar-collapse"><ul class="nav navbar-nav"></ul><div class="pull-right"><ul class="nav navbar-nav nav-right"></ul></div></div></div></nav>';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

@@ -11,6 +11,8 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
      * @var OptionTag
      */
     protected $object;
+    
+    public $rendered = '<option value="">test</option>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -81,12 +83,4 @@ class OptionTagTest extends \Test\Ease\Html\PairTagTest
         );
     }
 
-    /**
-     * @covers Ease\Html\OptionTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<option value="">test</option>');
-    }
 }

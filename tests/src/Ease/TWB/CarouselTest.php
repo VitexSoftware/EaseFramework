@@ -18,7 +18,8 @@ class CarouselTest extends \Test\Ease\Html\DivTagTest
      */
     protected function setUp()
     {
-        $this->object = new \Ease\TWB\Carousel();
+        $this->object   = new \Ease\TWB\Carousel();
+        $this->rendered = '<div id="'.$this->object->getTagId().'" class="carousel slide"><ol class="carousel-indicators"></ol><div class="carousel-inner" role="listbox"></div></div>';
     }
 
     /**
@@ -52,16 +53,5 @@ class CarouselTest extends \Test\Ease\Html\DivTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
-    }
-
-    /**
-     * @covers Ease\TWB\Carousel::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<div id="'.$this->object->getTagId().'" class="carousel slide">
-<ol class="carousel-indicators"></ol>
-<div class="carousel-inner" role="listbox"></div></div>');
     }
 }

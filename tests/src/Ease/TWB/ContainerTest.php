@@ -12,6 +12,9 @@ class ContainerTest extends \Test\Ease\Html\DivTagTest
      */
     protected $object;
 
+    public $rendered = '<div class="container"></div>';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

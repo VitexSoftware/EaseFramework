@@ -13,6 +13,8 @@ class AudioTagTest extends PairTagTest
      * @var AudioTag
      */
     protected $object;
+    
+    public $rendered = '<audio></audio>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -11,6 +11,7 @@ class UlTagTest extends PairTagTest
      * @var UlTag
      */
     protected $object;
+    public $rendered = '<ul>http://v.s.cz/</ul>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,6 +28,7 @@ class UlTagTest extends PairTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -53,17 +55,5 @@ class UlTagTest extends PairTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
-    }
-
-    /**
-     * @covers Ease\Html\InputTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        if (is_null($whatWant)) {
-            $whatWant = '
-<ul>http://v.s.cz/</ul>';
-        }
-        parent::testDraw($whatWant);
     }
 }

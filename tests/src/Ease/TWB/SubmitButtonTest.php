@@ -11,6 +11,8 @@ class SubmitButtonTest extends \Test\Ease\Html\ButtonTagTest
      * @var SubmitButton
      */
     protected $object;
+    
+    public $rendered = '<button class="btn"></button>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

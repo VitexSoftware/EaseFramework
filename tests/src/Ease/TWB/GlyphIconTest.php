@@ -12,6 +12,7 @@ class GlyphIconTest extends \Test\Ease\Html\SpanTest
      */
     protected $object;
 
+    public $rendered = '<span class="glyphicon glyphicon-test"></span>';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

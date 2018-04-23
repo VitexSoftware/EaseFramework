@@ -14,6 +14,9 @@ class DivTagTest extends PairTagTest
      */
     protected $object;
 
+    public $rendered = '<div></div>';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

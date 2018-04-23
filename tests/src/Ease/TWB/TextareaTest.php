@@ -12,6 +12,8 @@ class TextareaTest extends \Test\Ease\Html\TextareaTagTest
      */
     protected $object;
 
+    public $rendered = '<textarea name="test" class="form-control"></textarea>';
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

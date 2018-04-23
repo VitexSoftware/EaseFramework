@@ -11,6 +11,8 @@ class RowTest extends \Test\Ease\Html\DivTagTest
      * @var Row
      */
     protected $object;
+    
+    public $rendered = '<div class="row"></div>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,14 +31,4 @@ class RowTest extends \Test\Ease\Html\DivTagTest
     {
     }
 
-    /**
-     * @covers Ease\TWB\Row::addColumn
-     */
-    public function testAddColumn()
-    {
-        $this->object->addColumn(2, 'TestContent');
-        $this->assertEquals('
-<div class="row">
-<div class="col-md-2">TestContent</div></div>', (string) $this->object);
-    }
 }

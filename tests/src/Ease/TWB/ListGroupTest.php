@@ -11,6 +11,7 @@ class ListGroupTest extends \Test\Ease\Html\UlTagTest
      * @var ListGroup
      */
     protected $object;
+    public $rendered = '<ul class="list-group"></ul>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,6 +28,7 @@ class ListGroupTest extends \Test\Ease\Html\UlTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -40,14 +42,5 @@ class ListGroupTest extends \Test\Ease\Html\UlTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
-    }
-
-    /**
-     * @covers Ease\TWB\ListGroup::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<ul class="list-group"></ul>');
     }
 }

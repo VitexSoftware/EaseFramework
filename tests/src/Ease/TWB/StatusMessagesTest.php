@@ -11,6 +11,10 @@ class StatusMessagesTest extends \Test\Ease\Html\DivTagTest
      * @var StatusMessages
      */
     protected $object;
+    public $rendered = '<div><div class="MessageForUser" style="color: blue;" >test</div>
+<div class="MessageForUser" style="color: #2C5F23;" >test</div>
+<div class="MessageForUser" style="color: black;" >test</div>
+<div class="MessageForUser" style="color: #AB250E;" >test</div></div>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -18,8 +22,13 @@ class StatusMessagesTest extends \Test\Ease\Html\DivTagTest
      */
     protected function setUp()
     {
+        $shared       = \Ease\Shared::instanced();
         $this->object = new \Ease\TWB\StatusMessages();
-        \Ease\Shared::instanced()->addStatusMessage('test');
+        $shared->cleanMessages();
+        $shared->addStatusMessage('test');
+        $shared->addStatusMessage('test', 'success');
+        $shared->addStatusMessage('test', 'danger');
+        $shared->addStatusMessage('test', 'warning');
     }
 
     /**
@@ -28,17 +37,6 @@ class StatusMessagesTest extends \Test\Ease\Html\DivTagTest
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @covers Ease\TWB\StatusMessages::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        \Ease\Shared::instanced()->statusMessages = [];
-        \Ease\Shared::instanced()->addStatusMessage('test');
-        $this->assertEquals("\n".'<div><div class="MessageForUser" style="color: blue;" >test</div></div>',$this->object->getRendered());
-        \Ease\Shared::instanced()->statusMessages = [];
-        $this->assertEmpty($this->object->getRendered());
+        
     }
 }

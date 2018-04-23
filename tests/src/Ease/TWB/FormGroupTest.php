@@ -12,6 +12,8 @@ class FormGroupTest extends \Test\Ease\Html\DivTagTest
      */
     protected $object;
 
+    public $rendered = '<div class="form-group"><label for="Label">Label</label><input type="text" name="text" class="form-control" id="Label" /></div>';
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -34,21 +36,11 @@ class FormGroupTest extends \Test\Ease\Html\DivTagTest
     }
 
     /**
-     * @covers Ease\TWB\FormGroup::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<div class="form-group">
-<label for="Label">Label</label>
-<input type="text" name="text" class="form-control" id="Label" /></div>');
-    }
-
-    /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
     protected function tearDown()
     {
+        
     }
 }

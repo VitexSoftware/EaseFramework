@@ -11,6 +11,7 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
      * @var Pagination
      */
     protected $object;
+    public $rendered = '<ul class="pagination"><li><a href="?page=0"><span class="glyphicon glyphicon-fast-backward"></span></a></li><li><a href="?page=1"><span class="glyphicon glyphicon-chevron-left"></span></a></li><li><a href="?page=0">1</a></li><li><a href="?page=1">2</a></li><li class="active"><a href="?page=2">3</a></li><li class="disabled"><a href="?page=#"><span class="glyphicon glyphicon-chevron-right"></span></a></li><li class="disabled"><a href="?page=#"><span class="glyphicon glyphicon-fast-forward"></span></a></li></ul>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,6 +28,7 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     public function testConstructor()
@@ -52,34 +54,5 @@ class PaginationTest extends \Test\Ease\Html\UlTagTest
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
-    }
-
-    /**
-     * @covers Ease\TWB\Pagination::Draw
-     *
-     * @param null $whatWant ignored here
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<ul class="pagination">
-<li>
-<a href="?page=0">
-<span class="glyphicon glyphicon-fast-backward"></span></a></li>
-<li>
-<a href="?page=1">
-<span class="glyphicon glyphicon-chevron-left"></span></a></li>
-<li>
-<a href="?page=0">1</a></li>
-<li>
-<a href="?page=1">2</a></li>
-<li class="active">
-<a href="?page=2">3</a></li>
-<li class="disabled">
-<a href="?page=#">
-<span class="glyphicon glyphicon-chevron-right"></span></a></li>
-<li class="disabled">
-<a href="?page=#">
-<span class="glyphicon glyphicon-fast-forward"></span></a></li></ul>');
     }
 }
