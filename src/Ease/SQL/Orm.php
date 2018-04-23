@@ -353,8 +353,8 @@ trait Orm
             return;
         }
 
-        if ($this->myCreateColumn && !isset($data[$this->myCreateColumn])) {
-            $data[$this->myCreateColumn] = 'NOW()';
+        if ($this->createColumn && !isset($data[$this->createColumn])) {
+            $data[$this->createColumn] = 'NOW()';
         }
         $queryRaw = 'INSERT INTO '.$this->dblink->getColumnComma().$this->myTable.$this->dblink->getColumnComma().' '.$this->dblink->arrayToInsertQuery($data,
                 false);

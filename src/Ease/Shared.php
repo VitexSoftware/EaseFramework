@@ -575,7 +575,7 @@ class Shared extends Atom
                 unset($_SESSION['EaseMessages']);
             }
         }
-        $this->statusMessages = array_merge($cgiMessages, $webMessages);
+        $this->statusMessages = is_array($cgiMessages) ? array_merge($cgiMessages, $webMessages) : $webMessages ;
     }
 
     /**

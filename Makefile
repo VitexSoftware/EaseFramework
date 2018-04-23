@@ -47,8 +47,14 @@ rpm:
 	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" rpm.spec
 	rpmbuild -ba rpm.spec
 
-release: fresh deb
+docker:
+	docker build -t vitexus/ease-framework .
+
+
+release: fresh deb docker
 	
+
+
 
 .PHONY : install build
 	

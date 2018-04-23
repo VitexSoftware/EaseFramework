@@ -103,7 +103,7 @@ class Carousel extends \Ease\Html\DivTag
     public function finalize()
     {
         Part::twBootstrapize();
-        if (is_null($this->active)) { //We need one slide active
+        if (is_null($this->active) && $this->getItemsCount() ) { //We need one slide active
             $this->indicators->getFirstPart()->setTagClass('active');
             $this->inner->getFirstPart()->addTagClass('active');
         }

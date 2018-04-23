@@ -30,6 +30,7 @@ class ATag extends PairTag
 
     /**
      * Ošetření perzistentních hodnot.
+     * @deprecated since version 1.4.2.10
      */
     public function afterAdd()
     {

@@ -63,7 +63,7 @@ class Container extends Sand
     public function __construct($initialContent = null)
     {
         parent::__construct();
-        if (!is_null($initialContent)) {
+        if (!empty($initialContent)) {
             $this->addItem($initialContent);
         }
     }
@@ -352,7 +352,7 @@ class Container extends Sand
      */
     public function drawIfNotDrawn()
     {
-        if (!$this->drawStatus) {
+        if ($this->drawStatus === false) {
             $this->draw();
         }
     }
@@ -410,6 +410,7 @@ class Container extends Sand
                 echo $part;
             }
         }
+        $this->drawStatus = true;
     }
 
     /**

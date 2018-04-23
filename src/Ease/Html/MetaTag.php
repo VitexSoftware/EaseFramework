@@ -3,20 +3,21 @@
 namespace Ease\Html;
 
 /**
- * HTML Div tag.
+ * HTML main tag.
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class DivTag extends PairTag
+class MetaTag extends PairTag
 {
+
     /**
-     * Simple Div tag
+     * Defines the main content of a document
      *
      * @param mixed  $content    items included
      * @param array  $properties params array
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('div', $properties, $content);
+        parent::__construct('meta', $properties, $content);
     }
 }

@@ -4,7 +4,7 @@ Standards-Version: 3.8.4
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
 Priority: optional
-Homepage: http://vitexsoftware.cz/ease.php
+Homepage: https://github.com/VitexSoftware/EaseFramework
 
 Package: ease-framework
 Depends: ${misc:Depends},libjs-jquery (>= 1.4), libjs-jquery-ui, php-mail, php-mail-mime, libjs-bootstrap, php-mdb2-driver-mysql

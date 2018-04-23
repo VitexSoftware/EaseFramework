@@ -17,14 +17,14 @@ class TableTag extends PairTag
     public $tHead = null;
 
     /**
-     * Tělo tabulky.
+     * Table Body
      *
      * @var Tbody
      */
     public $tbody = null;
 
     /**
-     * Html Tabulka.
+     * Html Table.
      *
      * @param mixed $content    vkládaný obsah
      * @param array $properties parametry tagu
@@ -96,7 +96,7 @@ class TableTag extends PairTag
     }
 
     /**
-     * Je tabulka prázdná ?
+     * Is Table Empty ?
      *
      * @param null $element je zde pouze z důvodu zpětné kompatibility
      *
@@ -108,7 +108,7 @@ class TableTag extends PairTag
     }
 
     /**
-     * Naplní tabulku daty.
+     * Populate table with given data
      *
      * @param array $contents
      */

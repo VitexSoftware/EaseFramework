@@ -406,7 +406,7 @@ class Sand extends Molecule
      */
     public function takeData($data)
     {
-        if (is_array($this->data)) {
+        if (is_array($this->data) && is_array($data)) {
             $this->data = array_merge($this->data, $data);
         } else {
             $this->data = $data;
