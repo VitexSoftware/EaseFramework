@@ -11,6 +11,7 @@ class H1TagTest extends \Test\Ease\Html\PairTagTest
      * @var H1Tag
      */
     protected $object;
+    public $rendered = '<h1></h1>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

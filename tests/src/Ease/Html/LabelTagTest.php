@@ -11,7 +11,9 @@ class LabelTagTest extends PairTagTest
      * @var LabelTag
      */
     protected $object;
+    public $rendered = '<label for="test"></label>';
 
+    
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

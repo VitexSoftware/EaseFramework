@@ -13,6 +13,27 @@ class HeadTagTest extends PairTagTest
      * @var HeadTag
      */
     protected $object;
+    public $rendered = '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link href="test.css" rel="stylesheet" type="text/css" media="screen" /><style>.test {color:red;}</style>
+<script>
+// <![CDATA[
+window.location = "login.php"
+// ]]>
+</script>
+
+<script>
+// <![CDATA[
+window.location = "http://v.s.cz/"
+// ]]>
+</script>
+
+<script src="test.js"></script>
+<script>
+// <![CDATA[
+$(document).ready(function () { alert("wordld");
+alert("hallo"); });
+// ]]>
+</script>
+</head>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

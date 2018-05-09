@@ -13,6 +13,7 @@ class DetailsTagTest extends PairTagTest
      * @var ArticleTag
      */
     protected $object;
+    public $rendered = '<details></details>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

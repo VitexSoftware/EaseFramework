@@ -11,6 +11,7 @@ class TheadTest extends PairTagTest
      * @var Thead
      */
     protected $object;
+    public $rendered = '<thead></thead>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

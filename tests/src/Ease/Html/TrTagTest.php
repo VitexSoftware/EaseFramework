@@ -11,6 +11,7 @@ class TrTagTest extends PairTagTest
      * @var TrTag
      */
     protected $object;
+    public $rendered = '<tr></tr>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

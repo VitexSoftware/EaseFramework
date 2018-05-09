@@ -181,54 +181,6 @@ class PageTest extends ContainerTest
     }
 
     /**
-     * @covers Ease\Page::keepRequestValue
-     */
-    public function testKeepRequestValue()
-    {
-        $this->object->keepRequestValue('test');
-    }
-
-    /**
-     * @covers Ease\Page::keepRequestValues
-     */
-    public function testKeepRequestValues()
-    {
-        $this->object->keepRequestValues(['id', 'test']);
-    }
-
-    /**
-     * @covers Ease\Page::unKeepRequestValue
-     */
-    public function testUnKeepRequestValue()
-    {
-        $this->object->unKeepRequestValue('test');
-    }
-
-    /**
-     * @covers Ease\Page::unKeepRequestValues
-     */
-    public function testUnKeepRequestValues()
-    {
-        $this->object->unKeepRequestValues();
-    }
-
-    /**
-     * @covers Ease\Page::getLinkParametersToKeep
-     */
-    public function testGetLinkParametersToKeep()
-    {
-        $this->object->getLinkParametersToKeep();
-    }
-
-    /**
-     * @covers Ease\Page::setupWebPage
-     */
-    public function testSetupWebPage()
-    {
-        $this->object->setupWebPage();
-    }
-
-    /**
      * @covers Ease\Page::setOutputFormat
      */
     public function testSetOutputFormat()

@@ -13,6 +13,7 @@ class CheckboxTagTest extends InputTagTest
      * @var CheckboxTag
      */
     protected $object;
+    public $rendered = '<input type="checkbox" name="test" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,6 +30,7 @@ class CheckboxTagTest extends InputTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -51,14 +53,5 @@ class CheckboxTagTest extends InputTagTest
         $this->assertTrue($this->object->getValue());
         $this->object->setValue(false);
         $this->assertFalse($this->object->getValue());
-    }
-
-    /**
-     * @covers Ease\Html\CheckBoxTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input type="checkbox" name="test" />');
     }
 }

@@ -13,7 +13,9 @@ class MeterTagTest extends PairTagTest
      * @var MeterTag
      */
     protected $object;
+    public $rendered = '<meter></meter>';
 
+    
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

@@ -11,6 +11,7 @@ class H2TagTest extends PairTagTest
      * @var H2Tag
      */
     protected $object;
+    public $rendered = '<h2></h2>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

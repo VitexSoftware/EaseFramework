@@ -13,6 +13,7 @@ class KeygenTagTest extends PairTagTest
      * @var KeygenTag
      */
     protected $object;
+    public $rendered = '<keygen></keygen>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

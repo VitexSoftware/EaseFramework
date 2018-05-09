@@ -13,6 +13,7 @@ class RubyTagTest extends PairTagTest
      * @var RubyTag
      */
     protected $object;
+    public $rendered = '<ruby></ruby>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

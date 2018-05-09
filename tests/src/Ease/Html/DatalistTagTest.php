@@ -13,6 +13,7 @@ class DatalistTagTest extends PairTagTest
      * @var ArticleTag
      */
     protected $object;
+    public $rendered = '<datalist></datalist>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

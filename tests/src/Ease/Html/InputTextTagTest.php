@@ -11,6 +11,7 @@ class InputTextTagTest extends InputTagTest
      * @var InputTextTag
      */
     protected $object;
+    public $rendered = '<input type="text" name="test" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

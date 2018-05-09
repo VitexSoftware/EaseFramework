@@ -11,6 +11,8 @@ class WbrTagTest extends PairTagTest
      * @var WbrTag
      */
     protected $object;
+    
+    public $rendered = '<wbr></wbr>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

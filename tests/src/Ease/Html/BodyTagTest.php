@@ -13,6 +13,7 @@ class BodyTagTest extends PairTagTest
      * @var BodyTag
      */
     protected $object;
+    public $rendered = '<body></body>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

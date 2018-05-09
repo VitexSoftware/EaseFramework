@@ -11,7 +11,7 @@ class IframeTagTest extends PairTagTest
      * @var IframeTag
      */
     protected $object;
-
+    public $rendered = '<iframe src="http://v.s.cz/"></iframe>';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

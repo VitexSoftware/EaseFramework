@@ -11,6 +11,7 @@ class SmallTagTest extends PairTagTest
      * @var SmallTag
      */
     protected $object;
+    public $rendered = '<small></small>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

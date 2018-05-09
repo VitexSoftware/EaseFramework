@@ -47,15 +47,10 @@ class NavbarTest extends \Test\Ease\Html\DivTagTest
 
     /**
      * @covers Ease\TWB\Navbar::NavBarHeader
-     *
-     * @todo   Implement testNavBarHeader().
      */
     public function testNavBarHeader()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals('', (string)\Ease\TWB\Navbar::navBarHeader('handle', 'brand'));
     }
 
     /**
@@ -140,25 +135,5 @@ class NavbarTest extends \Test\Ease\Html\DivTagTest
     public function testGetTagName()
     {
         $this->assertEquals('Navbar', $this->object->getTagName());
-    }
-
-    /**
-     * @covers Ease\TWB\Navbar::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<nav class="navbar navbar-default" role="navigation" name="Navbar">
-<div class="navbar-inner">
-<div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-Navbar-collapse">
-<span class="sr-only">Switch navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span></button></div>
-<div class="collapse navbar-collapse navbar-Navbar-collapse">
-<ul class="nav navbar-nav"></ul>
-<div class="pull-right">
-<ul class="nav navbar-nav nav-right"></ul></div></div></div></nav>');
     }
 }

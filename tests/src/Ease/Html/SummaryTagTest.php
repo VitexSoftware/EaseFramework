@@ -13,6 +13,7 @@ class SummaryTagTest extends PairTagTest
      * @var SummaryTag
      */
     protected $object;
+    public $rendered = '<summary></summary>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

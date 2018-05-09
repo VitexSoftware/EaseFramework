@@ -13,6 +13,7 @@ class FigureTagTest extends PairTagTest
      * @var FigureTag
      */
     protected $object;
+    public $rendered = '<figure></figure>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

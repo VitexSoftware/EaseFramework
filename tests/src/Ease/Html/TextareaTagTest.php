@@ -11,6 +11,7 @@ class TextareaTagTest extends PairTagTest
      * @var TextareaTag
      */
     protected $object;
+    public $rendered = '<textarea name="textarea"></textarea>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

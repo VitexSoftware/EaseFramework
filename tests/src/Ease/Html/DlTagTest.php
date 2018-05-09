@@ -13,6 +13,7 @@ class DlTagTest extends PairTagTest
      * @var DlTag
      */
     protected $object;
+    public $rendered = '<dl></dl>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

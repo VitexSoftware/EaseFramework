@@ -11,6 +11,7 @@ class DtTagTest extends PairTagTest
      * @var DtTag
      */
     protected $object;
+    public $rendered = '<dt></dt>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

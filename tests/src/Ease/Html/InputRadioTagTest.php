@@ -13,6 +13,7 @@ class InputRadioTagTest extends InputTagTest
      * @var InputRadioTag
      */
     protected $object;
+    public $rendered = '<input name="radio" type="radio" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -11,6 +11,7 @@ class StrongTagTest extends PairTagTest
      * @var StrongTag
      */
     protected $object;
+    public $rendered = '<strong></strong>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

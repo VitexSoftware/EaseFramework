@@ -93,7 +93,6 @@ class WebPage extends Page
 
         $this->pageParts['doctype'] = '<!DOCTYPE html>';
         parent::addItem(new Html\HtmlTag());
-        $this->pageParts['html']->setupWebPage($this);
         $this->pageParts['html']->addItem(new Html\HeadTag());
         $this->pageParts['html']->addItem(new Html\BodyTag());
         $this->head                 = &$this->pageParts['html']->pageParts['head'];

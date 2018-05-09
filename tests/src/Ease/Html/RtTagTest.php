@@ -11,6 +11,7 @@ class RtTagTest extends \Test\Ease\Html\PairTagTest
      * @var RtTag
      */
     protected $object;
+    public $rendered = '<rt></rt>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

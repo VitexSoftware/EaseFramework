@@ -13,6 +13,7 @@ class InputSubmitTagTest extends InputTagTest
      * @var InputSubmitTag
      */
     protected $object;
+    public $rendered = '<input name="test" type="submit" value="test" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -44,12 +45,4 @@ class InputSubmitTagTest extends InputTagTest
         );
     }
 
-    /**
-     * @covers Ease\Html\InputSubmitTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input name="test" type="submit" value="test" />');
-    }
 }

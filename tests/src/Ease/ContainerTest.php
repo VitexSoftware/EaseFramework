@@ -97,7 +97,7 @@ class ContainerTest extends SandTest
         $this->object->addAsFirst(new \Ease\Html\SpanTag());
         $testSpan               = new \Ease\Html\SpanTag();
         $testSpan->parentObject = $this->object;
-        $this->assertEquals($testSpan, current($this->object->pageParts));
+        $this->assertEquals($testSpan, current($this->object->getContents()));
     }
 
     /**

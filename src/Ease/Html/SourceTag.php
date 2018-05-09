@@ -18,6 +18,6 @@ class SourceTag extends PairTag
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('article', $properties, $content);
+        parent::__construct('source', $properties, $content);
     }
 }

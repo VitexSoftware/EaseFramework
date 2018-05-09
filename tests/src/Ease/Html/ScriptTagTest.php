@@ -11,6 +11,9 @@ class ScriptTagTest extends PairTagTest
      * @var ScriptTag
      */
     protected $object;
+    public $rendered = '<script>// <![CDATA[
+ 
+ // ]]></script>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,17 +32,4 @@ class ScriptTagTest extends PairTagTest
     {
     }
 
-    /**
-     * @covers Ease\Html\ScriptTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        if (is_null($whatWant)) {
-            $whatWant = '
-<script>// <![CDATA[
-
-// ]]></script>';
-        }
-        parent::testDraw($whatWant);
-    }
 }

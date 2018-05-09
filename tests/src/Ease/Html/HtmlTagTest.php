@@ -13,7 +13,7 @@ class HtmlTagTest extends PairTagTest
      * @var HtmlTag
      */
     protected $object;
-
+    public $rendered = '<html lang="cs-CZ"></html>';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

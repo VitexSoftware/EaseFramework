@@ -11,7 +11,9 @@ class TbodyTest extends PairTagTest
      * @var Tbody
      */
     protected $object;
+    public $rendered = '<tbody></tbody>';
 
+    
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

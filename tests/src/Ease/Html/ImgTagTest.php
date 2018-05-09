@@ -13,6 +13,9 @@ class ImgTagTest extends TagTest
      */
     protected $object;
 
+    public $rendered = '<img src="http://localhost/favicon.png" />';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -28,15 +31,6 @@ class ImgTagTest extends TagTest
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @covers Ease\Html\ImgTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<img src="http://localhost/favicon.png" />');
     }
 
 }

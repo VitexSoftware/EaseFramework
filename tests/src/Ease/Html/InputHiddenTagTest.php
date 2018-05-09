@@ -11,6 +11,7 @@ class InputHiddenTagTest extends InputTagTest
      * @var InputHiddenTag
      */
     protected $object;
+    public $rendered = '<input name="test" type="hidden" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,12 +30,4 @@ class InputHiddenTagTest extends InputTagTest
     {
     }
 
-    /**
-     * @covers Ease\Html\InputHiddenTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input name="test" type="hidden" />');
-    }
 }

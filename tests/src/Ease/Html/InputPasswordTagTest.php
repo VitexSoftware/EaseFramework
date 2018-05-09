@@ -11,6 +11,7 @@ class InputPasswordTagTest extends InputTagTest
      * @var InputPasswordTag
      */
     protected $object;
+    public $rendered = '<input type="password" name="test" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

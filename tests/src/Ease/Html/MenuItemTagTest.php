@@ -13,6 +13,7 @@ class MenuItemTagTest extends PairTagTest
      * @var MenuItemTag
      */
     protected $object;
+    public $rendered = '<menuitem></menuitem>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

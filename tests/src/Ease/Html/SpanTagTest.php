@@ -13,6 +13,7 @@ class SpanTagTest extends PairTagTest
      * @var Span
      */
     protected $object;
+    public $rendered = '<span></span>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -11,6 +11,7 @@ class H3TagTest extends PairTagTest
      * @var H3Tag
      */
     protected $object;
+    public $rendered = '<h3></h3>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

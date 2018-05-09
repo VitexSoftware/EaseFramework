@@ -33,105 +33,68 @@ class PartTest extends \Test\Ease\PageTest
 
     /**
      * @covers Ease\JQuery\Part::setPartName
-     *
-     * @todo   Implement testSetPartName().
      */
     public function testSetPartName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setPartName('test');
+        $this->assertEquals('test', $this->object->partName);
     }
 
     /**
      * @covers Ease\JQuery\Part::onDocumentReady
-     *
-     * @todo   Implement testOnDocumentReady().
      */
     public function testOnDocumentReady()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->onDocumentReady());
     }
 
     /**
      * @covers Ease\JQuery\Part::finalize
-     *
-     * @todo   Implement testFinalize().
      */
     public function testFinalize()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->finalize();
     }
 
     /**
      * @covers Ease\JQuery\Part::jQueryze
-     *
-     * @todo   Implement testJQueryze().
      */
     public function testJQueryze()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        \Ease\JQuery\Part::jQueryze();
     }
 
     /**
      * @covers Ease\JQuery\Part::setPartProperties
-     *
-     * @todo   Implement testSetPartProperties().
      */
     public function testSetPartProperties()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setPartProperties(['property'=>'test']);
     }
 
     /**
      * @covers Ease\JQuery\Part::getPartPropertiesToString
-     *
-     * @todo   Implement testGetPartPropertiesToString().
      */
     public function testGetPartPropertiesToString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getPartPropertiesToString();
     }
 
     /**
      * @covers Ease\JQuery\Part::is_assoc
-     *
-     * @todo   Implement testIs_assoc().
      */
     public function testIs_assoc()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue(\Ease\JQuery\Part::isAssoc(['a'=>'b']));
+        $this->assertFalse(\Ease\JQuery\Part::isAssoc(['a','b']));
     }
 
     /**
      * @covers Ease\JQuery\Part::partPropertiesToString
-     *
-     * @todo   Implement testPartPropertiesToString().
      */
     public function testPartPropertiesToString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals('',  $this->object->partPropertiesToString());
+        
     }
 }

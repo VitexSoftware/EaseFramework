@@ -13,6 +13,7 @@ class AsideTagTest extends PairTagTest
      * @var AsideTag
      */
     protected $object;
+    public $rendered = '<aside></aside>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

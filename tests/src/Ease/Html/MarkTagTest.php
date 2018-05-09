@@ -13,6 +13,7 @@ class MarkTagTest extends PairTagTest
      * @var MarkTag
      */
     protected $object;
+    public $rendered = '<mark></mark>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

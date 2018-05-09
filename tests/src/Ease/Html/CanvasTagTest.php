@@ -11,6 +11,7 @@ class CanvasTagTest extends PairTagTest
      * @var CanvasTag
      */
     protected $object;
+    public $rendered = '<canvas></canvas>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -13,6 +13,7 @@ class SourceTagTest extends PairTagTest
      * @var SourceTag
      */
     protected $object;
+    public $rendered = '<source></source>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

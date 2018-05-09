@@ -13,6 +13,7 @@ class EmbedTagTest extends PairTagTest
      * @var EmbedTag
      */
     protected $object;
+    public $rendered = '<embed></embed>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

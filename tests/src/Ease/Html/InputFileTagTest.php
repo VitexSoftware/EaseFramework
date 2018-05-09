@@ -11,6 +11,7 @@ class InputFileTagTest extends InputTagTest
      * @var InputFileTag
      */
     protected $object;
+    public $rendered = '<input name="test" type="file" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

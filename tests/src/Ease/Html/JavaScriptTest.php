@@ -11,6 +11,9 @@ class JavaScriptTest extends ScriptTagTest
      * @var JavaScript
      */
     protected $object;
+    public $rendered = '<script type="text/javascript">// <![CDATA[
+alert("hallo")
+// ]]></script>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -30,17 +33,4 @@ class JavaScriptTest extends ScriptTagTest
 
     }
 
-    /**
-     * @covers Ease\Html\JavaScript::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        if (is_null($whatWant)) {
-            $whatWant = '
-<script type="text/javascript">// <![CDATA[
-alert("hallo")
-// ]]></script>';
-        }
-        parent::testDraw($whatWant);
-    }
 }

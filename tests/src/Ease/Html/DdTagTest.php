@@ -11,6 +11,7 @@ class DdTagTest extends \Test\Ease\Html\PairTagTest
      * @var DdTag
      */
     protected $object;
+    public $rendered = '<dd></dd>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

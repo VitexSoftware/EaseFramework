@@ -42,13 +42,6 @@ class Page extends Container
     public $lastItem = null;
 
     /**
-     * Seznam názvů proměnných které se mají stabilně udržovat.
-     *
-     * @var array
-     */
-    public $requestValuesToKeep = null;
-
-    /**
      * Specifikuje preferovaný účel zobrazení například mail.
      *
      * @var string
@@ -263,17 +256,7 @@ class Page extends Container
      */
     public function getRequestValues()
     {
-        $requestValuesToKeep = [];
-        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep)
-            && count($this->webPage->requestValuesToKeep)) {
-            foreach ($this->webPage->requestValuesToKeep as $KeyName => $keyValue) {
-                if ($keyValue !== true) {
-                    $requestValuesToKeep[$KeyName] = $keyValue;
-                }
-            }
-        }
-
-        return array_merge($requestValuesToKeep, $_REQUEST);
+        return $_REQUEST;
     }
 
     /**
@@ -349,25 +332,12 @@ class Page extends Container
      */
     public function getRequestValue($field, $sanitizeAs = null)
     {
-        $this->setupWebPage();
+        $value = null;
         if (isset($_REQUEST[$field])) {
-            if (isset($this->webPage->requestValuesToKeep[$field])) {
-                $this->webPage->requestValuesToKeep[$field] = $_REQUEST[$field];
-            }
-            if (!empty($sanitizeAs)) {
-                return self::sanitizeAsType($_REQUEST[$field], $sanitizeAs);
-            } else {
-                return $_REQUEST[$field];
-            }
-        } else {
-            if (isset($this->requestValuesToKeep[$field])) {
-                if ($this->requestValuesToKeep[$field] !== true) {
-                    return $this->requestValuesToKeep[$field];
-                }
-            }
-
-            return;
+            $value = empty($sanitizeAs) ? $_REQUEST[$field] : self::sanitizeAsType($_REQUEST[$field],
+                    $sanitizeAs);
         }
+        return $value;
     }
 
     /**
@@ -380,15 +350,12 @@ class Page extends Container
      */
     public static function getGetValue($field, $sanitizeAs = null)
     {
+        $value = null;
         if (isset($_GET[$field])) {
-            if (!empty($sanitizeAs)) {
-                return self::sanitizeAsType($_GET[$field], $sanitizeAs);
-            } else {
-                return $_GET[$field];
-            }
-        } else {
-            return;
+            $value = empty($sanitizeAs) ? $_GET[$field] : self::sanitizeAsType($_GET[$field],
+                    $sanitizeAs);
         }
+        return $value;
     }
 
     /**
@@ -401,15 +368,12 @@ class Page extends Container
      */
     public static function getPostValue($field, $sanitizeAs = null)
     {
+        $value = null;
         if (isset($_POST[$field])) {
-            if ($sanitizeAs) {
-                return self::sanitizeAsType($_POST[$field], $sanitizeAs);
-            } else {
-                return $_POST[$field];
-            }
-        } else {
-            return;
+            $value = empty($sanitizeAs) ? $_POST[$field] : self::sanitizeAsType($_POST[$field],
+                    $sanitizeAs);
         }
+        return $value;
     }
 
     /**
@@ -422,111 +386,6 @@ class Page extends Container
     public static function isFormPosted()
     {
         return isset($_POST) && count($_POST);
-    }
-
-    /**
-     * Začne uchovávat hodnotu proměnné.
-     *
-     * @category requestValue
-     *
-     * @param string $varName  název klíče
-     * @param mixed  $varValue hodnota klíče
-     *
-     * @return string Keeped key name
-     */
-    public function keepRequestValue($varName, $varValue = true)
-    {
-        Shared::webPage()->requestValuesToKeep[$varName] = $varValue;
-
-        return $varName;
-    }
-
-    /**
-     * Začne uchovávat hodnotu proměnných vyjmenovaných v poli.
-     *
-     * @category requestValue
-     *
-     * @param array $varNames asociativní pole hodnot
-     */
-    public function keepRequestValues($varNames)
-    {
-        if (is_array($varNames)) {
-            foreach ($varNames as $varName => $varValue) {
-                if (is_numeric($varName)) {
-                    $varName  = $varValue;
-                    $varValue = $this->getRequestValue($varName);
-                    if ($varValue) {
-                        $this->keepRequestValue($varName, $varValue);
-                    } else {
-                        $this->keepRequestValue($varName, true);
-                    }
-                } else {
-                    $this->keepRequestValue($varName, $varValue);
-                }
-            }
-        }
-    }
-
-    /**
-     * Zruší zachovávání hodnoty proměnné.
-     *
-     * @category requestValue
-     *
-     * @param string $varName jméno proměnné
-     */
-    public function unKeepRequestValue($varName)
-    {
-        unset(Shared::webPage()->requestValuesToKeep[$varName]);
-    }
-
-    /**
-     * Zruší zachovávání hodnot proměnných.
-     *
-     * @category requestValue
-     */
-    public function unKeepRequestValues()
-    {
-        Shared::webPage()->requestValuesToKeep = [];
-    }
-
-    /**
-     * Vrací fragment udrživaných hodnot pro link.
-     *
-     * @category requestValue
-     *
-     * @return string
-     */
-    public function getLinkParametersToKeep()
-    {
-        $requestValuesToKeep = Shared::webPage()->requestValuesToKeep;
-
-        if (is_null($requestValuesToKeep) || !is_array($requestValuesToKeep) || !count($requestValuesToKeep)) {
-            return '';
-        }
-        $ArgsToKeep = [];
-        foreach ($requestValuesToKeep as $name => $value) {
-            if (is_string($value) && strlen($value)) {
-                $ArgsToKeep[$name] = $name.'='.$value;
-            }
-        }
-
-        return implode('&amp;', $ArgsToKeep);
-    }
-
-    /**
-     * Zapamatuje si odkaz na základní stránku webu.
-     *
-     * @param EaseWebPage|true $webPage Objekt stránky, true - force assign
-     */
-    public function setupWebPage(&$webPage = null)
-    {
-        if (is_null($webPage)) {
-            $webPage = &$this;
-        }
-
-        if (!isset($this->webPage) || !is_object($this->webPage)) {
-            $this->webPage = $webPage;
-        }
     }
 
     /**

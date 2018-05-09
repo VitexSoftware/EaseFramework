@@ -11,6 +11,7 @@ class InputNumberTagTest extends InputTagTest
      * @var InputNumberTag
      */
     protected $object;
+    public $rendered = '<input name="test" type="number" value="" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

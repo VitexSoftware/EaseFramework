@@ -13,6 +13,7 @@ class ProgressTagTest extends PairTagTest
      * @var ProgressTag
      */
     protected $object;
+    public $rendered = '<progress></progress>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

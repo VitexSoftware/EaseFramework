@@ -11,6 +11,7 @@ class SimpleHeadTagTest extends PairTagTest
      * @var SimpleHeadTag
      */
     protected $object;
+    public $rendered = '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,12 +30,5 @@ class SimpleHeadTagTest extends PairTagTest
     {
     }
 
-    /**
-     * @covers Ease\Html\SimpleHeadTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>');
-    }
+
 }

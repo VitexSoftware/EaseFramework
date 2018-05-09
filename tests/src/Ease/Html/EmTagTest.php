@@ -11,6 +11,7 @@ class EmTagTest extends PairTagTest
      * @var EmTag
      */
     protected $object;
+    public $rendered = '<em></em>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

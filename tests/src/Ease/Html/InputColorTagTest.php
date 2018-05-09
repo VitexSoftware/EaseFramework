@@ -11,7 +11,7 @@ class InputColorTagTest extends InputTagTest
      * @var InputColorTag
      */
     protected $object;
-
+    public $rendered = '<input name="test" type="color" value="" />';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -29,13 +29,5 @@ class InputColorTagTest extends InputTagTest
     {
     }
 
-    /**
-     * @covers Ease\Html\InputColorTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input name="test" type="color" />');
-    }
 
 }

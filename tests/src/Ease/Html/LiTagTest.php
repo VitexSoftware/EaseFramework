@@ -11,6 +11,7 @@ class LiTagTest extends PairTagTest
      * @var LiTag
      */
     protected $object;
+    public $rendered = '<li></li>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

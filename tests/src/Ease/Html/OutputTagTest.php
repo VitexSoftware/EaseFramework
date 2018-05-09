@@ -11,6 +11,7 @@ class OutputTagTest extends \Test\Ease\Html\PairTagTest
      * @var H1Tag
      */
     protected $object;
+    public $rendered = '<output></output>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

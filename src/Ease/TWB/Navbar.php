@@ -63,6 +63,14 @@ class Navbar extends \Ease\Html\Div
         Part::twBootstrapize();
     }
 
+    /**
+     * NavBar header code
+     * 
+     * @param string $handle classname fragment
+     * @param string $brand  menu brand name
+     * 
+     * @return \Ease\Html\Div
+     */
     public static function navBarHeader($handle, $brand)
     {
         $navstyle       = '.navbar-'.$handle.'-collapse';
@@ -94,6 +102,38 @@ class Navbar extends \Ease\Html\Div
         $added = $this->menuInnerContent->addItem($Item, $PageItemName);
 
         return $added;
+    }
+
+    /**
+     * No Navbar menu contents 
+     * 
+     * @return array|mixed
+     */
+    public function emptyContents()
+    {
+        $this->menuInnerContent = null;
+    }
+
+    /**
+     * Navbar menu contents
+     * 
+     * @return array|mixed
+     */
+    public function getContents()
+    {
+        return $this->menuInnerContent;
+    }
+
+    /**
+     * Is NavBar empty ?
+     *
+     * @param Container $element Ease Html Element
+     *
+     * @return bool emptiness status
+     */
+    public function isEmpty($element = null): bool
+    {
+        return !count($this->menuInnerContent);
     }
 
     /**

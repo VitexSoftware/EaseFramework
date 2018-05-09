@@ -14,6 +14,7 @@ class ButtonTagTest extends PairTagTest
      */
     protected $object;
 
+    public $rendered = '<button>Test</button>';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -31,15 +32,4 @@ class ButtonTagTest extends PairTagTest
     {
     }
 
-    /**
-     * @covers Ease\Html\ButtonTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        if (is_null($whatWant)) {
-            $whatWant = '
-<button>Test</button>';
-        }
-        parent::testDraw($whatWant);
-    }
 }

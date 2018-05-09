@@ -13,6 +13,7 @@ class TimeTagTest extends PairTagTest
      * @var TimeTag
      */
     protected $object;
+    public $rendered = '<time></time>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -13,7 +13,7 @@ class TrackTagTest extends PairTagTest
      * @var TrackTag
      */
     protected $object;
-
+    public $rendered = '<track></track>';
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.

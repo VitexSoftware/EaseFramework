@@ -18,6 +18,6 @@ class RubyTag extends PairTag
      */
     public function __construct($content = null, $properties = [])
     {
-        parent::__construct('div', $properties, $content);
+        parent::__construct('ruby', $properties, $content);
     }
 }

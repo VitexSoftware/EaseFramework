@@ -13,6 +13,7 @@ class MainTagTest extends PairTagTest
      * @var MainTag
      */
     protected $object;
+    public $rendered = '<main></main>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -11,6 +11,7 @@ class PTagTest extends PairTagTest
      * @var PTag
      */
     protected $object;
+    public $rendered = '<p></p>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

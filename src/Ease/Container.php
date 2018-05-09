@@ -178,10 +178,10 @@ class Container extends Sand
         if (is_null($pageItemName)) {
             $pageItemName = '1st';
         }
-        $swap            = $this->pageParts;
+        $swap            = is_array($this->pageParts) ? $this->pageParts : [];
         $this->emptyContents();
         $itemPointer     = $this->addItem($pageItem, $pageItemName);
-        $this->pageParts = array_merge($this->pageParts, $swap);
+        $this->pageParts = array_merge( is_array($this->pageParts) ? $this->pageParts : [], $swap);
 
         return $itemPointer;
     }

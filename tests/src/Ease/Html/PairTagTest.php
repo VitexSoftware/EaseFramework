@@ -16,7 +16,7 @@ class PairTagTest extends TagTest
      * What we want to get ?
      * @var string
      */
-    public $rendered = '<></>';
+    public $rendered = '<test></test>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

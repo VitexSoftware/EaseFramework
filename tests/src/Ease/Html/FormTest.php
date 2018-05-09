@@ -13,6 +13,7 @@ class FormTest extends PairTagTest
      * @var Form
      */
     protected $object;
+    public $rendered = '<form method="post" name="test"></form>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

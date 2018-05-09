@@ -13,6 +13,7 @@ class BdiTagTest extends PairTagTest
      * @var ArticleTag
      */
     protected $object;
+    public $rendered = '<bdi></bdi>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

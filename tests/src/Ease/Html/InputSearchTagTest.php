@@ -21,6 +21,7 @@ class InputSearchTagTest extends InputTagTest
     protected function setUp()
     {
         $this->object = new \Ease\Html\InputSearchTag('test');
+        $this->rendered = '<input id="'.$this->object->getTagID().'" type="search" name="test" />';
     }
 
     /**
@@ -57,12 +58,4 @@ class InputSearchTagTest extends InputTagTest
         );
     }
 
-    /**
-     * @covers Ease\Html\InputSearchTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input id="'.$this->object->getTagID().'" type="search" name="test" />');
-    }
 }

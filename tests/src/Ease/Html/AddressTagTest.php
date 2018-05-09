@@ -13,6 +13,8 @@ class AddressTagTest extends PairTagTest
      * @var AddressTag
      */
     protected $object;
+    
+    public $rendered = '<address></address>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

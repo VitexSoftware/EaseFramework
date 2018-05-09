@@ -13,6 +13,7 @@ class SvgTagTest extends PairTagTest
      * @var SvgTag
      */
     protected $object;
+    public $rendered = '<svg></svg>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

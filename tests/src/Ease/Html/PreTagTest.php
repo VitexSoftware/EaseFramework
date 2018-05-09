@@ -11,6 +11,7 @@ class PreTagTest extends PairTagTest
      * @var PreTag
      */
     protected $object;
+    public $rendered = '<pre></pre>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

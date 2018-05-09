@@ -39,18 +39,6 @@ class ATagTest extends PairTagTest
     }
 
     /**
-     * @covers Ease\Html\ATag::afterAdd
-     */
-    public function testAfterAdd()
-    {
-        $keeps                                       = ['test' => 'testing', 'test2' => true];
-        \Ease\Shared::webPage()->requestValuesToKeep = $keeps;
-        $this->object->afterAdd();
-        $this->assertEquals('http://v.s.cz/?test=testing',
-            $this->object->getTagProperty('href'));
-    }
-
-    /**
      * @covers Ease\Html\ATag::tagPropertiesToString
      */
     public function testTagPropertiesToString()

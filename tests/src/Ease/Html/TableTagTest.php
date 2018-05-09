@@ -11,6 +11,7 @@ class TableTagTest extends PairTagTest
      * @var TableTag
      */
     protected $object;
+    public $rendered = '<table><thead></thead><tbody></tbody></table>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -94,14 +95,4 @@ class TableTagTest extends PairTagTest
         );
     }
 
-    /**
-     * @covers Ease\Html\TableTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<table>
-<thead></thead>
-<tbody></tbody></table>');
-    }
 }

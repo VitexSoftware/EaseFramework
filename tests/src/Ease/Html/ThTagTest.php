@@ -11,6 +11,7 @@ class ThTagTest extends PairTagTest
      * @var ThTag
      */
     protected $object;
+    public $rendered = '<th></th>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

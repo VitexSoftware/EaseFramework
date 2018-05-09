@@ -13,6 +13,7 @@ class FooterTagTest extends PairTagTest
      * @var FooterTag
      */
     protected $object;
+    public $rendered = '<footer></footer>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

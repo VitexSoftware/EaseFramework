@@ -11,6 +11,7 @@ class TdTagTest extends PairTagTest
      * @var TdTag
      */
     protected $object;
+    public $rendered = '<td></td>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

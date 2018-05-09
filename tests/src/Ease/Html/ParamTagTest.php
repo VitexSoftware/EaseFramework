@@ -11,6 +11,7 @@ class ParamTagTest extends TagTest
      * @var ParamTag
      */
     protected $object;
+    public $rendered = '<param name="test" value="value" />';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,6 +28,7 @@ class ParamTagTest extends TagTest
      */
     protected function tearDown()
     {
+        
     }
 
     public function testConstructor()
@@ -49,14 +51,5 @@ class ParamTagTest extends TagTest
         $this->object->setName = true;
         $this->object->setTagName('Test');
         $this->assertEquals('Test', $this->object->getTagName());
-    }
-
-    /**
-     * @covers Ease\Html\ParamTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<param name="test" value="value" />');
     }
 }

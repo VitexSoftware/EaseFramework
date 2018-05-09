@@ -11,6 +11,7 @@ class TitleTagTest extends \Test\Ease\Html\PairTagTest
      * @var TitleTag
      */
     protected $object;
+    public $rendered = '<title></title>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

@@ -13,6 +13,7 @@ class FieldSetTest extends PairTagTest
      * @var FieldSet
      */
     protected $object;
+    public $rendered = '<fieldset><legend>test</legend>content</fieldset>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,6 +30,7 @@ class FieldSetTest extends PairTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -72,17 +74,5 @@ class FieldSetTest extends PairTagTest
     {
         $this->assertEquals(get_class($this->object).'@test',
             $this->object->setObjectName());
-    }
-
-    /**
-     * @covers Ease\Html\FieldSet::draw
-     *
-     * @param string $what ignored
-     */
-    public function testDraw($what = null)
-    {
-        parent::testDraw('
-<fieldset>
-<legend>test</legend>content</fieldset>');
     }
 }

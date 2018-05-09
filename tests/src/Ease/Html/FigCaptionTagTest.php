@@ -13,6 +13,7 @@ class FigCaptionTagTest extends PairTagTest
      * @var FigCaptionTag
      */
     protected $object;
+    public $rendered = '<figcaption></figcaption>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

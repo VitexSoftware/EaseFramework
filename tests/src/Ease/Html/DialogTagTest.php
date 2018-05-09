@@ -13,6 +13,7 @@ class DialogTagTest extends PairTagTest
      * @var DialogTag
      */
     protected $object;
+    public $rendered = '<dialog></dialog>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

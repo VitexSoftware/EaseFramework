@@ -28,28 +28,4 @@ class ATag extends PairTag
         parent::__construct('a', $properties, $contents);
     }
 
-    /**
-     * Ošetření perzistentních hodnot.
-     * @deprecated since version 1.4.2.10
-     */
-    public function afterAdd()
-    {
-        $valuesToKeep = \Ease\Shared::webPage()->requestValuesToKeep;
-        if (isset($valuesToKeep) && is_array($valuesToKeep) && count($valuesToKeep)) {
-            foreach ($valuesToKeep as $keepName => $keepValue) {
-                if ($keepValue === true) {
-                    continue;
-                }
-                $keep = urlencode($keepName).'='.urlencode($keepValue);
-                if (!strstr($this->tagProperties['href'],
-                        urlencode($keepName).'=')) {
-                    if (strstr($this->tagProperties['href'], '?')) {
-                        $this->tagProperties['href'] .= '&'.$keep;
-                    } else {
-                        $this->tagProperties['href'] .= '?'.$keep;
-                    }
-                }
-            }
-        }
-    }
 }
