@@ -332,11 +332,13 @@ class SandTest extends AtomTest
      */
     public function testHumanFilesize()
     {
-        $this->assertEquals('1.18 MB', str_replace(',', '.',  $this->object->humanFilesize('1234545')));
+        $this->assertEquals('1.18 MB',
+            str_replace(',', '.', $this->object->humanFilesize('1234545')));
         $this->assertEquals('11.5 GB',
-             str_replace(',', '.', $this->object->humanFilesize('12345453453')));
+            str_replace(',', '.', $this->object->humanFilesize('12345453453')));
         $this->assertEquals('1.1 PB',
-             str_replace(',', '.', $this->object->humanFilesize('1234545345332235')));
+            str_replace(',', '.',
+                $this->object->humanFilesize('1234545345332235')));
         $this->assertEquals('NaN', $this->object->humanFilesize(false));
     }
 

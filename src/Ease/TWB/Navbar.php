@@ -131,7 +131,7 @@ class Navbar extends \Ease\Html\Div
      *
      * @return bool emptiness status
      */
-    public function isEmpty($element = null): bool
+    public function isEmpty($element = null)//: bool
     {
         return !count($this->menuInnerContent);
     }

@@ -1,7 +1,7 @@
 {
     "name": "ease-framework",
     "description": "An PHP Framework for Ease of writing Applications (debianized)",
-    "version": "1.4.2",
+    "version": "1.4.8",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
