@@ -88,13 +88,6 @@ class User extends Anonym
     public $slaveUsers = null;
 
     /**
-     * Registr vlastnosti uzivatele.
-     *
-     * @var array
-     */
-    public $valuesToKeep = [];
-
-    /**
      * Pole uživatelských nastavení.
      *
      * @var array

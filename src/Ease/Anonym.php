@@ -34,13 +34,6 @@ class Anonym extends Brick
     public $language = 'en';
 
     /**
-     * Registr vlastnosti uzivatele.
-     *
-     * @var array
-     */
-    public $valuesToKeep = [];
-
-    /**
      * Indikátor přihlášení.
      *
      * @var bool

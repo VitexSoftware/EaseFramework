@@ -9,7 +9,15 @@ declare(strict_types=1);
 
 namespace Test\Ease;
 
-use PHPUnit\Framework\TestCase;
+//use PHPUnit\Framework\TestCase;
+
+/**
+ * Dirty Temporary backwards compatibilty hack  
+ */
+class TestCase extends \PHPUnit_Framework_TestCase
+{
+    
+}
 
 /**
  * Test class for EaseAtom.

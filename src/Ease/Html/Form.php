@@ -157,24 +157,6 @@ class Form extends PairTag
     }
 
     /**
-     * Doplnění perzistentních hodnot.
-     */
-    public function finalize()
-    {
-        $this->setupWebPage();
-        if (isset($this->webPage->requestValuesToKeep) && is_array($this->webPage->requestValuesToKeep)
-            && count($this->webPage->requestValuesToKeep)) {
-            foreach ($this->webPage->requestValuesToKeep as $name => $value) {
-                if (!$this->objectContentSearch($name)) {
-                    if (is_string($value)) {
-                        $this->addItem(new InputHiddenTag($name, $value));
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Naplní vložené objekty daty.
      *
      * @param string $data asociativní pole dat
