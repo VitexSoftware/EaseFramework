@@ -29,7 +29,7 @@ class SharedTest extends AtomTest
      */
     protected function tearDown()
     {
-
+        
     }
 
     /**
@@ -121,8 +121,17 @@ class SharedTest extends AtomTest
     public function testRegisterItem()
     {
         $item = new \Ease\Html\ATag('#');
-        \Ease\Shared::registerItem($item);
+        Shared::registerItem($item);
         $this->assertInstanceOf(get_class($item), end($this->object->allItems));
     }
 
+    /**
+     * @covers Ease\Shared::addUrlParams
+     */
+    public function testAddUrlParams()
+    {
+        $this->assertEquals('http://vitexsoftware.cz/path?a=b&id=1',
+            Shared::addUrlParams('http://vitexsoftware.cz/path?a=b',
+                ['id' => 1], TRUE));
+    }
 }

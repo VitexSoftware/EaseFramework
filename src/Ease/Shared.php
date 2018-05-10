@@ -850,4 +850,47 @@ class Shared extends Atom
         }
         return textdomain($appname);
     }
+    
+    
+    /**
+     * Add params to url
+     *
+     * @param string  $url      originall url
+     * @param array   $addParams   value to add
+     * @param boolean $override replace already existing values ?
+     * 
+     * @return string url with parameters added
+     */
+    public static function addUrlParams($url, $addParams, $override = false)
+    {
+        $urlParts = parse_url($url);
+        $urlFinal = '';
+        if (array_key_exists('scheme', $urlParts)) {
+            $urlFinal .= $urlParts['scheme'].'://'.$urlParts['host'];
+        }
+        if (array_key_exists('port', $urlParts)) {
+            $urlFinal .= ':'.$urlParts['port'];
+        }
+        if (array_key_exists('path', $urlParts)) {
+            $urlFinal .= $urlParts['path'];
+        }
+        if (array_key_exists('query', $urlParts)) {
+            parse_str($urlParts['query'], $queryUrlParams);
+            $urlParams = $override ? array_merge($queryUrlParams, $addParams) : array_merge($addParams,
+                    $queryUrlParams);
+        } else {
+            $urlParams = $addParams;
+        }
+
+        if (!empty($urlParams)) {
+            $urlFinal .= '?';
+            if (is_array($urlParams)) {
+                $urlFinal .= http_build_query($urlParams);
+            } else {
+                $urlFinal .= $urlParams;
+            }
+        }
+        return $urlFinal;
+    }    
+    
 }

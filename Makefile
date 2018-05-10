@@ -37,7 +37,7 @@ composer:
 test:
 	echo sudo service postgresql start ; sudo service postgresql start
 	phinx migrate -c tests/phinx.yml
-	phpunit --bootstrap tests/Bootstrap.php
+	vendor/bin/phpunit --bootstrap tests/Bootstrap.php
 
 deb:
 	dch -i "`git log -1 --pretty=%B`"
