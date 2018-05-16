@@ -22,20 +22,20 @@ class InputPasswordTagTest extends InputTagTest
         $this->object = new \Ease\Html\InputPasswordTag('test');
     }
 
+    
+        /**
+     * 
+     * @covers Ease\Html\InputPasswordTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw($this->rendered);
+    }
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @covers Ease\Html\InputPasswordTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input type="password" name="test" />');
     }
 }

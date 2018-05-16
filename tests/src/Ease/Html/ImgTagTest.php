@@ -1,6 +1,7 @@
 <?php
 
 namespace Test\Ease\Html;
+
 use \Ease\Html\ImgTag;
 
 /**
@@ -12,9 +13,7 @@ class ImgTagTest extends TagTest
      * @var ImgTag
      */
     protected $object;
-
     public $rendered = '<img src="http://localhost/favicon.png" />';
-
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -26,11 +25,20 @@ class ImgTagTest extends TagTest
     }
 
     /**
+     * 
+     * @covers Ease\Html\ImgTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw($this->rendered);
+    }
+
+    /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
     protected function tearDown()
     {
+        
     }
-
 }

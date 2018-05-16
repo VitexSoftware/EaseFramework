@@ -23,19 +23,20 @@ class InputNumberTagTest extends InputTagTest
     }
 
     /**
+     * 
+     * @covers Ease\Html\InputNumberTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw($this->rendered);
+    }
+
+    /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @covers Ease\Html\InputNumberTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input name="test" type="number" value="" />');
+        
     }
 }

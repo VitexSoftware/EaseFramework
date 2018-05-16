@@ -30,12 +30,4 @@ class InputTextTagTest extends InputTagTest
     {
     }
 
-    /**
-     * @covers Ease\Html\InputTextTag::draw
-     */
-    public function testDraw($whatWant = null)
-    {
-        parent::testDraw('
-<input type="text" name="test" />');
-    }
 }

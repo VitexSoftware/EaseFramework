@@ -28,6 +28,7 @@ class SubmitButtonTest extends InputTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     public function testConstructor()
@@ -44,16 +45,20 @@ class SubmitButtonTest extends InputTagTest
     }
 
     /**
+     * 
+     * @covers Ease\Html\SubmitButton::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+         parent::testDraw($this->rendered);
+    }
+
+        /**
      * @covers Ease\Html\SubmitButton::setValue
-     *
-     * @todo   Implement testSetValue().
      */
     public function testSetValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setValue('tested');
+        $this->assertEquals('', $this->object->draw());
     }
-
 }

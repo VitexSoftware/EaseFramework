@@ -57,11 +57,12 @@ class InputRadioTagTest extends InputTagTest
     }
 
     /**
+     * 
      * @covers Ease\Html\InputRadioTag::draw
      */
     public function testDraw($whatWant = null)
     {
-        parent::testDraw('
-<input name="radio" type="radio" />');
+        parent::testDraw($this->rendered);
     }
-}
+    
+    }

@@ -50,6 +50,7 @@ alert("hallo"); });
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -93,14 +94,9 @@ alert("hallo"); });
 
     /**
      * @covers Ease\Html\HeadTag::draw
-     *
-     * @todo   Implement testDraw().
      */
     public function testDraw($whatWant = null)
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        parent::testDraw($this->rendered);
     }
 }

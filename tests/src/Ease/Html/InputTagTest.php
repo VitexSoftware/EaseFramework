@@ -60,15 +60,11 @@ class InputTagTest extends TagTest
     }
 
     /**
+     * 
      * @covers Ease\Html\InputTag::draw
      */
     public function testDraw($whatWant = null)
     {
-        if (is_null($whatWant)) {
-            $whatWant = '
-<input name="test" />';
-        }
-
-        parent::testDraw($whatWant);
+        parent::testDraw($this->rendered);
     }
 }

@@ -54,4 +54,13 @@ class CheckboxTagTest extends InputTagTest
         $this->object->setValue(false);
         $this->assertFalse($this->object->getValue());
     }
+
+    /**
+     * 
+     * @covers Ease\Html\CheckBoxTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw($this->rendered);
+    }
 }

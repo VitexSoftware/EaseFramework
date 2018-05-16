@@ -20,6 +20,14 @@ class InputColorTagTest extends InputTagTest
     {
         $this->object = new \Ease\Html\InputColorTag('test');
     }
+   /**
+     * 
+     * @covers Ease\Html\InputColorTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+         parent::testDraw($this->rendered);
+    }
 
     /**
      * Tears down the fixture, for example, closes a network connection.

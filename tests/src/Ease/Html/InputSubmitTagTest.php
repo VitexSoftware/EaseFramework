@@ -30,6 +30,7 @@ class InputSubmitTagTest extends InputTagTest
      */
     protected function tearDown()
     {
+        
     }
 
     /**
@@ -45,4 +46,12 @@ class InputSubmitTagTest extends InputTagTest
         );
     }
 
+    /**
+     * 
+     * @covers Ease\Html\InputSubmitTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw($this->rendered);
+    }
 }

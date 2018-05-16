@@ -13,7 +13,7 @@ class SectionTagTest extends PairTagTest
      * @var SectionTag
      */
     protected $object;
-    public $rendered = '<selection></selection>';
+    public $rendered = '<section></section>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

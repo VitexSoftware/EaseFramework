@@ -52,4 +52,13 @@ class ParamTagTest extends TagTest
         $this->object->setTagName('Test');
         $this->assertEquals('Test', $this->object->getTagName());
     }
+
+    /**
+     * 
+     * @covers Ease\Html\ParamTag::draw
+     */
+    public function testDraw($whatWant = null)
+    {
+        parent::testDraw($this->rendered);
+    }
 }

@@ -12,8 +12,8 @@ class ScriptTagTest extends PairTagTest
      */
     protected $object;
     public $rendered = '<script>// <![CDATA[
- 
- // ]]></script>';
+
+// ]]></script>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -24,6 +24,7 @@ class ScriptTagTest extends PairTagTest
         $this->object = new \Ease\Html\ScriptTag();
     }
 
+ 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
