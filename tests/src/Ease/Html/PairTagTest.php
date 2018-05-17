@@ -16,7 +16,7 @@ class PairTagTest extends TagTest
      * What we want to get ?
      * @var string
      */
-    public $rendered = '<test></test>';
+    public $rendered = '<></>';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -44,11 +44,12 @@ class PairTagTest extends TagTest
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $mock->__construct('Test');
 
         $mock->__construct('PairTag', ['name' => 'Tag', 'id' => 'testing']);
         $mock->__construct('PairTag', ['name' => 'Tag', 'id' => 'testing'],
             'Initial Content');
+        $mock->__construct('Test');
+        
     }
 
     /**
@@ -57,10 +58,6 @@ class PairTagTest extends TagTest
     public function testDraw($whatWant = null)
     {
         $tagType = $this->object->getTagType();
-        if (!strlen($tagType)) {
-            $tagType = 'test';
-            $this->object->setTagType($tagType);
-        }
         if (is_null($whatWant)) {
             if (is_null($this->rendered)) {
                 if (count($this->object->tagProperties)) {
@@ -85,11 +82,6 @@ class PairTagTest extends TagTest
     public function testTagBegin($tagBegin = null)
     {
         $tagType = $this->object->getTagType();
-        if (!strlen($tagType)) {
-            $tagType = 'test';
-            $this->object->setTagType($tagType);
-        }
-
         if (count($this->object->tagProperties)) {
             $tagBegin = "<".trim($tagType.' '.$this->object->tagPropertiesToString()).'>';
         } else {
