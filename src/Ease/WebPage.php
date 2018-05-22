@@ -16,6 +16,12 @@ namespace Ease;
 class WebPage extends Page
 {
     /**
+     * Where to look for jquery script
+     * @var string path or url 
+     */
+    public $jqueryJavaScript = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+    
+    /**
      * Položky předávané do vkládaného objektu.
      *
      * @var type

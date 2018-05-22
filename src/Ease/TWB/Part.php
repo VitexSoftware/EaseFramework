@@ -26,11 +26,10 @@ class Part extends \Ease\JQuery\Part
     {
         parent::jQueryze();
         $webPage = \Ease\Shared::webPage();
-        $webPage->includeJavaScript('bootstrap/js/bootstrap.js', 1, true);
-        if (isset($webPage->mainStyle)) {
-            $webPage->includeCss($webPage->mainStyle, true);
-        }
-
+        $webPage->includeCSS($webPage->bootstrapCSS);
+        $webPage->includeCSS($webPage->bootstrapThemeCSS);
+        $webPage->includeJavaScript($webPage->bootstrapJavaScript);
+        
         return true;
     }
 

@@ -44,19 +44,15 @@ class PageTest extends ContainerTest
 
     /**
      * @covers Ease\Page::addJavaScript
-     *
-     * @todo   Implement testAddJavaScript().
      */
     public function testAddJavaScript()
     {
         $this->object->addJavaScript('alert("hallo");');
-        $this->object->addJavaScript('alert("wordld");', false);
+        $this->object->addJavaScript('alert("world");', false);
     }
 
     /**
      * @covers Ease\Page::includeJavaScript
-     *
-     * @todo   Implement testIncludeJavaScript().
      */
     public function testIncludeJavaScript()
     {
@@ -126,7 +122,9 @@ class PageTest extends ContainerTest
     public function testIsPosted()
     {
         $_SERVER['REQUEST_METHOD'] = 'test';
-        \Ease\Page::isPosted();
+        $this->assertFalse(\Ease\Page::isPosted());
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $this->assertTrue(\Ease\Page::isPosted());
     }
 
     /**
@@ -140,6 +138,9 @@ class PageTest extends ContainerTest
             $this->object->sanitizeAsType('123', 'int'));
         $this->assertInternalType('boolean',
             $this->object->sanitizeAsType('0', 'boolean'));
+        
+        $this->assertNull($this->object->sanitizeAsType('', 'int'));
+        
     }
 
     /**
@@ -210,5 +211,17 @@ class PageTest extends ContainerTest
     public function testArrayToUrlParams()
     {
         $this->object->arrayToUrlParams(['a' => 1, 'b' => 2], 'http://v.s.cz/');
+    }
+
+    public function testAddItem()
+    {
+        $items1                   = $this->object->getItemsCount();
+        $this->object->addItem(new \Ease\Html\DivTag('test'));
+        $items2                   = $this->object->getItemsCount();
+        $this->assertEquals($items1 + 1, $items2);
+        $this->object->pageClosed = true;
+        $this->object->addItem(new \Ease\Html\DivTag('test'));
+        $items3                   = $this->object->getItemsCount();
+        $this->assertEquals($items3, $items2);
     }
 }

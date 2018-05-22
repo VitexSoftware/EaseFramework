@@ -94,7 +94,7 @@ class PartTest extends \Test\Ease\PageTest
      */
     public function testPartPropertiesToString()
     {
-        $this->assertEquals('',  $this->object->partPropertiesToString());
+        $this->assertEquals('',  $this->object->partPropertiesToString([]));
         
     }
 }

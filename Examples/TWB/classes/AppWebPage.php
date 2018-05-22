@@ -39,4 +39,5 @@ class AppWebPage extends \Ease\TWB\WebPage
             new \Ease\Html\Div(null, ['class' => 'container'])
         );
     }
+
 }

@@ -72,7 +72,8 @@ class Part extends \Ease\Page
      */
     public static function jQueryze()
     {
-        \Ease\Shared::webPage()->includeJavaScript('jquery/jquery.js', 0, true);
+       $webPage = \Ease\Shared::webPage();
+       $webPage->includeJavaScript($webPage->jqueryJavaScript, 0, true);
     }
 
     /**
