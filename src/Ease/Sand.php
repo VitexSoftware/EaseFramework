@@ -313,7 +313,7 @@ class Sand extends Molecule
     public function setData($data, $reset = false)
     {
         $ret = null;
-        if (!is_null($data) && count($data)) {
+        if (!empty($data) && is_array($data) && count($data)) {
             if ($reset) {
                 $this->dataReset();
             }

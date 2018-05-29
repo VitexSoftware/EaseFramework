@@ -96,15 +96,13 @@ class Page extends Container
      *
      * @param string $javaScriptFile soubor s javascriptem
      * @param string $position       končná pozice: '+','-','0','--',...
-     * @param bool   $fwPrefix       Přidat prefix frameworku (obvykle /Ease/)?
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null,
-                                      $fwPrefix = false)
+    public function includeJavaScript($javaScriptFile, $position = null)
     {
         return \Ease\Shared::webPage()->includeJavaScript($javaScriptFile,
-                $position, $fwPrefix);
+                $position);
     }
 
     /**

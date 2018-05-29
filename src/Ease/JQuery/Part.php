@@ -74,7 +74,7 @@ class Part extends \Ease\Page
     {
         $webPage = \Ease\Shared::webPage();
         $webPage->includeJavaScript($webPage->jqueryJavaScript, 0,
-            strstr($webPage->jqueryJavaScript, '://'));
+            !strstr($webPage->jqueryJavaScript, '://'));
     }
 
     /**

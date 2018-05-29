@@ -167,8 +167,6 @@ class SandTest extends AtomTest
         $data               = ['a' => 1, 'b' => 2];
         $this->object->setData($data, true);
         $this->assertEquals($data, $this->object->getData());
-        $this->object->data = null;
-        $this->assertEquals(1, $this->object->setData(1));
     }
 
     /**

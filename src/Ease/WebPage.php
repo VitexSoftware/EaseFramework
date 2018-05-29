@@ -141,20 +141,12 @@ class WebPage extends Page
      *
      * @param string $javaScriptFile soubor s javascriptem
      * @param string $position       končná pozice: '+','-','0','--',...
-     * @param bool   $fwPrefix       Add Framework prefix ?
      *
      * @return string
      */
-    public function includeJavaScript($javaScriptFile, $position = null,
-                                      $fwPrefix = false)
+    public function includeJavaScript($javaScriptFile, $position = null)
     {
-        if ($fwPrefix) {
-            return $this->addToScriptsStack(
-                    '#'.$this->jsPrefix.$javaScriptFile, $position
-            );
-        } else {
             return $this->addToScriptsStack('#'.$javaScriptFile, $position);
-        }
     }
 
     /**
