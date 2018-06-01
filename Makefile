@@ -1,5 +1,5 @@
-DESTDIR ?= /usr/local
-libdir  ?= /share/php
+DESTDIR ?= debian/ease-framework/DEBIAN
+libdir  ?= /usr/share/php/EaseFramework
 docdir  ?= /doc/ease-framework/html
 
 all: build install
@@ -9,6 +9,7 @@ fresh:
 	PACKAGE=`cat debian/composer.json | grep '"name"' | head -n 1 |  awk -F'"' '{print $4}'`; \
 	VERSION=`cat debian/composer.json | grep version | awk -F'"' '{print $4}'`; \
 	dch -b -v "${VERSION}" --package ${PACKAGE} "$CHANGES" \
+	composer install
 	
 install:
 	mkdir -p $(DESTDIR)$(libdir)
@@ -16,8 +17,8 @@ install:
 	mkdir -p $(DESTDIR)$(docdir)
 	cp -r docs $(DESTDIR)$(docdir)
 	
-build: doc
-	echo build;	
+#build: doc
+#	echo build;	
 
 clean:
 	rm -rf vendor composer.lock
@@ -26,7 +27,7 @@ clean:
 	rm -rf debian/*.log debian/tmp
 	rm -rf docs/*
 
-doc:
+apigen:
 	VERSION=`cat debian/composer.json | grep version | awk -F'"' '{print $4}'`; \
 	apigen generate --source src --destination docs --title "Ease PHP Framework ${VERSION}" --charset UTF-8 --access-levels public --access-levels protected --php --tree
 

@@ -783,8 +783,8 @@ class Shared extends Atom
     public function loadConfig($configFile)
     {
         if (!file_exists($configFile)) {
-            throw new Exception('Config file '.realpath($configFile) ? realpath($configFile)
-                        : $configFile.' does not exist');
+            throw new Exception('Config file '.(realpath($configFile) ? realpath($configFile)
+                        : $configFile).' does not exist');
         }
         $this->configuration = json_decode(file_get_contents($configFile), true);
         if (is_null($this->configuration)) {
