@@ -12,6 +12,6 @@ override_dh_auto_test:
 override_dh_install:
 	dh_install
 	./debian/fixversion.sh
-	sed -e "/\$bootstrapCSS/c\     \$bootstrapCSS = \'\/javascript\/bootstrap\/css\/bootstrap.min.css\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
-	sed -e "/\$bootstrapThemeCSS/c\     \$bootstrapThemeCSS = \'\/javascript\/bootstrap\/css\/bootstrap-theme.min.css\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
-	sed -e "/\$bootstrapJavaScript/c\     \$bootstrapJavaScript = \'\/javascript\/bootstrap\/jd\/javascript/bootstrap/js/bootstrap.min.js\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
+	sed -e "/\$bootstrapCSS/c\          \public \$bootstrapCSS        = \'\/javascript\/bootstrap\/css\/bootstrap.min.css\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
+	sed -e "/\$bootstrapThemeCSS/c\     \public \$bootstrapThemeCSS   = \'\/javascript\/bootstrap\/css\/bootstrap-theme.min.css\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
+	sed -e "/\$bootstrapJavaScript/c\   \public \$bootstrapJavaScript = \'\/javascript\/bootstrap\/jd\/javascript/bootstrap/js/bootstrap.min.js\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
