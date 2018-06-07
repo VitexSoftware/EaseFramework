@@ -160,7 +160,7 @@ class PDO extends SQL
                     break;
 
                 default:
-                    throw new \Exception(_('Unimplemented Database type').': '.$this->dbType);
+                    throw new \Ease\Exception(_('Unimplemented Database type').': '.$this->dbType);
                     break;
             }
 

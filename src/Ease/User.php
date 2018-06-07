@@ -282,7 +282,7 @@ class User extends Anonym
         $this->logged = true;
         $this->addStatusMessage(sprintf(_('Sign in %s all ok'), $this->userLogin),
             'success');
-
+        $this->setObjectName();
         return true;
     }
 

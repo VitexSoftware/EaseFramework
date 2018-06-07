@@ -5,26 +5,26 @@
 
 namespace Ease\TWB;
 
-class Panel extends \Ease\Html\Div
+class Panel extends \Ease\Html\DivTag
 {
     /**
      * Hlavička panelu.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $heading = null;
 
     /**
      * Tělo panelu.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $body = null;
 
     /**
      * Patička panelu.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $footer = null;
 
@@ -57,10 +57,10 @@ class Panel extends \Ease\Html\Div
         $this->addToFooter = $footer;
         parent::__construct(null, ['class' => 'panel panel-'.$this->type]);
         if (!is_null($heading)) {
-            $this->heading = parent::addItem(new \Ease\Html\Div($heading,
+            $this->heading = parent::addItem(new \Ease\Html\DivTag($heading,
                         ['class' => 'panel-heading']), 'head');
         }
-        $this->body = parent::addItem(new \Ease\Html\Div($body,
+        $this->body = parent::addItem(new \Ease\Html\DivTag($body,
                     ['class' => 'panel-body']), 'body');
     }
 

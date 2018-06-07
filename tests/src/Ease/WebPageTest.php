@@ -14,6 +14,21 @@ class WebPageTest extends PageTest
      */
     protected $object;
 
+    public $rendered = '<!DOCTYPE html><html lang="cs-CZ"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title></title>
+<script>
+// <![CDATA[
+window.location = "login.php"
+// ]]>
+</script>
+
+<script>
+// <![CDATA[
+window.location = "http://v.s.cz/"
+// ]]>
+</script>
+</head><body></body></html>';
+
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -33,106 +48,70 @@ class WebPageTest extends PageTest
 
     /**
      * @covers Ease\WebPage::setTagID
-     *
-     * @todo   Implement testSetTagID().
      */
     public function testSetTagID()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setTagID('test');
+        $this->assertEquals('test', $this->object->getTagID() );
     }
 
     /**
      * @covers Ease\WebPage::addItem
-     *
-     * @todo   Implement testAddItem().
      */
     public function testAddItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->emptyContents();
+        $tester = new \Ease\Html\SpanTag();
+        $this->object->addItem( $tester );
+        $this->assertEquals($this->object->getFirstPart(),$tester);
     }
 
     /**
      * @covers Ease\WebPage::includeJavaScript
-     *
-     * @todo   Implement testIncludeJavaScript().
      */
     public function testIncludeJavaScript()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->includeJavaScript('test.js');
     }
 
     /**
      * @covers Ease\WebPage::addJavaScript
-     *
-     * @todo   Implement testAddJavaScript().
      */
     public function testAddJavaScript()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addJavaScript('alert("test")');
     }
 
     /**
      * @covers Ease\WebPage::addToScriptsStack
-     *
-     * @todo   Implement testAddToScriptsStack().
      */
     public function testAddToScriptsStack()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addToScriptsStack('var test = 1;');
     }
 
     /**
      * @covers Ease\WebPage::addCSS
-     *
-     * @todo   Implement testAddCSS().
      */
     public function testAddCSS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addCSS('border: 1px solid red');
     }
 
     /**
      * @covers Ease\WebPage::includeCss
-     *
-     * @todo   Implement testIncludeCss().
      */
     public function testIncludeCss()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->includeCss('test.css');
     }
 
     /**
      * @covers Ease\WebPage::getStatusMessagesAsHtml
-     *
-     * @todo   Implement testGetStatusMessagesAsHtml().
      */
     public function testGetStatusMessagesAsHtml()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->getStatusMessagesAsHtml();
     }
 
     /**

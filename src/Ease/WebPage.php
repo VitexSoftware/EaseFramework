@@ -3,7 +3,7 @@
  * Common webpage class
  *
  * @author     Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright  2009-2017 Vitex@hippy.cz (G)
+ * @copyright  2009-2018 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -20,7 +20,7 @@ class WebPage extends Page
      * @var string path or url 
      */
     public $jqueryJavaScript = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js';
-    
+
     /**
      * Položky předávané do vkládaného objektu.
      *
@@ -121,6 +121,21 @@ class WebPage extends Page
         return $this->body->setTagID($tagID);
     }
 
+    public function getTagID()
+    {
+        $this->body->getTagID();
+    }
+
+    /**
+     * Contentets
+     * 
+     * @return mixed
+     */
+    public function getContents()
+    {
+        return $this->body->getContents();
+    }
+
     /**
      * Přidá položku do těla stránky.
      *
@@ -146,7 +161,7 @@ class WebPage extends Page
      */
     public function includeJavaScript($javaScriptFile, $position = null)
     {
-            return $this->addToScriptsStack('#'.$javaScriptFile, $position);
+        return $this->addToScriptsStack('#'.$javaScriptFile, $position);
     }
 
     /**

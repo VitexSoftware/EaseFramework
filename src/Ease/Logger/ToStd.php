@@ -133,6 +133,16 @@ class ToStd extends ToMemory
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
+        $user = \Ease\Shared::user();
+        if( get_class($user) !== 'Ease\\Anonym' ) {
+            if( method_exists($user, 'getUserName')){
+                $person =  $user->getUserName();
+            } else {
+                $person = $user->getObjectName();
+            }
+            $caller = $person.' '.$caller;
+        } 
+
         $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
                 'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
