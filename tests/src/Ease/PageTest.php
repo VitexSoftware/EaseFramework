@@ -138,9 +138,12 @@ class PageTest extends ContainerTest
             $this->object->sanitizeAsType('123', 'int'));
         $this->assertInternalType('boolean',
             $this->object->sanitizeAsType('0', 'boolean'));
-        
+        $this->assertFalse($this->object->sanitizeAsType('FALSE', 'boolean'));
+        $this->assertTrue($this->object->sanitizeAsType('true', 'boolean'));
+        $this->assertInternalType('float',
+            $this->object->sanitizeAsType('1.45', 'float'));
         $this->assertNull($this->object->sanitizeAsType('', 'int'));
-        
+        $this->assertEquals('test', $this->object->sanitizeAsType('test', 'null'));
     }
 
     /**

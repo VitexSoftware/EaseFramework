@@ -8,7 +8,7 @@
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2017 Vitex@hippy.cz (G)
+ * @copyright 2009-2018 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -776,11 +776,12 @@ class Shared extends Atom
     /**
      * Load Configuration values from json file $this->configFile and define UPPERCASE keys
      *
-     * @param string $configFile Path to file with configuration
+     * @param string  $configFile      Path to file with configuration
+     * @param boolean $defineConstants false to do not define constants
      *
      * @return array full configuration array
      */
-    public function loadConfig($configFile)
+    public function loadConfig($configFile, $defineConstants = true)
     {
         if (!file_exists($configFile)) {
             throw new Exception('Config file '.(realpath($configFile) ? realpath($configFile)
@@ -792,7 +793,7 @@ class Shared extends Atom
                         : $configFile, 'debug');
         } else {
             foreach ($this->configuration as $configKey => $configValue) {
-                if ((strtoupper($configKey) == $configKey) && (!defined($configKey))) {
+                if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
                     define($configKey, $configValue);
                 } else {
                     $this->setConfigValue($configKey, $configValue);

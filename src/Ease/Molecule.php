@@ -16,6 +16,17 @@ namespace Ease;
 class Molecule extends Atom
 {
 
+    /**
+     * Here Live Shared Object
+     * 
+     * @var Shared 
+     */
+    public $easeShared = null;
+
+
+    /**
+     * Molecule Can Log and Use Shared
+     */
     public function __construct()
     {
         $this->easeShared = Shared::singleton();
@@ -116,7 +127,7 @@ class Molecule extends Atom
     {
         $messages = $this->easeShared->getStatusMessages();
         if ($clean) {
-            $this->cleanMessages();
+            $this->easeShared->cleanMessages();
         }
         return $messages;
     }

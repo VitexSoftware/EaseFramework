@@ -287,10 +287,7 @@ class Page extends Container
                 $sanitized = (string) $value;
                 break;
             case 'int':
-                if (!strlen(trim($value))) {
-                    $sanitized = null;
-                }
-                $sanitized = (int) $value;
+                $sanitized = strlen($value) ? (int) $value : null;
                 break;
             case 'float':
                 $sanitized = (float) $value;

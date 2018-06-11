@@ -14,7 +14,7 @@ class WebPageTest extends PageTest
      */
     protected $object;
 
-    public $rendered = '<!DOCTYPE html><html lang="cs-CZ"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title></title>
+    public $rendered = '<!DOCTYPE html><html lang="cs-CZ"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title></title><link href="test.css" rel="stylesheet" type="text/css" media="screen" /><style>border: 1px solid red</style>
 <script>
 // <![CDATA[
 window.location = "login.php"
@@ -24,6 +24,13 @@ window.location = "login.php"
 <script>
 // <![CDATA[
 window.location = "http://v.s.cz/"
+// ]]>
+</script>
+
+<script src="test.js"></script>
+<script>
+// <![CDATA[
+$(document).ready(function () { alert("test") });
 // ]]>
 </script>
 </head><body></body></html>';
@@ -72,6 +79,7 @@ window.location = "http://v.s.cz/"
     public function testIncludeJavaScript()
     {
         $this->object->includeJavaScript('test.js');
+        $this->assertEquals( ['#test.js'], \Ease\Shared::instanced()->javaScripts );
     }
 
     /**
