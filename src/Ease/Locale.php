@@ -19,7 +19,7 @@ class Locale
      * @var Locale Singleton is stored here
      */
     static $_instance;
-    
+
     /**
      * i18n files location
      * @var string dirpath 
@@ -494,6 +494,24 @@ class Locale
     }
 
     /**
+     * List of availble locales
+     * 
+     * @return array locales availble
+     */
+    public function availble()
+    {
+        $locales = [];
+        $d       = dir(self::$i18n);
+        while (false !== ($entry   = $d->read())) {
+            if (($entry[0] != '.') && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo') ) {
+                $locales[$entry] = _(self::$alllngs[$entry]);
+            }
+        }
+        $d->close();
+        return $locales;
+    }
+
+    /**
      * Store GetText Domain
      * @param string $textDomain
      */
@@ -566,7 +584,7 @@ class Locale
     public static function singleton()
     {
         if (!isset(self::$_instance)) {
-            $class = __CLASS__;
+            $class           = __CLASS__;
             self::$_instance = new $class();
         }
         return self::$_instance;

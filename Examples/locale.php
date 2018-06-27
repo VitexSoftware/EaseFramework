@@ -14,7 +14,7 @@ require_once '../vendor/autoload.php';
 
 $loc = \Ease\Shared::locale();
 
-echo new Html\DivTag('Browser Default:'. Locale::autodetected() .' '._('Hallo'));
+echo new Html\DivTag('Browser Default:'.Locale::autodetected().' '._('Hallo'));
 
 $loc->useLocale('en_US');
 
@@ -24,3 +24,4 @@ $loc->useLocale('cs_CZ');
 
 echo new Html\DivTag('cs_CZ:'._('Hallo'));
 
+echo print_r($loc->availble());

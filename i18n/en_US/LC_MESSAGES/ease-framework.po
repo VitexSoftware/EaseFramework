@@ -1,0 +1,322 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ease Framework\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-27 16:25+0200\n"
+"PO-Revision-Date: 2018-06-27 16:26+0200\n"
+"Last-Translator: Vitex <info@vitexsoftware.cz>\n"
+"Language-Team: Vitex Software <info@vitexsoftware.cz>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-SearchPath-0: src\n"
+"X-Poedit-SearchPath-1: Examples\n"
+
+#: Examples/StatusMessages.php:15 Examples/TWB/WebPage.php:18
+#: Examples/WebPage.php:15
+msgid "debug"
+msgstr "debug"
+
+#: Examples/StatusMessages.php:16 Examples/TWB/WebPage.php:19
+#: Examples/WebPage.php:16
+msgid "info"
+msgstr "info"
+
+#: Examples/StatusMessages.php:17 Examples/TWB/WebPage.php:20
+#: Examples/WebPage.php:17
+msgid "success"
+msgstr "success"
+
+#: Examples/StatusMessages.php:18 Examples/TWB/WebPage.php:21
+#: Examples/WebPage.php:18
+msgid "warning"
+msgstr "warning"
+
+#: Examples/StatusMessages.php:19 Examples/TWB/WebPage.php:22
+#: Examples/WebPage.php:19
+msgid "error"
+msgstr "error"
+
+#: Examples/TWB/Form.php:20
+#, php-format
+msgid "You enter: %s as text."
+msgstr "You enter: %s as text."
+
+#: Examples/TWB/Form.php:23
+msgid "Please enter any text"
+msgstr "Please enter any text"
+
+#: Examples/TWB/Form.php:28
+#, php-format
+msgid "You enter: %s as number."
+msgstr "You enter: %s as number."
+
+#: Examples/TWB/Form.php:31
+msgid "Please enter any number"
+msgstr "Please enter any number"
+
+#: Examples/TWB/Form.php:36
+msgid "Text"
+msgstr "Text"
+
+#: Examples/TWB/Form.php:37
+msgid "Default text"
+msgstr "tDefault text"
+
+#: Examples/TWB/Form.php:37
+msgid "Text hint"
+msgstr "Text hint"
+
+#: Examples/TWB/Form.php:39
+msgid "Number"
+msgstr "Number"
+
+#: Examples/TWB/Form.php:40
+msgid "Number hint"
+msgstr "Number hint"
+
+#: Examples/TWB/Modal.php:13
+msgid "Modal Example"
+msgstr "Modal Example"
+
+#: Examples/TWB/Modal.php:17
+msgid "caution"
+msgstr "caution"
+
+#: Examples/TWB/WebPage.php:16
+msgid "Twitter Bootstrap"
+msgstr "Twitter Bootstrap"
+
+#: Examples/TWB/WebPage.php:24
+msgid "Back to examples"
+msgstr "Back to examples"
+
+#: Examples/TWB/classes/AppMenu.php:20
+msgid "Homepage"
+msgstr "Homepage"
+
+#: Examples/TWB/classes/AppMenu.php:21
+msgid "LinkQuick"
+msgstr "LinkQuick"
+
+#: Examples/TWB/classes/AppMenu.php:24
+msgid "System"
+msgstr "System"
+
+#: Examples/TWB/classes/AppMenu.php:26
+msgid "Settings"
+msgstr "Settings"
+
+#: Examples/TWB/classes/AppMenu.php:27
+msgid "Shutdown"
+msgstr "Shutdown"
+
+#: Examples/TWB/classes/AppMenu.php:32
+msgid "Informace"
+msgstr "Informace"
+
+#: Examples/TWB/classes/AppMenu.php:34
+msgid "System log"
+msgstr "System log"
+
+#: Examples/TWB/classes/AppMenu.php:35
+msgid "Hosting"
+msgstr "Hosting"
+
+#: Examples/TWB/twbtabs.php:18
+msgid "Twitter bootrstrap Tabs Example"
+msgstr "Twitter bootrstrap Tabs Example"
+
+#: Examples/WebPage.php:21
+msgid "Example Web Page"
+msgstr "Example Web Page"
+
+#: Examples/WebPage.php:23
+msgid "Status messages"
+msgstr "Status messages"
+
+#: Examples/index.php:16 Examples/index.php:18
+msgid "Ease Framework - Usage examples"
+msgstr "Ease Framework - Usage examples"
+
+#: Examples/listings.php:16
+msgid "Ul One"
+msgstr "Ul One"
+
+#: Examples/listings.php:17
+msgid "Ul Two"
+msgstr "Ul Two"
+
+#: Examples/listings.php:18
+msgid "Ul Three"
+msgstr "Ul Three"
+
+#: Examples/listings.php:21
+msgid "Ol One"
+msgstr "Ol One"
+
+#: Examples/listings.php:22
+msgid "Ol Two"
+msgstr "Ol Two"
+
+#: Examples/listings.php:23
+msgid "Ol Three"
+msgstr "Ol Three"
+
+#: Examples/locale.php:17 Examples/locale.php:21 Examples/locale.php:25
+msgid "Hallo"
+msgstr "Hallo"
+
+#: src/Ease/Logger/ToFile.php:282 src/Ease/Logger/ToFile.php:285
+msgid " not an folder. Current directory:"
+msgstr " not an folder. Current directory:"
+
+#: src/Ease/Logger/ToFile.php:292 src/Ease/Logger/ToFile.php:295
+msgid " not an readable folder. Current directory:"
+msgstr " not an readable folder. Current directory:"
+
+#: src/Ease/Logger/ToFile.php:302 src/Ease/Logger/ToFile.php:305
+msgid " not an writeable folder. Current directory:"
+msgstr " not an writeable folder. Current directory:"
+
+#: src/Ease/Mailer.php:317
+#, php-format
+msgid "Message %s was sent to %s"
+msgstr "Message %s was sent to %s"
+
+#: src/Ease/Mailer.php:320
+#, php-format
+msgid "Message %s, for %s was not sent because of %s"
+msgstr "Message %s, for %s was not sent because of %s"
+
+#: src/Ease/Page.php:224
+msgid "Sign in first please"
+msgstr "Sign in first please"
+
+#: src/Ease/SQL/Orm.php:241
+msgid "UpdateToSQL: Missing data"
+msgstr "UpdateToSQL: Missing data"
+
+#: src/Ease/SQL/PDO.php:163
+msgid "Unimplemented Database type"
+msgstr "Unimplemented Database type"
+
+#: src/Ease/TWB/Carousel.php:116
+msgid "Previous"
+msgstr "Previous"
+
+#: src/Ease/TWB/Carousel.php:127
+msgid "Next"
+msgstr "Next"
+
+#: src/Ease/TWB/Modal.php:70
+msgid "Close"
+msgstr "Close"
+
+#: src/Ease/TWB/Modal.php:73
+msgid "Save"
+msgstr "Save"
+
+#: src/Ease/TWB/Navbar.php:78
+msgid "Switch navigation"
+msgstr "Switch navigation"
+
+#: src/Ease/TWB/StatusMessages.php:19
+msgid "Click to hide messages"
+msgstr "Click to hide messages"
+
+#: src/Ease/User.php:215
+msgid "missing login"
+msgstr "missing login"
+
+#: src/Ease/User.php:220
+msgid "missing password"
+msgstr "missing password"
+
+#: src/Ease/User.php:240
+msgid "invalid password"
+msgstr "invalid password"
+
+#: src/Ease/User.php:247
+#, php-format
+msgid "user %s does not exist"
+msgstr "user %s does not exist"
+
+#: src/Ease/User.php:265
+msgid "Sign in denied by administrator"
+msgstr "Sign in denied by administrator"
+
+#: src/Ease/User.php:283
+#, php-format
+msgid "Sign in %s all ok"
+msgstr "Sign in %s all ok"
+
+#: src/Ease/User.php:466
+msgid "Odhlášení proběhlo uspěšně"
+msgstr "Logout was sucessfull"
+
+#~ msgid " není složka. Jsem v adresáři:"
+#~ msgstr " not an folder. Current directory:"
+
+#~ msgid " není čitelná složka. Jsem v adresáři:"
+#~ msgstr " není čitelná složka. Jsem v adresáři:"
+
+#~ msgid " není zapisovatelná složka. Jsem v adresáři:"
+#~ msgstr " není zapisovatelná složka. Jsem v adresáři:"
+
+#~ msgid "UpdateToMySQL: Chybějící Data"
+#~ msgstr "UpdateToMySQL: Missing Data"
+
+#~ msgid "NENI PODLE CEHO URCIT JEDINECNOST PRODUKTU v shopu "
+#~ msgstr "something goes wrong"
+
+#, fuzzy
+#~ msgid "Tabulka % byla vytvořena"
+#~ msgstr "Table % was created"
+
+#~ msgid "Položku se nepodařilo uložit. Prosím zkuste jinou hodnotu."
+#~ msgstr "Item was not saved. Please try another value"
+
+#~ msgid "Neuloženo"
+#~ msgstr "Not saved"
+
+#~ msgid "potvrzení"
+#~ msgstr "confirmation"
+
+#~ msgid "Opravdu"
+#~ msgstr "Are you sure ?"
+
+#~ msgid "Ano"
+#~ msgstr "Yes"
+
+#~ msgid "Ne"
+#~ msgstr "No"
+
+#~ msgid "chybí login"
+#~ msgstr "missing login"
+
+#~ msgid "chybí heslo"
+#~ msgstr "missing password"
+
+#~ msgid "neplatné heslo"
+#~ msgstr "wrong password"
+
+#~ msgid "uživatel %s neexistuje"
+#~ msgstr "user %s does not exist"
+
+#~ msgid "přihlášení zakázáno administrátorem"
+#~ msgstr "login forbidden by administrator"
+
+#~ msgid "Přihlášení %s proběhlo bez problémů"
+#~ msgstr "login %s was successfull"
+
+#~ msgid "Nejprve se prosím přihlašte"
+#~ msgstr "Please login first"
+
+#~ msgid "Zpráva %s byla odeslána na adresu %s"
+#~ msgstr "Message %s was sent to %s"
