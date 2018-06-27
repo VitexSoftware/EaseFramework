@@ -18,25 +18,25 @@ class Locale
     /**
      * @var Locale Singleton is stored here
      */
-    static $_instance;
+    public static $_instance;
     
     /**
      * Current Used locale code
      * @var string 
      */
-    public $localeUsed = null;
+    public static $localeUsed = null;
 
     /**
      * i18n files location
      * @var string dirpath 
      */
-    static $i18n = null;
+    public static $i18n = null;
 
     /**
      * GetText Domain
      * @var string 
      */
-    static $textDomain = null;
+    public static $textDomain = null;
 
     /**
      * All Language Codes => languages
@@ -578,7 +578,7 @@ class Locale
             bindtextdomain(self::$textDomain, self::$i18n);
         }
         textdomain(self::$textDomain);
-        \Ease\Shared::locale()->localeUsed = $localeCode;
+        self::$localeUsed = $localeCode;
     }
 
     /**
