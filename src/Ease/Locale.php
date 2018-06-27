@@ -490,13 +490,21 @@ class Locale
                                 $textDomain = null)
     {
         if (is_null($setLocale)) {
-            $setLocale = ( php_sapi_name() == 'cli') ? getenv('LC_ALL') : self::autodetected();
+            $setLocale = ( php_sapi_name() == 'cli') ? getenv('LC_ALL') : self::getDefaultCode();
         }
         if (is_null($textDomain) && defined('EASE_APPNAME')) {
             $textDomain = strtolower(constant('EASE_APPNAME'));
         }
         self::$i18n = $i18n;
         self::initializeGetText($textDomain, $setLocale, $i18n);
+    }
+
+    /**
+     * Default Locale Code
+     * @return string
+     */
+    public static function getDefaultCode(){
+        return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale']  : self::langToLocale(self::autodetected());
     }
 
     /**
@@ -541,33 +549,39 @@ class Locale
                                              $i18n = '../i18n')
     {
         self::setTextDomain($appname);
-        $langs = [];
+        return self::useLocale($defaultLocale);
+    }
+
+    /**
+     * Find Locale Code for browser language
+     * 
+     * @param string $lang browser lan en|cs|..
+     * 
+     * @return string locale code
+     */
+    public static function langToLocale($lang)
+    {
+        $defaultLocale = 'C';
+        $langs         = [];
         foreach (self::$alllngs as $langCode => $language) {
             $langs[$langCode] = [strstr($langCode, '_') ? substr($langCode, 0,
                     strpos($langCode, '_')) : $langCode, $language];
         }
-
-        if (isset($_REQUEST['locale'])) {
-            $defaultLocale = preg_replace('/[^a-zA-Z_]/', '',
-                substr($_REQUEST['locale'], 0, 10));
-        }
-
-        foreach ($langs as $code => $lang) {
-            if ($defaultLocale == $lang[0]) {
+        foreach ($langs as $code => $langInfo) {
+            if ($lang == $langInfo[0]) {
                 $defaultLocale = $code;
                 break;
             }
         }
-
-        return self::useLocale($defaultLocale);
+        return $defaultLocale;
     }
 
     /**
      * Use Effective locale to requested
      * 
-     * @param type $localeCode
+     * @param string $localeCode locale code to use
      * 
-     * @return type
+     * @return string used locale code
      */
     public static function useLocale($localeCode)
     {
