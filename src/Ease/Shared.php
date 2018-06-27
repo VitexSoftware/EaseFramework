@@ -76,6 +76,12 @@ class Shared extends Atom
     public $dbLink = null;
 
     /**
+     *
+     * @var Locale 
+     */
+    public $locale = null;
+
+    /**
      * Saves obejct instace (singleton...).
      *
      * @var Shared
@@ -134,7 +140,8 @@ class Shared extends Atom
                 unset($_SESSION['EaseMessages']);
             }
         }
-        $this->statusMessages = is_array($cgiMessages) ? array_merge($cgiMessages, $webMessages) : $webMessages ;
+        $this->statusMessages = is_array($cgiMessages) ? array_merge($cgiMessages,
+                $webMessages) : $webMessages;
     }
 
     /**
@@ -191,7 +198,8 @@ class Shared extends Atom
      */
     public function getConfigValue($configName)
     {
-        return array_key_exists($configName, $this->configuration) ? $this->configuration[$configName] : null ;
+        return array_key_exists($configName, $this->configuration) ? $this->configuration[$configName]
+                : null;
     }
 
     /**
@@ -237,10 +245,28 @@ class Shared extends Atom
             $shared->webPage = &$oPage;
         }
         if (!is_object($shared->webPage)) {
-            self::webPage(WebPage::singleton());
+            $shared->webPage = WebPage::singleton();
         }
-
         return $shared->webPage;
+    }
+
+    /**
+     * Locale Class handler
+     * 
+     * @param Locale $locale overriding object
+     * 
+     * @return Locale
+     */
+    public static function &locale($locale = null)
+    {
+        $shared = self::instanced();
+        if (is_object($locale)) {
+            $shared->locale = &$locale;
+        }
+        if (!is_object($shared->locale)) {
+            $shared->locale = Locale::singleton();
+        }
+        return $shared->locale;
     }
 
     /**
@@ -340,7 +366,7 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception('Config file '.(realpath($configFile) ? realpath($configFile)
-                        : $configFile).' does not exist');
+                    : $configFile).' does not exist');
         }
         $this->configuration = json_decode(file_get_contents($configFile), true);
         if (is_null($this->configuration)) {
@@ -381,8 +407,7 @@ class Shared extends Atom
     {
         return Locale::initializeGetText($appname, $defaultLocale, $i18n);
     }
-    
-    
+
     /**
      * Add params to url
      *
@@ -422,6 +447,5 @@ class Shared extends Atom
             }
         }
         return $urlFinal;
-    }    
-    
+    }
 }

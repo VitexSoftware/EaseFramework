@@ -9,12 +9,29 @@
 namespace Ease;
 
 /**
- * Description of Locale
+ * Ease Locale support
  *
  * @author vitex
  */
 class Locale
 {
+    /**
+     * @var Locale Singleton is stored here
+     */
+    static $_instance;
+    
+    /**
+     * i18n files location
+     * @var string dirpath 
+     */
+    static $i18n = null;
+
+    /**
+     * GetText Domain
+     * @var string 
+     */
+    static $textDomain = null;
+
     /**
      * All Language Codes => languages
      * @var array
@@ -457,6 +474,35 @@ class Locale
     ];
 
     /**
+     * Prepare use of 
+     * 
+     * @param string $setLocale en_US|cs_CZ|..
+     * @param string $i18n      directory ( /usr/lib/locale/ in Debian )
+     * @param type $textDomain
+     */
+    public function __construct($setLocale = null, $i18n = '../i18n',
+                                $textDomain = null)
+    {
+        if (is_null($setLocale)) {
+            $setLocale = ( php_sapi_name() == 'cli') ? getenv('LC_ALL') : self::autodetected();
+        }
+        if (is_null($textDomain) && defined('EASE_APPNAME')) {
+            $textDomain = strtolower(constant('EASE_APPNAME'));
+        }
+        self::$i18n = $i18n;
+        self::initializeGetText($textDomain, $setLocale, $i18n);
+    }
+
+    /**
+     * Store GetText Domain
+     * @param string $textDomain
+     */
+    public static function setTextDomain($textDomain)
+    {
+        self::$textDomain = $textDomain;
+    }
+
+    /**
      * Initialise Gettext
      *
      * $i18n/$defaultLocale/LC_MESSAGES/$appname.mo
@@ -470,14 +516,11 @@ class Locale
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
                                              $i18n = '../i18n')
     {
+        self::setTextDomain($appname);
         $langs = [];
         foreach (self::$alllngs as $langCode => $language) {
             $langs[$langCode] = [strstr($langCode, '_') ? substr($langCode, 0,
                     strpos($langCode, '_')) : $langCode, $language];
-        }
-
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && function_exists('\locale_accept_from_http')) {
-            $defaultLocale = \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         }
 
         if (isset($_GET['locale'])) {
@@ -491,12 +534,41 @@ class Locale
                 break;
             }
         }
-        setlocale(LC_ALL, $defaultLocale);
-        bind_textdomain_codeset($appname, 'UTF-8');
-        putenv("LC_ALL=$defaultLocale");
-        if (file_exists($i18n)) {
-            bindtextdomain($appname, $i18n);
+
+        return self::useLocale($defaultLocale);
+    }
+
+    public static function useLocale($localeCode)
+    {
+        setlocale(LC_ALL, $localeCode);
+        bind_textdomain_codeset(self::$textDomain, 'UTF-8');
+        putenv("LC_ALL=$localeCode");
+        if (file_exists(self::$i18n)) {
+            bindtextdomain(self::$textDomain, self::$i18n);
         }
-        return textdomain($appname);
+        return textdomain(self::$textDomain);
+    }
+
+    /**
+     * Try to autodetect default language
+     * @return string lang code 
+     */
+    static public function autodetected()
+    {
+        return array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) && function_exists('\locale_accept_from_http')
+                ? \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;
+    }
+
+    /**
+     * Common instance of Locale class
+     * @return \Ease\Locale
+     */
+    public static function singleton()
+    {
+        if (!isset(self::$_instance)) {
+            $class = __CLASS__;
+            self::$_instance = new $class();
+        }
+        return self::$_instance;
     }
 }
