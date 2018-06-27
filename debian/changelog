@@ -1,6 +1,23 @@
-ease-framework (1.4.2-1) UNRELEASED; urgency=low
+ease-framework (1.5.0) UNRELEASED; urgency=medium
+
+  * Package build fixed
+  * Dolar fix
+  * Debian Paths to jquery.js fixed
+
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Mon, 11 Jun 2018 22:51:44 +0200
+
+ease-framework (1.4.9) experimental; urgency=medium
+
+  * Include Script to page fixed
+
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Fri, 01 Jun 2018 09:58:21 +0200
+
+ease-framework (1.4.8) experimental; urgency=low
 
   * release test
   * v1.4.2 Release  logging classes fix
+  * package build cleanup
+  * Clover generating fixed for Scrutinizer
+  * SQL Functions moved from Brick to separate trait Orm
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Thu, 30 Nov 2017 16:45:07 +0100
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Fri, 01 Jun 2018 08:47:35 +0200

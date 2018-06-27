@@ -19,7 +19,7 @@ class Locale
      * @var Locale Singleton is stored here
      */
     public static $_instance;
-    
+
     /**
      * Current Used locale code
      * @var string 
