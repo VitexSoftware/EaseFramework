@@ -163,7 +163,7 @@ trait Orm
                 $this->takeData($sqlResult[0]);
             }
         }
-        if (count($this->data)) {
+        if (!empty($this->data)) {
             $rowsLoaded = count($this->data);
         }
 

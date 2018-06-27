@@ -412,7 +412,7 @@ class Sand extends Molecule
             $this->data = $data;
         }
 
-        return count($data);
+        return empty($data) ? null : count($data);
     }
 
     /**

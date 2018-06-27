@@ -9,6 +9,7 @@
 namespace Ease;
 
 /**
+ * Build & Send email
  * Sestaví a odešle mail.
  *
  * @author Vitex <vitex@hippy.cz>

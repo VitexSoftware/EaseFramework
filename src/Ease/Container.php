@@ -210,8 +210,8 @@ class Container extends Sand
      */
     public function getItemsCount($object = null)
     {
-        $itemCount = null;
-        if (is_null($object)) {
+        $itemCount = 0;
+        if (is_null($object) && !empty($this->pageParts)) {
             $itemCount = count($this->pageParts);
         }
         if (is_object($object) && isset($object->pageParts)) {
@@ -262,14 +262,14 @@ class Container extends Sand
     /**
      * Vrací první vloženou položku.
      *
-     * @param Container|mixed $pageItem kontext
+     * @param Container $pageItem kontext
      */
     public function &getFirstPart($pageItem = null)
     {
         if (!$pageItem) {
             $pageItem = &$this;
         }
-        if (count($pageItem->pageParts)) {
+        if (!empty($pageItem->pageParts) && is_array($pageItem->pageParts)) {
             $firstPart = reset($pageItem->pageParts);
         } else {
             $firstPart = null;

@@ -9,6 +9,9 @@
 
 namespace Ease;
 
+/**
+ * Basic Class of EasePHP
+ */
 class Atom
 {
     /**

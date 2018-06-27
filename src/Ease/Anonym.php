@@ -2,14 +2,15 @@
 /**
  * Objekt Anonymního uživatele.
  *
- * PHP Version 5
- *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
 
+/**
+ * Anonymous User Class
+ */
 class Anonym extends Brick
 {
     /**
