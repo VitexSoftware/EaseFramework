@@ -578,7 +578,7 @@ class Locale
             bindtextdomain(self::$textDomain, self::$i18n);
         }
         textdomain(self::$textDomain);
-        $this->localeUsed = $localeCode;
+        \Ease\Shared::locale()->localeUsed = $localeCode;
     }
 
     /**
