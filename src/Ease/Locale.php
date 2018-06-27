@@ -19,6 +19,12 @@ class Locale
      * @var Locale Singleton is stored here
      */
     static $_instance;
+    
+    /**
+     * Current Used locale code
+     * @var string 
+     */
+    public $localeUsed = null;
 
     /**
      * i18n files location
@@ -474,11 +480,11 @@ class Locale
     ];
 
     /**
-     * Prepare use of 
+     * Prepare use of localization
      * 
-     * @param string $setLocale en_US|cs_CZ|..
-     * @param string $i18n      directory ( /usr/lib/locale/ in Debian )
-     * @param type $textDomain
+     * @param string $setLocale  en_US|cs_CZ|..
+     * @param string $i18n       directory ( /usr/lib/locale/ in Debian )
+     * @param string $textDomain we want use $i18n/$setLocale/LC_ALL/$textDomain.mo
      */
     public function __construct($setLocale = null, $i18n = '../i18n',
                                 $textDomain = null)
@@ -503,7 +509,7 @@ class Locale
         $locales = [];
         $d       = dir(self::$i18n);
         while (false !== ($entry   = $d->read())) {
-            if (($entry[0] != '.') && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo') ) {
+            if (($entry[0] != '.') && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo')) {
                 $locales[$entry] = _(self::$alllngs[$entry]);
             }
         }
@@ -541,9 +547,9 @@ class Locale
                     strpos($langCode, '_')) : $langCode, $language];
         }
 
-        if (isset($_GET['locale'])) {
+        if (isset($_REQUEST['locale'])) {
             $defaultLocale = preg_replace('/[^a-zA-Z_]/', '',
-                substr($_GET['locale'], 0, 10));
+                substr($_REQUEST['locale'], 0, 10));
         }
 
         foreach ($langs as $code => $lang) {
@@ -556,6 +562,13 @@ class Locale
         return self::useLocale($defaultLocale);
     }
 
+    /**
+     * Use Effective locale to requested
+     * 
+     * @param type $localeCode
+     * 
+     * @return type
+     */
     public static function useLocale($localeCode)
     {
         setlocale(LC_ALL, $localeCode);
@@ -564,11 +577,13 @@ class Locale
         if (file_exists(self::$i18n)) {
             bindtextdomain(self::$textDomain, self::$i18n);
         }
-        return textdomain(self::$textDomain);
+        textdomain(self::$textDomain);
+        $this->localeUsed = $localeCode;
     }
 
     /**
      * Try to autodetect default language
+     * 
      * @return string lang code 
      */
     static public function autodetected()
@@ -579,6 +594,7 @@ class Locale
 
     /**
      * Common instance of Locale class
+     * 
      * @return \Ease\Locale
      */
     public static function singleton()
