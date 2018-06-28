@@ -490,7 +490,17 @@ class Locale
                                 $textDomain = null)
     {
         if (is_null($setLocale)) {
-            $setLocale = ( php_sapi_name() == 'cli') ? getenv('LC_ALL') : self::getDefaultCode();
+            if (php_sapi_name() == 'cli') {
+                $setLocale = getenv('LC_ALL');
+            } else {
+                if (isset($_REQUEST['locale'])) {
+                    $setLocale = $_REQUEST['locale'];
+//                } elseif (isset($_SESSION['locale'])) {
+//                    $setLocale = $_SESSION['locale'];
+//                } else {
+                    $setLocale = self::getDefaultCode();
+                }
+            }
         }
         if (is_null($textDomain) && defined('EASE_APPNAME')) {
             $textDomain = strtolower(constant('EASE_APPNAME'));
@@ -503,8 +513,10 @@ class Locale
      * Default Locale Code
      * @return string
      */
-    public static function getDefaultCode(){
-        return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale']  : self::langToLocale(self::autodetected());
+    public static function getDefaultCode()
+    {
+        return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale']
+                : self::langToLocale(self::autodetected());
     }
 
     /**
@@ -592,6 +604,9 @@ class Locale
             bindtextdomain(self::$textDomain, self::$i18n);
         }
         textdomain(self::$textDomain);
+        if (isset($_SESSION)) {
+            $_SESSION['locale'] = $localeCode;
+        }
         self::$localeUsed = $localeCode;
     }
 
