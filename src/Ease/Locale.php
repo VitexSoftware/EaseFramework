@@ -490,17 +490,7 @@ class Locale
                                 $textDomain = null)
     {
         if (is_null($setLocale)) {
-            if (php_sapi_name() == 'cli') {
-                $setLocale = getenv('LC_ALL');
-            } else {
-                if (isset($_REQUEST['locale'])) {
-                    $setLocale = $_REQUEST['locale'];
-//                } elseif (isset($_SESSION['locale'])) {
-//                    $setLocale = $_SESSION['locale'];
-//                } else {
-                    $setLocale = self::getDefaultCode();
-                }
-            }
+            $setLocale = self::getPreferedLocale();
         }
         if (is_null($textDomain) && defined('EASE_APPNAME')) {
             $textDomain = strtolower(constant('EASE_APPNAME'));
@@ -510,13 +500,61 @@ class Locale
     }
 
     /**
-     * Default Locale Code
-     * @return string
+     * Prefered Locale Code - 1) Requested 2) Session 3) Browser for WebPage or
+     *                        getenv('LC_ALL') for CLI
+     * 
+     * @return string locale code 
      */
-    public static function getDefaultCode()
+    public static function getrPreferedLocale()
+    {
+        if (php_sapi_name() == 'cli') {
+            $locale = getenv('LC_ALL');
+        } else {
+            $reqLocale = self::requestLocale();
+            if (is_null($reqLocale)) {
+                $sesLocale = self::sessionLocale();
+                if (is_null($sesLocale)) {
+                    $locale = self::browserLocale();
+                } else {
+                    $locale = $sesLocale;
+                }
+            } else {
+                $locale = $reqLocale;
+            }
+        }
+        return $locale;
+    }
+
+    /**
+     * Session by page GET or POST request with 'locale' field
+     * 
+     * @return string Locale Code
+     */
+    public static function requestLocale()
     {
         return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale']
-                : self::langToLocale(self::autodetected());
+                : null;
+    }
+
+    /**
+     * Locale code saved to session field $_SESSION['locale']
+     * 
+     * @return string locale code
+     */
+    public static function sessionLocale()
+    {
+        return isset($_SESSION) && array_key_exists('locale', $_SESSION) ? $_SESSION['locale']
+                : null;
+    }
+
+    /**
+     * Locale code by browser default language
+     * 
+     * @return string locale code
+     */
+    public static function browserLocale()
+    {
+        return self::langToLocale(self::autodetected());
     }
 
     /**

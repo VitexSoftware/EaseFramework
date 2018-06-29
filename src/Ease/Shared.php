@@ -21,7 +21,6 @@ namespace Ease;
  * uživatel, databáze, webstránka nebo logy.
  * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
  *
- * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
@@ -405,7 +404,8 @@ class Shared extends Atom
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
                                              $i18n = '../i18n')
     {
-        return Locale::initializeGetText($appname, $defaultLocale, $i18n);
+        return self::instanced()->locale(new Locale($defaultLocale, $i18n,
+                $appname));
     }
 
     /**
