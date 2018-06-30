@@ -505,7 +505,7 @@ class Locale
      * 
      * @return string locale code 
      */
-    public static function getrPreferedLocale()
+    public static function getPreferedLocale()
     {
         if (php_sapi_name() == 'cli') {
             $locale = getenv('LC_ALL');
