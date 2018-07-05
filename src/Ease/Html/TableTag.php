@@ -11,17 +11,21 @@ class TableTag extends PairTag
 {
     /**
      * Hlavička tabulky.
-     *
      * @var Thead
      */
     public $tHead = null;
 
     /**
      * Table Body
-     *
      * @var Tbody
      */
     public $tbody = null;
+
+    /**
+     * Table Foot
+     * @var Tfoot 
+     */
+    public $tFoot = null;
 
     /**
      * Html Table.
@@ -34,6 +38,7 @@ class TableTag extends PairTag
         parent::__construct('table', $properties, $content);
         $this->tHead = $this->addItem(new Thead());
         $this->tBody = $this->addItem(new Tbody());
+        $this->tFoot = $this->addItem(new Tfoot());
     }
 
     /**
@@ -81,6 +86,31 @@ class TableTag extends PairTag
     public function &addRowHeaderColumns($columns = null, $properties = [])
     {
         $tableRow = $this->tHead->addItem(new TrTag());
+        if (is_array($columns)) {
+            foreach ($columns as $column) {
+                if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType()
+                    == 'th') {
+                    $tableRow->addItem($column);
+                } else {
+                    $tableRow->addItem(new ThTag($column, $properties));
+                }
+            }
+        }
+
+        return $tableRow;
+    }
+
+    /**
+     * Insert columns into table foot
+     *
+     * @param array $columns    values
+     * @param array $properties options to add
+     *
+     * @return TrTag odkaz na řádku tabulky
+     */
+    public function &addRowFooterColumns($columns = null, $properties = [])
+    {
+        $tableRow = $this->tFoot->addItem(new TrTag());
         if (is_array($columns)) {
             foreach ($columns as $column) {
                 if (is_object($column) && method_exists($column, 'getTagType') && $column->getTagType()

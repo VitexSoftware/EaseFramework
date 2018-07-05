@@ -4,6 +4,12 @@
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * 
+ * @category User Classes
+ * @package EasePHP
+ * 
+ * PHP 5
+ * PHP 7
  */
 
 namespace Ease;

@@ -2,15 +2,24 @@
 /**
  * Základní pojící element všech objektů v EaseFrameWorku. Jeho hlavní schopnost je:
  * Pojímat do sebe zprávy.
- *
+ * 
+ * @category Common
+ * @package EasePHP
+ * 
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @license http://URL GPL-2
+ * 
+ * PHP 5
+ * PHP 7
  */
 
 namespace Ease;
 
 /**
  * Basic Class of EasePHP
+ * 
+ * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 class Atom
 {

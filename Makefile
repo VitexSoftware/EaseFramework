@@ -48,8 +48,10 @@ rpm:
 	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" rpm.spec
 	rpmbuild -ba rpm.spec
 
-docker:
-	docker build -t vitexus/ease-framework .
+docker: dimage
+
+dimage:
+	docker build -t vitexsoftware/easephpframework .
 
 
 release: fresh deb docker
