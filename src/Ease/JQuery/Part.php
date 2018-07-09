@@ -171,7 +171,7 @@ class Part extends \Ease\Page
                                 }
                             }
                         } elseif (is_int($partPropertyValue)) {
-                            $partsArray[] = $partPropertyName.': '.$partPropertyValue.' ';
+                            $partsArray[] = '"'.$partPropertyName.'": '.$partPropertyValue.' ';
                         } else {
                             if (!is_null($partPropertyValue) && (strlen($partPropertyValue)
                                 || $partPropertyValue === false)) {
