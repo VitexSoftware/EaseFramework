@@ -38,6 +38,8 @@ composer:
 test:
 	echo sudo service postgresql start ; sudo service postgresql start
 	phinx migrate -c tests/phinx.yml
+
+phpunit:
 	vendor/bin/phpunit --bootstrap tests/Bootstrap.php
 
 deb:

@@ -24,11 +24,11 @@ namespace Ease;
 class Atom
 {
     /**
-     * Version of EasePHPFramework
+     * Version of EasePHP Framework
      *
      * @var string
      */
-    static public $frameworkVersion = '1.5.0';
+    static public $frameworkVersion = '1.5.1';
 
     /**
      * Udržuje v sobě jméno objektu.

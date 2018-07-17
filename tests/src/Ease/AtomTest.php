@@ -5,19 +5,12 @@
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2016 Vitex@hippy.cz (G)
  */
-declare(strict_types=1);
+// @codingStandardsIgnoreFile
+// @codeCoverageIgnoreStart
+
+declare(strict_types = 1);
 
 namespace Test\Ease;
-
-//use PHPUnit\Framework\TestCase;
-
-/**
- * Dirty Temporary backwards compatibilty hack  
- */
-class TestCase extends \PHPUnit_Framework_TestCase
-{
-    
-}
 
 /**
  * Test class for EaseAtom.
@@ -26,7 +19,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2018 Vitex@hippy.cz (G)
  */
-class AtomTest extends TestCase
+class AtomTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Atom
@@ -160,3 +153,5 @@ class AtomTest extends TestCase
         $this->assertEquals('', $this->object->draw());
     }
 }
+
+// @codeCoverageIgnoreEnd

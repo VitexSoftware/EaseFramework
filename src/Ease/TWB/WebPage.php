@@ -17,11 +17,13 @@ class WebPage extends \Ease\WebPage
      * @var string path or url 
      */
     public $bootstrapCSS = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+
     /**
      * Where to look for bootstrap stylesheet theme
      * @var string path or url 
      */
     public $bootstrapThemeCSS = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css';
+
     /**
      * Where to look for bootstrap stylesheet scripts
      * @var string path or url 
@@ -47,7 +49,7 @@ class WebPage extends \Ease\WebPage
      *
      * @param string $what info|warning|error|success
      *
-     * @return string
+     * @return string html of status messages
      */
     public function getStatusMessagesAsHtml($what = null)
     {
