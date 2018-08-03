@@ -361,23 +361,24 @@ class Shared extends Atom
      *
      * @return array full configuration array
      */
-    public function loadConfig($configFile, $defineConstants = true)
+    public function loadConfig($configFile, $defineConstants = false)
     {
         if (!file_exists($configFile)) {
             throw new Exception('Config file '.(realpath($configFile) ? realpath($configFile)
                     : $configFile).' does not exist');
         }
-        $this->configuration = json_decode(file_get_contents($configFile), true);
-        if (is_null($this->configuration)) {
+        $configuration = json_decode(file_get_contents($configFile), true);
+        if (empty($configuration)) {
             $this->addStatusMessage('Empty Config File '.realpath($configFile) ? realpath($configFile)
                         : $configFile, 'debug');
         } else {
-            foreach ($this->configuration as $configKey => $configValue) {
+            foreach ($configuration as $configKey => $configValue) {
                 if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
                     define($configKey, $configValue);
                 } else {
                     $this->setConfigValue($configKey, $configValue);
                 }
+                $this->configuration[$configKey] = $configValue;
             }
         }
 
