@@ -8,7 +8,7 @@
 // @codingStandardsIgnoreFile
 // @codeCoverageIgnoreStart
 
-declare(strict_types = 1);
+//declare(strict_types = 1);
 
 namespace Test\Ease;
 
@@ -19,7 +19,7 @@ namespace Test\Ease;
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2018 Vitex@hippy.cz (G)
  */
-class AtomTest extends \PHPUnit\Framework\TestCase
+class AtomTest extends \PHPUnit\Framework\TestSuite
 {
     /**
      * @var Atom
@@ -30,7 +30,7 @@ class AtomTest extends \PHPUnit\Framework\TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new \Ease\Atom();
     }
@@ -39,7 +39,7 @@ class AtomTest extends \PHPUnit\Framework\TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         
     }

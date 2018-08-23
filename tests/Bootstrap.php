@@ -6,7 +6,7 @@
  * @copyright  2012-2017 Vitex@hippy.cz (G)
  */
 
-namespace Tests\Ease;
+namespace Test\Ease;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -27,3 +27,4 @@ define('DB_TYPE', 'pgsql');
 
 \Ease\Shared::user(new \Ease\Anonym());
 \Ease\Shared::webPage(new \Ease\WebPage());
+

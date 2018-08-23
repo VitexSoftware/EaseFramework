@@ -18,7 +18,7 @@ class FormGroupTest extends \Test\Ease\Html\DivTagTest
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new \Ease\TWB\FormGroup('Label',
             new \Ease\Html\InputTextTag('text'));
@@ -39,7 +39,7 @@ class FormGroupTest extends \Test\Ease\Html\DivTagTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         
     }
