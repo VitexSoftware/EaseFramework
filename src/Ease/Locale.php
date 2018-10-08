@@ -492,8 +492,14 @@ class Locale
         if (is_null($setLocale)) {
             $setLocale = self::getPreferedLocale();
         }
-        if (is_null($textDomain) && defined('EASE_APPNAME')) {
+        if (is_null($textDomain)) {
+            if (is_null(self::$textDomain)) {
+                if (defined('EASE_APPNAME')) {
             $textDomain = strtolower(constant('EASE_APPNAME'));
+        }
+            } else {
+                $textDomain = self::$textDomain;
+            }
         }
         self::$i18n = $i18n;
         self::initializeGetText($textDomain, $setLocale, $i18n);
