@@ -495,8 +495,8 @@ class Locale
         if (is_null($textDomain)) {
             if (is_null(self::$textDomain)) {
                 if (defined('EASE_APPNAME')) {
-            $textDomain = strtolower(constant('EASE_APPNAME'));
-        }
+                    $textDomain = strtolower(constant('EASE_APPNAME'));
+                }
             } else {
                 $textDomain = self::$textDomain;
             }
