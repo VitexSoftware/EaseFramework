@@ -36,7 +36,7 @@ class AppWebPage extends \Ease\TWB\WebPage
         );
         $this->addItem(new \Ease\TWB\StatusMessages());
         $this->container = $this->addItem(
-            new \Ease\Html\Div(null, ['class' => 'container'])
+            new \Ease\Html\DivTag(null, ['class' => 'container'])
         );
     }
 

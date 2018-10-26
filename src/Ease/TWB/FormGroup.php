@@ -2,6 +2,9 @@
 
 namespace Ease\TWB;
 
+class FormGroup extends \Ease\Html\DivTag
+{
+
 /**
  * Položka TWBootstrp formuláře.
  *
@@ -11,9 +14,6 @@ namespace Ease\TWB;
  * @param string         $helptext    Nápvěda pod prvkem
  * @param string         $addTagClass CSS třída kterou má být oskiován vložený prvek
  */
-class FormGroup extends \Ease\Html\Div
-{
-
     public function __construct($label = null, $content = null,
                                 $placeholder = null, $helptext = null,
                                 $addTagClass = 'form-control')

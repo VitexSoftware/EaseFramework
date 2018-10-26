@@ -10,9 +10,6 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Mail": "/usr/share/php/Mail/"
-        },
         "psr-4": {
             "Ease\\": ".",
             "Ease\\Html\\": "Html",
@@ -21,12 +18,12 @@
             "Ease\\SQL\\": "SQL",
             "Ease\\TWB\\": "TWB",
             "Ease\\TWB4\\": "TWB4"
-        }
-
+        },
+        "classmap": ["/usr/share/php/"]
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6 <7.3",
+        "php": ">=7",
         "ext-curl": "*",
         "ext-pdo": "*"
     },

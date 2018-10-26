@@ -2,12 +2,12 @@
 
 namespace Ease\TWB;
 
-class Modal extends \Ease\Html\Div
+class Modal extends \Ease\Html\DivTag
 {
     /**
      * Spodek dialogu s tlačítky.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $footer;
 
@@ -35,14 +35,14 @@ class Modal extends \Ease\Html\Div
     /**
      * Tělo dialogu.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $body;
 
     /**
      * Hlavička dialogu.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $header;
 
@@ -61,12 +61,12 @@ class Modal extends \Ease\Html\Div
         $this->properties = $properties;
         $this->name       = $name;
         $this->title      = $title;
-        $this->header     = new \Ease\Html\Div(null, ['class' => 'modal-header']);
+        $this->header     = new \Ease\Html\DivTag(null, ['class' => 'modal-header']);
         $this->header->addItem(new \Ease\Html\ButtonTag('&times;',
                 ['class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true']));
-        $this->body       = new \Ease\Html\Div($content,
+        $this->body       = new \Ease\Html\DivTag($content,
             ['class' => 'modal-body']);
-        $this->footer     = new \Ease\Html\Div(null, ['class' => 'modal-footer']);
+        $this->footer     = new \Ease\Html\DivTag(null, ['class' => 'modal-footer']);
         $this->footer->addItem(new \Ease\Html\ButtonTag(_('Close'),
                 ['id' => $name.'ko', 'type' => 'button', 'class' => 'btn btn-default',
                 'data-dismiss' => 'modal',]));
@@ -80,9 +80,9 @@ class Modal extends \Ease\Html\Div
     public function finalize()
     {
         Part::twBootstrapize();
-        $modalDialog  = $this->addItem(new \Ease\Html\Div(null,
+        $modalDialog  = $this->addItem(new \Ease\Html\DivTag(null,
                 ['class' => 'modal-dialog', 'role' => 'document']));
-        $modalContent = $modalDialog->addItem(new \Ease\Html\Div(null,
+        $modalContent = $modalDialog->addItem(new \Ease\Html\DivTag(null,
                 ['class' => 'modal-content']));
         $this->header->addItem(new \Ease\Html\H4Tag($this->title,
                 ['class' => 'modal-title', 'id' => $this->title.'ID']));

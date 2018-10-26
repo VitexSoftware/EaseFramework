@@ -5,7 +5,7 @@
 
 namespace Ease\TWB;
 
-class Row extends \Ease\Html\Div
+class Row extends \Ease\Html\DivTag
 {
 
     /**

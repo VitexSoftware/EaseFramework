@@ -50,7 +50,7 @@ class ContainerTest extends SandTest
      */
     public function testRaise()
     {
-        $div                   = new \Ease\Html\Div('TestDiv');
+        $div                   = new \Ease\Html\DivTag('TestDiv');
         $this->object->webPage = new \Ease\WebPage('toRaise');
         $this->object->raise($div);
         $this->object->raise($div, ['webPage']);

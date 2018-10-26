@@ -8,7 +8,7 @@
 
 namespace Ease\TWB;
 
-class Container extends \Ease\Html\Div
+class Container extends \Ease\Html\DivTag
 {
 
     /**

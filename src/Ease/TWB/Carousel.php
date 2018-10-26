@@ -56,7 +56,7 @@ class Carousel extends \Ease\Html\DivTag
         $this->setTagClass('carousel slide');
         $this->indicators = $this->addItem(new \Ease\Html\OlTag(null,
                 ['class' => 'carousel-indicators']));
-        $this->inner      = $this->addItem(new \Ease\Html\Div(null,
+        $this->inner      = $this->addItem(new \Ease\Html\DivTag(null,
                 ['class' => 'carousel-inner', 'role' => 'listbox']));
     }
 
@@ -71,13 +71,13 @@ class Carousel extends \Ease\Html\DivTag
     public function addSlide($slide, $capHeading = '', $caption = '',
                              $default = false)
     {
-        $item = new \Ease\Html\Div($slide, ['class' => 'item']);
+        $item = new \Ease\Html\DivTag($slide, ['class' => 'item']);
         if ($default) {
             $item->addTagClass('active');
         }
 
         if ($capHeading || $caption) {
-            $cpt = $item->addItem(new \Ease\Html\Div(null,
+            $cpt = $item->addItem(new \Ease\Html\DivTag(null,
                     ['class' => 'carousel-caption']));
             if ($capHeading) {
                 $cpt->addItem(new \Ease\Html\H4Tag($capHeading));

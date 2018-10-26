@@ -2,7 +2,7 @@
 
 namespace Ease\TWB;
 
-class ButtonDropdown extends \Ease\Html\Div
+class ButtonDropdown extends \Ease\Html\DivTag
 {
     /**
      * Rozbalovací nabídka.

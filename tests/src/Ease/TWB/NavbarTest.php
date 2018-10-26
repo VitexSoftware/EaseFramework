@@ -126,7 +126,7 @@ class NavbarTest extends \Test\Ease\Html\DivTagTest
         $this->object->addItem('@');
         $this->assertEquals(0, $this->object->getItemsCount());
         $this->assertEquals(2,
-            $this->object->getItemsCount(new \Ease\Html\Div(['a', 'b'])));
+            $this->object->getItemsCount(new \Ease\Html\DivTag(['a', 'b'])));
     }
 
     /**

@@ -449,11 +449,10 @@ abstract class SQL extends \Ease\Molecule
     public function queryToValue($queryRaw)
     {
         $result = $this->queryToArray($queryRaw);
-        if (count($result)) {
-            return current(current($result));
-        } else {
-            return;
+        if (!empty($result)) {
+            $result = current(current($result));
         }
+        return $result;
     }
 
     /**
@@ -465,7 +464,8 @@ abstract class SQL extends \Ease\Molecule
      */
     public function queryToCount($queryRaw)
     {
-        return count($this->queryToArray($queryRaw));
+        $resp = $this->queryToArray($queryRaw);
+        return empty($resp) ? 0 : count($resp);
     }
 
     /**

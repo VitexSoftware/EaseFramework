@@ -2,7 +2,7 @@
 
 namespace Ease\TWB;
 
-class Col extends \Ease\Html\Div
+class Col extends \Ease\Html\DivTag
 {
 
     /**
