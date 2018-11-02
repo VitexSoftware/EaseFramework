@@ -197,8 +197,7 @@ class Mailer extends Page
             } else {
                 $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
                 $this->htmlDocument->setOutputFormat($this->getOutputFormat());
-                $this->htmlBody     = $this->htmlDocument->addItem(new Html\BodyTag('Mail',
-                        $item));
+                $this->htmlBody     = $this->htmlDocument->addItem(new Html\BodyTag($item));
                 $mailBody           = $this->htmlDocument;
             }
         } else {
