@@ -12,7 +12,7 @@ namespace Ease\TWB;
  *
  * @author vitex
  */
-class ButtonGroup extends \Ease\Html\Div
+class ButtonGroup extends \Ease\Html\DivTag
 {
 
     /**

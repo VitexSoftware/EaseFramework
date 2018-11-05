@@ -5,12 +5,12 @@
 
 namespace Ease\TWB;
 
-class Navbar extends \Ease\Html\Div
+class Navbar extends \Ease\Html\DivTag
 {
     /**
      * Vnitřek menu.
      *
-     * @var \Ease\Html\Div
+     * @var \Ease\Html\DivTag
      */
     public $menuInnerContent = null;
 
@@ -46,16 +46,16 @@ class Navbar extends \Ease\Html\Div
         $properties['class']    = trim('navbar navbar-default '.$originalClass);
         $properties['role']     = 'navigation';
         $properties['name']     = $name;
-        $this->menuInnerContent = parent::addItem(new \Ease\Html\Div(null,
+        $this->menuInnerContent = parent::addItem(new \Ease\Html\DivTag(null,
                     ['class' => 'navbar-inner']));
         parent::__construct(null, $properties);
         $this->addItem(self::navBarHeader($name, $brand));
-        $navCollapse            = $this->addItem(new \Ease\Html\Div(null,
+        $navCollapse            = $this->addItem(new \Ease\Html\DivTag(null,
                 ['class' => 'collapse navbar-collapse navbar-'.$name.'-collapse']));
         $this->nav              = $navCollapse->addItem(new \Ease\Html\UlTag(null,
                 ['class' => 'nav navbar-nav']));
         $this->tagType          = 'nav';
-        $pullRigt               = new \Ease\Html\Div(null,
+        $pullRigt               = new \Ease\Html\DivTag(null,
             ['class' => 'pull-right']);
         $this->navRight         = $pullRigt->addItem(new \Ease\Html\UlTag(null,
                 ['class' => 'nav navbar-nav nav-right']));
@@ -69,7 +69,7 @@ class Navbar extends \Ease\Html\Div
      * @param string $handle classname fragment
      * @param string $brand  menu brand name
      * 
-     * @return \Ease\Html\Div
+     * @return \Ease\Html\DivTag
      */
     public static function navBarHeader($handle, $brand)
     {
@@ -86,7 +86,7 @@ class Navbar extends \Ease\Html\Div
                 ['class' => 'navbar-brand']);
         }
 
-        return new \Ease\Html\Div($nbhc, ['class' => 'navbar-header']);
+        return new \Ease\Html\DivTag($nbhc, ['class' => 'navbar-header']);
     }
 
     /**

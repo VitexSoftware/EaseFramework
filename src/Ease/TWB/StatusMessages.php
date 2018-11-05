@@ -5,7 +5,7 @@
 
 namespace Ease\TWB;
 
-class StatusMessages extends \Ease\Html\Div
+class StatusMessages extends \Ease\Html\DivTag
 {
 
     /**

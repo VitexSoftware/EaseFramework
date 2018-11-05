@@ -233,9 +233,9 @@ class Shared extends Atom
     /**
      * Vrací nebo registruje instanci webové stránky.
      *
-     * @param EaseWebPage $oPage objekt webstránky k zaregistrování
+     * @param WebPage $oPage objekt webstránky k zaregistrování
      *
-     * @return EaseWebPage
+     * @return WebPage
      */
     public static function &webPage($oPage = null)
     {

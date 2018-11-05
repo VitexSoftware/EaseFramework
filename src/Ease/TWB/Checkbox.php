@@ -5,7 +5,7 @@
 
 namespace Ease\TWB;
 
-class Checkbox extends \Ease\Html\Div
+class Checkbox extends \Ease\Html\DivTag
 {
     /**
      * Odkaz na checkbox.

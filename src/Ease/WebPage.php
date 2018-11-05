@@ -85,22 +85,22 @@ class WebPage extends Page
     public $cssPrefix = '/javascript/';
 
     /**
-     * Základní objekt pro stránku shopu.
+     * Content to place inside of body
      *
-     * @param User|Anonym $userObject objekt uživatele
+     * @param $toBody
      */
-    public function __construct($pageTitle = null, &$userObject = null)
+    public function __construct($pageTitle = null, $toBody = null)
     {
         Shared::webPage($this);
         if (!is_null($pageTitle)) {
             $this->pageTitle = $pageTitle;
         }
-        parent::__construct($userObject);
+        parent::__construct();
 
         $this->pageParts['doctype'] = '<!DOCTYPE html>';
         parent::addItem(new Html\HtmlTag());
         $this->pageParts['html']->addItem(new Html\HeadTag());
-        $this->pageParts['html']->addItem(new Html\BodyTag());
+        $this->pageParts['html']->addItem(new Html\BodyTag($toBody));
         $this->head                 = &$this->pageParts['html']->pageParts['head'];
         $this->head->raise($this);
 
@@ -112,7 +112,7 @@ class WebPage extends Page
     }
 
     /**
-     * Nastaví ID stránky.
+     * Set ID for page body
      *
      * @return string
      */
@@ -121,13 +121,16 @@ class WebPage extends Page
         return $this->body->setTagID($tagID);
     }
 
+    /**
+     * Get ID for page body
+     */
     public function getTagID()
     {
         $this->body->getTagID();
     }
 
     /**
-     * Contentets
+     * Get body Contentets
      * 
      * @return mixed
      */
@@ -137,7 +140,7 @@ class WebPage extends Page
     }
 
     /**
-     * Přidá položku do těla stránky.
+     * Add item into page body
      *
      * @param mixed  $item         vkládaná položka
      * @param string $pageItemName Pod tímto jménem je objekt vkládán do stromu

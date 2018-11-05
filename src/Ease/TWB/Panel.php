@@ -106,7 +106,7 @@ class Panel extends \Ease\Html\DivTag
                 $this->footer->addItem($content);
             }
         } else {
-            $this->footer = parent::addItem(new \Ease\Html\Div($content,
+            $this->footer = parent::addItem(new \Ease\Html\DivTag($content,
                         ['class' => 'panel-footer panel-'.$this->type]),
                     'footer');
         }

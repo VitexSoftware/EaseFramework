@@ -16,3 +16,5 @@ override_dh_install:
 	sed -e "/\$$bootstrapThemeCSS/c\     \public \$$bootstrapThemeCSS   = \'\/javascript\/bootstrap\/css\/bootstrap-theme.min.css\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
 	sed -e "/\$$bootstrapJavaScript/c\   \public \$$bootstrapJavaScript = \'\/javascript\/bootstrap\/js\/bootstrap.min.js\';"     -i    debian/ease-framework/usr/share/php/Ease/TWB/WebPage.php 
 	sed -e "/\$$jqueryJavaScript/c\      \public \$$jqueryJavaScript    = \'\/javascript\/jquery\/jquery.min.js\';"     -i    debian/ease-framework/usr/share/php/Ease/WebPage.php 
+	echo "require_once 'Mail.php';"  >> debian/ease-framework/usr/share/php/Ease/Mailer.php
+	echo "require_once 'Mail/mime.php';" >> debian/ease-framework/usr/share/php/Ease/Mailer.php

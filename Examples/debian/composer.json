@@ -14,7 +14,7 @@
         "vendor-dir": "/var/tmp/composer/"
     },
     "require": {
-        "vitexsoftware/ease-framework": "1.0"
+        "ease-framework": "*"
     },
     "repositories": [
         {

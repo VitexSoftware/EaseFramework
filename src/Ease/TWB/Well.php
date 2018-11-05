@@ -5,7 +5,7 @@ namespace Ease\TWB;
 /**
  * Twitter Bootrstap Well.
  */
-class Well extends \Ease\Html\Div
+class Well extends \Ease\Html\DivTag
 {
 
     /**
