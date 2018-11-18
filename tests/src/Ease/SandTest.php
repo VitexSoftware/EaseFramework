@@ -109,6 +109,15 @@ class SandTest extends AtomTest
     }
 
     /**
+     * @covers Ease\Sans::isAssoc
+     */
+    public function testIsAssoc()
+    {
+        $this->assertTrue(\Ease\JQuery\Part::isAssoc(['a' => 'b']));
+        $this->assertFalse(\Ease\JQuery\Part::isAssoc(['a', 'b']));
+    }
+
+    /**
      * @covers Ease\Sand::getMyKey
      */
     public function testGetMyKey()
@@ -164,7 +173,7 @@ class SandTest extends AtomTest
     {
         $this->assertNull($this->object->setData(null));
 
-        $data               = ['a' => 1, 'b' => 2];
+        $data = ['a' => 1, 'b' => 2];
         $this->object->setData($data, true);
         $this->assertEquals($data, $this->object->getData());
     }

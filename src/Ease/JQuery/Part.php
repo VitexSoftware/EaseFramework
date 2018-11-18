@@ -114,18 +114,6 @@ class Part extends \Ease\Page
     }
 
     /**
-     * Test for associative array.
-     *
-     * @param array $arr
-     *
-     * @return bool
-     */
-    public static function isAssoc($arr)
-    {
-        return array_values($arr) !== $arr;
-    }
-
-    /**
      * vyrendruje pole parametrů jako řetězec v syntaxi javascriptu.
      *
      * @param array|string $partProperties vlastnosti jQuery widgetu

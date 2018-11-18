@@ -236,6 +236,18 @@ class Sand extends Molecule
     }
 
     /**
+     * Test for associative array.
+     *
+     * @param array $arr
+     *
+     * @return bool
+     */
+    private function isAssoc(array $arr)
+    {
+        return array_keys($arr) !== range(0, count($arr) - 1);
+    }
+
+    /**
      * Gives you value of KEY Column
      *
      * @param array $data data z nichž se vrací hodnota klíče
@@ -662,7 +674,7 @@ class Sand extends Molecule
                 $reindexedData[$data[$indexBy]] = $data;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
-                        $indexBy));
+                    $indexBy));
             }
         }
 
@@ -710,5 +722,4 @@ class Sand extends Molecule
         }
         return false;
     }
-    
 }

@@ -81,15 +81,6 @@ class PartTest extends \Test\Ease\PageTest
     }
 
     /**
-     * @covers Ease\JQuery\Part::is_assoc
-     */
-    public function testIs_assoc()
-    {
-        $this->assertTrue(\Ease\JQuery\Part::isAssoc(['a'=>'b']));
-        $this->assertFalse(\Ease\JQuery\Part::isAssoc(['a','b']));
-    }
-
-    /**
      * @covers Ease\JQuery\Part::partPropertiesToString
      */
     public function testPartPropertiesToString()

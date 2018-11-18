@@ -1,6 +1,6 @@
-DESTDIR ?= debian/ease-framework/DEBIAN
-libdir  ?= /usr/share/php/EaseFramework
-docdir  ?= /doc/ease-framework/html
+#DESTDIR ?= debian/ease-framework/DEBIAN
+#libdir  ?= /usr/share/php/Ease
+#docdir  ?= /doc/ease-framework/html
 
 all: build install
 
@@ -11,11 +11,12 @@ fresh:
 	dch -b -v "${VERSION}" --package ${PACKAGE} "$CHANGES" \
 	composer install
 	
-install:
-	mkdir -p $(DESTDIR)$(libdir)
-	cp -r src/Ease/ $(DESTDIR)$(libdir)
-	mkdir -p $(DESTDIR)$(docdir)
-	cp -r docs $(DESTDIR)$(docdir)
+#install:
+#	mkdir -p $(DESTDIR)$(libdir)
+#	cp -r src/Ease/ $(DESTDIR)$(libdir)
+#	cp -r debian/composer.json $(DESTDIR)$(libdir)
+#	mkdir -p $(DESTDIR)$(docdir)
+#	cp -r docs $(DESTDIR)$(docdir)
 	
 #build: doc
 #	echo build;	

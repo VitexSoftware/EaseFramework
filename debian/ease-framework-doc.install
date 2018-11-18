@@ -1,4 +1,4 @@
-docs/*	usr/share/doc/ease-framework/html
-docs/resources/*	usr/share/doc/ease-framework/html/resources
+docs/*				usr/share/doc/ease-framework/html
+docs/resources/*		usr/share/doc/ease-framework/html/resources
 debian/ease-framework-doc.conf	usr/share/doc/ease-framework-doc/apache
-README.md usr/share/doc/ease-framework
+README.md			usr/share/doc/ease-framework

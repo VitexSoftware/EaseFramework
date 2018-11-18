@@ -1,4 +1,4 @@
-ease-framework (1.5.14) UNRELEASED; urgency=medium
+ease-framework (1.16-1) UNRELEASED; urgency=medium
 
   * Package build fixed
   * Dolar fix
@@ -9,8 +9,9 @@ ease-framework (1.5.14) UNRELEASED; urgency=medium
   * Locale fixed
   * Locale fixed
   * Locale fixed
+  * Merge origin/master  Conflicts:  debian/composer.json
 
- -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Fri, 02 Nov 2018 15:54:44 +0100
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sun, 18 Nov 2018 19:48:53 +0100
 
 ease-framework (1.4.9) experimental; urgency=medium
 
