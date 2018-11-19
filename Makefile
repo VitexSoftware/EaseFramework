@@ -48,8 +48,8 @@ deb:
 	debuild -i -us -uc -b
 
 rpm:
-	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" rpm.spec
-	rpmbuild -ba rpm.spec
+	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" ease-framework.spec
+	rpmbuild -ba ease-framework.spec
 
 docker: dimage
 

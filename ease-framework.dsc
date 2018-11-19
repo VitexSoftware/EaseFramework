@@ -10,3 +10,5 @@ Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 7.0.50~)
 Vcs-Browser: https://github.com/VitexSoftware/EaseFramework
 Vcs-Git: https://github.com/VitexSoftware/EaseFramework.git
+DEBTRANSFORM-RELEASE: 1
+
