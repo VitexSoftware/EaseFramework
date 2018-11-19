@@ -15,12 +15,3 @@ Section: web
 Priority: optional
 Description: Simple PHP framework
  Support ORM, HTML5, jQueryUI and TwitterBootstrap Classes. 
-
-#Package: ease-framework-doc
-#Depends: ${misc:Depends},
-#Suggests: www-browser
-#Architecture: all
-#Section: doc
-#Priority: optional
-#Description: Ease Framework documentation
-# ApiGen html documentation for ease-framework php library
