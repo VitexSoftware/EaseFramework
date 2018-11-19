@@ -242,7 +242,7 @@ class Sand extends Molecule
      *
      * @return bool
      */
-    private function isAssoc(array $arr)
+    public function isAssoc(array $arr)
     {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
