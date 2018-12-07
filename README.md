@@ -41,7 +41,7 @@ For Debian, Ubuntu & friends please use repo:
 
 In this case please add this to your app composer.json:
 
-``json
+```json
     "require": {
         "ease-framework": "*"
     },
@@ -54,7 +54,7 @@ In this case please add this to your app composer.json:
             }
         }
     ]
-``
+```
 
 
 Docker:
