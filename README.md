@@ -21,7 +21,7 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 Installation
 ============
 
-Download https://github.com/VitexSoftware/EaseFramework/archive/master.zip or:
+Download https://github.com/VitexSoftware/EaseFramework/archive/master.zip or use
 
 Composer:
 ---------
@@ -32,12 +32,12 @@ Linux
 
 For Debian, Ubuntu & friends please use repo:
 
-``
+```
     wget -O - http://v.s.cz/info@vitexsoftware.cz.gpg.key|sudo apt-key add -
     echo deb http://v.s.cz/ stable main | sudo tee /etc/apt/sources.list.d/vitexsoftware.list 
     sudo apt update
     sudo apt install ease-framework
-``
+```
 
 In this case please add this to your app composer.json:
 
