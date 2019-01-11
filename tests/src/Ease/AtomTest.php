@@ -8,7 +8,7 @@
 // @codingStandardsIgnoreFile
 // @codeCoverageIgnoreStart
 
-//declare(strict_types = 1);
+declare(strict_types = 1);
 
 namespace Test\Ease;
 

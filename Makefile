@@ -41,7 +41,7 @@ test:
 	phinx migrate -c tests/phinx.yml
 
 phpunit:
-	vendor/bin/phpunit --bootstrap tests/Bootstrap.php
+	vendor/bin/phpunit --bootstrap tests/Bootstrap.php --configuration phpunit.xml
 
 deb:
 	dch -i "`git log -1 --pretty=%B`"
@@ -60,7 +60,8 @@ dimage:
 release: fresh deb docker
 	
 
-
+openbuild:
+	
 
 .PHONY : install build
 	

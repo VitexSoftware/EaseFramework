@@ -4,13 +4,11 @@
  * Pojímat do sebe zprávy.
  * 
  * @category Common
- * @package EasePHP
  * 
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  * @license http://URL GPL-2
  * 
- * PHP 5
  * PHP 7
  */
 

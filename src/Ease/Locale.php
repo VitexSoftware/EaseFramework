@@ -513,6 +513,7 @@ class Locale
      */
     public static function getPreferedLocale()
     {
+//        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
         if (php_sapi_name() == 'cli') {
             $locale = getenv('LC_ALL');
         } else {
@@ -641,13 +642,13 @@ class Locale
      */
     public static function useLocale($localeCode)
     {
-        setlocale(LC_ALL, $localeCode);
-        bind_textdomain_codeset(self::$textDomain, 'UTF-8');
-        putenv("LC_ALL=$localeCode");
+        \setlocale(LC_ALL, $localeCode);
+        \bind_textdomain_codeset(self::$textDomain, 'UTF-8');
+        \putenv("LC_ALL=$localeCode");
         if (file_exists(self::$i18n)) {
-            bindtextdomain(self::$textDomain, self::$i18n);
+            \bindtextdomain(self::$textDomain, self::$i18n);
         }
-        textdomain(self::$textDomain);
+        \textdomain(self::$textDomain);
         if (isset($_SESSION)) {
             $_SESSION['locale'] = $localeCode;
         }

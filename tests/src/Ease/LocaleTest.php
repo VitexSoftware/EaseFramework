@@ -38,5 +38,6 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     public function testInitializeGetText()
     {
         Locale::initializeGetText('EaseTest', 'en_US', '../i18n');
+        $this->assertEquals( Locale::$i18n, '../i18n' );
     }
 }
