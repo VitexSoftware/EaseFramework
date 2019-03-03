@@ -1,17 +1,21 @@
-ease-framework (1.16) UNRELEASED; urgency=medium
+ease-framework (1.19) UNRELEASED; urgency=medium
 
+  * isAssoc isStatic
+
+ -- vitex <vitex@hosting.vitexsoftware.cz>  Fri, 07 Dec 2018 22:03:50 +0100
+
+ease-framework (1.18) experimental; urgency=medium
+
+  [ Vítězslav Dvořák ]
   * Package build fixed
   * Dolar fix
   * Debian Paths to jquery.js fixed
   * Locale fixed
   * Ubuntu 18.04 compatible
-  * Locale fixed
-  * Locale fixed
-  * Locale fixed
-  * Locale fixed
   * Merge origin/master  Conflicts:  debian/composer.json
+  * isAssoc isStatic
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sun, 18 Nov 2018 19:48:53 +0100
+ -- vitex <vitex@hosting.vitexsoftware.cz>  Fri, 07 Dec 2018 22:01:05 +0100
 
 ease-framework (1.4.9) experimental; urgency=medium
 
