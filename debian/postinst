@@ -21,7 +21,7 @@ set -e
 case "$1" in
     configure)
 
-        composer-global-update ease-core
+        composer-global-update vitexsoftware_ease-framework
 
     ;;
 
