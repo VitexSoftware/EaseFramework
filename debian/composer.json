@@ -1,7 +1,7 @@
 {
-    "name": "ease-framework",
+    "name": "vitexsoftware.ease-framework",
     "description": "An PHP Framework for Ease of writing Applications (debianized)",
-    "version": "1.18",
+    "version": "1.19",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
