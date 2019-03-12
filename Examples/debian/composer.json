@@ -1,5 +1,5 @@
 {
-    "name": "vitexsoftware.ease-debian-example",
+    "name": "vitexsoftware_ease-debian-example",
     "description": "Example how to use Ease framework installed as debian package",
     "type": "project",
     "license": "GPL-2.0+",
@@ -14,7 +14,7 @@
         "vendor-dir": "/var/tmp/composer/"
     },
     "require": {
-        "vitexsoftware.ease-framework": "*"
+        "deb/ease-framework": "*"
     },
     "repositories": [
         {
