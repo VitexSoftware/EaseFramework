@@ -116,26 +116,17 @@ class ToMemory extends \Ease\Atom
             return;
         }
 
-        $this->statusMessages[$type][$this->messageID] = $message;
+        $this->messages[] = $this->getLogLine($type, $message, $caller);
+        return true;
+    }
 
+    public function getLogLine($type, $message, $caller)
+    {
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
+        return date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
                 'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
-                ['**', '##', '@@', '::'], $type).' '.$message."\n";
-        if (!isset($this->logStyles[$type])) {
-            $type = 'notice';
-        }
-        if ($this->logType == 'console' || $this->logType == 'both') {
-            if ($this->runType == 'cgi') {
-                echo $logLine;
-            } else {
-                echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";
-                flush();
-            }
-        }
-
-        return true;
+                ['**', '##', '@@', '::'], $type).' '.$message;
     }
 
     /**

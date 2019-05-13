@@ -1,8 +1,22 @@
-ease-framework (1.19) UNRELEASED; urgency=medium
+ease-framework (1.27) UNRELEASED; urgency=medium
 
+  * Debian Package updated for use with composer 2.0
+  * Improved rendering of Scripts and Styles into webpage
+  * Merge branch 'master' of github.com:VitexSoftware/EaseFramework  #
+    Conflicts: # debian/composer.json
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 13 May 2019 18:39:49 +0200
+
+ease-framework (1.20) UNRELEASED; urgency=medium
+
+  [ vitex ]
   * isAssoc isStatic
 
- -- vitex <vitex@hosting.vitexsoftware.cz>  Fri, 07 Dec 2018 22:03:50 +0100
+  [ Vítězslav Dvořák ]
+  * Merge branch 'master' of github.com:VitexSoftware/EaseFramework  #
+    Conflicts: # debian/composer.json
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 13 May 2019 18:38:00 +0200
 
 ease-framework (1.18) experimental; urgency=medium
 

@@ -174,24 +174,11 @@ class ToFile extends ToMemory
         if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
-        $this->statusMessages[$type][$this->messageID] = $message;
 
-        $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
-
-        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
-                ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
-        if ($this->logType == 'console' || $this->logType == 'both') {
-            if ($this->runType == 'cgi') {
-                echo $logLine;
-            } else {
-                echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";
-                flush();
-            }
-        }
+        $logLine = $this->getLogLine($type, $message, $caller);
         if (!empty($this->logPrefix)) {
             if ($this->logType == 'file' || $this->logType == 'both') {
                 if (!empty($this->logFileName)) {

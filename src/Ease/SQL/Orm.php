@@ -127,7 +127,7 @@ trait Orm
         } else {
             $itemID = $this->dblink->addSlashes($itemID);
         } if (is_null($itemID)) {
-            throw new Exception('loadFromSQL: Unknown Key');
+            throw new \Ease\Exception('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL::$whr.$cc.$this->getKeyColumn().$cc.' = '.$itemID;
