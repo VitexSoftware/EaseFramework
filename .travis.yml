@@ -34,4 +34,3 @@ script:
 
 after_script:
   - echo todo ../vendor/bin/coveralls
-  

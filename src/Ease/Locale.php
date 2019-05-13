@@ -513,7 +513,6 @@ class Locale
      */
     public static function getPreferedLocale()
     {
-//        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
         if (php_sapi_name() == 'cli') {
             $locale = getenv('LC_ALL');
         } else {
@@ -605,6 +604,7 @@ class Locale
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
                                              $i18n = '../i18n')
     {
+        self::$i18n = $i18n;
         self::setTextDomain($appname);
         return self::useLocale($defaultLocale);
     }

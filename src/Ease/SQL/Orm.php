@@ -53,7 +53,7 @@ trait Orm
     {
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
-            throw new Exception('getColumnsFromSQL: Missing ColumnList');
+            throw new \Ease\Exception('getColumnsFromSQL: Missing ColumnList');
         }
 
         if (is_int($conditions)) {
