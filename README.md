@@ -147,3 +147,5 @@ Homepage: https://www.vitexsoftware.cz/ease.php
 GitHub: https://github.com/VitexSoftware/EaseFramework
 
 Apigen Docs: https://www.vitexsoftware.cz/ease-framework/
+
+Modular & Lightweight successor library: https://github.com/VitexSoftware/ease-core
