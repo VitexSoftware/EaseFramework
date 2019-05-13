@@ -110,11 +110,11 @@ class HeadTag extends PairTag
         }
 
         if ($scriptsIncluded) {
-            $scriptsIncluded .= $divider.implode($divider, $scriptsIncluded);
+            $scriptsRendered .= $divider.implode($divider, $scriptsIncluded);
         }
 
         if ($scriptsInline) {
-            $scriptsIncluded .= $divider.self::jsEnclosure(implode($divider,
+            $scriptsRendered .= $divider.self::jsEnclosure(implode($divider,
                         $scriptsInline));
         }
 
