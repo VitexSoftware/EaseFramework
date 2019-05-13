@@ -28,9 +28,7 @@ class WebPage extends \Ease\WebPage
     {
         parent::__construct($pageTitle);
         $this->includeCss($this->mainStyle, ($this->mainStyle[0] != '.'));
-        $this->head->addItem(
-            '<meta charset="utf-8">'.
-            '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
+        $this->head->addItem('<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">'
         );
     }
 
