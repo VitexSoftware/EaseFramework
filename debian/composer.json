@@ -1,7 +1,7 @@
 {
-    "name": "deb/ease-framework",
+    "name": "ease-framework",
     "description": "An PHP Framework for Ease of writing Applications (debianized)",
-    "version": "1.19",
+    "version": "1.26",
     "authors": [
         {
             "name": "Vítězslav Dvořák",

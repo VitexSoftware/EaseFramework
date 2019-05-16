@@ -53,7 +53,7 @@ trait Orm
     {
         $cc = $this->dblink->getColumnComma();
         if (($columnsList != '*') && !count($columnsList)) {
-            throw new Exception('getColumnsFromSQL: Missing ColumnList');
+            throw new \Ease\Exception('getColumnsFromSQL: Missing ColumnList');
         }
 
         if (is_int($conditions)) {
@@ -127,7 +127,7 @@ trait Orm
         } else {
             $itemID = $this->dblink->addSlashes($itemID);
         } if (is_null($itemID)) {
-            throw new Exception('loadFromSQL: Unknown Key');
+            throw new \Ease\Exception('loadFromSQL: Unknown Key');
         }
         $cc       = $this->dblink->getColumnComma();
         $queryRaw = SQL::$sel.' * FROM '.$cc.$this->myTable.$cc.SQL::$whr.$cc.$this->getKeyColumn().$cc.' = '.$itemID;
