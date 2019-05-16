@@ -1,7 +1,7 @@
 {
-    "name": "ease-framework",
+    "name": "deb/ease-framework",
     "description": "An PHP Framework for Ease of writing Applications (debianized)",
-    "version": "1.26",
+    "version": "1.28",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -16,8 +16,7 @@
             "Ease\\Logger\\": "Logger",
             "Ease\\JQuery\\": "JQuery",
             "Ease\\SQL\\": "SQL",
-            "Ease\\TWB\\": "TWB",
-            "Ease\\TWB4\\": "TWB4"
+            "Ease\\TWB\\": "TWB"
         }
     },
     "minimum-stability": "dev",
