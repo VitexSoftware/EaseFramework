@@ -19,7 +19,7 @@ namespace Test\Ease;
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2018 Vitex@hippy.cz (G)
  */
-class AtomTest extends \PHPUnit\Framework\TestSuite
+class AtomTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Atom

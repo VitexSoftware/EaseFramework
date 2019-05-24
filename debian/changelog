@@ -1,11 +1,20 @@
+ease-framework (1.29) UNRELEASED; urgency=medium
+
+  * Twitter Bootstrap support was removed
+  * We Use Default composer versions
+  * Debian Composer update
+
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Thu, 16 May 2019 15:07:31 +0200
+
 ease-framework (1.27) UNRELEASED; urgency=medium
 
   * Debian Package updated for use with composer 2.0
   * Improved rendering of Scripts and Styles into webpage
   * Merge branch 'master' of github.com:VitexSoftware/EaseFramework  #
     Conflicts: # debian/composer.json
+  * Debian Composer update
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 13 May 2019 18:39:49 +0200
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Thu, 16 May 2019 15:05:39 +0200
 
 ease-framework (1.20) UNRELEASED; urgency=medium
 
