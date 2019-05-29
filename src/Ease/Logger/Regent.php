@@ -95,9 +95,13 @@ class Regent extends \Ease\Atom
      */
     public function addToLog($caller, $message, $type = 'info')
     {
+        $result = true;
         foreach ($this->loggers as $logger) {
-            $logger->addToLog($caller, $message, $type);
+            if($logger->addToLog($caller, $message, $type) === 'false'){
+                $result = false;
+            }
         }
+        return $result;
     }
 
     /**

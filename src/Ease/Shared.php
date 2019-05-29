@@ -324,13 +324,16 @@ class Shared extends Atom
 
     /**
      * Take message to print / log
+     * 
      * @param Logger\Message $message
+     * 
+     * @return boolean Was message added to logs stack ?
      */
     public function takeMessage($message)
     {
         $this->messages[] = $message;
         $this->addStatusMessage($message->body, $message->type);
-        $this->logger()->addToLog($message->caller, $message->body,
+        return $this->logger()->addToLog($message->caller, $message->body,
             $message->type);
     }
 
