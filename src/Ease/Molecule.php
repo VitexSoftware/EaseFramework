@@ -93,7 +93,7 @@ class Molecule extends Atom
     {
         $logged = false;
         if (isset($this->logger) && is_object($this->logger)) {
-            $this->logger->addToLog($this->getObjectName(), $message, $type);
+           $logged = $this->logger->addToLog($this->getObjectName(), $message, $type);
         } else {
             $logged = Shared::logger()->addToLog($this->getObjectName(),
                 $message, $type);

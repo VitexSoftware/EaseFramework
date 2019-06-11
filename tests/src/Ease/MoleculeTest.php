@@ -86,7 +86,7 @@ class MoleculeTest extends AtomTest
      */
     public function testAddToLog()
     {
-        $this->object->addToLog('Message');
+        $this->assertTrue($this->object->addToLog('Message'));
     }
 
     /**
