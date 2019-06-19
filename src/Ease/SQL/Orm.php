@@ -149,7 +149,7 @@ trait Orm
             $itemID = $this->getMyKey();
         }
         $sqlResult              = $this->getDataFromSQL($itemID);
-        $this->multipleteResult = !empty($sqlResult);
+        $this->multipleteResult = (!empty($sqlResult) && count($sqlResult) != 1);
 
         if ($this->multipleteResult && is_array($sqlResult)) {
             $results = [];
