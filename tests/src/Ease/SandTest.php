@@ -97,12 +97,12 @@ class SandTest extends AtomTest
 
     /**
      * @covers Ease\Sand::resetObjectIdentity
-     *
-     * @todo   Implement testResetObjectIdentity().
      */
     public function testResetObjectIdentity()
     {
         $this->object->resetObjectIdentity();
+        $this->assertEquals($this->object->identity,
+            $this->object->initialIdenty);
     }
 
     /**
@@ -339,7 +339,7 @@ class SandTest extends AtomTest
      */
     public function test__sleep()
     {
-        $this->object->__sleep();
+        $this->assertTrue(is_array($this->object->__sleep()));
     }
 
     /**
@@ -392,7 +392,8 @@ class SandTest extends AtomTest
     public function testIsSerialized()
     {
         \Ease\Brick::isSerialized('a:6:{s:1:"a";s:6:"string";s:1:"b";i:1;s:1:"c";d:2.4;s:1:"d";i:2222222222222;s:1:"e";O:8:"stdClass":0:{}s:1:"f";b:1;}');
-        \Ease\Brick::isSerialized('a:1:{s:4:"test";b:1;');
+        $this->assertTrue(\Ease\Brick::isSerialized('a:1:{s:4:"test";b:1;'));
+        $this->assertFalse(\Ease\Brick::isSerialized('XXXX'));
     }
 
     /**
@@ -403,6 +404,7 @@ class SandTest extends AtomTest
     public function test__wakeup()
     {
         $this->object->__wakeup();
+        $this->assertNotEmpty($this->object->objectName);
     }
 }
 

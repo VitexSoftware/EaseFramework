@@ -142,7 +142,9 @@ class Sand extends Molecule
     public function cleanMessages()
     {
         parent::cleanMessages();
-        $this->logger->cleanMessages();
+        if (is_object($this->logger)) {
+            $this->logger->cleanMessages();
+        }
 
         return Shared::instanced()->cleanMessages();
     }
@@ -674,7 +676,7 @@ class Sand extends Molecule
                 $reindexedData[$data[$indexBy]] = $data;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
-                    $indexBy));
+                        $indexBy));
             }
         }
 
