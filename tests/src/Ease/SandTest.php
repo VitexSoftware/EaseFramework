@@ -33,7 +33,9 @@ class SandTest extends AtomTest
     {
         
     }
-
+    /**
+     * @covers Ease\Sand::__construct
+     */
     public function testConstructor()
     {
         $classname = get_class($this->object);
@@ -75,6 +77,7 @@ class SandTest extends AtomTest
     public function testSetObjectIdentity()
     {
         $this->object->setObjectIdentity(['keyColumn' => 'index_key']);
+        $this->assertEquals(['keyColumn' => 'id'], $this->object->identity);
     }
 
     /**
@@ -83,16 +86,16 @@ class SandTest extends AtomTest
     public function testSaveObjectIdentity()
     {
         $this->object->saveObjectIdentity();
+        $this->assertEquals(['keyColumn'=>'id'], $this->object->identity);
     }
 
     /**
      * @covers Ease\Sand::restoreObjectIdentity
-     *
-     * @todo   Implement testRestoreObjectIdentity().
      */
     public function testRestoreObjectIdentity()
     {
         $this->object->resetObjectIdentity();
+        $this->assertEquals($this->object->initialIdenty, $this->object->identity );
     }
 
     /**
