@@ -122,7 +122,7 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sans::isAssoc
+     * @covers Ease\Sand::isAssoc
      */
     public function testIsAssoc()
     {
