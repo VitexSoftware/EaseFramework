@@ -125,12 +125,12 @@ class AtomTest extends \PHPUnit\Framework\TestCase
     public function testsysFilename()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 '\\\\', $this->object->sysFilename('/'),
                 _('Windows Files conversion')
             );
         } else {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 '/', $this->object->sysFilename('\\\\'),
                 _('Unix File Conversion')
             );
