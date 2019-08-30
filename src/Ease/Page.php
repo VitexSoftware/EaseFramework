@@ -325,7 +325,7 @@ class Page extends Container
      *
      * @return mixed
      */
-    public function getRequestValue($field, $sanitizeAs = null)
+    public static function getRequestValue($field, $sanitizeAs = null)
     {
         $value = null;
         if (isset($_REQUEST[$field])) {
