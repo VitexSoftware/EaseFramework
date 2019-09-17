@@ -50,7 +50,7 @@ class Regent extends \Ease\Atom
             $loggers = empty($logger) ? ['syslog'] : [$logger];
         }
 
-        foreach ($loggers as $logger)
+        foreach ($loggers as $logger) {
             switch ($logger) {
                 case 'console':
                     $this->loggers[$logger] = ToConsole::singleton();
@@ -79,6 +79,7 @@ class Regent extends \Ease\Atom
                     }
                     break;
             }
+        }
     }
 
     public function takeMessage()
