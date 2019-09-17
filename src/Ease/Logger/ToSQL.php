@@ -52,6 +52,15 @@ class ToSQL extends ToStd implements Loggingable
     }
 
     /**
+     * 
+     * @return string
+     */
+    public function getKeyColumn()
+    {
+        return $this->keyColumn;
+    }
+
+    /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
      * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
      * instance (ta prvni).
@@ -94,7 +103,5 @@ class ToSQL extends ToStd implements Loggingable
             'when' => 'NOW()',
             'sender' => $caller,
             'message' => $message]);
-
-        $this->output($type, $logLine);
     }
 }
