@@ -113,7 +113,7 @@ class Molecule extends Atom
     public function addStatusMessage($message, $type = 'info')
     {
        return Shared::instanced()->takeMessage(new Logger\Message($message,
-                    $type, get_class($this)));
+                    $type, $this));
     }
 
     /**
