@@ -134,12 +134,6 @@ class ToEmail extends ToMemory
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-
-        if (!is_object($this->mailer)) {
-            $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
-            $this->mailer->setUserNotification(false);
-        }
-
         ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
             return;
@@ -147,8 +141,6 @@ class ToEmail extends ToMemory
         if (($this->logLevel != 'debug') && ($type == 'debug')) {
             return;
         }
-
-        $this->statusMessages[$type][$this->messageID] = $message;
 
 
         if (!isset($this->logStyles[$type])) {
@@ -158,8 +150,7 @@ class ToEmail extends ToMemory
         $logLine = new \Ease\Html\DivTag(strftime("%D %T").' `'.$caller.'`: '.$message,
             ['style' => $this->logStyles[$type]]);
 
-        $this->mailer->addItem(\Ease\Shared::linkify($logLine));
-
+        $this->statusMessages[] = \Ease\Shared::linkify($logLine);
         return true;
     }
 
@@ -183,7 +174,10 @@ class ToEmail extends ToMemory
      */
     public function __destruct()
     {
-        if (is_object($this->mailer) && ( $this->mailer->getItemsCount() > 0 )) {
+        $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
+        $this->mailer->setUserNotification(false);
+        if (count($this->statusMessages)) {
+            $this->mailer->addItem($this->statusMessages);
             $this->mailer->send();
         }
     }
