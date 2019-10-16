@@ -344,7 +344,7 @@ class Shared extends Atom
     {
         if (self::isCli()) {
             $prefix       = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
-            $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages.ser';
+            $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages'.posix_getuid().'.ser';
             file_put_contents($messagesFile, serialize($this->statusMessages));
         } else {
             if (defined('EASE_APPNAME')) {
