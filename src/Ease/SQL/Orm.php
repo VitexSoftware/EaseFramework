@@ -28,7 +28,6 @@ trait Orm
      */
     public $myTable = '';
 
-    
     /**
      * Record create time column 
      * @var string 
@@ -261,7 +260,8 @@ trait Orm
         }
 
         $cc       = $this->dblink->getColumnComma();
-        $queryRaw = SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL::$whr.$cc.$this->keyColumn.$cc." = '".$this->dblink->addSlashes($key)."'";
+        $queryRaw = SQL::$upd.$cc.$this->myTable.$cc.' SET '.$this->dblink->arrayToSetQuery($data).SQL::$whr.$cc.$this->keyColumn.$cc." = ".(is_numeric($key)
+                ? $key : "'".$this->dblink->addSlashes($key)."'");
         if ($this->dblink->exeQuery($queryRaw)) {
             if ($useInObject) {
                 return $this->data[$this->keyColumn];

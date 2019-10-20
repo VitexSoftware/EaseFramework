@@ -315,12 +315,15 @@ class Tag extends \Ease\Page
 
     /**
      * Add Css to tag properties.
+     * 
+     * @return self Finalized object
      */
     public function finalize()
     {
         if (!empty($this->cssProperties)) {
             $this->tagProperties['style'] = $this->cssPropertiesToString();
         }
+        return $this;
     }
 
     /**
