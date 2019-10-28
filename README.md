@@ -12,9 +12,15 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
 [![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/ease-framework.svg)](https://hub.docker.com/r/vitexsoftware/ease-framework/)
 [![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
-
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)
 
+[![Latest Stable Version](https://poser.pugx.org/vitexsoftware/ease-framework/v/stable)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Total Downloads](https://poser.pugx.org/vitexsoftware/ease-framework/downloads)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Latest Unstable Version](https://poser.pugx.org/vitexsoftware/ease-framework/v/unstable)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Latest Unstable Version](https://poser.pugx.org/vitexsoftware/ease-framework/v/unstable)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![License](https://poser.pugx.org/vitexsoftware/ease-framework/license)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Monthly Downloads](https://poser.pugx.org/vitexsoftware/ease-framework/d/monthly)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Daily Downloads](https://poser.pugx.org/vitexsoftware/ease-framework/d/daily)](https://packagist.org/packages/vitexsoftware/ease-framework)
 
 ---
 
