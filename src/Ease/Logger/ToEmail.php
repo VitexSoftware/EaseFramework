@@ -12,7 +12,7 @@ namespace Ease\Logger;
  * Log to Email
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 class ToEmail extends ToMemory
 {
@@ -147,10 +147,8 @@ class ToEmail extends ToMemory
             $type = 'notice';
         }
 
-        $logLine = new \Ease\Html\DivTag(strftime("%D %T").' `'.$caller.'`: '.$message,
+        $this->statusMessages[] = new \Ease\Html\DivTag(strftime("%D %T").' `'.$caller.'`: '. \Ease\Shared::linkify( $message ),
             ['style' => $this->logStyles[$type]]);
-
-        $this->statusMessages[] = \Ease\Shared::linkify($logLine);
         return true;
     }
 

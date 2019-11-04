@@ -12,7 +12,7 @@ if (file_exists('../vendor/autoload.php')) {
     require_once '../../vendor/autoload.php'; //Web
 }
 
-$logger = new \Ease\Sand();
+$logger = new \Ease\Sand(); //Or any other sand's child
 
 $logger->addStatusMessage('Default Message', 'info');
 $logger->addStatusMessage('Warning Message', 'warning');

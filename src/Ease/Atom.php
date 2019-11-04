@@ -168,7 +168,7 @@ class Atom
      */
     public function __toString()
     {
-        return '';
+        return get_class($this);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Třídy pro odesílání Mailu ✉.
  *
@@ -14,21 +15,21 @@ namespace Ease;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Mailer extends Page
-{
+class Mailer extends Page {
+
     /**
      * Objekt pro odesílání pošty.
      *
      * @var
      */
-    public $mailer          = null;
-    public $mimer           = null;
-    public $textBody        = null;
-    public $mailHeaders     = [];
+    public $mailer = null;
+    public $mimer = null;
+    public $textBody = null;
+    public $mailHeaders = [];
     public $mailHeadersDone = null;
-    public $crLf            = "\n";
-    public $mailBody        = null;
-    public $finalized       = false;
+    public $crLf = "\n";
+    public $mailBody = null;
+    public $finalized = false;
 
     /**
      * Již vzrendrované HTML.
@@ -95,25 +96,24 @@ class Mailer extends Page
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
     public function __construct($emailAddress, $mailSubject,
-                                $emailContents = null)
-    {
+            $emailContents = null) {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
         }
 
         if (is_array($emailAddress)) {
-            $emailAddress = current($emailAddress).' <'.key($emailAddress).'>';
+            $emailAddress = current($emailAddress) . ' <' . key($emailAddress) . '>';
         }
 
         $this->setMailHeaders(
-            [
-                'To' => $emailAddress,
-                'From' => $this->fromEmailAddress,
-                'Reply-To' => $this->fromEmailAddress,
-                'Subject' => $mailSubject,
-                'Content-Type' => 'text/plain; charset=utf-8',
-                'Content-Transfer-Encoding' => '8bit',
-            ]
+                [
+                    'To' => $emailAddress,
+                    'From' => $this->fromEmailAddress,
+                    'Reply-To' => $this->fromEmailAddress,
+                    'Subject' => $mailSubject,
+                    'Content-Type' => 'text/plain; charset=utf-8',
+                    'Content-Transfer-Encoding' => '8bit',
+                ]
         );
 
 
@@ -140,8 +140,7 @@ class Mailer extends Page
      *
      * @return string
      */
-    public function getMailHeader($headername)
-    {
+    public function getMailHeader($headername) {
         if (isset($this->mailHeaders[$headername])) {
             return $this->mailHeaders[$headername];
         }
@@ -154,8 +153,7 @@ class Mailer extends Page
      *
      * @return bool true pokud byly hlavičky nastaveny
      */
-    public function setMailHeaders(array $mailHeaders)
-    {
+    public function setMailHeaders(array $mailHeaders) {
         if (is_array($this->mailHeaders)) {
             $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
         } else {
@@ -169,8 +167,8 @@ class Mailer extends Page
         }
         if (isset($this->mailHeaders['Subject'])) {
             if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
-                $this->emailSubject           = $this->mailHeaders['Subject'];
-                $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
+                $this->emailSubject = $this->mailHeaders['Subject'];
+                $this->mailHeaders['Subject'] = '=?UTF-8?B?' . base64_encode($this->mailHeaders['Subject']) . '?=';
             }
         }
         $this->finalized = false;
@@ -185,31 +183,34 @@ class Mailer extends Page
      *
      * @return Ease\pointer|null ukazatel na vložený obsah
      */
-    public function &addItem($item, $pageItemName = null)
-    {
-        $mailBody = '';
-        if (is_object($item)) {
-            if (is_object($this->htmlDocument)) {
-                if (is_null($this->htmlBody)) {
-                    $this->htmlBody = new Html\BodyTag();
-                }
-                $mailBody = $this->htmlBody->addItem($item, $pageItemName);
-            } else {
-                $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
-                $this->htmlDocument->setOutputFormat($this->getOutputFormat());
-                $this->htmlBody     = $this->htmlDocument->addItem(new Html\BodyTag($item));
-                $mailBody           = $this->htmlDocument;
+    public function &addItem($item, $pageItemName = null) {
+        if (is_array($item)) {
+            foreach ($item as $subItem){
+                $this->addItem($subItem);
             }
         } else {
-            $this->textBody .= is_array($item) ? implode("\n", $item) : $item;
-            $this->mimer->setTXTBody($this->textBody);
+            $mailBody = '';
+            if (is_object($item)) {
+                if (is_object($this->htmlDocument)) {
+                    if (is_null($this->htmlBody)) {
+                        $this->htmlBody = new Html\BodyTag();
+                    }
+                    $mailBody = $this->htmlBody->addItem($item, $pageItemName);
+                } else {
+                    $this->htmlDocument = new Html\HtmlTag(new Html\SimpleHeadTag(new Html\TitleTag($this->emailSubject)));
+                    $this->htmlDocument->setOutputFormat($this->getOutputFormat());
+                    $this->htmlBody = $this->htmlDocument->addItem(new Html\BodyTag($item));
+                    $mailBody = $this->htmlDocument;
+                }
+            } else {
+                $this->textBody .= is_array($item) ? implode("\n", $item) : $item;
+                $this->mimer->setTXTBody($this->textBody);
+            }
         }
-
         return $mailBody;
     }
 
-    public function getContents()
-    {
+    public function getContents() {
         return $this->htmlBody;
     }
 
@@ -219,8 +220,7 @@ class Mailer extends Page
      * @param Container $object
      * @return int
      */
-    public function getItemsCount($object = null)
-    {
+    public function getItemsCount($object = null) {
         if (is_null($object)) {
             $object = $this->htmlBody;
         }
@@ -234,8 +234,7 @@ class Mailer extends Page
      * 
      * @return boolean
      */
-    public function isEmpty($element = null)
-    {
+    public function isEmpty($element = null) {
         if (is_null($element)) {
             $element = $this->htmlBody;
         }
@@ -246,8 +245,7 @@ class Mailer extends Page
      * Vyprázní obsah objektu.
      * Empty container contents
      */
-    public function emptyContents()
-    {
+    public function emptyContents() {
         $this->htmlBody = null;
     }
 
@@ -257,16 +255,14 @@ class Mailer extends Page
      * @param string $filename cesta/název souboru k přiložení
      * @param string $mimeType MIME typ přílohy
      */
-    public function addFile($filename, $mimeType = 'text/plain')
-    {
+    public function addFile($filename, $mimeType = 'text/plain') {
         $this->mimer->addAttachment($filename, $mimeType);
     }
 
     /**
      * Sestavení těla mailu.
      */
-    public function finalize()
-    {
+    public function finalize() {
         if (method_exists($this->htmlDocument, 'GetRendered')) {
             $this->htmlBodyRendered = $this->htmlDocument->getRendered();
         } else {
@@ -279,24 +275,22 @@ class Mailer extends Page
         }
 
         $this->setMailHeaders(['Date' => date('r')]);
-        $this->mailBody        = $this->mimer->get();
+        $this->mailBody = $this->mimer->get();
         $this->mailHeadersDone = $this->mimer->headers($this->mailHeaders);
-        $this->finalized       = true;
+        $this->finalized = true;
     }
 
     /**
      * Do not draw mail included in page
      */
-    public function draw()
-    {
+    public function draw() {
         return;
     }
 
     /**
      * Send mail.
      */
-    public function send()
-    {
+    public function send() {
         if (!$this->finalized) {
             $this->finalize();
         }
@@ -308,17 +302,17 @@ class Mailer extends Page
             $this->mailer = $oMail->factory('mail');
         }
         $this->sendResult = $this->mailer->send($this->emailAddress,
-            $this->mailHeadersDone, $this->mailBody);
+                $this->mailHeadersDone, $this->mailBody);
 
         if ($this->notify === true) {
-            $mailStripped = str_replace(['<','>'], '', $this->emailAddress);
+            $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
             if ($this->sendResult === true) {
                 $this->addStatusMessage(sprintf(_('Message %s was sent to %s'),
-                        $this->emailSubject, $mailStripped), 'success');
+                                $this->emailSubject, $mailStripped), 'success');
             } else {
                 $this->addStatusMessage(sprintf(_('Message %s, for %s was not sent because of %s'),
-                        $this->emailSubject, $mailStripped,
-                        $this->sendResult->message), 'warning');
+                                $this->emailSubject, $mailStripped,
+                                $this->sendResult->message), 'warning');
             }
         }
 
@@ -330,11 +324,10 @@ class Mailer extends Page
      *
      * @param bool $notify požadovaný stav notifikace
      */
-    public function setUserNotification($notify)
-    {
+    public function setUserNotification($notify) {
         $this->notify = (bool) $notify;
     }
-    
+
     /**
      * Vloží další element za stávající.
      *
@@ -342,11 +335,10 @@ class Mailer extends Page
      *
      * @return pointer Odkaz na vložený objekt
      */
-    public function &addNextTo($pageItem)
-    {
+    public function &addNextTo($pageItem) {
         $itemPointer = $this->htmlBody->parentObject->addItem($pageItem);
 
         return $itemPointer;
     }
-    
+
 }

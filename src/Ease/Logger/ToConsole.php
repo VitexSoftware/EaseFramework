@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to Log messages to Console.
  *
@@ -13,8 +14,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class ToConsole extends ToMemory
-{
+class ToConsole extends ToMemory {
+
     /**
      * Saves obejct instace (singleton...).
      */
@@ -65,8 +66,7 @@ class ToConsole extends ToMemory
     /**
      * Log Status messages to console
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->stdout = fopen('php://stdout', 'w');
         $this->stderr = fopen('php://stderr', 'w');
@@ -79,14 +79,13 @@ class ToConsole extends ToMemory
      * @param string $color
      * @return string
      */
-    public static function set($str, $color)
-    {
+    public static function set($str, $color) {
         $color_attrs = explode("+", $color);
-        $ansi_str    = "";
+        $ansi_str = "";
         foreach ($color_attrs as $attr) {
-            $ansi_str .= "\033[".self::$ANSI_CODES[$attr]."m";
+            $ansi_str .= "\033[" . self::$ANSI_CODES[$attr] . "m";
         }
-        $ansi_str .= $str."\033[".self::$ANSI_CODES["off"]."m";
+        $ansi_str .= $str . "\033[" . self::$ANSI_CODES["off"] . "m";
         return $ansi_str;
     }
 
@@ -99,18 +98,27 @@ class ToConsole extends ToMemory
      *
      * @return boolean|null byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message')
-    {
-        $message = $this->set(' '.Message::getTypeUnicodeSymbol($type).' '.strip_tags($message),
-            self::getTypeColor($type));
-        $logLine = strftime("%D %T").' `'.$caller.'` '.$message;
+    public function addToLog($caller, $message, $type = 'message') {
+        $message = $this->set(' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags($message),
+                self::getTypeColor($type));
+
+        $venue = '';
+        if (method_exists($caller, '__toString')) {
+            $venue .= $caller->__toString().'@';
+        } else {
+            $venue .= get_class($caller).'@';
+        }
+        
+        $venue .=  defined('EASE_APPNAME') ? constant('EASE_APPNAME') : __FILE__;
+
+        $logLine = strftime("%D %T") . ' `' . $venue . '` ' . $message;
 
         switch ($type) {
             case 'error':
-                fputs($this->stderr, $logLine."\n");
+                fputs($this->stderr, $logLine . "\n");
                 break;
             default:
-                fputs($this->stdout, $logLine."\n");
+                fputs($this->stdout, $logLine . "\n");
                 break;
         }
     }
@@ -120,8 +128,7 @@ class ToConsole extends ToMemory
      * 
      * @param string $type
      */
-    public static function getTypeColor($type)
-    {
+    public static function getTypeColor($type) {
         switch ($type) {
             case 'mail':                       // Envelope
                 $color = 'blue';
@@ -153,13 +160,13 @@ class ToConsole extends ToMemory
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton()
-    {
+    public static function singleton() {
         if (!isset(self::$_instance)) {
-            $class           = __CLASS__;
+            $class = __CLASS__;
             self::$_instance = new $class();
         }
 
         return self::$_instance;
     }
+
 }
