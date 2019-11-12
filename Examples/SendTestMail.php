@@ -15,7 +15,7 @@ $testMail = new \Ease\Mailer(isset($argv[1]) ? $argv[1] : constant('EASE_EMAILTO
     'Příliš žluťoučký kůň úpěl ďábelské ódy', $bláboly->blabot->result[0]);
 $testMail->addItem("\n".__FILE__);
 
-$testMail->addFile(__FILE__);
+$testMail->addFile(__FILE__); //Here we can add an attachment
 
 if ($testMail->send()) {
     $testMail->addStatusMessage('Testovací mail odeslán');
