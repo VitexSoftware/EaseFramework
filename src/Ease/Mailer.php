@@ -4,7 +4,7 @@
  * Třídy pro odesílání Mailu ✉.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 
 namespace Ease;
@@ -263,13 +263,8 @@ class Mailer extends Page {
      * Sestavení těla mailu.
      */
     public function finalize() {
-        if (method_exists($this->htmlDocument, 'GetRendered')) {
-            $this->htmlBodyRendered = $this->htmlDocument->getRendered();
-        } else {
-            $this->htmlBodyRendered = $this->htmlDocument;
-        }
-        $this->mimer->setHTMLBody($this->htmlBodyRendered);
-
+        $this->mimer->setHTMLBody($this->htmlDocument);
+        $this->setMailHeaders(['Content-Type' => 'text/html; charset=utf-8']);
         if (isset($this->fromEmailAddress)) {
             $this->setMailHeaders(['From' => $this->fromEmailAddress]);
         }
